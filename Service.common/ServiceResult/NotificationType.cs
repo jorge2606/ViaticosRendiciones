@@ -1,4 +1,4 @@
-namespace server.ServiceResult
+namespace Service.Common.ServiceResult
 {
     public enum NotificationType : byte
     {

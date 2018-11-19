@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
-namespace server.ServiceResult
+namespace Service.Common.ServiceResult
 {
     public static class IdentityExtension
     {
