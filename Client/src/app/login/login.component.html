@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <form class="form-inline my-2 my-lg-0 ml-auto" (ngSubmit)="LoginForm.form.valid && onSubmit()" #LoginForm="ngForm">
+
+            <input matInput [(ngModel)]="model.Usuario" class="form-control mr-1" type="text" name="username" #username="ngModel"
+                placeholder="Usuario">
+
+            <div *ngIf="username.invalid">
+                Usuario Incorrecto
+            </div>
+
+            <input matInput [(ngModel)]="model.Password" class="form-control mr-1" type="password" placeholder="Contraseña"
+                name="Password" #password="ngModel">
+
+            <div *ngIf="password.invalid">
+                Contraseña Incorrecta
+            </div>
+
+
+            <button mat-button [disabled]="LoginForm.form.invalid" class="btn btn-primary mr-1">
+                <fa-icon icon="sign-in-alt"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-success mr-1" href="" routerLink="/register">Registrar</button>
+            <a class="text-white small" routerLink="/RecuperarContraseña">olvide mi contraseña</a>
+            <div *ngIf="!LoginForm.form.valid">
+                Formulario Incorrecto
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div class="">
+    <ul style="margin-top : 15px;" *ngIf="error.length != 0" class="alert alert-danger" role="alert">
+        <li *ngFor="let e of error">{{ e.value }}</li>
+    </ul>
+</div>

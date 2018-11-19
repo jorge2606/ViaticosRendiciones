@@ -1,0 +1,6 @@
+<div class="col-3">
+  <ngx-treeview class="navarStyle" [config]="config" [items]="items" (filterChange)="onFilterChange($event)" 
+  (selectedChange)="values = $event">
+  </ngx-treeview>
+  <button (click)="save()" style="margin-top: 25px;" class="btn btn-success navarStyle">Guardar</button>
+</div>

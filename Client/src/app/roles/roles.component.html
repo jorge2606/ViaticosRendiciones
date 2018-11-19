@@ -1,0 +1,14 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Roles</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rol of modelRoles">
+        <th scope="row">{{rol.name}}</th>
+        <th scope="row"><a routerLink="/roles/permissions/{{rol.id}}">Permisos</a></th>
+      </tr>
+    </tbody>
+  </table>
