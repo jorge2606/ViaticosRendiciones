@@ -1,17 +1,14 @@
-import { UsersComponent } from './../users.component';
-import { async } from '@angular/core/testing';
-import { map } from 'rxjs/operators';
-import { UserService } from './../../_services/user.service';
+import { UsersComponent } from '../users.component';
+import { UserService } from '../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { User, modifyUser } from '../users';
+import { modifyUser } from '../users';
 
 
 @Component({
   selector: 'app-modifyuser',
-  templateUrl: './modifyuser.component.html',
-  styleUrls: ['./modifyuser.component.css']
+  templateUrl: './modify.component.html',
+  styleUrls: ['./modify.component.css']
 })
 export class ModifyuserComponent implements OnInit {
 
@@ -28,12 +25,11 @@ export class ModifyuserComponent implements OnInit {
    onSubmit() {
     this.model.id = this.id;
     this.userService.updateUsers(this.model).subscribe(
-      result => {
+      () => {
         this.router.navigate(['/users']);
       },
-        error => {
-         // this.errors = error.error.notifications;
-        }      
+        () => {
+      }      
     );
     this.router.navigate([UsersComponent]);
   }

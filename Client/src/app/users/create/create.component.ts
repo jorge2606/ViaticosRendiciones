@@ -4,8 +4,8 @@ import { createUser } from '../users'
 import { RoleService } from '../../_services/role.service';
 @Component({
   selector: 'app-createuser',
-  templateUrl: './createuser.component.html',
-  styleUrls: ['./createuser.component.css']
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.css']
 })
 export class CreateuserComponent implements OnInit {
 

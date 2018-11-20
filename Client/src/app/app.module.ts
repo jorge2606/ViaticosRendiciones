@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CreateuserComponent } from './users/createuser/createuser.component';
+import { CreateuserComponent } from './users/create/create.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { JwtInterceptor , ErrorInterceptor} from './_helpers/';
-import { ModifyuserComponent } from './users/modifyuser/modifyuser.component';
+import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modals.component';
@@ -29,12 +29,15 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManagePasswordComponent } from './manage-password/manage-password.component';
 import { ResetPasswordComponent } from './manage-password/reset-password/reset-password.component';
-import { SettingofuserComponent } from './users/settingofuser/settingofuser.component';
+import { SettingofuserComponent } from './users/setting/settingofuser.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PhotoProfileComponent } from './users/photo-profile/photo-profile.component';
 import { ListNotificationsComponent } from './modals/list-notifications/list-notifications.component';
 import { AuditsComponent } from './audits/audits.component';
 import { AuditUsersComponent } from './audits/audit-users/audit-users.component';
+import { CategoryComponent } from './category/category.component';
+import { CreateCategoryComponent } from './category/create/create.component';
+import { ModifyCategoryComponent } from './category/modify/modify.component';
 
 
 library.add(fas);
@@ -60,7 +63,10 @@ library.add(fas);
     PhotoProfileComponent,
     ListNotificationsComponent,
     AuditsComponent,
-    AuditUsersComponent
+    AuditUsersComponent,
+    CategoryComponent,
+    CreateCategoryComponent,
+    ModifyCategoryComponent,
   ],
   imports: [
     BrowserModule,
