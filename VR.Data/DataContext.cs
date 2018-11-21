@@ -20,5 +20,7 @@ namespace VR.Data
 
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Distribution> Distributions { get; set; }
     }
 }

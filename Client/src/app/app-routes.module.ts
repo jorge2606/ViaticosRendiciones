@@ -1,3 +1,7 @@
+import { CreateDistributionsComponent } from './distributions/create/create-distributions.component';
+import { ModifyDistributionComponent } from './distributions/modify/modify-distribution.component';
+import { DistributionsComponent } from './distributions/distributions.component';
+import { ModifyCategoryComponent } from './category/modify/modify.component';
 import { CreateCategoryComponent } from './category/create/create.component';
 import { CategoryComponent } from './category/category.component';
 import { PhotoProfileComponent } from './users/photo-profile/photo-profile.component';
@@ -23,7 +27,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'users', component: UsersComponent, canActivate : [AuthGuard] },
   { path: 'users/create', component: CreateuserComponent, canActivate : [AuthGuard] },
-  { path: 'update/:id', component: ModifyuserComponent, canActivate : [AuthGuard] },
+  { path: 'users/update/:id', component: ModifyuserComponent, canActivate : [AuthGuard] },
   { path: 'settingUser/:id', component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
 
@@ -33,6 +37,10 @@ const routes: Routes = [
   { path: 'CambiarPassword', component: ResetPasswordComponent},
   { path: 'category', component : CategoryComponent, canActivate : [AuthGuard]},
   { path: 'category/create', component : CreateCategoryComponent},
+  { path: 'category/update/:id', component : ModifyCategoryComponent, canActivate : [AuthGuard]},
+  { path: 'distribution', component : DistributionsComponent, canActivate : [AuthGuard]},
+  { path: 'distribution/create', component : CreateDistributionsComponent, canActivate : [AuthGuard]},
+  { path: 'distribution/update/:id', component : ModifyDistributionComponent, canActivate : [AuthGuard]},
   
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

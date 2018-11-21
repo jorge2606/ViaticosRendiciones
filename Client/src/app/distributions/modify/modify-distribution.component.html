@@ -1,0 +1,40 @@
+<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/distribution">
+  <fa-icon icon="angle-left"></fa-icon>    
+</a>
+<div class="container col-4 navarStyle">
+  <h2>Modificar</h2>
+  <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
+      
+      <div style="margin-bottom:5px;" class="form-group">
+          <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
+              placeholder="Nombre">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
+          Nombre Incorrecto
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
+              placeholder="Descripción">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
+          Descripción Incorrecta
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <button class="btn btn-success navarStyle" [disabled]="!CategoryForm.form.valid"><fa-icon icon="save"></fa-icon></button>
+      </div>
+
+  </form>
+  <div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
+      Hay Campos erroneos en el formulario, verifiquelos
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">
+    <ul *ngFor="let e of error">
+        <li>{{e.value}}</li>
+    </ul>
+  </div>
+</div>

@@ -160,7 +160,9 @@ namespace VR.Web
             services.AddScoped<ISmsSender, EmailService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<Audit.Service.Interfaces.IUserAuditService, UserAuditService>();
+            services.AddScoped<IDistributionService, DistributionService>();
 
             //sender Email
             // Add application services.
@@ -170,6 +172,8 @@ namespace VR.Web
             //Validation
             services.AddTransient<IValidator<SaveUserDto>, UserValidator>();
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
+            services.AddTransient<IValidator<CategoryBaseDto>, CategoryValidator>();
+            services.AddTransient<IValidator<DistributionBaseDto>, DistributionValidator>();
 
             services.AddDirectoryBrowser();
 

@@ -15,7 +15,7 @@
 			<td>{{user.userName}}</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
-					<a class="pr-3" routerLink="/update/{{user.id}}">
+					<a class="pr-3" routerLink="/users/update/{{user.id}}">
 						<fa-icon style="color:gray;" icon="edit"></fa-icon>
 					</a>
 					<a routerLink="/users" (click)="openEliminar(user.id,user.dni,user.userName)">

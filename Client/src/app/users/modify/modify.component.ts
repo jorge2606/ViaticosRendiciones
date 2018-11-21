@@ -22,7 +22,8 @@ export class ModifyuserComponent implements OnInit {
   onChange(rol){
     console.log(rol.rolBelongUser);
   }
-   onSubmit() {
+
+  onSubmit() {
     this.model.id = this.id;
     this.userService.updateUsers(this.model).subscribe(
       () => {
@@ -33,6 +34,7 @@ export class ModifyuserComponent implements OnInit {
     );
     this.router.navigate([UsersComponent]);
   }
+  
   ngOnInit() {
     //le asigno el id que extraigo de la url
     this.route.params.subscribe(

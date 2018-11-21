@@ -6,6 +6,7 @@
 		<tr style="font-weight: bold;">
 			<td>Name</td>
 			<td>Descripción</td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,10 +15,10 @@
 			<td>{{cat.description}}</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
-					<a class="pr-3" routerLink="/update/{{cat.id}}">
+					<a class="pr-3" routerLink="/category/update/{{cat.id}}">
 						<fa-icon style="color:gray;" icon="edit"></fa-icon>
 					</a>
-					<a routerLink="/users" (click)="openEliminar(cat.id,cat.name,cat.description)">
+					<a routerLink="/category" (click)="openEliminar(cat.id,cat.name,cat.description)">
 						<fa-icon style="color:red;" icon="trash"></fa-icon>
 					</a>
 				</div>

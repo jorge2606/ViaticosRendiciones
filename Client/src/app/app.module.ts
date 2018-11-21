@@ -38,6 +38,9 @@ import { AuditUsersComponent } from './audits/audit-users/audit-users.component'
 import { CategoryComponent } from './category/category.component';
 import { CreateCategoryComponent } from './category/create/create.component';
 import { ModifyCategoryComponent } from './category/modify/modify.component';
+import { DistributionsComponent } from './distributions/distributions.component';
+import { ModifyDistributionComponent } from './distributions/modify/modify-distribution.component';
+import { CreateDistributionsComponent } from './distributions/create/create-distributions.component';
 
 
 library.add(fas);
@@ -67,6 +70,9 @@ library.add(fas);
     CategoryComponent,
     CreateCategoryComponent,
     ModifyCategoryComponent,
+    DistributionsComponent,
+    ModifyDistributionComponent,
+    CreateDistributionsComponent,
   ],
   imports: [
     BrowserModule,
