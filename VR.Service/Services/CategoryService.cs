@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using FluentValidation;
+using Service.Common.Extensions;
 using Service.Common.ServiceResult;
 using VR.Data;
 using VR.Data.Model;
@@ -29,9 +30,9 @@ namespace VR.Service.Services
         {
             var validateCategoryBaseDto = _fluentValidatorCategory.Validate(categoryDto);
 
-            if (validateCategoryBaseDto == null)
+            if (!validateCategoryBaseDto.IsValid)
             {
-                return new ServiceResult<CreateCategoryDto>(null);
+                return _mapper.Map<ServiceResult<CreateCategoryDto>>( (validateCategoryBaseDto.ToServiceResult<CreateCategoryDto>(null)) );
             }
 
             Category NewCategory = new Category()
@@ -52,10 +53,10 @@ namespace VR.Service.Services
             var validateCategoryBaseDto = _fluentValidatorCategory.Validate(categoryDto);
             var userModify = _categoryContext.Categories.FirstOrDefault(x => x.Id == categoryDto.Id);
 
-            if (validateCategoryBaseDto == null ||
+            if (!validateCategoryBaseDto.IsValid ||
                 userModify == null)
             {
-                return new ServiceResult<UpdateCategoryDto>(null);
+                return _mapper.Map<ServiceResult<UpdateCategoryDto>>( validateCategoryBaseDto.ToServiceResult<UpdateCategoryDto>(null) );
             }
 
             userModify.Description = categoryDto.Description;

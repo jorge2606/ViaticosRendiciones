@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class CreateCategoryComponent implements OnInit {
 
   model = new Category();
-  error : any;
+  error = '';
   constructor(private categoryService : CategoryService) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class CreateCategoryComponent implements OnInit {
   onSubmit(){
     this.categoryService.createCategory(this.model).subscribe(
       x=> x,
-      error => this.error = error
+      error => this.error = error.error.notifications
     );
   }
 }

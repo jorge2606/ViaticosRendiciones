@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MessBetweenCompService } from '../_services/mess-between-comp.service';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from '../_services/user.service';
 import { ListNotificationsComponent } from '../modals/list-notifications/list-notifications.component';
 
 @Component({
@@ -19,8 +18,7 @@ export class NavarComponent implements OnInit {
   constructor(private notificaionServices : NotificationsService, 
               private authService : AuthenticationService,
               private messaBetweenComp : MessBetweenCompService,
-              private modalService: NgbModal,
-              private var_user_service: UserService ) { }
+              private modalService: NgbModal ) { }
 
   notification : Notifications[];
   isLogged : Observable<boolean>;
@@ -34,22 +32,22 @@ export class NavarComponent implements OnInit {
       x => {
       this.notification = x,
       this.cantNotif = this.notification.length
-      }, error =>{
-        console.log('')
+      }, () => {
+        console.log('');
       }
       );
   }
 
   ngOnInit() {
-
-    this.retriveNotifications();
-    
+    if (this.isLogged){
+      this.retriveNotifications();
+    }
+        
     this.idUser = this.authService.userId('id');
     
     this.isLogged = this.authService.isLoggedIn;
     
-    this.messaBetweenComp.getMessage().subscribe( x=> 
-      this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1 );
+    this.messaBetweenComp.getMessage().subscribe( () => this.urlImage = this.authService.urlFile(this.idUser, 25, 25) + "r=" + (Math.random() * 100) + 1 );
     
     if (!this.urlImage){
       this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1;
@@ -83,7 +81,7 @@ export class NavarComponent implements OnInit {
     modalRef.componentInstance.GuardaroEliminarHidden = true;
     
     this.notificaionServices.notificationRidden(notificationridden).subscribe(
-        x => this.retriveNotifications()
+        () => this.retriveNotifications()
     )
 
   }

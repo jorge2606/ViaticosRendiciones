@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using FluentValidation;
+using FluentValidation.Resources;
 
 namespace VR.Dto
 {
@@ -9,8 +10,12 @@ namespace VR.Dto
     {
         public CategoryValidator()
         {
-            RuleFor(x => x.Description).NotEmpty();
-            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Descripción no debería estar vacío.");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Nombre no debería estar vacío.");
+            RuleFor(x => x.Name).MinimumLength(5);
+            RuleFor(x => x.Description).MinimumLength(5);
+            RuleFor(x => x.Name).MaximumLength(100);
+            RuleFor(x => x.Description).MaximumLength(100);
         }
     }
     public class CategoryBaseDto

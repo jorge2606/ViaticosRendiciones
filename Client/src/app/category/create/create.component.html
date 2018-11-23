@@ -24,13 +24,14 @@
       </div>
 
       <div style="margin-bottom:5px;" class="form-group">
-          <button class="btn btn-success navarStyle" [disabled]="!CategoryForm.form.valid"><fa-icon icon="save"></fa-icon></button>
+          <button class="btn btn-success navarStyle" ><fa-icon icon="save"></fa-icon></button>
       </div>
 
   </form>
-  <div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
+
+  <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
       Hay Campos erroneos en el formulario, verifiquelos
-  </div>
+  </div>-->
 
   <div class="alert alert-danger" *ngIf="error">
     <ul *ngFor="let e of error">

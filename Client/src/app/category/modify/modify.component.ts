@@ -13,6 +13,8 @@ export class ModifyCategoryComponent implements OnInit {
 
   id : number;
   model = new FindByIdCategoryDto;
+  error = '';
+
   constructor(private categoryService : CategoryService, private route: ActivatedRoute,
     private router : Router) { }
 
@@ -34,10 +36,9 @@ export class ModifyCategoryComponent implements OnInit {
       () => {
         this.router.navigate(['/category']);
       },
-        () => {
-      }      
+        err => this.error = err.error.notifications
     );
-    this.router.navigate([CategoryComponent]);
+    //this.router.navigate([CategoryComponent]);
   }
 
 }

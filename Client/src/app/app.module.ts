@@ -41,6 +41,9 @@ import { ModifyCategoryComponent } from './category/modify/modify.component';
 import { DistributionsComponent } from './distributions/distributions.component';
 import { ModifyDistributionComponent } from './distributions/modify/modify-distribution.component';
 import { CreateDistributionsComponent } from './distributions/create/create-distributions.component';
+import { TransportsComponent } from './transports/transports.component';
+import { CreateTransportComponent } from './transports/create/create-transport.component';
+import { ModifyTransportComponent } from './transports/modify/modify-transport.component';
 
 
 library.add(fas);
@@ -73,6 +76,9 @@ library.add(fas);
     DistributionsComponent,
     ModifyDistributionComponent,
     CreateDistributionsComponent,
+    TransportsComponent,
+    CreateTransportComponent,
+    ModifyTransportComponent,
   ],
   imports: [
     BrowserModule,

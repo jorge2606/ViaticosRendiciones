@@ -1,0 +1,58 @@
+<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/transport">
+  <fa-icon icon="angle-left"></fa-icon>    
+</a>
+<div class="container col-4 navarStyle">
+  <h2>Crear</h2>
+  <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
+      
+      <div style="margin-bottom:5px;" class="form-group">
+          <input class="form-control" [(ngModel)]="modelTransport.model" #name="ngModel"
+           required name="model" type="text" placeholder="Modelo">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
+          Modelo Incorrecto
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <input class="form-control" [(ngModel)]="modelTransport.type" required 
+          #type="ngModel" name="type" type="text" placeholder="Tipo">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && type.invalid" class="alert alert-danger">
+          Tipo Incorrecta
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <input class="form-control" [(ngModel)]="modelTransport.brand" required 
+          #brand="ngModel" name="brand" type="text" placeholder="Marca">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && brand.invalid" class="alert alert-danger">
+          Marca Incorrecta
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <input class="form-control" [(ngModel)]="modelTransport.carPlate" required 
+          #carPlate="ngModel" name="carPlate" type="text" placeholder="Patente">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && carPlate.invalid" class="alert alert-danger">
+          Patente Incorrecta
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <button class="btn btn-success navarStyle"><fa-icon icon="save"></fa-icon></button>
+      </div>
+
+  </form>
+  <!--<div style="margin-top: 10px;" *ngIf="DistributionForm.form.invalid">
+      Hay Campos erroneos en el formulario, verifiquelos
+  </div>-->
+
+  <div class="alert alert-danger" *ngIf="error">
+    <ul *ngFor="let e of error">
+        <li>{{e.value}}</li>
+    </ul>
+  </div>
+</div>

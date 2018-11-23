@@ -22,5 +22,7 @@ namespace VR.Data
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Distribution> Distributions { get; set; }
+        public virtual DbSet<Transport> Transports { get; set; }
+        public virtual DbSet<Expenditure> Expenditures { get; set; }
     }
 }

@@ -86,8 +86,6 @@ namespace VR.Web
                 options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))
             ).AddFluentValidation(fv =>
                 {
-                    //fv.RegisterValidatorsFromAssemblyContaining<UserValidator>();
-                    //fv.RegisterValidatorsFromAssemblyContaining<UserValidator>();
                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                     fv.ImplicitlyValidateChildProperties = true;
                 }
@@ -161,6 +159,7 @@ namespace VR.Web
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ITransportService, TransportService>();
             services.AddScoped<Audit.Service.Interfaces.IUserAuditService, UserAuditService>();
             services.AddScoped<IDistributionService, DistributionService>();
 
@@ -174,6 +173,7 @@ namespace VR.Web
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
             services.AddTransient<IValidator<CategoryBaseDto>, CategoryValidator>();
             services.AddTransient<IValidator<DistributionBaseDto>, DistributionValidator>();
+            services.AddTransient<IValidator<TransportBaseDto>, TransportValidator>();
 
             services.AddDirectoryBrowser();
 

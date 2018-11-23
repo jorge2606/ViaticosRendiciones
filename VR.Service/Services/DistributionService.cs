@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using AutoMapper;
 using FluentValidation;
+using Service.Common.Extensions;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -32,7 +33,7 @@ namespace VR.Service.Services
 
             if (!validation.IsValid)
             {
-                return new ServiceResult<CreateDistributionDto>(categoryDto);
+                return _mapper.Map< ServiceResult<CreateDistributionDto> >( validation.ToServiceResult<CreateDistributionDto>(null));
             }
 
             Distribution newDistribution = new Distribution()
@@ -52,10 +53,10 @@ namespace VR.Service.Services
             var validateDistributionBaseDto = _fluentValidatorDistribution.Validate(distributionDto);
             var distributionModify = _distributionContext.Distributions.FirstOrDefault(x => x.Id == distributionDto.Id);
 
-            if (validateDistributionBaseDto == null ||
+            if (!validateDistributionBaseDto.IsValid ||
                 distributionModify == null)
             {
-                return new ServiceResult<UpdateDistributionDto>(null);
+                return _mapper.Map< ServiceResult<UpdateDistributionDto> >( validateDistributionBaseDto.ToServiceResult<UpdateDistributionDto>(null) );
             }
 
             distributionModify.Description = distributionDto.Description;

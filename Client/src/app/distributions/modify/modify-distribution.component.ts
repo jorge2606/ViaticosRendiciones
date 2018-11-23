@@ -13,6 +13,7 @@ export class ModifyDistributionComponent implements OnInit {
 
   private id : number;
   private model = new UpdateCategoryDto();
+  private error = '';
 
   constructor(private route : ActivatedRoute,
     private router : Router,
@@ -35,10 +36,11 @@ export class ModifyDistributionComponent implements OnInit {
       () => {
         this.router.navigate(['/distribution']);
       },
-        () => {
+        error => {
+          this.error = error.error.notifications
       }      
     );
-    this.router.navigate([DistributionsComponent]);
+    //this.router.navigate(['/distribution']);
   }
 
 }

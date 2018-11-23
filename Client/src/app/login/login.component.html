@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav *ngIf="!isLogged | async" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
         <form class="form-inline my-2 my-lg-0 ml-auto" (ngSubmit)="LoginForm.form.valid && onSubmit()" #LoginForm="ngForm">
@@ -30,7 +30,7 @@
     </div>
 </nav>
 
-<div class="">
+<div *ngIf="!isLogged | async" class="alert alert-danger">
     <ul style="margin-top : 15px;" *ngIf="error.length != 0" class="alert alert-danger" role="alert">
         <li *ngFor="let e of error">{{ e.value }}</li>
     </ul>

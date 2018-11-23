@@ -52,7 +52,7 @@ namespace VR.Web.Controllers
                 return BadRequest(response);
             }
 
-            return Ok(response);
+            return Ok(response.Response);
         }
 
         // PUT api/<controller>/5

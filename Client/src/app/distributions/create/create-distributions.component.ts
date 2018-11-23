@@ -20,7 +20,7 @@ export class CreateDistributionsComponent implements OnInit {
   onSubmit(){
     this.ditributionService.creteDistribution(this.model).subscribe(
       x=> x,
-      error => this.error = error
+      error => this.error = error.error.notifications
     );
   }
 

@@ -1,5 +1,4 @@
 import { CategoryService } from './../_services/category.service';
-import { Category, AllCategoryDto } from './../_models/category';
 import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
