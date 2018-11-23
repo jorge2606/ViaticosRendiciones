@@ -1,9 +1,9 @@
-<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/category">
+<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/expenditure">
   <fa-icon icon="angle-left"></fa-icon>    
 </a>
 <div class="container col-4 navarStyle">
   <h2>Crear</h2>
-  <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #ExpenditureForm="ngForm">
       
       <div style="margin-bottom:5px;" class="form-group">
           <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
@@ -24,11 +24,12 @@
       </div>
 
       <div style="margin-bottom:5px;" class="form-group">
-          <button class="btn btn-success navarStyle"><fa-icon icon="save"></fa-icon></button>
+          <button class="btn btn-success navarStyle" ><fa-icon icon="save"></fa-icon></button>
       </div>
 
   </form>
-  <!--<div style="margin-top: 10px;" *ngIf="DistributionForm.form.invalid">
+
+  <!--<div style="margin-top: 10px;" *ngIf="ExpenditureForm.form.invalid">
       Hay Campos erroneos en el formulario, verifiquelos
   </div>-->
 

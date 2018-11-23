@@ -11,9 +11,10 @@ import { Route, Router, ActivatedRoute } from '@angular/router';
 })
 export class ModifyDistributionComponent implements OnInit {
 
-  private id : number;
-  private model = new UpdateCategoryDto();
-  private error = '';
+  id : number;
+  model = new UpdateCategoryDto();
+  error = '';
+  responseSuccess : any;
 
   constructor(private route : ActivatedRoute,
     private router : Router,
@@ -33,8 +34,9 @@ export class ModifyDistributionComponent implements OnInit {
   onSubmit() {
     this.model.id = this.id;
     this.distributionService.updateDistribution(this.model).subscribe(
-      () => {
-        this.router.navigate(['/distribution']);
+      x => {
+        this.responseSuccess = x;
+        //this.router.navigate(['/distribution']);
       },
         error => {
           this.error = error.error.notifications

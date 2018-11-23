@@ -9,8 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateDistributionsComponent implements OnInit {
 
-  private model = new CreateDistributionDto();
-  private error : any;
+  model = new CreateDistributionDto();
+  error : any;
+  responseSuccess : any;
 
   constructor(private ditributionService : DistributionService) { }
 
@@ -19,7 +20,7 @@ export class CreateDistributionsComponent implements OnInit {
 
   onSubmit(){
     this.ditributionService.creteDistribution(this.model).subscribe(
-      x=> x,
+      x=> this.responseSuccess = x,
       error => this.error = error.error.notifications
     );
   }

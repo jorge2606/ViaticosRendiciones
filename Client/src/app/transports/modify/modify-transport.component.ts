@@ -14,6 +14,8 @@ export class ModifyTransportComponent implements OnInit {
   id : number;
   error = '';
 
+  responseSuccess : any;
+
   constructor(private route : ActivatedRoute,
     private router : Router,
     private tranportService : TransportService) { }
@@ -37,8 +39,9 @@ export class ModifyTransportComponent implements OnInit {
   onSubmit() {
     this.modelTransport.id = this.id;
     this.tranportService.updateTransport(this.modelTransport).subscribe(
-      () => {
-        this.router.navigate(['/transport']);
+      x => {
+        this.responseSuccess = x; 
+       // this.router.navigate(['/transport']);
       },
         error => {
           this.error = error.error.notifications

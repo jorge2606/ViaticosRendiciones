@@ -15,6 +15,8 @@ export class ModifyCategoryComponent implements OnInit {
   model = new FindByIdCategoryDto;
   error = '';
 
+  responseSuccess : any;
+
   constructor(private categoryService : CategoryService, private route: ActivatedRoute,
     private router : Router) { }
 
@@ -33,8 +35,9 @@ export class ModifyCategoryComponent implements OnInit {
   onSubmit() {
     this.model.id = this.id;
     this.categoryService.updateCategory(this.model).subscribe(
-      () => {
-        this.router.navigate(['/category']);
+      x => {
+        this.responseSuccess = x;
+        //this.router.navigate(['/category']);
       },
         err => this.error = err.error.notifications
     );

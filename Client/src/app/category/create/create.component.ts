@@ -11,6 +11,8 @@ export class CreateCategoryComponent implements OnInit {
 
   model = new Category();
   error = '';
+  responseSuccess : any;
+  
   constructor(private categoryService : CategoryService) { }
 
   ngOnInit() {
@@ -19,7 +21,7 @@ export class CreateCategoryComponent implements OnInit {
   
   onSubmit(){
     this.categoryService.createCategory(this.model).subscribe(
-      x=> x,
+      x=>this.responseSuccess = x,
       error => this.error = error.error.notifications
     );
   }

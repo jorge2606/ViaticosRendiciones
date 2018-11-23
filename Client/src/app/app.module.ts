@@ -44,6 +44,9 @@ import { CreateDistributionsComponent } from './distributions/create/create-dist
 import { TransportsComponent } from './transports/transports.component';
 import { CreateTransportComponent } from './transports/create/create-transport.component';
 import { ModifyTransportComponent } from './transports/modify/modify-transport.component';
+import { ExpendituresComponent } from './expenditures/expenditures.component';
+import { CreateExpenditureComponent } from './expenditures/create/create-expenditure.component';
+import { UpdateExpenditureComponent } from './expenditures/update/update-expenditure.component';
 
 
 library.add(fas);
@@ -79,6 +82,9 @@ library.add(fas);
     TransportsComponent,
     CreateTransportComponent,
     ModifyTransportComponent,
+    ExpendituresComponent,
+    CreateExpenditureComponent,
+    UpdateExpenditureComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,9 @@ export class CreateTransportComponent implements OnInit {
   modelTransport = new CreateTransportDto();
   error = '';
 
+  responseSuccess : any;
+
+
   constructor(private transportService : TransportService) { }
 
   ngOnInit() {
@@ -20,7 +23,7 @@ export class CreateTransportComponent implements OnInit {
   onSubmit(){
     this.transportService.createTransport(this.modelTransport).subscribe(
         x =>{
-          this.modelTransport = x,
+          this.modelTransport = this.responseSuccess = x,
           this.modelTransport.id = null,
           this.modelTransport.brand = "";
           this.modelTransport.carPlate = "";
