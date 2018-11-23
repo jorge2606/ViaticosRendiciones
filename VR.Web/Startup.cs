@@ -163,6 +163,7 @@ namespace VR.Web
             services.AddScoped<Audit.Service.Interfaces.IUserAuditService, UserAuditService>();
             services.AddScoped<IDistributionService, DistributionService>();
             services.AddScoped<IExpenditureService, ExpenditureService>();
+            services.AddScoped<IOrganismService, OrganismService>();
 
             //sender Email
             // Add application services.
@@ -176,7 +177,7 @@ namespace VR.Web
             services.AddTransient<IValidator<DistributionBaseDto>, DistributionValidator>();
             services.AddTransient<IValidator<TransportBaseDto>, TransportValidator>();
             services.AddTransient<IValidator<ExpenditureBaseDto>, ExpenditureValidator>();
-
+            services.AddTransient<IValidator<OrganismBaseDto>, OrganismValidator>();
             services.AddDirectoryBrowser();
 
 

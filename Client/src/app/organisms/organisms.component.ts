@@ -1,0 +1,64 @@
+import { CreateOrganismDto } from './../_models/organism';
+import { Component, OnInit } from '@angular/core';
+import { OrganismService } from '../_services/organism.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalContent } from '../modals/modals.component';
+
+@Component({
+  selector: 'app-organisms',
+  templateUrl: './organisms.component.html',
+  styleUrls: ['./organisms.component.css']
+})
+export class OrganismsComponent implements OnInit {
+
+  page = 0;
+  organism : CreateOrganismDto[];
+  col_size : number;
+  itemsPerPage : number = 10;
+
+  constructor(private organismService : OrganismService,
+    private modalService : NgbModal) { }
+
+  ngOnInit() {
+    this.getAllOrganism(this.page); 
+  }
+
+  getAllOrganism(page : number){
+    this.organismService.getPaginator(page).subscribe(
+      result => {
+        this.organism = result.list,
+        this.col_size = result.totalRecords
+      },
+      error => console.log(error)
+    ); 
+  }
+
+  loadPage(page : number){
+    if (page != 0){
+      this.getAllOrganism(page-1);
+    }
+  }
+
+  openEliminar(id: number, name: string, descp: string) {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.Encabezado = "Eliminar";
+    modalRef.componentInstance.Contenido = "¿Desea eliminar el Organismo : " + name + " " + descp + "?";
+    modalRef.componentInstance.GuardaroEliminar = "Eliminar";
+    modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
+    modalRef.componentInstance.MsgClose = "Cancelar";
+    modalRef.result.then(() => {
+      this.organismService.deleteOrganism(id).subscribe(
+        data => {
+            this.getAllOrganism(this.page);
+        },
+        error => {
+            console.log("error", error);
+        }
+    );
+    },
+      () => {
+        console.log('Backdrop click');
+    })
+  }
+
+}

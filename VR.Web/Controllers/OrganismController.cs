@@ -14,34 +14,21 @@ namespace VR.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExpenditureController : ControllerBase
+    public class OrganismController : ControllerBase
     {
         private readonly DataContext _context;
-        private readonly IExpenditureService _expenditureService;
-
-        public ExpenditureController(DataContext context, IExpenditureService expenditureService)
+        private readonly IOrganismService _organismService;
+     
+        public OrganismController(DataContext context, IOrganismService organismService)
         {
             _context = context;
-            _expenditureService = expenditureService;
+            _organismService = organismService;
         }
 
         [HttpPut("Update")]
-        public IActionResult UpdateExpenditure(UpdateExpenditureDto expenditure)
+        public IActionResult UpdateOrganism(UpdateOrganismDto updateOrganism)
         {
-            var result = _expenditureService.UpdateExpenditure(expenditure);
-
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result.Response);
-        }
-
-        [HttpDelete("Delete/{id}")]
-        public IActionResult DeleteExpenditure(Guid id)
-        {
-            var result = _expenditureService.DeleteExpenditure(id);
+            var result = _organismService.UpdateOrganism(updateOrganism);
 
             if (!result.IsSuccess)
             {
@@ -52,9 +39,9 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("FindById/{id}")]
-        public IActionResult FindById(Guid id)
+        public IActionResult FindByIdOrganism(Guid id)
         {
-            var result = _expenditureService.FindByIdExpenditure(id);
+            var result = _organismService.FindByIdOrganism(id);
 
             if (!result.IsSuccess)
             {
@@ -65,9 +52,9 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult CreateExpenditure(CreateExpenditureDto createExpenditure)
+        public IActionResult CreateOrganism(CreateOrganismDto createOrganism)
         {
-            var result = _expenditureService.CreateDistribution(createExpenditure);
+            var result = _organismService.CreateOrganism(createOrganism);
 
             if (!result.IsSuccess)
             {
@@ -77,15 +64,27 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-
-        public IQueryable<Expenditure> queryableUser()
+        [HttpDelete("Delete/{id}")]
+        public IActionResult DeleteOrganism(Guid id)
         {
-            var usersPaginator = _context.Expenditures.OrderBy(x => x.Name);
+            var result = _organismService.DeleteOrganism(id);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
+        public IQueryable<Organism> queryableUser()
+        {
+            var usersPaginator = _context.Organisms.OrderBy(x => x.Name);
             return usersPaginator;
         }
 
         [HttpGet("page/{page}")]
-        public PagedResult<Expenditure> userPagination(int? page)
+        public PagedResult<Organism> userPagination(int? page)
         {
             const int pageSize = 10;
             var queryPaginator = queryableUser();
@@ -93,7 +92,7 @@ namespace VR.Web.Controllers
             var result = queryPaginator.Skip((page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            return new PagedResult<Expenditure>
+            return new PagedResult<Organism>
             {
                 List = result,
                 TotalRecords = queryPaginator.Count()

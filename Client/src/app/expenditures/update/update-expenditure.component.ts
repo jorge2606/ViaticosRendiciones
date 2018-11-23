@@ -18,7 +18,7 @@ export class UpdateExpenditureComponent implements OnInit {
 
   constructor(private expenditureService : ExpenditureService,
     private route : ActivatedRoute,
-    private router : Router,) { }
+    private router : Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(

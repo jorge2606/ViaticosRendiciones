@@ -1,3 +1,4 @@
+import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { CreateExpenditureComponent } from './expenditures/create/create-expenditure.component';
 import { ModifyTransportComponent } from './transports/modify/modify-transport.component';
 import { CreateTransportComponent } from './transports/create/create-transport.component';
@@ -25,6 +26,8 @@ import { SettingofuserComponent } from './users/setting/settingofuser.component'
 import { TransportsComponent } from './transports/transports.component';
 import { ExpendituresComponent } from './expenditures/expenditures.component';
 import { UpdateExpenditureComponent } from './expenditures/update/update-expenditure.component';
+import { OrganismsComponent } from './organisms/organisms.component';
+import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -53,6 +56,9 @@ const routes: Routes = [
   { path: 'expenditure', component : ExpendituresComponent, canActivate : [AuthGuard]},
   { path: 'expenditure/create', component : CreateExpenditureComponent, canActivate : [AuthGuard]},
   { path: 'expenditure/update/:id', component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
+  { path: 'organism', component : OrganismsComponent, canActivate : [AuthGuard]},
+  { path: 'organism/create', component : CreateOrganismComponent, canActivate : [AuthGuard]},
+  { path: 'organism/update/:id', component : ModifyOrganismComponent, canActivate : [AuthGuard]},
   
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

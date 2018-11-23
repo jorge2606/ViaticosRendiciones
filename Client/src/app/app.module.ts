@@ -47,6 +47,9 @@ import { ModifyTransportComponent } from './transports/modify/modify-transport.c
 import { ExpendituresComponent } from './expenditures/expenditures.component';
 import { CreateExpenditureComponent } from './expenditures/create/create-expenditure.component';
 import { UpdateExpenditureComponent } from './expenditures/update/update-expenditure.component';
+import { OrganismsComponent } from './organisms/organisms.component';
+import { CreateOrganismComponent } from './organisms/create/create-organism.component';
+import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
 
 
 library.add(fas);
@@ -85,6 +88,9 @@ library.add(fas);
     ExpendituresComponent,
     CreateExpenditureComponent,
     UpdateExpenditureComponent,
+    OrganismsComponent,
+    CreateOrganismComponent,
+    ModifyOrganismComponent,
   ],
   imports: [
     BrowserModule,
