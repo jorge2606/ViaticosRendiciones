@@ -19,6 +19,7 @@ using VR.Dto;
 using VR.Service.Interfaces;
 using VR.Identity.Identities;
 using VR.Service.Helpers.WebApi.Helpers;
+using NotificationType = Service.Common.ServiceResult.NotificationType;
 
 namespace VR.Service.Services
 {
@@ -71,20 +72,15 @@ namespace VR.Service.Services
             ServiceResult<UserDto> result = new ServiceResult<UserDto>();
 
             var user = await _userManager.Users.SingleOrDefaultAsync(x => x.UserName == p_LoginDto.Usuario);
-
-            if (user == null)
-            {
-                result.AddError("userName", "User not found");
-                return result;
-            }
-
             var passwordResult = await _userManager.CheckPasswordAsync(user, p_LoginDto.Password);
 
-            if (!passwordResult)
+            if (user == null || !passwordResult)
             {
-                result.AddError("password", "Password incorrect");
+                const NotificationType notificationType = NotificationType.Error;
+                result.AddNotification(notificationType, "Usuario y/o Contraseña Incorrecto");
                 return result;
             }
+            
 
             UserDto userDto = new UserDto();
 

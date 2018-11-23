@@ -1,3 +1,4 @@
+import { AuthGuard } from './../_guards/auth.guard';
 import { User } from './../users/users';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -6,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from './login';
 import { AuthenticationService } from '../_services/authentication.service';
 import { first } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = '';  
+  notifications = '';  
   
 
   constructor(private http : HttpClient,
@@ -51,8 +52,7 @@ export class LoginComponent implements OnInit {
                    this.router.navigate([this.returnUrl]);
                },
                error => {
-                   this.error = error.error.notifications;
-                   console.log(this.error);
+                   this.notifications = error.error.notifications;
                    this.loading = false;
                });
    }
@@ -63,8 +63,8 @@ export class LoginComponent implements OnInit {
           Password: ['', Validators.required]
         });
 
-        this.isLogged = this.authenticationService.isLoggedIn;
-        
+        //this.isLogged = this.authenticationService.isLoggedIn;
+        this.isLogged = of(this.authenticationService.ifLogged());
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }

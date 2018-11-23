@@ -55,6 +55,15 @@ export class AuthenticationService {
         }
     }
 
+    ifLogged(){
+        let result : boolean = false;
+        if (localStorage.getItem('currentUser')) {
+            // logged in so return true
+            result = true;
+        } 
+        return result;       
+    }
+
     urlFile(userId : number, width : number, height: number){
         return "http://localhost:63098/api/File/"+userId+"/"+width+"/"+height;
     }
