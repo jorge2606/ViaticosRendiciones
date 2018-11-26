@@ -129,7 +129,11 @@ namespace VR.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<Guid?>("OrganismId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganismId");
 
                     b.ToTable("Distributions");
                 });
@@ -264,6 +268,8 @@ namespace VR.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<Guid?>("DistributionId");
+
                     b.Property<int>("Dni");
 
                     b.Property<string>("Email")
@@ -295,6 +301,8 @@ namespace VR.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DistributionId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -350,6 +358,20 @@ namespace VR.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Distribution", b =>
+                {
+                    b.HasOne("VR.Data.Model.Organism", "Organism")
+                        .WithMany("Distributions")
+                        .HasForeignKey("OrganismId");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.User", b =>
+                {
+                    b.HasOne("VR.Data.Model.Distribution", "Distribution")
+                        .WithMany("Users")
+                        .HasForeignKey("DistributionId");
                 });
 #pragma warning restore 612, 618
         }

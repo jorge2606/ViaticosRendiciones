@@ -8,6 +8,7 @@ namespace VR.Service.Interfaces
 {
     public interface IOrganismService
     {
+        ServiceResult<List<GetallOrganismDto>> GetAllOrganism();
         ServiceResult<CreateOrganismDto> CreateOrganism(CreateOrganismDto organismDto);
         ServiceResult<UpdateOrganismDto> UpdateOrganism(UpdateOrganismDto organismDto);
         ServiceResult<DeleteOrganismDto> DeleteOrganism(Guid organismId);

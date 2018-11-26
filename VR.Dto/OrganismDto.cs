@@ -33,6 +33,8 @@ namespace VR.Dto
 
     public class FindByIdOrganismDto : OrganismBaseDto { }
 
+    public class GetallOrganismDto : OrganismBaseDto { }
+
 
 
 }

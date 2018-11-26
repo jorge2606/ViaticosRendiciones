@@ -40,7 +40,8 @@ namespace VR.Service.Services
             {
                 Id = new Guid(),
                 Name = categoryDto.Name,
-                Description = categoryDto.Description
+                Description = categoryDto.Description,
+                OrganismId = categoryDto.OrganismId
             };
 
             _distributionContext.Add(newDistribution);
@@ -61,6 +62,7 @@ namespace VR.Service.Services
 
             distributionModify.Description = distributionDto.Description;
             distributionModify.Name = distributionDto.Name;
+            distributionModify.OrganismId = distributionDto.OrganismId;
 
             _distributionContext.Distributions.Update(distributionModify);
             _distributionContext.SaveChanges();

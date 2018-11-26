@@ -1,4 +1,4 @@
-<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/category">
+<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/distribution">
   <fa-icon icon="angle-left"></fa-icon>    
 </a>
 <div class="container col-4 navarStyle">
@@ -22,6 +22,9 @@
       <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
           Descripción Incorrecta
       </div>
+      <select #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
+          <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
+      </select>
 
       <div style="margin-bottom:5px;" class="form-group">
           <button class="btn btn-success navarStyle"><fa-icon icon="save"></fa-icon></button>

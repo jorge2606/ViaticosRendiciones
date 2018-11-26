@@ -96,5 +96,10 @@ namespace VR.Service.Services
             return new ServiceResult<DeleteOrganismDto>(_mapper.Map<DeleteOrganismDto>(delete));
         }
 
+        public ServiceResult<List<GetallOrganismDto>> GetAllOrganism()
+        {
+            var listOrganism = _mapper.Map<List<GetallOrganismDto>>(_dataContext.Organisms.ToList());
+            return new ServiceResult<List<GetallOrganismDto>>(new List <GetallOrganismDto>(listOrganism) );
+        }
     }
 }

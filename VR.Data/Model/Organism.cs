@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace VR.Data.Model
 {
@@ -9,5 +9,7 @@ namespace VR.Data.Model
         public Guid Id { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
+
+        public ICollection<Distribution> Distributions { set; get; }
     }
 }

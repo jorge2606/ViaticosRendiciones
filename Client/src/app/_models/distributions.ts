@@ -2,6 +2,7 @@ export class DistributionBaseDto{
     id : number;
     name : string;
     description : string;
+    organismId : number;
 }
 
 export class CreateDistributionDto extends DistributionBaseDto{}

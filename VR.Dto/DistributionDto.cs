@@ -23,6 +23,7 @@ namespace VR.Dto
         public Guid Id { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
+        public Guid OrganismId { set; get; }
     }
 
     public class CreateDistributionDto : DistributionBaseDto { }

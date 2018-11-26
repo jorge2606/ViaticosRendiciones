@@ -5,5 +5,8 @@ namespace VR.Data.Model
 {
     public class Role : IdentityRole<Guid>
     {
+        public Role()
+        {
+        }
     }
 }

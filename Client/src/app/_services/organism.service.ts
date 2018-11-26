@@ -9,7 +9,10 @@ export class OrganismService {
 
   constructor(private http : HttpClient) { }
 
-  
+  getAllOrganism(){
+    return this.http.get<any>('http://localhost:63098/api/Organism/GetAll');
+  }
+
   getPaginator(page: number) {
     return this.http.get<any>('http://localhost:63098/api/Organism/page/' + page);
   }

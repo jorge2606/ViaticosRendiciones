@@ -1,8 +1,11 @@
+import { UpdateOrganismDto } from 'src/app/_models/organism';
+import { UpdateDistributionDto } from './../../_models/distributions';
 import { DistributionsComponent } from './../distributions.component';
 import { UpdateCategoryDto } from './../../_models/category';
 import { DistributionService } from './../../_services/distribution.service';
 import { Component, OnInit } from '@angular/core';
 import { Route, Router, ActivatedRoute } from '@angular/router';
+import { OrganismService } from 'src/app/_services/organism.service';
 
 @Component({
   selector: 'app-modify-distribution',
@@ -12,13 +15,15 @@ import { Route, Router, ActivatedRoute } from '@angular/router';
 export class ModifyDistributionComponent implements OnInit {
 
   id : number;
-  model = new UpdateCategoryDto();
+  model = new UpdateDistributionDto();
   error = '';
   responseSuccess : any;
 
+  organism :  any[];
+
   constructor(private route : ActivatedRoute,
     private router : Router,
-    private distributionService : DistributionService) { }
+    private distributionService : DistributionService, private organismService : OrganismService) { }
 
   ngOnInit() {
     //le asigno el id que extraigo de la url
@@ -28,6 +33,11 @@ export class ModifyDistributionComponent implements OnInit {
 
     this.distributionService.findByIdDistribution(this.id).subscribe(
       x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description}
+    );
+
+    this.organismService.getAllOrganism().subscribe(
+      x => this.organism = x,
+      error => this.error = error
     );
   }
 

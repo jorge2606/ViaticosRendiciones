@@ -1,3 +1,4 @@
+import { OrganismService } from 'src/app/_services/organism.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { CreateDistributionDto } from './../../_models/distributions';
 import { Component, OnInit } from '@angular/core';
@@ -13,9 +14,17 @@ export class CreateDistributionsComponent implements OnInit {
   error : any;
   responseSuccess : any;
 
-  constructor(private ditributionService : DistributionService) { }
+  organism : any[];
+
+  constructor(private ditributionService : DistributionService, private organismService : OrganismService) { }
 
   ngOnInit() {
+
+    this.organismService.getAllOrganism().subscribe(
+      x => this.organism = x,
+      error => this.error = error
+    );
+
   }
 
   onSubmit(){

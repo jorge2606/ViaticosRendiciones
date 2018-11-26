@@ -38,6 +38,18 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var result = _organismService.GetAllOrganism();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpGet("FindById/{id}")]
         public IActionResult FindByIdOrganism(Guid id)
         {
