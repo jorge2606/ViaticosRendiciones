@@ -48,6 +48,10 @@
                 type="text" placeholder="Telefóno" value="">
         </div>
         
+        <select class="form-control" #distributionId="ngModel" name="distributionId" [(ngModel)]="model.distributionId">
+            <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
+        </select>
+
         <div style="margin-top: 10px;" *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger">
             Telefóno Incorrecto
         </div>

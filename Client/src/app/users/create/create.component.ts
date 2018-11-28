@@ -1,7 +1,9 @@
+import { DistributionService } from './../../_services/distribution.service';
 import { UserService } from './../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { createUser } from '../users'
 import { RoleService } from '../../_services/role.service';
+import { DistributionBaseDto } from 'src/app/_models/distributions';
 @Component({
   selector: 'app-createuser',
   templateUrl: './create.component.html',
@@ -9,8 +11,10 @@ import { RoleService } from '../../_services/role.service';
 })
 export class CreateuserComponent implements OnInit {
 
-  constructor(private UserService : UserService, private rolService : RoleService) {}
+  constructor(private UserService : UserService, private rolService : RoleService,
+    private distributionService : DistributionService) {}
   model = new createUser();
+  distribution : DistributionBaseDto[];
   errors = [];
 
 
@@ -24,7 +28,8 @@ export class CreateuserComponent implements OnInit {
         error => {
           this.errors = error.error.notifications;
      } 
-  );;
+    );
+
   }
 
   getAllRoles(){
@@ -38,6 +43,12 @@ export class CreateuserComponent implements OnInit {
   
   ngOnInit() {
     this.getAllRoles();
+
+    this.distributionService.allDistribution().subscribe(
+      x => {
+        this.distribution = x;
+      }
+    );
   }
 
 }

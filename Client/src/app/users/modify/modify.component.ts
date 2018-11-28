@@ -1,3 +1,4 @@
+import { DistributionService } from './../../_services/distribution.service';
 import { UsersComponent } from '../users.component';
 import { UserService } from '../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,8 +14,10 @@ import { modifyUser } from '../users';
 export class ModifyuserComponent implements OnInit {
 
   id: number;
+  distribution : DistributionService[];
 
-  constructor(private router : Router,private route: ActivatedRoute, private userService: UserService) {
+  constructor(private router : Router,private route: ActivatedRoute, private userService: UserService,
+    private distributionService : DistributionService) {
   }
   model = new modifyUser;
   
@@ -47,7 +50,13 @@ export class ModifyuserComponent implements OnInit {
         this.model.id = i.id,
         this.model.phoneNumber = i.phoneNumber,
         this.model.rolesUser = i.rolesUser;
-    })
+    });
+
+    this.distributionService.allDistribution().subscribe(
+      x => {
+        this.distribution = x;
+      }
+    );
 
   }
 }

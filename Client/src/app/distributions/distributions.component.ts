@@ -1,8 +1,10 @@
+import { User } from './../_models/user';
 import { Component, OnInit } from '@angular/core';
 import { DistributionService } from '../_services/distribution.service';
 import { DistributionBaseDto } from '../_models/distributions';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrganismBaseDto } from '../_models/organism';
 
 @Component({
   selector: 'app-distributions',
@@ -62,6 +64,38 @@ export class DistributionsComponent implements OnInit {
       () => {
         console.log('Backdrop click');
     })
+  }
+
+  seeOrganism(org : OrganismBaseDto){
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.Encabezado = org.name;
+    modalRef.componentInstance.Contenido = org.name+" "+ org.description;
+    modalRef.componentInstance.GuardaroEliminarHidden = true;
+    modalRef.componentInstance.MsgClose = "Cancelar";
+    modalRef.result.then(() => {
+    },
+      () => {
+        console.log('Backdrop click');
+    })
+
+  }
+
+  seeAllUsers(allUsers : User[]){
+    let html = '';
+    allUsers.forEach(user => {
+       html = html +' '+user.dni+' '+user.userName+' '+user.email+' '+user.phoneNumber+'<br>';
+    });
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.Encabezado = "Usuarios";
+    modalRef.componentInstance.Contenido = html;
+    modalRef.componentInstance.GuardaroEliminarHidden = true;
+    modalRef.componentInstance.MsgClose = "Cancelar";
+    modalRef.result.then(() => {
+    },
+      () => {
+        console.log('Backdrop click');
+    })
+
   }
 
 }

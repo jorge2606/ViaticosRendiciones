@@ -1,11 +1,43 @@
-<a href="" class="btn btn-success mb-3" routerLink="create">
-	<fa-icon icon="user-plus"></fa-icon>
-</a>
+<div class="container mb-1" >
+		<label class="d-inline-block pl-1" for="">Repartición</label>
+		<div class="d-inline-block pl-1">
+			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" class="form-control d-inline-block pl-1">
+				<option value=""></option>
+				<option *ngFor="let dist of distributions" value="{{dist.id}}">
+					{{dist.name}}
+				</option>
+			</select>
+		</div>
+		
+		<label class="d-inline-block pl-1 pr-1" for="">Dni</label>
+		<div class="d-inline-block pl-1 pr-1">
+			<input [(ngModel)]="filters.dni"  type="text" class="form-control">
+		</div>
+
+		<label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
+		<div class="d-inline-block pl-1 pr-1">
+			<input [(ngModel)]="filters.userName"  type="text" class="form-control">
+		</div>
+
+		<div class="d-inline-block pl-1 pr-1">
+			<button class="btn btn-primary" type="button" (click)="filterList()">
+				<fa-icon icon="search"></fa-icon>
+			</button>
+		</div>
+</div>
+
+<div class="d-inline-block pb-1">
+	<a href="" class="btn btn-success" routerLink="create">
+		<fa-icon icon="user-plus"></fa-icon>
+	</a>
+</div>
+
 <table class="table table-hover">
 	<thead>
 		<tr style="font-weight: bold;">
 			<td>Dni</td>
 			<td>Usuario</td>
+			<td>Repartición</td>
 			<td>Accción<td>
 		</tr>
 	</thead>
@@ -13,6 +45,7 @@
 		<tr *ngFor="let user of user_list">
 			<td>{{user.dni}}</td>
 			<td>{{user.userName}}</td>
+			<td>{{user.distribution.name}}</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
 					<a class="pr-3" routerLink="/users/update/{{user.id}}">
@@ -27,5 +60,5 @@
 	</tbody>
 </table>
 
-<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
+<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
  aria-label="Default pagination"></ngb-pagination>

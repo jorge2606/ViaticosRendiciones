@@ -13,6 +13,9 @@ export class DistributionService {
     return this.http.get<any>('http://localhost:63098/api/Distribution/page/' + page);
   }
 
+  allDistribution(){
+    return this.http.get<any>('http://localhost:63098/api/Distribution/AllDistributions');
+  }
   findByIdDistribution(distributionId : number){
     return this.http.get<FindByIdDistributionDto>('http://localhost:63098/api/Distribution/FindByIdDistribution/'+distributionId)
   }

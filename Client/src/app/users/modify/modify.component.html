@@ -55,6 +55,10 @@
                         <div style="margin-top: 10px;" *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger">
                             Telefóno Incorrecto
                         </div>
+                        
+                        <select class="form-control" #distributionId="ngModel" name="distributionId" [(ngModel)]="model.distributionId">
+                            <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
+                        </select>
                 
                         <div style="margin-bottom:5px;" class="form-group">
                             <button class="btn btn-success navarStyle" [disabled]="!userForm.form.valid">

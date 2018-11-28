@@ -16,8 +16,8 @@ export class UserService {
         return this.http.get<User[]>('http://localhost:63098/api/User/getall');
     }
 
-    getPaginator(page: number) {
-        return this.http.get<any>('http://localhost:63098/api/User/page/' + page);
+    getPaginator(filters: any) {
+        return this.http.get<any>('http://localhost:63098/api/User/page/',{params: filters});
     }
 
     getById(id: number) {
