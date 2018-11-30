@@ -49,6 +49,7 @@ const routes: Routes = [
   { path: 'category/create', component : CreateCategoryComponent},
   { path: 'category/update/:id', component : ModifyCategoryComponent, canActivate : [AuthGuard]},
   { path: 'distribution', component : DistributionsComponent, canActivate : [AuthGuard]},
+  { path: 'distribution/:organismId', component : DistributionsComponent, canActivate : [AuthGuard]},
   { path: 'distribution/create', component : CreateDistributionsComponent, canActivate : [AuthGuard]},
   { path: 'distribution/update/:id', component : ModifyDistributionComponent, canActivate : [AuthGuard]},
   { path: 'transport', component : TransportsComponent, canActivate : [AuthGuard]},

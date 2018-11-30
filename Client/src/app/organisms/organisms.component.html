@@ -1,3 +1,10 @@
+<div class="container mb-1" >
+	<label class="d-inline-block pl-1 pr-1" for="">Name </label>
+	<div class="d-inline-block pl-1 pr-1">
+		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
+	</div>
+</div>
+
 <a href="" class="btn btn-success mb-3" routerLink="create">
 	<fa-icon icon="user-plus"></fa-icon>
 </a>
@@ -7,12 +14,14 @@
 			<td>Name</td>
 			<td>Descripción</td>
 			<td></td>
+			<td></td>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let org of organism">
 			<td>{{org.name}}</td>
 			<td>{{org.description}}</td>
+			<td><a href="" routerLink="/distribution/{{org.id}}">Reparticiones</a></td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
 					<a class="pr-3" routerLink="/organism/update/{{org.id}}">

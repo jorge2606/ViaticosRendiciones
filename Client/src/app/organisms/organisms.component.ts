@@ -11,7 +11,7 @@ import { NgbdModalContent } from '../modals/modals.component';
 })
 export class OrganismsComponent implements OnInit {
 
-  page = 0;
+  filters = { page: 0, name : null}
   organism : CreateOrganismDto[];
   col_size : number;
   itemsPerPage : number = 10;
@@ -20,10 +20,10 @@ export class OrganismsComponent implements OnInit {
     private modalService : NgbModal) { }
 
   ngOnInit() {
-    this.getAllOrganism(this.page); 
+    this.getAllOrganism(this.filters); 
   }
 
-  getAllOrganism(page : number){
+  getAllOrganism(page : any){
     this.organismService.getPaginator(page).subscribe(
       result => {
         this.organism = result.list,
@@ -34,8 +34,9 @@ export class OrganismsComponent implements OnInit {
   }
 
   loadPage(page : number){
-    if (page != 0){
-      this.getAllOrganism(page-1);
+    if (this.filters.page != 0){
+      this.filters.page = this.filters.page - 1;
+      this.getAllOrganism(this.filters);
     }
   }
 
@@ -49,7 +50,7 @@ export class OrganismsComponent implements OnInit {
     modalRef.result.then(() => {
       this.organismService.deleteOrganism(id).subscribe(
         data => {
-            this.getAllOrganism(this.page);
+            this.getAllOrganism(this.filters.page);
         },
         error => {
             console.log("error", error);
@@ -59,6 +60,10 @@ export class OrganismsComponent implements OnInit {
       () => {
         console.log('Backdrop click');
     })
+  }
+
+  findWhileWrite(){
+    this.getAllOrganism(this.filters);
   }
 
 }

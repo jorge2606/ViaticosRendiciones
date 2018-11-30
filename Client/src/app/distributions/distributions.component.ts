@@ -4,7 +4,7 @@ import { DistributionBaseDto } from '../_models/distributions';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganismBaseDto } from '../_models/organism';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { OrganismService } from '../_services/organism.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { OrganismService } from '../_services/organism.service';
 export class DistributionsComponent implements OnInit {
 
   organisms : any[];
-  filters = { page: 0, name : "", organismId: "" }
+  filters = { page: 0, name : "", organismId: null }
   //paginator
   col_size : number;
   page = 0;
@@ -25,9 +25,14 @@ export class DistributionsComponent implements OnInit {
   constructor(
               private distributionService : DistributionService,
               private modalService: NgbModal,
-              private organismService : OrganismService) { }
+              private organismService : OrganismService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      p => this.filters.organismId = p.organismId
+    );
+    
     this.organismService.getAllOrganism().subscribe(
       x =>{
           this.organisms = x;

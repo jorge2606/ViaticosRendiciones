@@ -13,8 +13,8 @@ export class OrganismService {
     return this.http.get<any>('http://localhost:63098/api/Organism/GetAll');
   }
 
-  getPaginator(page: number) {
-    return this.http.get<any>('http://localhost:63098/api/Organism/page/' + page);
+  getPaginator(filters: any) {
+    return this.http.get<any>('http://localhost:63098/api/Organism/page/', {params : filters});
   }
 
   createOrganism(createOrganism : CreateOrganismDto){
