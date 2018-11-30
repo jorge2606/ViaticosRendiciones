@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using VR.Dto;
+using VR.Dto.User;
 
 namespace VR.Service.Interfaces
 {

@@ -16,7 +16,7 @@
 			<td>{{dist.name}}</td>
 			<td>{{dist.description}}</td>
 			<td><button class="btn btn-link" [disabled]="!dist.organism" (click)="seeOrganism(dist.organism)">ver</button></td>
-			<td><button class="btn btn-link" [disabled]="!dist.users" routerLink="/users">ver</button></td>
+			<td><button class="btn btn-link" [disabled]="!dist.users" routerLink="/users/{{dist.id}}">ver</button></td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
 					<a class="pr-3" routerLink="/distribution/update/{{dist.id}}">

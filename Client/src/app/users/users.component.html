@@ -1,5 +1,5 @@
 <div class="container mb-1" >
-		<label class="d-inline-block pl-1" for="">Repartición</label>
+		<label class="d-inline-block pl-1" for="">Repartición </label>
 		<div class="d-inline-block pl-1">
 			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" class="form-control d-inline-block pl-1">
 				<option value=""></option>
@@ -9,7 +9,7 @@
 			</select>
 		</div>
 		
-		<label class="d-inline-block pl-1 pr-1" for="">Dni</label>
+		<label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
 		<div class="d-inline-block pl-1 pr-1">
 			<input [(ngModel)]="filters.dni"  type="text" class="form-control">
 		</div>
@@ -26,7 +26,7 @@
 		</div>
 </div>
 
-<div class="d-inline-block pb-1">
+<div class="d-inline-block pb-2 pt-2">
 	<a href="" class="btn btn-success" routerLink="create">
 		<fa-icon icon="user-plus"></fa-icon>
 	</a>

@@ -1,5 +1,6 @@
 ﻿using Service.Common.ServiceResult;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using FluentValidation;
@@ -8,6 +9,7 @@ using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Service.Interfaces;
+using NotificationType = Service.Common.ServiceResult.NotificationType;
 
 namespace VR.Service.Services
 {
@@ -27,9 +29,11 @@ namespace VR.Service.Services
         }
 
 
-        public ServiceResult<CreateDistributionDto> CreateDistribution(CreateDistributionDto categoryDto)
+        public ServiceResult<CreateDistributionDto> CreateDistribution(CreateDistributionDto distribution)
         {
-            var validation = _fluentValidatorDistribution.Validate(categoryDto);
+            ServiceResult<CreateDistributionDto> result = new ServiceResult<CreateDistributionDto>();
+            NotificationType msg = 0;
+            var validation = _fluentValidatorDistribution.Validate(distribution);
 
             if (!validation.IsValid)
             {
@@ -39,14 +43,33 @@ namespace VR.Service.Services
             Distribution newDistribution = new Distribution()
             {
                 Id = new Guid(),
-                Name = categoryDto.Name,
-                Description = categoryDto.Description,
-                OrganismId = categoryDto.OrganismId
+                Name = distribution.Name,
+                Description = distribution.Description,
+                OrganismId = distribution.OrganismId
             };
 
             _distributionContext.Add(newDistribution);
             _distributionContext.SaveChanges();
-            return new ServiceResult<CreateDistributionDto>(categoryDto);
+
+            var newOrganism = _distributionContext.Organisms.FirstOrDefault(x =>x.Id == newDistribution.Id);
+            List<User> listUsers = _distributionContext.Users.Where(x => x.DistributionId == newDistribution.Id).ToList();
+            
+            if (newOrganism == null)
+            {
+                msg = NotificationType.Info;
+                result.AddNotification(msg, "No hay organismos para esta distribución");
+            }
+
+            if (listUsers.Count == 0)
+            {
+                msg = NotificationType.Info;
+                result.AddNotification(msg, "No hay usuarios para esta distribución");
+            }
+
+            newDistribution.Organism = newOrganism;
+            newDistribution.Users = listUsers;
+
+            return new ServiceResult<CreateDistributionDto>(distribution);
         }
 
         public ServiceResult<UpdateDistributionDto> UpdateDistribution(UpdateDistributionDto distributionDto)
@@ -95,6 +118,11 @@ namespace VR.Service.Services
             _distributionContext.SaveChanges();
 
             return new ServiceResult<DeleteDistributionDto>(_mapper.Map<DeleteDistributionDto>(distribution));
+        }
+
+        public ServiceResult< List<AllDistributionDto> > AllDistribution()
+        {
+            return new ServiceResult<List<AllDistributionDto>>(_mapper.Map<List<AllDistributionDto>>(_distributionContext.Distributions.ToList()));
         }
 
     }

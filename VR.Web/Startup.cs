@@ -28,6 +28,7 @@ using VR.Common.Extensions;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
+using VR.Dto.User;
 using VR.Identity.Identities;
 using VR.Service.Interfaces;
 using VR.Service.Services;

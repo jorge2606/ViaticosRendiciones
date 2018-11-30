@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using VR.Data.Model;
 using VR.Dto;
+using VR.Dto.User;
 
 namespace WebApi.Helpers
 {

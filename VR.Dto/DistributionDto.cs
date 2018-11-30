@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using FluentValidation;
+using VR.Data.Model;
 
 namespace VR.Dto
 {
@@ -24,6 +25,8 @@ namespace VR.Dto
         public string Name { set; get; }
         public string Description { set; get; }
         public Guid OrganismId { set; get; }
+        public Organism Organism { set; get; }
+        public List<Data.Model.User> Users { set; get; }
     }
 
     public class CreateDistributionDto : DistributionBaseDto { }

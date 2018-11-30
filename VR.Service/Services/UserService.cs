@@ -16,6 +16,7 @@ using Service.Common.Extensions;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
+using VR.Dto.User;
 using VR.Service.Interfaces;
 using VR.Identity.Identities;
 using VR.Service.Helpers.WebApi.Helpers;
@@ -164,6 +165,7 @@ namespace VR.Service.Services
               user.UserName = userParam.UserName;
               user.Email = userParam.UserName;
               user.PhoneNumber = userParam.PhoneNumber;
+              user.DistributionId = userParam.DistributionId;
 
               //actualizo los roles del usuario
               foreach (var role in userParam.RolesUser)
@@ -220,13 +222,17 @@ namespace VR.Service.Services
 
         public async Task<ServiceResult<string>> CreateAsync(CreateUserDto user)
         {
+
+            var distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
             var NewUser = new User
             {
                 Id = Guid.NewGuid(),
                 Dni = user.Dni,
                 UserName = user.UserName,
                 Email = user.UserName,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                Distribution = distribution,
+                DistributionId = user.DistributionId
             };
 
             var userExistOrNot = await _userManager.FindByNameAsync(user.UserName);

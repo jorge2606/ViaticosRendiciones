@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using VR.Data.Model;
 
-namespace VR.Dto
+namespace VR.Dto.User
 {
 
     public class UserValidator : AbstractValidator<SaveUserDto>
@@ -41,6 +42,7 @@ namespace VR.Dto
         public string Token { get; set; }
         public string Path { get; set; }
         public Guid DistributionId { set; get; }
+        public Distribution Distribution { set; get; }
     }
 
 
@@ -52,6 +54,8 @@ namespace VR.Dto
         public string Password { get; set; }
         public string PhoneNumber { set; get; }
         public List<RoleWhenModifyUser> RolesUser { set; get; }
+        public Guid DistributionId { set; get; }
+        public Distribution Distribution { set; get; }
     }
 
     //admin and common user can use this Dto, because they update its own the same way 
@@ -60,6 +64,16 @@ namespace VR.Dto
     public class UpdateProfileAsAdmin : ModifyUserDto {}
 
     public class CreateUserDto : ModifyUserDto{}
+
+    public class AllUserDto
+    {
+        public Guid Id { get; set; }
+        public int Dni { set; get; }
+        public string UserName { set; get; }
+        public string PhoneNumber { set; get; }
+        public Guid DistributionId { set; get; }
+        public Distribution Distribution { set; get; }
+    }
 
     public class UserAuthenticationDto
     {

@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'users', component: UsersComponent, canActivate : [AuthGuard] },
+  { path: 'users/:distributionId', component: UsersComponent, canActivate : [AuthGuard] },
   { path: 'users/create', component: CreateuserComponent, canActivate : [AuthGuard] },
   { path: 'users/update/:id', component: ModifyuserComponent, canActivate : [AuthGuard] },
   { path: 'settingUser/:id', component: SettingofuserComponent, canActivate : [AuthGuard] },

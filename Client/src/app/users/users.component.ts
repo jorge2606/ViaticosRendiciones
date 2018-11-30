@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { User } from './users';
 import { DistributionService } from '../_services/distribution.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -14,10 +15,8 @@ import { DistributionService } from '../_services/distribution.service';
 })
 
 export class UsersComponent implements OnInit {
-  // page = 0;
-  filters = { page: 0 }
+  filters = { page: 0, distributionId: null }
   user_list: User[];
-  filter: User[];
   roles_list: Roles;
   col_size: number;
   itemsPerPage: number = 10;
@@ -26,19 +25,30 @@ export class UsersComponent implements OnInit {
   displayedColumns = ['dni', 'userName'];
   changeRolDto = new RoleUserDto();
 
-  constructor(private var_user_service: UserService, private modalService: NgbModal,
-    private distributionService: DistributionService) { }
 
-  ngOnInit() {
-    this.getAllUsers(this.filters);
-    this.distributionService.allDistribution().subscribe(
-      x => {
-        this.distributions = x;
-      }
-    );
-  }
+  constructor(private var_user_service: UserService, 
+              private modalService: NgbModal,
+              private distributionService: DistributionService,
+              private route: ActivatedRoute) {}
 
-  loadPage(page: number) {
+
+    ngOnInit() {
+
+      //le asigno el id que extraigo de la url
+      this.route.params.subscribe(
+        p => this.filters.distributionId = p.distributionId
+      );
+        
+      this.distributionService.allDistribution().subscribe(
+        x => {
+          this.distributions = x;
+          this.getAllUsers(this.filters);
+        }
+      );
+
+    }
+
+    loadPage(page: number) {
     if (this.filters.page > 0) {
       this.filters.page = this.filters.page - 1;
       this.getAllUsers(this.filters);
@@ -51,6 +61,7 @@ export class UsersComponent implements OnInit {
 
   getAllUsers(filters: any): void {
     this.var_user_service.getPaginator(filters).subscribe(result => {
+      console.log(result);
       this.user_list = result.list
       this.col_size = result.totalRecords
     });
@@ -75,9 +86,6 @@ export class UsersComponent implements OnInit {
       () => {
         console.log('Backdrop click');
       })
-  }
-
-  findUsers(distributionId: number) {
   }
 
 

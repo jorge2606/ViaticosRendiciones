@@ -47,7 +47,9 @@ export class NavarComponent implements OnInit {
     
     this.isLogged = this.authService.isLoggedIn;
     
-    this.messaBetweenComp.getMessage().subscribe( () => this.urlImage = this.authService.urlFile(this.idUser, 25, 25) + "r=" + (Math.random() * 100) + 1 );
+    this.messaBetweenComp.getMessage().subscribe( 
+      () => this.urlImage = this.authService.urlFile(this.idUser, 25, 25) + "r=" + (Math.random() * 100) + 1 
+    );
     
     if (!this.urlImage){
       this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1;

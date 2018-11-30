@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,14 @@ namespace VR.Web.Controllers
     {
         private readonly IDistributionService _distributionService;
         private readonly DataContext _dataContext;
+        private readonly IMapper _mapper;
 
         public DistributionController(IDistributionService distributionService,
-            DataContext dataContext)
+            DataContext dataContext, IMapper mapper)
         {
             _distributionService = distributionService;
             _dataContext = dataContext;
+            _mapper = mapper;
         }
 
         [HttpPost("CreateDistribution")]
@@ -81,15 +84,28 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-
-        public IQueryable<Distribution> queryableUser()
+        [HttpGet("AllDistributions")]
+        public IActionResult AllDistribution()
         {
-            var Paginator = _dataContext.Distributions.OrderBy(x => x.Id);
+            var result = _distributionService.AllDistribution();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+
+        }
+
+
+        public IQueryable<AllDistributionDto> queryableUser()
+        {
+            var Paginator = _dataContext.Distributions.Select( x=> _mapper.Map<AllDistributionDto>(x)).OrderBy(x => x.Id);
             return Paginator;
         }
 
         [HttpGet("page/{page}")]
-        public PagedResult<Distribution> userPagination(int? page)
+        public PagedResult<AllDistributionDto> userPagination(int? page)
         {
             const int pageSize = 10;
             var queryPaginator = queryableUser();
@@ -97,7 +113,12 @@ namespace VR.Web.Controllers
             var result = queryPaginator.Skip((page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            return new PagedResult<Distribution>
+            foreach (var distribution in result)
+            {
+                distribution.Organism = _dataContext.Organisms.FirstOrDefault(x => x.Id == distribution.OrganismId);
+                distribution.Users = _dataContext.Users.Where(x => x.DistributionId == distribution.Id).ToList();
+            }
+            return new PagedResult<AllDistributionDto>
             {
                 List = result,
                 TotalRecords = queryPaginator.Count()

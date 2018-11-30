@@ -11,6 +11,7 @@ namespace VR.Service.Interfaces
         ServiceResult<CreateDistributionDto> CreateDistribution(CreateDistributionDto categoryDto);
         ServiceResult<UpdateDistributionDto> UpdateDistribution(UpdateDistributionDto categoryDto);
         ServiceResult<DeleteDistributionDto> DeleteDistribution(Guid distributionId);
+        ServiceResult<List<AllDistributionDto>> AllDistribution();
         ServiceResult<FindByIdDistributionDto> FindByIdDistribution(Guid id);
     }
 }

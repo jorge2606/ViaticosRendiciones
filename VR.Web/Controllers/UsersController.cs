@@ -9,9 +9,11 @@ using VR.Web.Helpers;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
+using VR.Dto.User;
 using VR.Service.Interfaces;
 
 namespace VR.Web.Controllers
@@ -24,7 +26,7 @@ namespace VR.Web.Controllers
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        
+
         public UserController(DataContext context, IUserService userService, IConfiguration configuration,
             IMapper mapper)
         {
@@ -107,11 +109,11 @@ namespace VR.Web.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]SaveUserDto userDto)
         {
-           var result = await _userService.Register(userDto);
+            var result = await _userService.Register(userDto);
 
             if (!result.IsSuccess)
             {
-               return BadRequest(result);
+                return BadRequest(result);
             }
 
             /* UserAuthenticationDto ObjToken = new UserAuthenticationDto
@@ -177,7 +179,7 @@ namespace VR.Web.Controllers
             await _userService.UpdateProfileAsAdmin(userDto);
             return Ok();
         }
-        
+
         [HttpPut("UpdateMyProfile")]
         public async Task<IActionResult> UpdateMyProfile([FromBody]UpdateMyProfile userDto)
         {
@@ -192,25 +194,39 @@ namespace VR.Web.Controllers
             return Ok();
         }
 
-        public IQueryable<User> queryableUser()
+        public IQueryable<AllUserDto> queryableUser()
         {
-            var usersPaginator = _context.Users.OrderBy(x => x.UserName);
+            var usersPaginator = _context.Users.Select(x => _mapper.Map<AllUserDto>(x)).OrderBy(x => x.UserName);
             return usersPaginator;
         }
-
-        [HttpGet("page/{page}")]
-        public PagedResult<User> userPagination(int? page)
+        
+        [HttpGet("page")]
+        [AllowAnonymous]
+        public PagedResult<AllUserDto> userPagination([FromQuery] UserFilterDto filters)
         {
             const int pageSize = 10;
             var queryPaginator = queryableUser();
 
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
+            var result = queryPaginator.Where(
+                 x =>  
+                ( !filters.DistributionId.HasValue || filters.DistributionId == x.DistributionId) 
+                   &&
+                ( string.IsNullOrEmpty(filters.Username) || filters.Username == x.UserName )
+                   &&
+                ( filters.Dni == 0 || filters.Dni == x.Dni)
+                )
+                .Skip((filters.Page ?? 0) * pageSize)
                                           .Take(pageSize)
                                           .ToList();
-            return new PagedResult<User>
+            foreach (var user in result)
+            {
+                user.Distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
+            }
+            return new PagedResult<AllUserDto>
             {
                 List = result,
-                TotalRecords = queryPaginator.Count()
+                TotalRecords = result.Count()
+
             };
         }
     }
