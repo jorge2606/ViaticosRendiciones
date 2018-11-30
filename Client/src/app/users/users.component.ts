@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class UsersComponent implements OnInit {
-  filters = { page: 0, distributionId: null, dni : 0 }
+  filters = { page: 0, distributionId: null, dni : "" }
   user_list: User[];
   roles_list: Roles;
   col_size: number;
