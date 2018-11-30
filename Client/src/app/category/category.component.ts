@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CategoryComponent implements OnInit {
 
+  filters = { page: 0, name: "" }
   //paginator
   col_size : number;
   page = 0;
@@ -20,17 +21,18 @@ export class CategoryComponent implements OnInit {
   constructor(private categoryService : CategoryService, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.getAllUsers(this.page); 
+    this.getAllCategories(this.filters); 
   }
 
   loadPage(page : number){
-    if (page != 0){
-      this.getAllUsers(page-1);
+    if (this.filters.page > 0){
+      this.filters.page = this.filters.page - 1;
+      this.getAllCategories(this.filters);
     }
   }
 
-  getAllUsers(page : number){
-    this.categoryService.getPaginator(page).subscribe(
+  getAllCategories(filters : any){
+    this.categoryService.getPaginator(filters).subscribe(
       result => {
         this.categories = result.list,
         this.col_size = result.totalRecords
@@ -50,7 +52,7 @@ export class CategoryComponent implements OnInit {
     modalRef.result.then(() => {
       this.categoryService.deleteCategory(idCategory).subscribe(
         data => {
-            this.getAllUsers(this.page);
+            this.getAllCategories(this.filters);
         },
         error => {
             console.log("error", error);
@@ -60,6 +62,10 @@ export class CategoryComponent implements OnInit {
       () => {
         console.log('Backdrop click');
     })
+  }
+
+  findWhileWrite(){
+    this.getAllCategories(this.filters);
   }
 
 }

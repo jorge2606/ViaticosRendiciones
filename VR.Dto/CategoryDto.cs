@@ -35,4 +35,10 @@ namespace VR.Dto
     public class DeleteCategoryDto : CategoryBaseDto { }
 
     public class FindByIdCategoryDto : CategoryBaseDto { }
+
+    public class FilterCategoryDto
+    {
+        public int? Page { set; get; }
+        public string Name { set; get; }
+    }
 }

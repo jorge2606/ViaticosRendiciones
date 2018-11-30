@@ -14,8 +14,8 @@ export class CategoryService {
       return this.http.post<CreateCategoryDto>('http://localhost:63098/api/Category/CreateCategory', createCategoryDto);
   }
 
-  getPaginator(page: number) {
-    return this.http.get<any>('http://localhost:63098/api/Category/page/' + page);
+  getPaginator(filters: any) {
+    return this.http.get<any>('http://localhost:63098/api/Category/page/', {params: filters});
   }
 
   deleteCategory(idCategory : number){

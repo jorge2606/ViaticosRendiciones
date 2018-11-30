@@ -201,7 +201,6 @@ namespace VR.Web.Controllers
         }
         
         [HttpGet("page")]
-        [AllowAnonymous]
         public PagedResult<AllUserDto> userPagination([FromQuery] UserFilterDto filters)
         {
             const int pageSize = 10;

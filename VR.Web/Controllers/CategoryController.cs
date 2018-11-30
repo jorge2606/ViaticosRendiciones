@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VR.Data;
@@ -20,12 +21,15 @@ namespace VR.Web.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly DataContext _dataContext;
-
-        public CategoryController(ICategoryService categoryService,
-            DataContext dataContext)
+        private readonly IMapper _mapper;
+        public CategoryController(
+                ICategoryService categoryService,
+                DataContext dataContext,
+                IMapper mapper)
         {
             _categoryService = categoryService;
             _dataContext = dataContext;
+            _mapper = mapper;
         }
         // GET: api/<controller>
         [HttpGet("FindByIdCategory/{idCategory}")]
@@ -83,22 +87,24 @@ namespace VR.Web.Controllers
             return Ok(response.Response);
         }
 
-        public IQueryable<Category> queryableUser()
+        public IQueryable<AllCategoryDto> queryableUser()
         {
-            var Paginator = _dataContext.Categories.OrderBy(x => x.Id);
+            var Paginator = _dataContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x) ).OrderBy(x => x.Id);
             return Paginator;
         }
 
-        [HttpGet("page/{page}")]
-        public PagedResult<Category> userPagination(int? page)
+        [HttpGet("page")]
+        public PagedResult<AllCategoryDto> userPagination([FromQuery] FilterCategoryDto filters)
         {
             const int pageSize = 10;
             var queryPaginator = queryableUser();
 
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
+            var result = queryPaginator.Where(
+                  x=> string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper())
+                 ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            return new PagedResult<Category>
+            return new PagedResult<AllCategoryDto>
             {
                 List = result,
                 TotalRecords = queryPaginator.Count()
