@@ -5,6 +5,7 @@ import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganismBaseDto } from '../_models/organism';
 import { Router } from '@angular/router';
+import { OrganismService } from '../_services/organism.service';
 
 @Component({
   selector: 'app-distributions',
@@ -13,22 +14,31 @@ import { Router } from '@angular/router';
 })
 export class DistributionsComponent implements OnInit {
 
+  organisms : any[];
+  filters = { page: 0, name : "", organismId: "" }
   //paginator
   col_size : number;
   page = 0;
   itemsPerPage : number = 10;
   //
   distribution : DistributionBaseDto[];
-  constructor(private distributionService : DistributionService,
+  constructor(
+              private distributionService : DistributionService,
               private modalService: NgbModal,
-              private router: Router) { }
+              private organismService : OrganismService) { }
 
   ngOnInit() {
-    this.getAllDistributions(this.page); 
+    this.organismService.getAllOrganism().subscribe(
+      x =>{
+          this.organisms = x;
+          this.getAllDistributions(this.filters); 
+      } 
+    );
+    
   }
 
-  getAllDistributions(page : number){
-    this.distributionService.getPaginator(page).subscribe(
+  getAllDistributions(filters : any){
+    this.distributionService.getPaginator(filters).subscribe(
       result => {
         this.distribution = result.list,
         this.col_size = result.totalRecords
@@ -38,9 +48,10 @@ export class DistributionsComponent implements OnInit {
 
   }
 
-  loadPage(page : number){
-    if (page != 0){
-      this.getAllDistributions(page-1);
+  loadPage(){
+    if (this.filters.page > 0){
+      this.filters.page = this.filters.page - 1;
+      this.getAllDistributions(this.filters);
     }
   }
 
@@ -54,8 +65,8 @@ export class DistributionsComponent implements OnInit {
     modalRef.componentInstance.MsgClose = "Cancelar";
     modalRef.result.then(() => {
       this.distributionService.deleteDistribution(distributionId).subscribe(
-        data => {
-            this.getAllDistributions(this.page);
+        () => {
+          this.getAllDistributions(this.filters);
         },
         error => {
             console.log("error", error);
@@ -79,6 +90,14 @@ export class DistributionsComponent implements OnInit {
         console.log('Backdrop click');
     })
 
+  }
+
+  findWhileWrite(){
+    this.getAllDistributions(this.filters);
+  }
+
+  filterList(){
+    this.getAllDistributions(this.filters);
   }
 
 }

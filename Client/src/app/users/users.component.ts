@@ -32,20 +32,20 @@ export class UsersComponent implements OnInit {
               private route: ActivatedRoute) {}
 
 
-    ngOnInit() {
-      //le asigno el id que extraigo de la url
-      this.route.params.subscribe(
-        p => this.filters.distributionId = p.distributionId
-      );
-        
-      this.distributionService.allDistribution().subscribe(
-        x => {
-          this.distributions = x;
-          this.getAllUsers(this.filters);
-        }
-      );
+  ngOnInit() {
+    //le asigno el id que extraigo de la url
+    this.route.params.subscribe(
+      p => this.filters.distributionId = p.distributionId
+    );
+      
+    this.distributionService.allDistribution().subscribe(
+      x => {
+        this.distributions = x;
+        this.getAllUsers(this.filters);
+      }
+    );
 
-    }
+  }
 
     loadPage(page: number) {
     if (this.filters.page > 0) {

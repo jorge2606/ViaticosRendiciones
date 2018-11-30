@@ -104,13 +104,18 @@ namespace VR.Web.Controllers
             return Paginator;
         }
 
-        [HttpGet("page/{page}")]
-        public PagedResult<AllDistributionDto> userPagination(int? page)
+        [HttpGet("page")]
+        public PagedResult<AllDistributionDto> userPagination([FromQuery] FilterDistributionDto filters)
         {
             const int pageSize = 10;
             var queryPaginator = queryableUser();
 
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
+            var result = queryPaginator.
+                Where( 
+                   x => (string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper()))
+                         &&
+                        (!filters.OrganismId.HasValue || x.OrganismId == filters.OrganismId)
+                ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
             foreach (var distribution in result)

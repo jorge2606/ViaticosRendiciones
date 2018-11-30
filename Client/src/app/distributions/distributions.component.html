@@ -1,3 +1,20 @@
+<div class="container mb-1" >
+	<label class="d-inline-block pl-1" for="">Organismos </label>
+	<div class="d-inline-block pl-1">
+		<select  (change)="filterList()" [(ngModel)]="filters.organismId" class="form-control d-inline-block pl-1">
+			<option value=""></option>
+			<option *ngFor="let org of organisms" value="{{org.id}}">
+				{{org.name}}
+			</option>
+		</select>
+	</div>
+
+	<label class="d-inline-block pl-1 pr-1" for="">Name </label>
+	<div class="d-inline-block pl-1 pr-1">
+		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
+	</div>
+</div>
+
 <a href="" class="btn btn-success mb-3" routerLink="create">
 	<fa-icon icon="user-plus"></fa-icon>
 </a>

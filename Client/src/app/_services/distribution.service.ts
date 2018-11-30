@@ -9,8 +9,8 @@ export class DistributionService {
 
   constructor(private http: HttpClient) { }
 
-  getPaginator(page: number) {
-    return this.http.get<any>('http://localhost:63098/api/Distribution/page/' + page);
+  getPaginator(filters: any) {
+    return this.http.get<any>('http://localhost:63098/api/Distribution/page/',{params : filters});
   }
 
   allDistribution(){
