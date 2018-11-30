@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class UsersComponent implements OnInit {
-  filters = { page: 0, distributionId: null }
+  filters = { page: 0, distributionId: null, dni : 0 }
   user_list: User[];
   roles_list: Roles;
   col_size: number;
@@ -33,7 +33,6 @@ export class UsersComponent implements OnInit {
 
 
     ngOnInit() {
-
       //le asigno el id que extraigo de la url
       this.route.params.subscribe(
         p => this.filters.distributionId = p.distributionId
@@ -59,9 +58,12 @@ export class UsersComponent implements OnInit {
     this.getAllUsers(this.filters);
   }
 
+  findWhileWrite(){
+    this.getAllUsers(this.filters);
+  }
+
   getAllUsers(filters: any): void {
     this.var_user_service.getPaginator(filters).subscribe(result => {
-      console.log(result);
       this.user_list = result.list
       this.col_size = result.totalRecords
     });

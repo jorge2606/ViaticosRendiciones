@@ -209,11 +209,11 @@ namespace VR.Web.Controllers
 
             var result = queryPaginator.Where(
                  x =>  
-                ( !filters.DistributionId.HasValue || filters.DistributionId == x.DistributionId) 
+                ( !filters.DistributionId.HasValue || x.DistributionId.ToString().ToUpper().Contains(filters.DistributionId.ToString().ToUpper())) 
                    &&
-                ( string.IsNullOrEmpty(filters.Username) || filters.Username == x.UserName )
+                ( string.IsNullOrEmpty(filters.Username) || x.UserName.ToUpper().Contains(filters.Username.ToUpper()))
                    &&
-                ( filters.Dni == 0 || filters.Dni == x.Dni)
+                ( filters.Dni == 0 || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
                 )
                 .Skip((filters.Page ?? 0) * pageSize)
                                           .Take(pageSize)

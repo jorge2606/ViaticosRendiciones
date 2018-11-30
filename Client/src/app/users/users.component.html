@@ -11,12 +11,12 @@
 		
 		<label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
 		<div class="d-inline-block pl-1 pr-1">
-			<input [(ngModel)]="filters.dni"  type="text" class="form-control">
+			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.dni"  type="text" class="form-control">
 		</div>
 
 		<label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
 		<div class="d-inline-block pl-1 pr-1">
-			<input [(ngModel)]="filters.userName"  type="text" class="form-control">
+			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.userName" type="text" class="form-control">
 		</div>
 
 		<div class="d-inline-block pl-1 pr-1">
