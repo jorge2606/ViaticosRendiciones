@@ -10,12 +10,12 @@ namespace VR.Dto
     {
         public DistributionValidator()
         {
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Descripción no debería estar vacío.");
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Nombre no debería estar vacío.");
-            RuleFor(x => x.Name).MinimumLength(5);
-            RuleFor(x => x.Description).MinimumLength(5);
-            RuleFor(x => x.Name).MaximumLength(100);
-            RuleFor(x => x.Description).MaximumLength(100);
+            RuleFor(x => x.Description).NotEmpty().WithName("Descripción");
+            RuleFor(x => x.Name).NotEmpty().WithName("Nombre");
+            RuleFor(x => x.Name).MinimumLength(5).WithName("Nombre");
+            RuleFor(x => x.Description).MinimumLength(5).WithName("Nombre");
+            RuleFor(x => x.Name).MaximumLength(100).WithName("Nombre");
+            RuleFor(x => x.Description).MaximumLength(100).WithName("Descripción");
         }
     }
 

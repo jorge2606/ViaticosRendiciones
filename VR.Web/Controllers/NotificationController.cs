@@ -36,7 +36,7 @@ namespace VR.Web.Controllers
             return new PagedResult<NotificationDto>
             {
                 List = _mapper.Map<List<NotificationDto>>(result),
-                TotalRecords = queryPaginator.Count()
+                TotalRecords = result.Count()
             };
         }
 

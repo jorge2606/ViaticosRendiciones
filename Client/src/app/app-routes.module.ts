@@ -1,3 +1,4 @@
+import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitation-subsidy.component';
 import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { CreateExpenditureComponent } from './expenditures/create/create-expenditure.component';
 import { ModifyTransportComponent } from './transports/modify/modify-transport.component';
@@ -35,8 +36,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'users', component: UsersComponent, canActivate : [AuthGuard] },
-  { path: 'users/:distributionId', component: UsersComponent, canActivate : [AuthGuard] },
   { path: 'users/create', component: CreateuserComponent, canActivate : [AuthGuard] },
+  { path: 'users/:distributionId', component: UsersComponent, canActivate : [AuthGuard] },
   { path: 'users/update/:id', component: ModifyuserComponent, canActivate : [AuthGuard] },
   { path: 'settingUser/:id', component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
@@ -49,8 +50,8 @@ const routes: Routes = [
   { path: 'category/create', component : CreateCategoryComponent},
   { path: 'category/update/:id', component : ModifyCategoryComponent, canActivate : [AuthGuard]},
   { path: 'distribution', component : DistributionsComponent, canActivate : [AuthGuard]},
-  { path: 'distribution/:organismId', component : DistributionsComponent, canActivate : [AuthGuard]},
   { path: 'distribution/create', component : CreateDistributionsComponent, canActivate : [AuthGuard]},
+  { path: 'distribution/:organismId', component : DistributionsComponent, canActivate : [AuthGuard]},
   { path: 'distribution/update/:id', component : ModifyDistributionComponent, canActivate : [AuthGuard]},
   { path: 'transport', component : TransportsComponent, canActivate : [AuthGuard]},
   { path: 'transport/create', component : CreateTransportComponent, canActivate : [AuthGuard]},
@@ -61,6 +62,8 @@ const routes: Routes = [
   { path: 'organism', component : OrganismsComponent, canActivate : [AuthGuard]},
   { path: 'organism/create', component : CreateOrganismComponent, canActivate : [AuthGuard]},
   { path: 'organism/update/:id', component : ModifyOrganismComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy', component : SolicitationSubsidyComponent, canActivate : [AuthGuard]},
+  
   
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

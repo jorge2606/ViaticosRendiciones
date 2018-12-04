@@ -11,16 +11,15 @@ import { DistributionBaseDto } from 'src/app/_models/distributions';
 })
 export class CreateuserComponent implements OnInit {
 
-  constructor(private UserService : UserService, private rolService : RoleService,
-    private distributionService : DistributionService) {}
   model = new createUser();
   distribution : DistributionBaseDto[];
-  errors = [];
+  errors : any;
+
+  constructor(private UserService : UserService, private rolService : RoleService,
+    private distributionService : DistributionService) {}
 
 
-  addUser(){
-    console.log(this.model);
-    
+  addUser(){    
     this.UserService.createWithObjectUser(this.model).subscribe(
       data => {
           console.log("POST Request is successful ", data);

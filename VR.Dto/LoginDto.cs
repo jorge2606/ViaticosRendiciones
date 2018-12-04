@@ -11,8 +11,8 @@ namespace VR.Dto
     {
         public LoginValidator()
         {
-            RuleFor(x => x.Usuario).NotEmpty().WithMessage("Usuario no debería estar vacío.");
-            RuleFor(x => x.Password).NotEmpty().WithMessage("Contraseña no debería estar vacío.");
+            RuleFor(x => x.Usuario).NotEmpty().WithName("Usuario");
+            RuleFor(x => x.Password).NotEmpty().WithName("Contraseña");
         }
     }
 

@@ -50,6 +50,7 @@ import { UpdateExpenditureComponent } from './expenditures/update/update-expendi
 import { OrganismsComponent } from './organisms/organisms.component';
 import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
+import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitation-subsidy.component';
 
 
 library.add(fas);
@@ -91,6 +92,7 @@ library.add(fas);
     OrganismsComponent,
     CreateOrganismComponent,
     ModifyOrganismComponent,
+    SolicitationSubsidyComponent,
   ],
   imports: [
     BrowserModule,

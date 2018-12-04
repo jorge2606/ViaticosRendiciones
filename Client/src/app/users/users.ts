@@ -1,4 +1,5 @@
 import { DistributionBaseDto } from 'src/app/_models/distributions';
+
 export class User{
   id : number;
   dni: number;

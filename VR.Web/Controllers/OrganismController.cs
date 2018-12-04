@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VR.Data;
@@ -18,11 +19,15 @@ namespace VR.Web.Controllers
     {
         private readonly DataContext _context;
         private readonly IOrganismService _organismService;
+        private readonly IMapper _mapper;
      
-        public OrganismController(DataContext context, IOrganismService organismService)
+        public OrganismController(DataContext context, 
+                                  IOrganismService organismService,
+                                  IMapper mapper)
         {
             _context = context;
             _organismService = organismService;
+            _mapper = mapper;  
         }
 
         [HttpPut("Update")]
@@ -89,25 +94,28 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-        public IQueryable<Organism> queryableUser()
+        public IQueryable<GetallOrganismDto> queryableUser()
         {
-            var usersPaginator = _context.Organisms.OrderBy(x => x.Name);
+            var usersPaginator = _context.Organisms.Select(x => _mapper.Map<GetallOrganismDto>(x) ).OrderBy(x => x.Name);
             return usersPaginator;
         }
 
-        [HttpGet("page/{page}")]
-        public PagedResult<Organism> userPagination(int? page)
+        [HttpGet("page")]
+        public PagedResult<GetallOrganismDto> userPagination([FromQuery] FilterOrganismDto filters)
         {
             const int pageSize = 10;
             var queryPaginator = queryableUser();
 
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
+            var result = queryPaginator.Where(
+                   x => 
+                       ( string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper()) ) 
+                    ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            return new PagedResult<Organism>
+            return new PagedResult<GetallOrganismDto>
             {
                 List = result,
-                TotalRecords = queryPaginator.Count()
+                TotalRecords = result.Count()
             };
         }
     }

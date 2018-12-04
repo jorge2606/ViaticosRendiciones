@@ -21,5 +21,9 @@ namespace VR.Data
         public virtual DbSet<Transport> Transports { get; set; }
         public virtual DbSet<Expenditure> Expenditures { get; set; }
         public virtual DbSet<Organism> Organisms { get; set; }
+        public virtual DbSet<Place> Places { get; set; }
+        public virtual DbSet<Destinity> Destinities { get; set; }
+        public virtual DbSet<Motive> Motives { get; set; }
+        public virtual DbSet<SolicitationSubsidy> SolicitationSubsidies { get; set; }
     }
 }

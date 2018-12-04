@@ -34,6 +34,7 @@ namespace VR.Service.Services
         private readonly IMapper _mapper;
         private readonly IValidator<SaveUserDto> _fluentValidatorUser;
         private readonly IValidator<LoginDto> _fluentValidatorLogin;
+        private readonly IValidator<CreateUserDto> _fluentValidatorCreateUser;
         private readonly SignInManager _signInManager;
 
         public UserService(DataContext context,
@@ -46,7 +47,8 @@ namespace VR.Service.Services
             IFileService fileService,
             IMapper mapper,
             IValidator<SaveUserDto> fluentValidatorUser,
-            IValidator<LoginDto> fluentValidatorLogin)
+            IValidator<LoginDto> fluentValidatorLogin,
+            IValidator<CreateUserDto> fluentValidatorCreateUser)
         {
             _context = context;
             _userManager = userManager;
@@ -58,6 +60,7 @@ namespace VR.Service.Services
             _mapper = mapper;
             _fluentValidatorUser = fluentValidatorUser;
             _fluentValidatorLogin = fluentValidatorLogin;
+            _fluentValidatorCreateUser = fluentValidatorCreateUser;
         }
 
         private IConfiguration _configuration { get; }
@@ -220,8 +223,14 @@ namespace VR.Service.Services
             _context.SaveChanges();
         }
 
-        public async Task<ServiceResult<string>> CreateAsync(CreateUserDto user)
+        public async Task<ServiceResult<CreateUserDto>> CreateAsync(CreateUserDto user)
         {
+            var valid = _fluentValidatorCreateUser.Validate(user);
+
+            if (!valid.IsValid)
+            {
+                return _mapper.Map<ServiceResult<CreateUserDto>>(valid.ToServiceResult<CreateUserDto>(null));
+            }
 
             var distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
             var NewUser = new User
@@ -243,7 +252,7 @@ namespace VR.Service.Services
 
                 if (!result.Succeeded)
                 {
-                    return result.ToServiceResult<string>(null);
+                    return result.ToServiceResult<CreateUserDto>(null);
                 }
             }
 
@@ -261,7 +270,7 @@ namespace VR.Service.Services
                 await UpdateUserRoleWhenModify(NewUser.Id, role.Id, role.RolBelongUser);
             }
 
-            return new ServiceResult<string>(NewUser.ToString());
+            return new ServiceResult<CreateUserDto>(user);
         }
 
         //Create JWToken

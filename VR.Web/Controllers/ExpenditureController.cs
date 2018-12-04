@@ -96,7 +96,7 @@ namespace VR.Web.Controllers
             return new PagedResult<Expenditure>
             {
                 List = result,
-                TotalRecords = queryPaginator.Count()
+                TotalRecords = result.Count()
             };
         }
     }

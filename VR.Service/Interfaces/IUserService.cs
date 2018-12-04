@@ -12,7 +12,7 @@ namespace VR.Service.Interfaces
         Task<ServiceResult<UserDto>> Authenticate(LoginDto p_LoginDto);
         Task UpdateMyProfile(UpdateMyProfile user);
         Task UpdateProfileAsAdmin(UpdateProfileAsAdmin user);
-        Task<ServiceResult<string>> CreateAsync(CreateUserDto user);
+        Task<ServiceResult<CreateUserDto>> CreateAsync(CreateUserDto user);
         void Delete(Guid id);
         Task<ServiceResult<UserDto>> Register(SaveUserDto model);
         Task UpdateUserRole(Guid idUser, Guid id);

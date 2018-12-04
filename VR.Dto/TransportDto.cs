@@ -10,21 +10,29 @@ namespace VR.Dto
     {
         public TransportValidator()
         {
-            RuleFor(x => x.Brand).NotEmpty().WithMessage("Marca no debería estar vacío.");
-            RuleFor(x => x.Brand).MinimumLength(5);
-            RuleFor(x => x.Brand).MaximumLength(100);
+            RuleFor(x => x.Brand)
+                .NotEmpty()
+                .MinimumLength(5)
+                .MaximumLength(100)
+                .WithName("Marca");
 
-            RuleFor(x => x.Type).NotEmpty().WithMessage("Tipo no debería estar vacío.");
-            RuleFor(x => x.Type).MinimumLength(5);
-            RuleFor(x => x.Type).MaximumLength(100);
+            RuleFor(x => x.Type)
+                .NotEmpty()
+                .MinimumLength(5)
+                .MaximumLength(100)
+                .WithName("Tipo");
 
-            RuleFor(x => x.Model).NotEmpty().WithMessage("Modelo no debería estar vacío.");
-            RuleFor(x => x.Model).MinimumLength(5);
-            RuleFor(x => x.Model).MaximumLength(100);
+            RuleFor(x => x.Model)
+                .NotEmpty()
+                .MinimumLength(5)
+                .MaximumLength(100)
+                .WithName("Modelo");
 
-            RuleFor(x => x.CarPlate).NotEmpty().WithMessage("Patente no debería estar vacío.");
-            RuleFor(x => x.CarPlate).MinimumLength(5);
-            RuleFor(x => x.CarPlate).MaximumLength(100);
+            RuleFor(x => x.CarPlate)
+                .NotEmpty()
+                .MinimumLength(5)
+                .MaximumLength(100)
+                .WithName("Patente");
 
         }
     }

@@ -1,0 +1,40 @@
+<table class="table table-hover">
+<thead>
+  <tr style="font-weight: bold;">
+    <td>Lugar</td>
+    <td>Transporte</td>
+    <td>Destino</td>
+    <td>Usuario</td>
+    <td>Imprevisto</td>
+    <td>Movildad</td>
+    <td>Combustible</td>
+    <td>Comunicación</td>
+    <td>Accción<td>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let sol of solicitationSubsidies">
+    <td>{{sol.place.description}}</td>
+    <td>{{sol.transport.type}}</td>
+    <td>{{sol.destinity.description}}</td>
+    <td>{{sol.user.userName}}</td>
+    <td>{{sol.unexpectedCircumstance}}</td>
+    <td>{{sol.costMobility}}</td>
+    <td>{{sol.costFuel}}</td>
+    <td>{{sol.costCommunication}}</td>
+    <td>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="pr-3" routerLink="/users/update/{{sol.id}}">
+          <fa-icon style="color:gray;" icon="edit"></fa-icon>
+        </a>
+        <a routerLink="/users" (click)="openEliminar(sol.id,sol.costMobility,sol.costMobility)">
+          <fa-icon style="color:red;" icon="trash"></fa-icon>
+        </a>
+      </div>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
+aria-label="Default pagination"></ngb-pagination>

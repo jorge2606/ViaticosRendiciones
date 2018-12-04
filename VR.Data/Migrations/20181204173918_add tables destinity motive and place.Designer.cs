@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181204173918_add tables destinity motive and place")]
+    partial class addtablesdestinitymotiveandplace
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,44 +278,6 @@ namespace VR.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("VR.Data.Model.SolicitationSubsidy", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("CostCommunication");
-
-                    b.Property<double>("CostFuel");
-
-                    b.Property<double>("CostMobility");
-
-                    b.Property<Guid>("DestinityId");
-
-                    b.Property<Guid>("MotiveId");
-
-                    b.Property<Guid>("PlaceId");
-
-                    b.Property<Guid>("TransportId");
-
-                    b.Property<double>("UnexpectedCircumstance");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DestinityId");
-
-                    b.HasIndex("MotiveId");
-
-                    b.HasIndex("PlaceId");
-
-                    b.HasIndex("TransportId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SolicitationSubsidies");
-                });
-
             modelBuilder.Entity("VR.Data.Model.Transport", b =>
                 {
                     b.Property<Guid>("Id")
@@ -439,34 +403,6 @@ namespace VR.Data.Migrations
                     b.HasOne("VR.Data.Model.Organism", "Organism")
                         .WithMany("Distributions")
                         .HasForeignKey("OrganismId");
-                });
-
-            modelBuilder.Entity("VR.Data.Model.SolicitationSubsidy", b =>
-                {
-                    b.HasOne("VR.Data.Model.Destinity", "Destinity")
-                        .WithMany()
-                        .HasForeignKey("DestinityId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.Motive", "Motive")
-                        .WithMany()
-                        .HasForeignKey("MotiveId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.Place", "Place")
-                        .WithMany()
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.Transport", "Transport")
-                        .WithMany()
-                        .HasForeignKey("TransportId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("VR.Data.Model.User", b =>

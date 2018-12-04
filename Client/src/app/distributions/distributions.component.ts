@@ -15,7 +15,7 @@ import { OrganismService } from '../_services/organism.service';
 export class DistributionsComponent implements OnInit {
 
   organisms : any[];
-  filters = { page: 0, name : "", organismId: null }
+  filters = { page: 0, name : "", organismId: "" }
   //paginator
   col_size : number;
   page = 0;
@@ -30,7 +30,7 @@ export class DistributionsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(
-      p => this.filters.organismId = p.organismId
+      p => { if (p.organismId){ this.filters.organismId = p.organismId; } }
     );
     
     this.organismService.getAllOrganism().subscribe(

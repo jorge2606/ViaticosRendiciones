@@ -106,7 +106,7 @@ namespace VR.Web.Controllers
 
         [HttpGet("page")]
         public PagedResult<AllDistributionDto> userPagination([FromQuery] FilterDistributionDto filters)
-        {
+        {       
             const int pageSize = 10;
             var queryPaginator = queryableUser();
 
@@ -126,7 +126,7 @@ namespace VR.Web.Controllers
             return new PagedResult<AllDistributionDto>
             {
                 List = result,
-                TotalRecords = queryPaginator.Count()
+                TotalRecords = result.Count()
             };
         }
     }

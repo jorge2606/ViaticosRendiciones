@@ -9,12 +9,12 @@ namespace VR.Dto
     {
         public OrganismValidator()
         {
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Descripción no debería estar vacío.");
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Nombre no debería estar vacío.");
-            RuleFor(x => x.Name).MinimumLength(5);
-            RuleFor(x => x.Description).MinimumLength(5);
-            RuleFor(x => x.Name).MaximumLength(100);
-            RuleFor(x => x.Description).MaximumLength(100);
+            RuleFor(x => x.Description).NotEmpty().WithName("Descripción");
+            RuleFor(x => x.Name).NotEmpty().WithName("Nombre");
+            RuleFor(x => x.Name).MinimumLength(5).WithName("Nombre");
+            RuleFor(x => x.Description).MinimumLength(5).WithName("Descripción");
+            RuleFor(x => x.Name).MaximumLength(100).WithName("Nombre");
+            RuleFor(x => x.Description).MaximumLength(100).WithName("Descripción");
         }
     }
 
@@ -34,6 +34,12 @@ namespace VR.Dto
     public class FindByIdOrganismDto : OrganismBaseDto { }
 
     public class GetallOrganismDto : OrganismBaseDto { }
+
+    public class FilterOrganismDto
+    {
+        public int? Page { set; get; }
+        public string Name { set; get; }
+    }
 
 
 

@@ -61,6 +61,11 @@
         </div>
 
     </form>
+    <div class="alert alert-danger" *ngIf="errors">
+        <ul *ngFor="let e of errors">
+            <li>{{e.value}}</li>
+        </ul>
+    </div>
     <div style="margin-top: 10px;" *ngIf="userForm.form.invalid">
         Hay Campos erroneos en el formulario, verifiquelos
     </div>

@@ -11,7 +11,7 @@ import { NgbdModalContent } from '../modals/modals.component';
 })
 export class OrganismsComponent implements OnInit {
 
-  filters = { page: 0, name : null}
+  filters = { page: 0, name : ""} 
   organism : CreateOrganismDto[];
   col_size : number;
   itemsPerPage : number = 10;
@@ -33,7 +33,7 @@ export class OrganismsComponent implements OnInit {
     ); 
   }
 
-  loadPage(page : number){
+  loadPage(){
     if (this.filters.page != 0){
       this.filters.page = this.filters.page - 1;
       this.getAllOrganism(this.filters);

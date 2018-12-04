@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,9 @@ using Audit.EntityFramework;
 using Audit.Service.Services;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.Extensions.Options;
 using VR.Common.Extensions;
 using VR.Data;
 using VR.Data.Model;
@@ -40,6 +44,7 @@ namespace VR.Web
     {
 
         private const string _defaultCorsPolicyName = "localhost";
+        private const string enUSCulture = "es-ES";
 
         public Startup(IConfiguration configuration, IServiceProvider serviceProvider)
         {
@@ -52,6 +57,7 @@ namespace VR.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ASPDatabase")));
             services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuditDatabase")));
 
@@ -82,6 +88,7 @@ namespace VR.Web
                     )
                 );
 
+            services.AddLocalization();
             // MVC
             services.AddMvc(
                 options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))
@@ -90,7 +97,8 @@ namespace VR.Web
                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                     fv.ImplicitlyValidateChildProperties = true;
                 }
-            );
+            ).AddViewLocalization()
+             .AddDataAnnotationsLocalization();
 
             //FluentValidation
 
@@ -165,6 +173,7 @@ namespace VR.Web
             services.AddScoped<IDistributionService, DistributionService>();
             services.AddScoped<IExpenditureService, ExpenditureService>();
             services.AddScoped<IOrganismService, OrganismService>();
+            services.AddScoped<ISolicitationSubsidyService, SolicitationSubsidyService>();
 
             //sender Email
             // Add application services.
@@ -179,6 +188,8 @@ namespace VR.Web
             services.AddTransient<IValidator<TransportBaseDto>, TransportValidator>();
             services.AddTransient<IValidator<ExpenditureBaseDto>, ExpenditureValidator>();
             services.AddTransient<IValidator<OrganismBaseDto>, OrganismValidator>();
+            services.AddTransient<IValidator<CreateUserDto>, UserCreateValidator>();
+            services.AddTransient<IValidator<SolicitationSubsidyBaseDto>, SolicitationSubsidyValidator>();
             services.AddDirectoryBrowser();
 
 
@@ -187,6 +198,21 @@ namespace VR.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            var supportedCultures = new[]
+            {
+                new CultureInfo("es-ES"),
+                new CultureInfo("ar")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("es-ES"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            });
+
             app.UseDefaultFiles();
 
             var staticFileDirectory =
@@ -196,6 +222,7 @@ namespace VR.Web
             {
                 Directory.CreateDirectory(staticFileDirectory);
             }
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(staticFileDirectory),
@@ -221,7 +248,7 @@ namespace VR.Web
                 .AllowCredentials());
 
             app.UseAuthentication();
-
+           
             app.UseStaticHttpContext();
 
             app.UseMvc();

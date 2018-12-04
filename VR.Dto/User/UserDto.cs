@@ -23,6 +23,17 @@ namespace VR.Dto.User
         }
     }
 
+    public class UserCreateValidator : AbstractValidator<CreateUserDto>
+    {
+        public UserCreateValidator()
+        {
+            RuleFor(x => x.Dni.ToString()).NotEmpty().MaximumLength(8).WithName("Dni");
+            RuleFor(x => x.UserName).NotEmpty().WithName("Usuario");
+            RuleFor(x => x.Password).NotEmpty().WithName("Contraseña");
+            RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(8).WithName("Telefóno");
+        }
+    }
+
     public class SaveUserDto : UserDto
     {
         [Required]
