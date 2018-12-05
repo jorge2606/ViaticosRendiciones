@@ -17,8 +17,8 @@ namespace VR.Data.Model
         public Guid UserId { set; get; }
         [ForeignKey("Place")]
         public Guid PlaceId { set; get; }
-        [ForeignKey("Destinity")]
-        public Guid DestinityId { set; get; }
+        [ForeignKey("Destiny")]
+        public Guid DestinyId { set; get; }
         [ForeignKey("Transport")]
         public Guid TransportId { set; get; }
         [ForeignKey("Motive")]
@@ -27,7 +27,7 @@ namespace VR.Data.Model
         public User User { set; get; }
         public Transport Transport { set; get; }
         public Place Place { set; get; }
-        public Destinity Destinity { set; get; }
+        public Destiny Destiny { set; get; }
         public Motive Motive { set; get; }
 
     }

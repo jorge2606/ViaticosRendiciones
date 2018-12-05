@@ -11,6 +11,9 @@ namespace WebApi.Helpers
         {
             CreateMap<User, SaveUserDto>();
             CreateMap<SaveUserDto, User>();
+
+            CreateMap<SolicitationSubsidy, AllSolicitationSubsidyDto>().ForMember(x => x.TransportDescription,
+                opt => opt.MapFrom(x => $"Modelo: {x.Transport.Model} Patente :{x.Transport.CarPlate}"));
         }
     }
 }

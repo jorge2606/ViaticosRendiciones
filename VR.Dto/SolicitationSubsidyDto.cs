@@ -27,18 +27,18 @@ namespace VR.Dto
         public double UnexpectedCircumstance { set; get; }
         public Guid UserId { set; get; }
         public Guid PlaceId { set; get; }
-        public Guid DestinityId { set; get; }
+        public Guid DestinyId { set; get; }
         public Guid TransportId { set; get; }
         public Guid MotiveId { set; get; }
     }
 
     public class SolicitationObjectsSubsidyBaseDto : SolicitationSubsidyBaseDto
     {
-        public Data.Model.User User { set; get; }
-        public Place Place { set; get; }
-        public Destinity Destinity { set; get; }
-        public Transport Transport { set; get; }
-        public Motive Motive { set; get; }
+        public string DestinyDescription { set; get; }
+        public string TransportDescription { set; get; }
+        public string MotiveDescription { set; get; }
+        public string UserUserName { set; get; }
+        public string PlaceDescription { set; get; }
     }
 
     public class CreateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
@@ -54,9 +54,9 @@ namespace VR.Dto
     public class FilterSolicitationSubsidyDto
     {
         public int? Page { set; get; }
-        public Guid? UserId { set; get; }
+        public string UserName { set; get; }
         public Guid? PlaceId { set; get; }
-        public Guid? DestinityId { set; get; }
+        public Guid? DestinyId { set; get; }
         public Guid? TransportId { set; get; }
         public Guid? MotiveId { set; get; }
     }

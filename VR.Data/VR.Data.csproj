@@ -5,22 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20181126133246_Add Foreinkey to Distribution and Users.cs" />
-    <Compile Remove="Migrations\20181126133819_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126135504_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126135604_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126140303_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126140918_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126141037_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126141213_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126141540_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126142001_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126142244_Add Foreinkey to Distribution-Users.cs" />
-    <Compile Remove="Migrations\20181126142922_Add Foreinkey to Distribution-Userss.cs" />
-    <Compile Remove="Migrations\20181126143034_Add Foreinkey to Distribution-Userss.cs" />
-    <Compile Remove="Migrations\20181126143523_Add Foreinkey to Distribution-Userss.cs" />
-    <Compile Remove="Migrations\20181126144221_Add Foreinkey to Distribution-Userss.cs" />
-    <Compile Remove="Migrations\20181126145104_Add Foreinkey to Distribution-User.cs" />
+    <Compile Remove="Migrations\20181205150805_Change name Destinity Destiny1.cs" />
   </ItemGroup>
 
   <ItemGroup>

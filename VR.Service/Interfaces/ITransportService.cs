@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Service.Common.ServiceResult;
 using VR.Dto;
 
@@ -10,5 +11,6 @@ namespace VR.Service.Interfaces
         ServiceResult<UpdateTransportDto> UpdateTransport(UpdateTransportDto transportDto);
         ServiceResult<DeleteTransportDto> DeleteTransport(Guid idTransport);
         ServiceResult<FindByIdTransportDto> FindByIdTransport(Guid idTransport);
+        ServiceResult<List<GetAllTransportDto>> GetAllTransport();
     }
 }

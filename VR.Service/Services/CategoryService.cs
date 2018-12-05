@@ -32,7 +32,7 @@ namespace VR.Service.Services
 
             if (!validateCategoryBaseDto.IsValid)
             {
-                return _mapper.Map<ServiceResult<CreateCategoryDto>>( (validateCategoryBaseDto.ToServiceResult<CreateCategoryDto>(null)) );
+                return _mapper.Map<ServiceResult<CreateCategoryDto>>(validateCategoryBaseDto.ToServiceResult<CreateCategoryDto>(null));
             }
 
             Category NewCategory = new Category()

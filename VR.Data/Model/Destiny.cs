@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VR.Data.Model
 {
-    public class Destinity
+    public class Destiny
     {
         public Guid Id { set; get; }
         public string Description { set; get; }

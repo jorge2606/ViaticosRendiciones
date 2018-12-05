@@ -53,4 +53,6 @@ namespace VR.Dto
 
     public class FindByIdTransportDto : TransportBaseDto { }
 
+    public class GetAllTransportDto : TransportBaseDto { }
+
 }

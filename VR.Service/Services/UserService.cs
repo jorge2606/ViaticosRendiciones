@@ -71,8 +71,9 @@ namespace VR.Service.Services
 
             if (!firstValidation.IsValid)
             {
-                return _mapper.Map<ServiceResult<UserDto>>(firstValidation.ToServiceResult<LoginDto>(null));
+                return firstValidation.ToServiceResult<UserDto>(null);
             }
+
             ServiceResult<UserDto> result = new ServiceResult<UserDto>();
 
             var user = await _userManager.Users.SingleOrDefaultAsync(x => x.UserName == p_LoginDto.Usuario);

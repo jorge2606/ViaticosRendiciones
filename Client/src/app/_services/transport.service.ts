@@ -30,5 +30,9 @@ export class TransportService {
     return this.http.delete<any>('http://localhost:63098/api/Transport/Delete/'+id);
   }
 
+  getAll(){
+    return this.http.get<any>('http://localhost:63098/api/Transport/GetAll/');
+  }
+
 
 }

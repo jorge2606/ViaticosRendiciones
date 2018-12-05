@@ -102,6 +102,13 @@ namespace VR.Service.Services
             return new ServiceResult<DeleteTransportDto>( _mapper.Map<DeleteTransportDto>(deleteTransport) );
         }
 
+        public ServiceResult<List<GetAllTransportDto>> GetAllTransport()
+        {
+            return new ServiceResult<List<GetAllTransportDto>>(
+               _mapper.Map<List<GetAllTransportDto>>(_dataContext.Transports.ToList())
+               );
+        }
+
 
     }
 }

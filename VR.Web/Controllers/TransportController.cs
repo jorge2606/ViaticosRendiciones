@@ -40,6 +40,18 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var response = _transportService.GetAllTransport();
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
         [HttpPut("Update")]
         public IActionResult UpdateTransport(UpdateTransportDto updateTransport)
         {

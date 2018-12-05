@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VR.Data;
 using VR.Dto;
 using VR.Service.Interfaces;
@@ -49,44 +51,40 @@ namespace VR.Web.Controllers
 
         public IQueryable<AllSolicitationSubsidyDto> queryableUser()
         {
-            var Paginator = _dataContext.SolicitationSubsidies.Select(x => _mapper.Map<AllSolicitationSubsidyDto>(x)).OrderBy(x => x.Id);
+            var Paginator = _dataContext.SolicitationSubsidies
+                .Select( x => _mapper.Map<AllSolicitationSubsidyDto>(x))
+                .OrderBy(x => x.Id);
             return Paginator;
         }
 
         [HttpGet("page")]
        
-        public PagedResult<AllSolicitationSubsidyDto> userPagination([FromQuery] FilterSolicitationSubsidyDto filters)
+        public PagedResult<AllSolicitationSubsidyDto> UserPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {
             const int pageSize = 10;
-            var queryPaginator = queryableUser();
 
-            var result = queryPaginator.
-                Where(
-                    x => (!filters.UserId.HasValue || x.UserId == filters.UserId)
-                         &&
-                         (!filters.DestinityId.HasValue || x.DestinityId == filters.DestinityId)
-                         &&
-                         (!filters.MotiveId.HasValue || x.MotiveId == filters.MotiveId)
-                         &&
-                         (!filters.PlaceId.HasValue || x.PlaceId == filters.PlaceId)
-                         &&
-                         (!filters.TransportId.HasValue || x.TransportId == filters.TransportId)
-                ).Skip((filters.Page ?? 0) * pageSize)
+            var resultFull = _dataContext.SolicitationSubsidies
+               .Where(
+                x => (string.IsNullOrEmpty(filters.UserName) || x.User.UserName.ToUpper().Contains(filters.UserName.ToUpper()))
+                     &&
+                     (!filters.DestinyId.HasValue || x.DestinyId == filters.DestinyId)
+                     &&
+                     (!filters.MotiveId.HasValue || x.MotiveId == filters.MotiveId)
+                     &&
+                     (!filters.PlaceId.HasValue || x.PlaceId == filters.PlaceId)
+                     &&
+                     (!filters.TransportId.HasValue || x.TransportId == filters.TransportId)
+            );
+
+            var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
+                .ProjectTo<AllSolicitationSubsidyDto>()
                 .ToList();
 
-            foreach (var i in result)
-            {
-                i.User = _dataContext.Users.FirstOrDefault(x => x.Id == i.UserId);
-                i.Place = _dataContext.Places.FirstOrDefault(x => x.Id == i.PlaceId);
-                i.Transport = _dataContext.Transports.FirstOrDefault(x => x.Id == i.TransportId);
-                i.Motive = _dataContext.Motives.FirstOrDefault(x => x.Id == i.MotiveId);
-                i.Destinity = _dataContext.Destinities.FirstOrDefault(x => x.Id == i.DestinityId);
-            }
             return new PagedResult<AllSolicitationSubsidyDto>
             {
-                List = result,
-                TotalRecords = queryPaginator.Count()
+                List = resultPage,
+                TotalRecords = resultFull.Count()
             };
         }
     }

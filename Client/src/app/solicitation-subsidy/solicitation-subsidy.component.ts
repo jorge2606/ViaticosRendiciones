@@ -1,3 +1,4 @@
+import { TransportService } from 'src/app/_services/transport.service';
 import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,9 +11,9 @@ export class SolicitationSubsidyComponent implements OnInit {
 
   filters = {
     page : 0,
-    userId : "",
+    userName : "",
     placeId: "",
-    destinityId: "",
+    destinyId: "",
     transportId: "",
     motiveId: ""
   }
@@ -24,16 +25,36 @@ export class SolicitationSubsidyComponent implements OnInit {
    //
    solicitationSubsidies : any[];
    error = '';
+   transports : any;
 
-  constructor(private solicitationSubsidy : SolicitationSubsidyService) { }
+  constructor(
+    private solicitationSubsidy : SolicitationSubsidyService,
+    private transportService : TransportService) { }
 
   ngOnInit() {
-    this.solicitationSubsidy.getAllSolicitationSubsidies(this.filters).subscribe(
+    this.getAll(this.filters);
+    this.getAllTransport();
+    
+  }
+
+  getAll(filters : any){
+    this.solicitationSubsidy.getAllSolicitationSubsidies(filters).subscribe(
       x => {
           this.solicitationSubsidies = x.list;
           this.col_size = x.totalRecords;
         }
     );
   }
+
+  getAllTransport(){
+    this.transportService.getAll().subscribe(
+      x => this.transports = x.response
+    );
+  }
+  
+  filter(){
+    this.getAll(this.filters);
+  }
+
 
 }

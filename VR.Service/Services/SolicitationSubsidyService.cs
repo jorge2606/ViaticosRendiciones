@@ -49,8 +49,8 @@ namespace VR.Service.Services
                 PlaceId = subsidy.PlaceId,
                 Motive = _dataContext.Motives.FirstOrDefault(x => x.Id == subsidy.MotiveId),
                 MotiveId = subsidy.MotiveId,
-                Destinity = _dataContext.Destinities.FirstOrDefault(x => x.Id == subsidy.DestinityId),
-                DestinityId = subsidy.DestinityId,
+                Destiny = _dataContext.Destinies.FirstOrDefault(x => x.Id == subsidy.DestinyId),
+                DestinyId = subsidy.DestinyId,
                 CostMobility = subsidy.CostMobility,
                 UnexpectedCircumstance = subsidy.UnexpectedCircumstance,
                 CostFuel = subsidy.CostFuel
