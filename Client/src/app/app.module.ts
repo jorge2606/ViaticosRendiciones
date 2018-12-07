@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { JwtInterceptor , ErrorInterceptor} from './_helpers/';
 import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modals.component';
 //Paginator
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -51,6 +51,9 @@ import { OrganismsComponent } from './organisms/organisms.component';
 import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
 import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitation-subsidy.component';
+import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
+import { HolidaysComponent } from './holidays/holidays.component';
+import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
 
 
 library.add(fas);
@@ -93,6 +96,9 @@ library.add(fas);
     CreateOrganismComponent,
     ModifyOrganismComponent,
     SolicitationSubsidyComponent,
+    CreateSolicitationComponent,
+    HolidaysComponent,
+    CreateHolidaysComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +109,7 @@ library.add(fas);
     ReactiveFormsModule,
     NgbModule,
     NgxPaginationModule,
+    NgbDatepickerModule,  
     FontAwesomeModule,
     TreeviewModule.forRoot(),
     FileUploadModule,

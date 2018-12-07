@@ -174,6 +174,7 @@ namespace VR.Web
             services.AddScoped<IExpenditureService, ExpenditureService>();
             services.AddScoped<IOrganismService, OrganismService>();
             services.AddScoped<ISolicitationSubsidyService, SolicitationSubsidyService>();
+            services.AddScoped<IHolidayService, HolidayService>();
 
             //sender Email
             // Add application services.
@@ -190,6 +191,8 @@ namespace VR.Web
             services.AddTransient<IValidator<OrganismBaseDto>, OrganismValidator>();
             services.AddTransient<IValidator<CreateUserDto>, UserCreateValidator>();
             services.AddTransient<IValidator<SolicitationSubsidyBaseDto>, SolicitationSubsidyValidator>();
+            services.AddTransient<IValidator<HolidayBaseDto>, HolidayValidator>();
+
             services.AddDirectoryBrowser();
 
 

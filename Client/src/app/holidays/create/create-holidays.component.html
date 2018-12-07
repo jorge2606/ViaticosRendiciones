@@ -1,0 +1,53 @@
+<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/holidays">
+  <fa-icon icon="angle-left"></fa-icon>    
+</a>
+<div class="container col-4 navarStyle">
+  <h2>Crear</h2>
+  <form (ngSubmit)="onSubmit()" #holidaysForm="ngForm">
+      
+      <div class="form-group mb-1">
+          <input class="form-control col-9" [(ngModel)]="model.description" 
+            #description="ngModel" required name="description"
+            id="description" type="text" placeholder="Descripción">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" clas="alert alert-danger">
+          Descripción Incorrecta
+      </div>
+
+      <div class="d-inline-block mb-1">
+          <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd"
+                         name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
+                         [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                         ngbDatepicker #d="ngbDatepicker" [(ngModel)]="model.date">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                        <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+      </div>
+      {{model.date | json}}
+      <div style="margin-top: 10px;" *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger">
+          Fecha Incorrecta
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <button class="btn btn-success navarStyle" [disabled]="!holidaysForm.form.valid"><fa-icon icon="save"></fa-icon></button>
+      </div>
+
+  </form>
+  <div class="alert alert-danger" *ngIf="errors">
+      <ul *ngFor="let e of errors">
+          <li>{{e}}</li>
+      </ul>
+  </div>
+  <div style="margin-top: 10px;" *ngIf="holidaysForm.form.invalid">
+      Hay Campos erroneos en el formulario, verifiquelos
+  </div>
+</div>

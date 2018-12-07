@@ -1,0 +1,57 @@
+<div class="container mb-1" >
+    <label class="d-inline-block pl-1" for="">Fecha </label>
+    <div class="d-inline-block pl-1">
+        <form class="form-inline">
+            <div class="form-group">
+              <div class="input-group">
+                <input (dateSelect)="filter()" class="form-control" placeholder="yyyy-mm-dd"
+                       name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
+                       [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                       ngbDatepicker #d="ngbDatepicker" [(ngModel)]="filters.date"
+                       >
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+    </div>
+  
+    <label class="d-inline-block pl-1 pr-1" for="">Descripción </label>
+    <div class="d-inline-block pl-1 pr-1">
+      <input (keyup)="filter()" [(ngModel)]="filters.description" type="text" class="form-control">
+    </div>
+  </div>
+  <a href="" class="btn btn-success mb-3" routerLink="/holidays/create">
+    <fa-icon icon="user-plus"></fa-icon>
+  </a>
+  <table class="table table-hover">
+    <thead>
+      <tr style="font-weight: bold;">
+        <td>Fecha</td>
+        <td>Descripción</td>  
+        <td>Acción</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let holiday of holidays">
+        <td>{{holiday.date | date:'dd/MM/yyyy'}}</td>
+        <td>{{holiday.description}}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="pr-3" routerLink="/distribution/update/{{holiday.id}}">
+              <fa-icon style="color:gray;" icon="edit"></fa-icon>
+            </a>
+            <a routerLink="/distribution" (click)="openEliminar(holiday.id,holiday.description)">
+              <fa-icon style="color:red;" icon="trash"></fa-icon>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
+   aria-label="Default pagination"></ngb-pagination>

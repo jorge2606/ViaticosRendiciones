@@ -120,6 +120,26 @@ namespace VR.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("VR.Data.Model.City", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
+
+                    b.Property<Guid>("ProvinceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("VR.Data.Model.Destiny", b =>
                 {
                     b.Property<Guid>("Id")
@@ -182,6 +202,21 @@ namespace VR.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Files");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Holiday", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("Description");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Holidays");
                 });
 
             modelBuilder.Entity("VR.Data.Model.Motive", b =>
@@ -250,6 +285,22 @@ namespace VR.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Places");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Province", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("VR.Data.Model.Role", b =>
@@ -431,6 +482,14 @@ namespace VR.Data.Migrations
                     b.HasOne("VR.Data.Model.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("VR.Data.Model.City", b =>
+                {
+                    b.HasOne("VR.Data.Model.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

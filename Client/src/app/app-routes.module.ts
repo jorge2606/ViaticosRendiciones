@@ -1,3 +1,6 @@
+import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
+import { HolidaysComponent } from './holidays/holidays.component';
+import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
 import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitation-subsidy.component';
 import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { CreateExpenditureComponent } from './expenditures/create/create-expenditure.component';
@@ -63,6 +66,9 @@ const routes: Routes = [
   { path: 'organism/create', component : CreateOrganismComponent, canActivate : [AuthGuard]},
   { path: 'organism/update/:id', component : ModifyOrganismComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy', component : SolicitationSubsidyComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy/create', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+  { path: 'holidays', component : HolidaysComponent, canActivate : [AuthGuard]},
+  { path: 'holidays/create', component : CreateHolidaysComponent, canActivate : [AuthGuard]},
   
   
   // otherwise redirect to home

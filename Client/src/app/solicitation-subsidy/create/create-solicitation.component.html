@@ -1,0 +1,92 @@
+<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/SolicitationSubsidy">
+  <fa-icon icon="angle-left"></fa-icon>    
+</a>
+<div class="container col-4 navarStyle">
+  <h2>Crear</h2>
+  <form (ngSubmit)="onSubmit()" #solicitationSubsidy="ngForm">
+      
+      <div class="form-group">
+        <label for="">Fecha de Inicio</label>
+          <input class="form-control" [(ngModel)]="model.startDate" #startDate="ngModel"
+            required name="Dni" id="Dni" type="Date"
+            placeholder="Dni">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && startDate.invalid" clas="alert alert-danger">
+          Fecha de Inicio Incorrecta
+      </div>
+
+      <div class="form-group">
+          <input class="form-control" [(ngModel)]="model.costCommunication" 
+            required #costCommunication="ngModel" name="costCommunication" type="text"
+            placeholder="Costo de Comunicación" value="">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && costCommunication.invalid" class="alert alert-danger">
+          Costo de Comunicación Incorrecto
+      </div>
+
+      <div class="form-group">
+          <input class="form-control" [(ngModel)]="model.costFuel"
+            #costFuel="ngModel" name="costFuel" type="text"
+            placeholder="Costo de Combustible" value="">
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && costFuel.invalid" class="alert alert-danger">
+          Costo de Combustible Incorrecta
+      </div>
+
+     <!-- <div class="form-group">
+          <div class="row">
+              <li *ngFor="let rol of model.rolesUser" style="list-style:none">
+                  <div class="col">
+                      <input type="checkbox" name="{{rol.id}}" value="{{rol.id}}" [(ngModel)]="rol.rolBelongUser" />
+                      <label class="navarStyle" style="text-transform: capitalize; padding-left: 5px;font-size: 11px;" for="exampleCheck1">{{rol.name}}</label>
+                  </div>
+              </li>
+          </div>
+      </div>--> 
+
+      <div class="form-group">
+          <input class="form-control" [(ngModel)]="model.costMobility"
+              required #costMobility="ngModel" name="costMobility"
+              type="text" placeholder="Costo de Movilidad" value="">
+      </div>
+      
+      <div class="form-group">
+          <select class="form-control" #distributionId="ngModel" name="destinyId" [(ngModel)]="model.destinyId">
+            <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
+          </select>
+      </div>
+
+
+      <div class="form-group">
+        <select class="form-control" #motiveId="ngModel" name="distributionId" [(ngModel)]="model.motiveId">
+          <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <select class="form-control" #placeId="ngModel" name="placeId" [(ngModel)]="model.placeId">
+          <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
+        </select>
+      </div>
+
+      <div style="margin-top: 10px;" *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger">
+          Telefóno Incorrecto
+      </div>
+
+      <div style="margin-bottom:5px;" class="form-group">
+          <button class="btn btn-success navarStyle" [disabled]="!solicitationSubsidy.form.valid"><fa-icon icon="save"></fa-icon></button>
+      </div>
+
+  </form>
+  <div class="alert alert-danger" *ngIf="errors">
+      <ul *ngFor="let e of errors">
+          <li>{{e.value}}</li>
+      </ul>
+  </div>
+  <div style="margin-top: 10px;" *ngIf="solicitationSubsidy.form.invalid">
+      Hay Campos erroneos en el formulario, verifiquelos
+  </div>
+</div>
