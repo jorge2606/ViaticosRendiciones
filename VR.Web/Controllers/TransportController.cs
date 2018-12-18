@@ -49,7 +49,7 @@ namespace VR.Web.Controllers
                 return BadRequest(response);
             }
 
-            return Ok(response);
+            return Ok(response.Response);
         }
 
         [HttpPut("Update")]
@@ -111,7 +111,7 @@ namespace VR.Web.Controllers
             return new PagedResult<Transport>
             {
                 List = result,
-                TotalRecords = result.Count()
+                TotalRecords = queryPaginator.Count()
             };
         }
 

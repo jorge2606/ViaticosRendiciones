@@ -32,6 +32,8 @@ namespace VR.Dto
 
     public class FindByIdExpenditureDto : ExpenditureBaseDto { }
 
+    public class AllExpenditureDto : ExpenditureBaseDto { }
+
 
 
 }

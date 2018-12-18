@@ -7,8 +7,8 @@
                 <input (dateSelect)="filter()" class="form-control" placeholder="yyyy-mm-dd"
                        name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
                        [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                       ngbDatepicker #d="ngbDatepicker" [(ngModel)]="filters.date"
-                       >
+                       ngbDatepicker #d="ngbDatepicker" 
+                       [(ngModel)]="filters.date">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                       <fa-icon icon="calendar-alt"></fa-icon>
@@ -41,10 +41,10 @@
         <td>{{holiday.description}}</td>
         <td>
           <div class="btn-group" role="group" aria-label="Basic example">
-            <a class="pr-3" routerLink="/distribution/update/{{holiday.id}}">
+            <a class="pr-3" routerLink="/holidays/update/{{holiday.id}}">
               <fa-icon style="color:gray;" icon="edit"></fa-icon>
             </a>
-            <a routerLink="/distribution" (click)="openEliminar(holiday.id,holiday.description)">
+            <a routerLink="/holidays" (click)="openEliminar(holiday)">
               <fa-icon style="color:red;" icon="trash"></fa-icon>
             </a>
           </div>
@@ -53,5 +53,8 @@
     </tbody>
   </table>
   
-  <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
-   aria-label="Default pagination"></ngb-pagination>
+  <ngb-pagination (pageChange)="loadPage($event)"
+      [collectionSize]="col_size" 
+      [pageSize]="itemsPerPage"
+      [(page)]="filters.page"
+      aria-label="Default pagination"></ngb-pagination>

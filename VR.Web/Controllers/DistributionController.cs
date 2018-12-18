@@ -126,7 +126,7 @@ namespace VR.Web.Controllers
             return new PagedResult<AllDistributionDto>
             {
                 List = result,
-                TotalRecords = result.Count()
+                TotalRecords = queryPaginator.Count()
             };
         }
     }

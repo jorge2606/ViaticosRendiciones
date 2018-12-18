@@ -13,5 +13,6 @@ namespace VR.Service.Interfaces
         ServiceResult<UpdateCategoryDto> UpdateCategory(UpdateCategoryDto categoryDto);
         ServiceResult<DeleteCategoryDto> DeleteCategory(Guid id);
         ServiceResult<FindByIdCategoryDto> FindByIdCategory(Guid id);
+        ServiceResult<List<AllCategoryDto>> GetAllCategories();
     }
 }

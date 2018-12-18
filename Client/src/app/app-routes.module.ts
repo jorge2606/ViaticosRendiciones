@@ -32,6 +32,7 @@ import { ExpendituresComponent } from './expenditures/expenditures.component';
 import { UpdateExpenditureComponent } from './expenditures/update/update-expenditure.component';
 import { OrganismsComponent } from './organisms/organisms.component';
 import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
+import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -69,6 +70,7 @@ const routes: Routes = [
   { path: 'SolicitationSubsidy/create', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
   { path: 'holidays', component : HolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/create', component : CreateHolidaysComponent, canActivate : [AuthGuard]},
+  { path: 'holidays/update/:id', component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
   
   
   // otherwise redirect to home

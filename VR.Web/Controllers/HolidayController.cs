@@ -28,19 +28,25 @@ namespace VR.Web.Controllers
         public IActionResult GetPageHoliday([FromQuery] FilterHolidayDto filters)
         {
             var response = _holidayService.Pagination(filters);
-            if (response.List.Count == 0)
+            if (!response.IsSuccess)
             {
                 return BadRequest(response);
             }
 
-            return Ok(response);
+            return Ok(response.Response);
         }
 
         // GET: api/Holiday/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("getById/{id}")]
+        public IActionResult GetById(Guid id)
         {
-            return "value";
+            var result = _holidayService.FindByIdHoliday(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
         }
 
         // POST: api/Holiday
@@ -57,15 +63,29 @@ namespace VR.Web.Controllers
         }
 
         // PUT: api/Holiday/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("update")]
+        public IActionResult update([FromBody] UpdateHolidayDto holiday)
         {
+            var result = _holidayService.UpdateHoliday(holiday);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete(Guid id)
         {
+            var response = _holidayService.DeleteHoliday(id);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response.Response);
         }
     }
 }

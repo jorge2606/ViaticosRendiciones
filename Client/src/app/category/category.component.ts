@@ -25,8 +25,8 @@ export class CategoryComponent implements OnInit {
   }
 
   loadPage(page : number){
-    if (this.filters.page > 0){
-      this.filters.page = this.filters.page - 1;
+    if (page > 0){
+      this.filters.page = page - 1;
       this.getAllCategories(this.filters);
     }
   }

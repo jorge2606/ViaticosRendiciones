@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
+using Service.Common.ServiceResult;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -201,32 +202,16 @@ namespace VR.Web.Controllers
         }
         
         [HttpGet("page")]
-        public PagedResult<AllUserDto> userPagination([FromQuery] UserFilterDto filters)
+        public IActionResult GetPageUser([FromQuery] UserFilterDto filters)
         {
-            const int pageSize = 10;
-            var queryPaginator = queryableUser();
+            var result = _userService.GetPageUser(filters);
 
-            var result = queryPaginator.Where(
-                 x =>  
-                ( !filters.DistributionId.HasValue || x.DistributionId.ToString().ToUpper().Contains(filters.DistributionId.ToString().ToUpper())) 
-                   &&
-                ( string.IsNullOrEmpty(filters.Username) || x.UserName.ToUpper().Contains(filters.Username.ToUpper()))
-                   &&
-                ( filters.Dni == 0 || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
-                )
-                .Skip((filters.Page ?? 0) * pageSize)
-                                          .Take(pageSize)
-                                          .ToList();
-            foreach (var user in result)
+            if (!result.IsSuccess)
             {
-                user.Distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
+                return BadRequest(result);
             }
-            return new PagedResult<AllUserDto>
-            {
-                List = result,
-                TotalRecords = result.Count()
 
-            };
+            return Ok(result.Response);
         }
     }
 

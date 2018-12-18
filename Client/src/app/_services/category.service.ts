@@ -18,6 +18,10 @@ export class CategoryService {
     return this.http.get<any>('http://localhost:63098/api/Category/page/', {params: filters});
   }
 
+  getallCategories() {
+    return this.http.get<any>('http://localhost:63098/api/Category/GetAllCategories/');
+  }
+
   deleteCategory(idCategory : number){
     return this.http.delete('http://localhost:63098/api/Category/Delete/'+idCategory);
   }
@@ -28,4 +32,5 @@ export class CategoryService {
   updateCategory(updateCategory :UpdateCategoryDto){
     return this.http.put<any>('http://localhost:63098/api/Category/UpdateCategory',updateCategory);
   }
+  
 }

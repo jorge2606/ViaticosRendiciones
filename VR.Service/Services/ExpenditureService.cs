@@ -102,5 +102,12 @@ namespace VR.Service.Services
             return new ServiceResult<DeleteExpenditureDto>( _mapper.Map<DeleteExpenditureDto>(delete));
         }
 
+        public ServiceResult<List<AllExpenditureDto>> AllExpenditure()
+        {
+            return new ServiceResult<List<AllExpenditureDto>>(
+             _dataContext.Expenditures.Select(x => _mapper.Map<AllExpenditureDto>(x)).ToList()   
+             );
+        }
+
     }
 }

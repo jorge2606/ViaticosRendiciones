@@ -9,7 +9,9 @@ using Service.Common.ServiceResult;
 using Microsoft.Extensions.Configuration;
 using FluentValidation;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Service.Common.Extensions;
@@ -20,6 +22,7 @@ using VR.Dto.User;
 using VR.Service.Interfaces;
 using VR.Identity.Identities;
 using VR.Service.Helpers.WebApi.Helpers;
+using VR.Web.Helpers;
 using NotificationType = Service.Common.ServiceResult.NotificationType;
 
 namespace VR.Service.Services
@@ -64,6 +67,37 @@ namespace VR.Service.Services
         }
 
         private IConfiguration _configuration { get; }
+
+
+        public ServiceResult<PagedResult<AllUserDto>> GetPageUser(UserFilterDto filters)
+        {
+            const int pageSize = 10;
+
+            var resultFull = _context.Users.Where(
+                    x =>
+                        (!filters.DistributionId.HasValue || x.DistributionId.ToString().ToUpper().Contains(filters.DistributionId.ToString().ToUpper()))
+                        &&
+                        (string.IsNullOrEmpty(filters.Username) || x.UserName.ToUpper().Contains(filters.Username.ToUpper()))
+                        &&
+                        (filters.Dni == 0 || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
+                );
+
+            var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<AllUserDto>()
+                .ToList();
+            foreach (var user in resultPage)
+            {
+                user.Distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
+            }
+            return new ServiceResult<PagedResult<AllUserDto>>(
+                     new PagedResult<AllUserDto>()
+                     {
+                         List = resultPage,
+                         TotalRecords = resultFull.Count()
+                     }
+            );
+        }
 
         public async Task<ServiceResult<UserDto>> Authenticate(LoginDto p_LoginDto)
         {

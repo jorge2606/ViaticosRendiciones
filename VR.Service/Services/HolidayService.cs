@@ -72,14 +72,10 @@ namespace VR.Service.Services
                 return new ServiceResult<UpdateHolidayDto>(null);
             }
 
-            _dataContext.Holidays.Update(
-                new Holiday()
-                {
-                    Id = holidayDto.Id,
-                    Description = holidayDto.Description,
-                    Date = holidayDto.Date
-                }
-            );
+            exist.Date = holidayDto.Date;
+            exist.Description = holidayDto.Description;
+
+            _dataContext.Holidays.Update(exist);
 
             _dataContext.SaveChanges();
 
@@ -99,7 +95,7 @@ namespace VR.Service.Services
             _dataContext.Holidays.Remove(exist);
             _dataContext.SaveChanges();
 
-            return _mapper.Map<ServiceResult<DeleteHolidayDto>>(exist);
+            return new ServiceResult<DeleteHolidayDto>(_mapper.Map<DeleteHolidayDto>(exist));
         }
 
         public ServiceResult<List<AllHolidayDto>> AllHoliday()
@@ -115,18 +111,27 @@ namespace VR.Service.Services
                 return new ServiceResult<FindByIdHolidayDto>(null);
             }
 
-            return _mapper.Map< ServiceResult<FindByIdHolidayDto> >(exist);
+            return new ServiceResult<FindByIdHolidayDto>(_mapper.Map <FindByIdHolidayDto>(exist));
         }
 
-        public PagedResult<AllHolidayDto> Pagination(FilterHolidayDto filters)
+        public ServiceResult<PagedResult<AllHolidayDto>> Pagination(FilterHolidayDto filters)
         {
             const int pageSize = 10;
+            DateTime compareDate = new DateTime();
+
+            if (filters.Date.HasValue)
+            {
+                compareDate = new DateTime(
+                    filters.Date.Value.Year,
+                    filters.Date.Value.Month,
+                    filters.Date.Value.Day);
+            }
 
             var resultFull = _dataContext.Holidays
                 .Where(
                     x => (string.IsNullOrEmpty(filters.Description) || x.Description.ToUpper().Contains(filters.Description.ToUpper()))
                          &&
-                         (!filters.Date.HasValue  || x.Date.Equals(filters.Date))
+                         (!filters.Date.HasValue  ||  DateTime.Compare(x.Date, compareDate) == 0 )
                 );
 
             var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
@@ -134,11 +139,11 @@ namespace VR.Service.Services
                 .ProjectTo<AllHolidayDto>()
                 .ToList();
 
-            return new PagedResult<AllHolidayDto>
+            return new ServiceResult<PagedResult<AllHolidayDto>>(new PagedResult<AllHolidayDto>()
             {
                 List = resultPage,
                 TotalRecords = resultFull.Count()
-            };
+            });
         }
     }
 }

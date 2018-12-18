@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using FluentValidation;
@@ -94,6 +95,11 @@ namespace VR.Service.Services
             }
 
            return new ServiceResult<FindByIdCategoryDto>(_mapper.Map<FindByIdCategoryDto>(categoryFound));
+        }
+
+        public ServiceResult<List<AllCategoryDto>> GetAllCategories()
+        {
+            return new ServiceResult<List<AllCategoryDto>>(_categoryContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x)).ToList());
         }
     }
 }

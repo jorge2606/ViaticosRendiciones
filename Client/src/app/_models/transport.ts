@@ -13,3 +13,5 @@ export class UpdateTransportDto extends TransportBaseDto{}
 export class DeleteTransportDto extends TransportBaseDto{}
 
 export class FindByIdTransportDto extends TransportBaseDto{}
+
+export class AllTransportDto extends TransportBaseDto{}

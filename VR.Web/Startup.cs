@@ -175,6 +175,9 @@ namespace VR.Web
             services.AddScoped<IOrganismService, OrganismService>();
             services.AddScoped<ISolicitationSubsidyService, SolicitationSubsidyService>();
             services.AddScoped<IHolidayService, HolidayService>();
+            services.AddScoped<IProvinceService, ProvinceService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IMotiveService, MotiveService>();
 
             //sender Email
             // Add application services.

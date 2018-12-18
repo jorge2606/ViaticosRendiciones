@@ -11,3 +11,5 @@ export class UpdateExpenditureDto extends ExpenditureBaseDto{}
 export class DeleteExpenditureDto extends ExpenditureBaseDto{}
 
 export class FindByIdExpenditureDto extends ExpenditureBaseDto{}
+
+export class AllExpenditureDto extends ExpenditureBaseDto{}

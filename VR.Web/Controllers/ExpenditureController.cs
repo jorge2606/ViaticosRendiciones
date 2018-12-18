@@ -25,6 +25,18 @@ namespace VR.Web.Controllers
             _expenditureService = expenditureService;
         }
 
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var result = _expenditureService.AllExpenditure();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpPut("Update")]
         public IActionResult UpdateExpenditure(UpdateExpenditureDto expenditure)
         {

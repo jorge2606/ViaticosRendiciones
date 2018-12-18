@@ -24,7 +24,7 @@ export class OrganismsComponent implements OnInit {
   }
 
   getAllOrganism(page : any){
-    this.organismService.getPaginator(page).subscribe(
+    this.organismService.getPaginator(this.filters.page).subscribe(
       result => {
         this.organism = result.list,
         this.col_size = result.totalRecords

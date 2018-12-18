@@ -491,6 +491,75 @@ var FindByIdExpenditureDto = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./src/app/_models/holiday.ts":
+/*!************************************!*\
+  !*** ./src/app/_models/holiday.ts ***!
+  \************************************/
+/*! exports provided: HolidayBaseDto, CreateHolidayDto, UpdateHolidayDto, DeleteHolidayDto, FindByIdHolidayDto */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HolidayBaseDto", function() { return HolidayBaseDto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateHolidayDto", function() { return CreateHolidayDto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateHolidayDto", function() { return UpdateHolidayDto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteHolidayDto", function() { return DeleteHolidayDto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FindByIdHolidayDto", function() { return FindByIdHolidayDto; });
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var HolidayBaseDto = /** @class */ (function () {
+    function HolidayBaseDto() {
+    }
+    return HolidayBaseDto;
+}());
+
+var CreateHolidayDto = /** @class */ (function (_super) {
+    __extends(CreateHolidayDto, _super);
+    function CreateHolidayDto() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return CreateHolidayDto;
+}(HolidayBaseDto));
+
+var UpdateHolidayDto = /** @class */ (function (_super) {
+    __extends(UpdateHolidayDto, _super);
+    function UpdateHolidayDto() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return UpdateHolidayDto;
+}(HolidayBaseDto));
+
+var DeleteHolidayDto = /** @class */ (function (_super) {
+    __extends(DeleteHolidayDto, _super);
+    function DeleteHolidayDto() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return DeleteHolidayDto;
+}(HolidayBaseDto));
+
+var FindByIdHolidayDto = /** @class */ (function (_super) {
+    __extends(FindByIdHolidayDto, _super);
+    function FindByIdHolidayDto() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return FindByIdHolidayDto;
+}(HolidayBaseDto));
+
+
+
+/***/ }),
+
 /***/ "./src/app/_models/notifications.ts":
 /*!******************************************!*\
   !*** ./src/app/_models/notifications.ts ***!
@@ -682,11 +751,12 @@ var RoleUserDto = /** @class */ (function () {
 /*!************************************************!*\
   !*** ./src/app/_models/solicitationSubsidy.ts ***!
   \************************************************/
-/*! exports provided: SolicitatioSubsidyBaseDto, CreateSolicitationSubsidyDto */
+/*! exports provided: Expenditures, SolicitatioSubsidyBaseDto, CreateSolicitationSubsidyDto */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Expenditures", function() { return Expenditures; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SolicitatioSubsidyBaseDto", function() { return SolicitatioSubsidyBaseDto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateSolicitationSubsidyDto", function() { return CreateSolicitationSubsidyDto; });
 var __extends = (undefined && undefined.__extends) || (function () {
@@ -702,6 +772,12 @@ var __extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var Expenditures = /** @class */ (function () {
+    function Expenditures() {
+    }
+    return Expenditures;
+}());
+
 var SolicitatioSubsidyBaseDto = /** @class */ (function () {
     function SolicitatioSubsidyBaseDto() {
     }
@@ -724,7 +800,7 @@ var CreateSolicitationSubsidyDto = /** @class */ (function (_super) {
 /*!**************************************!*\
   !*** ./src/app/_models/transport.ts ***!
   \**************************************/
-/*! exports provided: TransportBaseDto, CreateTransportDto, UpdateTransportDto, DeleteTransportDto, FindByIdTransportDto */
+/*! exports provided: TransportBaseDto, CreateTransportDto, UpdateTransportDto, DeleteTransportDto, FindByIdTransportDto, AllTransportDto */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -734,6 +810,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateTransportDto", function() { return UpdateTransportDto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteTransportDto", function() { return DeleteTransportDto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FindByIdTransportDto", function() { return FindByIdTransportDto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllTransportDto", function() { return AllTransportDto; });
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -783,6 +860,14 @@ var FindByIdTransportDto = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return FindByIdTransportDto;
+}(TransportBaseDto));
+
+var AllTransportDto = /** @class */ (function (_super) {
+    __extends(AllTransportDto, _super);
+    function AllTransportDto() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return AllTransportDto;
 }(TransportBaseDto));
 
 
@@ -981,6 +1066,9 @@ var CategoryService = /** @class */ (function () {
     CategoryService.prototype.getPaginator = function (filters) {
         return this.http.get('http://localhost:63098/api/Category/page/', { params: filters });
     };
+    CategoryService.prototype.getallCategories = function () {
+        return this.http.get('http://localhost:63098/api/Category/GetAllCategories/');
+    };
     CategoryService.prototype.deleteCategory = function (idCategory) {
         return this.http.delete('http://localhost:63098/api/Category/Delete/' + idCategory);
     };
@@ -997,6 +1085,49 @@ var CategoryService = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], CategoryService);
     return CategoryService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/city.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/_services/city.service.ts ***!
+  \*******************************************/
+/*! exports provided: CityService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CityService", function() { return CityService; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CityService = /** @class */ (function () {
+    function CityService(http) {
+        this.http = http;
+    }
+    CityService.prototype.getAll = function () {
+        return this.http.get("http://localhost:63098/api/City/GetAll/");
+    };
+    CityService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+    ], CityService);
+    return CityService;
 }());
 
 
@@ -1146,6 +1277,18 @@ var HolidaysService = /** @class */ (function () {
     HolidaysService.prototype.getPageHoliday = function (filters) {
         return this.http.get("http://localhost:63098/api/Holiday/GetPageHoliday", { params: filters });
     };
+    HolidaysService.prototype.createHoliday = function (newHoliday) {
+        return this.http.post("http://localhost:63098/api/Holiday/create", newHoliday);
+    };
+    HolidaysService.prototype.getByIdHoliday = function (id) {
+        return this.http.get("http://localhost:63098/api/Holiday/getById/" + id);
+    };
+    HolidaysService.prototype.updateHoliday = function (updateHoliday) {
+        return this.http.put("http://localhost:63098/api/Holiday/update/", updateHoliday);
+    };
+    HolidaysService.prototype.deleteHoliday = function (id) {
+        return this.http.delete("http://localhost:63098/api/Holiday/Delete/" + id);
+    };
     HolidaysService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -1198,6 +1341,49 @@ var MessBetweenCompService = /** @class */ (function () {
         })
     ], MessBetweenCompService);
     return MessBetweenCompService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/motive.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/_services/motive.service.ts ***!
+  \*********************************************/
+/*! exports provided: MotiveService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MotiveService", function() { return MotiveService; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MotiveService = /** @class */ (function () {
+    function MotiveService(http) {
+        this.http = http;
+    }
+    MotiveService.prototype.getAll = function () {
+        return this.http.get("http://localhost:63098/api/Motive/GetAll/");
+    };
+    MotiveService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+    ], MotiveService);
+    return MotiveService;
 }());
 
 
@@ -1308,6 +1494,49 @@ var OrganismService = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
     ], OrganismService);
     return OrganismService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/_services/province.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/_services/province.service.ts ***!
+  \***********************************************/
+/*! exports provided: ProvinceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProvinceService", function() { return ProvinceService; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ProvinceService = /** @class */ (function () {
+    function ProvinceService(http) {
+        this.http = http;
+    }
+    ProvinceService.prototype.getAll = function () {
+        return this.http.get("http://localhost:63098/api/Province/GetAll/");
+    };
+    ProvinceService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+    ], ProvinceService);
+    return ProvinceService;
 }());
 
 
@@ -1656,39 +1885,41 @@ var UserService = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutesModule", function() { return AppRoutesModule; });
-/* harmony import */ var _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./holidays/holidays.component */ "./src/app/holidays/holidays.component.ts");
-/* harmony import */ var _solicitation_subsidy_create_create_solicitation_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./solicitation-subsidy/create/create-solicitation.component */ "./src/app/solicitation-subsidy/create/create-solicitation.component.ts");
-/* harmony import */ var _solicitation_subsidy_solicitation_subsidy_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./solicitation-subsidy/solicitation-subsidy.component */ "./src/app/solicitation-subsidy/solicitation-subsidy.component.ts");
-/* harmony import */ var _organisms_create_create_organism_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./organisms/create/create-organism.component */ "./src/app/organisms/create/create-organism.component.ts");
-/* harmony import */ var _expenditures_create_create_expenditure_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./expenditures/create/create-expenditure.component */ "./src/app/expenditures/create/create-expenditure.component.ts");
-/* harmony import */ var _transports_modify_modify_transport_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./transports/modify/modify-transport.component */ "./src/app/transports/modify/modify-transport.component.ts");
-/* harmony import */ var _transports_create_create_transport_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transports/create/create-transport.component */ "./src/app/transports/create/create-transport.component.ts");
-/* harmony import */ var _distributions_create_create_distributions_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./distributions/create/create-distributions.component */ "./src/app/distributions/create/create-distributions.component.ts");
-/* harmony import */ var _distributions_modify_modify_distribution_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./distributions/modify/modify-distribution.component */ "./src/app/distributions/modify/modify-distribution.component.ts");
-/* harmony import */ var _distributions_distributions_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./distributions/distributions.component */ "./src/app/distributions/distributions.component.ts");
-/* harmony import */ var _category_modify_modify_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./category/modify/modify.component */ "./src/app/category/modify/modify.component.ts");
-/* harmony import */ var _category_create_create_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./category/create/create.component */ "./src/app/category/create/create.component.ts");
-/* harmony import */ var _category_category_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./category/category.component */ "./src/app/category/category.component.ts");
-/* harmony import */ var _users_photo_profile_photo_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./users/photo-profile/photo-profile.component */ "./src/app/users/photo-profile/photo-profile.component.ts");
-/* harmony import */ var _manage_password_manage_password_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./manage-password/manage-password.component */ "./src/app/manage-password/manage-password.component.ts");
-/* harmony import */ var _roles_roles_permissions_roles_permissions_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./roles/roles-permissions/roles-permissions.component */ "./src/app/roles/roles-permissions/roles-permissions.component.ts");
-/* harmony import */ var _roles_roles_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./roles/roles.component */ "./src/app/roles/roles.component.ts");
-/* harmony import */ var _users_modify_modify_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./users/modify/modify.component */ "./src/app/users/modify/modify.component.ts");
-/* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_guards/auth.guard */ "./src/app/_guards/auth.guard.ts");
-/* harmony import */ var _users_create_create_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./users/create/create.component */ "./src/app/users/create/create.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _users_users_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./users/users.component */ "./src/app/users/users.component.ts");
-/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
-/* harmony import */ var _manage_password_reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./manage-password/reset-password/reset-password.component */ "./src/app/manage-password/reset-password/reset-password.component.ts");
-/* harmony import */ var _users_setting_settingofuser_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./users/setting/settingofuser.component */ "./src/app/users/setting/settingofuser.component.ts");
-/* harmony import */ var _transports_transports_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./transports/transports.component */ "./src/app/transports/transports.component.ts");
-/* harmony import */ var _expenditures_expenditures_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./expenditures/expenditures.component */ "./src/app/expenditures/expenditures.component.ts");
-/* harmony import */ var _expenditures_update_update_expenditure_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./expenditures/update/update-expenditure.component */ "./src/app/expenditures/update/update-expenditure.component.ts");
-/* harmony import */ var _organisms_organisms_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./organisms/organisms.component */ "./src/app/organisms/organisms.component.ts");
-/* harmony import */ var _organisms_modify_modify_organism_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./organisms/modify/modify-organism.component */ "./src/app/organisms/modify/modify-organism.component.ts");
+/* harmony import */ var _holidays_create_create_holidays_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./holidays/create/create-holidays.component */ "./src/app/holidays/create/create-holidays.component.ts");
+/* harmony import */ var _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./holidays/holidays.component */ "./src/app/holidays/holidays.component.ts");
+/* harmony import */ var _solicitation_subsidy_create_create_solicitation_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./solicitation-subsidy/create/create-solicitation.component */ "./src/app/solicitation-subsidy/create/create-solicitation.component.ts");
+/* harmony import */ var _solicitation_subsidy_solicitation_subsidy_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./solicitation-subsidy/solicitation-subsidy.component */ "./src/app/solicitation-subsidy/solicitation-subsidy.component.ts");
+/* harmony import */ var _organisms_create_create_organism_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./organisms/create/create-organism.component */ "./src/app/organisms/create/create-organism.component.ts");
+/* harmony import */ var _expenditures_create_create_expenditure_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./expenditures/create/create-expenditure.component */ "./src/app/expenditures/create/create-expenditure.component.ts");
+/* harmony import */ var _transports_modify_modify_transport_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transports/modify/modify-transport.component */ "./src/app/transports/modify/modify-transport.component.ts");
+/* harmony import */ var _transports_create_create_transport_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./transports/create/create-transport.component */ "./src/app/transports/create/create-transport.component.ts");
+/* harmony import */ var _distributions_create_create_distributions_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./distributions/create/create-distributions.component */ "./src/app/distributions/create/create-distributions.component.ts");
+/* harmony import */ var _distributions_modify_modify_distribution_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./distributions/modify/modify-distribution.component */ "./src/app/distributions/modify/modify-distribution.component.ts");
+/* harmony import */ var _distributions_distributions_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./distributions/distributions.component */ "./src/app/distributions/distributions.component.ts");
+/* harmony import */ var _category_modify_modify_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./category/modify/modify.component */ "./src/app/category/modify/modify.component.ts");
+/* harmony import */ var _category_create_create_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./category/create/create.component */ "./src/app/category/create/create.component.ts");
+/* harmony import */ var _category_category_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./category/category.component */ "./src/app/category/category.component.ts");
+/* harmony import */ var _users_photo_profile_photo_profile_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./users/photo-profile/photo-profile.component */ "./src/app/users/photo-profile/photo-profile.component.ts");
+/* harmony import */ var _manage_password_manage_password_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./manage-password/manage-password.component */ "./src/app/manage-password/manage-password.component.ts");
+/* harmony import */ var _roles_roles_permissions_roles_permissions_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./roles/roles-permissions/roles-permissions.component */ "./src/app/roles/roles-permissions/roles-permissions.component.ts");
+/* harmony import */ var _roles_roles_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./roles/roles.component */ "./src/app/roles/roles.component.ts");
+/* harmony import */ var _users_modify_modify_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./users/modify/modify.component */ "./src/app/users/modify/modify.component.ts");
+/* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./_guards/auth.guard */ "./src/app/_guards/auth.guard.ts");
+/* harmony import */ var _users_create_create_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./users/create/create.component */ "./src/app/users/create/create.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _users_users_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./users/users.component */ "./src/app/users/users.component.ts");
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _manage_password_reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./manage-password/reset-password/reset-password.component */ "./src/app/manage-password/reset-password/reset-password.component.ts");
+/* harmony import */ var _users_setting_settingofuser_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./users/setting/settingofuser.component */ "./src/app/users/setting/settingofuser.component.ts");
+/* harmony import */ var _transports_transports_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./transports/transports.component */ "./src/app/transports/transports.component.ts");
+/* harmony import */ var _expenditures_expenditures_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./expenditures/expenditures.component */ "./src/app/expenditures/expenditures.component.ts");
+/* harmony import */ var _expenditures_update_update_expenditure_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./expenditures/update/update-expenditure.component */ "./src/app/expenditures/update/update-expenditure.component.ts");
+/* harmony import */ var _organisms_organisms_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./organisms/organisms.component */ "./src/app/organisms/organisms.component.ts");
+/* harmony import */ var _organisms_modify_modify_organism_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./organisms/modify/modify-organism.component */ "./src/app/organisms/modify/modify-organism.component.ts");
+/* harmony import */ var _holidays_modify_modify_holidays_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./holidays/modify/modify-holidays.component */ "./src/app/holidays/modify/modify-holidays.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1728,41 +1959,44 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
-    { path: '', component: _home_home_component__WEBPACK_IMPORTED_MODULE_24__["HomeComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_22__["LoginComponent"] },
-    { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_25__["RegisterComponent"] },
-    { path: 'users', component: _users_users_component__WEBPACK_IMPORTED_MODULE_23__["UsersComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'users/create', component: _users_create_create_component__WEBPACK_IMPORTED_MODULE_19__["CreateuserComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'users/:distributionId', component: _users_users_component__WEBPACK_IMPORTED_MODULE_23__["UsersComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'users/update/:id', component: _users_modify_modify_component__WEBPACK_IMPORTED_MODULE_17__["ModifyuserComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'settingUser/:id', component: _users_setting_settingofuser_component__WEBPACK_IMPORTED_MODULE_27__["SettingofuserComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'photoProfile/:id', component: _users_photo_profile_photo_profile_component__WEBPACK_IMPORTED_MODULE_13__["PhotoProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'roles', component: _roles_roles_component__WEBPACK_IMPORTED_MODULE_16__["RolesComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'roles/permissions/:id', component: _roles_roles_permissions_roles_permissions_component__WEBPACK_IMPORTED_MODULE_15__["RolesPermissionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'RecuperarContraseña', component: _manage_password_manage_password_component__WEBPACK_IMPORTED_MODULE_14__["ManagePasswordComponent"] },
-    { path: 'CambiarPassword', component: _manage_password_reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_26__["ResetPasswordComponent"] },
-    { path: 'category', component: _category_category_component__WEBPACK_IMPORTED_MODULE_12__["CategoryComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'category/create', component: _category_create_create_component__WEBPACK_IMPORTED_MODULE_11__["CreateCategoryComponent"] },
-    { path: 'category/update/:id', component: _category_modify_modify_component__WEBPACK_IMPORTED_MODULE_10__["ModifyCategoryComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'distribution', component: _distributions_distributions_component__WEBPACK_IMPORTED_MODULE_9__["DistributionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'distribution/create', component: _distributions_create_create_distributions_component__WEBPACK_IMPORTED_MODULE_7__["CreateDistributionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'distribution/:organismId', component: _distributions_distributions_component__WEBPACK_IMPORTED_MODULE_9__["DistributionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'distribution/update/:id', component: _distributions_modify_modify_distribution_component__WEBPACK_IMPORTED_MODULE_8__["ModifyDistributionComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'transport', component: _transports_transports_component__WEBPACK_IMPORTED_MODULE_28__["TransportsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'transport/create', component: _transports_create_create_transport_component__WEBPACK_IMPORTED_MODULE_6__["CreateTransportComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'transport/update/:id', component: _transports_modify_modify_transport_component__WEBPACK_IMPORTED_MODULE_5__["ModifyTransportComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'expenditure', component: _expenditures_expenditures_component__WEBPACK_IMPORTED_MODULE_29__["ExpendituresComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'expenditure/create', component: _expenditures_create_create_expenditure_component__WEBPACK_IMPORTED_MODULE_4__["CreateExpenditureComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'expenditure/update/:id', component: _expenditures_update_update_expenditure_component__WEBPACK_IMPORTED_MODULE_30__["UpdateExpenditureComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'organism', component: _organisms_organisms_component__WEBPACK_IMPORTED_MODULE_31__["OrganismsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'organism/create', component: _organisms_create_create_organism_component__WEBPACK_IMPORTED_MODULE_3__["CreateOrganismComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'organism/update/:id', component: _organisms_modify_modify_organism_component__WEBPACK_IMPORTED_MODULE_32__["ModifyOrganismComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'SolicitationSubsidy', component: _solicitation_subsidy_solicitation_subsidy_component__WEBPACK_IMPORTED_MODULE_2__["SolicitationSubsidyComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'SolicitationSubsidy/create', component: _solicitation_subsidy_create_create_solicitation_component__WEBPACK_IMPORTED_MODULE_1__["CreateSolicitationComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'holidays', component: _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_0__["HolidaysComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
-    { path: 'holidays', component: _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_0__["HolidaysComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]] },
+    { path: '', component: _home_home_component__WEBPACK_IMPORTED_MODULE_25__["HomeComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_23__["LoginComponent"] },
+    { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_26__["RegisterComponent"] },
+    { path: 'users', component: _users_users_component__WEBPACK_IMPORTED_MODULE_24__["UsersComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'users/create', component: _users_create_create_component__WEBPACK_IMPORTED_MODULE_20__["CreateuserComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'users/:distributionId', component: _users_users_component__WEBPACK_IMPORTED_MODULE_24__["UsersComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'users/update/:id', component: _users_modify_modify_component__WEBPACK_IMPORTED_MODULE_18__["ModifyuserComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'settingUser/:id', component: _users_setting_settingofuser_component__WEBPACK_IMPORTED_MODULE_28__["SettingofuserComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'photoProfile/:id', component: _users_photo_profile_photo_profile_component__WEBPACK_IMPORTED_MODULE_14__["PhotoProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'roles', component: _roles_roles_component__WEBPACK_IMPORTED_MODULE_17__["RolesComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'roles/permissions/:id', component: _roles_roles_permissions_roles_permissions_component__WEBPACK_IMPORTED_MODULE_16__["RolesPermissionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'RecuperarContraseña', component: _manage_password_manage_password_component__WEBPACK_IMPORTED_MODULE_15__["ManagePasswordComponent"] },
+    { path: 'CambiarPassword', component: _manage_password_reset_password_reset_password_component__WEBPACK_IMPORTED_MODULE_27__["ResetPasswordComponent"] },
+    { path: 'category', component: _category_category_component__WEBPACK_IMPORTED_MODULE_13__["CategoryComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'category/create', component: _category_create_create_component__WEBPACK_IMPORTED_MODULE_12__["CreateCategoryComponent"] },
+    { path: 'category/update/:id', component: _category_modify_modify_component__WEBPACK_IMPORTED_MODULE_11__["ModifyCategoryComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'distribution', component: _distributions_distributions_component__WEBPACK_IMPORTED_MODULE_10__["DistributionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'distribution/create', component: _distributions_create_create_distributions_component__WEBPACK_IMPORTED_MODULE_8__["CreateDistributionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'distribution/:organismId', component: _distributions_distributions_component__WEBPACK_IMPORTED_MODULE_10__["DistributionsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'distribution/update/:id', component: _distributions_modify_modify_distribution_component__WEBPACK_IMPORTED_MODULE_9__["ModifyDistributionComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'transport', component: _transports_transports_component__WEBPACK_IMPORTED_MODULE_29__["TransportsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'transport/create', component: _transports_create_create_transport_component__WEBPACK_IMPORTED_MODULE_7__["CreateTransportComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'transport/update/:id', component: _transports_modify_modify_transport_component__WEBPACK_IMPORTED_MODULE_6__["ModifyTransportComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'expenditure', component: _expenditures_expenditures_component__WEBPACK_IMPORTED_MODULE_30__["ExpendituresComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'expenditure/create', component: _expenditures_create_create_expenditure_component__WEBPACK_IMPORTED_MODULE_5__["CreateExpenditureComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'expenditure/update/:id', component: _expenditures_update_update_expenditure_component__WEBPACK_IMPORTED_MODULE_31__["UpdateExpenditureComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'organism', component: _organisms_organisms_component__WEBPACK_IMPORTED_MODULE_32__["OrganismsComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'organism/create', component: _organisms_create_create_organism_component__WEBPACK_IMPORTED_MODULE_4__["CreateOrganismComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'organism/update/:id', component: _organisms_modify_modify_organism_component__WEBPACK_IMPORTED_MODULE_33__["ModifyOrganismComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'SolicitationSubsidy', component: _solicitation_subsidy_solicitation_subsidy_component__WEBPACK_IMPORTED_MODULE_3__["SolicitationSubsidyComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'SolicitationSubsidy/create', component: _solicitation_subsidy_create_create_solicitation_component__WEBPACK_IMPORTED_MODULE_2__["CreateSolicitationComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'holidays', component: _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_1__["HolidaysComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'holidays/create', component: _holidays_create_create_holidays_component__WEBPACK_IMPORTED_MODULE_0__["CreateHolidaysComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'holidays/update/:id', component: _holidays_modify_modify_holidays_component__WEBPACK_IMPORTED_MODULE_34__["ModifyHolidaysComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
@@ -1770,12 +2004,12 @@ var AppRoutesModule = /** @class */ (function () {
     function AppRoutesModule() {
     }
     AppRoutesModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_20__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_21__["NgModule"])({
             exports: [
-                _angular_router__WEBPACK_IMPORTED_MODULE_21__["RouterModule"]
+                _angular_router__WEBPACK_IMPORTED_MODULE_22__["RouterModule"]
             ],
             imports: [
-                _angular_router__WEBPACK_IMPORTED_MODULE_21__["RouterModule"].forRoot(routes)
+                _angular_router__WEBPACK_IMPORTED_MODULE_22__["RouterModule"].forRoot(routes)
             ]
         })
     ], AppRoutesModule);
@@ -1919,6 +2153,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _solicitation_subsidy_create_create_solicitation_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./solicitation-subsidy/create/create-solicitation.component */ "./src/app/solicitation-subsidy/create/create-solicitation.component.ts");
 /* harmony import */ var _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./holidays/holidays.component */ "./src/app/holidays/holidays.component.ts");
 /* harmony import */ var _holidays_create_create_holidays_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./holidays/create/create-holidays.component */ "./src/app/holidays/create/create-holidays.component.ts");
+/* harmony import */ var _holidays_modify_modify_holidays_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./holidays/modify/modify-holidays.component */ "./src/app/holidays/modify/modify-holidays.component.ts");
+/* harmony import */ var _holidays_ngb_parseFormatter__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./holidays/ngb-parseFormatter */ "./src/app/holidays/ngb-parseFormatter.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1942,6 +2178,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 //Paginator
+
+
 
 
 
@@ -2024,6 +2262,7 @@ var AppModule = /** @class */ (function () {
                 _solicitation_subsidy_create_create_solicitation_component__WEBPACK_IMPORTED_MODULE_50__["CreateSolicitationComponent"],
                 _holidays_holidays_component__WEBPACK_IMPORTED_MODULE_51__["HolidaysComponent"],
                 _holidays_create_create_holidays_component__WEBPACK_IMPORTED_MODULE_52__["CreateHolidaysComponent"],
+                _holidays_modify_modify_holidays_component__WEBPACK_IMPORTED_MODULE_53__["ModifyHolidaysComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
@@ -2034,6 +2273,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ReactiveFormsModule"],
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__["NgbModule"],
                 ngx_pagination__WEBPACK_IMPORTED_MODULE_16__["NgxPaginationModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__["NgbDatepickerModule"],
                 _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_22__["FontAwesomeModule"],
                 ngx_treeview__WEBPACK_IMPORTED_MODULE_20__["TreeviewModule"].forRoot(),
                 ng2_file_upload__WEBPACK_IMPORTED_MODULE_29__["FileUploadModule"],
@@ -2041,7 +2281,8 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HTTP_INTERCEPTORS"], useClass: _helpers___WEBPACK_IMPORTED_MODULE_11__["JwtInterceptor"], multi: true },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HTTP_INTERCEPTORS"], useClass: _helpers___WEBPACK_IMPORTED_MODULE_11__["ErrorInterceptor"], multi: true }
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HTTP_INTERCEPTORS"], useClass: _helpers___WEBPACK_IMPORTED_MODULE_11__["ErrorInterceptor"], multi: true },
+                { provide: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__["NgbDateParserFormatter"], useClass: _holidays_ngb_parseFormatter__WEBPACK_IMPORTED_MODULE_54__["NgbDateFRParserFormatter"] }
                 // provider used to create fake backend
                 //fakeBackendProvider    
             ],
@@ -2252,8 +2493,8 @@ var CategoryComponent = /** @class */ (function () {
         this.getAllCategories(this.filters);
     };
     CategoryComponent.prototype.loadPage = function (page) {
-        if (this.filters.page > 0) {
-            this.filters.page = this.filters.page - 1;
+        if (page > 0) {
+            this.filters.page = page - 1;
             this.getAllCategories(this.filters);
         }
     };
@@ -2621,9 +2862,9 @@ var DistributionsComponent = /** @class */ (function () {
                 _this.col_size = result.totalRecords;
         }, function (error) { return console.log(error); });
     };
-    DistributionsComponent.prototype.loadPage = function () {
-        if (this.filters.page > 0) {
-            this.filters.page = this.filters.page - 1;
+    DistributionsComponent.prototype.loadPage = function (page) {
+        if (page > 0) {
+            this.filters.page = page - 1;
             this.getAllDistributions(this.filters);
         }
     };
@@ -3056,7 +3297,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  create-holidays works!\n</p>\n"
+module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/holidays\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n<div class=\"container col-4 navarStyle\">\n  <h2>Crear</h2>\n  \n  <form (ngSubmit)=\"onSubmit()\" #holidaysForm=\"ngForm\">\n      <div class=\"form-group mb-1\">\n          <input class=\"form-control col-9\" [(ngModel)]=\"model.description\" \n            #description=\"ngModel\" required name=\"description\"\n            id=\"description\" type=\"text\" placeholder=\"Descripción\">\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" clas=\"alert alert-danger\">\n          Descripción Incorrecta\n      </div>\n\n      <div class=\"d-inline-block mb-1\">\n              <div class=\"form-group\">\n                <div class=\"input-group\">\n                  <input class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                         name=\"dp\" [displayMonths]=\"displayMonths\" required [navigation]=\"navigation\" \n                         [outsideDays]=\"outsideDays\" [showWeekNumbers]=\"showWeekNumbers\"\n                         ngbDatepicker #d=\"ngbDatepicker\" [(ngModel)]=\"model.date\">\n                  <div class=\"input-group-append\">\n                    <button class=\"btn btn-outline-secondary calendar\" (click)=\"d.toggle()\" type=\"button\">\n                        <fa-icon icon=\"calendar-alt\"></fa-icon>\n                    </button>\n                  </div>\n                </div>\n              </div>\n      </div>\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger\">\n          Fecha Incorrecta\n      </div>\n\n      <div style=\"margin-bottom:5px;\" class=\"form-group\">\n          <button class=\"btn btn-success navarStyle\" [disabled]=\"!holidaysForm.form.valid\"><fa-icon icon=\"save\"></fa-icon></button>\n      </div>\n\n  </form>\n  <div class=\"alert alert-danger\" *ngIf=\"errors\">\n      <ul *ngFor=\"let e of errors\">\n          <li>{{e}}</li>\n      </ul>\n  </div>\n  <div style=\"margin-top: 10px;\" *ngIf=\"holidaysForm.form.invalid\">\n      Hay Campos erroneos en el formulario, verifiquelos\n  </div>\n</div>"
 
 /***/ }),
 
@@ -3070,7 +3311,9 @@ module.exports = "<p>\n  create-holidays works!\n</p>\n"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateHolidaysComponent", function() { return CreateHolidaysComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
+/* harmony import */ var _models_holiday__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/holiday */ "./src/app/_models/holiday.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3081,18 +3324,29 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var CreateHolidaysComponent = /** @class */ (function () {
-    function CreateHolidaysComponent() {
+    function CreateHolidaysComponent(holidayService) {
+        this.holidayService = holidayService;
+        this.model = new _models_holiday__WEBPACK_IMPORTED_MODULE_1__["CreateHolidayDto"]();
+        this.errors = '';
     }
     CreateHolidaysComponent.prototype.ngOnInit = function () {
     };
+    CreateHolidaysComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var dataSend = this.model.date.day + "/" + this.model.date.month + "/" + this.model.date.year;
+        this.model.date = dataSend;
+        this.holidayService.createHoliday(this.model).subscribe(function (x) { return console.log("Create succesful"); }, function (errors) { return _this.errors = errors.error.date; });
+    };
     CreateHolidaysComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-create-holidays',
             template: __webpack_require__(/*! ./create-holidays.component.html */ "./src/app/holidays/create/create-holidays.component.html"),
             styles: [__webpack_require__(/*! ./create-holidays.component.css */ "./src/app/holidays/create/create-holidays.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_0__["HolidaysService"]])
     ], CreateHolidaysComponent);
     return CreateHolidaysComponent;
 }());
@@ -3119,7 +3373,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container mb-1\" >\n    <label class=\"d-inline-block pl-1\" for=\"\">Fecha </label>\n    <div class=\"d-inline-block pl-1\">\n        <form class=\"form-inline\">\n            <div class=\"form-group\">\n              <div class=\"input-group\">\n                <input (change)=\"filter()\" class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                       name=\"dp\" [displayMonths]=\"displayMonths\" [navigation]=\"navigation\" \n                       [outsideDays]=\"outsideDays\" [showWeekNumbers]=\"showWeekNumbers\"\n                       ngbDatepicker #d=\"ngbDatepicker\" [(ngModel)]=\"filters.date\">\n                <div class=\"input-group-append\">\n                  <button class=\"btn btn-outline-secondary calendar\" (click)=\"d.toggle()\" type=\"button\">\n                      <fa-icon icon=\"calendar-alt\"></fa-icon>\n                  </button>\n                </div>\n              </div>\n            </div>\n          </form>\n    </div>\n  \n    <label class=\"d-inline-block pl-1 pr-1\" for=\"\">Name </label>\n    <div class=\"d-inline-block pl-1 pr-1\">\n      <input (keyup)=\"filter()\" [(ngModel)]=\"filters.description\" type=\"text\" class=\"form-control\">\n    </div>\n  </div>\n  \n  {{filters.date.year | json}}\n  {{dp | json }}\n  <a href=\"\" class=\"btn btn-success mb-3\" routerLink=\"/distribution/create\">\n    <fa-icon icon=\"user-plus\"></fa-icon>\n  </a>\n  <table class=\"table table-hover\">\n    <thead>\n      <tr style=\"font-weight: bold;\">\n        <td>Name</td>\n        <td>Descripción</td>\n        <td>Organismos</td>\n        <td>Usuarios</td>\n        <td></td>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let holiday of holidays\">\n        <td>{{holiday.name}}</td>\n        <td>{{holiday.description}}</td>\n        <td><button class=\"btn btn-link\" (click)=\"seeOrganism(holiday)\">ver</button></td>\n        <td><button class=\"btn btn-link\" routerLink=\"/users/{{holiday.id}}\">ver</button></td>\n        <td>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n            <a class=\"pr-3\" routerLink=\"/distribution/update/{{holiday.id}}\">\n              <fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n            </a>\n            <a routerLink=\"/distribution\" (click)=\"openEliminar(holiday.id,holiday.description)\">\n              <fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n            </a>\n          </div>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  \n  <ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n   aria-label=\"Default pagination\"></ngb-pagination>"
+module.exports = "<div class=\"container mb-1\" >\n    <label class=\"d-inline-block pl-1\" for=\"\">Fecha </label>\n    <div class=\"d-inline-block pl-1\">\n        <form class=\"form-inline\">\n            <div class=\"form-group\">\n              <div class=\"input-group\">\n                <input (dateSelect)=\"filter()\" class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                       name=\"dp\" [displayMonths]=\"displayMonths\" [navigation]=\"navigation\" \n                       [outsideDays]=\"outsideDays\" [showWeekNumbers]=\"showWeekNumbers\"\n                       ngbDatepicker #d=\"ngbDatepicker\" \n                       [(ngModel)]=\"filters.date\">\n                <div class=\"input-group-append\">\n                  <button class=\"btn btn-outline-secondary calendar\" (click)=\"d.toggle()\" type=\"button\">\n                      <fa-icon icon=\"calendar-alt\"></fa-icon>\n                  </button>\n                </div>\n              </div>\n            </div>\n          </form>\n    </div>\n  \n    <label class=\"d-inline-block pl-1 pr-1\" for=\"\">Descripción </label>\n    <div class=\"d-inline-block pl-1 pr-1\">\n      <input (keyup)=\"filter()\" [(ngModel)]=\"filters.description\" type=\"text\" class=\"form-control\">\n    </div>\n  </div>\n  <a href=\"\" class=\"btn btn-success mb-3\" routerLink=\"/holidays/create\">\n    <fa-icon icon=\"user-plus\"></fa-icon>\n  </a>\n  <table class=\"table table-hover\">\n    <thead>\n      <tr style=\"font-weight: bold;\">\n        <td>Fecha</td>\n        <td>Descripción</td>  \n        <td>Acción</td>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let holiday of holidays\">\n        <td>{{holiday.date | date:'dd/MM/yyyy'}}</td>\n        <td>{{holiday.description}}</td>\n        <td>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n            <a class=\"pr-3\" routerLink=\"/holidays/update/{{holiday.id}}\">\n              <fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n            </a>\n            <a routerLink=\"/holidays\" (click)=\"openEliminar(holiday)\">\n              <fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n            </a>\n          </div>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  \n  <ngb-pagination (pageChange)=\"loadPage($event)\"\n      [collectionSize]=\"col_size\" \n      [pageSize]=\"itemsPerPage\"\n      [(page)]=\"filters.page\"\n      aria-label=\"Default pagination\"></ngb-pagination>"
 
 /***/ }),
 
@@ -3135,6 +3389,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HolidaysComponent", function() { return HolidaysComponent; });
 /* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3146,25 +3402,74 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var HolidaysComponent = /** @class */ (function () {
     //
-    function HolidaysComponent(holidayService) {
+    function HolidaysComponent(holidayService, modalService) {
         this.holidayService = holidayService;
-        this.filters = { page: 0, description: "", date: "" };
+        this.modalService = modalService;
+        this.filters = { page: 0, description: "", date: null };
         this.itemsPerPage = 10;
     }
     HolidaysComponent.prototype.ngOnInit = function () {
+        this.filters.date = "";
         this.getAllHolidays(this.filters);
     };
     HolidaysComponent.prototype.getAllHolidays = function (filters) {
         var _this = this;
         this.holidayService.getPageHoliday(filters).subscribe(function (x) {
             _this.holidays = x.list;
-            _this.col_size = x.TotalRecords;
+            _this.col_size = x.totalRecords;
         });
     };
     HolidaysComponent.prototype.filter = function () {
+        if (this.filters.date == null
+            || this.filters.date.day === undefined
+            || this.filters.date.month === undefined
+            || this.filters.date.year === undefined) {
+            this.filters.date = "";
+            this.getAllHolidays(this.filters);
+            return;
+        }
+        var dataSend = "";
+        var auxDate = {
+            day: this.filters.date.day,
+            month: this.filters.date.month,
+            year: this.filters.date.year
+        };
+        dataSend = this.filters.date.month + "/" + this.filters.date.day + "/" + this.filters.date.year;
+        this.filters.date = dataSend;
         this.getAllHolidays(this.filters);
+        this.filters.date = auxDate;
+    };
+    HolidaysComponent.prototype.loadPage = function (page) {
+        if (page > 0) {
+            this.filters.page = page - 1;
+            this.getAllHolidays(this.filters);
+        }
+    };
+    //MODALS
+    HolidaysComponent.prototype.openEliminar = function (holiday) {
+        var _this = this;
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
+        modalRef.componentInstance.Encabezado = "Eliminar";
+        var dateToShow = new Date(Date.parse(holiday.date));
+        modalRef.componentInstance.Contenido = "¿Desea eliminar feriado : " + holiday.description + " " +
+            dateToShow.getDate() + "/" + (dateToShow.getMonth() + 1) + "/" + dateToShow.getFullYear() + "?";
+        modalRef.componentInstance.GuardaroEliminar = "Eliminar";
+        modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
+        modalRef.componentInstance.MsgClose = "Cancelar";
+        modalRef.result.then(function () {
+            _this.holidayService.deleteHoliday(holiday.id).subscribe(function () {
+                _this.getAllHolidays(_this.filters);
+                debugger;
+            }, function (error) {
+                console.log("error", error);
+            });
+        }, function () {
+            console.log('Backdrop click');
+        });
     };
     HolidaysComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -3172,10 +3477,188 @@ var HolidaysComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./holidays.component.html */ "./src/app/holidays/holidays.component.html"),
             styles: [__webpack_require__(/*! ./holidays.component.css */ "./src/app/holidays/holidays.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_0__["HolidaysService"]])
+        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_0__["HolidaysService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"]])
     ], HolidaysComponent);
     return HolidaysComponent;
 }());
+
+
+
+/***/ }),
+
+/***/ "./src/app/holidays/modify/modify-holidays.component.css":
+/*!***************************************************************!*\
+  !*** ./src/app/holidays/modify/modify-holidays.component.css ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2hvbGlkYXlzL21vZGlmeS9tb2RpZnktaG9saWRheXMuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/holidays/modify/modify-holidays.component.html":
+/*!****************************************************************!*\
+  !*** ./src/app/holidays/modify/modify-holidays.component.html ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/holidays\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n<div class=\"container col-4 navarStyle\">\n  <h2>Crear</h2>\n  \n  <form (ngSubmit)=\"onSubmit()\" #holidaysForm=\"ngForm\">\n      <div class=\"form-group mb-1\">\n          <input class=\"form-control col-9\" [(ngModel)]=\"model.description\" \n            #description=\"ngModel\" required name=\"description\"\n            id=\"description\" type=\"text\" placeholder=\"Descripción\">\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" clas=\"alert alert-danger\">\n          Descripción Incorrecta\n      </div>\n\n      <div class=\"d-inline-block mb-1\">\n              <div class=\"form-group\">\n                <div class=\"input-group\">\n                  <input class=\"form-control\" placeholder=\"dd-mm-yyyy\"\n                         name=\"dp\" [displayMonths]=\"displayMonths\" required [navigation]=\"navigation\" \n                         [outsideDays]=\"outsideDays\" [showWeekNumbers]=\"showWeekNumbers\"\n                         ngbDatepicker #d=\"ngbDatepicker\" [(ngModel)]=\"model.date\">\n                  <div class=\"input-group-append\">\n                    <button class=\"btn btn-outline-secondary calendar\" (click)=\"d.toggle()\" type=\"button\">\n                        <fa-icon icon=\"calendar-alt\"></fa-icon>\n                    </button>\n                  </div>\n                </div>\n              </div>\n      </div>\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger\">\n          Fecha Incorrecta\n      </div>\n\n      <div style=\"margin-bottom:5px;\" class=\"form-group\">\n          <button class=\"btn btn-success navarStyle\" [disabled]=\"!holidaysForm.form.valid\"><fa-icon icon=\"save\"></fa-icon></button>\n      </div>\n\n  </form>\n  <div class=\"alert alert-danger\" *ngIf=\"errors\">\n      <ul *ngFor=\"let e of errors\">\n          <li>{{e}}</li>\n      </ul>\n  </div>\n  <div style=\"margin-top: 10px;\" *ngIf=\"holidaysForm.form.invalid\">\n      Hay Campos erroneos en el formulario, verifiquelos\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/holidays/modify/modify-holidays.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/holidays/modify/modify-holidays.component.ts ***!
+  \**************************************************************/
+/*! exports provided: ModifyHolidaysComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifyHolidaysComponent", function() { return ModifyHolidaysComponent; });
+/* harmony import */ var _models_holiday__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/holiday */ "./src/app/_models/holiday.ts");
+/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ModifyHolidaysComponent = /** @class */ (function () {
+    function ModifyHolidaysComponent(route, holidayService, router) {
+        this.route = route;
+        this.holidayService = holidayService;
+        this.router = router;
+        this.model = new _models_holiday__WEBPACK_IMPORTED_MODULE_0__["UpdateHolidayDto"]();
+    }
+    ModifyHolidaysComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (x) { return _this.id = x.id; });
+        this.holidayService.getByIdHoliday(this.id).subscribe(function (x) {
+            _this.model = x;
+            var dateToShow = new Date(Date.parse(x.date));
+            _this.model.date = { day: dateToShow.getDate(), month: dateToShow.getMonth() + 1, year: dateToShow.getFullYear() };
+        });
+    };
+    ModifyHolidaysComponent.prototype.onSubmit = function () {
+        var _this = this;
+        this.model.id = this.id;
+        this.model.date = this.model.date.day + "/" + this.model.date.month + "/" + this.model.date.year;
+        this.holidayService.updateHoliday(this.model).subscribe(function () {
+            _this.router.navigate(['/holidays']);
+        }, function () {
+        });
+    };
+    ModifyHolidaysComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+            selector: 'app-modify-holidays',
+            template: __webpack_require__(/*! ./modify-holidays.component.html */ "./src/app/holidays/modify/modify-holidays.component.html"),
+            styles: [__webpack_require__(/*! ./modify-holidays.component.css */ "./src/app/holidays/modify/modify-holidays.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _services_holidays_service__WEBPACK_IMPORTED_MODULE_1__["HolidaysService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], ModifyHolidaysComponent);
+    return ModifyHolidaysComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/holidays/ngb-parseFormatter.ts":
+/*!************************************************!*\
+  !*** ./src/app/holidays/ngb-parseFormatter.ts ***!
+  \************************************************/
+/*! exports provided: NgbDateFRParserFormatter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgbDateFRParserFormatter", function() { return NgbDateFRParserFormatter; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var NgbDateFRParserFormatter = /** @class */ (function (_super) {
+    __extends(NgbDateFRParserFormatter, _super);
+    function NgbDateFRParserFormatter() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    NgbDateFRParserFormatter.prototype.parse = function (value) {
+        if (value) {
+            var dateParts = value.trim().split('/');
+            if (dateParts.length === 1 && this.isNumber(dateParts[0])) {
+                return { year: this.toInteger(dateParts[0]), month: null, day: null };
+            }
+            else if (dateParts.length === 2 && this.isNumber(dateParts[0]) && this.isNumber(dateParts[1])) {
+                return { year: this.toInteger(dateParts[1]), month: this.toInteger(dateParts[0]), day: null };
+            }
+            else if (dateParts.length === 3 && this.isNumber(dateParts[0]) && this.isNumber(dateParts[1]) && this.isNumber(dateParts[2])) {
+                return { year: this.toInteger(dateParts[2]), month: this.toInteger(dateParts[1]), day: this.toInteger(dateParts[0]) };
+            }
+        }
+        return null;
+    };
+    NgbDateFRParserFormatter.prototype.format = function (date) {
+        var stringDate = "";
+        if (date) {
+            stringDate += this.isNumber(date.day) ? this.padNumber(date.day) + "/" : "";
+            stringDate += this.isNumber(date.month) ? this.padNumber(date.month) + "/" : "";
+            stringDate += date.year;
+        }
+        return stringDate;
+    };
+    NgbDateFRParserFormatter.prototype.padNumber = function (value) {
+        if (this.isNumber(value)) {
+            return ("0" + value).slice(-2);
+        }
+        else {
+            return "";
+        }
+    };
+    NgbDateFRParserFormatter.prototype.isNumber = function (value) {
+        return !isNaN(this.toInteger(value));
+    };
+    NgbDateFRParserFormatter.prototype.toInteger = function (value) {
+        return parseInt("" + value, 10);
+    };
+    NgbDateFRParserFormatter = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
+    ], NgbDateFRParserFormatter);
+    return NgbDateFRParserFormatter;
+}(_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbDateParserFormatter"]));
 
 
 
@@ -4182,7 +4665,7 @@ var OrganismsComponent = /** @class */ (function () {
     };
     OrganismsComponent.prototype.getAllOrganism = function (page) {
         var _this = this;
-        this.organismService.getPaginator(page).subscribe(function (result) {
+        this.organismService.getPaginator(this.filters.page).subscribe(function (result) {
             _this.organism = result.list,
                 _this.col_size = result.totalRecords;
         }, function (error) { return console.log(error); });
@@ -4600,7 +5083,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/SolicitationSubsidy\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n<div class=\"container col-4 navarStyle\">\n  <h2>Crear</h2>\n  <form (ngSubmit)=\"onSubmit()\" #solicitationSubsidy=\"ngForm\">\n      \n      <div class=\"form-group\">\n        <label for=\"\">Fecha de Inicio</label>\n          <input class=\"form-control\" [(ngModel)]=\"model.startDate\" #startDate=\"ngModel\"\n            required name=\"Dni\" id=\"Dni\" type=\"Date\"\n            placeholder=\"Dni\">\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && startDate.invalid\" clas=\"alert alert-danger\">\n          Fecha de Inicio Incorrecta\n      </div>\n\n      <div class=\"form-group\">\n          <input class=\"form-control\" [(ngModel)]=\"model.costCommunication\" \n            required #costCommunication=\"ngModel\" name=\"costCommunication\" type=\"text\"\n            placeholder=\"Costo de Comunicación\" value=\"\">\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && costCommunication.invalid\" class=\"alert alert-danger\">\n          Costo de Comunicación Incorrecto\n      </div>\n\n      <div class=\"form-group\">\n          <input class=\"form-control\" [(ngModel)]=\"model.costFuel\"\n            #costFuel=\"ngModel\" name=\"costFuel\" type=\"text\"\n            placeholder=\"Costo de Combustible\" value=\"\">\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && costFuel.invalid\" class=\"alert alert-danger\">\n          Costo de Combustible Incorrecta\n      </div>\n\n     <!-- <div class=\"form-group\">\n          <div class=\"row\">\n              <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\n                  <div class=\"col\">\n                      <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\n                      <label class=\"navarStyle\" style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\n                  </div>\n              </li>\n          </div>\n      </div>--> \n\n      <div class=\"form-group\">\n          <input class=\"form-control\" [(ngModel)]=\"model.costMobility\"\n              required #costMobility=\"ngModel\" name=\"costMobility\"\n              type=\"text\" placeholder=\"Costo de Movilidad\" value=\"\">\n      </div>\n      \n      <div class=\"form-group\">\n          <select class=\"form-control\" #distributionId=\"ngModel\" name=\"destinyId\" [(ngModel)]=\"model.destinyId\">\n            <option *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\n          </select>\n      </div>\n\n\n      <div class=\"form-group\">\n        <select class=\"form-control\" #motiveId=\"ngModel\" name=\"distributionId\" [(ngModel)]=\"model.motiveId\">\n          <option *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\n        </select>\n      </div>\n\n      <div class=\"form-group\">\n        <select class=\"form-control\" #placeId=\"ngModel\" name=\"placeId\" [(ngModel)]=\"model.placeId\">\n          <option *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\n        </select>\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger\">\n          Telefóno Incorrecto\n      </div>\n\n      <div style=\"margin-bottom:5px;\" class=\"form-group\">\n          <button class=\"btn btn-success navarStyle\" [disabled]=\"!solicitationSubsidy.form.valid\"><fa-icon icon=\"save\"></fa-icon></button>\n      </div>\n\n  </form>\n  <div class=\"alert alert-danger\" *ngIf=\"errors\">\n      <ul *ngFor=\"let e of errors\">\n          <li>{{e.value}}</li>\n      </ul>\n  </div>\n  <div style=\"margin-top: 10px;\" *ngIf=\"solicitationSubsidy.form.invalid\">\n      Hay Campos erroneos en el formulario, verifiquelos\n  </div>\n</div>"
+module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/SolicitationSubsidy\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n<div class=\"container col-4 navarStyle\">\n  <h2>Crear</h2>\n  <form (ngSubmit)=\"onSubmit()\" #solicitationSubsidy=\"ngForm\">\n      \n      <div class=\"form-group\">\n        <label for=\"\">Fecha de Inicio</label>\n          <input class=\"form-control\" [(ngModel)]=\"model.startDate\" #startDate=\"ngModel\"\n            required name=\"startDate\" id=\"startDate\" type=\"Date\">\n      </div>\n\n      <div style=\"margin-top: 10px;\" *ngIf=\"submitted && startDate.invalid\" clas=\"alert alert-danger\">\n          Fecha de Inicio Incorrecta\n      </div>\n        \n      <div class=\"form-row\">\n            <div class=\"form-group col\">\n                <input class=\"form-control\" [(ngModel)]=\"model.days\" #days=\"ngModel\"\n                    name=\"days\" id=\"days\" type=\"number\" placeholder=\"Dias\" required>\n            </div>\n            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && days.invalid\" class=\"alert alert-danger\">\n                    Fecha de Inicio Incorrecto\n            </div>\n            \n            <div class=\"form-group col\">\n                <input class=\"form-control\" [(ngModel)]=\"model.costCommunication\" \n                required #costCommunication=\"ngModel\" name=\"costCommunication\" type=\"number\"\n                placeholder=\"Comunicación\" value=\"\">\n            </div>\n    \n            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && costCommunication.invalid\" class=\"alert alert-danger\">\n                Costo de Comunicación Incorrecto\n            </div>\n    \n            <div class=\"form-group col\">\n                <input class=\"form-control\" [(ngModel)]=\"model.costFuel\"\n                #costFuel=\"ngModel\" name=\"costFuel\" type=\"number\"\n                placeholder=\"Combustible\" value=\"\">\n            </div>\n    \n            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && costFuel.invalid\" class=\"alert alert-danger\">\n                Costo de Combustible Incorrecta\n            </div>\n\n            <div class=\"form-group col\">\n                <input class=\"form-control\" [(ngModel)]=\"model.costMobility\"\n                    required #costMobility=\"ngModel\" name=\"costMobility\"\n                    type=\"number\" placeholder=\"Movilidad\" value=\"\">\n            </div>\n\n            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && costMobility.invalid\" class=\"alert alert-danger\">\n                    Costo de Combustible Incorrecta\n            </div>\n\n            <div class=\"form-group col\">\n                    <input class=\"form-control\" [(ngModel)]=\"model.unexpectedCircumstance\"\n                        required #unexpectedCircumstance=\"ngModel\" name=\"unexpectedCircumstance\"\n                        type=\"number\" placeholder=\"Imprevisto\" value=\"\">\n                </div>\n    \n            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && costMobility.invalid\" class=\"alert alert-danger\">\n                    Costo de Combustible Incorrecta\n            </div>\n        </div>\n\n    <div class=\"form-row\">\n        <div class=\"form-group col\" >\n            <label for=\"\">Categoría</label>\n            <select class=\"form-control\" #categoryId=\"ngModel\" name=\"categoryId\" [(ngModel)]=\"model.categoryId\">\n                <option *ngFor=\"let cat of categories\" value=\"{{cat.id}}\">{{cat.description}}</option>\n            </select>\n        </div>\n\n\n        <div class=\"form-group col\">\n            <label for=\"\">Transporte</label>\n            <select class=\"form-control\" #transportId=\"ngModel\" name=\"transportId\" [(ngModel)]=\"model.transportId\">\n                <option *ngFor=\"let trans of transports\" value=\"{{trans.id}}\">\n                    {{trans.model}} - {{trans.model}}\n                </option>\n            </select>\n        </div>\n\n        <div class=\"form-group col\">\n            <label for=\"\">Cod. Liq.</label>\n            <select class=\"form-control\" #codeLiquidation=\"ngModel\" name=\"codeLiquidation\" [(ngModel)]=\"model.codeLiquidation\">\n                <option *ngFor=\"let codeLiq of codeLiquidation\" value=\"{{codeLiq.id}}\">{{codeLiq.name}}</option>\n            </select>\n        </div>\n    </div>  \n\n    <div class=\"form-row\">\n        <div class=\"form-group col pl-5\">\n            <div class=\"row\">\n                <label class=\"form-check-label\" for=\"\">Dentro</label>\n                <input class=\"form-check-input\" [(ngModel)]=\"model.placeId\" type=\"radio\" name=\"exampleRadios\" id=\"exampleRadios1\" value=\"option1\" checked>\n            </div>\n        </div>\n\n        <div class=\"form-group col\">\n            <div class=\"row\">\n                <label class=\"form-check-label\" for=\"exampleRadios2\">Fuera</label>\n                <input class=\"form-check-input\" [(ngModel)]=\"model.placeId\" type=\"radio\" name=\"exampleRadios\" id=\"exampleRadios2\" value=\"option2\">\n            </div>\n        </div>\n    </div>\n\n    <div class=\"form-row\">\n            <div class=\"form-group col\" >\n                <label for=\"\">Provincia</label>\n                <select class=\"form-control\" #provinceId=\"ngModel\" name=\"provinceId\" [(ngModel)]=\"model.provinceId\">\n                    <option *ngFor=\"let prov of provinces\" value=\"{{prov.id}}\">{{prov.name}}</option>\n                </select>\n            </div>\n    \n    \n            <div class=\"form-group col\">\n                <label for=\"\">Departamento</label>\n                <select class=\"form-control\" #cityId=\"ngModel\" name=\"cityId\" [(ngModel)]=\"model.cityId\">\n                    <option *ngFor=\"let city of cities\" value=\"{{city.id}}\">{{city.name}}</option>\n                </select>\n            </div>\n    \n            <div class=\"form-group col\">\n                <label for=\"\">Localidad</label>\n                <select class=\"form-control\" #placeId=\"ngModel\" name=\"placeId\" [(ngModel)]=\"model.placeId\" disabled>\n                    <option *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\n                </select>\n            </div>\n    </div>  \n\n    <div class=\"form-group\">\n        <label for=\"\">Motivo</label>\n        <select class=\"form-control\" #motiveId=\"ngModel\" name=\"motiveId\" [(ngModel)]=\"model.motiveId\">\n            <option *ngFor=\"let mot of motives\" value=\"{{mot.id}}\">{{mot.description}}</option>\n        </select>\n    </div>\n\n    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && motiveId.invalid\" class=\"alert alert-danger\">\n        Motivo Incorrecto\n    </div>\n\n    <div class=\"form-row\">\n        <div class=\"form-group col\">\n            <label for=\"\">Concepto</label>\n            <select class=\"form-control\" #expenditureId=\"ngModel\" name=\"expenditureId\" [(ngModel)]=\"model.expenditures\">\n                <option *ngFor=\"let exp of expenditure\" value=\"{{exp.id}}\">{{exp.description}}</option>\n            </select>\n        </div>\n        <div class=\"form-group col-3\">\n            <label for=\"\">Importe</label>\n            <input [(ngModel)]=\"model.expenditures\" class=\"form-control\" type=\"number\">\n        </div>\n        <div class=\"form-group col-2 pt-4 pl-3\">\n                <button class=\"btn btn-success\" type=\"submit\">+</button>\n        </div>\n        \n    </div>\n    \n    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n            <button class=\"btn btn-success navarStyle\" [disabled]=\"!solicitationSubsidy.form.valid\">\n                <fa-icon icon=\"save\"></fa-icon> Guardar\n            </button>\n    </div>\n\n  </form>\n  <div class=\"alert alert-danger\" *ngIf=\"errors\">\n      <ul *ngFor=\"let e of errors\">\n          <li>{{e.value}}</li>\n      </ul>\n  </div>\n  <div style=\"margin-top: 10px;\" *ngIf=\"solicitationSubsidy.form.invalid\">\n      Hay Campos erroneos en el formulario, verifiquelos\n  </div>\n</div>"
 
 /***/ }),
 
@@ -4614,8 +5097,13 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateSolicitationComponent", function() { return CreateSolicitationComponent; });
-/* harmony import */ var _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_motive_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/motive.service */ "./src/app/_services/motive.service.ts");
+/* harmony import */ var _services_city_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/city.service */ "./src/app/_services/city.service.ts");
+/* harmony import */ var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/category.service */ "./src/app/_services/category.service.ts");
+/* harmony import */ var _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
+/* harmony import */ var src_app_services_province_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/province.service */ "./src/app/_services/province.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4627,19 +5115,59 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
+
+
+
 var CreateSolicitationComponent = /** @class */ (function () {
-    function CreateSolicitationComponent() {
-        this.model = new _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_0__["CreateSolicitationSubsidyDto"];
+    function CreateSolicitationComponent(cetegoryService, transportService, provinceService, cityService, motiveService) {
+        this.cetegoryService = cetegoryService;
+        this.transportService = transportService;
+        this.provinceService = provinceService;
+        this.cityService = cityService;
+        this.motiveService = motiveService;
+        this.codeLiquidation = [{ id: 1, name: "1" }, { id: 2, name: "2" }];
+        this.model = new _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_3__["CreateSolicitationSubsidyDto"];
     }
     CreateSolicitationComponent.prototype.ngOnInit = function () {
+        this.allCategories();
+        this.allTransports();
+        this.allProvince();
+        this.allCity();
+        this.allMotive();
+    };
+    CreateSolicitationComponent.prototype.allCategories = function () {
+        var _this = this;
+        this.cetegoryService.getallCategories().subscribe(function (x) { return _this.categories = x; });
+    };
+    CreateSolicitationComponent.prototype.allTransports = function () {
+        var _this = this;
+        this.transportService.getAll().subscribe(function (x) { return _this.transports = x; });
+    };
+    CreateSolicitationComponent.prototype.allProvince = function () {
+        var _this = this;
+        this.provinceService.getAll().subscribe(function (x) { return _this.provinces = x; });
+    };
+    CreateSolicitationComponent.prototype.allCity = function () {
+        var _this = this;
+        this.cityService.getAll().subscribe(function (x) { return _this.cities = x; });
+    };
+    CreateSolicitationComponent.prototype.allMotive = function () {
+        var _this = this;
+        this.motiveService.getAll().subscribe(function (x) { return _this.motives = x; });
     };
     CreateSolicitationComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-create-solicitation',
             template: __webpack_require__(/*! ./create-solicitation.component.html */ "./src/app/solicitation-subsidy/create/create-solicitation.component.html"),
             styles: [__webpack_require__(/*! ./create-solicitation.component.css */ "./src/app/solicitation-subsidy/create/create-solicitation.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"],
+            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_5__["TransportService"],
+            src_app_services_province_service__WEBPACK_IMPORTED_MODULE_6__["ProvinceService"],
+            _services_city_service__WEBPACK_IMPORTED_MODULE_1__["CityService"],
+            _services_motive_service__WEBPACK_IMPORTED_MODULE_0__["MotiveService"]])
     ], CreateSolicitationComponent);
     return CreateSolicitationComponent;
 }());
@@ -5542,8 +6070,8 @@ var UsersComponent = /** @class */ (function () {
         });
     };
     UsersComponent.prototype.loadPage = function (page) {
-        if (this.filters.page > 0) {
-            this.filters.page = this.filters.page - 1;
+        if (page > 0) {
+            this.filters.page = page - 1;
             this.getAllUsers(this.filters);
         }
     };

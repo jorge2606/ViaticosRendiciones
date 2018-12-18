@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { JwtInterceptor , ErrorInterceptor} from './_helpers/';
 import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
-import {NgbModule, NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modals.component';
 //Paginator
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -54,6 +54,10 @@ import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitatio
 import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
+import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.component';
+import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
+import { AddNewExpenditureComponent } from './modals/add-new-expenditure/add-new-expenditure.component';
+
 
 
 library.add(fas);
@@ -99,6 +103,8 @@ library.add(fas);
     CreateSolicitationComponent,
     HolidaysComponent,
     CreateHolidaysComponent,
+    ModifyHolidaysComponent,
+    AddNewExpenditureComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,12 +123,13 @@ library.add(fas);
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}
 
     // provider used to create fake backend
     //fakeBackendProvider    
   ],
-  entryComponents: [NgbdModalContent, ListNotificationsComponent],
+  entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

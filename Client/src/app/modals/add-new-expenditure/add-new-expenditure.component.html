@@ -1,0 +1,49 @@
+<div class="modal-header">
+        <h4 class="modal-title">Nuevo</h4>
+      </div>
+    <div class="modal-body">
+        <div class="container">
+            <form action="">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="">Gastos</label>
+                        <select required class="form-control" #expenditureId="ngModel" name="expenditureId" 
+                                [(ngModel)]="modelExp.id">
+                                <option *ngFor="let exp of expendituresCbox" value="{{exp.id}}">{{exp.name}}</option>
+                            </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="">Importe</label>
+                        <input required [(ngModel)]="modelExp.cost" #cost="ngModel" 
+                        name="cost" class="form-control" type="text" placeholder="Costo"
+                        value="{{modelExp.cost}}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                            <label for="">Descripción</label>
+                            <textarea required [(ngModel)]="modelExp.description" #description="ngModel" 
+                            placeholder="Descripción" value="{{modelExp.description}}"
+                            name="description" class="form-control" type="text"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <a (click)="addNewConcept()" class="btn btn-success">
+                            Agregar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+      
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+      </div>

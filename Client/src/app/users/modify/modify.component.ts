@@ -15,11 +15,11 @@ export class ModifyuserComponent implements OnInit {
 
   id: number;
   distribution : DistributionService[];
+  model = new modifyUser;
 
   constructor(private router : Router,private route: ActivatedRoute, private userService: UserService,
     private distributionService : DistributionService) {
   }
-  model = new modifyUser;
   
 
   onChange(rol){

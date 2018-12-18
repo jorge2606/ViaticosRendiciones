@@ -12,5 +12,6 @@ namespace VR.Service.Interfaces
         ServiceResult<UpdateExpenditureDto> UpdateExpenditure(UpdateExpenditureDto expenditureDto);
         ServiceResult<DeleteExpenditureDto> DeleteExpenditure(Guid expenditureId);
         ServiceResult<FindByIdExpenditureDto> FindByIdExpenditure(Guid id);
+        ServiceResult<List<AllExpenditureDto>> AllExpenditure();
     }
 }

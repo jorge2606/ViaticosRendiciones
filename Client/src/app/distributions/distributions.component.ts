@@ -53,9 +53,9 @@ export class DistributionsComponent implements OnInit {
 
   }
 
-  loadPage(){
-    if (this.filters.page > 0){
-      this.filters.page = this.filters.page - 1;
+  loadPage(page : any){
+    if (page > 0){
+      this.filters.page = page - 1;
       this.getAllDistributions(this.filters);
     }
   }

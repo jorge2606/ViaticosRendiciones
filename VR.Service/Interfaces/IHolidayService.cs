@@ -14,6 +14,6 @@ namespace VR.Service.Interfaces
         ServiceResult<DeleteHolidayDto> DeleteHoliday(Guid HolidayId);
         ServiceResult<List<AllHolidayDto>> AllHoliday();
         ServiceResult<FindByIdHolidayDto> FindByIdHoliday(Guid id);
-        PagedResult<AllHolidayDto> Pagination(FilterHolidayDto filters);
+        ServiceResult<PagedResult<AllHolidayDto>> Pagination(FilterHolidayDto filters);
     }
 }

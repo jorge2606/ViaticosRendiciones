@@ -107,8 +107,20 @@ namespace VR.Web.Controllers
             return new PagedResult<AllCategoryDto>
             {
                 List = result,
-                TotalRecords = result.Count()
+                TotalRecords = queryPaginator.Count()
             };
+        }
+
+        [HttpGet("GetAllCategories")]
+        public IActionResult GetAllCategories()
+        {
+            var result = _categoryService.GetAllCategories();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
         }
     }
 }
