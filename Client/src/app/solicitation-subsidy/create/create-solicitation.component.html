@@ -44,16 +44,19 @@
                 </select>
             </div>
 
-            {{model.places | json}}
-            <div class="form-group col m-4">
+
+            <div class="custom-control custom-radio form-group col m-4">
                 <div class="row">
                     <li *ngFor="let place of model.places" style="list-style:none">
                         <div class="col">
-                            <input type="radio" [(ngModel)]="place.id"  name="places" [checked]="place.checked"
-                            value="{{place.checked}}" #places="ngModel" (change)="choose($event, place)"  />
-                            <label class="navarStyle" style="text-transform: capitalize; padding-left: 5px;font-size: 11px;" 
-                                for="{{place.description}}">{{place.description}}
-                            </label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio{{place.id}}" [(ngModel)]="model.placeId"
+                                name="customRadio" class="custom-control-input" [value]="place.id"
+                                #customRadio="ngModel" >
+                                <label class="custom-control-label" for="customRadio{{place.id}}">
+                                    {{place.description}}
+                                </label>
+                            </div>
                         </div>
                     </li>
                 </div>

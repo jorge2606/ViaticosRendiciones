@@ -151,13 +151,4 @@ export class CreateSolicitationComponent implements OnInit {
     console.log(this.model);
   }
 
-  choose(e : any, place : any){
-    this.model.places.forEach(
-      x => x.checked = !e.srcElement.checked
-    );
-
-    place.checked = e.srcElement.checked;
-  }
-
-
 }
