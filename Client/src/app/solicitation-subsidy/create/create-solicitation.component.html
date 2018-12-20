@@ -7,10 +7,21 @@
 
         <div class="form-row">
             <div class="form-group col">
-                <label for="">Fecha de Inicio</label>
-                <input class="form-control" [(ngModel)]="model.startDate" #startDate="ngModel" required name="startDate"
-                    id="startDate" type="Date">
-            </div>
+                <label for="">Fecha </label>
+                    <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                            name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
+                            [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                            ngbDatepicker #d="ngbDatepicker" 
+                            [(ngModel)]="model.startDate">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                            <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                    </div>
+                    </div>
+            </div>        
+            
 
             <div style="margin-top: 10px;" *ngIf="submitted && startDate.invalid" clas="alert alert-danger">
                 Fecha de Inicio Incorrecta
