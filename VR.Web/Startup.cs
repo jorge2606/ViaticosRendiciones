@@ -178,6 +178,7 @@ namespace VR.Web
             services.AddScoped<IProvinceService, ProvinceService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IMotiveService, MotiveService>();
+            services.AddScoped<IPlaceService,PlaceService>();
 
             //sender Email
             // Add application services.

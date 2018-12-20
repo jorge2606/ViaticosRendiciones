@@ -1,8 +1,8 @@
 <div class="container mb-1" >
 		<label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
 		<div class="d-inline-block pl-1 pr-1 col-2">
-			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" class="form-control d-inline-block pl-1">
-				<option value=""></option>
+			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
+				class="form-control d-inline-block pl-1">
 				<option *ngFor="let dist of distributions" value="{{dist.id}}">
 					{{dist.name}}
 				</option>

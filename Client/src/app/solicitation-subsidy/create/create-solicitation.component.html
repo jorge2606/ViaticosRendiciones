@@ -44,17 +44,18 @@
                 </select>
             </div>
 
+            {{model.places | json}}
             <div class="form-group col m-4">
-                <label for=""></label>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"
-                    [(ngModel)]="model.placeId">
-                    <label class="custom-control-label" for="customRadioInline1">Dentro</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" [(ngModel)]="model.placeId" id="customRadioInline2" name="customRadioInline1" 
-                    class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline2">Fuera</label>
+                <div class="row">
+                    <li *ngFor="let place of model.places" style="list-style:none">
+                        <div class="col">
+                            <input type="radio" [(ngModel)]="place.id"  name="places" [checked]="place.checked"
+                            value="{{place.checked}}" #places="ngModel" (change)="choose($event, place)"  />
+                            <label class="navarStyle" style="text-transform: capitalize; padding-left: 5px;font-size: 11px;" 
+                                for="{{place.description}}">{{place.description}}
+                            </label>
+                        </div>
+                    </li>
                 </div>
             </div>
 
@@ -112,16 +113,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let modelExp of model.expenditures;">
+                <tr *ngFor="let modelExp of model.expenditures">
                         <!-- filas para agregar-->
-                    <td>
-                        <select (change)="changeValue($event)" required class="form-control" (ngModelChange)="changeValue(e)"
+                        <select (change)="changeValue($event)" class="form-control"
                             #expenditureId{{modelExp.id}}="ngModel"
                             name="expenditureId{{modelExp.id}}" 
                             [(ngModel)]="modelExp.id">
-                            <option *ngFor="let exp of expenditures" value="{{exp.id}}">{{exp.description}}</option>
+                            <option *ngFor="let exp of expenditures" [value]="exp.id">
+                                {{exp.name}}
+                            </option>
                         </select>
-                    </td>
                     <td>
                         <input required [(ngModel)]="modelExp.cost" #cost{{modelExp.id}}="ngModel" 
                         name="cost{{modelExp.id}}" class="form-control" type="number" placeholder="Costo"
@@ -135,18 +136,16 @@
                         
                     </td>
                     <td>
-                        <a class="btn btn-danger" (click)="removePower(x)"> 
-                            Remover
-                        </a>
+                        <a class="btn btn-danger" (click)="removePower(modelExp)"> Remover </a>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        {{model.expenditures | json}}
+        
 
         <div style="margin-bottom:5px;" class="form-group">
-            <button class="btn btn-success navarStyle" [disabled]="!solicitationSubsidy.form.valid">
+            <button class="btn btn-success navarStyle">
                 <fa-icon icon="save"></fa-icon> Guardar
             </button>
         </div>

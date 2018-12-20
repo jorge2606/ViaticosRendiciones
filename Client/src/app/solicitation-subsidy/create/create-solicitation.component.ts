@@ -1,3 +1,5 @@
+import { PlaceService } from './../../_services/place.service';
+import { AllPlaceDto, PlaceBaseDto } from './../../_models/place';
 import { AddNewExpenditureComponent } from './../../modals/add-new-expenditure/add-new-expenditure.component';
 import { ExpenditureBaseDto, AllExpenditureDto } from './../../_models/expenditure';
 import { ExpenditureService } from './../../_services/expenditure.service';
@@ -27,10 +29,10 @@ export class CreateSolicitationComponent implements OnInit {
   ConceptExpenditureList : Expenditure[]=[];
   subscription: Subscription;
   _disabled = false;
-  transports : AllTransportDto[];
-  provinces  : AllProvinceDto[];
-  cities     : AllCitiesDto[];
-  motives    : AllMotiveDto[]; 
+  transports : AllTransportDto[] = [];
+  provinces  : AllProvinceDto[] = [];
+  cities     : AllCitiesDto[] = [];
+  motives    : AllMotiveDto[] = []; 
   expenditures : AllExpenditureDto[];
   codeLiquidations : any[] = [{id : 1, name : 1}, {id : 2, name : 2}];
   model = new CreateSolicitationSubsidyDto;
@@ -43,25 +45,30 @@ export class CreateSolicitationComponent implements OnInit {
       private cityService : CityService,
       private motiveService : MotiveService,
       private expenditureService : ExpenditureService,
+      private placeService : PlaceService,
       private modalService: NgbModal
-      ) {
-        this.subscription = this.expenditureService.getMessage()
-        .subscribe(
-          x=>{
-            this.model.expenditures = x
-          },
-          error => console.log(error)
-        );
-       }
+      ) { }
 
-  ngOnInit() {        
+  ngOnInit() {
     this.allCategories();
     this.allTransports();
     this.allProvince();
-    this.allCity();
+    //this.allCity();
     this.allMotive();
+    this.AllPlace();
+    this.allexpenditures();
+    this.allExpenditureFromModal();
   }
 
+  allExpenditureFromModal(){
+    this.subscription = this.expenditureService.getMessage()
+    .subscribe(
+      x=>{
+        this.model.expenditures = x
+      },
+      error => console.log(error)
+    );
+  }
   allCategories(){
     this.cetegoryService.getallCategories().subscribe(
       x => this.categories = x
@@ -98,17 +105,10 @@ export class CreateSolicitationComponent implements OnInit {
     );
   }
 
-  disabled(){
-   this._disabled = false;
-  }
-
-  updateConcept(updateConcept : Expenditure){
-    this._disabled = true;
-  }
-
-
-  addNewConcept(){
-    this.model.expenditures.push(new Expenditure());
+  AllPlace(){
+    this.placeService.getAll().subscribe(
+      x => this.model.places = x
+    );
   }
 
   removePower(expenditure : Expenditure){
@@ -117,7 +117,6 @@ export class CreateSolicitationComponent implements OnInit {
       if (index > -1) {
         this.model.expenditures.splice(index, 1);
       }
-    console.log(this.model.expenditures);
    }
 
      //MODALS
@@ -144,8 +143,21 @@ export class CreateSolicitationComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  changeValue($e : any){
-    console.log($e);
+  changeValue(e : any){
+    console.log(e);
   }
+
+  onSubmit(){
+    console.log(this.model);
+  }
+
+  choose(e : any, place : any){
+    this.model.places.forEach(
+      x => x.checked = !e.srcElement.checked
+    );
+
+    place.checked = e.srcElement.checked;
+  }
+
 
 }

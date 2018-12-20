@@ -1,3 +1,4 @@
+import { AllPlaceDto } from './place';
 export class Expenditure {
     id : number;
     description : string;
@@ -12,7 +13,7 @@ export class SolicitationSubsidyBaseDto{
     costMobility : number;
     destinyId : number;
     motiveId : number;
-    placeId : number;
+    places : AllPlaceDto[];
     provinceId : number;
     cityId : number;
     categoryId : number;

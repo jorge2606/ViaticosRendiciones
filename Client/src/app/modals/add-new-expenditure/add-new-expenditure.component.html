@@ -3,7 +3,7 @@
       </div>
     <div class="modal-body">
         <div class="container">
-            <form action="">
+            <form (ngSubmit)="addNewConcept()" action="">
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Gastos</label>
@@ -13,7 +13,9 @@
                             </select>
                     </div>
                 </div>
-
+                <div *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger">
+                   Invalido
+                </div>
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Importe</label>
@@ -34,15 +36,17 @@
 
                 <div class="form-row">
                     <div class="form-group col">
-                        <a (click)="addNewConcept()" class="btn btn-success">
+                        <button type="submit" class="btn btn-success">
                             Agregar
-                        </a>
+                        </button>
                     </div>
                 </div>
             </form>
+            <div *ngIf="msgExist" class="alert alert-danger">
+                {{msgExist}}
+            </div>
         </div>
     </div>
-      
       
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('Close click')">Cerrar</button>

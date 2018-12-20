@@ -14,6 +14,8 @@ export class AddNewExpenditureComponent implements OnInit {
   modelExp = new Expenditure();
   @Input() expendituresAdded : Expenditure[] = [];
   expendituresCbox : AllExpenditureDto[] = [];
+  msgExist : string;
+
   constructor(
           public activeModal: NgbActiveModal,
           private expenditureService : ExpenditureService) { }
@@ -23,13 +25,19 @@ export class AddNewExpenditureComponent implements OnInit {
   }
 
   addNewConcept(){
+    let result = this.expendituresAdded.find(x => x.id == this.modelExp.id);
+    if (result !== undefined){
+        this.msgExist = "Tipo de gasto ya existente";
+        return;
+    }
+    
+    this.msgExist = "";
     let newExp = new Expenditure();
     newExp.id = this.modelExp.id;
     newExp.description = this.modelExp.description;
     newExp.cost = this.modelExp.cost;
 
     this.expendituresAdded.push(newExp);
-    console.log(this.expendituresAdded);
     this.sendData();
   }
 
