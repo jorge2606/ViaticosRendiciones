@@ -57,6 +57,7 @@ import { CreateHolidaysComponent } from './holidays/create/create-holidays.compo
 import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.component';
 import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AddNewExpenditureComponent } from './modals/add-new-expenditure/add-new-expenditure.component';
+import { AddDestinyComponent } from './modals/add-destiny/add-destiny.component';
 
 
 
@@ -105,6 +106,7 @@ library.add(fas);
     CreateHolidaysComponent,
     ModifyHolidaysComponent,
     AddNewExpenditureComponent,
+    AddDestinyComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,7 +131,8 @@ library.add(fas);
     // provider used to create fake backend
     //fakeBackendProvider    
   ],
-  entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent],
+  entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent,
+    AddDestinyComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

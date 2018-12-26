@@ -31,7 +31,6 @@ export class AddNewExpenditureComponent implements OnInit {
         return;
     }
     
-    debugger
     this.msgExist = "";
     let newExp = new Expenditure();
     newExp.id = this.modelExp.id;

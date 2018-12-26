@@ -1,27 +1,48 @@
-<div class="modal-header">
-        <h4 class="modal-title">Nuevo</h4>
-      </div>
+    
+<form (ngSubmit)="addNewConcept()" #addNewExpForm="ngForm" action="">
+
+    <div class="modal-header">
+            <h4 class="modal-title">Nuevo</h4>
+    </div>
     <div class="modal-body">
         <div class="container">
-            <form (ngSubmit)="addNewConcept()" action="">
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Gastos</label>
                         <select required class="form-control" #expenditureId="ngModel" name="expenditureId" 
-                                [(ngModel)]="modelExp.id">
+                                [(ngModel)]="modelExp.id" required>
                                 <option *ngFor="let exp of expendituresCbox" value="{{exp.id}}">{{exp.name}}</option>
-                            </select>
+                        </select>
+
+                        <div *ngIf="expenditureId.invalid && (expenditureId.dirty || expenditureId.touched)" 
+                            class="alert alert-danger mt-1">
+                            <div *ngIf="expenditureId.errors.required">
+                                Campo requerido.
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger">
-                   Invalido
-                </div>
+
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Importe</label>
                         <input required [(ngModel)]="modelExp.cost" #cost="ngModel" 
                         name="cost" class="form-control" type="text" placeholder="Costo"
-                        value="{{modelExp.cost}}">
+                        value="{{modelExp.cost}}" required minlength="1" maxlength="8">
+
+                        <div *ngIf="cost.invalid && (cost.dirty || cost.touched)"
+                            class="alert alert-danger mt-1">
+                            <div *ngIf="cost.errors.required">
+                                Campo requerido.
+                            </div>
+                            <div *ngIf="cost.errors.minlength">
+                                Debe contener al menos un digíto
+                            </div>
+                            <div *ngIf="cost.errors.maxlength">
+                               No debe contener mas de 8 digítos
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -31,17 +52,23 @@
                             <textarea required [(ngModel)]="modelExp.description" #description="ngModel" 
                             placeholder="Descripción" value="{{modelExp.description}}"
                             name="description" class="form-control" type="text"></textarea>
-                    </div>
-                </div>
 
-                <div class="form-row">
-                    <div class="form-group col">
-                        <button type="submit" class="btn btn-success">
-                            Agregar
-                        </button>
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="description.errors.required">
+                                    Campo requerido.
+                                </div>
+                                <div *ngIf="description.errors.minlength">
+                                    Debe contener al menos un digíto
+                                </div>
+                                <div *ngIf="description.errors.maxlength">
+                                   No debe contener mas de 4 digítos
+                                </div>
+                            </div>
+
                     </div>
                 </div>
-            </form>
+            
             <div *ngIf="msgExist" class="alert alert-danger">
                 {{msgExist}}
             </div>
@@ -49,5 +76,8 @@
     </div>
       
       <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Agregar</button>
         <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
       </div>
+
+</form>

@@ -12,25 +12,47 @@
                     <input class="form-control" placeholder="yyyy-mm-dd"
                             name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
                             [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                            ngbDatepicker #d="ngbDatepicker" 
-                            [(ngModel)]="model.startDate">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                            <fa-icon icon="calendar-alt"></fa-icon>
-                        </button>
+                            [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched)}"
+                            ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
+                            [(ngModel)]="model.startDate" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                        </div>
                     </div>
+
+                    <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
+                        <div *ngIf="dp.errors.required">
+                            Campo requerido.
+                        </div>
+                        <div *ngIf="dp.errors.minlength">
+                            Debe contener al menos 8 digítos
+                        </div>
+                        <div *ngIf="dp.errors.maxlength">
+                           No debe contener mas de 8 digítos
+                        </div>
                     </div>
-            </div>        
+            </div>     
             
-
-            <div style="margin-top: 10px;" *ngIf="submitted && startDate.invalid" clas="alert alert-danger">
-                Fecha de Inicio Incorrecta
-            </div>
-
             <div class="form-group col">
                     <label for="">Cantidad de dias</label>
-                <input class="form-control" [(ngModel)]="model.days" #days="ngModel" name="days" id="days"
-                type="number" placeholder="Dias" required>
+                <input class="form-control" [(ngModel)]="model.days" #days="ngModel"
+                    name="days" id="days" minlength="1" maxlength="4"
+                    [ngClass]="{'is-invalid' : days.invalid && (days.dirty || days.touched)}"
+                    type="number" placeholder="Dias" required>
+                    
+                    <div *ngIf="days.invalid && (days.dirty || days.touched)" class="alert alert-danger mt-1">
+                        <div *ngIf="days.errors.required">
+                            Campo requerido.
+                        </div>
+                        <div *ngIf="days.errors.minlength">
+                            Debe contener al menos un digíto
+                        </div>
+                        <div *ngIf="days.errors.maxlength">
+                           No debe contener mas de 4 digítos
+                        </div>
+                    </div>            
             </div>
             
         </div>
@@ -38,131 +60,138 @@
         <div class="form-row">
                 <div class="form-group col">
                         <label for="">Motivo</label>
-                        <textarea class="form-control" #motive="ngModel" name="motive" [(ngModel)]="model.motive">
+                        <textarea required class="form-control" #motive="ngModel"
+                        [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
+                         name="motive" minlength="10" maxlength="245" [(ngModel)]="model.motive">
                         </textarea>
-                    </div>
-        
-                    <div style="margin-top: 10px;" *ngIf="submitted && motiveId.invalid" class="alert alert-danger">
-                        Motivo Incorrecto
+
+                        <div *ngIf="motive.invalid && (motive.dirty || motive.touched)" class="alert alert-danger mt-1">
+                            <div *ngIf="motive.errors.required">
+                                Campo requerido.
+                            </div>
+                            <div *ngIf="motive.errors.minlength">
+                                Debe contener al menos un digíto
+                            </div>
+                            <div *ngIf="motive.errors.maxlength">
+                               No debe contener mas de 4 digítos
+                            </div>
+                        </div>
                 </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col">
                 <label for="">Categoría</label>
-                <select class="form-control" #categoryId="ngModel" name="categoryId" [(ngModel)]="model.categoryId">
+                <select required class="form-control" #categoryId="ngModel"
+                    [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched)}"
+                    name="categoryId" [(ngModel)]="model.categoryId">
                     <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.description}}</option>
                 </select>
-            </div>
 
-
-            <div class="custom-control custom-radio form-group col m-4">
-                <div class="row">
-                    <li *ngFor="let place of model.places" style="list-style:none">
-                        <div class="col">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio{{place.id}}" [(ngModel)]="model.placeId"
-                                name="customRadio" class="custom-control-input" [value]="place.id"
-                                #customRadio="ngModel" >
-                                <label class="custom-control-label" for="customRadio{{place.id}}">
-                                    {{place.description}}
-                                </label>
-                            </div>
-                        </div>
-                    </li>
+                <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="categoryId.errors.required">
+                        Campo requerido.
+                    </div>
                 </div>
             </div>
 
             <div class="form-group col">
                 <label for="">Codígo de liquidación</label>
-                <select class="form-control" #codeLiquidation="ngModel" name="codeLiquidation" [(ngModel)]="model.codeLiquidation">
+                <select class="form-control" #codeLiquidation="ngModel" 
+                    name="codeLiquidation" [(ngModel)]="model.codeLiquidation"
+                    [ngClass]="{'is-invalid' : codeLiquidation.invalid && (dp.dirty || dp.touched)}" required>
                     <option *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.name}}</option>
                 </select>
+
+                <div *ngIf="codeLiquidation.invalid && (codeLiquidation.dirty || codeLiquidation.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="codeLiquidation.errors.required">
+                        Campo requerido.
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="form-row">
-                <label for="">Transporte</label>
-                <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId">
-                    <option *ngFor="let trans of transports" value="{{trans.id}}">
-                        {{trans.model}} - {{trans.model}}
-                    </option>
-                </select>
+            <button class="btn btn-success" (click)="AddDestiny()">
+                    <fa-icon icon="plus"></fa-icon> Destino
+            </button> 
         </div>
 
         <div class="form-row">
-            <div class="form-group col">
-                <label for="">Provincia</label>
-                <select class="form-control" #provinceId="ngModel" name="provinceId" [(ngModel)]="model.provinceId">
-                    <option *ngFor="let prov of provinces" value="{{prov.id}}">{{prov.name}}</option>
-                </select>
-            </div>
+            <label for="">Transporte</label>
+            <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId"
+            [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" required>
+                <option *ngFor="let trans of transports" value="{{trans.id}}">
+                    {{trans.model}} - {{trans.model}}
+                </option>
+            </select>
 
-
-            <div class="form-group col">
-                <label for="">Departamento</label>
-                <select class="form-control" #cityId="ngModel" name="cityId" [(ngModel)]="model.cityId">
-                    <option *ngFor="let city of cities" value="{{city.id}}">{{city.name}}</option>
-                </select>
-            </div>
-
-            <div class="form-group col">
-                <label for="">Localidad</label>
-                <select class="form-control" #placeId="ngModel" name="placeId" [(ngModel)]="model.placeId" disabled>
-                    <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
-                </select>
+            <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" class="alert alert-danger mt-1">
+                <div *ngIf="transportId.errors.required">
+                    Campo requerido.
+                </div>
             </div>
         </div>
 
-        <a (click)="openAddNewConcept()" class="btn btn-success mb-1">
-            Agregar
-        </a>
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                <th scope="col">Gastos</th>
-                <th scope="col">Importe</th>
-                <th scope="col">Descripción</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let modelExp of model.expenditures">
-                        <!-- filas para agregar-->
-                        <select (change)="changeValue($event)" class="form-control"
-                            #expenditureId{{modelExp.id}}="ngModel"
-                            name="expenditureId{{modelExp.id}}" 
-                            [(ngModel)]="modelExp.id">
-                            <option *ngFor="let exp of expenditures" [value]="exp.id">
-                                {{exp.name}}
-                            </option>
-                        </select>
-                    <td>
-                        <input required [(ngModel)]="modelExp.cost" #cost{{modelExp.id}}="ngModel" 
-                        name="cost{{modelExp.id}}" class="form-control" type="number" placeholder="Costo"
-                        value="{{modelExp.cost}}">
-                    </td>
-                    <td>
-                        <input required [(ngModel)]="modelExp.description" 
-                            #description{{modelExp.id}}="ngModel" 
-                            placeholder="Descripción" value="{{modelExp.description}}"
-                            name="description{{modelExp.id}}" class="form-control" type="text">
-                        
-                    </td>
-                    <td>
-                        <a class="btn btn-danger" (click)="removePower(modelExp)"> Remover </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="form-row">
+            <a (click)="openAddNewConcept()" class="btn btn-success mt-1 mb-1 text-white">
+                <fa-icon icon="plus"></fa-icon> Concepto de Gasto
+            </a>
 
+            <a (click)="deleteAllConcepts()" class="btn btn-danger ml-1 mt-1 mb-1 text-white">
+                    <fa-icon icon="trash"></fa-icon> Eliminar Todos
+            </a>
         
-
-        <div style="margin-bottom:5px;" class="form-group">
-            <button class="btn btn-success navarStyle">
-                <fa-icon icon="save"></fa-icon> Guardar
-            </button>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">Gastos</th>
+                    <th scope="col">Importe</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let modelExp of model.expenditures">
+                            <!-- filas para agregar-->
+                            <select (change)="changeValue($event)" class="form-control"
+                                #expenditureId{{modelExp.id}}="ngModel"
+                                name="expenditureId{{modelExp.id}}" 
+                                [(ngModel)]="modelExp.id">
+                                <option *ngFor="let exp of expenditures" [value]="exp.id">
+                                    {{exp.name}}
+                                </option>
+                            </select>
+                        <td>
+                            <input required [(ngModel)]="modelExp.cost" #cost{{modelExp.id}}="ngModel" 
+                            name="cost{{modelExp.id}}" class="form-control" type="number" placeholder="Costo"
+                            value="{{modelExp.cost}}">
+                        </td>
+                        <td>
+                            <input required [(ngModel)]="modelExp.description" 
+                                #description{{modelExp.id}}="ngModel" 
+                                placeholder="Descripción" value="{{modelExp.description}}"
+                                name="description{{modelExp.id}}" class="form-control" type="text">
+                            
+                        </td>
+                        <td>
+                            <a class="btn btn-danger text-white" (click)="removePower(modelExp)">
+                                <fa-icon icon="trash"></fa-icon>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+        <div class="form-row">
+            <div style="margin-bottom:5px;" class="form-group">
+                <button class="btn btn-success navarStyle">
+                    <fa-icon icon="save"></fa-icon> Guardar
+                </button>
+            </div>
+        </div>
+
 
     </form>
     <div class="alert alert-danger" *ngIf="errors">

@@ -11,4 +11,8 @@ export class CityService {
   getAll(){
     return this.http.get<any>("http://localhost:63098/api/City/GetAll/");
   }
+
+  GetByIdCity(cityId : number){
+    return this.http.get<any>("http://localhost:63098/api/City/GetByIdCity/"+cityId);
+  }
 }

@@ -1,8 +1,9 @@
 export class ProvinceBaseDto {
-    Id : number;
+    id : number;
     name : string;
     createdDate : Date;
     isDeleted : boolean;
+    placeId : number;
 }
 
 export class CreteProvinceDto extends ProvinceBaseDto {}
