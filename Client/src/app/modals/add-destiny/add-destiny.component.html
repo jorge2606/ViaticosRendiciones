@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" #formAddDestiny="ngForm">
-    <div class="modal-header">
+<div class="modal-header">
         <h4 class="modal-title">Destino</h4>
 </div>
   <div class="modal-body">
@@ -12,7 +12,7 @@
                             <div class="custom-control custom-radio">
                                 <input type="radio" 
                                 id="customRadio{{place.id}}" 
-                                [(ngModel)]="model.id"
+                                [(ngModel)]="model.placeId"
                                 name="customRadio" class="custom-control-input" 
                                 required [value]="place.id"
                                 #customRadio="ngModel" required
@@ -30,8 +30,8 @@
                                 <div class="card-body">
                                 
                                     <div *ngIf="provinces.length == 0">
-                                        <input type="text" #destiny="ngModel" name="destiny" 
-                                        [(ngModel)]="model.destiny" class="form-control"
+                                        <input type="text" #description="ngModel" name="description" 
+                                        [(ngModel)]="model.description" class="form-control"
                                         placeholder="Destino">
                                     </div>
     
@@ -80,8 +80,16 @@
                     </ul>
                 </div>    
           </div>
+
+        <div *ngIf="error">
+            <ul class="alert alert-danger">
+                <li>{{error}}</li>
+            </ul>
+        </div>
+
       </div>
   </div>
+
   
   <div class="modal-footer">
     <button type="submit" [disabled]="!formAddDestiny.valid" class="btn btn-success">Agregar</button>

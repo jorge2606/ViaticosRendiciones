@@ -1,4 +1,5 @@
 import { AllPlaceDto } from './place';
+import { DestinyDto } from './destiny';
 
 export class Expenditure {
     id : number;
@@ -33,9 +34,7 @@ export class CreateSolicitationSubsidyDto{
     id : number;
     days : number;
     motive : string;
-    placeId : string;
-    provinceId : number;
-    cityId : number;
+    destinies : DestinyDto[];
     categoryId : number;
     transportId : number;
     startDate : Date;

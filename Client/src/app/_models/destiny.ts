@@ -1,6 +1,11 @@
 export class DestinyDto{
-    id : number;
+    placeId : number;
     provinceId : number;
     cityId : number; 
-    destiny : string;
+    description : string;
+    startDate : Date;
+    days : number;
+    categoryId : number;
+    codeLiquidation : number;
+    transportId : number;
 }

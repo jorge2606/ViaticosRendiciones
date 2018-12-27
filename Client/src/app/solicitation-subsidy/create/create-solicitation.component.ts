@@ -1,3 +1,5 @@
+import { CityBaseDto } from './../../_models/city';
+import { DestinyDto } from 'src/app/_models/destiny';
 import { AddDestinyComponent } from './../../modals/add-destiny/add-destiny.component';
 import { PlaceService } from './../../_services/place.service';
 import { AllPlaceDto, PlaceBaseDto } from './../../_models/place';
@@ -6,7 +8,7 @@ import { ExpenditureBaseDto, AllExpenditureDto } from './../../_models/expenditu
 import { ExpenditureService } from './../../_services/expenditure.service';
 import { MotiveService } from './../../_services/motive.service';
 import { CityService } from './../../_services/city.service';
-import { AllProvinceDto } from './../../_models/province';
+import { AllProvinceDto, ProvinceBaseDto } from './../../_models/province';
 import { AllCategoryDto } from './../../_models/category';
 import { CategoryService } from 'src/app/_services/category.service';
 import { CreateSolicitationSubsidyDto, SolicitationSubsidyBaseDto, Expenditure } from './../../_models/solicitationSubsidy';
@@ -18,6 +20,7 @@ import { AllCitiesDto } from 'src/app/_models/city';
 import { AllMotiveDto } from 'src/app/_models/motive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { DestinyService } from 'src/app/_services/destiny.service';
 
 @Component({
   selector: 'app-create-solicitation',
@@ -27,35 +30,82 @@ import { Subscription } from 'rxjs';
 export class CreateSolicitationComponent implements OnInit {
 
   categories : AllCategoryDto[];
+  isCollapsedDestiny = false;
+  isCollapsedExpenditure = false;
   ConceptExpenditureList : Expenditure[]=[];
-  subscription: Subscription;
+  subscriptionExpenditure: Subscription;
+  subscriptionDestiny : Subscription;
   _disabled = false;
   transports : AllTransportDto[] = [];
   motives    : AllMotiveDto[] = []; 
   expenditures : AllExpenditureDto[];
+  destinies : DestinyDto[] = [];
   codeLiquidations : any[] = [{id : 1, name : 1}, {id : 2, name : 2}];
   model = new CreateSolicitationSubsidyDto;
   radioButtonRequired : boolean = true;
+  provinces : ProvinceBaseDto[];
+  cities : CityBaseDto[];
+  verOcultarIcon = "arrow-circle-up";
+  verOcultarText = "Ocultar";
   
 
   constructor(
-      private cetegoryService : CategoryService,
+      private categoryService : CategoryService,
       private transportService : TransportService,
       private motiveService : MotiveService,
       private expenditureService : ExpenditureService,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private destinyService : DestinyService,
+      private provinceService : ProvinceService,
+      private cityService : CityService
       ) { }
 
   ngOnInit() {
+    this.model.destinies =[];
+    this.model.expenditures = [];
     this.allCategories();
     this.allTransports();
     this.allMotive();
     this.allexpenditures();
     this.allExpenditureFromModal();
+    this.allDestinyFromModal();
+  }
+
+  allProvice(){
+    this.provinceService.getAll()
+    .subscribe(
+      x=> this.provinces = x
+    );
+  }
+
+  allDestinyFromModal(){
+    this.subscriptionDestiny = this.destinyService.getMessage()
+    .subscribe(
+      x =>{
+            this.model.destinies = x;
+            x.forEach(
+              x =>{
+                  if (x.cityId != null && x.provinceId != null){ 
+                    //se ingreso una ciudad y una provincia
+                    this.allProvice();
+                    this.citiesThisProvince(x.provinceId);
+                }
+              }
+            );
+      }  
+    );
+  }
+
+  citiesThisProvince(provinceId : any){
+    this.cityService.GetByIdCity(provinceId).subscribe(
+      x=>{
+          this.cities = x;
+         } 
+    );
   }
 
   allExpenditureFromModal(){
-    this.subscription = this.expenditureService.getMessage()
+    this.subscriptionExpenditure = this.expenditureService.getMessage()
     .subscribe(
       x=>{
         this.model.expenditures = x
@@ -64,7 +114,7 @@ export class CreateSolicitationComponent implements OnInit {
     );
   }
   allCategories(){
-    this.cetegoryService.getallCategories().subscribe(
+    this.categoryService.getallCategories().subscribe(
       x => this.categories = x
       );
   }
@@ -90,9 +140,15 @@ export class CreateSolicitationComponent implements OnInit {
 
   removePower(expenditure : Expenditure){
     const index = this.model.expenditures.indexOf(expenditure, 0);
-    console.log(index);
       if (index > -1) {
         this.model.expenditures.splice(index, 1);
+      }
+   }
+
+   removeDestiny(destiny : DestinyDto){
+    const index = this.model.destinies.indexOf(destiny, 0);
+      if (index > -1) {
+        this.model.destinies.splice(index, 1);
       }
    }
 
@@ -108,6 +164,19 @@ export class CreateSolicitationComponent implements OnInit {
           }
       }
    }
+
+   deleteAllDestinies(){
+    let array = this.model.destinies;
+    if (array === undefined){
+      return;
+    }
+     for (let i = array.length; i > -1; i--) {
+         const indexDeleteAll = this.model.destinies.indexOf(array[i], 0);
+         if (indexDeleteAll > -1) {
+           this.model.destinies.splice(indexDeleteAll, 1);
+         }
+     }
+  }
 
      //MODALS
   openAddNewConcept() {
@@ -131,6 +200,16 @@ export class CreateSolicitationComponent implements OnInit {
 
   AddDestiny(){
     const modalRef = this.modalService.open(AddDestinyComponent);
+
+    if (this.model.destinies === undefined)
+    {
+      this.model.destinies = [];
+    }
+
+    let listDestinies : DestinyDto[] = this.model.destinies;
+
+    modalRef.componentInstance.destiniesAdded = listDestinies;
+
     modalRef.result.then(x=> {
       console.log(x);
     },
@@ -141,7 +220,8 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptionExpenditure.unsubscribe();
+    this.subscriptionDestiny.unsubscribe();
   }
 
   changeValue(e : any){
@@ -150,6 +230,28 @@ export class CreateSolicitationComponent implements OnInit {
 
   onSubmit(){
       console.log(this.model);
+  }
+
+  onChangeColapse(){
+    this.isCollapsedDestiny = !this.isCollapsedDestiny;
+    if (this.isCollapsedDestiny){
+      this.verOcultarIcon = "arrow-circle-down";
+      this.verOcultarText = "Ver";
+      return
+    }
+    this.verOcultarIcon = "arrow-circle-up";
+    this.verOcultarText = "Ocultar";
+  }
+
+  changeCollapseExpenditure(){
+    this.isCollapsedExpenditure = !this.isCollapsedExpenditure;
+    if (this.isCollapsedExpenditure){
+      this.verOcultarIcon = "arrow-circle-down";
+      this.verOcultarText = "Ver";
+      return
+    }
+    this.verOcultarIcon = "arrow-circle-up";
+    this.verOcultarText = "Ocultar";    
   }
 
 }

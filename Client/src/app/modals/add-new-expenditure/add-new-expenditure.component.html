@@ -27,7 +27,7 @@
                     <div class="form-group col">
                         <label for="">Importe</label>
                         <input required [(ngModel)]="modelExp.cost" #cost="ngModel" 
-                        name="cost" class="form-control" type="text" placeholder="Costo"
+                        name="cost" class="form-control" type="number" placeholder="Costo"
                         value="{{modelExp.cost}}" required minlength="1" maxlength="8">
 
                         <div *ngIf="cost.invalid && (cost.dirty || cost.touched)"
@@ -76,7 +76,7 @@
     </div>
       
       <div class="modal-footer">
-        <button type="submit" class="btn btn-success">Agregar</button>
+        <button type="submit" class="btn btn-success" [disabled]="!addNewExpForm.valid">Agregar</button>
         <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
       </div>
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DestinyService } from 'src/app/_services/destiny.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AllPlaceDto } from 'src/app/_models/place';
 import { PlaceService } from 'src/app/_services/place.service';
@@ -21,6 +22,8 @@ export class AddDestinyComponent implements OnInit {
   cities     : AllCitiesDto[] = [];
   citiesMock : AllCitiesDto[] = [];
   model = new DestinyDto;
+  error : string;
+  @Input() destiniesAdded : DestinyDto[];
   public isCollapsed = false;
 
   constructor(
@@ -28,6 +31,7 @@ export class AddDestinyComponent implements OnInit {
     private placeService : PlaceService,
     private provinceService : ProvinceService,
     private cityService : CityService,
+    private destinyService : DestinyService
     ) { }
 
   ngOnInit() {
@@ -44,6 +48,11 @@ export class AddDestinyComponent implements OnInit {
   changeCity(e : any){
     console.log(e);
   }
+
+  sendDataToComponent(model : DestinyDto[]){
+    this.destinyService.sendMessage(model);
+  }
+
   AllPlace(){
     this.placeService.getAll().subscribe(
       x => this.places = x 
@@ -53,8 +62,26 @@ export class AddDestinyComponent implements OnInit {
   onChange(e : any){
     console.log(e);
   }
+  
   onSubmit(){
-    console.log(this.model);
+    let exist = this.destiniesAdded.find( 
+      x=> x.cityId == this.model.cityId && x.provinceId == this.model.provinceId
+      );
+    
+    if (exist){
+      this.error = "Provincia y Localidad existentes";
+      return
+    }
+    
+    this.error = "";
+    let newDestiny = new DestinyDto;
+    newDestiny.placeId = this.model.placeId;
+    newDestiny.cityId = this.model.cityId;
+    newDestiny.description = this.model.description;
+    newDestiny.provinceId = this.model.provinceId;
+    
+    this.destiniesAdded.push(newDestiny);
+    this.sendDataToComponent(this.destiniesAdded);
   }
   
   toogle(place : AllPlaceDto){
@@ -91,7 +118,7 @@ export class AddDestinyComponent implements OnInit {
           //la propiedad citiesMock contiene todas las localidades de Corrientes Solamente.
     }else if (this.provinces.length > 1){//la persona va a viajar fuera de corrientes
       this.citiesProvinceOtherProvince(provinceId);
-      this.model.destiny = null;
+      this.model.description = null;
     }
   }
 
