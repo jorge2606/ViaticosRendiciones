@@ -8,6 +8,10 @@ import { AllCitiesDto } from 'src/app/_models/city';
 import { CityService } from 'src/app/_services/city.service';
 import { ProvinceService } from 'src/app/_services/province.service';
 import { DestinyDto } from 'src/app/_models/destiny';
+import { CategoryService } from 'src/app/_services/category.service';
+import { AllCategoryDto } from 'src/app/_models/category';
+import { TransportService } from 'src/app/_services/transport.service';
+import { AllTransportDto } from 'src/app/_models/transport';
 
 @Component({
   selector: 'app-add-destiny',
@@ -17,26 +21,45 @@ import { DestinyDto } from 'src/app/_models/destiny';
 export class AddDestinyComponent implements OnInit {
 
   places : AllPlaceDto[] = [];
+  transports : AllTransportDto[] = [];
   provinceMock : AllProvinceDto[] =[];
   provinces  : AllProvinceDto[] = [];
   cities     : AllCitiesDto[] = [];
   citiesMock : AllCitiesDto[] = [];
   model = new DestinyDto;
+  codeLiquidations : any[] = [{id : 1, name : 1}, {id : 2, name : 2}];
   error : string;
   @Input() destiniesAdded : DestinyDto[];
-  public isCollapsed = false;
+  isCollapsed = false;
+  categories : AllCategoryDto[];
 
   constructor(
     public activeModal: NgbActiveModal,
     private placeService : PlaceService,
     private provinceService : ProvinceService,
     private cityService : CityService,
-    private destinyService : DestinyService
+    private destinyService : DestinyService,
+    private categoryService : CategoryService,
+    private transportService : TransportService
     ) { }
 
   ngOnInit() {
     this.AllPlace();
     this.AllProvince();
+    this.allCategories();
+    this.allTransports();
+  }
+
+  allTransports(){
+    this.transportService.getAll().subscribe(
+      x => this.transports = x
+    );
+  }
+
+  allCategories(){
+    this.categoryService.getallCategories().subscribe(
+      x => this.categories = x
+      );
   }
 
   AllProvince(){
@@ -79,7 +102,13 @@ export class AddDestinyComponent implements OnInit {
     newDestiny.cityId = this.model.cityId;
     newDestiny.description = this.model.description;
     newDestiny.provinceId = this.model.provinceId;
+    newDestiny.days = this.model.days;
+    newDestiny.categoryId = this.model.categoryId;
+    newDestiny.codeLiquidation = this.model.codeLiquidation;
+    newDestiny.startDate = this.model.startDate;
+    newDestiny.transportId = this.model.transportId;
     
+    console.log(newDestiny.startDate);
     this.destiniesAdded.push(newDestiny);
     this.sendDataToComponent(this.destiniesAdded);
   }

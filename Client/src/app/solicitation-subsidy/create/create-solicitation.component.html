@@ -6,58 +6,6 @@
     <form (ngSubmit)="onSubmit()" #solicitationSubsidy="ngForm">
 
         <div class="form-row">
-            <div class="form-group col">
-                <label for="">Fecha </label>
-                    <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd"
-                            name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
-                            [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                            [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched)}"
-                            ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
-                            [(ngModel)]="model.startDate" required>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
-                        <div *ngIf="dp.errors.required">
-                            Campo requerido.
-                        </div>
-                        <div *ngIf="dp.errors.minlength">
-                            Debe contener al menos 8 digítos
-                        </div>
-                        <div *ngIf="dp.errors.maxlength">
-                           No debe contener mas de 8 digítos
-                        </div>
-                    </div>
-            </div>     
-            
-            <div class="form-group col">
-                    <label for="">Cantidad de dias</label>
-                <input class="form-control" [(ngModel)]="model.days" #days="ngModel"
-                    name="days" id="days" minlength="1" maxlength="4"
-                    [ngClass]="{'is-invalid' : days.invalid && (days.dirty || days.touched)}"
-                    type="number" placeholder="Dias" required>
-                    
-                    <div *ngIf="days.invalid && (days.dirty || days.touched)" class="alert alert-danger mt-1">
-                        <div *ngIf="days.errors.required">
-                            Campo requerido.
-                        </div>
-                        <div *ngIf="days.errors.minlength">
-                            Debe contener al menos un digíto
-                        </div>
-                        <div *ngIf="days.errors.maxlength">
-                           No debe contener mas de 4 digítos
-                        </div>
-                    </div>            
-            </div>
-            
-        </div>
-
-        <div class="form-row">
                 <div class="form-group col">
                         <label for="">Motivo</label>
                         <textarea required class="form-control" #motive="ngModel"
@@ -79,54 +27,6 @@
                 </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col">
-                <label for="">Categoría</label>
-                <select required class="form-control" #categoryId="ngModel"
-                    [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched)}"
-                    name="categoryId" [(ngModel)]="model.categoryId">
-                    <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.description}}</option>
-                </select>
-
-                <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="alert alert-danger mt-1">
-                    <div *ngIf="categoryId.errors.required">
-                        Campo requerido.
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group col">
-                <label for="">Codígo de liquidación</label>
-                <select class="form-control" #codeLiquidation="ngModel" 
-                    name="codeLiquidation" [(ngModel)]="model.codeLiquidation"
-                    [ngClass]="{'is-invalid' : codeLiquidation.invalid && (dp.dirty || dp.touched)}" required>
-                    <option *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.name}}</option>
-                </select>
-
-                <div *ngIf="codeLiquidation.invalid && (codeLiquidation.dirty || codeLiquidation.touched)" class="alert alert-danger mt-1">
-                    <div *ngIf="codeLiquidation.errors.required">
-                        Campo requerido.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <label for="">Transporte</label>
-            <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId"
-            [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" required>
-                <option *ngFor="let trans of transports" value="{{trans.id}}">
-                    {{trans.model}} - {{trans.model}}
-                </option>
-            </select>
-
-            <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" class="alert alert-danger mt-1">
-                <div *ngIf="transportId.errors.required">
-                    Campo requerido.
-                </div>
-            </div>
-        </div>
-
         <div class="form-row mt-1 mb-1">
             <button class="btn btn-success" (click)="AddDestiny()">
                     <fa-icon icon="plus"></fa-icon> Destino
@@ -141,8 +41,12 @@
         <table *ngIf="model.destinies.length > 0" class="table table-sm">
             <thead>
                 <tr>
+                    <th scope="col">Fecha</th>
                     <th scope="col">Provincia</th>
                     <th scope="col">Departamento/Localidad</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Transporte</th>
+                    <th scope="col">Dias</th>
                     <th scope="col">
                         <button
                             class="btn btn-default"
@@ -151,13 +55,43 @@
                             [attr.aria-expanded]="!isCollapsedDestiny" 
                             aria-controls="collapseDestiny">
                             <fa-icon icon="{{verOcultarIcon}}"></fa-icon>
-                            {{verOcultarText}}
+                            {{verOcultarText}} ({{model.destinies.length}})
                         </button>
                     </th> 
                 </tr>  
             </thead>
             <tbody id="collapseDestiny" [ngbCollapse]="isCollapsedDestiny" *ngFor="let destiny of model.destinies">
                 <tr *ngIf="!destiny.description">
+                    <td>
+                        <div class="form-group col">
+                            <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                    name="dp" [displayMonths]="displayMonths"
+                                    [navigation]="navigation" 
+                                    [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                                    [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched)}"
+                                    ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
+                                    [(ngModel)]="destiny.startDate" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                        <fa-icon icon="calendar-alt"></fa-icon>
+                                    </button>
+                                </div>
+                            </div>
+        
+                            <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
+                                <div *ngIf="dp.errors.required">
+                                    Campo requerido.
+                                </div>
+                                <div *ngIf="dp.errors.minlength">
+                                    Debe contener al menos 8 digítos
+                                </div>
+                                <div *ngIf="dp.errors.maxlength">
+                                    No debe contener mas de 8 digítos
+                                </div>
+                            </div>
+                        </div>  
+                    </td>
                     <td>
                         <!-- filas para agregar-->
                         <select (change)="changeValue($event)" class="form-control"
@@ -179,6 +113,33 @@
                             </option>
                         </select>
                     </td>
+                    <td>
+                        <select (change)="changeValue($event)" class="form-control"
+                            #categoryId{{destiny.categoryId}}="ngModel"
+                            name="categoryId{{destiny.categoryId}}" 
+                            [(ngModel)]="destiny.categoryId">
+                            <option *ngFor="let category of categories" [value]="category.id">
+                                {{category.description}}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <select (change)="changeValue($event)" class="form-control"
+                            #transportId{{destiny.transportId}}="ngModel"
+                            name="transportId{{destiny.transportId}}" 
+                            [(ngModel)]="destiny.transportId">
+                            <option *ngFor="let transport of transports" [value]="transport.id">
+                                {{transport.model}}-{{transport.brand}}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <input required [(ngModel)]="destiny.days" 
+                        #days{{destiny.cityId}}{{destiny.provinceId}}="ngModel" 
+                        placeholder="Dias" value="{{destiny.days}}"
+                        name="{{destiny.cityId}}{{destiny.provinceId}}" class="form-control" type="text">
+                    </td>
+
                     <td>
                         <a class="btn btn-danger text-white" (click)="removeDestiny(destiny)">
                             <fa-icon icon="trash"></fa-icon>
@@ -220,7 +181,7 @@
                             [attr.aria-expanded]="!isCollapsedExpenditure"
                             aria-controls="collapseExpenditure">
                             <fa-icon icon="{{verOcultarIcon}}"></fa-icon>
-                            {{verOcultarText}}
+                            {{verOcultarText}} ({{model.expenditures.length}})
                         </button>
                     </th>
                     </tr>

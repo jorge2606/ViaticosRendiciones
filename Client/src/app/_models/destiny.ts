@@ -3,7 +3,7 @@ export class DestinyDto{
     provinceId : number;
     cityId : number; 
     description : string;
-    startDate : Date;
+    startDate : any;
     days : number;
     categoryId : number;
     codeLiquidation : number;

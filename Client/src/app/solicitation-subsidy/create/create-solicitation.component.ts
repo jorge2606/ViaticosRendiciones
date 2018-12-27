@@ -29,18 +29,17 @@ import { DestinyService } from 'src/app/_services/destiny.service';
 })
 export class CreateSolicitationComponent implements OnInit {
 
-  categories : AllCategoryDto[];
   isCollapsedDestiny = false;
+  categories : AllCategoryDto[] = [];
+  transports : AllTransportDto[] = [];
   isCollapsedExpenditure = false;
   ConceptExpenditureList : Expenditure[]=[];
   subscriptionExpenditure: Subscription;
   subscriptionDestiny : Subscription;
   _disabled = false;
-  transports : AllTransportDto[] = [];
   motives    : AllMotiveDto[] = []; 
   expenditures : AllExpenditureDto[];
   destinies : DestinyDto[] = [];
-  codeLiquidations : any[] = [{id : 1, name : 1}, {id : 2, name : 2}];
   model = new CreateSolicitationSubsidyDto;
   radioButtonRequired : boolean = true;
   provinces : ProvinceBaseDto[];
@@ -50,27 +49,38 @@ export class CreateSolicitationComponent implements OnInit {
   
 
   constructor(
-      private categoryService : CategoryService,
-      private transportService : TransportService,
       private motiveService : MotiveService,
       private expenditureService : ExpenditureService,
       private modalService: NgbModal,
       private destinyService : DestinyService,
       private provinceService : ProvinceService,
-      private cityService : CityService
+      private cityService : CityService,
+      private categoryService : CategoryService,
+      private transportService : TransportService
       ) { }
 
   ngOnInit() {
     this.model.destinies =[];
     this.model.expenditures = [];
-    this.allCategories();
-    this.allTransports();
     this.allMotive();
     this.allexpenditures();
     this.allExpenditureFromModal();
     this.allDestinyFromModal();
+    this.allCategories();
+    this.allTransport();
   }
 
+  allTransport(){
+    this.transportService.getAll().subscribe(
+      x => this.transports = x
+    );
+  }
+  allCategories(){
+    this.categoryService.getallCategories()
+    .subscribe(
+      x=> this.categories = x
+    );
+  }  
   allProvice(){
     this.provinceService.getAll()
     .subscribe(
@@ -111,17 +121,6 @@ export class CreateSolicitationComponent implements OnInit {
         this.model.expenditures = x
       },
       error => console.log(error)
-    );
-  }
-  allCategories(){
-    this.categoryService.getallCategories().subscribe(
-      x => this.categories = x
-      );
-  }
-
-  allTransports(){
-    this.transportService.getAll().subscribe(
-      x => this.transports = x
     );
   }
 
