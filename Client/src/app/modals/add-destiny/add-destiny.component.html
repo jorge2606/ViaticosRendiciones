@@ -39,7 +39,8 @@
                                         <div class="form-group col">
                                             <label for="">Provincia</label>
                                             <select class="form-control"
-                                                #provinceId="ngModel" name="provinceId" (ngModelChange)="citiesThisProvince($event, place)"
+                                                #provinceId="ngModel" name="provinceId"
+                                                (change)="citiesThisProvince(provinceId.value, place)"
                                                 [ngClass]="{'is-invalid' : provinceId.invalid && (provinceId.dirty || provinceId.touched)}"
                                                 [(ngModel)]="model.provinceId" required>
                                                 <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.name}}</option>
@@ -51,11 +52,11 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group col">
                                             <label for="">Departamento/Localidad</label>
                                             <select class="form-control" #cityId="ngModel" 
                                                 name="cityId" [(ngModel)]="model.cityId"
-                                                (ngModelChange)="onChange($event)"
                                                 [ngClass]="{'is-invalid' : cityId.invalid && (cityId.dirty || cityId.touched)}"
                                                 required>
                                                 <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>

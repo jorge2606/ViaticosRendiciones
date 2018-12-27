@@ -66,6 +66,11 @@ export class AddDestinyComponent implements OnInit {
             }
           } 
       );
+    
+      this.provinces = this.provinceMock;
+      this.provinces = this.provinces.filter(x => x.placeId == place.id);
+      this.cities = [];
+      this.model.provinceId = 0;
   }
 
   changeCityId(cityId : number){
@@ -74,26 +79,32 @@ export class AddDestinyComponent implements OnInit {
   }
 
   citiesThisProvince(provinceId : any, place : AllPlaceDto){
-    this.provinces = this.provinceMock;
-    this.provinces = this.provinces.filter(x => x.placeId == place.id);
-    console.log(this.provinces);
-    if(this.provinces.length == 0){
+    if(this.provinces.length == 0){//el usuario opta por escribir su destino sin usar los selects
       this.model.cityId = null;
       this.model.provinceId = null;
-    }else if(this.provinces.length == 1){
+    }else if(this.provinces.length == 1){// la persona va a viajar dentro de corrientes
           console.log("citiesMock : "+this.citiesMock.length);
           if (this.citiesMock.length == 0){
-            this.citiesProvince(this.provinces[0].id);
-            this.citiesMock = this.cities;
-          }else{
-            this.cities = this.citiesMock;
-          } 
-    }else if (this.provinces.length > 1){
+            this.citiesProvinceCorrientes(provinceId); 
+          }
+          this.cities = this.citiesMock; 
+          //la propiedad citiesMock contiene todas las localidades de Corrientes Solamente.
+    }else if (this.provinces.length > 1){//la persona va a viajar fuera de corrientes
+      this.citiesProvinceOtherProvince(provinceId);
       this.model.destiny = null;
     }
   }
 
-  citiesProvince(provinceId : number){
+  citiesProvinceCorrientes(provinceId : number){
+    this.cityService.GetByIdCity(provinceId).subscribe(
+      x=>{
+          this.citiesMock = x;
+          this.cities = x;
+         } 
+    );
+  }
+
+  citiesProvinceOtherProvince(provinceId : number){
     this.cityService.GetByIdCity(provinceId).subscribe(
       x=>this.cities = x
     );

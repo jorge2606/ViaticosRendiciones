@@ -111,11 +111,56 @@
             </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row pb-1">
             <button class="btn btn-success" (click)="AddDestiny()">
                     <fa-icon icon="plus"></fa-icon> Destino
             </button> 
         </div>
+        <!--Destino-->
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                <th scope="col">Provincia</th>
+                <th scope="col">Departamento</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let modelExp of model.expenditures">
+                        <!-- filas para agregar-->
+                        <select (change)="changeValue($event)" class="form-control"
+                            #expenditureId{{modelExp.id}}="ngModel"
+                            name="expenditureId{{modelExp.id}}" 
+                            [(ngModel)]="modelExp.id">
+                            <option *ngFor="let exp of expenditures" [value]="exp.id">
+                                {{exp.name}}
+                            </option>
+                        </select>
+                    <td>
+                        <select (change)="changeValue($event)" class="form-control"
+                            #expenditureId{{modelExp.id}}="ngModel"
+                            name="expenditureId{{modelExp.id}}" 
+                            [(ngModel)]="modelExp.id">
+                            <option *ngFor="let exp of expenditures" [value]="exp.id">
+                                {{exp.name}}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <input required [(ngModel)]="modelExp.description" 
+                            #description{{modelExp.id}}="ngModel" 
+                            placeholder="Descripción" value="{{modelExp.description}}"
+                            name="description{{modelExp.id}}" class="form-control" type="text">
+                        
+                    </td>
+                    <td>
+                        <a class="btn btn-danger text-white" (click)="removePower(modelExp)">
+                            <fa-icon icon="trash"></fa-icon>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="form-row">
             <label for="">Transporte</label>
@@ -141,7 +186,7 @@
             <a (click)="deleteAllConcepts()" class="btn btn-danger ml-1 mt-1 mb-1 text-white">
                     <fa-icon icon="trash"></fa-icon> Eliminar Todos
             </a>
-        
+            <!--Concepto de Gasto-->
             <table class="table table-sm">
                 <thead>
                     <tr>

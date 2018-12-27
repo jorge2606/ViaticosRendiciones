@@ -49,7 +49,6 @@ export class CreateSolicitationComponent implements OnInit {
   ngOnInit() {
     this.allCategories();
     this.allTransports();
-    //this.allCity();
     this.allMotive();
     this.allexpenditures();
     this.allExpenditureFromModal();
