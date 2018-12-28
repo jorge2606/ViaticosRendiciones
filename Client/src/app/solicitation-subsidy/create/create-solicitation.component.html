@@ -66,11 +66,14 @@
                         <div class="form-group col">
                             <div class="input-group">
                             <input class="form-control" placeholder="yyyy-mm-dd"
-                                    name="dp" [displayMonths]="displayMonths"
+                                    name="dp{{destiny.provinceId}}{{destiny.cityId}}"
+                                    [displayMonths]="displayMonths"
                                     [navigation]="navigation" 
-                                    [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                                    [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched)}"
-                                    ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
+                                    [outsideDays]="outsideDays"
+                                    [showWeekNumbers]="showWeekNumbers"
+                                    [ngClass]="{'is-invalid' : 'dp+destiny.provinceId+destiny.cityId'.invalid &&
+                                    ('dp+destiny.provinceId+destiny.cityId'.dirty || 'dp+destiny.provinceId+destiny.cityId'.touched)}"
+                                    ngbDatepicker #d="ngbDatepicker" #dp{{destiny.provinceId}}{{destiny.cityId}}="ngModel" minlength="8" maxlength="8"
                                     [(ngModel)]="destiny.startDate" required>
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
@@ -79,14 +82,14 @@
                                 </div>
                             </div>
         
-                            <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
-                                <div *ngIf="dp.errors.required">
+                            <div *ngIf="'dp+destiny.provinceId+destiny.cityId'.invalid && ('dp+destiny.provinceId+destiny.cityId'.dirty || 'dp+destiny.provinceId+destiny.cityId'.touched)" class="alert alert-danger mt-1">
+                                <div *ngIf="dp+destiny.provinceId+destiny.errors.required">
                                     Campo requerido.
                                 </div>
-                                <div *ngIf="dp.errors.minlength">
+                                <div *ngIf="'dp+destiny.provinceId+destiny'.errors.minlength">
                                     Debe contener al menos 8 digítos
                                 </div>
-                                <div *ngIf="dp.errors.maxlength">
+                                <div *ngIf="'dp+destiny.provinceId+destiny'.errors.maxlength">
                                     No debe contener mas de 8 digítos
                                 </div>
                             </div>
