@@ -11,8 +11,9 @@
 <table class="table table-hover">
 	<thead>
 		<tr style="font-weight: bold;">
-			<td>Name</td>
+			<td>Nombre</td>
 			<td>Descripción</td>
+			<td>Adelanto</td>
 			<td></td>
 		</tr>
 	</thead>
@@ -20,6 +21,7 @@
 		<tr *ngFor="let cat of categories">
 			<td>{{cat.name}}</td>
 			<td>{{cat.description}}</td>
+			<td>{{cat.advance | number}}</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
 					<a class="pr-3" routerLink="/category/update/{{cat.id}}">

@@ -26,19 +26,19 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="">Importe</label>
-                        <input required [(ngModel)]="modelExp.cost" #cost="ngModel" 
-                        name="cost" class="form-control" type="number" placeholder="Costo"
-                        value="{{modelExp.cost}}" required minlength="1" maxlength="8">
+                        <input required [(ngModel)]="modelExp.amount" #amount="ngModel" 
+                        name="amount" class="form-control" type="number" placeholder="Costo"
+                        value="{{modelExp.amount}}" required minlength="1" maxlength="8">
 
-                        <div *ngIf="cost.invalid && (cost.dirty || cost.touched)"
+                        <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
                             class="alert alert-danger mt-1">
-                            <div *ngIf="cost.errors.required">
+                            <div *ngIf="amount.errors.required">
                                 Campo requerido.
                             </div>
-                            <div *ngIf="cost.errors.minlength">
+                            <div *ngIf="amount.errors.minlength">
                                 Debe contener al menos un digíto
                             </div>
-                            <div *ngIf="cost.errors.maxlength">
+                            <div *ngIf="amount.errors.maxlength">
                                No debe contener mas de 8 digítos
                             </div>
                         </div>

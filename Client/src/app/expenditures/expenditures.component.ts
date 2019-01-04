@@ -1,6 +1,7 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ExpenditureService } from '../_services/expenditure.service';
-import { ExpenditureBaseDto } from '../_models/expenditure';
+import { ExpenditureTypeBaseDto } from '../_models/expenditureType';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,12 +14,14 @@ export class ExpendituresComponent implements OnInit {
 
   page = 0;
   col_size : number;
-  expenditures : ExpenditureBaseDto[];
+  expenditures : ExpenditureTypeBaseDto[];
   error : any;
   itemsPerPage : number = 10;
+  id : number;
 
-  constructor(private expenditureService : ExpenditureService,
-    private modalService : NgbModal) { }
+  constructor(
+            private expenditureService : ExpenditureService,
+            private modalService : NgbModal) { }
 
   ngOnInit() {
     this.getAllExpenditure(this.page); 

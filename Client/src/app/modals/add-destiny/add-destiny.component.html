@@ -1,200 +1,222 @@
-<form (ngSubmit)="onSubmit()" #formAddDestiny="ngForm">
-<div class="modal-header">
-        <h4 class="modal-title">Destino</h4>
-</div>
-  <div class="modal-body">
-      <div class="container">
-          <div class="custom-control custom-radio form-group col m-0">
-              <div class="row">
-                <ul class="pl-1 container">
-                    <li *ngFor="let place of places" style="list-style:none">
-                        <div class="container">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" 
-                                id="customRadio{{place.id}}" 
-                                [(ngModel)]="model.placeId"
-                                name="customRadio" class="custom-control-input" 
-                                required [value]="place.id"
-                                #customRadio="ngModel" required
-                                (click)="toogle(place)"
-                                [attr.aria-expanded]="place.checked"
-                                aria-controls="place.id"
-                                >
-                                <label class="custom-control-label" for="customRadio{{place.id}}">
-                                    {{place.description}}
-                                </label>
-                            </div>  
-    
-                            <div id="{{place.id}}" [ngbCollapse]="!place.checked">
-                                <div class="card">
-                                <div class="card-body">
-                                
-                                    <div *ngIf="provinces.length == 0">
-                                        <input type="text" #description="ngModel" name="description" 
-                                        [(ngModel)]="model.description" class="form-control"
-                                        placeholder="Destino">
-                                    </div>
-    
-                                    <div *ngIf="provinces.length > 0" class="form-row">
-                                        <div class="form-group col">
-                                            <label for="">Provincia</label>
-                                            <select class="form-control"
-                                                #provinceId="ngModel" name="provinceId"
-                                                (change)="citiesThisProvince(provinceId.value, place)"
-                                                [ngClass]="{'is-invalid' : provinceId.invalid && (provinceId.dirty || provinceId.touched)}"
-                                                [(ngModel)]="model.provinceId" required>
-                                                <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.name}}</option>
-                                            </select>
-                            
-                                            <div *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched)" class="alert alert-danger mt-1">
-                                                <div *ngIf="provinceId.errors.required">
-                                                    Campo requerido.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col">
-                                            <label for="">Departamento/Localidad</label>
-                                            <select class="form-control" #cityId="ngModel" 
-                                                name="cityId" [(ngModel)]="model.cityId"
-                                                [ngClass]="{'is-invalid' : cityId.invalid && (cityId.dirty || cityId.touched)}"
-                                                required>
-                                                <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
-                                            </select>
-                                            
-                                            <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" class="alert alert-danger mt-1">
-                                                <div *ngIf="cityId.errors.required">
-                                                    Campo requerido.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>    
-
-                                    <div class="form-row">
-                                            <div class="form-group col">
-                                                <label for="">Fecha </label>
-                                                    <div class="input-group">
-                                                    <input class="form-control" placeholder="yyyy-mm-dd"
-                                                            name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
-                                                            [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                                                            [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched)}"
-                                                            ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
-                                                            [(ngModel)]="model.startDate" required>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                                                <fa-icon icon="calendar-alt"></fa-icon>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                
-                                                    <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
-                                                        <div *ngIf="dp.errors.required">
-                                                            Campo requerido.
-                                                        </div>
-                                                        <div *ngIf="dp.errors.minlength">
-                                                            Debe contener al menos 8 digítos
-                                                        </div>
-                                                        <div *ngIf="dp.errors.maxlength">
-                                                           No debe contener mas de 8 digítos
-                                                        </div>
-                                                    </div>
-                                            </div>     
-                                            
-                                            <div class="form-group col">
-                                                    <label for="">Cantidad de dias</label>
-                                                <input class="form-control" [(ngModel)]="model.days" #days="ngModel"
-                                                    name="days" id="days" minlength="1" maxlength="4"
-                                                    [ngClass]="{'is-invalid' : days.invalid && (days.dirty || days.touched)}"
-                                                    type="number" placeholder="Dias" required>
-                                                    
-                                                    <div *ngIf="days.invalid && (days.dirty || days.touched)" class="alert alert-danger mt-1">
-                                                        <div *ngIf="days.errors.required">
-                                                            Campo requerido.
-                                                        </div>
-                                                        <div *ngIf="days.errors.minlength">
-                                                            Debe contener al menos un digíto
-                                                        </div>
-                                                        <div *ngIf="days.errors.maxlength">
-                                                           No debe contener mas de 4 digítos
-                                                        </div>
-                                                    </div>            
-                                            </div>
-                                            
-                                    </div>
+    <div class="modal-header">
+        <h4 class="modal-title">Nuevo Destino</h4>
+    </div>
+<form (ngSubmit)="onSubmit()" #formAddDestiny="ngForm" >
+    <div class="modal-body">
         
-                                    <div class="form-row">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul *ngFor="let place of places" class="navbar-nav mr-auto">
+                        <li class="nav-item custom-control custom-radio">
+                            <input type="radio" 
+                            id="customRadio{{place.id}}" 
+                            [(ngModel)]="model.placeId"
+                            name="customRadio" class="custom-control-input" 
+                            required [value]="place.id"
+                            #customRadio="ngModel" required
+                            (click)="toogle(place)"
+                            [attr.aria-expanded]="place.checked"
+                            aria-controls="place.id"
+                            >
+                            <label class="custom-control-label small" for="customRadio{{place.id}}">
+                                {{place.description}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="container">
+        
+                <div class="custom-control custom-radio form-group col m-0">
+                    <div class="row">
+                    <ul class="pl-1 container">
+                        <li *ngFor="let place of places" style="list-style:none">
+                            <div class="container">
+        
+                                <div id="{{place.id}}" [ngbCollapse]="!place.checked">
+                                        <div *ngIf="countries.length > 0">
+                                            <label for="">Pais</label>
+                                            <select class="form-control"
+                                                #countryId="ngModel" name="countryId"
+                                                (change)="provinceThisCountry(countryId.value)"
+                                                [ngClass]="{'is-invalid' : countryId.invalid && (countryId.dirty || countryId.touched)}"
+                                                [(ngModel)]="model.countryId" required>
+                                                <option *ngFor="let country of countries" [ngValue]="country.id">{{country.name}}</option>
+                                            </select>
+                                            <div *ngIf="countryId.invalid && (countryId.dirty || countryId.touched)" class="alert alert-danger mt-1">
+                                                <div *ngIf="countryId.errors.required">
+                                                    Campo requerido.
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div *ngIf="countries.length == 0" class="form-row">
                                             <div class="form-group col">
-                                                <label for="">Categoría</label>
-                                                <select required class="form-control" #categoryId="ngModel"
-                                                    [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched)}"
-                                                    name="categoryId" [(ngModel)]="model.categoryId">
-                                                    <option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.description}}</option>
+                                                <label for="">Provincia</label>
+                                                <select class="form-control"
+                                                    #provinceId="ngModel" name="provinceId"
+                                                    (change)="citiesThisProvince(provinceId.value, place)"
+                                                    [ngClass]="{'is-invalid' : provinceId.invalid && (provinceId.dirty || provinceId.touched)}"
+                                                    [(ngModel)]="model.provinceId" required>
+                                                    <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.name}}</option>
                                                 </select>
                                 
-                                                <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="alert alert-danger mt-1">
-                                                    <div *ngIf="categoryId.errors.required">
+                                                <div *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched)" class="alert alert-danger mt-1">
+                                                    <div *ngIf="provinceId.errors.required">
                                                         Campo requerido.
                                                     </div>
                                                 </div>
                                             </div>
-                                
+        
+                                            <div *ngIf="countries.length == 0" class="form-group col">
+                                                <label for="">Departamento/Localidad</label>
+                                                <select class="form-control" #cityId="ngModel" 
+                                                    name="cityId" [(ngModel)]="model.cityId"
+                                                    [ngClass]="{'is-invalid' : cityId.invalid && (cityId.dirty || cityId.touched)}"
+                                                    required>
+                                                    <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
+                                                </select>
+                                                
+                                                <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" class="alert alert-danger mt-1">
+                                                    <div *ngIf="cityId.errors.required">
+                                                        Campo requerido.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+        
+                                        <div class="form-row">
+                                                <div class="form-group col">
+                                                    <label for="">Fecha </label>
+                                                        <div class="input-group">
+                                                        <input class="form-control" placeholder="yyyy-mm-dd"
+                                                                name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
+                                                                [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                                                                [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched) || (dp.startDate == null && dp.touched && !dp.dirty)}"
+                                                                ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
+                                                                [(ngModel)]="model.startDate" required>
+        
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                                                    <fa-icon icon="calendar-alt"></fa-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                    
+                                                        <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
+                                                            <div *ngIf="dp.errors.required">
+                                                                Campo requerido.
+                                                            </div>
+                                                            <div *ngIf="dp.errors.minlength">
+                                                                Debe contener al menos 8 digítos
+                                                            </div>
+                                                            <div *ngIf="dp.errors.maxlength">
+                                                                No debe contener mas de 8 digítos
+                                                            </div>
+                                                        </div>
+                                                </div>     
+                                                
+                                                <div class="form-group col">
+                                                        <label for="">Cantidad de dias</label>
+                                                    <input class="form-control" [(ngModel)]="model.days" #days="ngModel"
+                                                        name="days" id="days" minlength="1" maxlength="4"
+                                                        [ngClass]="{'is-invalid' : days.invalid && (days.dirty || days.touched) || (model.days == null && days.touched)}"
+                                                        type="number" placeholder="Dias" required>
+                                                        
+                                                        <div *ngIf="days.invalid && (days.dirty || days.touched)" class="alert alert-danger mt-1">
+
+                                                            <div *ngIf="days.errors.required">
+                                                                Campo requerido.
+                                                            </div>
+                                                            <div *ngIf="days.errors.minlength">
+                                                                Debe contener al menos un digíto
+                                                            </div>
+                                                            <div *ngIf="days.errors.maxlength">
+                                                                No debe contener mas de 4 digítos
+                                                            </div>
+                                                        </div>            
+                                                </div>
+                                                
+                                        </div>
+            
+                                        <div class="form-row">                                
                                             <div class="form-group col">
                                                 <label for="">Codígo de liquidación</label>
-                                                <select class="form-control" #codeLiquidation="ngModel" 
-                                                    name="codeLiquidation" [(ngModel)]="model.codeLiquidation"
-                                                    [ngClass]="{'is-invalid' : codeLiquidation.invalid && (dp.dirty || dp.touched)}" required>
-                                                    <option *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.name}}</option>
+                                                <select class="form-control" #codeLiquidationId="ngModel" 
+                                                    name="codeLiquidationId" [(ngModel)]="model.codeLiquidationId"
+                                                    [ngClass]="{'is-invalid' : codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)}" required>
+                                                    <option *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.percentage}}</option>
                                                 </select>
                                 
-                                                <div *ngIf="codeLiquidation.invalid && (codeLiquidation.dirty || codeLiquidation.touched)" class="alert alert-danger mt-1">
-                                                    <div *ngIf="codeLiquidation.errors.required">
+                                                <div *ngIf="codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)" class="alert alert-danger mt-1">
+                                                    <div *ngIf="codeLiquidationId.errors.required">
                                                         Campo requerido.
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div>
-        
-                                    <div class="form-row">
-                                        <label for="">Transporte</label>
-                                        <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId"
-                                        [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" required>
-                                            <option *ngFor="let trans of transports" value="{{trans.id}}">
-                                                {{trans.model}} - {{trans.brand}}
-                                            </option>
-                                        </select>
-                            
-                                        <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" class="alert alert-danger mt-1">
-                                            <div *ngIf="transportId.errors.required">
-                                                Campo requerido.
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group col">
+                                                    <label for="">Categoría</label>
+                                                    <select required class="form-control" #categoryId="ngModel"
+                                                        [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched) 
+                                                        }"
+                                                        name="categoryId" [(ngModel)]="model.categoryId">
+                                                        <option *ngFor="let cat of categories" value="{{cat.id}}">
+                                                                {{cat.name}} - {{cat.description}}
+                                                        </option>
+                                                    </select>
+                                    
+                                                    <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)
+                                                    " class="alert alert-danger mt-1">
+                                                        <div *ngIf="categoryId.errors.required">
+                                                            Campo requerido.
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
-                                    </div>
-    
-    
+        
+                                        <div class="form-row">
+                                            <label for="">Transporte</label>
+                                            <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId"
+                                            [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" required>
+                                                <option *ngFor="let trans of transports" value="{{trans.id}}">
+                                                    {{trans.model}} - {{trans.brand}}
+                                                </option>
+                                            </select>
+                                
+                                            <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" class="alert alert-danger mt-1">
+                                                <div *ngIf="transportId.errors.required">
+                                                    Campo requerido.
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
-                                </div>
+        
                             </div>
-    
-                        </div>
-                    </li>  
+                        </li>  
                     </ul>
-                </div>    
-          </div>
-
-        <div *ngIf="error">
-            <ul class="alert alert-danger">
-                <li>{{error}}</li>
-            </ul>
-        </div>
-
-      </div>
-  </div>
-
+                    </div>    
+                </div>
+        
+            <div *ngIf="error">
+                <ul class="alert alert-danger">
+                    <li>{{error}}</li>
+                </ul>
+            </div>
+        
+            </div>     
+    </div>
   
-  <div class="modal-footer">
-    <button type="submit" [disabled]="!formAddDestiny.valid" class="btn btn-success">Agregar</button>
-    <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
-  </div>
+    <div class="modal-footer">
+        <button type="submit" [disabled]="!formAddDestiny.valid" class="btn btn-success">Agregar</button>
+        <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+    </div>   
+
+</form> 
 
 
-</form>
+

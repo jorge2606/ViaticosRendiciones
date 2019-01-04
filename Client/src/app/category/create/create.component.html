@@ -23,6 +23,16 @@
           Descripción Incorrecta
       </div>
 
+        <div style="margin-bottom:5px;" class="form-group">
+            <input class="form-control" [(ngModel)]="model.advance" required #advance="ngModel" name="advance" 
+            type="text"
+                placeholder="Anticipo">
+        </div>
+  
+        <div style="margin-top: 10px;" *ngIf="submitted && advance.invalid" class="alert alert-danger">
+            Anticipo Incorrecta
+        </div>
+
       <div style="margin-bottom:5px;" class="form-group">
           <button class="btn btn-success navarStyle" ><fa-icon icon="save"></fa-icon></button>
       </div>

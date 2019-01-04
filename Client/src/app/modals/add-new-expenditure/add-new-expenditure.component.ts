@@ -1,4 +1,4 @@
-import { AllExpenditureDto } from './../../_models/expenditure';
+import { AllExpenditureDto } from '../../_models/expenditureType';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Expenditure } from 'src/app/_models/solicitationSubsidy';
@@ -35,7 +35,8 @@ export class AddNewExpenditureComponent implements OnInit {
     let newExp = new Expenditure();
     newExp.id = this.modelExp.id;
     newExp.description = this.modelExp.description;
-    newExp.cost = this.modelExp.cost;
+    newExp.amount = this.modelExp.amount;
+    newExp.expenditureTypeId = this.modelExp.id;
 
     this.expendituresAdded.push(newExp);
     this.sendData();
@@ -43,6 +44,7 @@ export class AddNewExpenditureComponent implements OnInit {
 
   sendData(){
     this.expenditureService.sendMessage(this.expendituresAdded);
+    this.activeModal.close(null);
   }
 
   allExpenditure(){

@@ -15,15 +15,6 @@
       </div>
 
       <div style="margin-bottom:5px;" class="form-group">
-          <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
-              placeholder="Descripción">
-      </div>
-
-      <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
-          Descripción Incorrecta
-      </div>
-
-      <div style="margin-bottom:5px;" class="form-group">
           <button class="btn btn-success navarStyle" ><fa-icon icon="save"></fa-icon></button>
       </div>
 

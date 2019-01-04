@@ -37,41 +37,36 @@
 
 <div class="d-inline-block pb-2 pt-2">
 <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
-  <fa-icon icon="user-plus"></fa-icon>
+  Agregar
 </a>
 </div>
 
 <table class="table table-hover">
 <thead>
   <tr style="font-weight: bold;">
-    <td>Lugar</td>
-    <td>Transporte</td>
-    <td>Destino</td>
-    <td>Usuario</td>
-    <td>Imprevisto</td>
-    <td>Movildad</td>
-    <td>Combustible</td>
-    <td>Comunicación</td>
-    <td>Accción<td>
+    <td>Agente</td>
+    <td>Fecha de Creación</td>
+    <td>Motivo</td>
+    <td>Total</td>
+    <td></td>
   </tr>
 </thead>
 <tbody>
   <tr *ngFor="let sol of solicitationSubsidies">
-    <td>{{sol.placeDescription}}</td>
-    <td>{{sol.transportDescription}}</td>
-    <td>{{sol.destinyDescription}}</td>
-    <td>{{sol.userUserName}}</td>
-    <td>{{sol.unexpectedCircumstance}}</td>
-    <td>{{sol.costMobility}}</td>
-    <td>{{sol.costFuel}}</td>
-    <td>{{sol.costCommunication}}</td>
+    <td>{{sol.user.userName}}</td>
+    <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+    <td><p class="long-value-input">{{sol.motive}}</p></td>
+    <td>{{sol.total}}</td>
     <td>
       <div class="btn-group" role="group" aria-label="Basic example">
-        <a class="pr-3" routerLink="/users/update/{{sol.id}}">
+        <a class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
           <fa-icon style="color:gray;" icon="edit"></fa-icon>
         </a>
-        <a routerLink="/users" (click)="openEliminar(sol.id,sol.costMobility,sol.costMobility)">
+        <a class="pr-3" routerLink="/SolicitationSubsidy" (click)="openEliminar(sol)">
           <fa-icon style="color:red;" icon="trash"></fa-icon>
+        </a>
+        <a href="" routerLink="/SolicitationSubsidy/detail/{{sol.id}}">
+          <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
         </a>
       </div>
     </td>

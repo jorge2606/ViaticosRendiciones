@@ -5,14 +5,12 @@
 	<thead>
 		<tr style="font-weight: bold;">
 			<td>Name</td>
-			<td>Descripción</td>
 			<td></td>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let exp of expenditures">
 			<td>{{exp.name}}</td>
-			<td>{{exp.description}}</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
 					<a class="pr-3" routerLink="/expenditure/update/{{exp.id}}">

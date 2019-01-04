@@ -27,7 +27,7 @@ export class ModifyCategoryComponent implements OnInit {
     );
 
     this.categoryService.findByIdCategory(this.id).subscribe(
-      x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description}
+      x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description, this.model.advance = x.advance}
     );
   }
 
@@ -37,6 +37,7 @@ export class ModifyCategoryComponent implements OnInit {
     this.categoryService.updateCategory(this.model).subscribe(
       x => {
         this.responseSuccess = x;
+        this.error = '';
         //this.router.navigate(['/category']);
       },
         err => this.error = err.error.notifications

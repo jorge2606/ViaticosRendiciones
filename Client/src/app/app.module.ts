@@ -58,6 +58,8 @@ import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.compo
 import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AddNewExpenditureComponent } from './modals/add-new-expenditure/add-new-expenditure.component';
 import { AddDestinyComponent } from './modals/add-destiny/add-destiny.component';
+import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
+import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
 
 
 
@@ -107,6 +109,8 @@ library.add(fas);
     ModifyHolidaysComponent,
     AddNewExpenditureComponent,
     AddDestinyComponent,
+    ExpendituresUsersComponent,
+    SolicitationSubsidydetailComponent
   ],
   imports: [
     BrowserModule,

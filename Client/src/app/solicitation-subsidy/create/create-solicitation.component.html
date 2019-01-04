@@ -4,9 +4,20 @@
 <div class="container">
     <h2>Crear</h2>
     <form (ngSubmit)="onSubmit()" #solicitationSubsidy="ngForm">
+        <div class="navar navbar-collapse"> 
+            <label for="">Total</label>
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <div class="form-inline my-2 my-lg-0">
+                        <input type="text" class="form-control text-right" name="total"
+                        disabled #total="ngModel" [(ngModel)]="model.total" value="{{model.total | number}}">
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group pt-1 col">
                         <label for="">Motivo</label>
                         <textarea required class="form-control" #motive="ngModel"
                         [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
@@ -28,7 +39,7 @@
         </div>
 
         <div class="form-row mt-1 mb-1">
-            <button class="btn btn-success" (click)="AddDestiny()">
+            <button type="button" class="btn btn-success" (click)="AddDestiny()">
                     <fa-icon icon="plus"></fa-icon> Destino
             </button> 
             <a (click)="deleteAllDestinies()" 
@@ -36,6 +47,17 @@
                 class="btn btn-danger ml-1 text-white">
                 <fa-icon icon="trash"></fa-icon> Eliminar Todos
             </a>
+
+            <button
+            class="btn btn-default ml-auto mb-1"
+            type="button" 
+            [hidden]="model.destinies.length == 0"
+            (click)="onChangeColapse()"
+            [attr.aria-expanded]="!isCollapsedDestiny" 
+            aria-controls="collapseDestiny">
+            <fa-icon icon="{{verOcultarIconDestiny}}"></fa-icon>
+            {{verOcultarTextDestiny}} ({{model.destinies.length}})
+        </button>
         </div>
         <!--Destino-->
         <table *ngIf="model.destinies.length > 0" class="table table-sm">
@@ -47,23 +69,14 @@
                     <th scope="col">Categoría</th>
                     <th scope="col">Transporte</th>
                     <th scope="col">Dias</th>
-                    <th scope="col">
-                        <button
-                            class="btn btn-default"
-                            type="button" 
-                            (click)="onChangeColapse()"
-                            [attr.aria-expanded]="!isCollapsedDestiny" 
-                            aria-controls="collapseDestiny">
-                            <fa-icon icon="{{verOcultarIcon}}"></fa-icon>
-                            {{verOcultarText}} ({{model.destinies.length}})
-                        </button>
-                    </th> 
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>  
             </thead>
             <tbody id="collapseDestiny" [ngbCollapse]="isCollapsedDestiny" *ngFor="let destiny of model.destinies">
-                <tr *ngIf="!destiny.description">
+                <tr>
                     <td>
-                        <div class="form-group col">
+                        <div class="form-group">
                             <div class="input-group">
                             <input class="form-control" placeholder="yyyy-mm-dd"
                                     name="dp{{destiny.provinceId}}{{destiny.cityId}}"
@@ -95,7 +108,19 @@
                             </div>
                         </div>  
                     </td>
-                    <td>
+
+                    <td colspan="2" *ngIf="destiny.countryId">
+                            <select class="form-control"
+                            #countryId{{destiny.provinceId}}{{destiny.countryId}}="ngModel" 
+                            (change)="changeValue($event)"
+                            name="countryId{{destiny.provinceId}}{{destiny.countryId}}"
+                            [(ngModel)]="destiny.countryId">
+                            <option *ngFor="let country of countries" [value]="country.id">
+                                {{country.name}}
+                            </option>
+                        </select>
+                    </td>
+                    <td  *ngIf="!destiny.countryId">
                         <!-- filas para agregar-->
                         <select (change)="changeValue($event)" class="form-control"
                             #provinceId{{destiny.provinceId}}="ngModel"
@@ -106,7 +131,7 @@
                             </option>
                         </select>
                     </td>
-                    <td>
+                    <td  *ngIf="!destiny.countryId">
                         <select (change)="changeValue($event)" class="form-control"
                             #cityId{{destiny.cityId}}="ngModel"
                             name="cityId{{destiny.cityId}}" 
@@ -138,23 +163,15 @@
                     </td>
                     <td>
                         <input required [(ngModel)]="destiny.days" 
-                        #days{{destiny.cityId}}{{destiny.provinceId}}="ngModel" 
+                        #days{{destiny.categoryId}}="ngModel" 
                         placeholder="Dias" value="{{destiny.days}}"
-                        name="{{destiny.cityId}}{{destiny.provinceId}}" class="form-control" type="text">
+                        name="{{destiny.categoryId}}" class="form-control" type="text">
                     </td>
 
                     <td>
                         <a class="btn btn-danger text-white" (click)="removeDestiny(destiny)">
                             <fa-icon icon="trash"></fa-icon>
                         </a>
-                    </td>
-                </tr>
-                <tr *ngIf="destiny.description">
-                    <td>
-                        <input required [(ngModel)]="destiny.description" 
-                            #description{{destiny.placeId}}="ngModel" 
-                            placeholder="Descripción" value="{{destiny.description}}"
-                            name="description{{destiny.placeId}}" class="form-control" type="text">
                     </td>
                 </tr>
             </tbody>
@@ -170,23 +187,24 @@
                     <fa-icon icon="trash"></fa-icon> Eliminar Todos
             </a>
             <!--Concepto de Gasto-->
+            <button 
+            type="button" 
+            type="button"
+            class="btn btn-default ml-auto mb-1" 
+            [hidden]="model.expenditures.length == 0"
+            (click)="changeCollapseExpenditure()"
+            [attr.aria-expanded]="!isCollapsedExpenditure"
+            aria-controls="collapseExpenditure">
+            <fa-icon icon="{{verOcultarIconExpenditure}}"></fa-icon>
+            {{verOcultarTextExpenditure}} ({{model.expenditures.length}})
+        </button>
             <table *ngIf="model.expenditures.length > 0" class="table table-sm">
                 <thead>
                     <tr>
                     <th scope="col">Gastos</th>
                     <th scope="col">Importe</th>
                     <th scope="col">Descripción</th>
-                    <th scope="col">
-                        <button 
-                            type="button" 
-                            class="btn btn-default" 
-                            (click)="changeCollapseExpenditure()"
-                            [attr.aria-expanded]="!isCollapsedExpenditure"
-                            aria-controls="collapseExpenditure">
-                            <fa-icon icon="{{verOcultarIcon}}"></fa-icon>
-                            {{verOcultarText}} ({{model.expenditures.length}})
-                        </button>
-                    </th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody id="collapseExpenditure" [ngbCollapse]="isCollapsedExpenditure" 
@@ -204,9 +222,9 @@
                         </td>    <!-- filas para agregar-->
 
                         <td>
-                            <input required [(ngModel)]="modelExp.cost" #cost{{modelExp.id}}="ngModel" 
-                            name="cost{{modelExp.id}}" class="form-control" type="number" placeholder="Costo"
-                            value="{{modelExp.cost}}">
+                            <input required [(ngModel)]="modelExp.amount" #amount{{modelExp.id}}="ngModel" 
+                            name="amount{{modelExp.id}}" class="form-control" type="number" placeholder="Costo"
+                            value="{{modelExp.amount}}">
                         </td>
                         <td>
                             <input required [(ngModel)]="modelExp.description" 
@@ -225,12 +243,10 @@
             </table>
         </div>
 
-        <div class="form-row">
-            <div style="margin-bottom:5px;" class="form-group">
-                <button [disabled]="!solicitationSubsidy.valid" class="btn btn-success navarStyle">
-                    <fa-icon icon="save"></fa-icon> Guardar
-                </button>
-            </div>
+        <div class="form-row float-right">
+            <button [disabled]="!solicitationSubsidy.valid" class="btn btn-success navarStyle">
+                <fa-icon icon="save"></fa-icon> Guardar
+            </button>
         </div>
 
 
@@ -240,7 +256,11 @@
             <li>{{e.value}}</li>
         </ul>
     </div>
-    <div style="margin-top: 10px;" *ngIf="solicitationSubsidy.form.invalid">
-        Hay Campos erroneos en el formulario, verifiquelos
+
+    <div *ngIf="solicitationSubsidy.form.invalid && (solicitationSubsidy.dirty || solicitationSubsidy.touched)" 
+        class="alert alert-danger mt-5">
+        <div>
+                Hay Campos erroneos en el formulario, verifiquelos
+        </div>
     </div>
 </div>

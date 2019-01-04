@@ -23,7 +23,7 @@
           Descripción Incorrecta
       </div>
 
-      <select #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
+      <select class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
         <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
       </select>
 

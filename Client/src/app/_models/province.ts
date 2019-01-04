@@ -4,6 +4,10 @@ export class ProvinceBaseDto {
     createdDate : Date;
     isDeleted : boolean;
     placeId : number;
+    districtCity : string;
+    countryId : number;
+    poblation : number;
+    printableName : string;
 }
 
 export class CreteProvinceDto extends ProvinceBaseDto {}

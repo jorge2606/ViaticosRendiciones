@@ -1,3 +1,5 @@
+import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
+import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
@@ -63,11 +65,14 @@ const routes: Routes = [
   { path: 'expenditure', component : ExpendituresComponent, canActivate : [AuthGuard]},
   { path: 'expenditure/create', component : CreateExpenditureComponent, canActivate : [AuthGuard]},
   { path: 'expenditure/update/:id', component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
+  { path: 'expenditureUsers/:id', component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
   { path: 'organism', component : OrganismsComponent, canActivate : [AuthGuard]},
   { path: 'organism/create', component : CreateOrganismComponent, canActivate : [AuthGuard]},
   { path: 'organism/update/:id', component : ModifyOrganismComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy', component : SolicitationSubsidyComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy/create', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy/detail/:id', component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy/modify/:id', component : CreateSolicitationComponent, canActivate : [AuthGuard]},  
   { path: 'holidays', component : HolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/create', component : CreateHolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/update/:id', component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
