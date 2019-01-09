@@ -35,44 +35,59 @@
   </div>
 </div>
 
-<div class="d-inline-block pb-2 pt-2">
-<a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
-  Agregar
-</a>
-</div>
-
-<table class="table table-hover">
-<thead>
-  <tr style="font-weight: bold;">
-    <td>Agente</td>
-    <td>Fecha de Creación</td>
-    <td>Motivo</td>
-    <td>Total</td>
-    <td></td>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let sol of solicitationSubsidies">
-    <td>{{sol.user.userName}}</td>
-    <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-    <td><p class="long-value-input">{{sol.motive}}</p></td>
-    <td>{{sol.total}}</td>
-    <td>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <a class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
-          <fa-icon style="color:gray;" icon="edit"></fa-icon>
-        </a>
-        <a class="pr-3" routerLink="/SolicitationSubsidy" (click)="openEliminar(sol)">
-          <fa-icon style="color:red;" icon="trash"></fa-icon>
-        </a>
-        <a href="" routerLink="/SolicitationSubsidy/detail/{{sol.id}}">
-          <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
+<div class="container">
+    <div class="d-inline-block pb-2 pt-2">
+        <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
+          Agregar
         </a>
       </div>
-    </td>
-  </tr>
-</tbody>
-</table>
+    
+      <table class="table table-hover">
+      <thead>
+        <tr style="font-weight: bold;">
+          <th>Agente</th>
+          <th>Fecha de Creación</th>
+          <th>Motivo</th>
+          <th>Localidades</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sol of solicitationSubsidies">
+          <td>{{sol.user.userName}}</td>
+          <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+          <td><p class="long-value-input">{{sol.motive}}</p></td>
+          <td>
+            <ul *ngFor="let d of sol.destinies">
+                <ul *ngIf="countryName">{{d.countryName}} - </ul>
+                <ul *ngIf="!countryName">ARGENTINA - </ul>
+                <ul>{{d.provinceName}} - </ul>
+                <ul>{{d.cityName}}</ul>
+            </ul>
+          </td>
+          <td>{{sol.total}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <a class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
+                <fa-icon style="color:gray;" icon="edit"></fa-icon>
+              </a>
+              <a class="pr-3" routerLink="/SolicitationSubsidy" (click)="openEliminar(sol)">
+                <fa-icon style="color:red;" icon="trash"></fa-icon>
+              </a>
+              <a href="" class="pr-3" routerLink="/SolicitationSubsidy/detail/{{sol.id}}">
+                <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
+              </a>
+              <a href="" routerLink="/SolicitationSubsidy/detail/{{sol.id}}">
+                <fa-icon style="color: greenyellow;" icon="envelope"></fa-icon>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      </table>
 
-<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
+      <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
 aria-label="Default pagination"></ngb-pagination>
+</div>
+

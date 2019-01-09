@@ -11,6 +11,9 @@
                         <label for="">Gastos</label>
                         <select required class="form-control" #expenditureId="ngModel" name="expenditureId" 
                                 [(ngModel)]="modelExp.id" required>
+                                <option *ngIf="selectedExpenditure == modelExp.id" [ngValue]="selectedExpenditure" disabled>
+                                        Seleccione un Transporte...
+                                </option>
                                 <option *ngFor="let exp of expendituresCbox" value="{{exp.id}}">{{exp.name}}</option>
                         </select>
 

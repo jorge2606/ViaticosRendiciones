@@ -16,6 +16,7 @@ import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { CountryService } from 'src/app/_services/country.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-destiny',
@@ -36,9 +37,16 @@ export class AddDestinyComponent implements OnInit {
   codeLiquidations : codeLiquidationBaseDto[] = [];
   codeLiquidationsMock : codeLiquidationBaseDto[] = [];
   error : string;
-  @Input() destiniesAdded : DestinyDto[];
+  @Input() destiniesAdded : DestinyDto[] = [];
   isCollapsed = false;
   categories : AllCategoryDto[];
+  buttonDisbaled = true;
+  selectedCountry : number;
+  selectedProvince : number;
+  selectedCity : number;
+  selectedCodeLiquidation : number;
+  selectedCategory : number;
+  selectedTransport : number;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -49,10 +57,13 @@ export class AddDestinyComponent implements OnInit {
     private categoryService : CategoryService,
     private transportService : TransportService,
     private countryservice : CountryService,
-    private codeLiquidationService : CodeLiquidationService
+    private codeLiquidationService : CodeLiquidationService,
+    private spinner: NgxSpinnerService
     ) { }
 
   ngOnInit() {
+    this.selectedCountry = this.model.countryId;
+    this.selectedProvince = this.model.provinceId;
     this.AllPlace();
     this.AllProvince();
     this.allCategories();
@@ -122,10 +133,13 @@ export class AddDestinyComponent implements OnInit {
   }
   
   onSubmit(){
+    let exist;
     if (!this.model.countryId){
-      let exist = this.destiniesAdded.find( 
-        x=> x.cityId == this.model.cityId && x.provinceId == this.model.provinceId
-        );
+      if (this.destiniesAdded != null){
+        exist = this.destiniesAdded.find( 
+          x=> x.cityId == this.model.cityId && x.provinceId == this.model.provinceId
+          );
+      }
       
         if (exist){
           this.error = "Provincia y Localidad existentes";
@@ -145,12 +159,14 @@ export class AddDestinyComponent implements OnInit {
     newDestiny.startDate = this.model.startDate;
     newDestiny.transportId = this.model.transportId;
     
+    this.destiniesAdded = this.destiniesAdded || [];
     this.destiniesAdded.push(newDestiny);
     this.sendDataToComponent(this.destiniesAdded);
     
   }
   
   toogle(place : AllPlaceDto){
+    this.buttonDisbaled = false;
     this.model = new DestinyDto();
     this.model.placeId = place.id;
 
@@ -167,11 +183,16 @@ export class AddDestinyComponent implements OnInit {
       if ( this.countries[0].placeId != place.id ){
           this.provinces = this.provinceMock.filter(x => x.placeId == place.id);
           let firstProvince = this.provinces.sort()[0];
-          this.model.provinceId = firstProvince.id;
+          if (this.provinces.length == 1 ){
+            this.model.provinceId = firstProvince.id;
+          }else{
+            this.model.provinceId = this.selectedProvince;
+          }
+          
           this.citiesProvince(firstProvince.id);
           this.countries = [];
       }else{
-        this.model.countryId = this.countries[0].id;
+        //this.model.countryId = this.countries[0].id;
       }
       
       this.codeLiquidations = this.codeLiquidationsMock.filter(x=> x.placeId == place.id).sort(x=> x.percentage);
@@ -203,22 +224,21 @@ export class AddDestinyComponent implements OnInit {
     else if (this.provinces.length > 1 && this.countries.length == 0 ){
       //la persona va a viajar fuera de corrientes pero dentro del pais
       this.citiesProvince(provinceId);
-      this.model.provinceId = provinceId;
       this.model.countryId = null;
     }
   }
 
-  provinceThisCountry(countryId : any){
-    this.provinces = this.provinceMock;
-    let country = this.countries.find(x => x.id == countryId);
-    this.provinces = this.provinces.filter(x=> x.districtCity == country.iso3);
-  }
-
   citiesProvince(provinceId : number){
+    this.spinner.show();
     this.cityService.GetByIdCity(provinceId).subscribe(
       x => {
         this.cities = x;
-        this.model.cityId = this.cities[0].id;
+        if (this.provinces.length != 1){
+          this.model.cityId = this.selectedCity;
+        }else{
+          this.model.cityId = this.cities[0].id;
+        } 
+        this.spinner.hide();
       }
     );
   }

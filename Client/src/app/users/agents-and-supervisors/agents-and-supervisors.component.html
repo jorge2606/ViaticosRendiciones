@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Supervisor</th>
+        <th scope="col">Agente</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let a of agentsSupervisors">
+      <tr>
+        <th>{{a.supervisors.userName}}</th>
+        <td>{{a.agents.userName}}</td>
+      </tr>
+    </tbody>
+  </table>

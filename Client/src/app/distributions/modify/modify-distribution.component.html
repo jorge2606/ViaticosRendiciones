@@ -23,12 +23,15 @@
           Descripción Incorrecta
       </div>
 
-      <select class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
+      <select class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId" required>
+        <option *ngIf="selectedOrganismId == model.organismId" [ngValue]="selectedOrganismId" disabled>
+            Seleccione un Organismo...
+        </option>
         <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
       </select>
 
       <div style="margin-bottom:5px;" class="form-group">
-          <button class="btn btn-success navarStyle"><fa-icon icon="save"></fa-icon></button>
+          <button [disabled]="!CategoryForm.valid" class="btn btn-success navarStyle"><fa-icon icon="save"></fa-icon></button>
       </div>
 
   </form>

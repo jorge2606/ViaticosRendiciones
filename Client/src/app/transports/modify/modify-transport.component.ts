@@ -41,7 +41,7 @@ export class ModifyTransportComponent implements OnInit {
     this.tranportService.updateTransport(this.modelTransport).subscribe(
       x => {
         this.responseSuccess = x; 
-       // this.router.navigate(['/transport']);
+        this.router.navigate(['/transport']);
       },
         error => {
           this.error = error.error.notifications

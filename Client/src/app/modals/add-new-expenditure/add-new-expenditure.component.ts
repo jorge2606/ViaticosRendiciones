@@ -15,6 +15,7 @@ export class AddNewExpenditureComponent implements OnInit {
   @Input() expendituresAdded : Expenditure[] = [];
   expendituresCbox : AllExpenditureDto[] = [];
   msgExist : string;
+  selectedExpenditure : number;
 
   constructor(
           public activeModal: NgbActiveModal,
@@ -25,8 +26,11 @@ export class AddNewExpenditureComponent implements OnInit {
   }
 
   addNewConcept(){
-    let result = this.expendituresAdded.find(x => x.id == this.modelExp.id);
-    if (result !== undefined){
+    let exist;
+    if (this.expendituresAdded != null){
+      exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
+    }
+    if (exist){
         this.msgExist = "Tipo de gasto ya existente";
         return;
     }
@@ -37,7 +41,7 @@ export class AddNewExpenditureComponent implements OnInit {
     newExp.description = this.modelExp.description;
     newExp.amount = this.modelExp.amount;
     newExp.expenditureTypeId = this.modelExp.id;
-
+    this.expendituresAdded = this.expendituresAdded || [];
     this.expendituresAdded.push(newExp);
     this.sendData();
   }

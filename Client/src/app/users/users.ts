@@ -8,6 +8,7 @@ export class User{
   password : string;
   distributionId : number;
   distribution : DistributionBaseDto;
+  checked : boolean;
 }
 
 export class rolesBelongUser{

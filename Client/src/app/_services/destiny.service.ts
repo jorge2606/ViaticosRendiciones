@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { DestinyDto } from 'src/app/_models/destiny';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
@@ -9,8 +10,11 @@ export class DestinyService {
 
   private subject = new Subject<DestinyDto[]>();
  
-  constructor() { }
+  constructor(private http : HttpClient) { }
   
+  delete(id : number){
+      return this.http.delete<any>("http://localhost:63098/api/Destiny/Delete/"+id);
+  }
   sendMessage(message: DestinyDto[]) {
       this.subject.next(message);
   }

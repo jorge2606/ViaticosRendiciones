@@ -11,4 +11,8 @@ export class ExpendituresUserService {
   getByIdSolicitationSubsidy(id : number){
     return this.http.get<any>("http://localhost:63098/api/Expenditure/GetByIdSolicitationSubsidy/{id}"+id);
   }
+
+  delete(id : number){
+    return this.http.delete<any>("http://localhost:63098/api/Expenditure/Delete/"+id);
+  }
 }

@@ -5,7 +5,8 @@ export class Expenditure {
     id : number;
     description : string;
     amount : number;
-    expenditureTypeId : number;   
+    expenditureTypeId : number; 
+    expenditureTypeName : string;   
 }
 
 export class SolicitationSubsidyBaseDto{

@@ -28,6 +28,7 @@ import { DestinyService } from 'src/app/_services/destiny.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyComponent } from '../solicitation-subsidy.component';
+import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
 
 @Component({
   selector: 'app-create-solicitation',
@@ -46,6 +47,7 @@ export class CreateSolicitationComponent implements OnInit {
   _disabled = false;
   motives    : AllMotiveDto[] = []; 
   expenditures : AllExpenditureDto[];
+  Allexpenditures : AllExpenditureDto[];
   destinies : DestinyDto[] = [];
   model = new CreateSolicitationSubsidyDto;
   radioButtonRequired : boolean = true;
@@ -58,6 +60,9 @@ export class CreateSolicitationComponent implements OnInit {
   countries : AllCountryDto[] = [];
   codeLiquidations : codeLiquidationBaseDto[] = [];
   id : number;
+  citiesModify : CityBaseDto[] = [];
+  msj = '';
+  msjExito = '';
 
   constructor(
       private route : ActivatedRoute,
@@ -72,7 +77,8 @@ export class CreateSolicitationComponent implements OnInit {
       private transportService : TransportService,
       private countryService : CountryService,
       private codeLiquidationService : CodeLiquidationService,
-      private solicitationSubsidy : SolicitationSubsidyService
+      private solicitationSubsidyService : SolicitationSubsidyService,
+      private expenditureAgentService : ExpendituresUserService
       ) { }
 
   ngOnInit() {
@@ -80,24 +86,26 @@ export class CreateSolicitationComponent implements OnInit {
       x =>{
         this.id = x.id
     });
+    
+    this.model.destinies = [];
+    this.model.expenditures = [];
 
     if (this.id){
-        this.solicitationSubsidy.getByIdSolicitation(this.id)
+        this.solicitationSubsidyService.getByIdSolicitation(this.id)
         .subscribe(
           x => {
                 this.model = x;
-                for (let index = 0; index < this.model.destinies.length; index++) {
-                  let dateToShow = new Date(Date.parse(this.model.destinies[index].startDate));
-                  this.model.destinies[index].startDate = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() };
-                  
+                  if (this.model.destinies != null){
+                    for (let index = 0; index < this.model.destinies.length; index++) {
+                      let dateToShow = new Date(Date.parse(this.model.destinies[index].startDate));
+                      this.model.destinies[index].startDate = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() };
+                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                  }                 
                 }
-                this.allProvice();
+                  this.allProvice();
                 }
         );
     }
-      this.model.total = 0;
-      this.model.destinies =[];
-      this.model.expenditures = [];
       this.allMotive();
       this.allexpenditures();
       this.allExpenditureFromModal();
@@ -106,7 +114,7 @@ export class CreateSolicitationComponent implements OnInit {
       this.allTransport();
       this.allCountries();
       this.allCodeLiquidation();
-    
+      this.totalResultExpenditure();
   }
 
   allTransport(){
@@ -167,11 +175,20 @@ export class CreateSolicitationComponent implements OnInit {
     );
   }
 
+
+  citiesThisProvinceModify(provinceId : number){
+    this.cityService.GetByIdCity(provinceId).subscribe(
+      x=>{
+          this.cities = this.citiesModify.concat(x);
+         } 
+    );
+  }
+
   allExpenditureFromModal(){
     this.subscriptionExpenditure = this.expenditureService.getMessage()
     .subscribe(
       x=>{
-        this.model.expenditures = x
+        this.model.expenditures = x;
       },
       error => console.log(error)
     );
@@ -185,24 +202,21 @@ export class CreateSolicitationComponent implements OnInit {
 
   allexpenditures(){
     this.expenditureService.getAll().subscribe(
-      x => this.expenditures = x
+      x => {this.Allexpenditures = x}
     );
   }
 
 
-  removePower(expenditure : Expenditure){
+  removeExpenditure(expenditure : Expenditure){
       let minus : number = 0;
       const index = this.model.expenditures.indexOf(expenditure, 0);
       minus = minus + expenditure.amount;
       if (index > -1) {
         this.model.expenditures.splice(index, 1);
+        this.deleteFromDatabaseExpenditure(expenditure.id);
       }
       
-      if (this.model.total - minus >= 0){
-        this.model.total = this.model.total - minus;
-      }else{
-        this.model.total = 0;
-      }
+      this.totalResultExpenditure();
       
    }
 
@@ -210,19 +224,16 @@ export class CreateSolicitationComponent implements OnInit {
       let minus : number = 0;
       const index = this.model.destinies.indexOf(destiny, 0);
       let codLiq = this.codeLiquidations.find(x => x.id == destiny.codeLiquidationId);
-      console.log(codLiq);
+      
       let category = this.categories.find(x => x.id == destiny.categoryId);
 
       minus = minus + (codLiq.percentage * category.advance);
       if (index > -1) {
+        this.deleteFromDatabaseDestinies(destiny.id);
         this.model.destinies.splice(index, 1);
       }
 
-      if (this.model.total - minus >= 0){
-        this.model.total = this.model.total - minus;
-      }else{
-        this.model.total = 0;
-      }
+      this.totalResultExpenditure();
    }
 
    deleteAllConcepts(){
@@ -235,15 +246,12 @@ export class CreateSolicitationComponent implements OnInit {
           minus = minus + array[i].amount;
           const indexDeleteAll = this.model.expenditures.indexOf(array[i], 0);
           if (indexDeleteAll > -1) {
+            this.deleteFromDatabaseExpenditure(this.model.expenditures[i].id);
             this.model.expenditures.splice(indexDeleteAll, 1);
           }
       }
 
-      if (this.model.total - minus >= 0){
-        this.model.total = this.model.total - minus;
-      }else{
-        this.model.total = 0;
-      }
+      this.totalResultExpenditure();
    }
 
    deleteAllDestinies(){
@@ -257,18 +265,13 @@ export class CreateSolicitationComponent implements OnInit {
           let category = this.categories.find(x => x.id == array[i].categoryId);
 
           minus = minus + (codLiq.percentage * category.advance);
-          console.log(minus);
           const indexDeleteAll = this.model.destinies.indexOf(array[i], 0);
           if (indexDeleteAll > -1) {
+            this.deleteFromDatabaseDestinies(array[i].id);
             this.model.destinies.splice(indexDeleteAll, 1);
           }
      }
-
-      if (this.model.total - minus >= 0){
-        this.model.total = this.model.total - minus;
-      }else{
-        this.model.total = 0;
-      }
+     this.totalResultExpenditure();
   }
 
      //MODALS
@@ -283,7 +286,7 @@ export class CreateSolicitationComponent implements OnInit {
 
     modalRef.componentInstance.expendituresAdded = listExpenditures;
     modalRef.result.then(x=> {
-      this.getResultExpenditure(this.model.expenditures);
+      this.totalResultExpenditure();
     },
     j => {
         console.log(j);      
@@ -292,7 +295,7 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   AddDestiny(){
-    const modalRef = this.modalService.open(AddDestinyComponent);
+    const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
 
     if (this.model.destinies === undefined)
     {
@@ -304,7 +307,7 @@ export class CreateSolicitationComponent implements OnInit {
     modalRef.componentInstance.destiniesAdded = listDestinies;
     
     modalRef.result.then(
-      x =>this.getResult(this.model.destinies)
+      x =>this.totalResultExpenditure()
     ,
     j => {
           console.log(j);
@@ -321,6 +324,20 @@ export class CreateSolicitationComponent implements OnInit {
     console.log(e);
   }
 
+  deleteFromDatabaseExpenditure(id : number){
+    this.expenditureAgentService.delete(id)
+    .subscribe(
+      () => []
+    );
+  }
+
+  deleteFromDatabaseDestinies(id : number){
+    this.destinyService.delete(id)
+    .subscribe(
+      () => []
+    );
+  }
+
   onSubmit(){
       let array = this.model.destinies;
       for (let index = 0; index < array.length; index++) {
@@ -328,16 +345,22 @@ export class CreateSolicitationComponent implements OnInit {
         this.model.destinies[index].startDate = dataSend;
       }
 
+      if (this.model.destinies.length == 0){
+        this.msj = 'Debe ingresar al menos un destino';
+        return;
+      }
       if(this.id){
-        this.solicitationSubsidy.updateSolicitation(this.model).subscribe(
+        this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
             this.router.navigate(['SolicitationSubsidy']);
+            this.msjExito = 'Solicitud Enviada';
           } 
         );
       }else{
-        this.solicitationSubsidy.createSolicitation(this.model).subscribe(
+        this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
           () => {
               this.router.navigate(['SolicitationSubsidy']);
+              this.msjExito = 'Solicitud Actualizada';
           }
         );
       }
@@ -366,31 +389,22 @@ export class CreateSolicitationComponent implements OnInit {
     this.verOcultarTextExpenditure = "Ocultar";    
   }
 
-  getResult(destinies : DestinyDto[]){
-    if (destinies.length != 0){
-      console.log(destinies);
-      let resultTemp : number = 0;
-      destinies.forEach(
-        x => {
-              let category = this.categories.find(category => category.id == x.categoryId);
-              let codLiquidation = this.codeLiquidations.find(codLiq => codLiq.id == x.codeLiquidationId);
-              resultTemp = resultTemp + (category.advance * codLiquidation.percentage);
-            }
+    totalResultExpenditure(){
+      let resultExpenditure = 0;
+      let resultDestiny = 0;
+      this.model.expenditures.forEach(
+        expenditure => resultExpenditure = resultExpenditure +  expenditure.amount
       );
-  
-      this.model.total = this.model.total + resultTemp;
-    }
 
-   }
-
-   getResultExpenditure(expenditure : Expenditure[]){
-     let resultTemp = 0;
-      expenditure.forEach(
-        x => {
-            resultTemp = resultTemp + x.amount;
+      this.model.destinies.forEach(
+        destiny => {
+          let category = this.categories.find(category => category.id == destiny.categoryId);
+          let codLiquidation = this.codeLiquidations.find(codLiq => codLiq.id == destiny.codeLiquidationId);
+          resultDestiny = resultDestiny + (category.advance * destiny.days * codLiquidation.percentage);
         }
       );
-      this.model.total = this.model.total + resultTemp;
+
+      this.model.total = resultExpenditure + resultDestiny;
     }
 
 

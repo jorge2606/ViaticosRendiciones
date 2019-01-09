@@ -13,6 +13,7 @@ export class CreateDistributionsComponent implements OnInit {
   model = new CreateDistributionDto();
   error : any;
   responseSuccess : any;
+  selectedOrganismId : number;
 
   organism : any[];
 

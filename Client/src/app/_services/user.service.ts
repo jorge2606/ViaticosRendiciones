@@ -13,7 +13,7 @@ export class UserService {
     constructor(private http: HttpClient, private authenticationService : AuthenticationService) { }
 
     getAll() {
-        return this.http.get<User[]>('http://localhost:63098/api/User/getall');
+        return this.http.get<any>('http://localhost:63098/api/User/getall');
     }
 
     getPaginator(filters: any) {

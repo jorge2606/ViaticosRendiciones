@@ -1,6 +1,6 @@
 <div class="container mb-1" >
 		<label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
-		<div class="d-inline-block pl-1 pr-1 col-2">
+		<div class="d-inline-block pl-1 pr-1 col-4">
 			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
 				class="form-control d-inline-block pl-1">
 				<option *ngFor="let dist of distributions" value="{{dist.id}}">
@@ -8,27 +8,44 @@
 				</option>
 			</select>
 		</div>
-		
-		<label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
-		<div class="d-inline-block pl-1 pr-1 col-2">
-			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.dni"  type="text" class="form-control">
-		</div>
 
 		<label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
-		<div class="d-inline-block pl-1 pr-1 col-2">
+		<div class="d-inline-block pl-1 pr-1 col-4">
 			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.userName" type="text" class="form-control">
+		</div>
+
+		<label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
+		<div class="d-inline-block pl-1 pr-1 col-2">
+			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.dni"  type="number" class="form-control">
 		</div>
 </div>
 
-<div class="d-inline-block pb-2 pt-2">
-	<a href="" class="btn btn-success" routerLink="/users/create">
-		<fa-icon icon="user-plus"></fa-icon>
-	</a>
-</div>
+	<div class="d-inline-block pb-2 pt-2">
+		<a href="" class="btn btn-success" routerLink="/users/create">
+			<fa-icon icon="user-plus"></fa-icon>
+		</a>
+	</div>
+	
+	<div class="d-inline-block pl-1 pb-2 pt-2">
+			<button class="btn btn-success" routerLink="/AgentsAndSupervisors">
+				Supervisores <-> Agentes
+			</button>
+	</div>
+
+	<div class="d-inline-block pl-1 pb-2 pt-2">
+			<button class="btn btn-success" [hidden]="users_check.length == 0" (click)="AddSupervisor()">
+				Enlazar a Supervisor
+			</button>
+	</div>
 
 <table class="table table-hover">
 	<thead>
 		<tr style="font-weight: bold;">
+			<td>
+				<div class="form-check">
+					<input type="checkbox" [checked]="allCheckedProperty" (change)="allChecked()" class="form-check-input">
+				</div>
+			</td>
 			<td>Dni</td>
 			<td>Usuario</td>
 			<td>Repartición</td>
@@ -37,6 +54,19 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let user of user_list">
+			<td>
+				<div class="form-check">
+					<input 
+					type="checkbox" 
+					name="checked"
+					value="{{user.id}}"
+					[(ngModel)]="user.checked"
+					[checked]="user.checked"
+					class="form-check-input"
+					(change)="check(user)" 
+					>
+				</div>
+			</td>
 			<td>{{user.dni}}</td>
 			<td>{{user.userName}}</td>
 			<td>{{user.distribution.name}}</td>

@@ -23,7 +23,7 @@
         {{exp.amount}}
       </td>
       <td>
-        {{exp.expenditureType.name}}
+        {{exp.expenditureTypeName}}
       </td>
       <td>
         {{exp.description}}
@@ -55,21 +55,30 @@
           {{des.startDate | date:'dd/MM/yyyy'}}
         </td>
       <td>
-        {{des.category.name}}
+        {{des.categoryName}}
       </td>
       <td>
-        <li style="list-style-type: none;" *ngIf="des.country">{{des.country.name}}</li>
+        <li style="list-style-type: none;" *ngIf="des.countryName">{{des.countryName}}</li>
+        <li style="list-style-type: none;" *ngIf="!des.countryName">ARGENTINA</li>
       </td>
       <td >
-        <li style="list-style-type: none;" *ngIf="des.province"> {{des.province.name}} </li>
+        <li style="list-style-type: none;" *ngIf="des.provinceName"> {{des.provinceName}} </li>
       </td>
       <td>
-        <li style="list-style-type: none;" *ngIf="des.city">{{des.city.name}}</li>
+        <li style="list-style-type: none;" *ngIf="des.cityName">{{des.cityName}}</li>
       </td>
       <td>
-        {{des.transport.model}} - {{des.transport.brand}}
+        {{des.transportModel}} - {{des.transportBrand}}
       </td>
     </tr>
   </tbody>
 </table>
 
+  <div class="form-row mt-1 float-right">
+    <div class="mr-1 mt-3">
+        <label for="">Total</label>
+    </div>
+    <div>
+        <input type="text" disabled value="{{model.total | number}}" class="form-control">
+    </div>
+  </div>

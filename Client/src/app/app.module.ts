@@ -60,7 +60,9 @@ import { AddNewExpenditureComponent } from './modals/add-new-expenditure/add-new
 import { AddDestinyComponent } from './modals/add-destiny/add-destiny.component';
 import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
 import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AddSupervisorComponent } from './modals/add-supervisor/add-supervisor.component';
+import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 
 
 library.add(fas);
@@ -110,7 +112,9 @@ library.add(fas);
     AddNewExpenditureComponent,
     AddDestinyComponent,
     ExpendituresUsersComponent,
-    SolicitationSubsidydetailComponent
+    SolicitationSubsidydetailComponent,
+    AddSupervisorComponent,
+    AgentsAndSupervisorsComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +129,8 @@ library.add(fas);
     FontAwesomeModule,
     TreeviewModule.forRoot(),
     FileUploadModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -136,7 +141,7 @@ library.add(fas);
     //fakeBackendProvider    
   ],
   entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent,
-    AddDestinyComponent],
+    AddDestinyComponent, AddSupervisorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

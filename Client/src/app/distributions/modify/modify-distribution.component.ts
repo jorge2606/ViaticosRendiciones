@@ -18,6 +18,7 @@ export class ModifyDistributionComponent implements OnInit {
   model = new UpdateDistributionDto();
   error = '';
   responseSuccess : any;
+  selectedOrganismId : number;
 
   organism :  any[];
 

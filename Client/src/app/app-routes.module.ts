@@ -1,3 +1,4 @@
+import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'users/create', component: CreateuserComponent, canActivate : [AuthGuard] },
   { path: 'users/:distributionId', component: UsersComponent, canActivate : [AuthGuard] },
   { path: 'users/update/:id', component: ModifyuserComponent, canActivate : [AuthGuard] },
+  { path: 'AgentsAndSupervisors', component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] },
   { path: 'settingUser/:id', component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
 

@@ -1,6 +1,7 @@
-    <div class="modal-header">
-        <h4 class="modal-title">Nuevo Destino</h4>
-    </div>
+
+<div class="modal-header">
+    <h4 class="modal-title">Nuevo Destino</h4>
+</div>
 <form (ngSubmit)="onSubmit()" #formAddDestiny="ngForm" >
     <div class="modal-body">
         
@@ -40,9 +41,10 @@
                                             <label for="">Pais</label>
                                             <select class="form-control"
                                                 #countryId="ngModel" name="countryId"
-                                                (change)="provinceThisCountry(countryId.value)"
+                                                aria-placeholder="Selecciones un Pais"
                                                 [ngClass]="{'is-invalid' : countryId.invalid && (countryId.dirty || countryId.touched)}"
                                                 [(ngModel)]="model.countryId" required>
+                                                <option [ngValue]="selectedCountry" disabled>Seleccione un Pais...</option>
                                                 <option *ngFor="let country of countries" [ngValue]="country.id">{{country.name}}</option>
                                             </select>
                                             <div *ngIf="countryId.invalid && (countryId.dirty || countryId.touched)" class="alert alert-danger mt-1">
@@ -60,6 +62,7 @@
                                                     (change)="citiesThisProvince(provinceId.value, place)"
                                                     [ngClass]="{'is-invalid' : provinceId.invalid && (provinceId.dirty || provinceId.touched)}"
                                                     [(ngModel)]="model.provinceId" required>
+                                                    <option *ngIf="selectedProvince == model.provinceId" [ngValue]="selectedProvince" disabled>Seleccione una Provincia...</option>
                                                     <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.name}}</option>
                                                 </select>
                                 
@@ -69,23 +72,26 @@
                                                     </div>
                                                 </div>
                                             </div>
-        
-                                            <div *ngIf="countries.length == 0" class="form-group col">
-                                                <label for="">Departamento/Localidad</label>
+                                        </div>    
+
+                                        <div *ngIf="countries.length == 0" class="form-group row">
+                                            <div class="form-group col">
+                                                <label for="">Localidades</label>
                                                 <select class="form-control" #cityId="ngModel" 
                                                     name="cityId" [(ngModel)]="model.cityId"
                                                     [ngClass]="{'is-invalid' : cityId.invalid && (cityId.dirty || cityId.touched)}"
                                                     required>
+                                                    <option *ngIf="model.cityId == selectedCity" [ngValue]="selectedCity" disabled>Seleccione una Localidad...</option>
                                                     <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
                                                 </select>
-                                                
+                                            
                                                 <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" class="alert alert-danger mt-1">
                                                     <div *ngIf="cityId.errors.required">
                                                         Campo requerido.
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>    
+                                        </div>
         
                                         <div class="form-row">
                                                 <div class="form-group col">
@@ -138,25 +144,27 @@
                                                             </div>
                                                         </div>            
                                                 </div>
+
+                                                <div class="form-group col">
+                                                        <label for="">Codígo de liquidación</label>
+                                                        <select class="form-control" #codeLiquidationId="ngModel" 
+                                                            name="codeLiquidationId" [(ngModel)]="model.codeLiquidationId"
+                                                            [ngClass]="{'is-invalid' : codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)}" required>
+                                                            <option *ngIf="selectedCodeLiquidation == model.codeLiquidationId" [ngValue]="selectedCodeLiquidation" disabled>
+                                                                Seleccione un Codígo de Liquidación...
+                                                            </option>
+                                                            <option *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.percentage}}</option>
+                                                        </select>
+                                        
+                                                        <div *ngIf="codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)" class="alert alert-danger mt-1">
+                                                            <div *ngIf="codeLiquidationId.errors.required">
+                                                                Campo requerido.
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 
                                         </div>
             
-                                        <div class="form-row">                                
-                                            <div class="form-group col">
-                                                <label for="">Codígo de liquidación</label>
-                                                <select class="form-control" #codeLiquidationId="ngModel" 
-                                                    name="codeLiquidationId" [(ngModel)]="model.codeLiquidationId"
-                                                    [ngClass]="{'is-invalid' : codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)}" required>
-                                                    <option *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.percentage}}</option>
-                                                </select>
-                                
-                                                <div *ngIf="codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)" class="alert alert-danger mt-1">
-                                                    <div *ngIf="codeLiquidationId.errors.required">
-                                                        Campo requerido.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         
                                         <div class="form-row">
                                             <div class="form-group col">
@@ -165,6 +173,9 @@
                                                         [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched) 
                                                         }"
                                                         name="categoryId" [(ngModel)]="model.categoryId">
+                                                        <option *ngIf="selectedCategory == model.codeLiquidationId" [ngValue]="selectedCategory" disabled>
+                                                            Seleccione una Categoría...
+                                                        </option>
                                                         <option *ngFor="let cat of categories" value="{{cat.id}}">
                                                                 {{cat.name}} - {{cat.description}}
                                                         </option>
@@ -183,6 +194,9 @@
                                             <label for="">Transporte</label>
                                             <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId"
                                             [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" required>
+                                            <option *ngIf="selectedTransport == model.transportId" [ngValue]="selectedTransport" disabled>
+                                                    Seleccione un Transporte...
+                                            </option>
                                                 <option *ngFor="let trans of transports" value="{{trans.id}}">
                                                     {{trans.model}} - {{trans.brand}}
                                                 </option>
@@ -210,13 +224,23 @@
         
             </div>     
     </div>
-  
+    
+    <ngx-spinner 
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Cargando...</p>>
+    </ngx-spinner>
+
     <div class="modal-footer">
-        <button type="submit" [disabled]="!formAddDestiny.valid" class="btn btn-success">Agregar</button>
+        <button type="submit" [hidden]="buttonDisbaled" [disabled]="!formAddDestiny.valid" class="btn btn-success">Agregar</button>
         <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
     </div>   
 
 </form> 
+
+
 
 
 

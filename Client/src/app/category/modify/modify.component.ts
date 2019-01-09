@@ -38,7 +38,7 @@ export class ModifyCategoryComponent implements OnInit {
       x => {
         this.responseSuccess = x;
         this.error = '';
-        //this.router.navigate(['/category']);
+        this.router.navigate(['/category']);
       },
         err => this.error = err.error.notifications
     );

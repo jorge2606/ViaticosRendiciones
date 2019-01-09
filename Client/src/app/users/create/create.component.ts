@@ -14,6 +14,7 @@ export class CreateuserComponent implements OnInit {
   model = new createUser();
   distribution : DistributionBaseDto[];
   errors : any;
+  selecteddistributionId : number;
 
   constructor(private UserService : UserService, private rolService : RoleService,
     private distributionService : DistributionService) {}
