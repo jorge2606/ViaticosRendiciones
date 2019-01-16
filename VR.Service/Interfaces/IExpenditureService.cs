@@ -8,10 +8,7 @@ namespace VR.Service.Interfaces
 {
     public interface IExpenditureService
     {
-        ServiceResult<CreateExpenditureDto> CreateDistribution(CreateExpenditureDto expenditureDto);
-        ServiceResult<UpdateExpenditureDto> UpdateExpenditure(UpdateExpenditureDto expenditureDto);
-        ServiceResult<DeleteExpenditureDto> DeleteExpenditure(Guid expenditureId);
-        ServiceResult<FindByIdExpenditureDto> FindByIdExpenditure(Guid id);
-        ServiceResult<List<AllExpenditureDto>> AllExpenditure();
+        ServiceResult<List<ExpenditureDto>> GetByIdSolicitationSubsidy(Guid id);
+        ServiceResult<ExpenditureDto> Delete(Guid id);
     }
 }

@@ -16,5 +16,6 @@ namespace VR.Service.Interfaces
         ServiceResult<NotificationDto> NotificationRidden(Guid id);
         ServiceResult<NotificationDto> DeleteNotification(Guid id);
         IQueryable<Notification> queryableNotifications();
+        ServiceResult<CreateNotificationDto> Create(CreateNotificationDto create);
     }
 }

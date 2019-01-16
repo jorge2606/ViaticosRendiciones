@@ -4,6 +4,6 @@ export class Roles{
 }
 
 export class RoleUserDto{
-    rolId : number;
+    roleId : number;
     userId : number;
 }

@@ -3,6 +3,7 @@
 		<div class="d-inline-block pl-1 pr-1 col-4">
 			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
 				class="form-control d-inline-block pl-1">
+				<option value=""></option>
 				<option *ngFor="let dist of distributions" value="{{dist.id}}">
 					{{dist.name}}
 				</option>
@@ -46,9 +47,10 @@
 					<input type="checkbox" [checked]="allCheckedProperty" (change)="allChecked()" class="form-check-input">
 				</div>
 			</td>
-			<td>Dni</td>
-			<td>Usuario</td>
+			<td>Nombre</td>
+			<td>Apellido</td>
 			<td>Repartición</td>
+			<td>Roles</td>
 			<td>Accción<td>
 		</tr>
 	</thead>
@@ -67,9 +69,10 @@
 					>
 				</div>
 			</td>
-			<td>{{user.dni}}</td>
-			<td>{{user.userName}}</td>
+			<td>{{user.firstName}}</td>
+			<td>{{user.lastName}}</td>
 			<td>{{user.distribution.name}}</td>
+			<td>{{user.rol}}</td>
 			<td>
 				<div class="btn-group" role="group" aria-label="Basic example">
 					<a class="pr-3" routerLink="/users/update/{{user.id}}">

@@ -12,6 +12,7 @@ namespace VR.Data.Model
         public string Name { set; get; }
         [StringLength(250)]
         public string Description { set; get; }
-        public DateTime Delete { set; get; }
+        public decimal Advance { set; get; }
+        public Boolean IsDeleted { set; get; }
     }
 }

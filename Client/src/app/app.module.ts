@@ -63,6 +63,7 @@ import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detai
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AddSupervisorComponent } from './modals/add-supervisor/add-supervisor.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
+import { NotifyRejectComponent } from './modals/notify-reject/notify-reject.component';
 
 
 library.add(fas);
@@ -114,7 +115,8 @@ library.add(fas);
     ExpendituresUsersComponent,
     SolicitationSubsidydetailComponent,
     AddSupervisorComponent,
-    AgentsAndSupervisorsComponent
+    AgentsAndSupervisorsComponent,
+    NotifyRejectComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +143,7 @@ library.add(fas);
     //fakeBackendProvider    
   ],
   entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent,
-    AddDestinyComponent, AddSupervisorComponent],
+    AddDestinyComponent, AddSupervisorComponent, SolicitationSubsidydetailComponent,NotifyRejectComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

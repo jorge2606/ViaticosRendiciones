@@ -13,6 +13,7 @@ namespace VR.Dto
             RuleFor(x => x.Description).MinimumLength(5).WithName("Descripción");
             RuleFor(x => x.Name).MaximumLength(100).WithName("Nombre");
             RuleFor(x => x.Description).MaximumLength(100).WithName("Descripción");
+            RuleFor(x => x.Advance).NotEmpty().WithName("Anticipo");
         }
     }
     public class CategoryBaseDto
@@ -20,7 +21,8 @@ namespace VR.Dto
         public Guid Id { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
-        public DateTime Delete { set; get; }
+        public Boolean IsDeleted  { set; get; }
+        public Decimal Advance { set; get; }
     }
 
     public class CreateCategoryDto : CategoryBaseDto { }

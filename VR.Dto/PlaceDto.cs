@@ -13,6 +13,7 @@ namespace VR.Dto
     public class AllPlaceDto : PlaceBaseDto
     {
         public Boolean Checked { set; get; }
+        public int? Order { set; get; }
     }
 
 }

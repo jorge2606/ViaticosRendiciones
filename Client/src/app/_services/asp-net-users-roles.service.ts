@@ -10,6 +10,10 @@ export class AspNetUsersRolesService {
   constructor(private http : HttpClient) { }
 
   getAllUsersRoles(){
-    return this.http.get<UserRoles[]>("http://localhost:63098/api/AspNetUserRoles/AllRoles");
+    return this.http.get<any>("http://localhost:63098/api/AspNetUserRoles/AllRoles");
+  }
+
+  onlyRolesUsersRoles(){
+    return this.http.get<any>("http://localhost:63098/api/AspNetUserRoles/OnlyRoles");
   }
 }

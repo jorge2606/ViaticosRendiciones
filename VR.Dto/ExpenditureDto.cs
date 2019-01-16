@@ -1,39 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
+using VR.Data.Model;
 
 namespace VR.Dto
 {
-    public class ExpenditureValidator : AbstractValidator<ExpenditureBaseDto>
+    public class ExpenditureDto
     {
-        public ExpenditureValidator()
-        {
-            RuleFor(x => x.Description).NotEmpty().WithName("Descripción");
-            RuleFor(x => x.Name).NotEmpty().WithName("Nombre");
-            RuleFor(x => x.Name).MinimumLength(5).WithName("Nombre");
-            RuleFor(x => x.Description).MinimumLength(5).WithName("Descripción");
-            RuleFor(x => x.Name).MaximumLength(100).WithName("Nombre");
-            RuleFor(x => x.Description).MaximumLength(100).WithName("Descripción");
-        }
-    }
-    public class ExpenditureBaseDto
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Guid Id { set; get; }
+        public decimal Amount { set; get; }
+        public string Description { set; get; }
+        
+        public Guid SolicitationSubsidyId { set; get; }
+        public Guid ExpenditureTypeId { set; get; }
+
+        public SolicitationSubsidy SolicitationSubsidy { set; get; }
+        public ExpenditureType ExpenditureType { set; get; }
     }
 
-    public class CreateExpenditureDto : ExpenditureBaseDto { }
+    public class ExpenditureMapperDto
+    {
+        public string ExpenditureDescription { set; get; }
+    }
 
-    public class UpdateExpenditureDto : ExpenditureBaseDto { }
-
-    public class DeleteExpenditureDto : ExpenditureBaseDto { }
-
-    public class FindByIdExpenditureDto : ExpenditureBaseDto { }
-
-    public class AllExpenditureDto : ExpenditureBaseDto { }
-
-
-
+    public class ExpenditureFromSolicitationSubsidyByIdDto
+    {
+        public Guid Id { set; get; }
+        public decimal Amount { set; get; }
+        public string Description { set; get; }
+        public string ExpenditureTypeName { set; get; }
+        public Guid SolicitationSubsidyId { set; get; }
+        public Guid ExpenditureTypeId { set; get; }
+        
+    }
+    
 }

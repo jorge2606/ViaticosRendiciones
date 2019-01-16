@@ -29,7 +29,6 @@ export class CreateuserComponent implements OnInit {
           this.errors = error.error.notifications;
      } 
     );
-
   }
 
   getAllRoles(){

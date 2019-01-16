@@ -1,3 +1,4 @@
+import { UserRoles } from 'src/app/_models/userRoles';
 import { AddSupervisorComponent } from './../modals/add-supervisor/add-supervisor.component';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { Roles, RoleUserDto } from './../_models/roles';
@@ -8,6 +9,9 @@ import { UserService } from '../_services/user.service';
 import { User } from './users';
 import { DistributionService } from '../_services/distribution.service';
 import { ActivatedRoute } from '@angular/router';
+import { AspNetRolesService } from '../_services/asp-net-roles.service';
+import { AspNetUsersRolesService } from '../_services/asp-net-users-roles.service';
+import { AllAspNetRolesDto } from '../_models/aspNetRoles';
 
 @Component({
   selector: 'app-users',
@@ -18,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UsersComponent implements OnInit {
   filters = { page: 0, distributionId: null, dni : "" }
   user_list: User[];
+  allUsers : User[];
   roles_list: Roles;
   col_size: number;
   itemsPerPage: number = 10;
@@ -27,15 +32,22 @@ export class UsersComponent implements OnInit {
   changeRolDto = new RoleUserDto();
   users_check : User[] = [];
   allCheckedProperty = false;
+  userRoles : RoleUserDto[];
+  roles : AllAspNetRolesDto[]
 
 
   constructor(private var_user_service: UserService, 
               private modalService: NgbModal,
               private distributionService: DistributionService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private aspNetRolesService : AspNetRolesService,
+              private aspNetUsersRolesService : AspNetUsersRolesService) {}
 
 
   ngOnInit() {
+    this.allUsersWithInPage();
+    this.allAspNetRolesService();
+    this.allAspNetUserRolesService();
     //le asigno el id que extraigo de la url
     this.route.params.subscribe(
       p => this.filters.distributionId = p.distributionId
@@ -48,6 +60,26 @@ export class UsersComponent implements OnInit {
       }
     );
 
+  }
+
+  allAspNetRolesService(){
+    this.aspNetRolesService.getAll().subscribe(
+      roles => {
+        this.roles = roles
+      }
+    );
+  }
+
+  allAspNetUserRolesService(){
+    this.aspNetUsersRolesService.onlyRolesUsersRoles()
+    .subscribe(
+        userRoles =>this.userRoles = userRoles
+      );
+  }
+  allUsersWithInPage(){
+    this.var_user_service.getAll().subscribe(
+      x => this.allUsers = x
+    );
   }
 
   loadPage(page : any) {
@@ -79,7 +111,7 @@ export class UsersComponent implements OnInit {
                 );
             }
           );
-
+      this.retriveRoles();
       this.col_size = result.totalRecords;
     });
   }
@@ -107,6 +139,10 @@ export class UsersComponent implements OnInit {
 
   check(user : any){
     this.allCheckedProperty = true;
+    if (this.users_check.length < this.allUsers.length - 1){
+      this.allCheckedProperty = false;
+    }
+
     if (user.checked == true){
       this.users_check.push(user);
     }else{
@@ -120,13 +156,12 @@ export class UsersComponent implements OnInit {
         }
       }
     }
-
   }
 
   AddSupervisor(){
     const modalRef = this.modalService.open(AddSupervisorComponent,{size :"lg"});
     modalRef.componentInstance.usersSelected = this.users_check;
-    modalRef.componentInstance.allUsers = this.user_list;
+    modalRef.componentInstance.allUsers = this.allUsers;
     modalRef.result.then(
         data => {
           console.log("data", data);
@@ -170,5 +205,26 @@ export class UsersComponent implements OnInit {
       }
   }
 
+
+  retriveRoles(){
+    this.user_list.forEach(
+      user =>{
+         user.rol = "";
+          this.userRoles.forEach(
+              userRol =>{
+                if(user.id == userRol.userId){
+                  this.roles.forEach(
+                    rol => {
+                      if (rol.id == userRol.roleId){
+                        user.rol = user.rol +" "+rol.normalizedName;
+                      }
+                    }//rol
+                  );
+                }
+              }//userRol
+          );
+      }//users
+    );
+  }
 
 }

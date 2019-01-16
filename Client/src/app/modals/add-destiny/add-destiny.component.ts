@@ -47,6 +47,7 @@ export class AddDestinyComponent implements OnInit {
   selectedCodeLiquidation : number;
   selectedCategory : number;
   selectedTransport : number;
+  total : number = 0;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -164,7 +165,36 @@ export class AddDestinyComponent implements OnInit {
     this.sendDataToComponent(this.destiniesAdded);
     
   }
+
+  totalResultExpenditure(){
+    if (this.model.categoryId === undefined || 
+        this.model.codeLiquidationId === undefined ||
+        this.model.days === undefined){
+      return;
+    }
+
+    
+    let resultDestiny = 0;
+    let category = this.categories.find(category => category.id == this.model.categoryId);
+    let codLiquidation = this.codeLiquidations.find(codLiq => codLiq.id == this.model.codeLiquidationId);
+    resultDestiny = resultDestiny + (category.advance * this.model.days * codLiquidation.percentage);
+
+    this.total = resultDestiny;
+    
+  }
   
+  changeCategory(){
+    this.totalResultExpenditure();
+  }
+
+  onChangeCodLiq(){
+    this.totalResultExpenditure();
+  }
+
+  keyUpDays(){
+    this.totalResultExpenditure();
+  }
+
   toogle(place : AllPlaceDto){
     this.buttonDisbaled = false;
     this.model = new DestinyDto();

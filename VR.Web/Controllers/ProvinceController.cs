@@ -32,29 +32,32 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("DistrictCity/{district}")]
+        public IActionResult GetAll(string district)
+        {
+            var result = _provinceService.FindByDistrictCity(district);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         // GET: api/Province/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("PlaceId/{id}")]
+        public IActionResult PlaceId(Guid id)
         {
-            return "value";
-        }
+            var result = _provinceService.FindByPlaceId(id);
 
-        // POST: api/Province
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
 
-        // PUT: api/Province/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            return Ok(result.Response);
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

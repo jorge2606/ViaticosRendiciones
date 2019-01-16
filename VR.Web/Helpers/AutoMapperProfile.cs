@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
@@ -11,9 +12,20 @@ namespace WebApi.Helpers
         {
             CreateMap<User, SaveUserDto>();
             CreateMap<SaveUserDto, User>();
-
-            CreateMap<SolicitationSubsidy, AllSolicitationSubsidyDto>().ForMember(x => x.TransportDescription,
-                opt => opt.MapFrom(x => $"Modelo: {x.Transport.Model} Patente :{x.Transport.CarPlate}"));
+            CreateMap<SolicitationSubsidy, AllSolicitationSubsidyDto>()
+                .ForMember(x => x.State, opt => opt.MapFrom(x => 
+                    x.SolicitationStates.OrderByDescending(y => y.ChangeDate)
+                    .FirstOrDefault().State.Description));
+            //CreateMap<SolicitationState, AllSolicitationSubsidyDto>()
+            //    .ForMember(x => x.State, opt => opt.MapFrom(x => x.State.Description));
+            CreateMap<Expenditure, ExpenditureFromSolicitationSubsidyByIdDto>();
+            CreateMap<User, UserDto>();
+            CreateMap<Destiny, DestinyFromSolicitationSubsidyByIdDto>();
+            CreateMap<SolicitationSubsidy, FindByIdSolicitationSubsidyDto>();
+            CreateMap<SupervisorUserAgent, AllSupervisorAgentDto>();
+            CreateMap<User, AllUserDto>();
+            CreateMap<State, StateDto>();
+            CreateMap<Distribution, AllDistributionDto>();
         }
     }
 }

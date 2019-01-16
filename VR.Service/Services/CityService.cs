@@ -32,6 +32,15 @@ namespace VR.Service.Services
             );
         }
 
+        public ServiceResult<List<FindByIdCityDto>> FindByIdCity(Guid provinceId)
+        {
+            return new ServiceResult<List<FindByIdCityDto>>(
+                _context.Cities.Select(x => _mapper.Map<FindByIdCityDto>(x))
+                    .Where(x=> x.ProvinceId == provinceId)
+                    .OrderBy(x => x.Name).ToList()
+            );
+        }
+
 
 
 

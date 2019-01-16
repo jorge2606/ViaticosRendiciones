@@ -20,7 +20,7 @@ export class NavarComponent implements OnInit {
               private messaBetweenComp : MessBetweenCompService,
               private modalService: NgbModal ) { }
 
-  notification : Notifications[];
+  notification : Notifications[] = [];
   isLogged : Observable<boolean>;
   idUser : number;
   cantNotif : number = 0;

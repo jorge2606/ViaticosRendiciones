@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p>
+        Hola {supervisorLastName} , {supervisorsFirstName}<br />
+        El Agente  {userLastName} , {userFirstName}
+        Ha enviado una solicitud de viático.<br />
+
+        Saludos
+    </p>
+
+    <div class="container">
+
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
+        </div>
+        <div class="modal-header">
+            <h5 class="modal-title">{lastName}, {firstName} <br> {prefixCuil}-{dni}-{suffixCuil}</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <label for="">Motivo</label>
+                <textarea rows="10" style="height: 100px" class="h-45 form-control"
+                          value="{motive}"
+                          disabled>
+             
+                </textarea>
+            </div>
+
+            <div class="form-row">
+                <label for="">Gastos</label>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Importe</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let exp of {expenditures}">
+                            <td>
+                                exp.amount
+                            </td>
+                            <td>
+                                exp.expenditureType.Name
+                            </td>
+                            <td>
+                                exp.description
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-row">
+                <label for="">Destinos</label>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Dias</th>
+                            <th scope="col">Fecha de Inicio</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Pais</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">Localidad</th>
+                            <th scope="col">Transporte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let des of {destinies}">
+                            <td>
+                                des.days
+                            </td>
+                            <td>
+                                des.startDate
+                            </td>
+                            <td>
+                                des.categoryName
+                            </td>
+                            <td>
+                                <li style="list-style-type: none;">des.country.Name</li>
+                                <li style="list-style-type: none;" >ARGENTINA</li>
+                            </td>
+                            <td>
+                                <li style="list-style-type: none;"> des.province.Name </li>
+                            </td>
+                            <td>
+                                <li style="list-style-type: none;" >des.city.Name</li>
+                            </td>
+                            <td>
+                                des.transport.Model - des.transport.Brand
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="col-5 form-inline ml-auto">
+                    <label for="" class="col-2">Total</label>
+                    <input type="text" disabled value="{{model.total | number}}"
+                           class="col form-control text-right">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer mt-6 ml-auto">
+            <button type="submit" (click)="acepted()" class="btn btn-success">Aceptar</button>
+            <button type="submit" (click)="reject()" class="btn btn-danger">Rechazar</button>
+            <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

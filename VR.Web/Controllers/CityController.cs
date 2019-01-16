@@ -38,9 +38,16 @@ namespace VR.Web.Controllers
         }
 
         // PUT: api/City/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("GetByIdCity/{provinceId}")]
+        public IActionResult GetByIdCity(Guid provinceId)
         {
+            var result = _cityService.FindByIdCity(provinceId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
         }
 
         // DELETE: api/ApiWithActions/5

@@ -1,5 +1,6 @@
 import { AllPlaceDto } from './place';
 import { DestinyDto } from './destiny';
+import { User } from '../users/users';
 
 export class Expenditure {
     id : number;
@@ -19,6 +20,10 @@ export class SolicitationSubsidyBaseDto{
     createDate : any;
 }
 
+export class SolicitationSubsidyDetail extends SolicitationSubsidyBaseDto{
+    user : User;
+}
+
 
 export class CreateSolicitationSubsidyDto{
     id : number;
@@ -32,6 +37,7 @@ export class CreateSolicitationSubsidyDto{
 
 export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{
     user : any;
+    state : string;
 }
 
 export class DetailSolicitationSubsidyDto{
@@ -42,4 +48,10 @@ export class DetailSolicitationSubsidyDto{
     expenditures : Expenditure[];
     total : number;
     createDate : any;
+}
+
+export class SolicitationIdDto
+{
+    id : number;
+    motiveReject : string;
 }

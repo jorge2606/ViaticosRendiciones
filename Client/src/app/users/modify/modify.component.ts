@@ -16,6 +16,7 @@ export class ModifyuserComponent implements OnInit {
   id: number;
   distribution : DistributionService[];
   model = new modifyUser;
+  selectedDistributionId : number;
 
   constructor(private router : Router,private route: ActivatedRoute, private userService: UserService,
     private distributionService : DistributionService) {
@@ -50,6 +51,11 @@ export class ModifyuserComponent implements OnInit {
         this.model.id = i.id,
         this.model.phoneNumber = i.phoneNumber,
         this.model.rolesUser = i.rolesUser;
+        this.model.firstName = i.firstName;
+        this.model.lastName = i.lastName;
+        this.model.prefixCuil = i.prefixCuil;
+        this.model.suffixCuil = i.suffixCuil;
+        this.model.distributionId = i.distributionId
     });
 
     this.distributionService.allDistribution().subscribe(

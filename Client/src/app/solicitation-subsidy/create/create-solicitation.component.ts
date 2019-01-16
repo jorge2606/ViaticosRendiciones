@@ -99,7 +99,9 @@ export class CreateSolicitationComponent implements OnInit {
                     for (let index = 0; index < this.model.destinies.length; index++) {
                       let dateToShow = new Date(Date.parse(this.model.destinies[index].startDate));
                       this.model.destinies[index].startDate = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() };
-                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                      if (this.model.destinies[index].provinceId != null){
+                        this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                      }
                   }                 
                 }
                   this.allProvice();
@@ -154,9 +156,14 @@ export class CreateSolicitationComponent implements OnInit {
     .subscribe(
       x =>{
             this.model.destinies = x;
+            
             x.forEach(
               x =>{
-                  if (x.cityId !== undefined && x.provinceId !== undefined){ 
+                  if (
+                    x.cityId !== undefined 
+                    && x.provinceId !== undefined
+                    && x.cityId != null
+                    && x.provinceId != null){ 
                     //se ingreso una ciudad y una provincia
                     this.allProvice();
                     this.citiesThisProvince(x.provinceId);
@@ -339,13 +346,13 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   onSubmit(){
-      let array = this.model.destinies;
+      let array = this.model.destinies.slice(0);
       for (let index = 0; index < array.length; index++) {
-        const dataSend = array[index].startDate.day+"/"+array[index].startDate.month+"/"+array[index].startDate.year;
-        this.model.destinies[index].startDate = dataSend;
+        let dataSend = array[index].startDate.day+"/"+array[index].startDate.month+"/"+array[index].startDate.year;
+        array[index].startDate = dataSend;
       }
 
-      if (this.model.destinies.length == 0){
+      if (array.length == 0){
         this.msj = 'Debe ingresar al menos un destino';
         return;
       }
@@ -354,17 +361,26 @@ export class CreateSolicitationComponent implements OnInit {
           () => {
             this.router.navigate(['SolicitationSubsidy']);
             this.msjExito = 'Solicitud Enviada';
-          } 
+            //this.fromChainDateToDatapickerDate(array);
+          },
+          error => console.log(error) 
         );
       }else{
         this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
           () => {
               this.router.navigate(['SolicitationSubsidy']);
               this.msjExito = 'Solicitud Actualizada';
+              //this.fromChainDateToDatapickerDate(array);
           }
         );
       }
+      
+  }
 
+  fromChainDateToDatapickerDate(array : any){
+    this.model.destinies.forEach(
+      x => x.startDate = array.startDate
+    ); 
   }
 
   onChangeColapse(){

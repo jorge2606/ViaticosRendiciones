@@ -51,7 +51,11 @@ export class SettingofuserComponent implements OnInit {
         this.model.userName = i.userName,
         this.model.id = i.id,
         this.model.phoneNumber = i.phoneNumber,
-        this.model.rolesUser = i.rolesUser;
+        this.model.rolesUser = i.rolesUser,
+        this.model.prefixCuil = i.prefixCuil,
+        this.model.suffixCuil = i.suffixCuil,
+        this.model.firstName = i.firstName,
+        this.model.lastName = i.lastName
     })
   }
 

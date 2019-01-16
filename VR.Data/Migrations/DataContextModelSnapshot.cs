@@ -107,10 +107,12 @@ namespace VR.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Delete");
+                    b.Property<decimal>("Advance");
 
                     b.Property<string>("Description")
                         .HasMaxLength(250);
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50);
@@ -140,14 +142,82 @@ namespace VR.Data.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("VR.Data.Model.CodeLiquidation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Percentage");
+
+                    b.Property<Guid>("PlaceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlaceId");
+
+                    b.ToTable("CodeLiquidations");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Country", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Iso3");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("NumCode");
+
+                    b.Property<Guid?>("PlaceId");
+
+                    b.Property<string>("PrintableName");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlaceId");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("VR.Data.Model.Destiny", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<Guid>("CategoryId");
+
+                    b.Property<Guid?>("CityId");
+
+                    b.Property<Guid>("CodeLiquidationId");
+
+                    b.Property<Guid?>("CountryId");
+
+                    b.Property<int>("Days");
+
+                    b.Property<Guid?>("ProvinceId");
+
+                    b.Property<Guid>("SolicitationSubsidyId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<Guid>("TransportId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CodeLiquidationId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.HasIndex("SolicitationSubsidyId");
+
+                    b.HasIndex("TransportId");
 
                     b.ToTable("Destinies");
                 });
@@ -175,13 +245,33 @@ namespace VR.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("Amount");
+
                     b.Property<string>("Description");
+
+                    b.Property<Guid>("ExpenditureTypeId");
+
+                    b.Property<Guid>("SolicitationSubsidyId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpenditureTypeId");
+
+                    b.HasIndex("SolicitationSubsidyId");
+
+                    b.ToTable("Expenditures");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.ExpenditureType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expenditures");
+                    b.ToTable("ExpenditureTypes");
                 });
 
             modelBuilder.Entity("VR.Data.Model.File", b =>
@@ -282,6 +372,8 @@ namespace VR.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int?>("Order");
+
                     b.HasKey("Id");
 
                     b.ToTable("Places");
@@ -292,13 +384,27 @@ namespace VR.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("CountryId");
+
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("DistrictCity");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
+                    b.Property<Guid?>("PlaceId");
+
+                    b.Property<long>("Poblation");
+
+                    b.Property<string>("PrintableName");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("Provinces");
                 });
@@ -327,42 +433,77 @@ namespace VR.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
+            modelBuilder.Entity("VR.Data.Model.SolicitationState", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ChangeDate");
+
+                    b.Property<string>("MotiveReject");
+
+                    b.Property<Guid>("SolicitationSubsidyId");
+
+                    b.Property<Guid>("StateId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SolicitationSubsidyId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("SolicitationStates");
+                });
+
             modelBuilder.Entity("VR.Data.Model.SolicitationSubsidy", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("CostCommunication");
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("Date");
 
-                    b.Property<double>("CostFuel");
+                    b.Property<string>("Motive");
 
-                    b.Property<double>("CostMobility");
-
-                    b.Property<Guid>("DestinyId");
-
-                    b.Property<Guid>("MotiveId");
-
-                    b.Property<Guid>("PlaceId");
-
-                    b.Property<Guid>("TransportId");
-
-                    b.Property<double>("UnexpectedCircumstance");
+                    b.Property<decimal>("Total");
 
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinyId");
-
-                    b.HasIndex("MotiveId");
-
-                    b.HasIndex("PlaceId");
-
-                    b.HasIndex("TransportId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("SolicitationSubsidies");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.State", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.SupervisorUserAgent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AgentId");
+
+                    b.Property<Guid>("SupervisorId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgentId");
+
+                    b.HasIndex("SupervisorId");
+
+                    b.ToTable("SupervisorUserAgents");
                 });
 
             modelBuilder.Entity("VR.Data.Model.Transport", b =>
@@ -402,6 +543,10 @@ namespace VR.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -418,7 +563,11 @@ namespace VR.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int>("PrefixCuil");
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int>("SuffixCuil");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -493,6 +642,56 @@ namespace VR.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("VR.Data.Model.CodeLiquidation", b =>
+                {
+                    b.HasOne("VR.Data.Model.Place", "Place")
+                        .WithMany()
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Country", b =>
+                {
+                    b.HasOne("VR.Data.Model.Place", "Place")
+                        .WithMany()
+                        .HasForeignKey("PlaceId");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Destiny", b =>
+                {
+                    b.HasOne("VR.Data.Model.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("VR.Data.Model.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("VR.Data.Model.CodeLiquidation", "CodeLiquidation")
+                        .WithMany()
+                        .HasForeignKey("CodeLiquidationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("VR.Data.Model.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("VR.Data.Model.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId");
+
+                    b.HasOne("VR.Data.Model.SolicitationSubsidy", "SolicitationSubsidy")
+                        .WithMany("Destinies")
+                        .HasForeignKey("SolicitationSubsidyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("VR.Data.Model.Transport", "Transport")
+                        .WithMany()
+                        .HasForeignKey("TransportId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("VR.Data.Model.Distribution", b =>
                 {
                     b.HasOne("VR.Data.Model.Organism", "Organism")
@@ -500,31 +699,61 @@ namespace VR.Data.Migrations
                         .HasForeignKey("OrganismId");
                 });
 
-            modelBuilder.Entity("VR.Data.Model.SolicitationSubsidy", b =>
+            modelBuilder.Entity("VR.Data.Model.Expenditure", b =>
                 {
-                    b.HasOne("VR.Data.Model.Destiny", "Destiny")
+                    b.HasOne("VR.Data.Model.ExpenditureType", "ExpenditureType")
                         .WithMany()
-                        .HasForeignKey("DestinyId")
+                        .HasForeignKey("ExpenditureTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("VR.Data.Model.Motive", "Motive")
-                        .WithMany()
-                        .HasForeignKey("MotiveId")
+                    b.HasOne("VR.Data.Model.SolicitationSubsidy", "SolicitationSubsidy")
+                        .WithMany("Expenditures")
+                        .HasForeignKey("SolicitationSubsidyId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("VR.Data.Model.Province", b =>
+                {
+                    b.HasOne("VR.Data.Model.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
 
                     b.HasOne("VR.Data.Model.Place", "Place")
                         .WithMany()
-                        .HasForeignKey("PlaceId")
+                        .HasForeignKey("PlaceId");
+                });
+
+            modelBuilder.Entity("VR.Data.Model.SolicitationState", b =>
+                {
+                    b.HasOne("VR.Data.Model.SolicitationSubsidy", "SolicitationSubsidy")
+                        .WithMany("SolicitationStates")
+                        .HasForeignKey("SolicitationSubsidyId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("VR.Data.Model.Transport", "Transport")
+                    b.HasOne("VR.Data.Model.State", "State")
                         .WithMany()
-                        .HasForeignKey("TransportId")
+                        .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
 
+            modelBuilder.Entity("VR.Data.Model.SolicitationSubsidy", b =>
+                {
                     b.HasOne("VR.Data.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("VR.Data.Model.SupervisorUserAgent", b =>
+                {
+                    b.HasOne("VR.Data.Model.User", "Agents")
+                        .WithMany()
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("VR.Data.Model.User", "Supervisors")
+                        .WithMany()
+                        .HasForeignKey("SupervisorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

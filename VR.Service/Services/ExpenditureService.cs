@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using FluentValidation;
-using Service.Common.Extensions;
 using Service.Common.ServiceResult;
 using VR.Data;
-using VR.Data.Model;
 using VR.Dto;
 using VR.Service.Interfaces;
 
@@ -15,99 +12,37 @@ namespace VR.Service.Services
 {
     public class ExpenditureService : IExpenditureService
     {
-        private readonly DataContext _dataContext;
-        private readonly IValidator<ExpenditureBaseDto> _fluentValidator;
-        private IMapper _mapper;
-
-        public ExpenditureService(DataContext dataContext, IValidator<ExpenditureBaseDto> fluentValidator,
+        private readonly DataContext _context;
+        private readonly IMapper _mapper;
+        public ExpenditureService(
+            DataContext context,
             IMapper mapper)
         {
-            _dataContext = dataContext;
-            _fluentValidator = fluentValidator;
+            _context = context;
             _mapper = mapper;
         }
 
-        public ServiceResult<CreateExpenditureDto> CreateDistribution(CreateExpenditureDto expenditure)
+        public ServiceResult<List<ExpenditureDto>> GetByIdSolicitationSubsidy(Guid id)
         {
-            var validation = _fluentValidator.Validate(expenditure);
+            return new ServiceResult<List<ExpenditureDto>>(
+                _context.Expenditures.Select(x => _mapper.Map<ExpenditureDto>(x))
+                    .Where(x => x.SolicitationSubsidyId == id)
+                    .ToList()
+                );
+        }
 
-            if (!validation.IsValid)
+        public ServiceResult<ExpenditureDto> Delete(Guid id)
+        {
+            var expDelete = _context.Expenditures.FirstOrDefault(x => x.Id == id);
+            if (expDelete == null)
             {
-                return _mapper.Map<ServiceResult<CreateExpenditureDto>>(validation.ToServiceResult<CreateExpenditureDto>(null));
+                return new ServiceResult<ExpenditureDto>(null);
             }
 
-            Expenditure newExpenditure = new Expenditure()
-            {
-                Id = new Guid(),
-                Description = expenditure.Description,
-                Name = expenditure.Name
-            };
+            _context.Expenditures.Remove(expDelete);
+            _context.SaveChanges();
 
-            _dataContext.Expenditures.Add(newExpenditure);
-            _dataContext.SaveChanges();
-
-            return new ServiceResult<CreateExpenditureDto>(expenditure);
-
+            return new ServiceResult<ExpenditureDto>();
         }
-
-        public ServiceResult<UpdateExpenditureDto> UpdateExpenditure(UpdateExpenditureDto expenditure)
-        {
-            var validate = _fluentValidator.Validate(expenditure);
-
-            var updateExpenditure = _dataContext.Expenditures.FirstOrDefault(x => x.Id == expenditure.Id);
-
-            if (!validate.IsValid || updateExpenditure == null)
-            {
-                return _mapper.Map<ServiceResult<UpdateExpenditureDto>>(
-                    validate.ToServiceResult<UpdateExpenditureDto>(null));
-            }
-
-            Expenditure updateExpend = new Expenditure()
-            {
-                Name = expenditure.Name,
-                Description = expenditure.Description,
-            };
-
-            _dataContext.Expenditures.Update(updateExpend);
-            _dataContext.SaveChanges();
-
-            return new ServiceResult<UpdateExpenditureDto>(expenditure);
-
-        }
-
-        public ServiceResult<FindByIdExpenditureDto> FindByIdExpenditure(Guid id)
-        {
-            var expenditure = _dataContext.Expenditures.FirstOrDefault(x => x.Id == id);
-
-            if (expenditure == null)
-            {
-                return new ServiceResult<FindByIdExpenditureDto>(null);
-            }
-
-            return new ServiceResult<FindByIdExpenditureDto>( _mapper.Map<FindByIdExpenditureDto>(expenditure) );
-        }
-
-        public ServiceResult<DeleteExpenditureDto> DeleteExpenditure(Guid expenditureId)
-        {
-            var delete = _dataContext.Expenditures.FirstOrDefault(x => x.Id == expenditureId);
-
-            if (delete == null)
-            {
-                return new ServiceResult<DeleteExpenditureDto>(null);
-            }
-
-            _dataContext.Expenditures.Remove(delete);
-            _dataContext.SaveChanges();
-
-            return new ServiceResult<DeleteExpenditureDto>( _mapper.Map<DeleteExpenditureDto>(delete));
-        }
-
-        public ServiceResult<List<AllExpenditureDto>> AllExpenditure()
-        {
-            return new ServiceResult<List<AllExpenditureDto>>(
-             _dataContext.Expenditures.Select(x => _mapper.Map<AllExpenditureDto>(x)).ToList()   
-             );
-        }
-
     }
 }

@@ -33,7 +33,8 @@ namespace VR.Service.Services
                 {
                     Id = i.Id,
                     Description = i.Description,
-                    Checked = false
+                    Checked = false,
+                    Order = i.Order
                 });
             }
             return new ServiceResult<List<AllPlaceDto>>(result);

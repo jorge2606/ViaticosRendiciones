@@ -8,5 +8,6 @@ namespace VR.Data.Model
     {
         public Guid Id { set; get; }
         public string Description { set; get; }
+        public int? Order { set; get; }
     }
 }

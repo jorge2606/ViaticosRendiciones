@@ -127,6 +127,7 @@
                                                 <div class="form-group col">
                                                         <label for="">Cantidad de dias</label>
                                                     <input class="form-control" [(ngModel)]="model.days" #days="ngModel"
+                                                        (keyup)="keyUpDays()"
                                                         name="days" id="days" minlength="1" maxlength="4"
                                                         [ngClass]="{'is-invalid' : days.invalid && (days.dirty || days.touched) || (model.days == null && days.touched)}"
                                                         type="number" placeholder="Dias" required>
@@ -148,6 +149,7 @@
                                                 <div class="form-group col">
                                                         <label for="">Codígo de liquidación</label>
                                                         <select class="form-control" #codeLiquidationId="ngModel" 
+                                                            (change)="onChangeCodLiq()"
                                                             name="codeLiquidationId" [(ngModel)]="model.codeLiquidationId"
                                                             [ngClass]="{'is-invalid' : codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)}" required>
                                                             <option *ngIf="selectedCodeLiquidation == model.codeLiquidationId" [ngValue]="selectedCodeLiquidation" disabled>
@@ -172,8 +174,9 @@
                                                     <select required class="form-control" #categoryId="ngModel"
                                                         [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched) 
                                                         }"
+                                                        (change)="changeCategory()"
                                                         name="categoryId" [(ngModel)]="model.categoryId">
-                                                        <option *ngIf="selectedCategory == model.codeLiquidationId" [ngValue]="selectedCategory" disabled>
+                                                        <option *ngIf="selectedCategory == model.categoryId" [ngValue]="selectedCategory" disabled>
                                                             Seleccione una Categoría...
                                                         </option>
                                                         <option *ngFor="let cat of categories" value="{{cat.id}}">
@@ -205,6 +208,17 @@
                                             <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" class="alert alert-danger mt-1">
                                                 <div *ngIf="transportId.errors.required">
                                                     Campo requerido.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row mt-1">
+                                            <div class="col-6 form-inline ml-auto">
+                                                <div class="col-2">
+                                                    <label for="">Total</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control text-right" value="{{total}}" readonly>
                                                 </div>
                                             </div>
                                         </div>

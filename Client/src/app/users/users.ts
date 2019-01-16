@@ -7,8 +7,13 @@ export class User{
   phoneNumber : string;
   password : string;
   distributionId : number;
-  distribution : DistributionBaseDto;
+  //distribution : DistributionBaseDto;
   checked : boolean;
+  rol : string;
+  firstName : string;
+  lastName : string;
+  prefixCuil : number;
+  suffixCuil : number;
 }
 
 export class rolesBelongUser{

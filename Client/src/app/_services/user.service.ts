@@ -33,7 +33,7 @@ export class UserService {
     }
 
     createWithObjectUser(user: createUser): Observable<any> {
-        return this.http.post('http://localhost:63098/api/User/', user)
+        return this.http.post('http://localhost:63098/api/User/Save', user)
         .pipe(
             map(this.authenticationService.saveToken),
             catchError(error => this.handleError(error))

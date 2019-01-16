@@ -89,7 +89,7 @@ namespace VR.Web.Controllers
 
         public IQueryable<AllCategoryDto> queryableUser()
         {
-            var Paginator = _dataContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x) ).OrderBy(x => x.Id);
+            var Paginator = _dataContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x) ).OrderBy(x => x.Name);
             return Paginator;
         }
 

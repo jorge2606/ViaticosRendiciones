@@ -1,4 +1,4 @@
-import { SolicitationSubsidyBaseDto } from './../_models/solicitationSubsidy';
+import { SolicitationSubsidyBaseDto, SolicitationIdDto } from './../_models/solicitationSubsidy';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateSolicitationSubsidyDto } from '../_models/solicitationSubsidy';
@@ -28,5 +28,17 @@ export class SolicitationSubsidyService {
 
   delete(id : number){
      return this.http.delete<any>("http://localhost:63098/api/SolicitationSubsidy/Delete/"+id);
+  }
+  
+  sendSolicitationByEmail(solicitation : SolicitationIdDto){
+    return this.http.post("http://localhost:63098/api/SolicitationSubsidy/sendSolicitation/",solicitation);
+  }
+
+  Acepted(solicitation : SolicitationIdDto){
+    return this.http.post<any>("http://localhost:63098/api/SolicitationSubsidy/AceptedSolicitation",solicitation);
+  }
+
+  refused(solicitation : SolicitationIdDto){
+    return this.http.post<any>("http://localhost:63098/api/SolicitationSubsidy/RefusedSolicitation",solicitation);
   }
 }

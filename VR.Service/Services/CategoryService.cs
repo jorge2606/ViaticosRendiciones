@@ -41,7 +41,8 @@ namespace VR.Service.Services
                 Id = new Guid(),
                 Name = categoryDto.Name,
                 Description = categoryDto.Description,
-                Delete = default(DateTime),
+                IsDeleted = false,
+                Advance = categoryDto.Advance
             };
 
             _categoryContext.Categories.Add(NewCategory);
@@ -62,7 +63,8 @@ namespace VR.Service.Services
 
             userModify.Description = categoryDto.Description;
             userModify.Name = categoryDto.Name;
-            userModify.Delete = categoryDto.Delete;
+            userModify.IsDeleted = categoryDto.IsDeleted;
+            userModify.Advance = categoryDto.Advance;
 
             _categoryContext.Categories.Update(userModify);
             _categoryContext.SaveChanges();
@@ -99,7 +101,9 @@ namespace VR.Service.Services
 
         public ServiceResult<List<AllCategoryDto>> GetAllCategories()
         {
-            return new ServiceResult<List<AllCategoryDto>>(_categoryContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x)).ToList());
+            return new ServiceResult<List<AllCategoryDto>>(_categoryContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x))
+                .OrderBy(x => x.Name)
+                .ToList());
         }
     }
 }

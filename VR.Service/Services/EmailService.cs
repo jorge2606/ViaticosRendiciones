@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using VR.Service.Interfaces;
 using VR.Identity.Identities;
 
@@ -23,11 +25,11 @@ namespace VR.Service.Services
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-            var user = await  _usermanager.FindByEmailAsync(email);
+            var user = await  _usermanager.Users.FirstOrDefaultAsync(x =>x.Email == email);
             
             if (user != null)
             {
-                var apiKey = "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";
+                var apiKey = "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";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("no-reply@devlights.com", "Devlights");
                 var to = new EmailAddress(email, string.Empty);

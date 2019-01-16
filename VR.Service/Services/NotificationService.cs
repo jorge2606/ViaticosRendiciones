@@ -9,6 +9,7 @@ using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Service.Interfaces;
+using NotificationType = Service.Common.ServiceResult.NotificationType;
 
 namespace VR.Service.Services
 {
@@ -86,6 +87,36 @@ namespace VR.Service.Services
 
             return new ServiceResult<NotificationDto>(_mapper.Map<NotificationDto>(notif));
 
+        }
+
+        public ServiceResult<CreateNotificationDto> Create(CreateNotificationDto create)
+        {
+            if (create == null)
+            {
+                return new ServiceResult<CreateNotificationDto>(null);
+            }
+            
+
+            Notification newNotification = new Notification()
+            {
+                Id = new Guid(),
+                UserId = create.UserId,
+                NotificationType = create.NotificationType,
+                CreationTime = create.CreationTime,
+                Tittle = create.Tittle,
+                CreatorUserId = create.CreatorUserId,
+                EntityId = create.EntityId,
+                LastModificationTime = create.LastModificationTime,
+                LastModifierUserId = create.LastModifierUserId,
+                Read = false,
+                TextData = create.TextData,
+               
+            };
+
+            _contextNotification.Notifications.Add(newNotification);
+            _contextNotification.SaveChanges();
+
+            return new ServiceResult<CreateNotificationDto>(create);
         }
 
 

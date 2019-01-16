@@ -10,15 +10,20 @@ namespace VR.Dto
         public string Name { set; get; }
         public DateTime CreatedDate { set; get; }
         public Boolean IsDeleted { set; get; }
+        public Guid PlaceId { set; get; }
+        public string DistrictCity { set; get; }
+        public Guid CountryId { set; get; }
+        public long Poblation { set; get; }
+        public string PrintableName { set; get; }
     }
 
-    public class CreateProvinceDto : ProvinceBaseDto { }
+    public class CreateProvinceDto : ProvinceBaseDto {}
 
-    public class UpdateProvinceDto : ProvinceBaseDto { }
+    public class UpdateProvinceDto : ProvinceBaseDto {}
 
-    public class DeleteProvinceDto : ProvinceBaseDto { }
+    public class DeleteProvinceDto : ProvinceBaseDto {}
 
-    public class FindByIdProvinceDto : ProvinceBaseDto { }
+    public class FindByProvinceIdDto : ProvinceBaseDto {}
 
-    public class AllProvinceDto : ProvinceBaseDto { }
+    public class AllProvinceDto : ProvinceBaseDto {}
 }

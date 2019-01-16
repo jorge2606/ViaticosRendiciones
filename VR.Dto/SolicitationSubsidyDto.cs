@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FluentValidation;
 using VR.Data.Model;
+using VR.Dto.User;
 
 namespace VR.Dto
 {
@@ -11,54 +12,76 @@ namespace VR.Dto
     {
         public SolicitationSubsidyValidator()
         {
-            RuleFor(x => x.CostMobility).NotEmpty().WithName("Costo de Mobilidad");
-            RuleFor(x => x.CostFuel).NotEmpty().WithName("Costo de Combustible");
-            RuleFor(x => x.CostCommunication).NotEmpty().WithName("Costo de Comunicación");
-            RuleFor(x => x.UnexpectedCircumstance).NotEmpty().WithName("Imprevisto");
+            RuleFor(x => x.Motive).NotEmpty().WithName("Motivo");
+            RuleFor(x => x.Total).NotNull().WithName("Total");
         }
     }
 
     public class SolicitationSubsidyBaseDto
     {
         public Guid Id { set; get; }
-        public double CostMobility { set; get; }
-        public double CostFuel { set; get; }
-        public double CostCommunication { set; get; }
-        public double UnexpectedCircumstance { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public List<ExpenditureDto> Expenditures { set; get; }
+        public List<DestinyBaseDto> Destinies { set; get; }
+
+        public DateTime CreateDate { set; get; }
         public Guid UserId { set; get; }
-        public Guid PlaceId { set; get; }
-        public Guid DestinyId { set; get; }
-        public Guid TransportId { set; get; }
-        public Guid MotiveId { set; get; }
+        public UserDto User { set; get; }
     }
 
     public class SolicitationObjectsSubsidyBaseDto : SolicitationSubsidyBaseDto
     {
-        public string DestinyDescription { set; get; }
-        public string TransportDescription { set; get; }
-        public string MotiveDescription { set; get; }
         public string UserUserName { set; get; }
-        public string PlaceDescription { set; get; }
     }
 
     public class CreateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
 
     public class UpdateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
 
-    public class DeleteSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
+    public class DeleteSolicitationSubsidyDto
+    {
+        public Guid Id { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public Guid UserId { set; get; }
 
-    public class FindByIdSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
+    }
 
-    public class AllSolicitationSubsidyDto : SolicitationObjectsSubsidyBaseDto { }
+    public class FindByIdSolicitationSubsidyDto
+    {
+        public Guid Id { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public List<ExpenditureFromSolicitationSubsidyByIdDto> Expenditures { set; get; }
+        public List<DestinyFromSolicitationSubsidyByIdDto> Destinies { set; get; }
+        public Guid UserId { set; get; }
+        public UserDto User { set; get; }
+    }
+
+    public class AllSolicitationSubsidyDto
+    {
+        public Guid Id { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public List<ExpenditureFromSolicitationSubsidyByIdDto> Expenditures { set; get; }
+        public List<DestinyFromSolicitationSubsidyByIdDto> Destinies { set; get; }
+        public Guid UserId { set; get; }
+        public UserDto User { set; get; }
+        public DateTime CreateDate { set; get; }
+        public string State { set; get; }
+    }
+
+    public class SolicitationIdDto
+    {
+        public Guid Id { set; get; }
+        public string MotiveReject { set; get; }
+    }
 
     public class FilterSolicitationSubsidyDto
     {
         public int? Page { set; get; }
         public string UserName { set; get; }
-        public Guid? PlaceId { set; get; }
-        public Guid? DestinyId { set; get; }
-        public Guid? TransportId { set; get; }
-        public Guid? MotiveId { set; get; }
     }
 
 

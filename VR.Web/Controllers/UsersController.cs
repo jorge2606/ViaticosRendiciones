@@ -45,7 +45,7 @@ namespace VR.Web.Controllers
             return Ok(rolUser);
         }
 
-        [HttpPost]
+        [HttpPost("Save")]
         public async Task<IActionResult> Save([FromBody]CreateUserDto createUser)
         {
             var newUser = await _userService.CreateAsync(createUser);
@@ -103,7 +103,14 @@ namespace VR.Web.Controllers
         [HttpGet("getall")]
         public ActionResult<List<User>> GetAll()
         {
-            return _context.Users.ToList();
+            var result = _userService.GetAll();
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
         }
 
         [AllowAnonymous]
@@ -138,6 +145,11 @@ namespace VR.Web.Controllers
                 Dni = user.Dni,
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PrefixCuil = user.PrefixCuil,
+                SuffixCuil = user.SuffixCuil,
+                DistributionId = user.DistributionId
             };
 
             var RolesUser = _context.UserRoles.ToList();

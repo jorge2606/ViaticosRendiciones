@@ -1,10 +1,12 @@
-import { AllSolicitationSubsidyDto } from './../_models/solicitationSubsidy';
+import { AllSolicitationSubsidyDto, SolicitationIdDto } from './../_models/solicitationSubsidy';
 import { TransportService } from 'src/app/_services/transport.service';
 import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
 import { Component, OnInit } from '@angular/core';
 import { SolicitationSubsidyBaseDto } from '../_models/solicitationSubsidy';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { SolicitationSubsidydetailComponent } from './detail/solicitation-subsidydetail.component';
 
 @Component({
   selector: 'app-solicitation-subsidy',
@@ -28,9 +30,10 @@ export class SolicitationSubsidyComponent implements OnInit {
    transports : any;
 
   constructor(
-    private solicitationSubsidy : SolicitationSubsidyService,
+    private solicitationSubsidyservice : SolicitationSubsidyService,
     private transportService : TransportService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private router : Router) { }
 
   ngOnInit() {
     this.getAll(this.filters);
@@ -39,7 +42,7 @@ export class SolicitationSubsidyComponent implements OnInit {
   }
 
   getAll(filters : any){
-    this.solicitationSubsidy.getAllSolicitationSubsidies(filters).subscribe(
+    this.solicitationSubsidyservice.getAllSolicitationSubsidies(filters).subscribe(
       x => {
           this.solicitationSubsidies = x.list;
           this.col_size = x.totalRecords;
@@ -66,7 +69,7 @@ export class SolicitationSubsidyComponent implements OnInit {
       modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
       modalRef.componentInstance.MsgClose = "Cancelar";
       modalRef.result.then(() => {
-        this.solicitationSubsidy.delete(solicitud.id).subscribe(
+        this.solicitationSubsidyservice.delete(solicitud.id).subscribe(
           data => {
             this.getAll(this.filters);
           },
@@ -78,5 +81,29 @@ export class SolicitationSubsidyComponent implements OnInit {
         () => {
           console.log('Backdrop click');
       })
+    }
+
+    openDetail(id : number){
+      const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+      modalRef.componentInstance.idModal = id;
+      modalRef.result.then(() => {
+        this.getAll(this.filters);
+      },
+        () => {
+          console.log('Backdrop click');
+      })
+    }
+
+    sendToSupervisor(id : number){
+      let newSolicitation = new SolicitationIdDto();
+      newSolicitation.id = id;
+      this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
+      .subscribe(
+        x => {console.log(x)}
+        ,
+        error =>{
+          console.log(error);
+        }
+      );
     }
 }

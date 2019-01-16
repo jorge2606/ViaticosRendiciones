@@ -68,6 +68,13 @@ namespace VR.Service.Services
 
         private IConfiguration _configuration { get; }
 
+        public ServiceResult<List<AllUserDto>> GetAll()
+        {
+            var result = _context.Users.Select(x => x)
+                .ProjectTo<AllUserDto>().ToList();
+
+            return new ServiceResult<List<AllUserDto>>(result);
+        }
 
         public ServiceResult<PagedResult<AllUserDto>> GetPageUser(UserFilterDto filters)
         {
@@ -75,7 +82,7 @@ namespace VR.Service.Services
 
             var resultFull = _context.Users.Where(
                     x =>
-                        (!filters.DistributionId.HasValue || x.DistributionId.ToString().ToUpper().Contains(filters.DistributionId.ToString().ToUpper()))
+                        (!filters.DistributionId.HasValue || x.DistributionId == filters.DistributionId)
                         &&
                         (string.IsNullOrEmpty(filters.Username) || x.UserName.ToUpper().Contains(filters.Username.ToUpper()))
                         &&
@@ -204,6 +211,10 @@ namespace VR.Service.Services
               user.Email = userParam.UserName;
               user.PhoneNumber = userParam.PhoneNumber;
               user.DistributionId = userParam.DistributionId;
+              user.PrefixCuil = userParam.PrefixCuil;
+              user.SuffixCuil = userParam.SuffixCuil;
+              user.FirstName = userParam.FirstName;
+              user.LastName = userParam.LastName;
 
               //actualizo los roles del usuario
               foreach (var role in userParam.RolesUser)
@@ -241,6 +252,10 @@ namespace VR.Service.Services
             user.UserName = userParam.UserName;
             user.Email = userParam.UserName;
             user.PhoneNumber = userParam.PhoneNumber;
+            user.FirstName = userParam.FirstName;
+            user.LastName = userParam.LastName;
+            user.PrefixCuil = userParam.PrefixCuil;
+            user.SuffixCuil = userParam.SuffixCuil;
 
             //actualizo los roles del usuario
             foreach (var role in userParam.RolesUser)
@@ -276,7 +291,12 @@ namespace VR.Service.Services
                 Email = user.UserName,
                 PhoneNumber = user.PhoneNumber,
                 Distribution = distribution,
-                DistributionId = user.DistributionId
+                DistributionId = user.DistributionId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PrefixCuil = user.PrefixCuil,
+                SuffixCuil = user.SuffixCuil
+                
             };
 
             var userExistOrNot = await _userManager.FindByNameAsync(user.UserName);

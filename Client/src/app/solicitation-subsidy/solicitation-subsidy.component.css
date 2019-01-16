@@ -1,8 +1,8 @@
-.long-value-input {
-    width: 600px;
-    height: 60px;
-    padding: 0 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
+.no-wrap {
+  display: block;
+  width: 400px;
+  height: 80px;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

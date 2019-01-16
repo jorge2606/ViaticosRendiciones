@@ -4,11 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using VR.Data;
-using VR.Data.Model;
-using VR.Dto;
 using VR.Service.Interfaces;
-using VR.Web.Helpers;
 
 namespace VR.Web.Controllers
 {
@@ -16,32 +12,17 @@ namespace VR.Web.Controllers
     [ApiController]
     public class ExpenditureController : ControllerBase
     {
-        private readonly DataContext _context;
         private readonly IExpenditureService _expenditureService;
 
-        public ExpenditureController(DataContext context, IExpenditureService expenditureService)
+        public ExpenditureController(IExpenditureService expenditureService)
         {
-            _context = context;
             _expenditureService = expenditureService;
         }
-
-        [HttpGet("GetAll")]
-        public IActionResult GetAll()
+        // GET: api/Expenditure
+        [HttpGet("GetByIdSolicitationSubsidy/{id}")]
+        public IActionResult GetByIdSolicitationSubsidy(Guid id)
         {
-            var result = _expenditureService.AllExpenditure();
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result.Response);
-        }
-
-        [HttpPut("Update")]
-        public IActionResult UpdateExpenditure(UpdateExpenditureDto expenditure)
-        {
-            var result = _expenditureService.UpdateExpenditure(expenditure);
-
+            var result = _expenditureService.GetByIdSolicitationSubsidy(id);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
@@ -51,65 +32,15 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
-        public IActionResult DeleteExpenditure(Guid id)
+        public IActionResult Delete(Guid id)
         {
-            var result = _expenditureService.DeleteExpenditure(id);
-
+            var result = _expenditureService.Delete(id);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
             }
 
             return Ok(result.Response);
-        }
-
-        [HttpGet("FindById/{id}")]
-        public IActionResult FindById(Guid id)
-        {
-            var result = _expenditureService.FindByIdExpenditure(id);
-
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result.Response);
-        }
-
-        [HttpPost("Create")]
-        public IActionResult CreateExpenditure(CreateExpenditureDto createExpenditure)
-        {
-            var result = _expenditureService.CreateDistribution(createExpenditure);
-
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result.Response);
-        }
-
-
-        public IQueryable<Expenditure> queryableUser()
-        {
-            var usersPaginator = _context.Expenditures.OrderBy(x => x.Name);
-            return usersPaginator;
-        }
-
-        [HttpGet("page/{page}")]
-        public PagedResult<Expenditure> userPagination(int? page)
-        {
-            const int pageSize = 10;
-            var queryPaginator = queryableUser();
-
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
-                .Take(pageSize)
-                .ToList();
-            return new PagedResult<Expenditure>
-            {
-                List = result,
-                TotalRecords = result.Count()
-            };
         }
     }
 }

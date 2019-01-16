@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Motivo de Rechazo</h4>
+</div>
+<form #addMotive="ngForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <textarea 
+    class="form-control" 
+    cols="30" 
+    rows="10"
+    [(ngModel)]="model.motive"
+    name="motive"
+    motive="ngModel"
+    required></textarea>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" [hidden]="!addMotive.valid" (click)="save()">Guardar</button>
+    <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+  </div>
+</form>

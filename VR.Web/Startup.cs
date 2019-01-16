@@ -37,6 +37,7 @@ using VR.Identity.Identities;
 using VR.Service.Interfaces;
 using VR.Service.Services;
 using VR.Web.Extensions;
+using Service.Common;
 
 namespace VR.Web
 {
@@ -171,7 +172,7 @@ namespace VR.Web
             services.AddScoped<ITransportService, TransportService>();
             services.AddScoped<Audit.Service.Interfaces.IUserAuditService, UserAuditService>();
             services.AddScoped<IDistributionService, DistributionService>();
-            services.AddScoped<IExpenditureService, ExpenditureService>();
+            services.AddScoped<IExpenditureTypeService, ExpenditureTypeService>();
             services.AddScoped<IOrganismService, OrganismService>();
             services.AddScoped<ISolicitationSubsidyService, SolicitationSubsidyService>();
             services.AddScoped<IHolidayService, HolidayService>();
@@ -179,7 +180,16 @@ namespace VR.Web
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IMotiveService, MotiveService>();
             services.AddScoped<IPlaceService,PlaceService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICodeLiquidationService, CodeLiquidationService>();
+            services.AddScoped<IExpenditureService,ExpenditureService>();
+            services.AddScoped<IDestinyService, DestinyService>();
+            services.AddScoped<IStateService, StateService>();
+            services.AddScoped<IAspNetRolesService, AspNetRolesService>();
+            services.AddScoped<IAspNetUserRolesService, AspNetUserRolesService>();
+            services.AddScoped<ISupervisorUserAgentService, SupervisorUserAgentService>();
 
+            
             //sender Email
             // Add application services.
             services.AddTransient<IEmailSender, EmailService>();
@@ -191,7 +201,7 @@ namespace VR.Web
             services.AddTransient<IValidator<CategoryBaseDto>, CategoryValidator>();
             services.AddTransient<IValidator<DistributionBaseDto>, DistributionValidator>();
             services.AddTransient<IValidator<TransportBaseDto>, TransportValidator>();
-            services.AddTransient<IValidator<ExpenditureBaseDto>, ExpenditureValidator>();
+            services.AddTransient<IValidator<ExpenditureTypeBaseDto>, ExpenditureTypeValidator>();
             services.AddTransient<IValidator<OrganismBaseDto>, OrganismValidator>();
             services.AddTransient<IValidator<CreateUserDto>, UserCreateValidator>();
             services.AddTransient<IValidator<SolicitationSubsidyBaseDto>, SolicitationSubsidyValidator>();

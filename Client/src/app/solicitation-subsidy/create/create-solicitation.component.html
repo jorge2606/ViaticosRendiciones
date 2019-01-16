@@ -85,18 +85,13 @@
                             <input class="form-control small" placeholder="yyyy-mm-dd"
                                     name="dp{{destiny.provinceId}}{{destiny.cityId}}"
                                     [displayMonths]="displayMonths"
-                                    [navigation]="navigation" 
+                                    [navigation]="arrows" 
                                     [outsideDays]="outsideDays"
                                     [showWeekNumbers]="showWeekNumbers"
                                     [ngClass]="{'is-invalid' : 'dp+destiny.provinceId+destiny.cityId'.invalid &&
                                     ('dp+destiny.provinceId+destiny.cityId'.dirty || 'dp+destiny.provinceId+destiny.cityId'.touched)}"
                                     ngbDatepicker #d="ngbDatepicker" #dp{{destiny.provinceId}}{{destiny.cityId}}="ngModel" minlength="8" maxlength="8"
-                                    [(ngModel)]="destiny.startDate" required>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                                        <fa-icon icon="calendar-alt"></fa-icon>
-                                    </button>
-                                </div>
+                                    [(ngModel)]="destiny.startDate" required disabled>
                             </div>
         
                             <div *ngIf="'dp+destiny.provinceId+destiny.cityId'.invalid && ('dp+destiny.provinceId+destiny.cityId'.dirty || 'dp+destiny.provinceId+destiny.cityId'.touched)" class="alert alert-danger mt-1">
@@ -118,7 +113,7 @@
                             #countryId{{destiny.provinceId}}{{destiny.countryId}}="ngModel" 
                             (change)="changeValue($event)"
                             name="countryId{{destiny.provinceId}}{{destiny.countryId}}"
-                            [(ngModel)]="destiny.countryId">
+                            [(ngModel)]="destiny.countryId" disabled>
                             <option *ngFor="let country of countries" [value]="country.id">
                                 {{country.name}}
                             </option>
@@ -130,7 +125,7 @@
                             class="form-control small"
                             #provinceId{{destiny.provinceId}}="ngModel"
                             name="provinceId{{destiny.provinceId}}" 
-                            [(ngModel)]="destiny.provinceId">
+                            [(ngModel)]="destiny.provinceId" disabled>
                             <option *ngFor="let province of provinces" [value]="province.id">
                                 {{province.name}}
                             </option>
@@ -141,7 +136,7 @@
                             class="form-control small"
                             #cityId{{destiny.cityId}}="ngModel"
                             name="cityId{{destiny.cityId}}" 
-                            [(ngModel)]="destiny.cityId">
+                            [(ngModel)]="destiny.cityId" disabled>
                             <option *ngFor="let city of cities" [value]="city.id">
                                 {{city.name}}
                             </option>
@@ -152,7 +147,7 @@
                             class="form-control small"
                             #categoryId{{destiny.categoryId}}="ngModel"
                             name="categoryId{{destiny.categoryId}}" 
-                            [(ngModel)]="destiny.categoryId">
+                            [(ngModel)]="destiny.categoryId" disabled>
                             <option *ngFor="let category of categories" [value]="category.id">
                                 {{category.description}}
                             </option>
@@ -163,7 +158,7 @@
                             class="form-control small"
                             #transportId{{destiny.transportId}}="ngModel"
                             name="transportId{{destiny.transportId}}" 
-                            [(ngModel)]="destiny.transportId">
+                            [(ngModel)]="destiny.transportId" disabled>
                             <option *ngFor="let transport of transports" [value]="transport.id">
                                 {{transport.model}}-{{transport.brand}}
                             </option>
@@ -173,7 +168,7 @@
                         <input required [(ngModel)]="destiny.days" 
                         #days{{destiny.categoryId}}="ngModel" 
                         placeholder="Dias" value="{{destiny.days}}"
-                        name="{{destiny.categoryId}}" class="form-control small" type="text">
+                        name="{{destiny.categoryId}}" class="form-control small" type="text" disabled>
                     </td>
 
                     <td>
@@ -225,7 +220,7 @@
                                 class="form-control small"
                                 #expenditureId{{modelExp.id}}="ngModel"
                                 name="expenditureId{{modelExp.id}}" 
-                                [(ngModel)]="modelExp.expenditureTypeId">
+                                [(ngModel)]="modelExp.expenditureTypeId" disabled>
                                 <option *ngFor="let exp of Allexpenditures" [value]="exp.id">
                                     {{exp.name}}
                                 </option>
@@ -235,13 +230,13 @@
                         <td>
                             <input required [(ngModel)]="modelExp.amount" #amount{{modelExp.id}}="ngModel" 
                             name="amount{{modelExp.id}}" class="form-control small" type="number" placeholder="Costo"
-                            value="{{modelExp.amount}}">
+                            value="{{modelExp.amount}}" disabled>
                         </td>
                         <td>
                             <input required [(ngModel)]="modelExp.description" 
                                 #description{{modelExp.id}}="ngModel" 
                                 placeholder="Descripción" value="{{modelExp.description}}"
-                                name="description{{modelExp.id}}" class="form-control small" type="text">
+                                name="description{{modelExp.id}}" class="form-control small" type="text" disabled>
                             
                         </td>
                         <td>

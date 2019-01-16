@@ -29,5 +29,23 @@ namespace VR.Service.Services
                _context.Provinces.Select(x => _mapper.Map<AllProvinceDto>(x)).OrderBy(x=>x.Name).ToList() 
              );
         }
+
+        public ServiceResult<List<FindByProvinceIdDto>> FindByPlaceId(Guid placeId)
+        {
+            return new ServiceResult<List<FindByProvinceIdDto>>(
+                _context.Provinces.Select(x => _mapper.Map<FindByProvinceIdDto>(x))
+                    .Where(x => x.PlaceId == placeId)
+                    .OrderBy(x => x.Name).ToList()
+            );
+        }
+
+        public ServiceResult<List<FindByProvinceIdDto>> FindByDistrictCity(string districtCity)
+        {
+            return new ServiceResult<List<FindByProvinceIdDto>>(
+                _context.Provinces.Select(x => _mapper.Map<FindByProvinceIdDto>(x))
+                    .Where(x => x.DistrictCity == districtCity)
+                    .OrderBy(x => x.Name).ToList()
+            );
+        }
     }
 }

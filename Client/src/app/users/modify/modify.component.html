@@ -8,15 +8,57 @@
             <div class="container col-4 navarStyle">
                     <h2>Modificar</h2>
                     <form (ngSubmit)="onSubmit()" #userForm="ngForm">
-                        
-                        <div style="margin-bottom:5px;" class="form-group">
-                            <input class="form-control" [(ngModel)]="model.dni" #Dni="ngModel" required name="Dni" id="Dni" type="number"
-                                placeholder="Dni">
-                        </div>
-                
-                        <div style="margin-top: 10px;" *ngIf="submitted && Dni.invalid" clas="alert alert-danger">
-                            Dni Incorrecto
-                        </div>
+                        <div style="margin-bottom:5px;" class="form-row">
+                                <div class="col">
+                                    <input class="form-control" 
+                                    [(ngModel)]="model.prefixCuil" 
+                                    #prefixCuil="ngModel" required 
+                                    name="prefixCuil" 
+                                    type="number">
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-control" 
+                                    [(ngModel)]="model.dni" 
+                                    #Dni="ngModel" required 
+                                    name="Dni"  type="number"
+                                    placeholder="Dni">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" 
+                                    [(ngModel)]="model.suffixCuil" #suffixCuil="ngModel" required 
+                                    name="suffixCuil"  type="number">
+                                </div>
+                            </div>
+                    
+                            <div style="margin-top: 10px;" *ngIf="submitted && Dni.invalid" clas="alert alert-danger">
+                                Dni Incorrecto
+                            </div>
+                    
+                            <div style="margin-bottom:5px;" class="form-group">
+                                <input class="form-control" 
+                                    [(ngModel)]="model.firstName" 
+                                    #firstName="ngModel" 
+                                    required name="firstName" 
+                                    type="text"
+                                    placeholder="Nombre">
+                            </div>
+                    
+                            <div style="margin-top: 10px;" *ngIf="submitted && firstName.invalid" clas="alert alert-danger">
+                                    Nombre Incorrecto
+                            </div>
+                    
+                            <div style="margin-bottom:5px;" class="form-group">
+                                <input class="form-control" 
+                                    [(ngModel)]="model.lastName" 
+                                    #lastName="ngModel" 
+                                    required name="lastName" 
+                                    type="text"
+                                    placeholder="Apellido">
+                            </div>
+                    
+                            <div style="margin-top: 10px;" *ngIf="submitted && lastName.invalid" clas="alert alert-danger">
+                                    Apellido Incorrecto
+                            </div>
                 
                         <div style="margin-bottom:5px;" class="form-group">
                             <input class="form-control" [(ngModel)]="model.userName" required #Usuario="ngModel" name="Usuario" type="text"
@@ -57,13 +99,16 @@
                         </div>
                         
                         <select class="form-control" #distributionId="ngModel" name="distributionId" [(ngModel)]="model.distributionId">
+                            <option *ngIf="selectedDistributionId == model.distributionId" [ngValue]="selectedDistributionId" disabled>
+                                Seleccione una Distribución...
+                            </option>
                             <option *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
                         </select>
                 
-                        <div style="margin-bottom:5px;" class="form-group">
-                            <button class="btn btn-success navarStyle" [disabled]="!userForm.form.valid">
-                                <fa-icon icon="save"></fa-icon>
-                            </button>
+                        <div class="form-row mt-1">
+                                <button class="btn btn-success ml-auto" [disabled]="!userForm.form.valid">
+                                    <fa-icon icon="save"></fa-icon> Guardar
+                                </button>
                         </div>
                 
                     </form>

@@ -19,13 +19,13 @@
     <EmbeddedResource Remove="Migrations\**" />
     <None Remove="Migrations\**" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.0.100" />
     <PackageReference Include="Kraphity.AspNetCore.Identity.Localization" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />

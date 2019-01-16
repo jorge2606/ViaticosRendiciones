@@ -10,8 +10,9 @@ namespace VR.Service.Interfaces
     {
         /**ServiceResult<CreateProvinceDto> CreateTransport(CreateProvinceDto transportDto);
         ServiceResult<UpdateProvinceDto> UpdateProvince(UpdateProvinceDto provinceDto);
-        ServiceResult<DeleteProvinceDto> DeleteProvince(Guid idProvince);
-        ServiceResult<FindByIdProvinceDto> FindByIdProvince(Guid idProvince);**/
+        ServiceResult<DeleteProvinceDto> DeleteProvince(Guid idProvince);**/
+        ServiceResult<List<FindByProvinceIdDto>> FindByDistrictCity(string districtCity);
+        ServiceResult<List<FindByProvinceIdDto>> FindByPlaceId(Guid placeId);
         ServiceResult<List<AllProvinceDto>> GetAllProvince();
     }
 }

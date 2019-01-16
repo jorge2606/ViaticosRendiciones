@@ -2,7 +2,9 @@
     <h4 class="modal-title">{{Encabezado}}</h4>
   </div>
   <div class="modal-body">
-    <p>{{Contenido}}</p>
+    <div class="container">
+        {{Contenido}}
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn {{GuardaroEliminarClass}}" hidden="{{GuardaroEliminarHidden}}" (click)="activeModal.close('Close click')">{{GuardaroEliminar}}</button>

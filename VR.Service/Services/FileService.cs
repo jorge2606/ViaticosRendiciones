@@ -75,6 +75,11 @@ namespace VR.Service.Services
         public ServiceResult<FileByIdDto> GetByIdFile(Guid userId)
         {
             var path = Path.Combine(StaticFilesDirectory,"Profile",userId.ToString());
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+            }
             var files = Directory.EnumerateFiles(path, "*.*");
 
             FileInfo file1;

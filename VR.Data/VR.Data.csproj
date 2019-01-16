@@ -6,6 +6,22 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20181205150805_Change name Destinity Destiny1.cs" />
+    <Compile Remove="Migrations\20181221153805_ExpenditureId in Expenditure and refactor table solicitationSubsidy.cs" />
+    <Compile Remove="Migrations\20181221154109_ExpenditureId in Expenditure and refactor table solicitationSubsidy.cs" />
+    <Compile Remove="Migrations\20181221155139_ProvinceId table solicitationSubsidy.cs" />
+    <Compile Remove="Migrations\20181221155541_ProvinceId table solicitationSubsidy.cs" />
+    <Compile Remove="Migrations\20181221160223_ProvinceId table solicitationSubsidy.cs" />
+    <Compile Remove="Migrations\20181226122708_new properties in table province PlaceId and remove InOutProvince property.cs" />
+    <Compile Remove="Migrations\20190102163749_add fields to Destiny.cs" />
+    <Compile Remove="Migrations\20190102170031_add fields to Destiny.cs" />
+    <Compile Remove="Migrations\20190102170136_add fields to Destiny.cs" />
+    <Compile Remove="Migrations\20190102195628_add field New fields to table Expenditure.cs" />
+    <Compile Remove="Migrations\20190102202452_remove field description from table ExpenditureType.cs" />
+    <Compile Remove="Migrations\20190108160224_add table Supervisor to DbContext.cs" />
+    <Compile Remove="Migrations\20190108160416_add table Supervisor to DbContext.cs" />
+    <Compile Remove="Migrations\20190108200246_add AgentFK from table Supervisor.cs" />
+    <Compile Remove="Migrations\20190108200613_add AgentFK from table Supervisor.cs" />
+    <Compile Remove="Migrations\20190108201932_add AgentFK from table Supervisor.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Audit.Entity\Audit.Entity.csproj" />
+    <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

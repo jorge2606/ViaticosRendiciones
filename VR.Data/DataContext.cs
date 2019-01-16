@@ -14,6 +14,8 @@ namespace VR.Data
         {
         }
 
+        public DataContext() { }
+
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -28,5 +30,12 @@ namespace VR.Data
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<CodeLiquidation> CodeLiquidations { get; set; }
+        public virtual DbSet<ExpenditureType> ExpenditureTypes { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<SolicitationState> SolicitationStates { set; get; }
+        public virtual DbSet<SupervisorUserAgent> SupervisorUserAgents { set; get; }
+       
     }
 }
