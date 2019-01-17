@@ -79,7 +79,7 @@ namespace VR.Service.Services
                     //SolicitationSubsidyId = solicitationSubsidy.Id,
                     SolicitationSubsidy = solicitationSubsidy,
                     Days = destiny.Days,
-                    StartDate = destiny.StartDate,
+                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString()+"/"+ destiny.StartDate.Month.ToString()+"/"+ destiny.StartDate.Year.ToString()),
                     ProvinceId = destiny.ProvinceId
                 };
                 _dataContext.Destinies.Add(newDestiny);
@@ -150,7 +150,7 @@ namespace VR.Service.Services
                 newDestiny.CountryId = destiny.CountryId;
                 newDestiny.SolicitationSubsidyId = solicitationSubsidy.Id;
                 newDestiny.Days = destiny.Days;
-                newDestiny.StartDate = destiny.StartDate;
+                newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString()+"/"+destiny.StartDate.Month.ToString()+"/"+destiny.StartDate.Year.ToString());
                 newDestiny.ProvinceId = destiny.ProvinceId;
                 if (find == null)
                 {

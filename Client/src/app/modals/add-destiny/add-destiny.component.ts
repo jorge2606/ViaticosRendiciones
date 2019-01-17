@@ -152,13 +152,27 @@ export class AddDestinyComponent implements OnInit {
     let newDestiny = new DestinyDto;
     newDestiny.placeId = this.model.placeId;
     newDestiny.cityId = this.model.cityId;
+    if (this.model.cityId != null){
+      newDestiny.cityName = this.cities.find(x => x.id == this.model.cityId).name;
+    }
     newDestiny.countryId = this.model.countryId;
+    if (this.model.countryId != null){
+      newDestiny.countryName = this.countries.find(x => x.id == this.model.countryId).name;
+    }
     newDestiny.provinceId = this.model.provinceId;
+    if (this.model.provinceId != null){
+      newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
+    }
     newDestiny.days = this.model.days;
     newDestiny.categoryId = this.model.categoryId;
+    if (this.model.categoryId != null){
+      newDestiny.categoryName = this.categories.find(x => x.id == this.model.categoryId).name;
+    }
     newDestiny.codeLiquidationId = this.model.codeLiquidationId;
     newDestiny.startDate = this.model.startDate;
     newDestiny.transportId = this.model.transportId;
+    newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;
+    newDestiny.transportModel = this.transports.find(x => x.id == this.model.transportId).model;
     
     this.destiniesAdded = this.destiniesAdded || [];
     this.destiniesAdded.push(newDestiny);

@@ -9,7 +9,7 @@ namespace VR.Dto
     {
         public Guid Id { set; get; }
         public int Days { set; get; }
-        public DateTime StartDate { set; get; }
+        public DateDto StartDate { set; get; }
         public Guid CategoryId { set; get; }
         public Guid? CityId { set; get; }
         public Guid CodeLiquidationId { set; get; }
@@ -33,7 +33,7 @@ namespace VR.Dto
     {
         public Guid Id { set; get; }
         public int Days { set; get; }
-        public DateTime StartDate { set; get; }
+        public DateDto StartDate { set; get; }
         public Guid CategoryId { set; get; }
         public string CategoryName { set; get; }
         public Guid? CityId { set; get; }

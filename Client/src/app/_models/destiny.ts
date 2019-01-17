@@ -11,6 +11,7 @@ export class DestinyDto{
     startDate : any;
     days : number;
     categoryId : number;
+    categoryName : string;
     codeLiquidationId : number;
     transportId : number;
     transportBrand : string;

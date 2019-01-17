@@ -97,8 +97,8 @@ export class CreateSolicitationComponent implements OnInit {
                 this.model = x;
                   if (this.model.destinies != null){
                     for (let index = 0; index < this.model.destinies.length; index++) {
-                      let dateToShow = new Date(Date.parse(this.model.destinies[index].startDate));
-                      this.model.destinies[index].startDate = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() };
+                      //let dateToShow = new Date(Date.parse(this.model.destinies[index].startDate));
+                      //this.model.destinies[index].startDate = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() };
                       if (this.model.destinies[index].provinceId != null){
                         this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
                       }
@@ -346,28 +346,13 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   onSubmit(){
-      let array = this.model.destinies.map(x => Object.assign({}, x));
 
-      for (let index = 0; index < array.length; index++) {
-        let dataSend = array[index].startDate.day+"/"+array[index].startDate.month+"/"+array[index].startDate.year;
-        array[index].startDate = dataSend;
-      }
-
-      let createSend = new CreateSolicitationSubsidyDto();
-        createSend.createDate = this.model.createDate;
-        createSend.destinies = array;
-        createSend.expenditures = this.model.expenditures;
-        createSend.id = this.model.id;
-        createSend.motive = this.model.motive;
-        createSend.total = this.model.total;
-        createSend.userId = this.model.userId;
-
-      if (array.length == 0){
+      if (this.model.destinies.length == 0){
         this.msj = 'Debe ingresar al menos un destino';
         return;
       }
       if(this.id){
-        this.solicitationSubsidyService.updateSolicitation(createSend).subscribe(
+        this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
             this.router.navigate(['SolicitationSubsidy']);
             this.msjExito = 'Solicitud Enviada';
@@ -375,7 +360,7 @@ export class CreateSolicitationComponent implements OnInit {
           error => console.log(error) 
         );
       }else{
-        this.solicitationSubsidyService.createSolicitation(createSend).subscribe(
+        this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
           () => {
               this.router.navigate(['SolicitationSubsidy']);
               this.msjExito = 'Solicitud Actualizada';
