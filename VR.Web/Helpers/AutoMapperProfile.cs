@@ -13,9 +13,16 @@ namespace WebApi.Helpers
             CreateMap<User, SaveUserDto>();
             CreateMap<SaveUserDto, User>();
             CreateMap<SolicitationSubsidy, AllSolicitationSubsidyDto>()
-                .ForMember(x => x.State, opt => opt.MapFrom(x => 
-                    x.SolicitationStates.OrderByDescending(y => y.ChangeDate)
-                    .FirstOrDefault().State.Description));
+                .ForMember(
+                    x => x.State,
+                    opt => opt.MapFrom(x => x.SolicitationStates.OrderByDescending(y => y.ChangeDate)
+                        .FirstOrDefault().State.Description)
+                )
+                .ForMember(
+                    x => x.MotiveReject,
+                    opt => opt.MapFrom(x => x.SolicitationStates.OrderByDescending(y => y.ChangeDate)
+                        .FirstOrDefault().MotiveReject)
+                );
             //CreateMap<SolicitationState, AllSolicitationSubsidyDto>()
             //    .ForMember(x => x.State, opt => opt.MapFrom(x => x.State.Description));
             CreateMap<Expenditure, ExpenditureFromSolicitationSubsidyByIdDto>();

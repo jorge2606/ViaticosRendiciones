@@ -41,58 +41,65 @@
           Agregar
         </a>
       </div>
-    
-      <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Agente</th>
-          <th>Fecha de Creación</th>
-          <th>Motivo</th>
-          <th>Localidades</th>
-          <th>Total</th>
-          <th>Estado</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sol of solicitationSubsidies">
-          <td>{{sol.user.lastName}}, {{sol.user.firstName}}</td>
-          <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-          <td class="no-wrap">{{sol.motive}}</td>
-          <td>
-            <li *ngFor="let d of sol.destinies">
-                <span *ngIf="d.countryName">{{d.countryName}}</span>
-                <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
-            </li>            
-            <!-- <span *ng-if="d.countryName"></span>
-            <ul *ngFor="let d of sol.destinies">
-                <ul *ngIf="countryName"> - </ul>
-                <ul>{{d.provinceName}} - </ul>
-                <ul>{{d.cityName}}</ul>
-            </ul> -->
-          </td>
-          <td>{{sol.total}}</td>
-          <td>{{sol.state}}</td>
-          <td>
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <a class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
-                <fa-icon style="color:gray;" icon="edit"></fa-icon>
-              </a>
-              <a class="pr-3" routerLink="/SolicitationSubsidy" (click)="openEliminar(sol)">
-                <fa-icon style="color:red;" icon="trash"></fa-icon>
-              </a>
+     
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Agente</th>
+            <th>Fecha de Creación</th>
+            <th>Objeto</th>
+            <th>Localidades</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Motivo de Rechazo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sol of solicitationSubsidies">
+            <td>{{sol.user.lastName}}, {{sol.user.firstName}}</td>
+            <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+            <td class="no-wrap">{{sol.motive}}</td>
+            <td>
+              <li *ngFor="let d of sol.destinies">
+                  <span *ngIf="d.countryName">{{d.countryName}}</span>
+                  <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
+              </li>            
+              <!-- <span *ng-if="d.countryName"></span>
+              <ul *ngFor="let d of sol.destinies">
+                  <ul *ngIf="countryName"> - </ul>
+                  <ul>{{d.provinceName}} - </ul>
+                  <ul>{{d.cityName}}</ul>
+              </ul> -->
+            </td>
+            <td>{{sol.total}}</td>
+            <td>{{sol.state}}</td>
+            <td>
               <a href="" class="pr-3" routerLink="/SolicitationSubsidy"
-              (click)="openDetail(sol.id)">
-                <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
+              (click)="openMotiveReject(sol.motiveReject)">
+                  observaciones
               </a>
-              <a href="" routerLink="/SolicitationSubsidy"
-                class="pr-3" (click)="sendToSupervisor(sol.id)">
-                <fa-icon style="color: black;" icon="envelope"></fa-icon>
-              </a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+            </td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <a class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
+                  <fa-icon style="color:gray;" icon="edit"></fa-icon>
+                </a>
+                <a class="pr-3" routerLink="/SolicitationSubsidy" (click)="openEliminar(sol)">
+                  <fa-icon style="color:red;" icon="trash"></fa-icon>
+                </a>
+                <a href="" class="pr-3" routerLink="/SolicitationSubsidy"
+                (click)="openDetail(sol.id)">
+                  <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
+                </a>
+                <a href="" routerLink="/SolicitationSubsidy"
+                  class="pr-3" (click)="sendToSupervisor(sol.id)">
+                  <fa-icon style="color: black;" icon="envelope"></fa-icon>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"

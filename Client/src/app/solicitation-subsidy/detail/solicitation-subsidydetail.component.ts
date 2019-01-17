@@ -75,7 +75,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   }
 
   AddMotive(){
-    const modalRef = this.modalService.open(NotifyRejectComponent, {size : "sm"});
+    const modalRef = this.modalService.open(NotifyRejectComponent, {size : "lg"});
     modalRef.result.then(() => {
       let newSolicitationId = new SolicitationIdDto();
       newSolicitationId.id = this.id;

@@ -106,21 +106,6 @@ namespace VR.Web.Controllers
               .Include(x => x.Destinies).ThenInclude(x => x.Country)
               .Include(x => x.Destinies).ThenInclude(x => x.Province)
               .Include(x => x.User)
-              //.Join(SolicitationStates,
-              //solicitationSubsidy => solicitationSubsidy.Id,
-              //solicitationStates => solicitationStates.SolicitationSubsidyId,
-              //(solicitationSubsidy, solicitationStates) => new
-              //{
-              //    solicitationSubsidy.User,
-              //    solicitationSubsidy.Destinies,
-              //    solicitationSubsidy.Expenditures,
-              //    solicitationSubsidy.Id,
-              //    solicitationSubsidy.Motive,
-              //    solicitationSubsidy.Total,
-              //    solicitationSubsidy.UserId,
-              //    State = solicitationStates.State.Description,
-              //    solicitationSubsidy.CreateDate,
-              //})
               .Select(x => _mapper.Map<AllSolicitationSubsidyDto>(x));
             
 

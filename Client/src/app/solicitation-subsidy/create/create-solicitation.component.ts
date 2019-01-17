@@ -346,42 +346,45 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   onSubmit(){
-      let array = this.model.destinies.slice(0);
+      let array = this.model.destinies.map(x => Object.assign({}, x));
+
       for (let index = 0; index < array.length; index++) {
         let dataSend = array[index].startDate.day+"/"+array[index].startDate.month+"/"+array[index].startDate.year;
         array[index].startDate = dataSend;
       }
+
+      let createSend = new CreateSolicitationSubsidyDto();
+        createSend.createDate = this.model.createDate;
+        createSend.destinies = array;
+        createSend.expenditures = this.model.expenditures;
+        createSend.id = this.model.id;
+        createSend.motive = this.model.motive;
+        createSend.total = this.model.total;
+        createSend.userId = this.model.userId;
 
       if (array.length == 0){
         this.msj = 'Debe ingresar al menos un destino';
         return;
       }
       if(this.id){
-        this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
+        this.solicitationSubsidyService.updateSolicitation(createSend).subscribe(
           () => {
             this.router.navigate(['SolicitationSubsidy']);
             this.msjExito = 'Solicitud Enviada';
-            //this.fromChainDateToDatapickerDate(array);
           },
           error => console.log(error) 
         );
       }else{
-        this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
+        this.solicitationSubsidyService.createSolicitation(createSend).subscribe(
           () => {
               this.router.navigate(['SolicitationSubsidy']);
               this.msjExito = 'Solicitud Actualizada';
-              //this.fromChainDateToDatapickerDate(array);
           }
         );
       }
       
   }
 
-  fromChainDateToDatapickerDate(array : any){
-    this.model.destinies.forEach(
-      x => x.startDate = array.startDate
-    ); 
-  }
 
   onChangeColapse(){
     this.isCollapsedDestiny = !this.isCollapsedDestiny;

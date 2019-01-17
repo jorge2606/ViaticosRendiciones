@@ -94,6 +94,21 @@ export class SolicitationSubsidyComponent implements OnInit {
       })
     }
 
+    openMotiveReject(motiveReject : string){
+      const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
+      modalRef.componentInstance.Contenido = motiveReject;
+      modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
+      modalRef.componentInstance.MsgClose = "Cerrar";
+      modalRef.componentInstance.GuardaroEliminarHidden = true;
+      modalRef.componentInstance.MsgCloseClass = "btn-primary";
+      modalRef.result.then(() => {
+        this.getAll(this.filters);
+      },
+        () => {
+          console.log('Backdrop click');
+      })
+    }
+
     sendToSupervisor(id : number){
       let newSolicitation = new SolicitationIdDto();
       newSolicitation.id = id;

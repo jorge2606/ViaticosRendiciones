@@ -70,6 +70,7 @@ namespace VR.Dto
         public UserDto User { set; get; }
         public DateTime CreateDate { set; get; }
         public string State { set; get; }
+        public string MotiveReject { set; get; }
     }
 
     public class SolicitationIdDto

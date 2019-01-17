@@ -38,6 +38,7 @@ export class CreateSolicitationSubsidyDto{
 export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{
     user : any;
     state : string;
+    motiveReject : string;
 }
 
 export class DetailSolicitationSubsidyDto{
