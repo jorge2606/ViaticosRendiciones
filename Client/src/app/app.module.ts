@@ -64,7 +64,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AddSupervisorComponent } from './modals/add-supervisor/add-supervisor.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 import { NotifyRejectComponent } from './modals/notify-reject/notify-reject.component';
-
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 library.add(fas);
 
@@ -132,7 +132,8 @@ library.add(fas);
     TreeviewModule.forRoot(),
     FileUploadModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SelectDropDownModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

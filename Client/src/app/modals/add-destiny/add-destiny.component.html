@@ -77,19 +77,15 @@
                                         <div *ngIf="countries.length == 0" class="form-group row">
                                             <div class="form-group col">
                                                 <label for="">Localidades</label>
-                                                <select class="form-control" #cityId="ngModel" 
-                                                    name="cityId" [(ngModel)]="model.cityId"
-                                                    [ngClass]="{'is-invalid' : cityId.invalid && (cityId.dirty || cityId.touched)}"
-                                                    required>
-                                                    <option *ngIf="model.cityId == selectedCity" [ngValue]="selectedCity" disabled>Seleccione una Localidad...</option>
-                                                    <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
-                                                </select>
-                                            
-                                                <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" class="alert alert-danger mt-1">
-                                                    <div *ngIf="cityId.errors.required">
-                                                        Campo requerido.
-                                                    </div>
-                                                </div>
+
+                                                <ngx-select-dropdown 
+                                                    [config]="config" 
+                                                    [options]="cities" 
+                                                    name="cityId"
+                                                    #cityId="ngModel"
+                                                    [(ngModel)]="model.cityId" 
+                                                    [multiple]="true" >
+                                                </ngx-select-dropdown>
                                             </div>
                                         </div>
         
