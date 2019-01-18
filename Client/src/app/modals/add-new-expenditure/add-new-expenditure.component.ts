@@ -41,6 +41,9 @@ export class AddNewExpenditureComponent implements OnInit {
     newExp.description = this.modelExp.description;
     newExp.amount = this.modelExp.amount;
     newExp.expenditureTypeId = this.modelExp.id;
+    if (this.modelExp.id != null){
+      newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
+    }
     this.expendituresAdded = this.expendituresAdded || [];
     this.expendituresAdded.push(newExp);
     this.sendData();

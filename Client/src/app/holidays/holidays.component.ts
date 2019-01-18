@@ -83,7 +83,6 @@ export class HolidaysComponent implements OnInit {
         this.holidayService.deleteHoliday(holiday.id).subscribe(
           () => {
            this.getAllHolidays(this.filters);
-           debugger
           },
           error => {
               console.log("error", error);

@@ -41,7 +41,7 @@ const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
   { path: '', component: HomeComponent, canActivate : [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent},
+  //{ path: 'register', component: RegisterComponent},
   { path: 'users', component: UsersComponent, canActivate : [AuthGuard] },
   { path: 'users/create', component: CreateuserComponent, canActivate : [AuthGuard] },
   { path: 'users/:distributionId', component: UsersComponent, canActivate : [AuthGuard] },

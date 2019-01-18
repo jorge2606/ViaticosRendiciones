@@ -147,28 +147,14 @@
                         *ngFor="let modelExp of model.expenditures">
                     <tr>
                         <td>
-                            <select (change)="changeValue($event)" 
-                                class="form-control small"
-                                #expenditureId{{modelExp.id}}="ngModel"
-                                name="expenditureId{{modelExp.id}}" 
-                                [(ngModel)]="modelExp.expenditureTypeId" disabled>
-                                <option *ngFor="let exp of Allexpenditures" [value]="exp.id">
-                                    {{exp.name}}
-                                </option>
-                            </select>
+                            {{modelExp.expenditureTypeName}}
                         </td>    <!-- filas para agregar-->
 
                         <td>
-                            <input required [(ngModel)]="modelExp.amount" #amount{{modelExp.id}}="ngModel" 
-                            name="amount{{modelExp.id}}" class="form-control small" type="number" placeholder="Costo"
-                            value="{{modelExp.amount}}" disabled>
+                            {{modelExp.amount}}
                         </td>
                         <td>
-                            <input required [(ngModel)]="modelExp.description" 
-                                #description{{modelExp.id}}="ngModel" 
-                                placeholder="Descripción" value="{{modelExp.description}}"
-                                name="description{{modelExp.id}}" class="form-control small" type="text" disabled>
-                            
+                            {{modelExp.description}}
                         </td>
                         <td>
                             <a class="btn btn-danger text-white" (click)="removeExpenditure(modelExp)">
