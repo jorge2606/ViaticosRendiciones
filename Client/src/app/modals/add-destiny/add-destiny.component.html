@@ -74,18 +74,35 @@
                                             </div>
                                         </div>    
 
-                                        <div *ngIf="countries.length == 0" class="form-group row">
-                                            <div class="form-group col">
-                                                <label for="">Localidades</label>
-
-                                                <ngx-select-dropdown 
-                                                    [config]="config" 
-                                                    [options]="cities" 
-                                                    name="cityId"
-                                                    #cityId="ngModel"
-                                                    [(ngModel)]="model.cityId" 
-                                                    [multiple]="true" >
-                                                </ngx-select-dropdown>
+                                        <div *ngIf="countries.length == 0">
+                                            <div class="form-group row">
+                                                <div class="form-group col">
+                                                    <label for="">Localidades</label>
+                                                    <select class="form-control"
+                                                        #cityId="ngModel" name="cityId"
+                                                        [ngClass]="{'is-invalid' : cityId.invalid && (cityId.dirty || cityId.touched)}"
+                                                        [(ngModel)]="model.cityId" required>
+                                                        <option *ngIf="selectedCity == model.cityId" [ngValue]="selectedCity" disabled>Seleccione una Localidad...</option>
+                                                        <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
+                                                    </select>
+                                    
+                                                    <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" class="alert alert-danger mt-1">
+                                                        <div *ngIf="cityId.errors.required">
+                                                            Campo requerido.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="">Localidades</label>
+                                                    <ngx-select-dropdown 
+                                                        [config]="config" 
+                                                        [options]="cities" 
+                                                        name="supplementaryCity"
+                                                        #supplementaryCity="ngModel"
+                                                        [(ngModel)]="model.supplementaryCity" 
+                                                        [multiple]="true" >
+                                                    </ngx-select-dropdown>
+                                                </div>
                                             </div>
                                         </div>
         

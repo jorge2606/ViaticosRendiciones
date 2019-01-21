@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 
@@ -8,6 +8,8 @@ import { GenericsCommunicationsComponentsService } from 'src/app/_services/gener
   styleUrls: ['./notify-reject.component.css']
 })
 export class NotifyRejectComponent implements OnInit {
+  @Input() title : string;
+  @Input() class : string;
 
   model = {motive : ""}
 

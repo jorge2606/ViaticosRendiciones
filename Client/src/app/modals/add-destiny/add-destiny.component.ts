@@ -1,3 +1,4 @@
+import { ComplementariesCitiesDto } from './../../_models/city';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
 import { AllCountryDto } from './../../_models/country';
 import { DestinyService } from 'src/app/_services/destiny.service';
@@ -167,6 +168,7 @@ export class AddDestinyComponent implements OnInit {
     if (this.model.cityId != null){
       newDestiny.cityName = this.cities.find(x => x.id == this.model.cityId).name;
     }
+    newDestiny.supplementaryCity = this.model.supplementaryCity;
     newDestiny.countryId = this.model.countryId;
     if (this.model.countryId != null){
       newDestiny.countryName = this.countries.find(x => x.id == this.model.countryId).name;
@@ -290,9 +292,9 @@ export class AddDestinyComponent implements OnInit {
       x => {
         this.cities = x;
         if (this.provinces.length != 1){
-          //this.model.cityId = this.selectedCity;
+          this.model.cityId = this.selectedCity;
         }else{
-          //this.model.cityId = this.cities[0].id;
+          this.model.cityId = this.cities[0].id;
         } 
         this.spinner.hide();
       }

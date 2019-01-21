@@ -2,7 +2,7 @@ import { SolicitationSubsidyService } from './../../_services/solicitation-subsi
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
 import { CountryService } from './../../_services/country.service';
 import { AllCountryDto } from './../../_models/country';
-import { CityBaseDto } from './../../_models/city';
+import { CityBaseDto, ComplementariesCitiesDto } from './../../_models/city';
 import { DestinyDto } from 'src/app/_models/destiny';
 import { AddDestinyComponent } from './../../modals/add-destiny/add-destiny.component';
 import { PlaceService } from './../../_services/place.service';
@@ -63,6 +63,7 @@ export class CreateSolicitationComponent implements OnInit {
   citiesModify : CityBaseDto[] = [];
   msj = '';
   msjExito = '';
+  supplementariesCities : string[];
 
   constructor(
       private route : ActivatedRoute,
@@ -95,19 +96,19 @@ export class CreateSolicitationComponent implements OnInit {
         .subscribe(
           x => {
                 this.model = x;
-                  if (this.model.destinies != null){
-                    for (let index = 0; index < this.model.destinies.length; index++) {
-                      //let dateToShow = new Date(Date.parse(this.model.destinies[index].startDate));
-                      //this.model.destinies[index].startDate = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() };
-                      if (this.model.destinies[index].provinceId != null){
-                        this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
-                      }
+                if (this.model.destinies != null){
+                  for (let index = 0; index < this.model.destinies.length; index++) {
+
+                    if (this.model.destinies[index].provinceId != null){
+                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                    }
                   }                 
                 }
-                  this.allProvice();
-                }
+                
+                this.allProvice();
+          }
         );
-    }
+      }
       this.allMotive();
       this.allexpenditures();
       this.allExpenditureFromModal();
@@ -156,7 +157,6 @@ export class CreateSolicitationComponent implements OnInit {
     .subscribe(
       x =>{
             this.model.destinies = x;
-            
             x.forEach(
               x =>{
                   if (
@@ -351,6 +351,7 @@ export class CreateSolicitationComponent implements OnInit {
         this.msj = 'Debe ingresar al menos un destino';
         return;
       }
+
       if(this.id){
         this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {

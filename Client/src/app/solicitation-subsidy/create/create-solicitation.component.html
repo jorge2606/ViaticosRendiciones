@@ -64,6 +64,7 @@
                 {{verOcultarTextDestiny}} ({{model.destinies.length}})
         </button>
         </div>
+
         <!--Destino-->
         <table *ngIf="model.destinies.length > 0" class="table table-sm">
             <thead>
@@ -71,6 +72,7 @@
                     <th scope="col">Fecha</th>
                     <th scope="col">Provincia</th>
                     <th scope="col">Localidades</th>
+                    <th scope="col">Itinerario</th>
                     <th scope="col">Categoría</th>
                     <th scope="col">Transporte</th>
                     <th scope="col">Dias</th>
@@ -89,8 +91,11 @@
                     <td  *ngIf="!destiny.countryId">
                         {{destiny.provinceName}}
                     </td>
-                    <td  *ngIf="!destiny.countryId">
+                    <td>
                         {{destiny.cityName}}
+                    </td>
+                    <td  *ngIf="!destiny.countryId">
+                        <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCity"> {{ c.name }} </span>
                     </td>
                     <td>
                         {{destiny.categoryName}}

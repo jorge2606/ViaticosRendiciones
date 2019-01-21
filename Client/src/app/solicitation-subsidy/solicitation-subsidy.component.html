@@ -51,7 +51,7 @@
             <th>Localidades</th>
             <th>Total</th>
             <th>Estado</th>
-            <th>Motivo de Rechazo</th>
+            <th>Respuesta</th>
             <th></th>
           </tr>
         </thead>
@@ -69,10 +69,16 @@
             <td>{{sol.total}}</td>
             <td>{{sol.state}}</td>
             <td>
-              <a href="" class="pr-3" routerLink="/SolicitationSubsidy"
+              <a href="" *ngIf="sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy"
               (click)="openMotiveReject(sol.motiveReject)">
                   observaciones
               </a>
+
+              <a href="" *ngIf="!sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy"
+              (click)="openMotiveReject(sol.fileNumber)">
+                  observaciones
+              </a>
+
             </td>
             <td>
               <div class="btn-group" role="group" aria-label="Basic example">
@@ -89,6 +95,10 @@
                 <a href="" routerLink="/SolicitationSubsidy"
                   class="pr-3" (click)="sendToSupervisor(sol.id)">
                   <fa-icon style="color: black;" icon="envelope"></fa-icon>
+                </a>
+                <a href="" routerLink="/SolicitationSubsidy"
+                  class="pr-3" (click)="sendToSupervisor(sol.id)">
+                  <fa-icon style="color: black;" icon="file-pdf"></fa-icon>
                 </a>
               </div>
             </td>

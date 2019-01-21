@@ -8,3 +8,7 @@ export class CityBaseDto{
 
 
 export class AllCitiesDto extends CityBaseDto {}
+
+export class ComplementariesCitiesDto{
+    cityId : number;
+}
