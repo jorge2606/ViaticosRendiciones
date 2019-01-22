@@ -1,9 +1,0 @@
-.no-wrap {
-  display: block;
-  width: 400px;
-  height: 100px;
-  white-space: pre;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-

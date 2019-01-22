@@ -27,15 +27,15 @@
 		</a>
 	</div>
 	
+
+	<div class="d-inline-block pl-1 pb-2 pt-2">
+		<button class="btn btn-success" [disabled]="users_check.length == 0" (click)="AddSupervisor()">
+			Enlazar a Supervisor
+		</button>
+	</div>
 	<div class="d-inline-block pl-1 pb-2 pt-2">
 			<button class="btn btn-success" routerLink="/AgentsAndSupervisors">
 				Supervisores <-> Agentes
-			</button>
-	</div>
-
-	<div class="d-inline-block pl-1 pb-2 pt-2">
-			<button class="btn btn-success" [hidden]="users_check.length == 0" (click)="AddSupervisor()">
-				Enlazar a Supervisor
 			</button>
 	</div>
 

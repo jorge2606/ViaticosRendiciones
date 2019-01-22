@@ -10,8 +10,12 @@ export class SolicitationSubsidyService {
 
   constructor(private http : HttpClient) { }
 
-  getAllSolicitationSubsidies(filter : any){
-    return this.http.get<any>("http://localhost:63098/api/SolicitationSubsidy/page/",{params : filter});
+  getAllSolicitationSubsidiesSupervisor(filter : any){
+    return this.http.get<any>("http://localhost:63098/api/SolicitationSubsidy/pageSupervisor/",{params : filter});
+  }
+
+  getAllSolicitationSubsidiesAgent(filter : any){
+    return this.http.get<any>("http://localhost:63098/api/SolicitationSubsidy/pageAgent/",{params : filter});
   }
 
   createSolicitation(createSolicitationSubsidy : CreateSolicitationSubsidyDto){

@@ -1,3 +1,4 @@
+import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UsersComponent } from '../users.component';
 import { UserService } from '../../_services/user.service';
@@ -17,9 +18,14 @@ export class ModifyuserComponent implements OnInit {
   distribution : DistributionService[];
   model = new modifyUser;
   selectedDistributionId : number;
+  categories : any;
 
-  constructor(private router : Router,private route: ActivatedRoute, private userService: UserService,
-    private distributionService : DistributionService) {
+  constructor(
+          private router : Router,
+          private route: ActivatedRoute, 
+          private userService: UserService,
+          private distributionService : DistributionService,
+          private categoryService : CategoryService) {
   }
   
 
@@ -36,7 +42,6 @@ export class ModifyuserComponent implements OnInit {
         () => {
       }      
     );
-    this.router.navigate([UsersComponent]);
   }
   
   ngOnInit() {
@@ -44,8 +49,17 @@ export class ModifyuserComponent implements OnInit {
     this.route.params.subscribe(
       p => this.id = p.id
     );
+    
+    this.getAllCategories();
 
-    this.userService.getById(this.id).subscribe(i => {
+    this.getByIdAdministrator();
+    
+    this.allDistribution();
+
+  }
+
+  getByIdAdministrator(){
+      this.userService.getByIdAdministrator(this.id).subscribe(i => {
         this.model.dni = i.dni,
         this.model.userName = i.userName,
         this.model.id = i.id,
@@ -55,14 +69,24 @@ export class ModifyuserComponent implements OnInit {
         this.model.lastName = i.lastName;
         this.model.prefixCuil = i.prefixCuil;
         this.model.suffixCuil = i.suffixCuil;
-        this.model.distributionId = i.distributionId
+        this.model.distributionId = i.distributionId;
+        this.model.categoryId = i.categoryId;
     });
+  }
 
+  getAllCategories(){
+    this.categoryService.getallCategories()
+    .subscribe(
+      x => this.categories = x
+    );
+  }
+
+  allDistribution(){
     this.distributionService.allDistribution().subscribe(
       x => {
         this.distribution = x;
       }
     );
-
   }
+
 }

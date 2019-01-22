@@ -3,21 +3,26 @@
   </div>
   <div class="modal-body">
     <div class="row">
+
         <div class="col card ml-1">
+            <label for="">Agentes</label>
             <ul *ngFor="let user of usersSelected">
-                <li>{{user.userName}}</li>
+                <li>{{user.lastName}}, {{user.firstName}} </li>
             </ul>
         </div>
-        <div class="col-2 card ml-1">
+
+        <div class="col-2">
             <label for="">Asignar a</label>
         </div>
+
         <div class="col card ml-1 mr-1" >
+            <label for="">Supervisores</label>
             <ul *ngFor="let s of supervisors">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input"
                     (click)="checkSupervisor(s)" id="{{s.id}}">
                 </div>
-                <li class="ml-3">{{s.userName}}</li>
+                <li class="ml-3">{{s.lastName}}, {{s.firstName}}</li>
             </ul>
         </div>
     </div>

@@ -27,7 +27,6 @@ import { Subscription } from 'rxjs';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SolicitationSubsidyComponent } from '../solicitation-subsidy.component';
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
 
 @Component({
@@ -355,7 +354,7 @@ export class CreateSolicitationComponent implements OnInit {
       if(this.id){
         this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
-            this.router.navigate(['SolicitationSubsidy']);
+            this.router.navigate(['SolicitationSubsidy/agent']);
             this.msjExito = 'Solicitud Enviada';
           },
           error => console.log(error) 
@@ -363,7 +362,7 @@ export class CreateSolicitationComponent implements OnInit {
       }else{
         this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
           () => {
-              this.router.navigate(['SolicitationSubsidy']);
+              this.router.navigate(['SolicitationSubsidy/agent']);
               this.msjExito = 'Solicitud Actualizada';
           }
         );

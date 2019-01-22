@@ -56,7 +56,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
             }
         }
     );
-
+    
     this.getMotiveFromModal();
   }
 
@@ -109,5 +109,5 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   ngOnDestroy(){
     this.supscription.unsubscribe();
   }
-
+  
 }

@@ -20,7 +20,6 @@ export class SettingofuserComponent implements OnInit {
     private userService: UserService) {
   }
   model = new modifyUser;
-  id: number=0;
 
 
   onChange(rol){
@@ -28,7 +27,6 @@ export class SettingofuserComponent implements OnInit {
   }
 
    onSubmit() {
-    this.model.id = this.id;
     this.userService.updateProfileUsers(this.model).subscribe(
       result => {
         this.router.navigate(['/users']);
@@ -41,12 +39,8 @@ export class SettingofuserComponent implements OnInit {
   }
   
   ngOnInit() {
-    //le asigno el id que extraigo de la url
-    this.route.params.subscribe(
-      p => this.id = p.id
-    );
     
-    this.userService.getById(this.id).subscribe(i => {
+    this.userService.getById().subscribe(i => {
         this.model.dni = i.dni,
         this.model.userName = i.userName,
         this.model.id = i.id,

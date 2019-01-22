@@ -50,7 +50,6 @@ import { UpdateExpenditureComponent } from './expenditures/update/update-expendi
 import { OrganismsComponent } from './organisms/organisms.component';
 import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
-import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitation-subsidy.component';
 import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
@@ -64,7 +63,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AddSupervisorComponent } from './modals/add-supervisor/add-supervisor.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 import { NotifyRejectComponent } from './modals/notify-reject/notify-reject.component';
-import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { PrintComponent } from './solicitation-subsidy/print/print.component';
+import { SupervisorComponent } from './solicitation-subsidy/supervisor/supervisor.component';
+import { AgentComponent } from './solicitation-subsidy/agent/agent.component'
 
 library.add(fas);
 
@@ -105,7 +107,6 @@ library.add(fas);
     OrganismsComponent,
     CreateOrganismComponent,
     ModifyOrganismComponent,
-    SolicitationSubsidyComponent,
     CreateSolicitationComponent,
     HolidaysComponent,
     CreateHolidaysComponent,
@@ -116,7 +117,10 @@ library.add(fas);
     SolicitationSubsidydetailComponent,
     AddSupervisorComponent,
     AgentsAndSupervisorsComponent,
-    NotifyRejectComponent
+    NotifyRejectComponent,
+    PrintComponent,
+    SupervisorComponent,
+    AgentComponent
   ],
   imports: [
     BrowserModule,

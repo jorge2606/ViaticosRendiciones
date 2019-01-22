@@ -1,10 +1,10 @@
+import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
-import { SolicitationSubsidyComponent } from './solicitation-subsidy/solicitation-subsidy.component';
 import { CreateOrganismComponent } from './organisms/create/create-organism.component';
 import { CreateExpenditureComponent } from './expenditures/create/create-expenditure.component';
 import { ModifyTransportComponent } from './transports/modify/modify-transport.component';
@@ -36,6 +36,8 @@ import { UpdateExpenditureComponent } from './expenditures/update/update-expendi
 import { OrganismsComponent } from './organisms/organisms.component';
 import { ModifyOrganismComponent } from './organisms/modify/modify-organism.component';
 import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.component';
+import { PrintComponent } from './solicitation-subsidy/print/print.component';
+import { SupervisorComponent } from './solicitation-subsidy/supervisor/supervisor.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -71,13 +73,15 @@ const routes: Routes = [
   { path: 'organism', component : OrganismsComponent, canActivate : [AuthGuard]},
   { path: 'organism/create', component : CreateOrganismComponent, canActivate : [AuthGuard]},
   { path: 'organism/update/:id', component : ModifyOrganismComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy', component : SolicitationSubsidyComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy/supervisor', component : SupervisorComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy/agent', component : AgentComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy/create', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy/detail/:id', component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy/modify/:id', component : CreateSolicitationComponent, canActivate : [AuthGuard]},  
   { path: 'holidays', component : HolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/create', component : CreateHolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/update/:id', component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
+  { path: 'print/:id', component : PrintComponent, canActivate : [AuthGuard]},
   
   
   // otherwise redirect to home

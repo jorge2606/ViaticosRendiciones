@@ -1,23 +1,23 @@
-import { AllSolicitationSubsidyDto, SolicitationIdDto } from './../_models/solicitationSubsidy';
-import { TransportService } from 'src/app/_services/transport.service';
-import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
 import { Component, OnInit } from '@angular/core';
-import { SolicitationSubsidyBaseDto } from '../_models/solicitationSubsidy';
-import { NgbdModalContent } from '../modals/modals.component';
+import { AllSolicitationSubsidyDto, SolicitationSubsidyBaseDto, SolicitationIdDto } from 'src/app/_models/solicitationSubsidy';
+import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
+import { TransportService } from 'src/app/_services/transport.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { SolicitationSubsidydetailComponent } from './detail/solicitation-subsidydetail.component';
+import { NgbdModalContent } from 'src/app/modals/modals.component';
+import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
 
 @Component({
-  selector: 'app-solicitation-subsidy',
-  templateUrl: './solicitation-subsidy.component.html',
-  styleUrls: ['./solicitation-subsidy.component.css']
+  selector: 'app-supervisor',
+  templateUrl: './supervisor.component.html',
+  styleUrls: ['./supervisor.component.css']
 })
-export class SolicitationSubsidyComponent implements OnInit {
-
+export class SupervisorComponent implements OnInit {
   filters = {
     page : 0,
-    userName : ""
+    firstName : "",
+    lastName : "",
+    dni : ""
   }
 
    //paginator
@@ -28,12 +28,14 @@ export class SolicitationSubsidyComponent implements OnInit {
    solicitationSubsidies : AllSolicitationSubsidyDto[];
    error = '';
    transports : any;
-
+   
   constructor(
     private solicitationSubsidyservice : SolicitationSubsidyService,
     private transportService : TransportService,
     private modalService: NgbModal,
-    private router : Router) { }
+    private router : Router
+  ) { }
+
 
   ngOnInit() {
     this.getAll(this.filters);
@@ -42,7 +44,7 @@ export class SolicitationSubsidyComponent implements OnInit {
   }
 
   getAll(filters : any){
-    this.solicitationSubsidyservice.getAllSolicitationSubsidies(filters).subscribe(
+    this.solicitationSubsidyservice.getAllSolicitationSubsidiesSupervisor(filters).subscribe(
       x => {
           this.solicitationSubsidies = x.list;
           this.col_size = x.totalRecords;
@@ -57,6 +59,9 @@ export class SolicitationSubsidyComponent implements OnInit {
   }
   
   filter(){
+    if (this.filters.dni == null){
+      this.filters.dni = "";
+    }
     this.getAll(this.filters);
   }
 
@@ -120,5 +125,5 @@ export class SolicitationSubsidyComponent implements OnInit {
           console.log(error);
         }
       );
-    }
+    } 
 }

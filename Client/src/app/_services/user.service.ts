@@ -20,8 +20,12 @@ export class UserService {
         return this.http.get<any>('http://localhost:63098/api/User/page/',{params: filters});
     }
 
-    getById(id: number) {
-        return this.http.get<modifyUser>('http://localhost:63098/api/User/getbyid/' + id);
+    getById() {
+        return this.http.get<modifyUser>('http://localhost:63098/api/User/getbyid/');
+    }
+
+    getByIdAdministrator(id : number) {
+        return this.http.get<modifyUser>('http://localhost:63098/api/User/getbyidAdministrator/'+id);
     }
 
     updateUsers(user: User) : Observable<any> {
