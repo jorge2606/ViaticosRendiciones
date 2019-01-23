@@ -54,6 +54,7 @@
               <th>Fecha de Creación</th>
               <th>Objeto</th>
               <th>Localidades</th>
+              <th>Itinerario</th>
               <th>Total</th>
               <th>Estado</th>
               <th>Motivo de Rechazo</th>
@@ -66,9 +67,14 @@
               <td class="no-wrap">{{sol.motive}}</td>
               <td>
                 <li *ngFor="let d of sol.destinies">
-                    <span *ngIf="d.countryName">{{d.countryName}}</span>
-                    <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
+                    <span class="mr-1 cardInsideTd" *ngIf="d.countryName">{{d.countryName}}</span>
+                    <span class="mr-1 cardInsideTd" *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
                 </li>      
+              </td>
+              <td>
+                  <li *ngFor="let d of sol.destinies">
+                    <span class="mr-1 cardInsideTd" *ngFor="let c of d.supplementaryCities"> {{ c.name }}</span>
+                  </li>
               </td>
               <td>{{sol.total}}</td>
               <td>{{sol.state}}</td>

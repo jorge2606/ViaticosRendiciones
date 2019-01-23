@@ -198,6 +198,10 @@ export class AddDestinyComponent implements OnInit {
             this.model.supplementaryCities.forEach(x =>{
                 let newSup = new SupplementaryCityDto();
                 newSup.cityId =  x.id;
+                let idCity = this.cities.find(j => j.id == x.id);
+                if (idCity){
+                  newSup.name = idCity.name;
+                }
                 newDestiny.supplementaryCities.push(newSup);
                 } 
               );
