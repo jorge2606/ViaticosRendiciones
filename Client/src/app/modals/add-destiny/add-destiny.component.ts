@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { ComplementariesCitiesDto } from './../../_models/city';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
 import { AllCountryDto } from './../../_models/country';
@@ -14,10 +15,11 @@ import { DestinyDto } from 'src/app/_models/destiny';
 import { CategoryService } from 'src/app/_services/category.service';
 import { AllCategoryDto } from 'src/app/_models/category';
 import { TransportService } from 'src/app/_services/transport.service';
-import { AllTransportDto } from 'src/app/_models/transport';
+import { AllTransportDto, CarIsBeingUsedByOtherSolicitation } from 'src/app/_models/transport';
 import { CountryService } from 'src/app/_services/country.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
 
 @Component({
   selector: 'app-add-destiny',
@@ -40,7 +42,7 @@ export class AddDestinyComponent implements OnInit {
   error : string;
   @Input() destiniesAdded : DestinyDto[] = [];
   isCollapsed = false;
-  categories : AllCategoryDto[];
+  categories : AllCategoryDto[] = [];
   buttonDisbaled = true;
   selectedCountry : number;
   selectedProvince : number;
@@ -49,6 +51,7 @@ export class AddDestinyComponent implements OnInit {
   selectedCategory : number;
   selectedTransport : number;
   total : number = 0;
+  carIsUsed : boolean;
   config = {
     displayKey:"name", //if objects array passed which key to be displayed defaults to description
     search:true,//true/false for the search functionlity defaults to false,
@@ -72,10 +75,13 @@ export class AddDestinyComponent implements OnInit {
     private transportService : TransportService,
     private countryservice : CountryService,
     private codeLiquidationService : CodeLiquidationService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private authService : AuthenticationService
     ) { }
 
   ngOnInit() {
+    this.selectedCategory = this.authService.userId('categoryId');
+    this.model.categoryId = this.authService.userId('categoryId');
     this.selectedCountry = this.model.countryId;
     this.selectedProvince = this.model.provinceId;
     this.AllPlace();
@@ -110,11 +116,20 @@ export class AddDestinyComponent implements OnInit {
     );
   }
 
+
   allCategories(){
-    this.categoryService.getallCategories().subscribe(
-      x => this.categories = x
-      );
-  }
+    this.categoryService.getallCategories()
+    .subscribe(
+      x=> {
+            let categoryUser = x.find(j => j.id == this.selectedCategory);
+            x.forEach(cat => {
+                if (cat.order <= categoryUser.order){
+                  this.categories.push(cat);
+                }
+            });
+          }
+    );
+  }  
 
   AllProvince(){
     this.provinceService.getAll().subscribe(
@@ -145,6 +160,7 @@ export class AddDestinyComponent implements OnInit {
   onChange(e : any){
     console.log(e);
   }
+
   
   onSubmit(){
     let exist;
@@ -155,43 +171,61 @@ export class AddDestinyComponent implements OnInit {
           );
       }
       
-        if (exist){
-          this.error = "Provincia y Localidad existentes";
-          return
-        }
+      if (exist){
+        this.error = "Provincia y Localidad existentes";
+        return
+      }
     }
-
-    this.error = "";
-    let newDestiny = new DestinyDto;
-    newDestiny.placeId = this.model.placeId;
-    newDestiny.cityId = this.model.cityId;
-    if (this.model.cityId != null){
-      newDestiny.cityName = this.cities.find(x => x.id == this.model.cityId).name;
-    }
-    newDestiny.supplementaryCity = this.model.supplementaryCity;
-    newDestiny.countryId = this.model.countryId;
-    if (this.model.countryId != null){
-      newDestiny.countryName = this.countries.find(x => x.id == this.model.countryId).name;
-    }
-    newDestiny.provinceId = this.model.provinceId;
-    if (this.model.provinceId != null){
-      newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
-    }
-    newDestiny.days = this.model.days;
-    newDestiny.categoryId = this.model.categoryId;
-    if (this.model.categoryId != null){
-      newDestiny.categoryName = this.categories.find(x => x.id == this.model.categoryId).name;
-    }
-    newDestiny.codeLiquidationId = this.model.codeLiquidationId;
-    newDestiny.startDate = this.model.startDate;
-    newDestiny.transportId = this.model.transportId;
-    newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;
-    newDestiny.transportModel = this.transports.find(x => x.id == this.model.transportId).model;
-    
-    this.destiniesAdded = this.destiniesAdded || [];
-    this.destiniesAdded.push(newDestiny);
-    this.sendDataToComponent(this.destiniesAdded);
-    
+    let newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation();
+    newCarIsBeingUsed.id = this.model.transportId;
+    newCarIsBeingUsed.day = this.model.days;
+    newCarIsBeingUsed.StartDate = this.model.startDate;
+    this.transportService.carIsBeingUsedByOtherSolicitation(newCarIsBeingUsed)
+    .subscribe(
+      x => {
+          if (x){
+            this.error = "Automovil ocupado";
+            return
+          }else{
+            this.error = "";
+            let newDestiny = new DestinyDto;
+            newDestiny.placeId = this.model.placeId;
+            newDestiny.cityId = this.model.cityId;
+            if (this.model.cityId != null){
+              newDestiny.cityName = this.cities.find(x => x.id == this.model.cityId).name;
+            }
+            newDestiny.supplementaryCities = [];
+            this.model.supplementaryCities.forEach(x =>{
+                let newSup = new SupplementaryCityDto();
+                newSup.cityId =  x.id;
+                newDestiny.supplementaryCities.push(newSup);
+                } 
+              );
+            newDestiny.countryId = this.model.countryId;
+            if (this.model.countryId != null){
+              newDestiny.countryName = this.countries.find(x => x.id == this.model.countryId).name;
+            }
+            newDestiny.provinceId = this.model.provinceId;
+            if (this.model.provinceId != null){
+              newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
+            }
+            newDestiny.days = this.model.days;
+            newDestiny.categoryId = this.model.categoryId;
+            if (this.model.categoryId != null){
+              newDestiny.categoryName = this.categories.find(x => x.id == this.model.categoryId).name;
+            }
+            newDestiny.codeLiquidationId = this.model.codeLiquidationId;
+            newDestiny.startDate = this.model.startDate;
+            newDestiny.transportId = this.model.transportId;
+            newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;
+            newDestiny.transportModel = this.transports.find(x => x.id == this.model.transportId).model;
+            
+            this.destiniesAdded = this.destiniesAdded || [];
+            this.destiniesAdded.push(newDestiny);
+            this.sendDataToComponent(this.destiniesAdded);
+          }
+      }
+    );
   }
 
   totalResultExpenditure(){

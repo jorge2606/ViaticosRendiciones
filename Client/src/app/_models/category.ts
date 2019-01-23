@@ -4,6 +4,7 @@ export class Category{
     description : string;
     isDeleted : Date;
     advance : number;
+    order : number;
 }
 
 export class CreateCategoryDto extends Category{}

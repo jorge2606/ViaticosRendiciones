@@ -309,7 +309,7 @@ export class CreateSolicitationComponent implements OnInit {
     }
 
     let listDestinies : DestinyDto[] = this.model.destinies;
-
+    
     modalRef.componentInstance.destiniesAdded = listDestinies;
     
     modalRef.result.then(

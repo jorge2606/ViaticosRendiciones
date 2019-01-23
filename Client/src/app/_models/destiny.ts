@@ -1,5 +1,5 @@
-import { ComplementariesCitiesDto } from "./city";
-import { SupplementaryCityDto } from "./supplementaryCity";
+import { SupplementaryCityDto } from './supplementaryCity';
+import { CityBaseDto } from './city';
 
 export class DestinyDto{
     id : number;
@@ -8,7 +8,7 @@ export class DestinyDto{
     provinceName : string;
     cityId : number; 
     cityName : string;
-    supplementaryCity : SupplementaryCityDto[];
+    supplementaryCities : SupplementaryCityDto[];
     countryId : number;
     countryName : string;
     codeLiquidationPercentage : number;

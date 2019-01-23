@@ -15,3 +15,10 @@ export class DeleteTransportDto extends TransportBaseDto{}
 export class FindByIdTransportDto extends TransportBaseDto{}
 
 export class AllTransportDto extends TransportBaseDto{}
+
+export class CarIsBeingUsedByOtherSolicitation
+{
+    id : number;
+    StartDate : any;
+    day : number;
+}

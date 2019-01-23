@@ -97,9 +97,9 @@
                                                     <ngx-select-dropdown 
                                                         [config]="config" 
                                                         [options]="cities" 
-                                                        name="supplementaryCity"
-                                                        #supplementaryCity="ngModel"
-                                                        [(ngModel)]="model.supplementaryCity" 
+                                                        name="supplementaryCities"
+                                                        #supplementaryCities="ngModel"
+                                                        [(ngModel)]="model.supplementaryCities" 
                                                         [multiple]="true" >
                                                     </ngx-select-dropdown>
                                                 </div>
@@ -208,8 +208,12 @@
         
                                         <div class="form-row">
                                             <label for="">Transporte</label>
-                                            <select class="form-control" #transportId="ngModel" name="transportId" [(ngModel)]="model.transportId"
-                                            [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" required>
+                                            <select class="form-control" 
+                                            #transportId="ngModel" 
+                                            name="transportId" 
+                                            [(ngModel)]="model.transportId"
+                                            [ngClass]="{'is-invalid' : transportId.invalid && (transportId.dirty || transportId.touched)}" 
+                                            required>
                                             <option *ngIf="selectedTransport == model.transportId" [ngValue]="selectedTransport" disabled>
                                                     Seleccione un Transporte...
                                             </option>

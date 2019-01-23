@@ -1,4 +1,4 @@
-import { CreateTransportDto } from 'src/app/_models/transport';
+import { CreateTransportDto, CarIsBeingUsedByOtherSolicitation } from 'src/app/_models/transport';
 import { UpdateTransportDto } from './../_models/transport';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -32,6 +32,10 @@ export class TransportService {
 
   getAll(){
     return this.http.get<any>('http://localhost:63098/api/Transport/GetAll/');
+  }
+
+  carIsBeingUsedByOtherSolicitation(transport : CarIsBeingUsedByOtherSolicitation){
+    return this.http.post<boolean>("http://localhost:63098/api/Transport/CarIsBeingUsedByOtherSolicitation", transport);
   }
 
 
