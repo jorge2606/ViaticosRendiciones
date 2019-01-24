@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190122135053_add field CategoryId to User Table")]
+    partial class addfieldCategoryIdtoUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,13 +139,9 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid>("ProvinceId");
 
-                    b.Property<Guid?>("SupplementaryCityId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProvinceId");
-
-                    b.HasIndex("SupplementaryCityId");
 
                     b.ToTable("Cities");
                 });
@@ -670,10 +668,6 @@ namespace VR.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.SupplementaryCity")
-                        .WithMany("Cities")
-                        .HasForeignKey("SupplementaryCityId");
                 });
 
             modelBuilder.Entity("VR.Data.Model.CodeLiquidation", b =>

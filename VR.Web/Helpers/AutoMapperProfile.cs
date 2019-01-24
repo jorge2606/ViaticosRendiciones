@@ -22,13 +22,24 @@ namespace WebApi.Helpers
                     x => x.MotiveReject,
                     opt => opt.MapFrom(x => x.SolicitationStates.OrderByDescending(y => y.ChangeDate)
                         .FirstOrDefault().MotiveReject)
+                ).ForMember(x => x.FileNumber,
+                    opt => opt.MapFrom(j => j.SolicitationStates.OrderByDescending(y => y.ChangeDate)
+                        .FirstOrDefault().FileNumber)
                 );
-            //CreateMap<SolicitationState, AllSolicitationSubsidyDto>()
-            //    .ForMember(x => x.State, opt => opt.MapFrom(x => x.State.Description));
             CreateMap<Expenditure, ExpenditureFromSolicitationSubsidyByIdDto>();
             CreateMap<User, UserDto>();
-            CreateMap<Destiny, DestinyFromSolicitationSubsidyByIdDto>();
-            CreateMap<SolicitationSubsidy, FindByIdSolicitationSubsidyDto>();
+            CreateMap<SupplementaryCity, SupplementaryCityDto>();
+
+            CreateMap<SupplementaryCity, SupplementaryCityOnlyId>()
+                .ForMember(x => x.Name,
+                    opt => opt.MapFrom(q => q.City.Name)
+                    );
+
+            CreateMap<Destiny, DestinyFromSolicitationSubsidyByIdDto>()
+                .ForMember(
+                    x => x.SupplementaryCities,
+                    opt => opt.MapFrom(y => y.SupplementaryCities));
+
             CreateMap<SupervisorUserAgent, AllSupervisorAgentDto>();
             CreateMap<User, AllUserDto>();
             CreateMap<State, StateDto>();

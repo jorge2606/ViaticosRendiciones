@@ -2,6 +2,7 @@ import { SolicitationSubsidyBaseDto, SolicitationIdDto } from './../_models/soli
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateSolicitationSubsidyDto } from '../_models/solicitationSubsidy';
+import { overlapingDto } from '../_models/overlaping';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,9 @@ export class SolicitationSubsidyService {
 
   refused(solicitation : SolicitationIdDto){
     return this.http.post<any>("http://localhost:63098/api/SolicitationSubsidy/RefusedSolicitation",solicitation);
+  }
+
+  overlapingDates(overlapDate : overlapingDto){
+    return this.http.post<any>("http://localhost:63098/api/SolicitationSubsidy/overlaping",overlapDate);
   }
 }

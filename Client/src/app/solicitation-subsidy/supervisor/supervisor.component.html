@@ -62,7 +62,7 @@
               <th>Agente</th>
               <th>Fecha de Creación</th>
               <th>Objeto</th>
-              <th>Localidades</th>
+              <th colspan="2">Localidades-Itinerario</th>
               <th>Total</th>
               <th>Estado</th>
               <th>Respuesta</th>
@@ -74,10 +74,14 @@
               <td>{{sol.user.lastName}}, {{sol.user.firstName}}</td>
               <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
               <td class="no-wrap">{{sol.motive}}</td>
-              <td>
+              <td colspan="2">
                 <li *ngFor="let d of sol.destinies">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
                     <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
+
+                    <span *ngFor="let c of d.supplementaryCities">
+                        <span class="mr-1 cardInsideTd" *ngIf="c.name" > {{ c.name }}</span>
+                    </span>                    
                 </li>      
               </td>
               <td>{{sol.total}}</td>

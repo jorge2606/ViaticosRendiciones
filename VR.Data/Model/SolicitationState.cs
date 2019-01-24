@@ -10,6 +10,7 @@ namespace VR.Data.Model
         public Guid Id { set; get; }
         public DateTime ChangeDate {set; get; }
         public string MotiveReject { set; get; }
+        public string FileNumber { set; get; }
 
         [ForeignKey("State")]
         public Guid StateId { set; get; }

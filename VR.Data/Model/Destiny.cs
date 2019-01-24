@@ -10,7 +10,8 @@ namespace VR.Data.Model
         public Guid Id { set; get; }
         public int Days { set; get; }
         public DateTime StartDate { set; get; }
-        
+        public List<SupplementaryCity> SupplementaryCities { set; get; }
+
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }
         [ForeignKey("City")]

@@ -54,7 +54,7 @@ namespace VR.Service.Services
             {
                 return _mapper.Map<ServiceResult<CreateSolicitationSubsidyDto>>(validate.ToServiceResult<CreateSolicitationSubsidyDto>(null));
             }
-            
+
             SolicitationSubsidy solicitationSubsidy = new SolicitationSubsidy()
             {
                 Id = new Guid(),
@@ -79,26 +79,41 @@ namespace VR.Service.Services
                     //SolicitationSubsidyId = solicitationSubsidy.Id,
                     SolicitationSubsidy = solicitationSubsidy,
                     Days = destiny.Days,
-                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString()+"/"+ destiny.StartDate.Month.ToString()+"/"+ destiny.StartDate.Year.ToString()),
+                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
                     ProvinceId = destiny.ProvinceId
                 };
+
                 _dataContext.Destinies.Add(newDestiny);
-                //_dataContext.SaveChanges();
+
+                if (destiny.SupplementaryCities != null)
+                {
+                    foreach (var supCity in destiny.SupplementaryCities)
+                    {
+                        SupplementaryCity newSupplementaryCity = new SupplementaryCity()
+                        {
+                            Id = new Guid(),
+                            CityId = supCity.CityId,
+                            Destiny = newDestiny
+                        };
+
+                        _dataContext.SupplementaryCities.Add(newSupplementaryCity);
+                    }
+                }
+
             }
 
             foreach (var expenditure in subsidy.Expenditures)
             {
-                 Expenditure newExpenditure = new Expenditure()
-                 {
-                     Id = expenditure.Id,
-                     Description = expenditure.Description,
-                     //SolicitationSubsidyId = solicitationSubsidy.Id,
-                     SolicitationSubsidy = solicitationSubsidy,
-                     Amount = expenditure.Amount,
-                     ExpenditureTypeId = expenditure.ExpenditureTypeId
-                 };
+                Expenditure newExpenditure = new Expenditure()
+                {
+                    Id = expenditure.Id,
+                    Description = expenditure.Description,
+                    //SolicitationSubsidyId = solicitationSubsidy.Id,
+                    SolicitationSubsidy = solicitationSubsidy,
+                    Amount = expenditure.Amount,
+                    ExpenditureTypeId = expenditure.ExpenditureTypeId
+                };
                 _dataContext.Expenditures.Add(newExpenditure);
-                //_dataContext.SaveChanges();
             }
 
             SolicitationState solicitationState = new SolicitationState()
@@ -131,9 +146,8 @@ namespace VR.Service.Services
             }
             solicitationSubsidy.Motive = subsidy.Motive;
             solicitationSubsidy.Total = subsidy.Total;
-            
+
             _dataContext.SolicitationSubsidies.Update(solicitationSubsidy);
-            _dataContext.SaveChanges();
 
             foreach (var destiny in subsidy.Destinies)
             {
@@ -148,20 +162,33 @@ namespace VR.Service.Services
                 newDestiny.CityId = destiny.CityId;
                 newDestiny.CodeLiquidationId = destiny.CodeLiquidationId;
                 newDestiny.CountryId = destiny.CountryId;
-                newDestiny.SolicitationSubsidyId = solicitationSubsidy.Id;
+                newDestiny.SolicitationSubsidy = solicitationSubsidy;
                 newDestiny.Days = destiny.Days;
-                newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString()+"/"+destiny.StartDate.Month.ToString()+"/"+destiny.StartDate.Year.ToString());
+                newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString());
                 newDestiny.ProvinceId = destiny.ProvinceId;
                 if (find == null)
                 {
+                    if (destiny.SupplementaryCities != null)
+                    {
+                        foreach (var supCity in destiny.SupplementaryCities)
+                        {
+                            SupplementaryCity newSupplementaryCity = new SupplementaryCity()
+                            {
+                                Id = new Guid(),
+                                CityId = supCity.CityId,
+                                Destiny = newDestiny
+                            };
+
+                            _dataContext.SupplementaryCities.Add(newSupplementaryCity);
+                        }
+                    }
                     _dataContext.Destinies.Add(newDestiny);
                 }
                 else
                 {
+                    //el agente no puede modificar los destinos
                     _dataContext.Destinies.Update(newDestiny);
                 }
-                
-                _dataContext.SaveChanges();
             }
 
             foreach (var expenditure in subsidy.Expenditures)
@@ -173,10 +200,10 @@ namespace VR.Service.Services
                 {
                     newExpenditure = exist;
                 }
-                 
+
 
                 newExpenditure.Description = expenditure.Description;
-                newExpenditure.SolicitationSubsidyId = solicitationSubsidy.Id;
+                newExpenditure.SolicitationSubsidy = solicitationSubsidy;
                 newExpenditure.Amount = expenditure.Amount;
                 newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
 
@@ -188,14 +215,14 @@ namespace VR.Service.Services
                 {
                     _dataContext.Expenditures.Update(newExpenditure);
                 }
-                _dataContext.SaveChanges();
+
             }
 
-
+            _dataContext.SaveChanges();
             return new ServiceResult<UpdateSolicitationSubsidyDto>(_mapper.Map<UpdateSolicitationSubsidyDto>(subsidy));
         }
 
-        public ServiceResult<FindByIdSolicitationSubsidyDto> GetByIdSubsidyDto(Guid id)
+        public ServiceResult<FindByIdSolicitationSubsidyDto> GetByIdSubsidy(Guid id)
         {
             var find = _dataContext.SolicitationSubsidies
                 .Include(x => x.Destinies).ThenInclude(x => x.City)
@@ -204,6 +231,7 @@ namespace VR.Service.Services
                 .Include(x => x.Destinies).ThenInclude(x => x.Country)
                 .Include(x => x.Destinies).ThenInclude(x => x.Province)
                 .Include(x => x.Destinies).ThenInclude(x => x.Transport)
+                .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
                 .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
                 .Include(x => x.User)
                 .FirstOrDefault(x => x.Id == id);
@@ -309,6 +337,7 @@ namespace VR.Service.Services
                 SolicitationSubsidy = solicitation,
                 ChangeDate = DateTime.Now,
                 StateId = State.Accepted,
+                FileNumber = solicitationDto.FileNumber
             };
 
             _dataContext.SolicitationStates.Add(solicitationState);
@@ -342,6 +371,30 @@ namespace VR.Service.Services
             _dataContext.SaveChanges();
 
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
+
+
+        public ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates)
+        {
+            var SolicitationsDestinies = _dataContext.Destinies
+                .Include(x => x.SolicitationSubsidy)
+                .Include(x => x.SolicitationSubsidy).ThenInclude(x => x.User)
+                .Where(
+                x => 
+                   !(x.StartDate.AddDays(x.Days) < overlapingDates.StartDateDatetime || x.StartDate > overlapingDates.EndDateDatetime)
+                    && 
+                   x.SolicitationSubsidy.User.Id == overlapingDates.UserId
+            );
+
+            if (SolicitationsDestinies.Count() > 0)
+            {
+                ServiceResult<Boolean> notify = new ServiceResult<bool>(true);
+                const NotificationType notificationType = NotificationType.Error;
+                notify.AddError(notificationType.ToString(), "Las Fechas estan Solapadas");
+                return notify;
+            }
+
+            return new ServiceResult<bool>(false);
         }
 
     }

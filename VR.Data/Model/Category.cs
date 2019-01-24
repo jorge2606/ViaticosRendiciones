@@ -14,5 +14,6 @@ namespace VR.Data.Model
         public string Description { set; get; }
         public decimal Advance { set; get; }
         public Boolean IsDeleted { set; get; }
+        public int Order { set; get; }
     }
 }

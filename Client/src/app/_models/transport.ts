@@ -20,5 +20,5 @@ export class CarIsBeingUsedByOtherSolicitation
 {
     id : number;
     StartDate : any;
-    day : number;
+    days : number;
 }

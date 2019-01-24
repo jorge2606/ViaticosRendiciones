@@ -249,7 +249,7 @@
         
             <div *ngIf="error">
                 <ul class="alert alert-danger">
-                    <li>{{error}}</li>
+                    <li *ngFor="let e of error">{{e}}</li>
                 </ul>
             </div>
         

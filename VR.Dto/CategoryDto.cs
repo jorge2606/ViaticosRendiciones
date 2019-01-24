@@ -23,6 +23,7 @@ namespace VR.Dto
         public string Description { set; get; }
         public Boolean IsDeleted  { set; get; }
         public Decimal Advance { set; get; }
+        public int Order { set; get; }
     }
 
     public class CreateCategoryDto : CategoryBaseDto { }

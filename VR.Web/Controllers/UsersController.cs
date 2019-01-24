@@ -113,7 +113,7 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]SaveUserDto userDto)
         {
@@ -129,13 +129,86 @@ namespace VR.Web.Controllers
                  Token = result.Response
              };
              */
-            return Ok(result.Response);
+        /*return Ok(result.Response);
+     }
+        */
+        public Guid GetIdUser()
+        {
+            var currentUser = Helpers.HttpContext.Current.User.Claims;
+            var result = Guid.Empty;
+            foreach (var i in currentUser)
+            {
+                if (i.Type.Equals("NameIdentifier"))
+                {
+                    result = Guid.Parse(i.Value);
+                }
+            }
+
+            return result;
         }
 
-        [HttpGet("getbyid/{id}")]
+        [HttpGet("getbyidAdministrator/{id}")]
+        [Authorize]
         public ActionResult<ModifyUserDto> GetById(Guid id)
         {
             var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                return null;
+            }
+            ModifyUserDto modifyUserDto = new ModifyUserDto
+            {
+                Dni = user.Dni,
+                UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PrefixCuil = user.PrefixCuil,
+                SuffixCuil = user.SuffixCuil,
+                DistributionId = user.DistributionId,
+                CategoryId = user.CategoryId
+            };
+
+            var RolesUser = _context.UserRoles.ToList();
+            var AllRoles = _context.Roles.ToList();
+
+            List<RoleWhenModifyUser> ListRolesBelongsToUser = new List<RoleWhenModifyUser>();
+            foreach (var role in AllRoles)
+            {
+                if (RolesUser.Exists(x => x.UserId == user.Id && x.RoleId == role.Id))
+                {
+                    RoleWhenModifyUser roleWhenModifyUser = new RoleWhenModifyUser
+                    {
+                        Id = role.Id,
+                        Name = role.Name,
+                        RolBelongUser = true
+                    };
+
+                    ListRolesBelongsToUser.Add(roleWhenModifyUser);
+                }
+                else
+                {
+                    RoleWhenModifyUser roleWhenModifyUser = new RoleWhenModifyUser
+                    {
+                        Id = role.Id,
+                        Name = role.Name,
+                        RolBelongUser = false
+                    };
+
+                    ListRolesBelongsToUser.Add(roleWhenModifyUser);
+
+                }
+            }
+            modifyUserDto.RolesUser = ListRolesBelongsToUser;
+            return modifyUserDto;
+        }
+
+        [HttpGet("getbyid")]
+        [Authorize]
+        public ActionResult<ModifyUserDto> GetById()
+        {
+            var userId = GetIdUser();
+            var user = _context.Users.Find(userId);
             if (user == null)
             {
                 return null;
@@ -196,6 +269,7 @@ namespace VR.Web.Controllers
         [HttpPut("UpdateMyProfile")]
         public async Task<IActionResult> UpdateMyProfile([FromBody]UpdateMyProfile userDto)
         {
+            userDto.Id = GetIdUser();
             await _userService.UpdateMyProfile(userDto);
             return Ok();
         }

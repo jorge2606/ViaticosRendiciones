@@ -36,6 +36,7 @@ namespace VR.Data
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<SolicitationState> SolicitationStates { set; get; }
         public virtual DbSet<SupervisorUserAgent> SupervisorUserAgents { set; get; }
+        public virtual DbSet<SupplementaryCity> SupplementaryCities { set; get; }
        
     }
 }

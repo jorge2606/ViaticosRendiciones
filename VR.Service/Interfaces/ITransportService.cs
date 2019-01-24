@@ -12,5 +12,6 @@ namespace VR.Service.Interfaces
         ServiceResult<DeleteTransportDto> DeleteTransport(Guid idTransport);
         ServiceResult<FindByIdTransportDto> FindByIdTransport(Guid idTransport);
         ServiceResult<List<GetAllTransportDto>> GetAllTransport();
+        ServiceResult<Boolean> CarIsBeingUsedByOtherSolicitation(CarIsBeingUsedByOtherSolicitation transport);
     }
 }

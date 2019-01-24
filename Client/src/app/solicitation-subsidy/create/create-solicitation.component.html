@@ -122,7 +122,7 @@
 
             <a (click)="deleteAllConcepts()" 
                 *ngIf="model.expenditures.length > 0"
-                class="btn btn-danger ml-1 mt-1 mb-1 text-white small">
+                class="btn btn-danger ml-1 mb-1 text-white small">
                     <fa-icon icon="trash"></fa-icon> Eliminar Todos
             </a>
             <!--Concepto de Gasto-->
@@ -141,27 +141,26 @@
         </button>
             <table *ngIf="model.expenditures.length > 0" class="table table-sm">
                 <thead>
-                    <tr>
-                    <th scope="col">Gastos</th>
-                    <th scope="col">Importe</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col"></th>
+                    <tr class="row">
+                        <th class = "col-4">Gastos</th>
+                        <th class = "col-6">Descripción</th>
+                        <th class = "col-1">Importe</th>
+                        <th class = "col-1"></th>
                     </tr>
                 </thead>
                 <tbody id="collapseExpenditure" [ngbCollapse]="isCollapsedExpenditure" 
-                        *ngFor="let modelExp of model.expenditures">
-                    <tr>
-                        <td>
+                        *ngFor="let modelExp of model.expenditures" class="collapse show">
+                    <tr class="row">
+                        <td class="col-4">
                             {{modelExp.expenditureTypeName}}
                         </td>    <!-- filas para agregar-->
-
-                        <td>
-                            {{modelExp.amount}}
-                        </td>
-                        <td>
+                        <td class="col-6">
                             {{modelExp.description}}
                         </td>
-                        <td>
+                        <td class="col-1">
+                            {{modelExp.amount}}
+                        </td>
+                        <td class="col-1">
                             <a class="btn btn-danger text-white" (click)="removeExpenditure(modelExp)">
                                 <fa-icon icon="trash"></fa-icon>
                             </a>

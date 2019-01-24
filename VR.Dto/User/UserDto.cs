@@ -58,6 +58,7 @@ namespace VR.Dto.User
         public string Path { get; set; }
         public Guid DistributionId { set; get; }
         public Distribution Distribution { set; get; }
+        public Guid CategoryId { set; get; }
     }
 
 
@@ -75,6 +76,7 @@ namespace VR.Dto.User
         public List<RoleWhenModifyUser> RolesUser { set; get; }
         public Guid? DistributionId { set; get; }
         public Distribution Distribution { set; get; }
+        public Guid CategoryId { set; get; }
     }
 
     //admin and common user can use this Dto, because they update its own the same way 
@@ -95,6 +97,7 @@ namespace VR.Dto.User
         public string PhoneNumber { set; get; }
         public List<RoleWhenModifyUser> RolesUser { set; get; }
         public Guid DistributionId { set; get; }
+        public Guid CategoryId { set; get; }
     }
 
     public class AllUserDto

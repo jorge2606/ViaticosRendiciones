@@ -71,18 +71,38 @@ namespace VR.Dto
         public DateTime CreateDate { set; get; }
         public string State { set; get; }
         public string MotiveReject { set; get; }
+        public string FileNumber { set; get; }
     }
 
     public class SolicitationIdDto
     {
         public Guid Id { set; get; }
         public string MotiveReject { set; get; }
+        public string FileNumber { set; get; }
     }
 
     public class FilterSolicitationSubsidyDto
     {
         public int? Page { set; get; }
-        public string UserName { set; get; }
+        public string FirstName { set; get; }
+        public string LastName { set; get; }
+        public string Dni { set; get; }
+    }
+
+    public class OverlapingDatesDto
+    {
+        public Guid Id { set; get; }
+        public DateDto StartDate { set; get; }
+        public DateDto EndDate { set; get; }
+        public int Days { set; get; }
+    }
+
+    public class OverlapingDatesAndTransportsDto : OverlapingDatesDto
+    {
+
+        public DateTime StartDateDatetime { set; get; }
+        public DateTime EndDateDatetime { set; get; }
+        public Guid UserId { set; get; }
     }
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Service.Common.Extensions;
 using Service.Common.ServiceResult;
 using VR.Data;
@@ -18,14 +19,51 @@ namespace VR.Service.Services
         private readonly DataContext _dataContext;
         private readonly IValidator<TransportBaseDto> _fluentValidator;
         private readonly IMapper _mapper;
+        private readonly ISolicitationSubsidyService _solicitationSubsidyService;
 
-        public TransportService(DataContext dataContext, IValidator<TransportBaseDto> fluentValidator,
-            IMapper mapper)
+        public TransportService(
+            DataContext dataContext, 
+            IValidator<TransportBaseDto> fluentValidator,
+            IMapper mapper,
+            ISolicitationSubsidyService solicitationSubsidyService)
         {
             _dataContext = dataContext;
             _fluentValidator = fluentValidator;
             _mapper = mapper;
+            _solicitationSubsidyService = solicitationSubsidyService;
         }
+
+        public ServiceResult<Boolean> CarIsBeingUsedByOtherSolicitation(
+            CarIsBeingUsedByOtherSolicitation transport
+            )
+        {
+            var startDate = DateTime.Parse(transport.StartDate.Day + "/" + transport.StartDate.Month + "/" + transport.StartDate.Year);
+            var endDate = DateTime.Parse(transport.StartDate.Day + "/" + transport.StartDate.Month + "/" + transport.StartDate.Year)
+                .AddDays(transport.Days);
+
+            var destinies = _dataContext.Destinies
+                .Where(x => 
+                    x.TransportId == transport.Id && 
+                    !(x.StartDate.AddDays(x.Days) < startDate || x.StartDate > endDate)
+                );
+
+            var resultDates = _solicitationSubsidyService.OverlapingDates(new OverlapingDatesAndTransportsDto()
+            {
+                Days = transport.Days,
+                StartDateDatetime = startDate,
+                EndDateDatetime = endDate,
+                UserId = transport.UserId
+            });
+
+            if (destinies.Count() > 0)
+            {
+                resultDates.AddError(NotificationType.Error.ToString(), 
+                    "Este transporte ya esta solicitado");
+            }
+
+            return resultDates;
+        }
+
 
         public ServiceResult<CreateTransportDto> CreateTransport(CreateTransportDto transportDto)
         {

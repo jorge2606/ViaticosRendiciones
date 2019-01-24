@@ -55,4 +55,12 @@ namespace VR.Dto
 
     public class GetAllTransportDto : TransportBaseDto { }
 
+    public class CarIsBeingUsedByOtherSolicitation
+    {
+        public Guid Id { set; get; }
+        public DateDto StartDate { set; get; }
+        public int Days { set; get; }
+        public Guid UserId { set; get; }
+    }
+
 }

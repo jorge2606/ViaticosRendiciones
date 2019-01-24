@@ -93,6 +93,36 @@ namespace VR.Web.Controllers
 
         }
 
+        public Guid GetIdUser()
+        {
+            var currentUser = Helpers.HttpContext.Current.User.Claims;
+            var result = Guid.Empty;
+            foreach (var i in currentUser)
+            {
+                if (i.Type.Equals("NameIdentifier"))
+                {
+                    result = Guid.Parse(i.Value);
+                }
+            }
+
+            return result;
+        }
+
+        [HttpPost("CarIsBeingUsedByOtherSolicitation")]
+        [Authorize]
+        public IActionResult CarIsBeingUsedByOtherSolicitation([FromBody] CarIsBeingUsedByOtherSolicitation transport)
+        {
+            transport.UserId = GetIdUser();
+            var result = _transportService.CarIsBeingUsedByOtherSolicitation(transport);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
+
         public IQueryable<Transport> queryableUser()
         {
             var Paginator = _dataContext.Transports.OrderBy(x => x.Id);

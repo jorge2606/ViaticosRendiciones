@@ -139,6 +139,7 @@ namespace VR.Service.Services
             userDto.PhoneNumber = user.PhoneNumber;
             userDto.Token = token;
             userDto.Path = filePath.Response.Paths;
+            userDto.CategoryId = user.CategoryId;
             result.Response = userDto;
 
             return result;
@@ -215,9 +216,10 @@ namespace VR.Service.Services
               user.SuffixCuil = userParam.SuffixCuil;
               user.FirstName = userParam.FirstName;
               user.LastName = userParam.LastName;
+              user.CategoryId = userParam.CategoryId;
 
               //actualizo los roles del usuario
-              foreach (var role in userParam.RolesUser)
+            foreach (var role in userParam.RolesUser)
               {
                   await UpdateUserRoleWhenModify(user.Id, role.Id, role.RolBelongUser);
               }
@@ -295,8 +297,8 @@ namespace VR.Service.Services
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PrefixCuil = user.PrefixCuil,
-                SuffixCuil = user.SuffixCuil
-                
+                SuffixCuil = user.SuffixCuil,
+                CategoryId = user.CategoryId
             };
 
             var userExistOrNot = await _userManager.FindByNameAsync(user.UserName);

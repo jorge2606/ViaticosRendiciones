@@ -31,5 +31,6 @@ namespace VR.Data.Model
         public List<Expenditure> Expenditures { get; set; }
 
         public List<SolicitationState> SolicitationStates { get; set; }
+
     }
 }

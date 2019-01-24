@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190118140402_add table SupplemetaryCity")]
+    partial class addtableSupplemetaryCity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,8 +119,6 @@ namespace VR.Data.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
-                    b.Property<int>("Order");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -137,13 +137,9 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid>("ProvinceId");
 
-                    b.Property<Guid?>("SupplementaryCityId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProvinceId");
-
-                    b.HasIndex("SupplementaryCityId");
 
                     b.ToTable("Cities");
                 });
@@ -446,8 +442,6 @@ namespace VR.Data.Migrations
 
                     b.Property<DateTime>("ChangeDate");
 
-                    b.Property<string>("FileNumber");
-
                     b.Property<string>("MotiveReject");
 
                     b.Property<Guid>("SolicitationSubsidyId");
@@ -525,8 +519,6 @@ namespace VR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("DestinyId");
 
                     b.ToTable("SupplementaryCities");
@@ -556,8 +548,6 @@ namespace VR.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<Guid>("CategoryId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -603,8 +593,6 @@ namespace VR.Data.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("DistributionId");
 
@@ -670,10 +658,6 @@ namespace VR.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.SupplementaryCity")
-                        .WithMany("Cities")
-                        .HasForeignKey("SupplementaryCityId");
                 });
 
             modelBuilder.Entity("VR.Data.Model.CodeLiquidation", b =>
@@ -793,24 +777,14 @@ namespace VR.Data.Migrations
 
             modelBuilder.Entity("VR.Data.Model.SupplementaryCity", b =>
                 {
-                    b.HasOne("VR.Data.Model.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("VR.Data.Model.Destiny", "Destiny")
-                        .WithMany("SupplementaryCities")
+                        .WithMany()
                         .HasForeignKey("DestinyId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("VR.Data.Model.User", b =>
                 {
-                    b.HasOne("VR.Data.Model.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("VR.Data.Model.Distribution", "Distribution")
                         .WithMany("Users")
                         .HasForeignKey("DistributionId");

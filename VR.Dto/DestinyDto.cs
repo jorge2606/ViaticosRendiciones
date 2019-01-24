@@ -25,6 +25,7 @@ namespace VR.Dto
         public SolicitationSubsidy SolicitationSubsidy { set; get; }
         public City City { set; get; }
         public Province Province { set; get; }
+        public List<SupplementaryCityDto> SupplementaryCities { set; get; }
     }
 
     public class CreateDetinyDto : DestinyBaseDto { }
@@ -48,5 +49,6 @@ namespace VR.Dto
         public string TransportBrand { set; get; }
         public string TransportModel { set; get; }
         public Guid SolicitationSubsidyId { set; get; }
+        public List<SupplementaryCityOnlyId> SupplementaryCities { set; get; }
     }
 }

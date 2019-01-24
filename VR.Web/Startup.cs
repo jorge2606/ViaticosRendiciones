@@ -188,7 +188,7 @@ namespace VR.Web
             services.AddScoped<IAspNetRolesService, AspNetRolesService>();
             services.AddScoped<IAspNetUserRolesService, AspNetUserRolesService>();
             services.AddScoped<ISupervisorUserAgentService, SupervisorUserAgentService>();
-
+            services.AddScoped<ISupplementaryCityService, SupplementaryCityService>();
             
             //sender Email
             // Add application services.

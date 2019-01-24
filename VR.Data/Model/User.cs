@@ -12,10 +12,13 @@ namespace VR.Data.Model
         public string LastName { set; get; }
         public int PrefixCuil { set; get; }
         public int SuffixCuil { set; get; }
+        [ForeignKey("Category")]
+        public Guid CategoryId { set; get; }
 
         [ForeignKey("Distribution")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid? DistributionId { set; get; }
         public Distribution Distribution { set; get; }
+        public Category Category { set; get; }
     }
 }
