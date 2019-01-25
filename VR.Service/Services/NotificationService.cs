@@ -35,10 +35,13 @@ namespace VR.Service.Services
             return usersPaginator;
         }
 
-        public ActionResult<List<NotificationDto>> GetSomeNotifications()
+        public ActionResult<List<NotificationDto>> GetSomeNotifications(Guid id)
         {
-            return _contextNotification.Notifications.OrderBy(x => x.CreationTime).Select(_mapper.Map<NotificationDto>).
-                Take(5).ToList();
+            return _contextNotification.Notifications
+                .Select(_mapper.Map<NotificationDto>)
+                .Where(x => x.UserId == id && x.Read == false)
+                .OrderBy(x => x.CreationTime)
+                .Take(5).ToList();
         }
 
         public ActionResult<List<NotificationDto>> GetAllNotifications()

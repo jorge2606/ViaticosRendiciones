@@ -10,7 +10,7 @@ namespace VR.Service.Interfaces
 {
     public interface INotificationService
     {
-        ActionResult<List<NotificationDto>> GetSomeNotifications();
+        ActionResult<List<NotificationDto>> GetSomeNotifications(Guid id);
         ActionResult<List<NotificationDto>> GetAllNotifications();
         ActionResult<List<NotificationDto>> GetNotificationsById(Guid id);
         ServiceResult<NotificationDto> NotificationRidden(Guid id);

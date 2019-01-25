@@ -288,14 +288,24 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var html = "";
+            var html = "<body>" +
+                        "<head>" +
+                            "<body>" +
+                                 "<p>" +
+                                    "Hola "+ supervisorsLastName+", "+supervisorsFirstName+"</br>"+
+                                        "El Agente "+userLastName +", "+userFirstName+" ha enviado la solicitud de un viatico."+ 
+                                        "Saludos"+
+                                 "</p>" +
+                            "</body>" +
+                        "</head>" +
+                       "</body>";
             await _emailSender.SendEmailAsync(emailSupervisor, "Solicitud de Viatico", html);
 
             SolicitationState solicitationState = new SolicitationState()
             {
                 Id = new Guid(),
                 SolicitationSubsidy = solicitation,
-                ChangeDate = DateTime.Today,
+                ChangeDate = DateTime.Now,
                 StateId = State.Sent,
             };
 
@@ -305,7 +315,7 @@ namespace VR.Service.Services
                     Tittle = "solicitud de un viatico",
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
                                "Ha enviado la solicitud de un viatico. " + "<br><br>",
-                    UserId = solicitation.UserId,
+                    UserId = supervisor.SupervisorId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitation.UserId,

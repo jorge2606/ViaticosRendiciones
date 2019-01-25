@@ -56,37 +56,37 @@
   
   <div class="container">
 
-        <table class="table">
+        <table class="table table-sm">
           <thead>
-            <tr>
-              <th>Agente</th>
-              <th>Fecha de Creación</th>
-              <th>Objeto</th>
-              <th colspan="2">Localidades-Itinerario</th>
-              <th>Total</th>
-              <th>Estado</th>
-              <th>Respuesta</th>
-              <th></th>
+            <tr class="row">
+              <th class="col">Agente</th>
+              <th class="col">Fecha de Creación</th>
+              <th class="col">Objeto</th>
+              <th class="col-4">Localidades-Itinerario</th>
+              <th class="col">Total</th>
+              <th class="col">Estado</th>
+              <th class="col">Respuesta</th>
+              <th class="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let sol of solicitationSubsidies">
-              <td>{{sol.user.lastName}}, {{sol.user.firstName}}</td>
-              <td>{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-              <td class="no-wrap">{{sol.motive}}</td>
-              <td colspan="2">
+            <tr *ngFor="let sol of solicitationSubsidies" class="row">
+              <td class="col">{{sol.user.lastName}}, {{sol.user.firstName}}</td>
+              <td class="col">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+              <td class="col no-wrap">{{sol.motive}}</td>
+              <td class="col-4">
                 <li *ngFor="let d of sol.destinies">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
                     <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
 
-                    <span *ngFor="let c of d.supplementaryCities">
+                    <span class="ml-1" *ngFor="let c of d.supplementaryCities">
                         <span class="mr-1 cardInsideTd" *ngIf="c.name" > {{ c.name }}</span>
                     </span>                    
                 </li>      
               </td>
-              <td>{{sol.total}}</td>
-              <td>{{sol.state}}</td>
-              <td>
+              <td class="col">{{sol.total}}</td>
+              <td class="col">{{sol.state}}</td>
+              <td class="col">
                 <a href="" *ngIf="sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy/supervisor"
                 (click)="openMotiveReject(sol.motiveReject)">
                     observaciones
@@ -98,7 +98,7 @@
                 </a>
   
               </td>
-              <td>
+              <td class="col">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <a class="pr-3" routerLink="/SolicitationSubsidy/supervisor" (click)="openEliminar(sol)">
                     <fa-icon style="color:red;" icon="trash"></fa-icon>

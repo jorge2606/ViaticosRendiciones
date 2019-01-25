@@ -24,6 +24,8 @@ namespace VR.Dto
         public string TextData { get; set; }
         public string Tittle { get; set; }
         public bool Read { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 
     public class CreateNotificationDto

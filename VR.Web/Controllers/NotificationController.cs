@@ -40,10 +40,27 @@ namespace VR.Web.Controllers
             };
         }
 
+        public Guid GetIdUser()
+        {
+            var currentUser = Helpers.HttpContext.Current.User.Claims;
+            var result = Guid.Empty;
+            foreach (var i in currentUser)
+            {
+                if (i.Type.Equals("NameIdentifier"))
+                {
+                    result = Guid.Parse(i.Value);
+                }
+            }
+
+            return result;
+        }
+
         [HttpGet("GetSomeNotifications")]
+        [Authorize]
         public ActionResult<List<NotificationDto>> GetSomeNotifications()
         {
-            return _notificationService.GetSomeNotifications();
+            var userId = GetIdUser();
+            return _notificationService.GetSomeNotifications(userId);
         }
 
         [HttpGet("GetAllNotifications")]

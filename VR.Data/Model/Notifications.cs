@@ -1,5 +1,6 @@
 ﻿using Service.Common.ServiceResult;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using VR.Web.EntityAudit;
 
 namespace VR.Data.Model
@@ -9,10 +10,13 @@ namespace VR.Data.Model
     {
         public string TextData { set; get; }
         public string Tittle { set; get; }
+        [ForeignKey("User")]
         public Guid UserId { set; get; }
         public Guid EntityId { set; get; }
         public int NotificationType { set; get; }
         public bool Read { set; get; }
+        
+        public User User { set; get; }
     }
     
 }

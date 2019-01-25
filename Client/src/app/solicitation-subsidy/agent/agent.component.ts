@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SolicitationSubsidyBaseDto, SolicitationIdDto, AllSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { NgbdModalContent } from 'src/app/modals/modals.component';
 import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-agent',
@@ -31,7 +32,8 @@ export class AgentComponent implements OnInit {
     private solicitationSubsidyservice : SolicitationSubsidyService,
     private transportService : TransportService,
     private modalService: NgbModal,
-    private router : Router
+    private router : Router,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class AgentComponent implements OnInit {
     
   }
 
+  
   getAll(filters : any){
     this.solicitationSubsidyservice.getAllSolicitationSubsidiesAgent(filters).subscribe(
       x => {
@@ -111,12 +114,18 @@ export class AgentComponent implements OnInit {
     sendToSupervisor(id : number){
       let newSolicitation = new SolicitationIdDto();
       newSolicitation.id = id;
+      this.spinner.show();
       this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
       .subscribe(
-        x => {console.log(x)}
+        x => {
+            this.spinner.hide();
+            this.getAll(this.filters);
+          }
         ,
         error =>{
           console.log(error);
+          this.spinner.hide();
+          this.getAll(this.filters);
         }
       );
     } 
