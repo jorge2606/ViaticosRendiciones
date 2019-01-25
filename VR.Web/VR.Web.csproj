@@ -40,6 +40,7 @@
     <ProjectReference Include="..\Audit.IEntity\Audit.IEntity.csproj" />
     <ProjectReference Include="..\Audit.Service\Audit.Service.csproj" />
     <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
+    <ProjectReference Include="..\StoresProcedures\StoresProcedures.csproj" />
     <ProjectReference Include="..\VR.Common\VR.Common.csproj" />
     <ProjectReference Include="..\VR.Data\VR.Data.csproj" />
     <ProjectReference Include="..\VR.Dto\VR.Dto.csproj" />

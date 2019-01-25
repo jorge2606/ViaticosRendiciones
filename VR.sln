@@ -13,19 +13,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audit.Data", "Audit.Data\Au
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Common", "Service.Common\Service.Common.csproj", "{5AE80BB4-C135-4988-BC53-6020D103E562}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR.Dto", "VR.Dto\VR.Dto.csproj", "{12ACEB46-96BB-4F04-ADFD-530CC6DA863E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Dto", "VR.Dto\VR.Dto.csproj", "{12ACEB46-96BB-4F04-ADFD-530CC6DA863E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR.Data", "VR.Data\VR.Data.csproj", "{2996B560-6A1C-45D1-A5BC-C90713581F2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Data", "VR.Data\VR.Data.csproj", "{2996B560-6A1C-45D1-A5BC-C90713581F2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audit.Entity", "Audit.Entity\Audit.Entity.csproj", "{1D63F6D7-8CD0-473F-911B-D756051A1C89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audit.Entity", "Audit.Entity\Audit.Entity.csproj", "{1D63F6D7-8CD0-473F-911B-D756051A1C89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audit.IEntity", "Audit.IEntity\Audit.IEntity.csproj", "{ADA34B2F-1A86-4240-843C-42162115DE77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audit.IEntity", "Audit.IEntity\Audit.IEntity.csproj", "{ADA34B2F-1A86-4240-843C-42162115DE77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR.Identity", "VR.Identity\VR.Identity.csproj", "{E4E2E2AF-A6B2-4593-A888-6AF2C0550763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Identity", "VR.Identity\VR.Identity.csproj", "{E4E2E2AF-A6B2-4593-A888-6AF2C0550763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR.Service", "VR.Service\VR.Service.csproj", "{55383E9F-108C-4B26-A7B8-DF8BECDA4B67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Service", "VR.Service\VR.Service.csproj", "{55383E9F-108C-4B26-A7B8-DF8BECDA4B67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR.Common", "VR.Common\VR.Common.csproj", "{043DD92D-5A04-47F1-B281-41965DE855F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Common", "VR.Common\VR.Common.csproj", "{043DD92D-5A04-47F1-B281-41965DE855F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoresProcedures", "StoresProcedures\StoresProcedures.csproj", "{01F29087-E691-4D1D-A905-CEE7CFD8306A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{043DD92D-5A04-47F1-B281-41965DE855F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{043DD92D-5A04-47F1-B281-41965DE855F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{043DD92D-5A04-47F1-B281-41965DE855F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F29087-E691-4D1D-A905-CEE7CFD8306A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F29087-E691-4D1D-A905-CEE7CFD8306A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F29087-E691-4D1D-A905-CEE7CFD8306A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F29087-E691-4D1D-A905-CEE7CFD8306A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

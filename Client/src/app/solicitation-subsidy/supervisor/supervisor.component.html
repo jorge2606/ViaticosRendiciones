@@ -71,17 +71,15 @@
           </thead>
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
-              <td class="col">{{sol.user.lastName}}, {{sol.user.firstName}}</td>
+              <td class="col">{{sol.fullName}}</td>
               <td class="col">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
               <td class="col no-wrap">{{sol.motive}}</td>
               <td class="col-4">
                 <li *ngFor="let d of sol.destinies">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
                     <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
-
-                    <span class="ml-1" *ngFor="let c of d.supplementaryCities">
-                        <span class="mr-1 cardInsideTd" *ngIf="c.name" > {{ c.name }}</span>
-                    </span>                    
+                    
+                    <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>                   
                 </li>      
               </td>
               <td class="col">{{sol.total}}</td>

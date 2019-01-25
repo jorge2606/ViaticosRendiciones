@@ -40,6 +40,8 @@ export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{
     state : string;
     motiveReject : string;
     fileNumber : string;
+    fullName : string;
+    localities : string;
 }
 
 export class DetailSolicitationSubsidyDto{

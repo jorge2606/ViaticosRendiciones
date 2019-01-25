@@ -72,6 +72,8 @@ namespace VR.Dto
         public string State { set; get; }
         public string MotiveReject { set; get; }
         public string FileNumber { set; get; }
+        public string FullName { set; get; }
+        public string Localities { set; get; }
     }
 
     public class SolicitationIdDto

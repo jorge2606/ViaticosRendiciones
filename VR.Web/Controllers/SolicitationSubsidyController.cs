@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using StoresProcedures.IStoresProcedures;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -26,15 +27,18 @@ namespace VR.Web.Controllers
         private readonly ISolicitationSubsidyService _solicitationSubsidyService;
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        private readonly ISolicitationProcedure _solicitationProcedure;
 
         public SolicitationSubsidyController(
             ISolicitationSubsidyService solicitationSubsidyService,
             DataContext dataContext,
-            IMapper mapper)
+            IMapper mapper,
+            ISolicitationProcedure solicitationProcedure)
         {
             _solicitationSubsidyService = solicitationSubsidyService;
             _dataContext = dataContext;
             _mapper = mapper;
+            _solicitationProcedure = solicitationProcedure;
         }
 
         [HttpPost("Create")]
@@ -158,44 +162,12 @@ namespace VR.Web.Controllers
             [FromQuery] FilterSolicitationSubsidyDto filters)
         {
             const int pageSize = 10;
-
             var supervisorId = GetIdUser();
 
-            var AgentBelongToSupervisor = _dataContext.SupervisorUserAgents
-                .Where(x => x.SupervisorId == supervisorId).ToList();
-
-            var resultFull = _dataContext.SolicitationSubsidies
-                .Include(x => x.SolicitationStates).ThenInclude(x => x.State)
-                .Include(x => x.Destinies).ThenInclude(x => x.City)
-                .Include(x => x.Destinies).ThenInclude(x => x.Country)
-                .Include(x => x.Destinies).ThenInclude(x => x.Province)
-                .Include(x => x.Destinies).ThenInclude(q => q.SupplementaryCities).ThenInclude(c => c.City)
-                .Include(x => x.User)
-                .Select(x => _mapper.Map<AllSolicitationSubsidyDto>(x))
-                .Join(AgentBelongToSupervisor,
-                    solicitation => solicitation.UserId,
-                    agentAndSupervisor => agentAndSupervisor.AgentId,
-                    (sol, agent) => new AllSolicitationSubsidyDto()
-                    {
-                        Id = sol.Id,
-                        Motive = sol.Motive,
-                        Total = sol.Total,
-                        Expenditures = sol.Expenditures,
-                        Destinies = sol.Destinies,
-                        UserId = sol.UserId,
-                        User = sol.User,
-                        CreateDate = sol.CreateDate,
-                        State = sol.State,
-                        MotiveReject = sol.MotiveReject,
-                        FileNumber = sol.FileNumber
-                    });
-
-            var resultPage = resultFull.ToList();
-            var condition = string.IsNullOrEmpty(filters.FirstName) &&
-                            string.IsNullOrEmpty(filters.LastName) &&
-                            string.IsNullOrEmpty(filters.Dni);
-            if (resultFull.ToList().Count() > 0 && !condition) { 
-                    resultPage = resultFull
+            var resultFull = _solicitationProcedure.ViewSolicitationAsSupervisorProcedure(supervisorId, Guid.Empty);
+            
+            if (resultFull.Response.Count() > 0) { 
+                    var resultPage = resultFull.Response
                     .Where(
                         x => (string.IsNullOrEmpty(filters.FirstName) ||
                              x.User.FirstName.ToUpper().Contains(filters.FirstName.ToUpper() ) )
@@ -204,16 +176,26 @@ namespace VR.Web.Controllers
                              x.User.LastName.ToUpper().Contains(filters.LastName.ToUpper()) )
                             &&
                              (string.IsNullOrEmpty(filters.Dni) || x.User.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
-                             
+                              
                     ).Skip((filters.Page ?? 0) * pageSize)
                     .Take(pageSize)
                     .ToList();
+
+                    var ResultQuery = resultPage.Where(x =>
+                        string.IsNullOrEmpty(x.State) || x.State.Equals("Enviado")
+                    ).ToList();
+                    return new PagedResult<AllSolicitationSubsidyDto>
+                    {
+                        List = ResultQuery,
+                        TotalRecords = resultFull.Response.Count()
+                    };
+
             }
 
         return new PagedResult<AllSolicitationSubsidyDto>
             {
-                List = resultPage,
-                TotalRecords = resultFull.Count()
+                List = resultFull.Response,
+                TotalRecords = resultFull.Response.Count()
             };
         }
 
