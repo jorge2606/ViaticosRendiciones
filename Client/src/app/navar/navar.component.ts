@@ -39,13 +39,22 @@ export class NavarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.isLogged){
-      this.retriveNotifications();
-    }
+    
         
     this.idUser = this.authService.userId('id');
     
     this.isLogged = this.authService.isLoggedIn;
+
+
+    this.isLogged.subscribe(x => {
+      if(x){
+        this.retriveNotifications();
+      }  
+    })
+
+    // if (this.isLogged){
+    //   this.retriveNotifications();
+    // }
     
     this.messaBetweenComp.getMessage().subscribe( 
       () => this.urlImage = this.authService.urlFile(this.idUser, 25, 25) + "r=" + (Math.random() * 100) + 1 

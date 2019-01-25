@@ -38,6 +38,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        
         this.loggedIn.next(false);
 
         this.router.navigate(['login']);
@@ -49,7 +50,7 @@ export class AuthenticationService {
 
     userId(key : string){
         let current = localStorage.getItem('currentUser');
-        if (current != null){
+        if (current){
             var currentUserJSON = JSON.parse(current);
             return  currentUserJSON[key];
         }
