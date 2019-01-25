@@ -100,7 +100,7 @@ export class SupervisorComponent implements OnInit {
     }
 
     openMotiveReject(motiveReject : string){
-      const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
+      const modalRef = this.modalService.open(NgbdModalContent, {size : "sm"});
       modalRef.componentInstance.Contenido = motiveReject;
       modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
       modalRef.componentInstance.MsgClose = "Cerrar";

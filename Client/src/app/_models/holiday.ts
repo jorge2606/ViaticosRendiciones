@@ -1,7 +1,13 @@
 export class HolidayBaseDto{
     id : number;
     description : string;
-    date : any;
+    date : DateDto;
+}
+
+export class DateDto{
+    day : number;
+    month : number;
+    year : number;
 }
 
 export class CreateHolidayDto extends HolidayBaseDto{}

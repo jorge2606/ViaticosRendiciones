@@ -44,20 +44,10 @@ export class HolidaysComponent implements OnInit {
             || this.filters.date.month === undefined 
             || this.filters.date.year === undefined)
             {
-              this.filters.date = "";
               this.getAllHolidays(this.filters);
               return;
             }
-    let dataSend = "";
-    let auxDate = {
-        day : this.filters.date.day,
-        month : this.filters.date.month,
-        year : this.filters.date.year
-    };
-    dataSend = this.filters.date.month+"/"+this.filters.date.day+"/"+this.filters.date.year;
-    this.filters.date = dataSend;
     this.getAllHolidays(this.filters);
-    this.filters.date = auxDate;
   }
 
   loadPage(page : any) {
@@ -71,10 +61,10 @@ export class HolidaysComponent implements OnInit {
     openEliminar(holiday : HolidayBaseDto) {
       const modalRef = this.modalService.open(NgbdModalContent);
       modalRef.componentInstance.Encabezado = "Eliminar";
-      let dateToShow = new Date(Date.parse(holiday.date));
+      let dateToShow = holiday.date;
 
       modalRef.componentInstance.Contenido = "¿Desea eliminar feriado : " + holiday.description + " " + 
-      dateToShow.getDate()+"/"+ (dateToShow.getMonth() + 1)+"/"+ dateToShow.getFullYear()+ "?";
+      dateToShow.day+"/"+ (dateToShow.month + 1)+"/"+ dateToShow.year+ "?";
 
       modalRef.componentInstance.GuardaroEliminar = "Eliminar";
       modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";

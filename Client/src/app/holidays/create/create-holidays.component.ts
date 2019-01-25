@@ -20,8 +20,6 @@ export class CreateHolidaysComponent implements OnInit {
   }
 
   onSubmit(){
-    let dataSend = this.model.date.day+"/"+this.model.date.month+"/"+this.model.date.year;
-    this.model.date = dataSend;
     this.holidayService.createHoliday(this.model).subscribe(
       x=> console.log("Create succesful"),
       errors =>this.errors = errors.error.date

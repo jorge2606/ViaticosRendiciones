@@ -27,15 +27,12 @@ export class ModifyHolidaysComponent implements OnInit {
     this.holidayService.getByIdHoliday(this.id).subscribe(
       x => {
               this.model = x;
-              let dateToShow = new Date(Date.parse(x.date));
-              this.model.date = {day : dateToShow.getDate(), month : dateToShow.getMonth()+1, year : dateToShow.getFullYear() }
             }
     );
   }
 
   onSubmit() {
     this.model.id = this.id;
-    this.model.date = this.model.date.day+"/"+this.model.date.month+"/"+this.model.date.year;
     this.holidayService.updateHoliday(this.model).subscribe(
       () => {
         this.router.navigate(['/holidays']);
