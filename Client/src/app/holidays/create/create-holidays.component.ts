@@ -14,48 +14,38 @@ export class CreateHolidaysComponent implements OnInit {
   errors = '';
   errorDatapicker = '';
 
-  constructor(private holidayService : HolidaysService) { }
+  constructor(private holidayService: HolidaysService) { }
 
   ngOnInit() {
-    
+
   }
 
-  onSubmit(){
-    if (this.model.date.day === undefined 
-      || this.model.date.month === undefined 
-      || this.model.date.year === undefined
-      || this.model.date.day > 31 && this.model.date.month < 1
-      || this.model.date.month > 12 && this.model.date.month < 1
-      || this.model.date.year > 2099 && this.model.date.year < 1912)
-      {
-        this.errorDatapicker = 'Formato de Fecha Incorrecto'
-        return;
-      }    
-    
-      this.errorDatapicker = '';
-    
-      this.holidayService.createHoliday(this.model).subscribe(
-        x=> console.log("Create succesful"),
-        errors =>this.errors = errors.error.date
-      );
-  
-  }
+  onSubmit() {
+    if (!this.validateDate()) {
+      return;
+    }
 
-  validation(){
-    if (this.model.date.day === undefined 
-      || this.model.date.month === undefined 
-      || this.model.date.year === undefined
-      || this.model.date.day == null 
-      || this.model.date.month == null 
-      || this.model.date.year == null
-      || this.model.date.day > 31 && this.model.date.month < 1
-      || this.model.date.month > 12 && this.model.date.month < 1
-      || this.model.date.year > 2099 && this.model.date.year < 1912)
-      {
-        this.errorDatapicker = 'Formato de Fecha Incorrecto'
-        return;
-      }   
-      this.errorDatapicker = '';
+    this.errorDatapicker = '';
+
+    this.holidayService.createHoliday(this.model).subscribe(
+      x => console.log("Create succesful"),
+      errors => this.errors = errors.error.date
+    );
+
+  }
+  validateDate(){
+    if (this.model.date &&
+      (!this.model.date.day
+        || !this.model.date.month
+        || !this.model.date.year
+        || this.model.date.day > 31 || this.model.date.month < 1
+        || this.model.date.month > 12 || this.model.date.month < 1
+        || this.model.date.year > 2099 || this.model.date.year < 1912)) {
+      this.errorDatapicker = 'Formato de Fecha Incorrecto'
+      return false;
+    }
+    this.errorDatapicker = '';
+    return true;
   }
 
 }
