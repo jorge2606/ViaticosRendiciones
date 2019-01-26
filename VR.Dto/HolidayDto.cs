@@ -7,7 +7,7 @@ namespace VR.Dto
     {
         public HolidayValidator()
         {
-            RuleFor(x => x.Date).NotEmpty().WithName("Fecha");
+            //RuleFor(x => x.Date).NotEmpty().WithName("Fecha");
             RuleFor(x => x.Description).NotEmpty().WithName("Descripción");
         }
     }
@@ -16,7 +16,7 @@ namespace VR.Dto
     {
         public Guid Id { set; get; }
         public string Description { set; get; }
-        public DateTime Date { set; get; }
+        public DateDto Date { set; get; }
     }
 
     public class CreateHolidayDto : HolidayBaseDto { }
@@ -33,6 +33,6 @@ namespace VR.Dto
     {
         public int? Page { set; get; }
         public string Description { set; get; }
-        public DateTime? Date { set; get; }
+        public DateDto Date { set; get; }
     }
 }

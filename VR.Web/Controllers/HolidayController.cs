@@ -24,7 +24,6 @@ namespace VR.Web.Controllers
         }
         // GET: api/Holiday
         [HttpGet("GetPageHoliday")]
-        [AllowAnonymous]
         public IActionResult GetPageHoliday([FromQuery] FilterHolidayDto filters)
         {
             var response = _holidayService.Pagination(filters);
@@ -64,7 +63,7 @@ namespace VR.Web.Controllers
 
         // PUT: api/Holiday/5
         [HttpPut("update")]
-        public IActionResult update([FromBody] UpdateHolidayDto holiday)
+        public IActionResult Update([FromBody] UpdateHolidayDto holiday)
         {
             var result = _holidayService.UpdateHoliday(holiday);
             if (!result.IsSuccess)

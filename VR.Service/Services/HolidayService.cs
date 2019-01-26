@@ -46,7 +46,7 @@ namespace VR.Service.Services
                 {
                     Id = new Guid(),
                     Description = holidayDto.Description,
-                    Date = holidayDto.Date
+                    Date = DateTime.Parse(holidayDto.Date.Day+"/"+ holidayDto.Date.Month+"/"+ holidayDto.Date.Year) 
                 }
             );
 
@@ -72,7 +72,7 @@ namespace VR.Service.Services
                 return new ServiceResult<UpdateHolidayDto>(null);
             }
 
-            exist.Date = holidayDto.Date;
+            exist.Date = DateTime.Parse(holidayDto.Date.Day + "/" + holidayDto.Date.Month + "/" + holidayDto.Date.Year);
             exist.Description = holidayDto.Description;
 
             _dataContext.Holidays.Update(exist);
@@ -119,19 +119,19 @@ namespace VR.Service.Services
             const int pageSize = 10;
             DateTime compareDate = new DateTime();
 
-            if (filters.Date.HasValue)
+            if (filters.Date != null)
             {
                 compareDate = new DateTime(
-                    filters.Date.Value.Year,
-                    filters.Date.Value.Month,
-                    filters.Date.Value.Day);
+                    filters.Date.Year,
+                    filters.Date.Month,
+                    filters.Date.Day);
             }
 
             var resultFull = _dataContext.Holidays
                 .Where(
                     x => (string.IsNullOrEmpty(filters.Description) || x.Description.ToUpper().Contains(filters.Description.ToUpper()))
                          &&
-                         (!filters.Date.HasValue  ||  DateTime.Compare(x.Date, compareDate) == 0 )
+                         (filters.Date == null  ||  DateTime.Compare(x.Date, compareDate) == 0 )
                 );
 
             var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)

@@ -18,6 +18,7 @@ export class HolidaysComponent implements OnInit {
   //paginator
   col_size : number;
   itemsPerPage : number = 10;
+  errorDatapicker : string;
     //
   constructor(
     private holidayService : HolidaysService,
@@ -25,7 +26,6 @@ export class HolidaysComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filters.date = "";
     this.getAllHolidays(this.filters);
   }
 
@@ -38,15 +38,18 @@ export class HolidaysComponent implements OnInit {
     );
   }
 
-  filter(){    
-      if (this.filters.date == null 
-            || this.filters.date.day === undefined 
+  filter(){  
+      if (this.filters.date.day === undefined 
             || this.filters.date.month === undefined 
-            || this.filters.date.year === undefined)
+            || this.filters.date.year === undefined
+            || this.filters.date.day > 31 && this.filters.date.month < 1
+            || this.filters.date.month > 12 && this.filters.date.month < 1
+            || this.filters.date.year > 2099 && this.filters.date.year < 1912)
             {
-              this.getAllHolidays(this.filters);
+              this.errorDatapicker = 'Formato de Fecha Incorrecto'
               return;
             }
+    this.errorDatapicker = '';
     this.getAllHolidays(this.filters);
   }
 
