@@ -14,6 +14,7 @@ export class ModifyHolidaysComponent implements OnInit {
   id : number;
   model = new UpdateHolidayDto();
   date : Date;
+  errorDatapicker = '';
 
   constructor(private route : ActivatedRoute, 
               private holidayService : HolidaysService,
@@ -32,15 +33,34 @@ export class ModifyHolidaysComponent implements OnInit {
   }
 
   onSubmit() {
-    this.model.id = this.id;
-    this.holidayService.updateHoliday(this.model).subscribe(
-      () => {
-        this.router.navigate(['/holidays']);
-      },
+    if (!this.validateDate()){
+      this.model.id = this.id;
+      this.holidayService.updateHoliday(this.model).subscribe(
         () => {
-      }      
-    );
+          this.router.navigate(['/holidays']);
+        },
+          () => {
+        }      
+      );
+    }
+
   }
+
+  validateDate(){
+    if (this.model.date &&
+      (!this.model.date.day
+        || !this.model.date.month
+        || !this.model.date.year
+        || this.model.date.day > 31 || this.model.date.month < 1
+        || this.model.date.month > 12 || this.model.date.month < 1
+        || this.model.date.year > 2099 || this.model.date.year < 1912)) {
+      this.errorDatapicker = 'Formato de Fecha Incorrecto'
+      return false;
+    }
+    this.errorDatapicker = '';
+    return true;
+  }
+
   
 
 }

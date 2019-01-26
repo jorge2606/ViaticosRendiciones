@@ -39,18 +39,28 @@ export class HolidaysComponent implements OnInit {
   }
 
   filter(){  
-      if (this.filters.date.day === undefined 
-            || this.filters.date.month === undefined 
-            || this.filters.date.year === undefined
-            || this.filters.date.day > 31 && this.filters.date.month < 1
-            || this.filters.date.month > 12 && this.filters.date.month < 1
-            || this.filters.date.year > 2099 && this.filters.date.year < 1912)
+      if (!this.validateDate())
             {
               this.errorDatapicker = 'Formato de Fecha Incorrecto'
               return;
             }
     this.errorDatapicker = '';
     this.getAllHolidays(this.filters);
+  }
+
+  validateDate(){
+    if (this.filters.date &&
+      (!this.filters.date.day
+        || !this.filters.date.month
+        || !this.filters.date.year
+        || this.filters.date.day > 31 || this.filters.date.month < 1
+        || this.filters.date.month > 12 || this.filters.date.month < 1
+        || this.filters.date.year > 2099 || this.filters.date.year < 1912)) {
+      this.errorDatapicker = 'Formato de Fecha Incorrecto'
+      return false;
+    }
+    this.errorDatapicker = '';
+    return true;
   }
 
   loadPage(page : any) {

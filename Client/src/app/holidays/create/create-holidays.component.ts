@@ -33,6 +33,7 @@ export class CreateHolidaysComponent implements OnInit {
     );
 
   }
+  
   validateDate(){
     if (this.model.date &&
       (!this.model.date.day
