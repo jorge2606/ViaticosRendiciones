@@ -42,6 +42,12 @@ export class AgentComponent implements OnInit {
     
   }
 
+  loadPage(page : any) {
+    if (page > 0) {
+      this.filters.page = page - 1;
+      this.getAll(this.filters);
+    }
+  }
   
   getAll(filters : any){
     this.solicitationSubsidyservice.getAllSolicitationSubsidiesAgent(filters).subscribe(

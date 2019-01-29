@@ -31,11 +31,13 @@
 
   <ItemGroup>
     <PackageReference Include="Audit.EntityFramework.Identity.Core" Version="13.3.0" />
+    <PackageReference Include="Snickler.EFCore" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Audit.Entity\Audit.Entity.csproj" />
     <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
+    <ProjectReference Include="..\VR.Common\VR.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

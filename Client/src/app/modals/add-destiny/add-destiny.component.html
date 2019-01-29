@@ -110,13 +110,22 @@
                                                 <div class="form-group col">
                                                     <label for="">Fecha </label>
                                                         <div class="input-group">
-                                                        <input class="form-control" placeholder="yyyy-mm-dd"
-                                                                name="dp" [displayMonths]="displayMonths" [navigation]="navigation" 
-                                                                [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                                                        <input class="form-control" 
+                                                                placeholder="yyyy-mm-dd"
+                                                                name="dp" 
+                                                                [displayMonths]="displayMonths" 
+                                                                [navigation]="navigation" 
+                                                                [outsideDays]="outsideDays" 
+                                                                [showWeekNumbers]="showWeekNumbers"
                                                                 [ngClass]="{'is-invalid' : dp.invalid && (dp.dirty || dp.touched) || (dp.startDate == null && dp.touched && !dp.dirty)}"
-                                                                ngbDatepicker #d="ngbDatepicker" #dp="ngModel" minlength="8" maxlength="8"
-                                                                [(ngModel)]="model.startDate" required>
-        
+                                                                ngbDatepicker 
+                                                                #d="ngbDatepicker" 
+                                                                #dp="ngModel" 
+                                                                minlength="8" 
+                                                                maxlength="8"
+                                                                [minDate]="today"
+                                                                [(ngModel)]="model.startDate"
+                                                                required>
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                                                                     <fa-icon icon="calendar-alt"></fa-icon>

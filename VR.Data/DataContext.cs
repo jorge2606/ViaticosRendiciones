@@ -3,6 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Audit.EntityFramework;
 using VR.Data.Model;
+using VR.Web.Helpers;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Snickler.EFCore;
+using System.Data.Common;
 
 namespace VR.Data
 {
@@ -37,6 +44,43 @@ namespace VR.Data
         public virtual DbSet<SolicitationState> SolicitationStates { set; get; }
         public virtual DbSet<SupervisorUserAgent> SupervisorUserAgents { set; get; }
         public virtual DbSet<SupplementaryCity> SupplementaryCities { set; get; }
-       
+
+        public PagedResult<AgentSolicitationBySupervisorResult> GetAgentsSolicitationBySupervisor(Guid supervisorId,
+            string firstName,
+            string lastName,
+            string dni,
+            string sortBy,
+            Nullable<int> pageSize,
+            Nullable<int> pageIndex)
+        {
+            
+            var resultFull = new List<AgentSolicitationBySupervisorResult>();
+            int Rows = 0;
+            
+            this.LoadStoredProc("dbo.get_agents_solicitation_by_supervisor")
+                .WithSqlParam("@SupervisorId", supervisorId)
+                .WithSqlParam("@AgentId", Guid.Empty)
+                .WithSqlParam("@FirstName", firstName)
+                .WithSqlParam("@LastName", lastName)
+                .WithSqlParam("@Dni", dni)
+                .WithSqlParam("@SortBy", sortBy)
+                .WithSqlParam("@PageSize", pageSize)
+                .WithSqlParam("@PageIndex", pageIndex)
+                .WithSqlParam("@PageTotal", (dbParam) =>
+                {
+                    Rows = (int)System.Data.ParameterDirection.Output;
+                })
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<AgentSolicitationBySupervisorResult>)handler.ReadToList<AgentSolicitationBySupervisorResult>();
+                    handler.NextResult();
+                });
+
+            return new PagedResult<AgentSolicitationBySupervisorResult>
+            {
+                List = resultFull,
+                TotalRecords = Rows
+            };
+        }
     }
 }

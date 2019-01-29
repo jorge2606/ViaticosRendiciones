@@ -1,3 +1,4 @@
+import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
 import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
@@ -77,7 +78,8 @@ const routes: Routes = [
   { path: 'SolicitationSubsidy/agent', component : AgentComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy/create', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
   { path: 'SolicitationSubsidy/detail/:id', component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/modify/:id', component : CreateSolicitationComponent, canActivate : [AuthGuard]},  
+  { path: 'SolicitationSubsidy/modify/:id', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+  { path: 'SolicitationSubsidy/confirm/:id', component : AceptOrRefuseComponent, canActivate : [AuthGuard]},  
   { path: 'holidays', component : HolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/create', component : CreateHolidaysComponent, canActivate : [AuthGuard]},
   { path: 'holidays/update/:id', component : ModifyHolidaysComponent, canActivate : [AuthGuard]},

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
@@ -64,7 +65,6 @@ namespace VR.Service.Services
                 CreateDate = DateTime.Today
             };
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
-            //_dataContext.SaveChanges();
 
             foreach (var destiny in subsidy.Destinies)
             {
@@ -240,16 +240,9 @@ namespace VR.Service.Services
             {
                 return new ServiceResult<FindByIdSolicitationSubsidyDto>(null);
             }
-
-            //FindByIdSolicitationSubsidyDto findByIdSolicitationSubsidyDto = new FindByIdSolicitationSubsidyDto()
-            //{
-            //    Id = find.Id,
-            //    Motive = find.Motive,
-            //    Total = find.Total,
-            //    UserId = find.UserId
-            //};
-
-            return new ServiceResult<FindByIdSolicitationSubsidyDto>(_mapper.Map<FindByIdSolicitationSubsidyDto>(find));
+            
+            return new ServiceResult<FindByIdSolicitationSubsidyDto>(
+                _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
         }
 
         public ServiceResult<DeleteSolicitationSubsidyDto> Delete(Guid id)
@@ -269,10 +262,14 @@ namespace VR.Service.Services
         {
             var solicitation = _dataContext.SolicitationSubsidies
                 .Include(user => user.User)
+                .Include(x => x.Expenditures).ThenInclude(q => q.ExpenditureType)
                 .Include(destiny => destiny.Destinies).ThenInclude(country => country.Country)
                 .Include(destiny => destiny.Destinies).ThenInclude(prov => prov.Province)
                 .Include(destiny => destiny.Destinies).ThenInclude(city => city.City)
+                .Include(destiny => destiny.Destinies).ThenInclude(q => q.Category)
+                .Include(destiny => destiny.Destinies).ThenInclude(q => q.Transport)
                 .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
             var supervisor = _dataContext.SupervisorUserAgents
                 .Include(sup => sup.Supervisors)
                 .FirstOrDefault(x => x.AgentId == solicitation.UserId);
@@ -288,14 +285,84 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
+            var headTable = "<table>"+
+                "<thead>"+
+                "<tr>"+
+                    "<th>Fecha</th>"+
+                    "<th> Pais </ th > "+
+                    "<th> Province </th> "+
+                    "<th> Localidades </th> "+
+                    "<th> Categoría </th> " +
+                    "<th> Transporte </th> " +
+                    "<th> Dias </th> " +
+                "</tr>" +
+                "</thead>" +
+                            "<tbody>";
+            var row = "";
+
+            foreach (var x in solicitation.Destinies)
+            {
+                var countryName = "-";
+                var provinceName = "-";
+                var cityName = "-";
+
+                if (x.Country != null)
+                {
+                    countryName = x.Country.Name;
+                }
+
+                if (x.Province != null && x.City != null)
+                {
+                    provinceName = x.Province.Name;
+                    cityName = x.City.Name;
+                }
+
+                row = row + "<tr>" +
+                          "<td>" + x.StartDate.Day+"/"+ x.StartDate.Month+"/"+ x.StartDate.Year + "</td>" +
+                          "<td>" + countryName + "</td>" +
+                          "<td>" + provinceName + "</td>" +
+                          "<td>" + cityName + "</td>" +
+                          "<td>" + x.Category.Name + "</td>" +
+                          "<td>" + x.Transport.Brand + " - " + x.Transport.Model + "</td>" +
+                          "<td>" + x.Days + "</td>" +
+                      "</tr>";
+            }
+            var TableDestinies = headTable + row + "</tbody></table>";
+
+            var headTableExp = "<table>" +
+                            "<thead>" +
+                                "<tr>" +
+                                    "<th> Gasto </th>" +
+                                    "<th> Descripción </ th > " +
+                                    "<th> Importe </th> " +
+                                "</tr>" +
+                            "</thead>" +
+                            "<tbody>";
+            var rowExp = "";
+            foreach (var x in solicitation.Expenditures)
+            {
+                rowExp = rowExp + "<tr>" +
+                      "<td>" + x.ExpenditureType.Name + "</td>" +
+                      "<td>" + x.Description + "</td>" +
+                      "<td>" + x.Amount + "</td>" +
+                      "</tr>";
+            }
+            var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
+
+            var url = string.Format("http://localhost:4200/SolicitationSubsidy/confirm/{0}",solicitation.Id);
+
             var html = "<body>" +
                         "<head>" +
                             "<body>" +
                                  "<p>" +
-                                    "Hola "+ supervisorsLastName+", "+supervisorsFirstName+"</br>"+
-                                        "El Agente "+userLastName +", "+userFirstName+" ha enviado la solicitud de un viatico."+ 
-                                        "Saludos"+
-                                 "</p>" +
+                                    "Hola "+ supervisorsLastName+", "+supervisorsFirstName+"<br>"+
+                                        "El Agente "+userLastName +", "+userFirstName+" ha enviado la solicitud de un viatico."+
+                                        TableDestinies
+                                        +"<br>" +
+                                        tableExpenditures+
+                                    "Saludos" +
+                                 "</p> <br>" +
+                                " <a href='"+url+"'> Ingresar </a> " +
                             "</body>" +
                         "</head>" +
                        "</body>";

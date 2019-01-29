@@ -29,10 +29,15 @@ namespace VR.Service.Services
 
 
 
-        public IQueryable<Notification> queryableNotifications()
+        public ServiceResult<IOrderedEnumerable<NotificationDto>> GetPaginator(Guid id)
         {
-            var usersPaginator = _contextNotification.Notifications.OrderBy(x => x.CreationTime);
-            return usersPaginator;
+            var usersPaginator = _contextNotification.Notifications
+                .Select(_mapper.Map<NotificationDto>)
+                .Where(x => x.UserId == id && x.Read == false)
+                .OrderBy(x => x.CreationTime)
+                .Take(5)
+                .OrderBy(x => x.CreationTime);
+            return new ServiceResult<IOrderedEnumerable<NotificationDto>>(usersPaginator);
         }
 
         public ActionResult<List<NotificationDto>> GetSomeNotifications(Guid id)

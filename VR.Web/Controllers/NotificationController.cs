@@ -28,9 +28,18 @@ namespace VR.Web.Controllers
         public PagedResult<NotificationDto> NotificationPagination(int? page)
         {
             const int pageSize = 5;
-            var queryPaginator = _notificationService.queryableNotifications();
+            Guid idUser = GetIdUser();
+            var queryPaginator = _notificationService.GetPaginator(idUser);
 
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
+            if (!queryPaginator.IsSuccess)
+            {
+                return new PagedResult<NotificationDto>()
+                {
+                    List = _mapper.Map<List<NotificationDto>>(queryPaginator.Response.ToList()),
+                    TotalRecords = queryPaginator.Response.ToList().Count()
+                };
+            }
+            var result = queryPaginator.Response.Skip((page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
             return new PagedResult<NotificationDto>

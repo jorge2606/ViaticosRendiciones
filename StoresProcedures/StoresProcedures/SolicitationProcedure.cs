@@ -11,18 +11,26 @@ namespace StoresProcedures.StoresProcedures
 {
     public class SolicitationProcedure : ISolicitationProcedure
     {
-
-        public ServiceResult<List<AllSolicitationSubsidyDto>> ViewSolicitationAsSupervisorProcedure(Guid Supervisor, Guid AgentId)
+        private readonly string ConnectionString =
+            "Data Source=.\\SQLEXPRESS;Initial Catalog=VR;Integrated Security = True;Trusted_Connection=True;MultipleActiveResultSets=true";
+        public ServiceResult<List<AllSolicitationSubsidyDto>> Get_agents_solicitation_by_supervisor(
+            Guid Supervisor, Guid AgentId, FilterSolicitationSubsidyDto filters)
         {
-            using (var connection = new SqlConnection(
-                "Data Source=.\\SQLEXPRESS;Initial Catalog=VR;Integrated Security = True;Trusted_Connection=True;MultipleActiveResultSets=true"
-            ))
+            using (var connection = new SqlConnection(ConnectionString) )
             {
                 connection.Open();
                 var item = new List<AllSolicitationSubsidyDto>();
+                var pageIndex = filters.Page == 0 ? 1 : filters.Page;
 
-                using (var command = new SqlCommand("exec ViewSolicitationAsSupervisorProcedure " +
-                                                    "@SupervisorId = '" + Supervisor + "' , @AgentId = '" + AgentId+"'",connection))
+                using (var command = new SqlCommand("exec get_agents_solicitation_by_supervisor " +
+                    "@SupervisorId = '" + Supervisor +"' , " +
+                    "@AgentId = '" +AgentId+"' , " +
+                    "@PageSize = '"+1+ "' ," +
+                    "@PageIndex = '" + pageIndex  + "' , "+
+                    "@FirstName = '" + filters.FirstName + "' , " +
+                    "@LastName = '" + filters.LastName + "' , " +
+                    "@Dni = '" + filters.Dni + "' , " +
+                    "@SortBy = 'FIRSTNAME ASC' ", connection))
                 {
                     using (var dataReader = command.ExecuteReader())
                     {
@@ -31,21 +39,23 @@ namespace StoresProcedures.StoresProcedures
                             item.Add(
                                 new AllSolicitationSubsidyDto()
                                 {
-                                    Id = (Guid)dataReader.GetValue(0),
-                                    FullName = (string)dataReader.GetValue(1),
-                                    CreateDate = (DateTime)dataReader.GetValue(2),
-                                    Motive = (string)dataReader.GetValue(3),
-                                    Localities = (string)dataReader.GetValue(4),
-                                    Total = (decimal)dataReader.GetValue(5),
-                                    State = (string)dataReader.GetValue(6)
+                                    Id = dataReader.GetGuid(0),
+                                    FullName = dataReader.GetString(1),
+                                    CreateDate = dataReader.GetDateTime(2),
+                                    Motive = dataReader.GetString(3),
+                                    Localities = dataReader.GetString(4),
+                                    Total = dataReader.GetDecimal(5),
+                                    State = dataReader.GetString(6)
                                 }
                             );
                         }
-
-                    }
                 }
+                    
+                }
+                connection.Close();
                 return new ServiceResult<List<AllSolicitationSubsidyDto>>(item); 
             }
+            
         }
 
 

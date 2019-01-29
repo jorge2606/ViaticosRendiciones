@@ -26,6 +26,8 @@ namespace WebApi.Helpers
                     opt => opt.MapFrom(j => j.SolicitationStates.OrderByDescending(y => y.ChangeDate)
                         .FirstOrDefault().FileNumber)
                 );
+            CreateMap<AgentSolicitationBySupervisorResult, AllSolicitationSubsidyDto>();
+            
             CreateMap<Expenditure, ExpenditureFromSolicitationSubsidyByIdDto>();
             CreateMap<User, UserDto>();
             CreateMap<SupplementaryCity, SupplementaryCityDto>();

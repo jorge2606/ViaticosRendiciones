@@ -127,14 +127,16 @@ namespace VR.Service.Services
                     filters.Date.Day);
             }
 
-            var resultFull = _dataContext.Holidays
-                .Where(
+            var resultFull = _dataContext.Holidays;
+
+
+            var resultPage = resultFull.
+                Where(
                     x => (string.IsNullOrEmpty(filters.Description) || x.Description.ToUpper().Contains(filters.Description.ToUpper()))
                          &&
-                         (filters.Date == null  ||  DateTime.Compare(x.Date, compareDate) == 0 )
-                );
-
-            var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
+                         (filters.Date == null || DateTime.Compare(x.Date, compareDate) == 0)
+                )
+                .Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ProjectTo<AllHolidayDto>()
                 .ToList();

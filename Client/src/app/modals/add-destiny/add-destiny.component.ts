@@ -1,3 +1,4 @@
+import { DateDto } from './../../_models/holiday';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { ComplementariesCitiesDto } from './../../_models/city';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
@@ -52,6 +53,7 @@ export class AddDestinyComponent implements OnInit {
   selectedTransport: number;
   total: number = 0;
   carIsUsed: boolean;
+  today  : DateDto = new DateDto();
   config = {
     displayKey: "name", //if objects array passed which key to be displayed defaults to description
     search: true,//true/false for the search functionlity defaults to false,
@@ -80,8 +82,11 @@ export class AddDestinyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.selectedCategory = this.authService.userId('categoryId');
-    //this.model.categoryId = ;
+    let todayDate = new Date();
+    this.today.day =  todayDate.getDay();
+    this.today.month =  todayDate.getMonth() + 1;
+    this.today.year =  todayDate.getFullYear();
+
     this.selectedCountry = this.model.countryId;
     this.selectedProvince = this.model.provinceId;
     this.AllPlace();

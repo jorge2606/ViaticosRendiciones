@@ -1,0 +1,25 @@
+<div class="container col-8">
+  <div class="form-row">
+    <textarea 
+      cols="30" 
+      rows="10"
+      #motiveReject= "ngModel"
+      [(ngModel)]="model.motiveReject"
+      class="form-control"
+      name="motiveReject" required>
+    </textarea>
+  </div>
+
+  <div class="form-row mt-1">
+      <button (click)="reject()" class="btn btn-default ml-auto">Rechazar</button>
+      <button (click)="acepted()" class="btn btn-primary ml-1">Aceptar</button>
+  </div>
+
+  <div *ngIf="msjSuccess" class="alert alert-success mt-1">
+      {{msjSuccess}}
+  </div>
+
+  <div *ngIf="msjError" class="alert alert-danger mt-1">
+      {{msjError}}
+  </div>
+</div>

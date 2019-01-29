@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using StoresProcedures.IStoresProcedures;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -27,18 +27,15 @@ namespace VR.Web.Controllers
         private readonly ISolicitationSubsidyService _solicitationSubsidyService;
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
-        private readonly ISolicitationProcedure _solicitationProcedure;
 
         public SolicitationSubsidyController(
             ISolicitationSubsidyService solicitationSubsidyService,
             DataContext dataContext,
-            IMapper mapper,
-            ISolicitationProcedure solicitationProcedure)
+            IMapper mapper)
         {
             _solicitationSubsidyService = solicitationSubsidyService;
             _dataContext = dataContext;
             _mapper = mapper;
-            _solicitationProcedure = solicitationProcedure;
         }
 
         [HttpPost("Create")]
@@ -117,7 +114,7 @@ namespace VR.Web.Controllers
         {
             const int pageSize = 10;
 
-             var agentId = GetIdUser();
+            var agentId = GetIdUser();
 
             var resultFull = _dataContext.SolicitationSubsidies
                 .Include(x => x.SolicitationStates).ThenInclude(x => x.State)
@@ -129,26 +126,28 @@ namespace VR.Web.Controllers
                 .Select(x => _mapper.Map<AllSolicitationSubsidyDto>(x))
                 .Where(x => x.UserId == agentId);
 
-                    var resultPage = resultFull.ToList();
-                    var condition = string.IsNullOrEmpty(filters.FirstName) &&
-                                    string.IsNullOrEmpty(filters.LastName) &&
-                                    string.IsNullOrEmpty(filters.Dni);
-                    if (resultFull.ToList().Count() > 0 && !condition)
-                    {
-                        resultPage = resultFull
-                        .Where(
-                            x => (string.IsNullOrEmpty(filters.FirstName) ||
-                                 x.User.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
-                                &&
-                                (string.IsNullOrEmpty(filters.LastName) ||
-                                 x.User.LastName.ToUpper().Contains(filters.LastName.ToUpper()))
-                                &&
-                                 (string.IsNullOrEmpty(filters.Dni) || x.User.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
+            var resultPage = resultFull.ToList();
+            var condition = string.IsNullOrEmpty(filters.FirstName) &&
+                            string.IsNullOrEmpty(filters.LastName) &&
+                            string.IsNullOrEmpty(filters.Dni);
+            if (resultFull.ToList().Count() > 0 && !condition)
+            {
+                resultPage = resultFull
+                    .Where(
+                        x => (string.IsNullOrEmpty(filters.FirstName) ||
+                              x.User.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
+                             &&
+                             (string.IsNullOrEmpty(filters.LastName) ||
+                              x.User.LastName.ToUpper().Contains(filters.LastName.ToUpper()))
+                             &&
+                             (string.IsNullOrEmpty(filters.Dni) || x.User.Dni.ToString().ToUpper()
+                                  .Contains(filters.Dni.ToString().ToUpper()))
 
-                        ).Skip((filters.Page ?? 0) * pageSize)
-                        .Take(pageSize)
-                        .ToList();
-                    }
+                    ).Skip((filters.Page) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+
             return new PagedResult<AllSolicitationSubsidyDto>
             {
                 List = resultPage,
@@ -158,56 +157,37 @@ namespace VR.Web.Controllers
 
         [HttpGet("pageSupervisor")]
         [Authorize]
-        public PagedResult<AllSolicitationSubsidyDto> SupervisorPagination(
+        public PagedResult<AllSolicitationSubsidyDto> SupervisorPaginationAsync(
             [FromQuery] FilterSolicitationSubsidyDto filters)
         {
-            const int pageSize = 10;
+            const int pageSize = 1;
+            var resultFull = new List<AllSolicitationSubsidyDto>();
+            var result = new object();
+            int totalRows = 0;
             var supervisorId = GetIdUser();
+            var pageIndex = filters.Page == 0 ? 1 : filters.Page;
 
-            var resultFull = _solicitationProcedure.ViewSolicitationAsSupervisorProcedure(supervisorId, Guid.Empty);
-            
-            if (resultFull.Response.Count() > 0) { 
-                    var resultPage = resultFull.Response
-                    .Where(
-                        x => (string.IsNullOrEmpty(filters.FirstName) ||
-                             x.User.FirstName.ToUpper().Contains(filters.FirstName.ToUpper() ) )
-                            &&  
-                            (string.IsNullOrEmpty(filters.LastName) ||
-                             x.User.LastName.ToUpper().Contains(filters.LastName.ToUpper()) )
-                            &&
-                             (string.IsNullOrEmpty(filters.Dni) || x.User.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
-                              
-                    ).Skip((filters.Page ?? 0) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
+            var results = _dataContext.GetAgentsSolicitationBySupervisor(supervisorId, filters.FirstName,
+                filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex);
 
-                    var ResultQuery = resultPage.Where(x =>
-                        string.IsNullOrEmpty(x.State) || x.State.Equals("Enviado")
-                    ).ToList();
-                    return new PagedResult<AllSolicitationSubsidyDto>
-                    {
-                        List = ResultQuery,
-                        TotalRecords = resultFull.Response.Count()
-                    };
-
-            }
-
-        return new PagedResult<AllSolicitationSubsidyDto>
+            return new PagedResult<AllSolicitationSubsidyDto>()
             {
-                List = resultFull.Response,
-                TotalRecords = resultFull.Response.Count()
+                List = results.List.Select(_mapper.Map<AllSolicitationSubsidyDto>).ToList(),
+                TotalRecords = results.TotalRecords
             };
+
         }
+
 
         public Guid GetIdUser()
         {
             var currentUser = Helpers.HttpContext.Current.User.Claims;
-            var result = Guid.Empty; 
+            var result = Guid.Empty;
             foreach (var i in currentUser)
             {
                 if (i.Type.Equals("NameIdentifier"))
                 {
-                   result = Guid.Parse(i.Value);
+                    result = Guid.Parse(i.Value);
                 }
             }
 

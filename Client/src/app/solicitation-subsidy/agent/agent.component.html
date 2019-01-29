@@ -51,7 +51,7 @@
           <thead>
             <tr class="row">
               <th class="col-1">Fecha de Creación</th>
-              <th class="col-4">Objeto</th>
+              <th class="col-3">Objeto</th>
               <th class="col-4">Localidades- Itinerarios</th>
               <th class="col">Total</th>
               <th class="col">Estado</th>
@@ -62,7 +62,7 @@
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
               <td class="col-1">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-              <td class="col-4 no-wrap">{{sol.motive}}</td>
+              <td class="col-3 no-wrap">{{sol.motive}}</td>
               <td class="col-4">
                 <li *ngFor="let d of sol.destinies" class="mt-1">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
@@ -76,7 +76,7 @@
               <td class="col">{{sol.total}}</td>
               <td class="col">{{sol.state}}</td>
               <td class="col" *ngIf="sol.state == 'Rechazado'">
-                <a  href="" *ngIf="sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy"
+                <a  href="" *ngIf="sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy/agent"
                 (click)="openMotiveReject(sol.motiveReject)">
                     observaciones
                 </a>
@@ -100,7 +100,8 @@
                   (click)="openDetail(sol.id)">
                     <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
                   </a>
-                  <a *ngIf="sol.state != 'Enviado'"
+                  <!--*ngIf="sol.state != 'Enviado'"-->
+                  <a 
                     href="" routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" (click)="sendToSupervisor(sol.id)">
                     <fa-icon style="color: black;" icon="envelope"></fa-icon>

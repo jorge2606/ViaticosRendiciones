@@ -23,9 +23,9 @@ export class SupervisorComponent implements OnInit {
    //paginator
    col_size : number;
    page = 0;
-   itemsPerPage : number = 10;
+   itemsPerPage : number = 1;
    //
-   solicitationSubsidies : AllSolicitationSubsidyDto[];
+   solicitationSubsidies : AllSolicitationSubsidyDto[] = [];
    error = '';
    transports : any;
    
@@ -63,6 +63,13 @@ export class SupervisorComponent implements OnInit {
       this.filters.dni = "";
     }
     this.getAll(this.filters);
+  }
+
+  loadPage(page : any) {
+    if (page > 0) {
+      this.filters.page = page;
+      this.getAll(this.filters);
+    }
   }
 
     //MODALS

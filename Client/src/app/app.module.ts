@@ -66,7 +66,8 @@ import { NotifyRejectComponent } from './modals/notify-reject/notify-reject.comp
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { PrintComponent } from './solicitation-subsidy/print/print.component';
 import { SupervisorComponent } from './solicitation-subsidy/supervisor/supervisor.component';
-import { AgentComponent } from './solicitation-subsidy/agent/agent.component'
+import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
+import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component'
 
 library.add(fas);
 
@@ -120,7 +121,8 @@ library.add(fas);
     NotifyRejectComponent,
     PrintComponent,
     SupervisorComponent,
-    AgentComponent
+    AgentComponent,
+    AceptOrRefuseComponent
   ],
   imports: [
     BrowserModule,

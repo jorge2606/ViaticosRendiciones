@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IStoresProcedures\**" />
+    <Compile Remove="StoresProcedures\**" />
+    <EmbeddedResource Remove="IStoresProcedures\**" />
+    <EmbeddedResource Remove="StoresProcedures\**" />
+    <None Remove="IStoresProcedures\**" />
+    <None Remove="StoresProcedures\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
     <ProjectReference Include="..\VR.Dto\VR.Dto.csproj" />
   </ItemGroup>

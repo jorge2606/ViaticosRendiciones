@@ -85,7 +85,7 @@ namespace VR.Dto
 
     public class FilterSolicitationSubsidyDto
     {
-        public int? Page { set; get; }
+        public int Page { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public string Dni { set; get; }

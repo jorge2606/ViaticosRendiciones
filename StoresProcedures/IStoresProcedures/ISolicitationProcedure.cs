@@ -8,6 +8,7 @@ namespace StoresProcedures.IStoresProcedures
 {
     public interface ISolicitationProcedure
     {
-        ServiceResult<List<AllSolicitationSubsidyDto>> ViewSolicitationAsSupervisorProcedure(Guid SupervisorId, Guid AgentId);
+        ServiceResult<List<AllSolicitationSubsidyDto>> Get_agents_solicitation_by_supervisor(
+            Guid SupervisorId, Guid AgentId, FilterSolicitationSubsidyDto filters);
     }
 }

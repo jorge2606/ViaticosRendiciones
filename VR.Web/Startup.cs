@@ -38,8 +38,8 @@ using VR.Service.Interfaces;
 using VR.Service.Services;
 using VR.Web.Extensions;
 using Service.Common;
-using StoresProcedures.IStoresProcedures;
-using StoresProcedures.StoresProcedures;
+using VR.Data.Stores_Procedures.StoresProcedures;
+using VR.Data.Stores_Procedures.IStoresProcedures;
 
 namespace VR.Web
 {
@@ -191,7 +191,7 @@ namespace VR.Web
             services.AddScoped<IAspNetUserRolesService, AspNetUserRolesService>();
             services.AddScoped<ISupervisorUserAgentService, SupervisorUserAgentService>();
             services.AddScoped<ISupplementaryCityService, SupplementaryCityService>();
-            services.AddScoped<ISolicitationProcedure, SolicitationProcedure>();
+            services.AddScoped<ISolcitationSubsidyProcedure, SolicitationSubsidyProcedure>();
             
             //sender Email
             // Add application services.
