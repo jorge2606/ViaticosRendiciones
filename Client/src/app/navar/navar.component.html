@@ -4,13 +4,20 @@
     <ul class="navbar-nav mr-auto">
       
       <li class="nav-item active">
-        <a routerLink="/" class="nav-item text-white nav-link" href="#">
+        <a 
+          routerLink="/" 
+          class="nav-item text-white nav-link" 
+          href="#" >
           <fa-icon icon="home"></fa-icon> Home
         </a>
       </li>
 
       <li class="nav-item active">
-        <a routerLink="/users" class="nav-item text-white nav-link" href="#">
+        <a routerLink="/users" 
+          class="nav-item text-white nav-link" 
+          href="#"
+          routerLinkActive="['bg-dark', 'bg-info']"
+          routerLinkActiveOptions="{exact : true}">
           <fa-icon icon="users"></fa-icon> Usuarios
         </a>
       </li>

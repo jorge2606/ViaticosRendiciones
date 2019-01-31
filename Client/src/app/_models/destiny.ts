@@ -20,4 +20,6 @@ export class DestinyDto{
     transportId : number;
     transportBrand : string;
     transportModel : string;
+    advanceCategory : number;
+    percentageCodeLiquidation : number;
 }

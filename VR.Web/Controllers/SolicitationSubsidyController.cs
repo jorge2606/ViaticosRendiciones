@@ -112,46 +112,20 @@ namespace VR.Web.Controllers
         [Authorize]
         public PagedResult<AllSolicitationSubsidyDto> AgentPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {
-            const int pageSize = 10;
-
             var agentId = GetIdUser();
+            const int pageSize = 1;
+            var resultFull = new List<AllSolicitationSubsidyDto>();
+            var result = new object();
+            int totalRows = 0;
+            var pageIndex = filters.Page == 0 ? 1 : filters.Page;
 
-            var resultFull = _dataContext.SolicitationSubsidies
-                .Include(x => x.SolicitationStates).ThenInclude(x => x.State)
-                .Include(x => x.Destinies).ThenInclude(x => x.City)
-                .Include(x => x.Destinies).ThenInclude(x => x.Country)
-                .Include(x => x.Destinies).ThenInclude(x => x.Province)
-                .Include(x => x.Destinies).ThenInclude(q => q.SupplementaryCities).ThenInclude(c => c.City)
-                .Include(x => x.User)
-                .Select(x => _mapper.Map<AllSolicitationSubsidyDto>(x))
-                .Where(x => x.UserId == agentId);
-
-            var resultPage = resultFull.ToList();
-            var condition = string.IsNullOrEmpty(filters.FirstName) &&
-                            string.IsNullOrEmpty(filters.LastName) &&
-                            string.IsNullOrEmpty(filters.Dni);
-            if (resultFull.ToList().Count() > 0 && !condition)
-            {
-                resultPage = resultFull
-                    .Where(
-                        x => (string.IsNullOrEmpty(filters.FirstName) ||
-                              x.User.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
-                             &&
-                             (string.IsNullOrEmpty(filters.LastName) ||
-                              x.User.LastName.ToUpper().Contains(filters.LastName.ToUpper()))
-                             &&
-                             (string.IsNullOrEmpty(filters.Dni) || x.User.Dni.ToString().ToUpper()
-                                  .Contains(filters.Dni.ToString().ToUpper()))
-
-                    ).Skip((filters.Page) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-            }
+            var results = _dataContext.GetSolicitationsByAgent(agentId, filters.FirstName,
+                filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex);
 
             return new PagedResult<AllSolicitationSubsidyDto>
             {
-                List = resultPage,
-                TotalRecords = resultFull.Count()
+                List = results.List.Select(_mapper.Map<AllSolicitationSubsidyDto>).ToList(),
+                TotalRecords = results.TotalRecords
             };
         }
 

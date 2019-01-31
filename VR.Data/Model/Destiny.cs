@@ -11,6 +11,8 @@ namespace VR.Data.Model
         public int Days { set; get; }
         public DateTime StartDate { set; get; }
         public List<SupplementaryCity> SupplementaryCities { set; get; }
+        public Decimal AdvanceCategory { set; get; }
+        public Decimal PercentageCodeLiquidation { set; get; }
 
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }

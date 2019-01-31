@@ -23,7 +23,7 @@ export class AgentComponent implements OnInit {
    //paginator
    col_size : number;
    page = 0;
-   itemsPerPage : number = 10;
+   itemsPerPage : number = 1;
    //
    solicitationSubsidies : AllSolicitationSubsidyDto[];
    error = '';
@@ -44,7 +44,7 @@ export class AgentComponent implements OnInit {
 
   loadPage(page : any) {
     if (page > 0) {
-      this.filters.page = page - 1;
+      this.filters.page = page;
       this.getAll(this.filters);
     }
   }

@@ -24,6 +24,8 @@ namespace VR.Dto
         public decimal Total { set; get; }
         public List<ExpenditureDto> Expenditures { set; get; }
         public List<DestinyBaseDto> Destinies { set; get; }
+        public Decimal AdvanceCategory { set; get; }
+        public Decimal PercentageCodeLiquidation { set; get; }
 
         public DateTime CreateDate { set; get; }
         public Guid UserId { set; get; }

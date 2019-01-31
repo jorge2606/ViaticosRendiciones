@@ -54,7 +54,7 @@ export class DetailSolicitationSubsidyDto{
     createDate : any;
 }
 
-export class SolicitationIdDto
+export class SolicitationIdDto extends DetailSolicitationSubsidyDto
 {
     id : number;
     motiveReject : string;

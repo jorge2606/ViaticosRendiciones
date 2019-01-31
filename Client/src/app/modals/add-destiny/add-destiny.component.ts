@@ -222,9 +222,16 @@ export class AddDestinyComponent implements OnInit {
             newDestiny.days = this.model.days;
             newDestiny.categoryId = this.model.categoryId;
             if (this.model.categoryId != null) {
-              newDestiny.categoryName = this.categories.find(x => x.id == this.model.categoryId).name;
+              let cat = this.categories.find(x => x.id == this.model.categoryId);
+              newDestiny.categoryName = cat.name;
+              newDestiny.advanceCategory = cat.advance;
             }
-            newDestiny.codeLiquidationId = this.model.codeLiquidationId;
+            
+            if (this.model.codeLiquidationId){
+              newDestiny.codeLiquidationId = this.model.codeLiquidationId;
+              let codLiq = this.codeLiquidations.find(x=> x.id == this.model.codeLiquidationId);
+              newDestiny.percentageCodeLiquidation = codLiq.percentage;
+            }
             newDestiny.startDate = this.model.startDate;
             newDestiny.transportId = this.model.transportId;
             newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;

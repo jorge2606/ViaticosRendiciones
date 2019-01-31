@@ -1,19 +1,108 @@
-<div class="container col-8">
-  <div class="form-row">
-    <textarea 
-      cols="30" 
-      rows="10"
-      #motiveReject= "ngModel"
-      [(ngModel)]="model.motiveReject"
-      class="form-control"
-      name="motiveReject" required>
-    </textarea>
-  </div>
+<div id="container-pdf" class="container">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
+    </div>
+    <div class="modal-header">
+        <h5 class="modal-title">{{lastName}}, {{firstName}} <br> {{prefixCuil}}-{{dni}}-{{suffixCuil}}</h5>
+    </div>
+    <div class="modal-body">
+          <div class="form-row">
+              <label for="">Motivo</label>
+              <textarea rows="10" style="height: 100px" class="h-45 form-control" 
+              value="{{model.motive}}"
+              disabled>
+              
+              </textarea>
+          </div>
 
-  <div class="form-row mt-1">
-      <button (click)="reject()" class="btn btn-default ml-auto">Rechazar</button>
-      <button (click)="acepted()" class="btn btn-primary ml-1">Aceptar</button>
-  </div>
+          <div class="form-row">
+              <label for="">Gastos</label>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Importe</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let exp of model.expenditures">
+                    <td>
+                      {{exp.amount}}
+                    </td>
+                    <td>
+                      {{exp.expenditureTypeName}}
+                    </td>
+                    <td>
+                      {{exp.description}}
+                    </td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+
+          <div class="form-row">
+              <label for="">Destinos</label>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Dias</th>
+                    <th scope="col">Fecha de Inicio</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col">Provincia</th>
+                    <th scope="col">Localidad</th>
+                    <th scope="col">Transporte</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let des of model.destinies">
+                    <td>
+                      {{des.days}}
+                    </td>
+                    <td>
+                        {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
+                      </td>
+                    <td>
+                      {{des.categoryName}}
+                    </td>
+                    <td>
+                      <li style="list-style-type: none;" *ngIf="des.countryName">{{des.countryName}}</li>
+                      <li style="list-style-type: none;" *ngIf="!des.countryName">ARGENTINA</li>
+                    </td>
+                    <td >
+                      <li style="list-style-type: none;" *ngIf="des.provinceName"> {{des.provinceName}} </li>
+                    </td>
+                    <td>
+                      <li style="list-style-type: none;" *ngIf="des.cityName">{{des.cityName}}</li>
+                    </td>
+                    <td>
+                      {{des.transportModel}} - {{des.transportBrand}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>  
+          
+    </div>
+
+    <div class="modal-body">
+        <div class="form-row">
+            <div class="col-5 form-inline ml-auto">
+                <label for="" class="col-2">Total</label>
+                <input type="text" disabled value="{{model.total | number}}" 
+                class="col form-control text-right">
+            </div>
+          </div>
+    </div>
+</div>
+  <div class="modal-footer mt-6 ml-auto">
+      <button type="submit" (click)="acepted()" class="btn btn-success">Aceptar</button>
+      <button type="submit" (click)="AddMotive('reject','Motivo de Rechazo')" class="btn btn-danger">Rechazar</button>
+      <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+  </div> 
 
   <div *ngIf="msjSuccess" class="alert alert-success mt-1">
       {{msjSuccess}}
@@ -22,4 +111,3 @@
   <div *ngIf="msjError" class="alert alert-danger mt-1">
       {{msjError}}
   </div>
-</div>

@@ -45,7 +45,8 @@ namespace VR.Data
         public virtual DbSet<SupervisorUserAgent> SupervisorUserAgents { set; get; }
         public virtual DbSet<SupplementaryCity> SupplementaryCities { set; get; }
 
-        public PagedResult<AgentSolicitationBySupervisorResult> GetAgentsSolicitationBySupervisor(Guid supervisorId,
+        public PagedResult<AgentSolicitationBySupervisorResult> GetAgentsSolicitationBySupervisor(
+            Guid supervisorId,
             string firstName,
             string lastName,
             string dni,
@@ -55,11 +56,10 @@ namespace VR.Data
         {
             
             var resultFull = new List<AgentSolicitationBySupervisorResult>();
-            int Rows = 0;
-            
+            DbParameter totalRows = null;
+
             this.LoadStoredProc("dbo.get_agents_solicitation_by_supervisor")
                 .WithSqlParam("@SupervisorId", supervisorId)
-                .WithSqlParam("@AgentId", Guid.Empty)
                 .WithSqlParam("@FirstName", firstName)
                 .WithSqlParam("@LastName", lastName)
                 .WithSqlParam("@Dni", dni)
@@ -68,7 +68,9 @@ namespace VR.Data
                 .WithSqlParam("@PageIndex", pageIndex)
                 .WithSqlParam("@PageTotal", (dbParam) =>
                 {
-                    Rows = (int)System.Data.ParameterDirection.Output;
+                    dbParam.Direction = System.Data.ParameterDirection.Output;
+                    dbParam.DbType = System.Data.DbType.Int32;
+                    totalRows = dbParam;
                 })
                 .ExecuteStoredProc((handler) =>
                 {
@@ -79,7 +81,49 @@ namespace VR.Data
             return new PagedResult<AgentSolicitationBySupervisorResult>
             {
                 List = resultFull,
-                TotalRecords = Rows
+                TotalRecords = (int)totalRows?.Value
+            };
+        }
+
+
+        public PagedResult<AgentSolicitationBySupervisorResult> GetSolicitationsByAgent(
+            Guid agentId,
+            string firstName,
+            string lastName,
+            string dni,
+            string sortBy,
+            Nullable<int> pageSize,
+            Nullable<int> pageIndex)
+        {
+
+            var resultFull = new List<AgentSolicitationBySupervisorResult>();
+
+            DbParameter totalRows = null;
+
+            this.LoadStoredProc("dbo.get_solicitations_by_agent")
+                .WithSqlParam("@AgentId", agentId)
+                .WithSqlParam("@FirstName", firstName)
+                .WithSqlParam("@LastName", lastName)
+                .WithSqlParam("@Dni", dni)
+                .WithSqlParam("@SortBy", sortBy)
+                .WithSqlParam("@PageSize", pageSize)
+                .WithSqlParam("@PageIndex", pageIndex)
+                .WithSqlParam("@PageTotal", (dbParam) =>
+                {
+                    dbParam.Direction = System.Data.ParameterDirection.Output;
+                    dbParam.DbType = System.Data.DbType.Int32;
+                    totalRows = dbParam;
+                })
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<AgentSolicitationBySupervisorResult>)handler.ReadToList<AgentSolicitationBySupervisorResult>();
+                    handler.NextResult();
+                });
+          
+            return new PagedResult<AgentSolicitationBySupervisorResult>
+            {
+                List = resultFull,
+                TotalRecords = (int)totalRows?.Value
             };
         }
     }

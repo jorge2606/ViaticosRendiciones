@@ -63,6 +63,7 @@ namespace VR.Service.Services
                 Motive = subsidy.Motive,
                 Total = subsidy.Total,
                 CreateDate = DateTime.Today
+                
             };
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
 
@@ -80,8 +81,10 @@ namespace VR.Service.Services
                     SolicitationSubsidy = solicitationSubsidy,
                     Days = destiny.Days,
                     StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
-                    ProvinceId = destiny.ProvinceId
-                };
+                    ProvinceId = destiny.ProvinceId,
+                    AdvanceCategory = destiny.AdvanceCategory,
+                    PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
+    };
 
                 _dataContext.Destinies.Add(newDestiny);
 
@@ -106,7 +109,7 @@ namespace VR.Service.Services
             {
                 Expenditure newExpenditure = new Expenditure()
                 {
-                    Id = expenditure.Id,
+                    Id = new Guid(),
                     Description = expenditure.Description,
                     //SolicitationSubsidyId = solicitationSubsidy.Id,
                     SolicitationSubsidy = solicitationSubsidy,
@@ -166,6 +169,8 @@ namespace VR.Service.Services
                 newDestiny.Days = destiny.Days;
                 newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString());
                 newDestiny.ProvinceId = destiny.ProvinceId;
+                newDestiny.AdvanceCategory = destiny.AdvanceCategory;
+                newDestiny.PercentageCodeLiquidation = destiny.PercentageCodeLiquidation;
                 if (find == null)
                 {
                     if (destiny.SupplementaryCities != null)
