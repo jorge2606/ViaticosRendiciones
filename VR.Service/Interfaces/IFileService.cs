@@ -7,9 +7,12 @@ namespace VR.Service.Interfaces
 {
     public interface IFileService
     {
-        Task<ServiceResult<UpdateMyImageDto>> UpdateMyImage(Dto.UpdateMyImageDto model);
+        Task<ServiceResult<UpdateMyImageDto>> UpdateMyImage(UpdateMyImageDto model);
+        Task<ServiceResult<UpdateMyImageDto>> HolographSignUpdate(UpdateMyImageDto model);
         ServiceResult<FileByIdDto> GetByIdFile(Guid userId);
         ServiceResult<FileByIdDto> GetCompletePath(Guid userId);
         ServiceResult<FileByIdDto> RemoveProfilePhoto(Guid userId);
+        ServiceResult<FileByIdDto> GetCompletePathHolographSign(Guid userId);
+        ServiceResult<FileByIdDto> RemoveHolographSign(Guid userId);
     }
 }

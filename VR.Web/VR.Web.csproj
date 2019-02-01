@@ -47,4 +47,8 @@
     <ProjectReference Include="..\VR.Identity\VR.Identity.csproj" />
     <ProjectReference Include="..\VR.Service\VR.Service.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StaticFiles\HolographsSigns\" />
+  </ItemGroup>
 </Project>

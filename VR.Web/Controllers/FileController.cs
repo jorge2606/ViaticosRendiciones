@@ -32,9 +32,7 @@ namespace VR.Web.Controllers
         [HttpPost("UpdateMyImage")]
         public async Task<IActionResult> UpdateMyImage(UpdateMyImageDto fileCreateDto)
         {
-            MyService user = new MyService();
-            
-            fileCreateDto.UserId = user.getCurrentUserId();
+            fileCreateDto.UserId = GetIdUser();
 
            var result = await _fileService.UpdateMyImage(fileCreateDto);
             if (!result.IsSuccess)
@@ -60,6 +58,17 @@ namespace VR.Web.Controllers
         public IActionResult RemoveFile(Guid userId)
         {
             var result = _fileService.RemoveProfilePhoto(userId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+
+        [HttpDelete("removeHolographSign/{userId}")]
+        public IActionResult RemoveHolographSign(Guid userId)
+        {
+            var result = _fileService.RemoveHolographSign(userId);
             if (!result.IsSuccess)
             {
                 return BadRequest();
@@ -94,6 +103,64 @@ namespace VR.Web.Controllers
             }
             
         }
+        
+
+        [HttpPost("HolographSignUpdate")]
+        public IActionResult HolographSignUpdate(UpdateMyImageDto image)
+        {
+            image.UserId = GetIdUser();
+            var result = _fileService.HolographSignUpdate(image);
+
+            if (!result.Result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Result.Response);
+        }
+
+        public Guid GetIdUser()
+        {
+            var currentUser = Helpers.HttpContext.Current.User.Claims;
+            var result = Guid.Empty;
+            foreach (var i in currentUser)
+            {
+                if (i.Type.Equals("NameIdentifier"))
+                {
+                    result = Guid.Parse(i.Value);
+                }
+            }
+
+            return result;
+        }
+
+        [HttpGet("HolographSign/{userId}/{width}/{height}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> HolographSign(Guid userId, int width, int height)
+        {
+            if (width < 0 || height < 0) { return BadRequest(); }
+            var result = _fileService.GetCompletePathHolographSign(userId);
+
+            FileInfo fileInfo = new FileInfo(result.Response.Paths);
+
+            var outputStream = new MemoryStream();
+
+            if (!fileInfo.Exists) { return NotFound(); }
+
+            using (var image = Image.Load(fileInfo.FullName))
+            {
+                image.Mutate(x => x
+                    .Resize(width, height));
+
+                image.SaveAsJpeg(outputStream);
+
+                outputStream.Seek(0, SeekOrigin.Begin);
+
+                return File(outputStream, "image/jpg");
+            }
+
+        }
+
     }
 
 }

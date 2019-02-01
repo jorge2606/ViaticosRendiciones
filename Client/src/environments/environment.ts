@@ -4,7 +4,8 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://viaticosservices.devlights.com/api/File/UpdateMyImage/'
+  //apiUrl: 'http://viaticosservices.devlights.com/api/File/'
+  apiUrl: 'http://localhost:63098/api/File/'
 };
 
 /*

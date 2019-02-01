@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { MessBetweenCompService } from 'src/app/_services/mess-between-comp.service';
@@ -15,7 +16,9 @@ export class HolographSignComponent implements OnInit {
 
   constructor(private authService : AuthenticationService, 
     private messaBetweenComp : MessBetweenCompService,
-    private userService : UserService) { }
+    private userService : UserService,
+    private http : HttpClient
+    ) { }
 
     //image
     uploader:FileUploader;
@@ -29,9 +32,20 @@ export class HolographSignComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
     }
 
+    ngOnInit() {
+      //image
+      this.initializeUploader();
+      this.idUser = this.authService.userId('id');
+      this.urlImage = this.urlFile(this.idUser,200,200)  + "r=" + (Math.random() * 100) + 1;
+    }
+
+    urlFile(userId : number, width : number, height: number){
+      return "http://localhost:63098/api/File/HolographSign/"+userId+"/"+width+"/"+height;
+    }
+
     initializeUploader() {
       this.uploader = new FileUploader({
-      url: this.baseUrl,
+      url: this.baseUrl+'HolographSignUpdate/',
       authToken: 'Bearer ' + this.authService.userId('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -42,8 +56,8 @@ export class HolographSignComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
         if (response) {
-          this.urlImage = this.authService.urlFile(this.idUser, 200,200) + "r=" + (Math.random() * 100) + 1;
-          this.messaBetweenComp.sendMessage(this.urlImage);
+          this.urlImage = this.urlFile(this.idUser,200,200) + "r=" + (Math.random() * 100) + 1;
+          //this.messaBetweenComp.sendMessage(this.urlImage); --> envia a la miniatura del navar 
         }
       }    
     }
@@ -60,12 +74,7 @@ export class HolographSignComponent implements OnInit {
         }
       }
     }
-    ngOnInit() {
-      //image
-      this.initializeUploader();
-      this.idUser = this.authService.userId('id');
-      this.urlImage = this.authService.urlFile(this.idUser, 200,200) + "r=" + (Math.random() * 100) + 1;
-    }
+
 
     removePreview(){
       this.url='';
@@ -73,14 +82,18 @@ export class HolographSignComponent implements OnInit {
       this.uploader.clearQueue();
     }
 
+    deleteProfilePhoto(id: number) {
+      return this.http.delete('http://localhost:63098/api/File/removeHolographSign/' + id);
+    }
+
     eliminarPerfil(){
-      let url = this.authService.urlFile(this.idUser, 200,200);
-      this.userService.deleteProfilePhoto(this.idUser).subscribe(
+      let url = this.urlFile(this.idUser,200,200);
+      this.deleteProfilePhoto(this.idUser).subscribe(
       data => {
-      this.urlImage =  url + "r=" + (Math.random() * 100) + 1,
-      this.url = '',
-      this.messaBetweenComp.sendMessage(this.urlImage),
-      console.log("POST Request is successful ", data)
+        this.urlImage =  url + "r=" + (Math.random() * 100) + 1,
+        this.url = '',
+        this.messaBetweenComp.sendMessage(this.urlImage),
+        console.log("POST Request is successful ", data)
     },
     error => {
       console.log("Rrror", error);

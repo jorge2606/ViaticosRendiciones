@@ -160,5 +160,111 @@ namespace VR.Service.Services
             return new ServiceResult<FileByIdDto>(pathByIdDto);
         }
 
+
+        public ServiceResult<FileByIdDto> GetCompletePathHolographSign(Guid userId)
+        {
+            var path = Path.Combine(StaticFilesDirectory, "HolographsSigns","Sign_"+ userId.ToString());
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+
+                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+            }
+
+            FileByIdDto imagesPath = new FileByIdDto();
+
+            var files = Directory.EnumerateFiles(path, "*.*");
+
+            if (files.Count() == 1)
+            {
+                string pathFile = "";
+
+                foreach (var i in files)
+                {
+                    pathFile = i;
+                }
+
+                imagesPath.Paths = pathFile;
+            }
+
+            return new ServiceResult<FileByIdDto>(imagesPath);
+        }
+
+
+        public async Task<ServiceResult<UpdateMyImageDto>> HolographSignUpdate(UpdateMyImageDto model)
+        {
+            var path = Path.Combine(StaticFilesDirectory, "HolographsSigns", "Sign_"+model.UserId.ToString());
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var newDirectory = Path.Combine(StaticFilesDirectory, "HolographsSigns", "Sign_"+model.UserId.ToString());
+            var files = Directory.EnumerateFiles(path, "*.*");
+
+
+            if (files.Count() > 0)
+            {
+                foreach (var f in files)
+                {
+                    System.IO.File.Delete(f);
+                }
+            }
+
+            var file = model.File;
+
+            using (var stream = file.OpenReadStream())
+            {
+                var filePath = Path.Combine(newDirectory, file.FileName);
+
+                model.Path = filePath;
+                model.MimeType = file.ContentType;
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+
+                    fileStream.Dispose();
+                }
+                stream.Dispose();
+            }
+
+            _contextFile.Files.Add(_mapper.Map<VR.Data.Model.File>(model));
+            _contextFile.SaveChanges();
+
+
+            return new ServiceResult<UpdateMyImageDto>(model);
+        }
+
+        public ServiceResult<FileByIdDto> RemoveHolographSign(Guid userId)
+        {
+            var path = Path.Combine(StaticFilesDirectory, "HolographsSigns", "Sign_" + userId.ToString());
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+
+                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+            }
+            DirectoryInfo files = new DirectoryInfo(path);
+
+            var fileSystem = files.EnumerateFileSystemInfos();
+
+            foreach (var i in fileSystem)
+            {
+                File.Delete(Path.Combine(path, i.Name));
+            }
+
+            File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+
+            FileByIdDto pathByIdDto = new FileByIdDto()
+            {
+                Paths = path
+            };
+            return new ServiceResult<FileByIdDto>(pathByIdDto);
+        }
+
     }
 }

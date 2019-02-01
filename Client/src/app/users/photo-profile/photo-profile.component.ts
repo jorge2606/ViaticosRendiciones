@@ -32,7 +32,7 @@ export class PhotoProfileComponent implements OnInit {
   
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl,
+      url: this.baseUrl+'UpdateMyImage/',
       authToken: 'Bearer ' + this.authService.userId('token'),
       isHTML5: true,
       allowedFileType: ['image'],
