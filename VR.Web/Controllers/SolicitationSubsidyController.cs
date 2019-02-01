@@ -215,5 +215,17 @@ namespace VR.Web.Controllers
 
             return Ok(result.Response);
         }
+
+        [HttpGet("GetByIdSubsidyRpt/{id}")]
+        public IActionResult GetByIdSubsidyRpt(Guid id)
+        {
+            var result = _solicitationSubsidyService.GetByIdSubsidyRpt(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
     }
 }

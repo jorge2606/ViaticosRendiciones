@@ -245,9 +245,20 @@ namespace VR.Service.Services
             {
                 return new ServiceResult<FindByIdSolicitationSubsidyDto>(null);
             }
-            
+
             return new ServiceResult<FindByIdSolicitationSubsidyDto>(
                 _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
+        }
+
+        public ServiceResult<GetByIdSubsidyRpt> GetByIdSubsidyRpt(Guid solicitationId)
+        {
+            var UnidadOperativa = _dataContext.Rpt_unidadOperativa(solicitationId);
+            var Expenditures = _dataContext.RptExpenditures(solicitationId);
+            return new ServiceResult<GetByIdSubsidyRpt>(new GetByIdSubsidyRpt()
+            {
+                ExpendituresResults = Expenditures,
+                SolicitationResult = UnidadOperativa
+            });
         }
 
         public ServiceResult<DeleteSolicitationSubsidyDto> Delete(Guid id)

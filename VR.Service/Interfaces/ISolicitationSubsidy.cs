@@ -17,5 +17,6 @@ namespace VR.Service.Interfaces
         ServiceResult<SolicitationIdDto> AceptedSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates);
+        ServiceResult<GetByIdSubsidyRpt> GetByIdSubsidyRpt(Guid solicitationId);
     }
 }

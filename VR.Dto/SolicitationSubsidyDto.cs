@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FluentValidation;
 using VR.Data.Model;
+using VR.Data.Model.ModelStoreProcedure;
 using VR.Dto.User;
 
 namespace VR.Dto
@@ -109,5 +110,11 @@ namespace VR.Dto
         public Guid UserId { set; get; }
     }
 
+    public class GetByIdSubsidyRpt
+    {
+        public List<Get_all_solicitationResult> SolicitationResult { set; get; }
+        public List<Get_expendituresResult> ExpendituresResults { set; get; }
+        
+    }
 
 }

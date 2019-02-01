@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Snickler.EFCore;
 using System.Data.Common;
+using VR.Data.Model.ModelStoreProcedure;
 
 namespace VR.Data
 {
@@ -126,5 +127,37 @@ namespace VR.Data
                 TotalRecords = (int)totalRows?.Value
             };
         }
+
+
+        public List<Get_all_solicitationResult> Rpt_unidadOperativa(Guid solicitation)
+        {
+
+            var resultFull = new List<Get_all_solicitationResult>();
+
+            this.LoadStoredProc("dbo.get_all_solicitation")
+                .WithSqlParam("@Solicitation", solicitation)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<Get_all_solicitationResult>)handler.ReadToList<Get_all_solicitationResult>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
+        public List<Get_expendituresResult> RptExpenditures(Guid solicitation)
+        {
+            var resultFull = new List<Get_expendituresResult>();
+            this.LoadStoredProc("dbo.get_expenditures")
+                .WithSqlParam("@SolicitationId", solicitation)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<Get_expendituresResult>)handler.ReadToList<Get_expendituresResult>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
     }
 }

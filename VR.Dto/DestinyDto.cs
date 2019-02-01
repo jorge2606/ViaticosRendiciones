@@ -36,6 +36,7 @@ namespace VR.Dto
     {
         public Guid Id { set; get; }
         public int Days { set; get; }
+        public Decimal AdvanceCategory { set; get; }
         public DateDto StartDate { set; get; }
         public Guid CategoryId { set; get; }
         public string CategoryName { set; get; }

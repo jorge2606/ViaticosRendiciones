@@ -31,5 +31,14 @@ namespace VR.Dto
         public Guid ExpenditureTypeId { set; get; }
         
     }
+
+    public class RptExpenditureDto
+    {
+        public string Concept { get; set; }
+        public string Description { get; set; }
+        public decimal SubTotal { get; set; }
+    }
+
+
     
 }

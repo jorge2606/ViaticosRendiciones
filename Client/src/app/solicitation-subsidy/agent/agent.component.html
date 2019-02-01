@@ -66,9 +66,7 @@
               <td class="col-4">
                   <li *ngFor="let d of sol.destinies">
                       <span *ngIf="d.countryName">{{d.countryName}}</span>
-                      <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>
-                      
-                                      
+                      <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span> 
                   </li>  
                   <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>   
               </td>
@@ -114,7 +112,7 @@
                     <fa-icon style="color: black;" icon="envelope"></fa-icon>
                   </a>
                   <a *ngIf="sol.state == 'Aceptado'" href="" routerLink="/print/{{sol.id}}"
-                    class="pr-3" (click)="captureScreen()">
+                    class="pr-3">
                     <fa-icon style="color: black;" icon="file-pdf"></fa-icon>
                   </a>
                 </div>
