@@ -460,6 +460,8 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid>("StateId");
 
+                    b.Property<Guid>("SupervisorId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SolicitationSubsidyId");

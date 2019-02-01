@@ -62,7 +62,7 @@ export class HolographSignComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
         
         if (response) {
-          this.isDeleted = response["isDeleted"] == true ? true : false;
+          this.isDeleted = response["isDeleted"];
           this.urlImage = this.urlFile(this.idUser,200,200) + "r=" + (Math.random() * 100) + 1;
           this.successMsj = 'Firma Actualizada'; 
           //this.messaBetweenComp.sendMessage(this.urlImage); --> envia a la miniatura del navar 

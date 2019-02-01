@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -23,13 +24,18 @@ export class PrintComponent implements OnInit {
   today = new Date();
   totalExpenditures = 0.0;
   stringIframe : string;
+  idUser : number;
+  urlImage : string;
 
   constructor(
     private route : ActivatedRoute,
-    private solicitationSubsidyService : SolicitationSubsidyService
+    private solicitationSubsidyService : SolicitationSubsidyService,
+    private authService : AuthenticationService
   ) { }
 
   ngOnInit() {
+    this.idUser = this.authService.userId('id');
+    this.urlImage = this.urlFile(this.idUser, 250,100);
     this.route.params.subscribe(
       x => {
           this.solicitationSubsidyService.getByIdSolicitation(x.id)
@@ -53,6 +59,9 @@ export class PrintComponent implements OnInit {
     this.model.expenditures.forEach(x => this.totalExpenditures = this.totalExpenditures + x.amount );
   }
 
+  urlFile(userId : number, width : number, height: number){
+    return "http://localhost:63098/api/File/"+userId+"/"+width+"/"+height;
+  }
   captureScreen()  
   {  
     let pdf = new jspdf('p', 'mm', 'legal'); // A4 size page of PDF 

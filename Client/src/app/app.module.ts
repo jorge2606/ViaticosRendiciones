@@ -68,7 +68,7 @@ import { PrintComponent } from './solicitation-subsidy/print/print.component';
 import { SupervisorComponent } from './solicitation-subsidy/supervisor/supervisor.component';
 import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
-import { HolographSignComponent } from './users/holograph-sign/holograph-sign.component'
+import { HolographSignComponent } from './users/holograph-sign/holograph-sign.component';
 
 library.add(fas);
 
@@ -142,6 +142,7 @@ library.add(fas);
     BrowserAnimationsModule,
     NgxSpinnerModule,
     SelectDropDownModule
+    //SignaturePadModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
