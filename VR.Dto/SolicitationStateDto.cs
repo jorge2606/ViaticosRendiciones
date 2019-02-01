@@ -12,4 +12,9 @@ namespace VR.Dto
         public Guid StateId { set; get; }
         public Guid SolicitationSubsidyId { set; get; }
     }
+
+    public class AddFielNumberDto : SolicitationStateDto
+    {
+        public string FileNumber { set; get; }
+    }
 }

@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title">Agregar Número de Expediente</h4>
+  </div>
+  <form #addMotive="ngForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+        <textarea 
+          cols="100" 
+          rows="2"
+          [(ngModel)]="model.fileNumber"
+          name="fileNumber"
+          class="form-control p-2"
+          #fileNumber="ngModel" 
+          required
+          style="resize : none;">
+      </textarea>
+    </div>
+  
+    <div class="modal-footer">
+      <button type="button" 
+        (click)="send()" 
+        class="btn btn-primary col ml-auto">
+        Agregar
+      </button>
+      <button
+        type="button"
+        (click)="activeModal.dismiss('Close click')" 
+        class="btn btn-default col ml-auto">
+        Cancelar
+      </button>
+    </div>
+  </form>

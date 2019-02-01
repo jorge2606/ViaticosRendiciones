@@ -7,4 +7,8 @@ import { Injectable } from '@angular/core';
 export class SolicitationStatesService {
 
   constructor(private http : HttpClient) { }
+
+  addFielNumber(fields : any){
+    return this.http.put<any>("http://localhost:63098/api/SolicitationState/AddFielNumberDto", fields);
+  }
 }

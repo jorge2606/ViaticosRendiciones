@@ -55,7 +55,6 @@
               <th class="col-4">Localidades- Itinerarios</th>
               <th class="col">Total</th>
               <th class="col">Estado</th>
-              <th class="col">Motivo de Rechazo</th>
               <th class="col"></th>
             </tr>
           </thead>
@@ -71,18 +70,14 @@
                   <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>   
               </td>
               <td class="col">{{sol.total}}</td>
-              <td class="col">{{sol.state}}</td>
               <td class="col" *ngIf="sol.state == 'Rechazado'">
                 <a  href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
                 (click)="openMotiveReject(sol.motiveReject)">
-                    observaciones
+                    Rechazado
                 </a>
               </td>
               <td class="col" *ngIf="sol.state == 'Aceptado'">
-                  <a href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
-                  (click)="openMotiveReject(sol.fileNumber)">
-                      observaciones
-                  </a>
+                    Aceptado
               </td>  
              
               <td class="col">
@@ -111,11 +106,15 @@
                     (click)="sendToSupervisor(sol.id)">
                     <fa-icon style="color: black;" icon="envelope"></fa-icon>
                   </a>
-                  <a *ngIf="sol.state == 'Aceptado'" href="" routerLink="/print/{{sol.id}}"
-                    class="pr-3">
-                    <fa-icon style="color: black;" icon="file-pdf"></fa-icon>
-                  </a>
                 </div>
+              </td>
+              <td *ngIf="sol.state == 'Aceptado'">
+                  <a href="" routerLink="/print/{{sol.id}}" class="pr-3">
+                    <fa-icon style="color: black;" icon="print"></fa-icon>
+                  </a>
+                  <a href="" routerLink="/SolicitationSubsidy/agent" class="pr-3">
+                    <fa-icon style="color:black;" (click)="addFileNumber(sol.id)" icon="file"></fa-icon>
+                  </a>
               </td>
             </tr>
           </tbody>

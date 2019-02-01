@@ -69,6 +69,7 @@ import { SupervisorComponent } from './solicitation-subsidy/supervisor/superviso
 import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
 import { HolographSignComponent } from './users/holograph-sign/holograph-sign.component';
+import { FileNumberComponent } from './modals/file-number/file-number.component';
 
 library.add(fas);
 
@@ -124,7 +125,8 @@ library.add(fas);
     SupervisorComponent,
     AgentComponent,
     AceptOrRefuseComponent,
-    HolographSignComponent
+    HolographSignComponent,
+    FileNumberComponent
   ],
   imports: [
     BrowserModule,
@@ -153,7 +155,8 @@ library.add(fas);
     //fakeBackendProvider    
   ],
   entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent,
-    AddDestinyComponent, AddSupervisorComponent, SolicitationSubsidydetailComponent,NotifyRejectComponent],
+    AddDestinyComponent, AddSupervisorComponent, SolicitationSubsidydetailComponent,NotifyRejectComponent,
+    FileNumberComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

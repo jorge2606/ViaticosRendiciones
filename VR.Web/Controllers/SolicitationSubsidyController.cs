@@ -227,5 +227,17 @@ namespace VR.Web.Controllers
 
             return Ok(result.Response);
         }
+
+        [HttpGet("SolicitationApprovedBySupervisorId/{id}")]
+        public IActionResult SolicitationApprovedBySupervisorId(Guid id)
+        {
+            var result = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
     }
 }

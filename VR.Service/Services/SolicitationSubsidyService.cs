@@ -429,8 +429,7 @@ namespace VR.Service.Services
                 Id = new Guid(),
                 SolicitationSubsidy = solicitation,
                 ChangeDate = DateTime.Now,
-                StateId = State.Accepted,
-                FileNumber = solicitationDto.FileNumber
+                StateId = State.Accepted
             };
 
             _dataContext.SolicitationStates.Add(solicitationState);
@@ -488,6 +487,14 @@ namespace VR.Service.Services
             }
 
             return new ServiceResult<bool>(false);
+        }
+
+        public ServiceResult<Guid> SolicitationApprovedBySupervisorId(Guid Id)
+        {
+            return new ServiceResult<Guid>
+            (
+                _dataContext.SolicitationApprovedBySupervisorId(Id)
+            ); 
         }
 
     }

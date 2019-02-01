@@ -9,7 +9,6 @@ import { GenericsCommunicationsComponentsService } from 'src/app/_services/gener
 })
 export class NotifyRejectComponent implements OnInit {
   @Input() title : string;
-  @Input() class : string;
 
   model = {motive : ""}
 

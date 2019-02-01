@@ -192,7 +192,7 @@ namespace VR.Web
             services.AddScoped<ISupervisorUserAgentService, SupervisorUserAgentService>();
             services.AddScoped<ISupplementaryCityService, SupplementaryCityService>();
             services.AddScoped<ISolcitationSubsidyProcedure, SolicitationSubsidyProcedure>();
-            
+            services.AddScoped<ISolicitationStateService, SolicitationStateService>();
             //sender Email
             // Add application services.
             services.AddTransient<IEmailSender, EmailService>();

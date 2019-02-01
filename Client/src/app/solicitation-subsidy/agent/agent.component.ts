@@ -1,3 +1,4 @@
+import { FileNumberComponent } from './../../modals/file-number/file-number.component';
 import { Component, OnInit } from '@angular/core';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { TransportService } from 'src/app/_services/transport.service';
@@ -135,5 +136,16 @@ export class AgentComponent implements OnInit {
         }
       );
     } 
+
+    addFileNumber(solicitationId : number){
+       const modal = this.modalService.open(FileNumberComponent, {size : "lg", centered : true});
+        modal.componentInstance.solicitatioId = solicitationId;
+        modal.result.then(() => {
+          this.getAll(this.filters);
+        },
+          () => {
+            console.log('Backdrop click');
+        })
+    }
 
 }

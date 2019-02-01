@@ -34,10 +34,13 @@ export class PrintComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.idUser = this.authService.userId('id');
-    this.urlImage = this.urlFile(this.idUser, 250,100);
     this.route.params.subscribe(
       x => {
+          this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(x.id)
+          .subscribe(x => {
+            this.urlImage = this.urlFile(x, 250,100);
+          });
+          
           this.solicitationSubsidyService.getByIdSolicitation(x.id)
               .subscribe(
                   solicitation => {
@@ -60,7 +63,7 @@ export class PrintComponent implements OnInit {
   }
 
   urlFile(userId : number, width : number, height: number){
-    return "http://localhost:63098/api/File/"+userId+"/"+width+"/"+height;
+    return "http://localhost:63098/api/File/HolographSign/"+userId+"/"+width+"/"+height;
   }
   captureScreen()  
   {  

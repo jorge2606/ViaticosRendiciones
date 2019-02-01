@@ -159,5 +159,21 @@ namespace VR.Data
             return resultFull;
         }
 
+
+
+        public Guid SolicitationApprovedBySupervisorId(Guid solicitation)
+        {
+            Guid resultFull = Guid.Empty;
+            this.LoadStoredProc("dbo.get_supervisor_id")
+                .WithSqlParam("@SolicitationId", solicitation)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull =handler.ReadToValue<Guid>()?? Guid.Empty;
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
     }
 }

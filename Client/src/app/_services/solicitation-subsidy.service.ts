@@ -50,4 +50,8 @@ export class SolicitationSubsidyService {
   overlapingDates(overlapDate : overlapingDto){
     return this.http.post<any>("http://localhost:63098/api/SolicitationSubsidy/overlaping",overlapDate);
   }
+
+  SolicitationApprovedBySupervisorId(id : number){
+    return this.http.get<any>("http://localhost:63098/api/SolicitationSubsidy/SolicitationApprovedBySupervisorId/"+id);
+  }
 }

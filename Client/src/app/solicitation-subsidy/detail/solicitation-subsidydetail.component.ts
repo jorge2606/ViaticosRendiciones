@@ -63,11 +63,10 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   acepted(){
     let newSolicitationId = new SolicitationIdDto();
     newSolicitationId.id = this.id;
-    newSolicitationId.fileNumber = this.motive;
+    newSolicitationId.fileNumber = "";
     this.solicitationSubsidyService.Acepted(newSolicitationId)
     .subscribe(
-      x => {console.log(x);
-            this.activeModal.close()}
+      x => {this.activeModal.close()}
     );
   }
 
@@ -77,21 +76,15 @@ export class SolicitationSubsidydetailComponent implements OnInit {
     newSolicitationId.motiveReject = this.motive;
     this.solicitationSubsidyService.refused(newSolicitationId)
     .subscribe(
-      x => {console.log(x);
-            this.activeModal.close()}
+      x => {this.activeModal.close()}
     );
   }
 
   AddMotive(opt : string, title : string){
     const modalRef = this.modalService.open(NotifyRejectComponent, {size : "lg"});
     modalRef.componentInstance.title = title;
-    modalRef.componentInstance.class = opt;
     modalRef.result.then(() => {
-      if (opt == 'acept'){
-        this.acepted();
-      }else if(opt == 'reject'){
-        this.reject();
-      }
+      this.reject();
     },
       () => {
         console.log('Backdrop click');
