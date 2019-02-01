@@ -6,6 +6,7 @@ import { UserService } from 'src/app/_services/user.service';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-holograph-sign',
@@ -14,19 +15,23 @@ import { Subject } from 'rxjs';
 })
 export class HolographSignComponent implements OnInit {
 
+  //image
+  uploader:FileUploader;
+  hasBaseDropZoneOver = false;
+  baseUrl = environment.apiUrl; 
+  idUser : number;
+  urlImage : string;
+  subject = new Subject<any>();
+  successMsj : string;
+  errorMsj : string;
+  isDeleted : boolean;
+
   constructor(private authService : AuthenticationService, 
     private messaBetweenComp : MessBetweenCompService,
     private userService : UserService,
-    private http : HttpClient
+    private http : HttpClient,
+    private spinner: NgxSpinnerService
     ) { }
-
-    //image
-    uploader:FileUploader;
-    hasBaseDropZoneOver = false;
-    baseUrl = environment.apiUrl; 
-    idUser : number;
-    urlImage : string;
-    subject = new Subject<any>();
 
     fileOverBase(e:any):void {
     this.hasBaseDropZoneOver = e;
@@ -55,11 +60,14 @@ export class HolographSignComponent implements OnInit {
     });
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
+        
         if (response) {
+          this.isDeleted = response["isDeleted"] == true ? true : false;
           this.urlImage = this.urlFile(this.idUser,200,200) + "r=" + (Math.random() * 100) + 1;
+          this.successMsj = 'Firma Actualizada'; 
           //this.messaBetweenComp.sendMessage(this.urlImage); --> envia a la miniatura del navar 
         }
-      }    
+      }   
     }
 
     url = '';
@@ -88,15 +96,19 @@ export class HolographSignComponent implements OnInit {
 
     eliminarPerfil(){
       let url = this.urlFile(this.idUser,200,200);
+      this.spinner.show();
       this.deleteProfilePhoto(this.idUser).subscribe(
       data => {
+        this.isDeleted = data["response"]["isDeleted"];
         this.urlImage =  url + "r=" + (Math.random() * 100) + 1,
         this.url = '',
         this.messaBetweenComp.sendMessage(this.urlImage),
-        console.log("POST Request is successful ", data)
+        this.successMsj = '',
+        this.spinner.hide();
     },
     error => {
       console.log("Rrror", error);
+      this.spinner.hide();
     }
     );
 

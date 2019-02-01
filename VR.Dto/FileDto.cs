@@ -22,7 +22,10 @@ namespace VR.Dto
 
     }
 
-    public class UpdateMyImageDto : FileCreateDto {}
+    public class UpdateMyImageDto : FileCreateDto
+    {
+        public Boolean IsDeleted { set; get; }
+    }
 
     public class FileDeleteDto
     {
@@ -32,5 +35,6 @@ namespace VR.Dto
     public class FileByIdDto
     {
         public string Paths { set; get; }
+        public Boolean IsDeleted { set; get; }
     }
 }

@@ -13,27 +13,42 @@
                     [uploader]="uploader" value="Cambiar" />
                     <label for="file" class="btn btn-default" style="left: 27px;">  <fa-icon icon="upload"></fa-icon> Elegir un Archivo</label>
             <br>
-            <button type="button" class="btn btn-danger btn-xs" (click)="eliminarPerfil()">
+            <button [hidden]="isDeleted" type="button" class="btn btn-danger btn-xs" (click)="eliminarPerfil()">
                     <fa-icon icon="trash"></fa-icon>
             </button>
         </div>
     </div>
 
-<div *ngIf="url" class="container-image-url col-md-6">
-        <img [src]="url" class="imageUrl">
+    <div *ngIf="url" class="container-image-url col-md-6">
+            <img [src]="url" class="imageUrl">
 
-        <ul *ngFor="let item of uploader.queue">
-            <div class="middle-url">
-                <span class="btn btn-default btn-file ml-3 pl-3">
-                    <button type="button" class="btn text" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                        <fa-icon icon="upload"></fa-icon>
-                    </button>
-                    <button type="button" class="btn textDanger" (click)="removePreview()">
-                        <fa-icon icon="trash"></fa-icon>
-                    </button>
-                </span>
-            </div>
+            <ul *ngFor="let item of uploader.queue">
+                <div class="middle-url">
+                    <span class="btn btn-default btn-file ml-3 pl-3">
+                        <button type="button" class="btn text" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                            <fa-icon icon="upload"></fa-icon>
+                        </button>
+                        <button type="button" class="btn textDanger" (click)="removePreview()">
+                            <fa-icon icon="trash"></fa-icon>
+                        </button>
+                    </span>
+                </div>
+            </ul>
+    </div>
 
-        </ul>
-  </div>
+    <div class="container">
+        <div class="alert alert-danger" *ngIf="errorMsj">
+            {{errorMsj}}
+        </div>
+        <div class="alert alert-success" *ngIf="successMsj">
+            {{successMsj}}
+        </div>
+    </div>
+    <ngx-spinner 
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Enviando...</p>>
+    </ngx-spinner>
 </div>

@@ -165,15 +165,19 @@ namespace VR.Service.Services
         {
             var path = Path.Combine(StaticFilesDirectory, "HolographsSigns","Sign_"+ userId.ToString());
 
+            FileByIdDto imagesPath = new FileByIdDto
+            {
+                IsDeleted = false
+            };
+
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
 
-                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "sign.png"), Path.Combine(path, "sign.png"));
+                imagesPath.IsDeleted = true;
             }
-
-            FileByIdDto imagesPath = new FileByIdDto();
-
+            
             var files = Directory.EnumerateFiles(path, "*.*");
 
             if (files.Count() == 1)
@@ -185,6 +189,10 @@ namespace VR.Service.Services
                     pathFile = i;
                 }
 
+                if (pathFile.Equals(Path.Combine(path, "sign.png")))
+                {
+                    imagesPath.IsDeleted = true;
+                }
                 imagesPath.Paths = pathFile;
             }
 
@@ -195,7 +203,7 @@ namespace VR.Service.Services
         public async Task<ServiceResult<UpdateMyImageDto>> HolographSignUpdate(UpdateMyImageDto model)
         {
             var path = Path.Combine(StaticFilesDirectory, "HolographsSigns", "Sign_"+model.UserId.ToString());
-
+            model.IsDeleted = false;
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -203,7 +211,6 @@ namespace VR.Service.Services
 
             var newDirectory = Path.Combine(StaticFilesDirectory, "HolographsSigns", "Sign_"+model.UserId.ToString());
             var files = Directory.EnumerateFiles(path, "*.*");
-
 
             if (files.Count() > 0)
             {
@@ -241,12 +248,14 @@ namespace VR.Service.Services
         public ServiceResult<FileByIdDto> RemoveHolographSign(Guid userId)
         {
             var path = Path.Combine(StaticFilesDirectory, "HolographsSigns", "Sign_" + userId.ToString());
+            FileByIdDto pathByIdDto = new FileByIdDto();
+            pathByIdDto.IsDeleted = true;
 
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
 
-                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+                System.IO.File.Copy(Path.Combine(StaticFilesDirectory, "sign.png"), Path.Combine(path, "sign.png"));
             }
             DirectoryInfo files = new DirectoryInfo(path);
 
@@ -257,12 +266,9 @@ namespace VR.Service.Services
                 File.Delete(Path.Combine(path, i.Name));
             }
 
-            File.Copy(Path.Combine(StaticFilesDirectory, "user.png"), Path.Combine(path, "user.png"));
+            File.Copy(Path.Combine(StaticFilesDirectory, "sign.png"), Path.Combine(path, "sign.png"));
 
-            FileByIdDto pathByIdDto = new FileByIdDto()
-            {
-                Paths = path
-            };
+            pathByIdDto.Paths = path;
             return new ServiceResult<FileByIdDto>(pathByIdDto);
         }
 
