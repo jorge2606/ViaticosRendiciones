@@ -37,6 +37,8 @@ export class PrintComponent implements OnInit {
   hideHtml : boolean = false;
   imgUrl : string;
   printObservable = new Subject<boolean>();
+  categoryName : string;
+  categoryDescription : string;
 
 
   constructor(
@@ -67,10 +69,12 @@ export class PrintComponent implements OnInit {
                   this.lastName = this.model.user.lastName;
                   this.prefixCuil = this.model.user.prefixCuil;
                   this.suffixCuil = this.model.user.suffixCuil;
+                  this.categoryName = this.model.user.categoryName;
+                  this.categoryDescription = this.model.user.categoryDescription;
                   this.dni = this.model.user.dni;
                   let totDest : number = 0;
                   this.model.destinies.forEach(totalDestinies => {
-                    totDest = totDest + totalDestinies.advanceCategory;
+                    totDest = totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.codeLiquidationPercentage);
                   });
 
                   this.model.expenditures.forEach(exp => this.totalExpenditures = this.totalExpenditures + exp.amount );

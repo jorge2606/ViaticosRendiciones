@@ -22,6 +22,7 @@ export class DestinyDto{
     transportModel : string;
     advanceCategory : number;
     percentageCodeLiquidation : number;
+    solicitationTotalLetter : string;
 }
 
 export class destinies_from_store_procedure{

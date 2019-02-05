@@ -51,17 +51,51 @@
                   <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>   
               </td>
               <td class="col">{{sol.total}}</td>
-              <td class="col" *ngIf="sol.state == 'Rechazado'">
-                <a  href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
-                (click)="openMotiveReject(sol.motiveReject)">
-                    Rechazado
-                </a>
-              </td>
-              <td class="col" *ngIf="sol.state == 'Aceptado'">
-                    Aceptado
+              <td *ngIf="sol.state == 'Rechazado'" class="col">
+                  <a  href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
+                  (click)="openMotiveReject(sol.motiveReject)">
+                  {{sol.state}}
+                  </a>
               </td>  
-             
-              <td class="col">
+              <td class="col" *ngIf="sol.state == 'Aceptado'">
+                  <a href="" alt="Número de Archivo" 
+                    (click)="addFileNumber(sol.id)"
+                    routerLink="/SolicitationSubsidy/agent" class="pr-3">
+                    {{sol.state}}
+                  </a>
+              </td>  
+              <td class="col" *ngIf="sol.state != 'Rechazado' && sol.state != 'Aceptado'">
+                  {{sol.state}}
+              </td>
+              <td class="col" *ngIf="sol.state == 'Pendiente'" class="col">
+                  <div class="btn-group" 
+                  role="group" 
+                  aria-label="Basic example">
+                  <a *ngIf="sol.state == 'Pendiente'" class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
+                    <fa-icon style="color:gray;" icon="edit"></fa-icon>
+                  </a>
+                  <a class="pr-3" 
+                    routerLink="/SolicitationSubsidy/agent" 
+                    *ngIf="sol.state == 'Pendiente'"
+                    (click)="openEliminar(sol)">
+                    <fa-icon style="color:red;" icon="trash"></fa-icon>
+                  </a>
+                  <!--<a href="" 
+                    class="pr-3" 
+                    routerLink="/SolicitationSubsidy/agent"
+                    (click)="openDetail(sol.id)">
+                    <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
+                  </a>-->
+                  <a href="" 
+                    *ngIf="sol.state != 'Enviado'"
+                    routerLink="/SolicitationSubsidy/agent"
+                    class="pr-3" 
+                    (click)="sendToSupervisor(sol.id)">
+                    <fa-icon style="color: black;" icon="envelope"></fa-icon>
+                  </a>
+                </div>
+              </td>
+              <td *ngIf="sol.state == 'Rechazado'" class="col">
                 <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
@@ -89,12 +123,9 @@
                   </a>
                 </div>
               </td>
-              <td *ngIf="sol.state == 'Aceptado'">
+              <td *ngIf="sol.state == 'Aceptado'" class="col">
                   <a href="" routerLink="/print/{{sol.id}}" class="pr-3">
                     <fa-icon style="color: black;" icon="print"></fa-icon>
-                  </a>
-                  <a href="" routerLink="/SolicitationSubsidy/agent" class="pr-3">
-                    <fa-icon style="color:black;" (click)="addFileNumber(sol.id)" icon="file"></fa-icon>
                   </a>
               </td>
             </tr>

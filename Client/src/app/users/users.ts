@@ -15,6 +15,9 @@ export class User{
   prefixCuil : number;
   suffixCuil : number;
   categoryId : number;
+  categoryName : string;
+  categoryDescription : string;
+
 }
 
 export class rolesBelongUser{

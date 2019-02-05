@@ -238,7 +238,7 @@ namespace VR.Service.Services
                 .Include(x => x.Destinies).ThenInclude(x => x.Transport)
                 .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
                 .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
-                .Include(x => x.User)
+                .Include(x => x.User).ThenInclude(c => c.Category)
                 .FirstOrDefault(x => x.Id == id);
 
             if (find == null)

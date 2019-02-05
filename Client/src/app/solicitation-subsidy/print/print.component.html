@@ -16,7 +16,7 @@
     -->
     <div id="container-print" [hidden] = "hideHtml"  class="container">
       <div class="form-row">
-        <table border="1">
+        <table border="1"  width="100%">
             <thead>
               <tr>
                 <th scope="col" class="text-center"><b> UNIDAD EJECUTORA: </b></th>
@@ -35,20 +35,28 @@
                       <div class="ml-auto pt-3"> ------------------------------------------------- </div>
                     </div>				            
                 </td>
-                <td ROWSPAN="2" class="" width="743">
+                <td ROWSPAN="2" class="p-2">
                     <p><ins><b>DEL AGENTE:</b></ins><br>				
                     Apellido:	<b>{{lastName}}</b><br>			
                     Nombres: <b>{{firstName}}</b><br>
-                    Cargo: 090 - 24	<br>			
+                    Cargo: {{categoryName}} - {{categoryDescription}}	<br>			
                     Sueldo Básico: $ 4.220,65 <br>
                     <ins><b>DE LA COMISIÓN:</b></ins><br>	
-                    <ul *ngFor="let des of model.destinies">
-                      <li style="list-style-type: none;">Fecha de Iniciación: {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}</li> 
-                      <li style="list-style-type: none;" *ngIf="des.countryName"> Destino: {{des.countryName}}</li>
-                      <li style="list-style-type: none;" *ngIf="des.provinceName"> Destino: {{des.provinceName}}, {{des.cityName}} </li>
-                      <li style="list-style-type: none;">Medio de Transporte: {{des.transportModel}} - {{des.transportBrand}}</li>
-                      <li style="list-style-type: none;">Objeto:	{{model.motive}}</li>
-                    </ul>				
+                    <span *ngFor="let des of model.destinies">
+                      Fecha de Iniciación: {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}} 
+                      <span *ngIf="des.countryName"> 
+                        Destino: {{des.countryName}}
+                      </span><br>
+                      <span *ngIf="des.provinceName">
+                         Destino: {{des.provinceName}}, {{des.cityName}} 
+                      </span><br>
+                      <span>
+                        Medio de Transporte: {{des.transportModel}} - {{des.transportBrand}}
+                      </span><br>
+                      <span>
+                        Objeto:	{{model.motive}}
+                      </span>
+                    </span>				
                 </td>
               </tr>
               <tr>
@@ -134,11 +142,11 @@
                 </div>
               </div>
     
-              <div class="form-row p-2 DivsInMiddle" width="1090">
-                  <p><ins><b>RECIBÍ</b></ins> de la Tesorería de la Dirección de Administración del Ministerio de Producción, Trabajo y Turismo													
+              <div class="form-row p-2 DivsInMiddle" width="1090" *ngFor="let des of destinieWithDaysInLetters; index as i">
+                  <p *ngIf="i == 0"><ins><b>RECIBÍ</b></ins> de la Tesorería de la Dirección de Administración del Ministerio de Producción, Trabajo y Turismo													
                   cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
                   y cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
-                  por la suma de pesos: <b>MIL DOSCIENTOS VEINTE</b> ($<b>{{model.total | number}}</b>), en concepto de Anticipo de Viáticos, cuya rendición de cuentas me comprometo a realizar dentro de los <b>Tres</b> días													
+                  por la suma de pesos: <b>{{des.solicitationTotalLetter}}</b> ($<b>{{model.total | number}}</b>), en concepto de Anticipo de Viáticos, cuya rendición de cuentas me comprometo a realizar dentro de los <b>Tres</b> días													
                   hábiles de finalizada la comisión,  caso contrario me sujeto a las sanciones establecidas en la Ley de Contabilidad. <br>	</p>												
                   
                   <div class="row ml-auto col-9">

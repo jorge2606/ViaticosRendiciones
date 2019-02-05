@@ -9,5 +9,6 @@ namespace VR.Data.Model.ModelStoreProcedure
         public int Days { set; get; }
         public string DaysLetters { set; get; }
         public Decimal AdvanceCategory { set; get; }
+        public string SolicitationTotalLetter { set; get; }
     }
 }

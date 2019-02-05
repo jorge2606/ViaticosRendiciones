@@ -135,6 +135,8 @@ namespace VR.Service.Services
 
             userDto.Id = user.Id;
             userDto.Dni = user.Dni;
+            userDto.FirstName = user.FirstName;
+            userDto.LastName = user.LastName;
             userDto.UserName = user.UserName;
             userDto.PhoneNumber = user.PhoneNumber;
             userDto.Token = token;

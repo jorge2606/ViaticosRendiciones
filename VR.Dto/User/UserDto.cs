@@ -59,6 +59,8 @@ namespace VR.Dto.User
         public Guid DistributionId { set; get; }
         public Distribution Distribution { set; get; }
         public Guid CategoryId { set; get; }
+        public string CategoryName { set; get; }
+        public string CategoryDescription { set; get; }
     }
 
 
