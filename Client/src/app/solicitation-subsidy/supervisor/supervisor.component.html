@@ -1,43 +1,4 @@
 <div class="container mb-1" >
-  <!--  <label class="d-inline-block pl-1 pr-1" for="">Transporte </label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <select  (change)="filter()" [(ngModel)]="filters.transportId" class="form-control d-inline-block pl-1">
-        <option value=""></option>
-        <option *ngFor="let transp of transports" value="{{transp.id}}">
-          {{transp.type}}
-        </option>
-      </select>
-    </div>
-    
-    <label class="d-inline-block pl-1 pr-1" for="">Lugar </label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <select  (change)="filter()" [(ngModel)]="filters.placeId" class="form-control d-inline-block pl-1">
-        <option value=""></option>
-        <option >
-         
-        </option>
-      </select>
-    </div>
-  
-    <label class="d-inline-block pl-1 pr-1" for="">Destino </label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <select  (change)="filter()" [(ngModel)]="filters.destinyId" class="form-control d-inline-block pl-1">
-        <option value=""></option>
-        <option>
-          
-        </option>
-      </select>
-    </div>
-  -->
-  <label for="">Estados</label>
-    <div class="d-inline-block pb-2 pt-2 ml-1">
-      <select class="form-control">
-        <option value=""></option>
-        <option value="">Aceptados</option>
-        <option value="">Rechazados</option>
-      </select>
-    </div>
-
     <label class="d-inline-block pl-1 pr-1" for="">Nombre</label>
     <div class="d-inline-block pl-1 pr-1 col-2">
       <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
@@ -52,7 +13,7 @@
     <div class="d-inline-block pl-1 pr-1 col-2">
       <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
     </div>
-  </div>
+</div>
   
   <div class="container">
 

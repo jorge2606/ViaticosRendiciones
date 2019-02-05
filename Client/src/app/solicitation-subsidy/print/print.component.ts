@@ -2,7 +2,7 @@ import { Observable, Subject } from 'rxjs';
 import { DestinyDto } from './../../_models/destiny';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +10,8 @@ import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsi
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-print',
@@ -27,12 +29,13 @@ export class PrintComponent implements OnInit {
   motive : string = "";
   today = new Date();
   totalExpenditures = 0.0;
-  stringIframe : any;
+  stringIframe : any = "";
   idUser : number;
   urlImage : string;
   destinieWithDaysInLetters : DestinyDto[] = [];
   previewImage : any;
   hideHtml : boolean = false;
+  imgUrl : string;
   printObservable = new Subject<boolean>();
 
 
@@ -41,10 +44,15 @@ export class PrintComponent implements OnInit {
     private solicitationSubsidyService : SolicitationSubsidyService,
     private authService : AuthenticationService,
     private destinyService : DestinyService,
-    private domSanitazer : DomSanitizer
+    private domSanitazer : DomSanitizer,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  init(){
     this.route.params.subscribe(
       url => {
           this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(url.id)
@@ -60,13 +68,22 @@ export class PrintComponent implements OnInit {
                   this.prefixCuil = this.model.user.prefixCuil;
                   this.suffixCuil = this.model.user.suffixCuil;
                   this.dni = this.model.user.dni;
+                  let totDest : number = 0;
+                  this.model.destinies.forEach(totalDestinies => {
+                    totDest = totDest + totalDestinies.advanceCategory;
+                  });
+
+                  this.model.expenditures.forEach(exp => this.totalExpenditures = this.totalExpenditures + exp.amount );
+                  this.totalExpenditures = this.totalExpenditures + totDest;
 
                   this.destinyService.get_destinies(url.id)
                   .subscribe(
                         j => {
                               this.destinieWithDaysInLetters = j;
-                              this.totalExpenditure();
-                              this.printObservable.next(true);
+                              setTimeout(() => {
+                                this.captureScreen();
+                              }, 500);
+                              
                             }
                   );
               });
@@ -74,52 +91,36 @@ export class PrintComponent implements OnInit {
       }
     );
   }
-
-  totalExpenditure(){
-    let totDest : number = 0;
-    this.destinieWithDaysInLetters.forEach(totalDestinies => {
-      totDest = totDest + totalDestinies.advanceCategory;
-    });
-    this.model.expenditures.forEach(x => this.totalExpenditures = this.totalExpenditures + x.amount );
-    this.totalExpenditures = this.totalExpenditures + totDest;
-  }
-
   urlFile(userId : number, width : number, height: number){
     return "http://localhost:63098/api/File/HolographSign/"+userId+"/"+width+"/"+height;
   }
 
   captureScreen()  
   {  
-    this.printObservable.subscribe(x => {
-      if (x){
-        this.totalExpenditure();
+        this.spinner.show();
+        var namePDF = this.firstName+'-'+this.lastName+'-'+this.dni+'.pdf'; 
+        var pdf = new jspdf('p', 'mm', 'legal'); 
         var data = document.getElementById('container-print');  
-      
         html2canvas(data).then(canvas => {  
-          const img = canvas.toDataURL('application/pdf');
+          const img = canvas.toDataURL('image/png');
+          this.imgUrl = img;
           this.stringIframe = this.domSanitazer.bypassSecurityTrustResourceUrl(img);
-          
           this.hideHtml = true;
-          
         });
-      }
-    });
-   
+        this.spinner.hide();
   }
 
   download()  
   {  
-    var pdf = new jspdf('p', 'mm', 'legal'); 
-    var data = document.getElementById('iframeId');  
+    this.spinner.show();
+    this.hideHtml = false;
     var namePDF = this.firstName+'-'+this.lastName+'-'+this.dni+'.pdf'; 
-
-    html2canvas(data).then(
-      c => {
-          var img = c.toDataURL('image/png');
-          pdf.addImage(img,'PNG',10,10,195,200);
-          pdf.save(namePDF);
-      }
-    );
+    var pdf = new jspdf('p', 'mm', 'legal'); 
+    
+    pdf.addImage(this.imgUrl,'PNG',10,10,195,200);
+    pdf.save(namePDF);
+    this.spinner.hide();
+      
   }
 
 }

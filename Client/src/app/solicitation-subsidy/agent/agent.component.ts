@@ -18,7 +18,9 @@ export class AgentComponent implements OnInit {
 
   filters = {
     page : 0,
-    userName : ""
+    firstName : "",
+    lastName : "",
+    dni : 0
   }
 
    //paginator

@@ -1,38 +1,19 @@
-<div class="container mb-1" >
-    <label class="d-inline-block pl-1 pr-1" for="">Transporte </label>
+<!--<div class="container mb-1" >
+    <label class="d-inline-block pl-1 pr-1" for="">Nombre</label>
     <div class="d-inline-block pl-1 pr-1 col-2">
-      <select  (change)="filter()" [(ngModel)]="filters.transportId" class="form-control d-inline-block pl-1">
-        <option value=""></option>
-        <option *ngFor="let transp of transports" value="{{transp.id}}">
-          {{transp.type}}
-        </option>
-      </select>
+      <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
     </div>
-    <label class="d-inline-block pl-1 pr-1" for="">Lugar </label>
+
+    <label class="d-inline-block pl-1 pr-1" for="">Apellido</label>
     <div class="d-inline-block pl-1 pr-1 col-2">
-      <select  (change)="filter()" [(ngModel)]="filters.placeId" class="form-control d-inline-block pl-1">
-        <option value=""></option>
-        <option >
-         
-        </option>
-      </select>
+      <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
     </div>
-  
-    <label class="d-inline-block pl-1 pr-1" for="">Destino </label>
+
+    <label class="d-inline-block pl-1 pr-1" for="">D.N.I</label>
     <div class="d-inline-block pl-1 pr-1 col-2">
-      <select  (change)="filter()" [(ngModel)]="filters.destinyId" class="form-control d-inline-block pl-1">
-        <option value=""></option>
-        <option>
-          
-        </option>
-      </select>
+      <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
     </div>
-  
-    <label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.userName" type="text" class="form-control">
-    </div>
-  </div>
+</div>-->
   
   <div class="container">
       <div class="d-inline-block pb-2 pt-2">

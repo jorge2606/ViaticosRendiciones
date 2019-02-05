@@ -67,6 +67,8 @@ export class AddDestinyComponent implements OnInit {
     searchOnKey: 'name' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
 
+  expenditureTaxi : number;
+
   constructor(
     public activeModal: NgbActiveModal,
     private placeService: PlaceService,
@@ -262,7 +264,7 @@ export class AddDestinyComponent implements OnInit {
     resultDestiny = resultDestiny + (category.advance * this.model.days * codLiquidation.percentage);
 
     this.total = resultDestiny;
-
+  
   }
 
   changeCategory() {
