@@ -33,7 +33,8 @@ export class PrintComponent implements OnInit {
   destinieWithDaysInLetters : DestinyDto[] = [];
   previewImage : any;
   hideHtml : boolean = false;
-  Observable = new Subject<boolean>();
+  printObservable = new Subject<boolean>();
+
 
   constructor(
     private route : ActivatedRoute,
@@ -59,20 +60,17 @@ export class PrintComponent implements OnInit {
                   this.prefixCuil = this.model.user.prefixCuil;
                   this.suffixCuil = this.model.user.suffixCuil;
                   this.dni = this.model.user.dni;
-                  this.totalExpenditure();
 
                   this.destinyService.get_destinies(url.id)
                   .subscribe(
                         j => {
                               this.destinieWithDaysInLetters = j;
-                              this.Observable.next(true);
+                              this.totalExpenditure();
+                              this.printObservable.next(true);
                             }
                   );
-              }
-              );
-            }
-          
-          );
+              });
+            });
       }
     );
   }
@@ -92,8 +90,9 @@ export class PrintComponent implements OnInit {
 
   captureScreen()  
   {  
-    this.Observable.subscribe(x => {
+    this.printObservable.subscribe(x => {
       if (x){
+        this.totalExpenditure();
         var data = document.getElementById('container-print');  
       
         html2canvas(data).then(canvas => {  
