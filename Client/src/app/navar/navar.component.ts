@@ -25,6 +25,9 @@ export class NavarComponent implements OnInit {
   idUser : number;
   cantNotif : number = 0;
   @Input() urlImage : string;
+  userName : string;
+  firstName : string;
+  lastName : string;
 
 
   retriveNotifications(){
@@ -40,6 +43,9 @@ export class NavarComponent implements OnInit {
 
   ngOnInit() {
     this.idUser = this.authService.userId('id');
+    this.userName = this.authService.userId('userName');
+    this.firstName = this.authService.userId('firstName');
+    this.lastName = this.authService.userId('lastName');
     this.isLogged = this.authService.isLoggedIn;
     this.isLogged.subscribe(x => {
       if(x){

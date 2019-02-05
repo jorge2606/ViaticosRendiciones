@@ -107,14 +107,24 @@
       
       <li class="nav-item dropdown small">
           <div class="d-inline-block pull-right" ngbDropdown #myDropCloseSession="ngbDropdown">
-            <button class="btn btn-outline-light mr-2 small" id="dropdownManual" ngbDropdownAnchor (focus)="myDropCloseSession.open()">
-             <!-- <fa-icon icon="user"></fa-icon>-->
-              <img class="rounded-circle" src="{{urlImage}}" alt="">
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                <button routerLink="/settingUser/{{idUser}}" class="dropdown-item small"><fa-icon icon="address-card"></fa-icon> Mi Perfil</button>
-              <button (click)="logout()" class="dropdown-item small"><fa-icon icon="sign-out-alt"></fa-icon> Cerrar Sesión</button>
-            </div>
+              <button class="btn btn-outline-light mr-2 small" id="dropdownManual" ngbDropdownToggle 
+                (focus)="myDropCloseSession.open()">
+              <!-- <fa-icon icon="user"></fa-icon>-->
+                <img class="rounded-circle" src="{{urlImage}}" alt="">
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <div class="dropdown-item small">
+                  <b>{{lastName}}, {{firstName}}</b><br>
+                  <p style="font-size: 11px">{{userName}}</p> 
+              </div>
+
+              <button routerLink="/settingUser/{{idUser}}" class="dropdown-item small">
+                <fa-icon icon="address-card"></fa-icon> Mi Perfil
+              </button>
+              <button (click)="logout()" class="dropdown-item small">
+                <fa-icon icon="sign-out-alt"></fa-icon> Cerrar Sesión
+              </button>
+              </div>
           </div>
       </li>      
 
