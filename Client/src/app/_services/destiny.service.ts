@@ -26,5 +26,9 @@ export class DestinyService {
   getMessage(): Observable<DestinyDto[]> {
       return this.subject.asObservable();
   }
+
+  get_destinies(solicitationId : number){
+    return this.http.get<any>("http://localhost:63098/api/Destiny/Get_Destiny/"+solicitationId);
+  }
   
 }

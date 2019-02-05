@@ -159,6 +159,20 @@ namespace VR.Data
             return resultFull;
         }
 
+        public List<Get_DestiniesResult> Get_DestiniesProcedure(Guid solicitation)
+        {
+            var resultFull = new List<Get_DestiniesResult>();
+            this.LoadStoredProc("dbo.get_destinies")
+                .WithSqlParam("@SolicitationId", solicitation)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<Get_DestiniesResult>)handler.ReadToList<Get_DestiniesResult>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
 
 
         public Guid SolicitationApprovedBySupervisorId(Guid solicitation)

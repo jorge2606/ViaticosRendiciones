@@ -23,3 +23,9 @@ export class DestinyDto{
     advanceCategory : number;
     percentageCodeLiquidation : number;
 }
+
+export class destinies_from_store_procedure{
+    days : number;
+    daysLetters : string;
+    advanceCategory : number;
+}

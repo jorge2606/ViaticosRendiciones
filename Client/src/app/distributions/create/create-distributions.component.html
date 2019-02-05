@@ -1,53 +1,63 @@
 <a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/distribution">
   <fa-icon icon="angle-left"></fa-icon>    
 </a>
-<div class="container col-4 navarStyle">
-  <h2>Crear</h2>
-  <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
+
+<div class="container col-6 navarStyle">
+    <div class="card">
+        <h5 class="card-header">Nuevo</h5>
+        <div class="card-body">
+                <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
       
-      <div style="margin-bottom:5px;" class="form-group">
-          <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
-              placeholder="Nombre">
-      </div>
-
-      <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
-          Nombre Incorrecto
-      </div>
-
-      <div style="margin-bottom:5px;" class="form-group">
-          <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
-              placeholder="Descripción">
-      </div>
-
-      <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
-          Descripción Incorrecta
-      </div>
-      <select class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
-            <option *ngIf="selectedOrganismId == model.organismId" [ngValue]="selectedOrganismId" disabled>
-                Seleccione un Organismo...
-            </option>
-          <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
-      </select>
-
-      <div style="margin-bottom:5px;" class="form-group">
-          <button [disabled]="!DistributionForm.valid" class="btn btn-success navarStyle"><fa-icon icon="save"></fa-icon></button>
-      </div>
-
-  </form>
-  <!--<div style="margin-top: 10px;" *ngIf="DistributionForm.form.invalid">
-      Hay Campos erroneos en el formulario, verifiquelos
-  </div>-->
-
-  <div class="alert alert-danger" *ngIf="error">
-    <ul *ngFor="let e of error">
-        <li>{{e.value}}</li>
-    </ul>
-  </div>
-
-  <div class="alert alert-success" *ngIf="responseSuccess">
-    <ul>
-        <li>Guardado</li>
-    </ul>
-  </div>
-  
+                        <div style="margin-bottom:5px;" class="form-group">
+                            <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
+                                placeholder="Nombre">
+                        </div>
+                  
+                        <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
+                            Nombre Incorrecto
+                        </div>
+                  
+                        <div style="margin-bottom:5px;" class="form-group">
+                            <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
+                                placeholder="Descripción">
+                        </div>
+                  
+                        <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
+                            Descripción Incorrecta
+                        </div>
+                        <select class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
+                              <option *ngIf="selectedOrganismId == model.organismId" [ngValue]="selectedOrganismId" disabled>
+                                  Seleccione un Organismo...
+                              </option>
+                            <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
+                        </select>
+                  
+                        <div class="form-row mt-1">
+                            <button [disabled]="!DistributionForm.valid" class="btn btn-success ml-auto">
+                                <fa-icon icon="save"></fa-icon> Guardar
+                            </button>
+                        </div>
+                  
+                    </form>
+            <!--<div style="margin-top: 10px;" *ngIf="DistributionForm.form.invalid">
+                Hay Campos erroneos en el formulario, verifiquelos
+            </div>-->
+            
+            <div class="alert alert-danger" *ngIf="error">
+                <ul *ngFor="let e of error">
+                    <li>{{e.value}}</li>
+                </ul>
+            </div>
+            
+            <div class="alert alert-success" *ngIf="responseSuccess">
+                <ul>
+                    <li>Guardado</li>
+                </ul>
+            </div>    
+        </div>
+    </div>
 </div>
+
+
+
+  

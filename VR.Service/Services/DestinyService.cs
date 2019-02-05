@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Service.Common.ServiceResult;
 using VR.Data;
+using VR.Data.Model.ModelStoreProcedure;
 using VR.Dto;
 using VR.Service.Interfaces;
 
@@ -29,5 +30,15 @@ namespace VR.Service.Services
             _context.SaveChanges();
             return new ServiceResult<DestinyBaseDto>(new DestinyBaseDto());
         }
+
+
+        public ServiceResult<List<Get_DestiniesResult>> Get_DestiniesProcedure(Guid solicitationId)
+        {
+           return new ServiceResult<List<Get_DestiniesResult>>(
+               _context.Get_DestiniesProcedure(solicitationId)
+               );
+        }
+
+
     }
 }

@@ -31,5 +31,16 @@ namespace VR.Web.Controllers
 
             return Ok(result.Response);
         }
+
+        [HttpGet("Get_Destiny/{id}")]
+        public IActionResult Get_Destiny(Guid id)
+        {
+            var result = _service.Get_DestiniesProcedure(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result.Response);
+        }
     }
 }

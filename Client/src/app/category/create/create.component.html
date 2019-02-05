@@ -1,61 +1,71 @@
 <a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/category">
   <fa-icon icon="angle-left"></fa-icon>    
 </a>
-<div class="container col-4 navarStyle">
-  <h2>Crear</h2>
-  <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
-      
-      <div style="margin-bottom:5px;" class="form-group">
-          <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
-              placeholder="Nombre">
-      </div>
 
-      <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
-          Nombre Incorrecto
-      </div>
 
-      <div style="margin-bottom:5px;" class="form-group">
-          <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
-              placeholder="Descripción">
-      </div>
-
-      <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
-          Descripción Incorrecta
-      </div>
-
-        <div style="margin-bottom:5px;" class="form-group">
-            <input class="form-control" [(ngModel)]="model.advance" required #advance="ngModel" name="advance" 
-            type="text"
-                placeholder="Anticipo">
+<div class="container col-6">
+        <div class="card">
+            <h5 class="card-header">Nuevo</h5>
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
+                    
+                    <div style="margin-bottom:5px;" class="form-group">
+                        <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
+                            placeholder="Nombre">
+                    </div>
+                
+                    <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
+                        Nombre Incorrecto
+                    </div>
+                
+                    <div style="margin-bottom:5px;" class="form-group">
+                        <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
+                            placeholder="Descripción">
+                    </div>
+                
+                    <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
+                        Descripción Incorrecta
+                    </div>
+                
+                        <div style="margin-bottom:5px;" class="form-group">
+                            <input class="form-control" [(ngModel)]="model.advance" required #advance="ngModel" name="advance" 
+                            type="text"
+                                placeholder="Anticipo">
+                        </div>
+                
+                        <div style="margin-top: 10px;" *ngIf="submitted && advance.invalid" class="alert alert-danger">
+                            Anticipo Incorrecta
+                        </div>
+                
+                    <div style="margin-bottom:5px;" class="form-row">
+                        <button class="btn btn-success ml-auto" >
+                            <fa-icon icon="save"></fa-icon> Guardar
+                        </button>
+                    </div>
+                
+                </form>
+                    
+            <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
+                Hay Campos erroneos en el formulario, verifiquelos
+            </div>-->
+            
+            <div class="alert alert-danger" *ngIf="error">
+                <ul *ngFor="let e of error">
+                    <li>{{e.value}}</li>
+                </ul>
+            </div>
+            
+            <div class="alert alert-success" *ngIf="responseSuccess">
+                <ul>
+                    <li>Guardado</li>
+                </ul>
+            </div>
+            
         </div>
-  
-        <div style="margin-top: 10px;" *ngIf="submitted && advance.invalid" class="alert alert-danger">
-            Anticipo Incorrecta
-        </div>
-
-      <div style="margin-bottom:5px;" class="form-group">
-          <button class="btn btn-success navarStyle" ><fa-icon icon="save"></fa-icon></button>
-      </div>
-
-  </form>
-
-  <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
-      Hay Campos erroneos en el formulario, verifiquelos
-  </div>-->
-
-  <div class="alert alert-danger" *ngIf="error">
-    <ul *ngFor="let e of error">
-        <li>{{e.value}}</li>
-    </ul>
-  </div>
-
-  <div class="alert alert-success" *ngIf="responseSuccess">
-    <ul>
-        <li>Guardado</li>
-    </ul>
-  </div>
-
+    </div>
 </div>
+
+
 
 
   

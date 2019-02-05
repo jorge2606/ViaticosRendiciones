@@ -144,7 +144,6 @@ library.add(fas);
     BrowserAnimationsModule,
     NgxSpinnerModule,
     SelectDropDownModule
-    //SignaturePadModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
