@@ -239,6 +239,7 @@ namespace VR.Service.Services
                 .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
                 .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
                 .Include(x => x.User).ThenInclude(c => c.Category)
+                .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == id);
 
             if (find == null)
@@ -266,7 +267,8 @@ namespace VR.Service.Services
             var delete = _dataContext.SolicitationSubsidies.FirstOrDefault(x => x.Id == id);
             if (delete != null)
             {
-                _dataContext.SolicitationSubsidies.Remove(delete);
+                delete.IsDeleted = true;
+                _dataContext.SolicitationSubsidies.Update(delete);
                 _dataContext.SaveChanges();
             }
 
@@ -284,6 +286,7 @@ namespace VR.Service.Services
                 .Include(destiny => destiny.Destinies).ThenInclude(city => city.City)
                 .Include(destiny => destiny.Destinies).ThenInclude(q => q.Category)
                 .Include(destiny => destiny.Destinies).ThenInclude(q => q.Transport)
+                .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == solicitationDto.Id);
 
             var supervisor = _dataContext.SupervisorUserAgents

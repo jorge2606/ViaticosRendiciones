@@ -43,6 +43,7 @@ namespace VR.Dto
         public string Model { set; get; }
         public string Brand { set; get; }
         public string CarPlate { set; get; }
+        public Boolean IsDeleted { set; get; }
     }
 
     public class CreateTransportDto : TransportBaseDto { }

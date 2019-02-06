@@ -1,17 +1,15 @@
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { DestinyDto } from './../../_models/destiny';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ActivatedRoute } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-print',
@@ -44,14 +42,18 @@ export class PrintComponent implements OnInit {
   constructor(
     private route : ActivatedRoute,
     private solicitationSubsidyService : SolicitationSubsidyService,
-    private authService : AuthenticationService,
     private destinyService : DestinyService,
     private domSanitazer : DomSanitizer,
     private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.init();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000);
+    
   }
 
   init(){

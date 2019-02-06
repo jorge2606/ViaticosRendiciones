@@ -1,39 +1,37 @@
-<div class="container mb-1" >
-    <label class="d-inline-block pl-1 pr-1" for="">Nombre</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
-    </div>
+<div class="container mt-4" style="height: 500px;">
+      <div class="row">
+          <label class="d-inline-block pl-1 pr-1 pt-2" for="">Nombre</label>
+          <div class="d-inline-block pl-1 pr-1 col-2">
+            <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
+          </div>
+      
+          <label class="d-inline-block pl-1 pr-1 pt-2" for="">Apellido</label>
+          <div class="d-inline-block pl-1 pr-1 col-2">
+            <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
+          </div>
+      
+          <label class="d-inline-block pl-1 pr-1 pt-2" for="">D.N.I</label>
+          <div class="d-inline-block pl-1 pr-1 col-2">
+            <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
+          </div>
+      </div>
 
-    <label class="d-inline-block pl-1 pr-1" for="">Apellido</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
-    </div>
-
-    <label class="d-inline-block pl-1 pr-1" for="">D.N.I</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
-    </div>
-</div>
-  
-  <div class="container">
-
-        <table class="table table-sm">
+        <table class="table table-sm mt-4">
           <thead>
             <tr class="row">
-              <th class="col">Agente</th>
-              <th class="col">Fecha de Creación</th>
+              <th class="col-2">Agente</th>
+              <th class="col-2">Fecha de Creación</th>
               <th class="col">Objeto</th>
               <th class="col-4">Localidades-Itinerario</th>
               <th class="col">Total</th>
               <th class="col">Estado</th>
-              <th class="col">Respuesta</th>
               <th class="col"></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
-              <td class="col">{{sol.fullName}}</td>
-              <td class="col">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+              <td class="col-2">{{sol.fullName}}</td>
+              <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
               <td class="col no-wrap">{{sol.motive}}</td>
               <td class="col-4">
                 <li *ngFor="let d of sol.destinies">
@@ -44,36 +42,32 @@
                 </li>  
                 <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>       
               </td>
-              <td class="col">{{sol.total}}</td>
+              <td class="col">{{sol.total | currency}}</td>
               <td class="col">{{sol.state}}</td>
-              <td class="col">
-                <a href="" *ngIf="sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy/supervisor"
-                (click)="openMotiveReject(sol.motiveReject)">
-                    observaciones
-                </a>
-  
-                <a href="" *ngIf="!sol.motiveReject" class="pr-3" routerLink="/SolicitationSubsidy/supervisor"
-                (click)="openMotiveReject(sol.fileNumber)">
-                    observaciones
-                </a>
-  
-              </td>
               <td class="col">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <a class="pr-3" routerLink="/SolicitationSubsidy/supervisor" (click)="openEliminar(sol)">
-                    <fa-icon style="color:red;" icon="trash"></fa-icon>
+                    <fa-icon class="{{sizeIcon}}"  title="Eliminar Solicitud" style="color:red;" icon="trash"></fa-icon>
                   </a>
                   <a href="" class="pr-3" routerLink="/SolicitationSubsidy/supervisor"
                   (click)="openDetail(sol.id)">
-                    <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
+                    <fa-icon class="{{sizeIcon}}"  title="Ver detalle de solicitud" style="color:gray;" icon="info-circle"></fa-icon>
                   </a>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-  
-        <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
-  aria-label="Default pagination"></ngb-pagination>
+
+  </div>
+
+  <div class="row">
+      <ngb-pagination 
+      (pageChange)="loadPage($event)" 
+      [collectionSize]="col_size"
+       [pageSize]="itemsPerPage" 
+       [(page)]="filters.page"
+       class="ml-auto"
+      aria-label="Default pagination"></ngb-pagination>
   </div>
   

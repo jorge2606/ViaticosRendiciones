@@ -115,7 +115,9 @@ namespace VR.Service.Services
 
         public ServiceResult<FindByIdTransportDto> FindByIdTransport(Guid transportId)
         {
-            var findTransport = _dataContext.Transports.FirstOrDefault(x =>x.Id == transportId);
+            var findTransport = _dataContext.Transports
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x =>x.Id == transportId);
 
             if(findTransport == null)
             {
@@ -134,7 +136,8 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteTransportDto>(null);
             }
 
-            _dataContext.Transports.Remove(deleteTransport);
+            deleteTransport.IsDeleted = true;
+            _dataContext.Transports.Update(deleteTransport);
             _dataContext.SaveChanges();
 
             return new ServiceResult<DeleteTransportDto>( _mapper.Map<DeleteTransportDto>(deleteTransport) );
@@ -143,7 +146,11 @@ namespace VR.Service.Services
         public ServiceResult<List<GetAllTransportDto>> GetAllTransport()
         {
             return new ServiceResult<List<GetAllTransportDto>>(
-               _mapper.Map<List<GetAllTransportDto>>(_dataContext.Transports.ToList())
+               _mapper.Map<List<GetAllTransportDto>>(
+                   _dataContext.Transports
+                       .Where(x => x.IsDeleted != true)
+                       .ToList()
+                   )
                );
         }
 

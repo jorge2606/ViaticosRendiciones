@@ -95,7 +95,9 @@ namespace VR.Service.Services
 
         public ServiceResult<FindByIdDistributionDto> FindByIdDistribution(Guid id)
         {
-            var distribution = _distributionContext.Distributions.FirstOrDefault(x => x.Id == id);
+            var distribution = _distributionContext.Distributions
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
 
             if (distribution == null)
             {
@@ -114,7 +116,8 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteDistributionDto>(null);
             }
 
-            _distributionContext.Remove(distribution);
+            distribution.IsDeleted = true;
+            _distributionContext.Update(distribution);
             _distributionContext.SaveChanges();
 
             return new ServiceResult<DeleteDistributionDto>(_mapper.Map<DeleteDistributionDto>(distribution));
@@ -122,7 +125,9 @@ namespace VR.Service.Services
 
         public ServiceResult< List<AllDistributionDto> > AllDistribution()
         {
-            return new ServiceResult<List<AllDistributionDto>>(_mapper.Map<List<AllDistributionDto>>(_distributionContext.Distributions.ToList()));
+            return new ServiceResult<List<AllDistributionDto>>(_mapper.Map<List<AllDistributionDto>>(
+                _distributionContext.Distributions.Where(x => x.IsDeleted != true).ToList())
+            );
         }
 
     }

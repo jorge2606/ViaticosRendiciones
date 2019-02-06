@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using FluentValidation;
+using VR.Data.Interfaces;
 using VR.Data.Model;
+using VR.Dto.User;
 
 namespace VR.Dto
 {
@@ -19,7 +21,7 @@ namespace VR.Dto
         }
     }
 
-    public class DistributionBaseDto
+    public class DistributionBaseDto : IsDeletedInterface
     {
         public Guid Id { set; get; }
         public string Name { set; get; }
@@ -27,6 +29,8 @@ namespace VR.Dto
         public Guid OrganismId { set; get; }
         public Organism Organism { set; get; }
         public List<Data.Model.User> Users { set; get; }
+        public Boolean IsDeleted { set; get; }
+
     }
 
     public class CreateDistributionDto : DistributionBaseDto { }

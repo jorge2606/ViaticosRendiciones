@@ -55,7 +55,7 @@ namespace VR.Service.Services
 
             var updateExpenditure = _dataContext.ExpenditureTypes.FirstOrDefault(x => x.Id == expenditure.Id);
 
-            if (!validate.IsValid || updateExpenditure == null)
+            if (!validate.IsValid || updateExpenditure == null || updateExpenditure.IsDeleted == true)
             {
                 return _mapper.Map<ServiceResult<UpdateExpenditureTypeDto>>(
                     validate.ToServiceResult<UpdateExpenditureTypeDto>(null));
@@ -75,7 +75,9 @@ namespace VR.Service.Services
 
         public ServiceResult<FindByIdExpenditureTypeDto> FindByIdExpenditureType(Guid id)
         {
-            var expenditure = _dataContext.ExpenditureTypes.FirstOrDefault(x => x.Id == id);
+            var expenditure = _dataContext.ExpenditureTypes
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
 
             if (expenditure == null)
             {
@@ -94,7 +96,8 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteExpenditureTypeDto>(null);
             }
 
-            _dataContext.ExpenditureTypes.Remove(delete);
+            delete.IsDeleted = true;
+            _dataContext.ExpenditureTypes.Update(delete);
             _dataContext.SaveChanges();
 
             return new ServiceResult<DeleteExpenditureTypeDto>( _mapper.Map<DeleteExpenditureTypeDto>(delete));
@@ -103,7 +106,9 @@ namespace VR.Service.Services
         public ServiceResult<List<AllExpenditureTypeDto>> AllExpenditureType()
         {
             return new ServiceResult<List<AllExpenditureTypeDto>>(
-             _dataContext.ExpenditureTypes.Select(x => _mapper.Map<AllExpenditureTypeDto>(x)).ToList()   
+             _dataContext.ExpenditureTypes.Select(x => _mapper.Map<AllExpenditureTypeDto>(x))
+                 .Where(x => x.IsDeleted != true)
+                 .ToList()   
              );
         }
 

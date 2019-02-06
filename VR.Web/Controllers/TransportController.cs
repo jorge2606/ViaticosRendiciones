@@ -125,7 +125,9 @@ namespace VR.Web.Controllers
 
         public IQueryable<Transport> queryableUser()
         {
-            var Paginator = _dataContext.Transports.OrderBy(x => x.Id);
+            var Paginator = _dataContext.Transports
+                .Where(x => x.IsDeleted != true)
+                .OrderBy(x => x.Id);
             return Paginator;
         }
 

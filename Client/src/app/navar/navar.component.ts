@@ -33,8 +33,12 @@ export class NavarComponent implements OnInit {
   retriveNotifications(){
     this.notificaionServices.getAllNotifications().subscribe(
       x => {
-      this.notification = x,
-      this.cantNotif = this.notification.length
+            this.notification = x;
+            this.cantNotif = this.notification.length;
+            this.idUser = this.authService.userId('id');
+            this.userName = this.authService.userId('userName');
+            this.firstName = this.authService.userId('firstName');
+            this.lastName = this.authService.userId('lastName');
       }, () => {
         console.log('');
       }
@@ -42,10 +46,6 @@ export class NavarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idUser = this.authService.userId('id');
-    this.userName = this.authService.userId('userName');
-    this.firstName = this.authService.userId('firstName');
-    this.lastName = this.authService.userId('lastName');
     this.isLogged = this.authService.isLoggedIn;
     this.isLogged.subscribe(x => {
       if(x){

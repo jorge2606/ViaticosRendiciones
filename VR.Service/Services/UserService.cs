@@ -71,6 +71,7 @@ namespace VR.Service.Services
         public ServiceResult<List<AllUserDto>> GetAll()
         {
             var result = _context.Users.Select(x => x)
+                .Where(x => x.IsDeleted != true)
                 .ProjectTo<AllUserDto>().ToList();
 
             return new ServiceResult<List<AllUserDto>>(result);
@@ -87,6 +88,8 @@ namespace VR.Service.Services
                         (string.IsNullOrEmpty(filters.Username) || x.UserName.ToUpper().Contains(filters.Username.ToUpper()))
                         &&
                         (filters.Dni == 0 || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
+                        &&
+                        (x.IsDeleted != true)
                 );
 
             var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
@@ -120,7 +123,7 @@ namespace VR.Service.Services
             var user = await _userManager.Users.SingleOrDefaultAsync(x => x.UserName == p_LoginDto.Usuario);
             var passwordResult = await _userManager.CheckPasswordAsync(user, p_LoginDto.Password);
 
-            if (user == null || !passwordResult)
+            if (user == null || !passwordResult || user.IsDeleted == true)
             {
                 const NotificationType notificationType = NotificationType.Error;
                 result.AddNotification(notificationType, "Usuario y/o Contraseña Incorrecto");
@@ -156,9 +159,9 @@ namespace VR.Service.Services
                 //primero remuevo los permisos del usuario
                 var userRoles = _context.UserRoles.ToList();
                 userRoles.RemoveAll(x => x.UserId == id);
-
+                userToDelete.IsDeleted = true;
                 //luego elimino el usuario
-                _context.Users.Remove(userToDelete);
+                _context.Users.Update(userToDelete);
 
                 _context.SaveChanges();
             }

@@ -50,13 +50,15 @@ namespace VR.Service.Services
 
         public ServiceResult<FindByIdOrganismDto> FindByIdOrganism(Guid id)
         {
-            var find = _dataContext.Organisms.FirstOrDefault(x => x.Id == id);
+            var find = _dataContext.Organisms
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
 
             if (find == null)
             {
                 return new ServiceResult<FindByIdOrganismDto>(null);
             }
-
+            
             return new ServiceResult<FindByIdOrganismDto>(_mapper.Map<FindByIdOrganismDto>(find));
         }
 
@@ -90,7 +92,8 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteOrganismDto>(null);
             }
 
-            _dataContext.Remove(delete);
+            delete.IsDeleted = true;
+            _dataContext.Update(delete);
             _dataContext.SaveChanges();
 
             return new ServiceResult<DeleteOrganismDto>(_mapper.Map<DeleteOrganismDto>(delete));
@@ -98,7 +101,11 @@ namespace VR.Service.Services
 
         public ServiceResult<List<GetallOrganismDto>> GetAllOrganism()
         {
-            var listOrganism = _mapper.Map<List<GetallOrganismDto>>(_dataContext.Organisms.ToList());
+            var listOrganism = _mapper.Map<List<GetallOrganismDto>>(
+                _dataContext.Organisms
+                    .Where(x => x.IsDeleted != true)
+                    .ToList()
+               );
             return new ServiceResult<List<GetallOrganismDto>>(new List <GetallOrganismDto>(listOrganism) );
         }
     }

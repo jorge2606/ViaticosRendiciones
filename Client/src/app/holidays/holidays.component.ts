@@ -17,7 +17,7 @@ export class HolidaysComponent implements OnInit {
   
   //paginator
   col_size : number;
-  itemsPerPage : number = 10;
+  itemsPerPage : number = 8;
   errorDatapicker : string;
     //
   constructor(

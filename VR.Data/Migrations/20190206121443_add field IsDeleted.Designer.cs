@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190206121443_add field IsDeleted")]
+    partial class addfieldIsDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,8 +241,6 @@ namespace VR.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("Name");
 
                     b.Property<Guid?>("OrganismId");
@@ -279,8 +279,6 @@ namespace VR.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -317,8 +315,6 @@ namespace VR.Data.Migrations
                         .HasColumnType("Date");
 
                     b.Property<string>("Description");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.HasKey("Id");
 
@@ -375,8 +371,6 @@ namespace VR.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
@@ -487,8 +481,6 @@ namespace VR.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("Date");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<string>("Motive");
 
                     b.Property<decimal>("Total");
@@ -558,8 +550,6 @@ namespace VR.Data.Migrations
                     b.Property<string>("Brand");
 
                     b.Property<string>("CarPlate");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Model");
 

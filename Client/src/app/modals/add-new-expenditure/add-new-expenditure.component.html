@@ -12,7 +12,7 @@
                         <select required class="form-control" #expenditureId="ngModel" name="expenditureId" 
                                 [(ngModel)]="modelExp.id" required>
                                 <option *ngIf="selectedExpenditure == modelExp.id" [ngValue]="selectedExpenditure" disabled>
-                                        Seleccione un Transporte...
+                                        Seleccione un concepto...
                                 </option>
                                 <option *ngFor="let exp of expendituresCbox" value="{{exp.id}}">{{exp.name}}</option>
                         </select>
@@ -30,7 +30,7 @@
                     <div class="form-group col">
                         <label for="">Importe</label>
                         <input required [(ngModel)]="modelExp.amount" #amount="ngModel" 
-                        name="amount" class="form-control" type="number" placeholder="Costo"
+                        name="amount" class="form-control" type="number"
                         value="{{modelExp.amount}}" required minlength="1" maxlength="8">
 
                         <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
@@ -53,7 +53,8 @@
                     <div class="form-group col">
                             <label for="">Descripción</label>
                             <textarea required [(ngModel)]="modelExp.description" #description="ngModel" 
-                            placeholder="Descripción" value="{{modelExp.description}}"
+                            value="{{modelExp.description}}"
+                            placeholder="Ingrese la descripción"
                             name="description" class="form-control" type="text"></textarea>
 
                             <div *ngIf="description.invalid && (description.dirty || description.touched)"

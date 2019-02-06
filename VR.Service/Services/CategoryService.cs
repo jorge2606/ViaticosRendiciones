@@ -81,7 +81,8 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteCategoryDto>(null);
             }
 
-            _categoryContext.Categories.Remove(categoryToDelete);
+            categoryToDelete.IsDeleted = true;
+            _categoryContext.Categories.Update(categoryToDelete);
             _categoryContext.SaveChanges();
 
             return new ServiceResult<DeleteCategoryDto>();
@@ -89,7 +90,9 @@ namespace VR.Service.Services
 
         public ServiceResult<FindByIdCategoryDto> FindByIdCategory(Guid id)
         {
-            var categoryFound = _categoryContext.Categories.FirstOrDefault(x => x.Id == id);
+            var categoryFound = _categoryContext.Categories
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
 
             if (categoryFound == null)
             {
@@ -101,9 +104,12 @@ namespace VR.Service.Services
 
         public ServiceResult<List<AllCategoryDto>> GetAllCategories()
         {
-            return new ServiceResult<List<AllCategoryDto>>(_categoryContext.Categories.Select(x => _mapper.Map<AllCategoryDto>(x))
-                .OrderBy(x => x.Name)
-                .ToList());
+            return new ServiceResult<List<AllCategoryDto>>(
+                _categoryContext.Categories
+                    .Select(x => _mapper.Map<AllCategoryDto>(x))
+                    .Where(x => x.IsDeleted != true)
+                    .OrderBy(x => x.Name)
+                    .ToList());
         }
     }
 }

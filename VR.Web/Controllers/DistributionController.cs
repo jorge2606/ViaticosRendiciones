@@ -108,7 +108,7 @@ namespace VR.Web.Controllers
         public PagedResult<AllDistributionDto> userPagination([FromQuery] FilterDistributionDto filters)
         {       
             const int pageSize = 10;
-            var queryPaginator = queryableUser();
+            var queryPaginator = queryableUser().Where(x => x.IsDeleted != true);
 
             var result = queryPaginator.
                 Where( 

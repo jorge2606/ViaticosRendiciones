@@ -96,7 +96,9 @@ namespace VR.Web.Controllers
 
         public IQueryable<GetallOrganismDto> queryableUser()
         {
-            var usersPaginator = _context.Organisms.Select(x => _mapper.Map<GetallOrganismDto>(x) ).OrderBy(x => x.Name);
+            var usersPaginator = _context.Organisms
+                .Where(x => x.IsDeleted != true)
+                .Select(x => _mapper.Map<GetallOrganismDto>(x) ).OrderBy(x => x.Name);
             return usersPaginator;
         }
 

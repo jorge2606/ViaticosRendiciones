@@ -92,7 +92,8 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteHolidayDto>(null);
             }
 
-            _dataContext.Holidays.Remove(exist);
+            exist.IsDeleted = true;
+            _dataContext.Holidays.Update(exist);
             _dataContext.SaveChanges();
 
             return new ServiceResult<DeleteHolidayDto>(_mapper.Map<DeleteHolidayDto>(exist));
@@ -100,12 +101,17 @@ namespace VR.Service.Services
 
         public ServiceResult<List<AllHolidayDto>> AllHoliday()
         {
-            return _mapper.Map< ServiceResult<List<AllHolidayDto>> >(_dataContext.Holidays.ToList());
+            return _mapper.Map< ServiceResult<List<AllHolidayDto>> >(
+                _dataContext.Holidays
+                    .Where(x => x.IsDeleted != true)
+                    .ToList());
         }
 
         public ServiceResult<FindByIdHolidayDto> FindByIdHoliday(Guid id)
         {
-            var exist = _dataContext.Holidays.FirstOrDefault(x => x.Id == id);
+            var exist = _dataContext.Holidays
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
             if (exist == null)
             {
                 return new ServiceResult<FindByIdHolidayDto>(null);
@@ -116,27 +122,18 @@ namespace VR.Service.Services
 
         public ServiceResult<PagedResult<AllHolidayDto>> Pagination(FilterHolidayDto filters)
         {
-            const int pageSize = 10;
-            DateTime compareDate = new DateTime();
+            const int pageSize = 8;
 
-            if (filters.Date != null)
-            {
-                compareDate = new DateTime(
-                    filters.Date.Year,
-                    filters.Date.Month,
-                    filters.Date.Day);
-            }
-
-            var resultFull = _dataContext.Holidays;
+            var resultFull = _dataContext.Holidays
+                .Where(x => x.IsDeleted != true);
 
 
-            var resultPage = resultFull.
-                Where(
+            var resultPage = resultFull
+                .Where(
                     x => (string.IsNullOrEmpty(filters.Description) || x.Description.ToUpper().Contains(filters.Description.ToUpper()))
                          &&
-                         (filters.Date == null || DateTime.Compare(x.Date, compareDate) == 0)
-                )
-                .Skip((filters.Page ?? 0) * pageSize)
+                         (filters.Date == null || DateTime.Compare(x.Date, filters.Date.ToDateTime()) == 0)
+                ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ProjectTo<AllHolidayDto>()
                 .ToList();

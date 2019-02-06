@@ -43,7 +43,7 @@ namespace VR.Dto
         public Guid? CityId { set; get; }
         public string CityName { set; get; }
         public Guid CodeLiquidationId { set; get; }
-        public Decimal CodeLiquidationPercentage { set; get; }
+        public Decimal PercentageCodeLiquidation { set; get; }
         public Guid? CountryId { set; get; }
         public string CountryName { set; get; }
         public Guid? ProvinceId { set; get; }

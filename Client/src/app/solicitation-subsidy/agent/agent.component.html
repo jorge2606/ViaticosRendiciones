@@ -1,34 +1,21 @@
-<!--<div class="container mb-1" >
-    <label class="d-inline-block pl-1 pr-1" for="">Nombre</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
-    </div>
+<div class="container" style="height: 500px;">
 
-    <label class="d-inline-block pl-1 pr-1" for="">Apellido</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
-    </div>
-
-    <label class="d-inline-block pl-1 pr-1" for="">D.N.I</label>
-    <div class="d-inline-block pl-1 pr-1 col-2">
-      <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
-    </div>
-</div>-->
-  
-  <div class="container">
-      <div class="d-inline-block pb-2 pt-2">
-          <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
-            <fa-icon icon="plus"></fa-icon> Nuevo
+    <div class="row">
+        <div class="d-inline-block pb-2 pt-2">
+            <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
+              <fa-icon icon="plus"></fa-icon> Nuevo
+            </a>
+        </div>
+    
+        <div class="d-inline-block pb-2 pt-2 ml-1">
+          <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/supervisor">
+            Moderar Solicitudes
           </a>
-  </div>
+        </div>
+    </div>
 
-      <div class="d-inline-block pb-2 pt-2 ml-1">
-        <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/supervisor">
-          Moderar Solicitudes
-        </a>
-      </div>
        
-        <table class="table table-sm">
+        <table class="table table-sm mt-3">
           <thead>
             <tr class="row">
               <th class="col-1">Fecha de Creación</th>
@@ -50,7 +37,7 @@
                   </li>  
                   <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>   
               </td>
-              <td class="col">{{sol.total}}</td>
+              <td class="col">{{sol.total | currency}}</td>
               <td *ngIf="sol.state == 'Rechazado'" class="col">
                   <a  href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
                   (click)="openMotiveReject(sol.motiveReject)">
@@ -71,14 +58,17 @@
                   <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
-                  <a *ngIf="sol.state == 'Pendiente'" class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
-                    <fa-icon style="color:gray;" icon="edit"></fa-icon>
+                  <a 
+                    *ngIf="sol.state == 'Pendiente'" 
+                    class="pr-3" 
+                    routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
+                    <fa-icon title="Editar Solicitud" style="color:gray;" icon="edit" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <a class="pr-3" 
                     routerLink="/SolicitationSubsidy/agent" 
                     *ngIf="sol.state == 'Pendiente'"
                     (click)="openEliminar(sol)">
-                    <fa-icon style="color:red;" icon="trash"></fa-icon>
+                    <fa-icon title="Eliminar Solicitud" class="{{sizeIcon}}" style="color:red;" icon="trash"></fa-icon>
                   </a>
                   <!--<a href="" 
                     class="pr-3" 
@@ -91,7 +81,7 @@
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
-                    <fa-icon style="color: black;" icon="envelope"></fa-icon>
+                    <fa-icon title="Enviar solicitud al supervisor" class="{{sizeIcon}}" style="color: black;" icon="envelope"></fa-icon>
                   </a>
                 </div>
               </td>
@@ -99,14 +89,16 @@
                 <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
-                  <a *ngIf="sol.state == 'Pendiente'" class="pr-3" routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
-                    <fa-icon style="color:gray;" icon="edit"></fa-icon>
+                  <a *ngIf="sol.state == 'Pendiente'" 
+                      class="pr-3" 
+                      routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
+                    <fa-icon title="Editar Solicitud" style="color:gray;" icon="edit" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <a class="pr-3" 
                     routerLink="/SolicitationSubsidy/agent" 
                     *ngIf="sol.state == 'Pendiente'"
                     (click)="openEliminar(sol)">
-                    <fa-icon style="color:red;" icon="trash"></fa-icon>
+                    <fa-icon style="color:red;" title="Eliminar Solicitud" icon="trash" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <!--<a href="" 
                     class="pr-3" 
@@ -119,19 +111,19 @@
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
-                    <fa-icon style="color: black;" icon="envelope"></fa-icon>
+                    <fa-icon style="color: black;" icon="envelope" title="Enviar solicitud al supervisor" class="{{sizeIcon}}"></fa-icon>
                   </a>
                 </div>
               </td>
               <td *ngIf="sol.state == 'Aceptado'" class="col">
                   <a href="" routerLink="/print/{{sol.id}}" class="pr-3">
-                    <fa-icon style="color: black;" icon="print"></fa-icon>
+                    <fa-icon class="{{sizeIcon}}"  title="Imprimir" style="color: black;" icon="print"></fa-icon>
                   </a>
               </td>
             </tr>
           </tbody>
         </table>
-  
+ 
         <ngx-spinner 
           bdColor="rgba(51,51,51,0.8)"
           size="medium"
@@ -139,8 +131,13 @@
           type="ball-scale-multiple">
         <p style="font-size: 20px; color: white">Enviando...</p>>
         </ngx-spinner>
-
-        <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
-  aria-label="Default pagination"></ngb-pagination>
+  </div>
+  <div class="row">
+      <ngb-pagination (pageChange)="loadPage($event)" 
+      [collectionSize]="col_size" 
+      [pageSize]="itemsPerPage" 
+      [(page)]="filters.page"
+      class="ml-auto"
+      aria-label="Default pagination"></ngb-pagination>
   </div>
   

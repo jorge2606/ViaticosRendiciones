@@ -33,7 +33,12 @@ export class ModifyDistributionComponent implements OnInit {
     );
 
     this.distributionService.findByIdDistribution(this.id).subscribe(
-      x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description}
+      x => {
+            this.model.id = x.id, 
+            this.model.name = x.name, 
+            this.model.description = x.description,
+            this.model.organismId = x.organismId
+          }
     );
 
     this.organismService.getAllOrganism().subscribe(

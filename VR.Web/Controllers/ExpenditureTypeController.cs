@@ -92,7 +92,9 @@ namespace VR.Web.Controllers
 
         public IQueryable<ExpenditureType> queryableUser()
         {
-            var usersPaginator = _context.ExpenditureTypes.OrderBy(x => x.Name);
+            var usersPaginator = _context.ExpenditureTypes
+                .Where(x => x.IsDeleted != true)
+                .OrderBy(x => x.Name);
             return usersPaginator;
         }
 

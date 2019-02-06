@@ -38,7 +38,6 @@ namespace VR.Service.Services
             {
                 return new ServiceResult<ExpenditureDto>(null);
             }
-
             _context.Expenditures.Remove(expDelete);
             _context.SaveChanges();
 

@@ -1,4 +1,3 @@
-<div class="container mb-1" >
   <div class="row">
       <label class="d-inline-block mt-2 mr-2" for="">Fecha </label>
       <div class="d-inline-block pl-1">
@@ -40,8 +39,7 @@
       </div>
   </div>
 
-
-  </div>
+<div class="container mb-1" style="height: 500px;">
   <a href="" class="btn btn-success mb-3 mt-3" routerLink="/holidays/create">
     <fa-icon icon="plus"></fa-icon> Nuevo
   </a>
@@ -70,6 +68,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
   
   <ngb-pagination (pageChange)="loadPage($event)"
       [collectionSize]="col_size" 

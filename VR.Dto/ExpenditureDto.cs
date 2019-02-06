@@ -29,7 +29,7 @@ namespace VR.Dto
         public string ExpenditureTypeName { set; get; }
         public Guid SolicitationSubsidyId { set; get; }
         public Guid ExpenditureTypeId { set; get; }
-        
+
     }
 
     public class RptExpenditureDto

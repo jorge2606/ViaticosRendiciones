@@ -23,6 +23,7 @@ namespace VR.Dto
         public Guid Id { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
+        public Boolean IsDeleted { set; get; }
     }
 
     public class CreateOrganismDto : OrganismBaseDto { }

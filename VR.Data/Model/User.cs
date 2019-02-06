@@ -2,16 +2,18 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using VR.Data.Interfaces;
 
 namespace VR.Data.Model
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser<Guid>, IsDeletedInterface
     {
         public int Dni { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public int PrefixCuil { set; get; }
         public int SuffixCuil { set; get; }
+        public Boolean IsDeleted { set; get; }
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }
 

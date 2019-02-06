@@ -97,7 +97,7 @@ namespace VR.Web.Controllers
         public PagedResult<AllCategoryDto> userPagination([FromQuery] FilterCategoryDto filters)
         {
             const int pageSize = 10;
-            var queryPaginator = queryableUser();
+            var queryPaginator = queryableUser().Where(x => x.IsDeleted != true);
 
             var result = queryPaginator.Where(
                   x=> string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper())

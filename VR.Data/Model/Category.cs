@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using VR.Data.Interfaces;
 
 namespace VR.Data.Model
 {
-    public class Category
+    public class Category : IsDeletedInterface
     {
         public Guid Id { set; get; }
         [StringLength(50)]

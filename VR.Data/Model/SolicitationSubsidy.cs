@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using VR.Data.Interfaces;
 
 namespace VR.Data.Model
 {
-    public class SolicitationSubsidy
+    public class SolicitationSubsidy : IsDeletedInterface
     {
         public SolicitationSubsidy()
         {
@@ -20,6 +21,7 @@ namespace VR.Data.Model
         public decimal Total { set; get; }
         [Column(TypeName = "Date")]
         public DateTime CreateDate { set; get; }
+        public Boolean IsDeleted { set; get; }
 
         [ForeignKey("User")]
         public Guid UserId { set; get; }

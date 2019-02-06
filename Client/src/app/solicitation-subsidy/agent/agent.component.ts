@@ -31,6 +31,8 @@ export class AgentComponent implements OnInit {
    solicitationSubsidies : AllSolicitationSubsidyDto[];
    error = '';
    transports : any;
+   sizeIcon = "fa-lg";
+
   constructor(
     private solicitationSubsidyservice : SolicitationSubsidyService,
     private transportService : TransportService,

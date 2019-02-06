@@ -89,7 +89,15 @@ export class CreateSolicitationComponent implements OnInit {
     
     this.model.destinies = [];
     this.model.expenditures = [];
-
+    this.allMotive();
+    this.allexpenditures();
+    this.allExpenditureFromModal();
+    this.allDestinyFromModal();
+    this.allCategories();
+    this.allTransport();
+    this.allCountries();
+    this.allCodeLiquidation();
+    
     if (this.id){
         this.solicitationSubsidyService.getByIdSolicitation(this.id)
         .subscribe(
@@ -105,18 +113,10 @@ export class CreateSolicitationComponent implements OnInit {
                 }
                 
                 this.allProvice();
+                this.totalResultExpenditure();
           }
         );
       }
-      this.allMotive();
-      this.allexpenditures();
-      this.allExpenditureFromModal();
-      this.allDestinyFromModal();
-      this.allCategories();
-      this.allTransport();
-      this.allCountries();
-      this.allCodeLiquidation();
-      this.totalResultExpenditure();
   }
 
   allTransport(){
@@ -402,12 +402,9 @@ export class CreateSolicitationComponent implements OnInit {
 
       this.model.destinies.forEach(
         destiny => {
-          let category = this.categories.find(category => category.id == destiny.categoryId);
-          let codLiquidation = this.codeLiquidations.find(codLiq => codLiq.id == destiny.codeLiquidationId);
-          resultDestiny = resultDestiny + (category.advance * destiny.days * codLiquidation.percentage);
+          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
         }
       );
-
       this.model.total = resultExpenditure + resultDestiny;
     }
 
