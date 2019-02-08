@@ -11,6 +11,7 @@ import { ListNotificationsComponent } from '../modals/list-notifications/list-no
 import { NotifyRejectComponent } from '../modals/notify-reject/notify-reject.component';
 import { SolicitationSubsidydetailComponent } from '../solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { Router } from '@angular/router';
+import { GenericsCommunicationsComponentsService } from '../_services/generics-communications-components.service';
 
 @Component({
   selector: 'app-navar',
@@ -22,7 +23,8 @@ export class NavarComponent implements OnInit {
   constructor(private notificaionServices : NotificationsService, 
               private authService : AuthenticationService,
               private messaBetweenComp : MessBetweenCompService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private comunicationService : GenericsCommunicationsComponentsService) { }
 
   notification : Notifications[] = [];
   isLogged : Observable<boolean>;
@@ -47,10 +49,14 @@ export class NavarComponent implements OnInit {
         console.log('');
       }
       );
-  }
+   }
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedIn;
+    this.comunicationService.getMessage()
+    .subscribe(x => {
+        this.retriveNotifications();
+    });
     this.isLogged.subscribe(x => {
       if(x){
         this.retriveNotifications();

@@ -1,16 +1,22 @@
-<div id="container-pdf" class="container">
+<div id="container-pdf" class="container small">
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
+      <h4 class="modal-title pull-left">Detalle de solicitud de viatico</h4><br>
+      <button (click)="activeModal.dismiss('Close click')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="modal-header">
-        <h5 class="modal-title">{{lastName}}, {{firstName}} <br> {{prefixCuil}}-{{dni}}-{{suffixCuil}}</h5>
+        <h5 class="modal-title">Apellido, Nombre : {{lastName}}, {{firstName}} <br> C.U.I.L : {{prefixCuil}}-{{dni}}-{{suffixCuil}}</h5>
     </div>
     <div class="modal-body">
           <div class="form-row">
               <label for="">Motivo</label>
-              <textarea rows="10" style="height: 100px" class="h-45 form-control" 
-              value="{{model.motive}}"
-              disabled>
+              <textarea 
+                rows="10" 
+                style="height: 100px; resize: none;" 
+                class="h-45 form-control" 
+                value="{{model.motive}}"
+                disabled>
               
               </textarea>
           </div>
@@ -19,68 +25,78 @@
               <label for="">Gastos</label>
               <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th scope="col">Importe</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    
+                  <tr class="form-row">
+                    <th class="col-2" style="padding : 0px;">Concepto</th>
+                    <th class="col"style="padding : 0px;">Descripción</th>
+                    <th class="col-2"style="padding : 0px;">Importe</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let exp of model.expenditures">
-                    <td>
-                      {{exp.amount}}
-                    </td>
-                    <td>
+                  <tr class="form-row" *ngFor="let exp of model.expenditures">
+                    <td class="col-2" style="padding : 1px;">
                       {{exp.expenditureTypeName}}
                     </td>
-                    <td>
+                    <td class="col" style="padding : 1px;">
                       {{exp.description}}
                     </td>
-                    
+                    <td class="col-2 text-right" style="padding : 1px;">
+                      {{exp.amount | currency}}
+                    </td>
                   </tr>
                 </tbody>
               </table>
           </div>
 
+
+
+
+
+
           <div class="form-row">
               <label for="">Destinos</label>
-              <table class="table table-striped">
+              <table class="table table-striped" style="padding :0;">
                 <thead>
-                  <tr>
-                    <th scope="col">Dias</th>
-                    <th scope="col">Fecha de Inicio</th>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Pais</th>
-                    <th scope="col">Provincia</th>
-                    <th scope="col">Localidad</th>
-                    <th scope="col">Transporte</th>
+                  <tr class="text-center" >
+                      <th scope="col" style="padding : 0px;">Fecha</th>
+                      <th scope="col" style="padding : 0px;">Destino</th>
+                      <th scope="col" style="padding : 0px;">Categoría</th>
+                      <th scope="col" style="padding : 0px;">Transporte</th>
+                      <th scope="col" style="padding : 0px;">Dias</th>
+                      <th scope="col" style="padding : 0px;">Precio/Dia</th>                      
+                      <th scope="col" style="padding : 0px;">Cod. Liq.</th>
+                      <th scope="col" style="padding : 0px;">Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let des of model.destinies">
-                    <td>
-                      {{des.days}}
-                    </td>
-                    <td>
+                    <td style="padding : 1px;">
                         {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
-                      </td>
-                    <td>
-                      {{des.categoryName}}
                     </td>
-                    <td>
-                      <li style="list-style-type: none;" *ngIf="des.countryName">{{des.countryName}}</li>
-                      <li style="list-style-type: none;" *ngIf="!des.countryName">ARGENTINA</li>
+                    <td style="padding : 1px;">
+                        <span *ngIf="des.countryId">{{des.countryName}} </span> 
+                        <span *ngIf="!des.countryId">{{des.provinceName}} - {{des.cityName}} </span>
+                        <span class="mr-1 cardInsideTd" *ngFor="let c of des.supplementaryCities"> 
+                            <span *ngIf="!des.countryId">, {{ c.name }}</span>
+                        </span>
                     </td>
-                    <td >
-                      <li style="list-style-type: none;" *ngIf="des.provinceName"> {{des.provinceName}} </li>
+                    <td style="padding : 1px;">
+                        {{des.categoryName}}
                     </td>
-                    <td>
-                      <li style="list-style-type: none;" *ngIf="des.cityName">{{des.cityName}}</li>
+                    <td style="padding : 1px;">
+                        {{des.transportModel}} - {{des.transportBrand}}
                     </td>
-                    <td>
-                      {{des.transportModel}} - {{des.transportBrand}}
+                    <td class="text-center" style="padding : 1px;">
+                        {{des.days}}
                     </td>
+                    <td class="text-right" style="padding : 1px;">
+                        {{des.advanceCategory | currency}}
+                    </td>
+                    <td class="text-center" style="padding : 1px;">
+                        {{des.percentageCodeLiquidation}}
+                    </td>
+                    <td class="text-right" style="padding : 1px;">
+                        {{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}
+                    </td> 
                   </tr>
                 </tbody>
               </table>
@@ -93,16 +109,22 @@
             <div class="col-5 form-inline ml-auto">
                 <label for="" class="col-2">Total</label>
                 <input type="text" disabled value="{{model.total | currency}}" 
-                class="col form-control text-right">
+                class="col form-control text-right small">
             </div>
           </div>
     </div>
 </div>
 
-  <div class="modal-footer mt-6 ml-auto">
-    <button type="button" class="btn btn-success">Aceptar</button>
-    <button type="submit" (click)="AddMotive('reject','Motivo de Rechazo')" class="btn btn-danger">Rechazar</button>
-    <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+  <div class="modal-footer mt-6">
+    <div class="mr-auto">
+        <button type="button" class="btn btn-success small">Aceptar</button>
+    </div>
+    <div class="ml-auto">
+        <button type="submit" (click)="AddMotive('reject','Motivo de Rechazo')" class="btn btn-danger small">Rechazar</button>
+    </div>
+    <!--<div col="col ml-auto">
+        <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+    </div>-->
   </div> 
 
 

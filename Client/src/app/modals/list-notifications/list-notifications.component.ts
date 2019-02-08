@@ -1,8 +1,11 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from './../../_services/notifications.service';
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Notifications } from '../../_models/notifications';
 import { NgbdModalContent } from '../modals.component';
+import { SolicitationSubsidydetailComponent } from 'src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component';
+import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 
 @Component({
   selector: 'app-list-notifications',
@@ -25,7 +28,8 @@ export class ListNotificationsComponent {
 
   constructor(public activeModal: NgbActiveModal, 
     private notifService: NotificationsService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private comunicationService : GenericsCommunicationsComponentsService) { }
 
   ngOnInit() {
     this.getAllNotifications(this.page);
@@ -39,10 +43,27 @@ export class ListNotificationsComponent {
 
   getAllNotifications(page: number): void {
     this.notifService.getPaginator(page).subscribe(result => {
-      this.Contenido = result.list,
-        this.col_size = result.totalRecords
+        this.Contenido = result.list;
+        this.col_size = result.totalRecords;
+        this.comunicationService.sendMessage(true);
     }
     )
+  }
+
+
+  seeThisNotification(notificationridden : any) {
+    this.notifService.notificationRidden(notificationridden).subscribe(
+      () =>{
+          this.getAllNotifications(this.page);
+          const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+          modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+          modalRef.result.then(() => {    },
+          () => {
+              console.log('Backdrop click');
+          })
+        } 
+  )
+
   }
 
   delete(id : number){

@@ -4,4 +4,5 @@ export class Notifications{
     tittle : string;
     read : boolean;
     colapse : boolean;
+    solicitationSubsidyId : number;
 }

@@ -1,4 +1,3 @@
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateuserComponent } from './users/create/create.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -146,8 +145,7 @@ library.add(fas);
       FileUploadModule,
       BrowserAnimationsModule,
       NgxSpinnerModule,
-      SelectDropDownModule,
-      BsDatepickerModule.forRoot()
+      SelectDropDownModule
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

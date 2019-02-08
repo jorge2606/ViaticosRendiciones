@@ -8,7 +8,7 @@
   <div *ngFor="let j of Contenido" class="small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">
     <div class="row h-10">   
       <div class="col">
-          <h6>{{j.textData}} </h6>
+          <h6>{{j.textData}}</h6> <button class="btn btn-primary" (click)="seeThisNotification(j)"> Ir a solicitud</button>
       </div> 
 
       <div class="col-1 mt-3">

@@ -1,4 +1,3 @@
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DateDto } from './../../_models/holiday';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { ComplementariesCitiesDto } from './../../_models/city';
