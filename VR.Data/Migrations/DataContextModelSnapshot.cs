@@ -356,6 +356,8 @@ namespace VR.Data.Migrations
 
                     b.Property<bool>("Read");
 
+                    b.Property<Guid>("SolicitationSubsidyId");
+
                     b.Property<string>("TextData");
 
                     b.Property<string>("Tittle");
@@ -363,6 +365,8 @@ namespace VR.Data.Migrations
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SolicitationSubsidyId");
 
                     b.HasIndex("UserId");
 
@@ -770,6 +774,11 @@ namespace VR.Data.Migrations
 
             modelBuilder.Entity("VR.Data.Model.Notification", b =>
                 {
+                    b.HasOne("VR.Data.Model.SolicitationSubsidy", "SolicitationSubsidy")
+                        .WithMany()
+                        .HasForeignKey("SolicitationSubsidyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("VR.Data.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")

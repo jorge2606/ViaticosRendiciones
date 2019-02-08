@@ -27,6 +27,8 @@
     <Compile Remove="Migrations\20190122133851_add field CategoryId to User Table.cs" />
     <Compile Remove="Migrations\20190122134737_add field CategoryId to User Table.cs" />
     <Compile Remove="Migrations\20190122134953_add field CategoryId to User Table.cs" />
+    <Compile Remove="Migrations\20190207171221_add solicitationSubsidy Obj property to Notifications.cs" />
+    <Compile Remove="Migrations\20190207171906_add solicitationSubsidy Obj property to Notifications.cs" />
   </ItemGroup>
 
   <ItemGroup>

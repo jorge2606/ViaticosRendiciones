@@ -400,14 +400,15 @@ namespace VR.Service.Services
                 {
                     Tittle = "solicitud de un viatico",
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
-                               "Ha enviado la solicitud de un viatico. " + "<br><br>",
+                               "Ha enviado la solicitud de un viatico. ",
                     UserId = supervisor.SupervisorId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitation.UserId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today
+                    LastModificationTime = DateTime.Today,
+                    SolicitationSubsidyId = solicitation.Id
                 });
             _dataContext.SolicitationStates.Add(solicitationState);
 
@@ -471,17 +472,18 @@ namespace VR.Service.Services
 
         public ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates)
         {
-            var SolicitationsDestinies = _dataContext.Destinies
-                .Include(x => x.SolicitationSubsidy)
+            /**var SolicitationsDestinies = _dataContext.Destinies
                 .Include(x => x.SolicitationSubsidy).ThenInclude(x => x.User)
-                .Where(
-                x => 
-                   !(x.StartDate.AddDays(x.Days) < overlapingDates.StartDateDatetime || x.StartDate > overlapingDates.EndDateDatetime)
-                    && 
-                   x.SolicitationSubsidy.User.Id == overlapingDates.UserId
-            );
-
-            if (SolicitationsDestinies.Count() > 0)
+                 .Where(
+                 x => 
+                    !(x.StartDate.AddDays(x.Days) < overlapingDates.StartDateDatetime || x.StartDate > overlapingDates.EndDateDatetime)
+                     && 
+                    x.SolicitationSubsidy.User.Id == overlapingDates.UserId
+             );**/
+            var SolicitationsDestinies = _dataContext.Overlaping_dates(
+                 overlapingDates.StartDateDatetime, overlapingDates.EndDateDatetime, overlapingDates.UserId);
+     
+            if (SolicitationsDestinies)
             {
                 ServiceResult<Boolean> notify = new ServiceResult<bool>(true);
                 const NotificationType notificationType = NotificationType.Error;

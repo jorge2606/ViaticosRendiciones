@@ -1,3 +1,4 @@
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateuserComponent } from './users/create/create.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,7 +11,6 @@ import { AppRoutesModule } from './app-routes.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { JwtInterceptor , ErrorInterceptor} from './_helpers/';
 import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
 import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
@@ -54,7 +54,6 @@ import { CreateSolicitationComponent } from './solicitation-subsidy/create/creat
 import { HolidaysComponent } from './holidays/holidays.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
 import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.component';
-import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AddNewExpenditureComponent } from './modals/add-new-expenditure/add-new-expenditure.component';
 import { AddDestinyComponent } from './modals/add-destiny/add-destiny.component';
 import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
@@ -70,92 +69,106 @@ import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
 import { HolographSignComponent } from './users/holograph-sign/holograph-sign.component';
 import { FileNumberComponent } from './modals/file-number/file-number.component';
+import { SelectorDirective } from './directives/selector.directive';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 
 library.add(fas);
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    UsersComponent,
-    CreateuserComponent,
-    HomeComponent,
-    ModifyuserComponent,
-    RegisterComponent,
-    NgbdModalContent,
-    NavarComponent,
-    RolesComponent,
-    CreateRolesComponent,
-    RolesPermissionsComponent,
-    ManagePasswordComponent,
-    ResetPasswordComponent,
-    SettingofuserComponent,
-    PhotoProfileComponent,
-    ListNotificationsComponent,
-    AuditsComponent,
-    AuditUsersComponent,
-    CategoryComponent,
-    CreateCategoryComponent,
-    ModifyCategoryComponent,
-    DistributionsComponent,
-    ModifyDistributionComponent,
-    CreateDistributionsComponent,
-    TransportsComponent,
-    CreateTransportComponent,
-    ModifyTransportComponent,
-    ExpendituresComponent,
-    CreateExpenditureComponent,
-    UpdateExpenditureComponent,
-    OrganismsComponent,
-    CreateOrganismComponent,
-    ModifyOrganismComponent,
-    CreateSolicitationComponent,
-    HolidaysComponent,
-    CreateHolidaysComponent,
-    ModifyHolidaysComponent,
-    AddNewExpenditureComponent,
-    AddDestinyComponent,
-    ExpendituresUsersComponent,
-    SolicitationSubsidydetailComponent,
-    AddSupervisorComponent,
-    AgentsAndSupervisorsComponent,
-    NotifyRejectComponent,
-    PrintComponent,
-    SupervisorComponent,
-    AgentComponent,
-    AceptOrRefuseComponent,
-    HolographSignComponent,
-    FileNumberComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutesModule,
-    HttpModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgbModule,
-    NgxPaginationModule,
-    NgbDatepickerModule,  
-    FontAwesomeModule,
-    TreeviewModule.forRoot(),
-    FileUploadModule,
-    BrowserAnimationsModule,
-    NgxSpinnerModule,
-    SelectDropDownModule
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}
-
-    // provider used to create fake backend
-    //fakeBackendProvider    
-  ],
-  entryComponents: [NgbdModalContent, ListNotificationsComponent,AddNewExpenditureComponent,
-    AddDestinyComponent, AddSupervisorComponent, SolicitationSubsidydetailComponent,NotifyRejectComponent,
-    FileNumberComponent],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      LoginComponent,
+      UsersComponent,
+      CreateuserComponent,
+      HomeComponent,
+      ModifyuserComponent,
+      RegisterComponent,
+      NgbdModalContent,
+      NavarComponent,
+      RolesComponent,
+      CreateRolesComponent,
+      RolesPermissionsComponent,
+      ManagePasswordComponent,
+      ResetPasswordComponent,
+      SettingofuserComponent,
+      PhotoProfileComponent,
+      ListNotificationsComponent,
+      AuditsComponent,
+      AuditUsersComponent,
+      CategoryComponent,
+      CreateCategoryComponent,
+      ModifyCategoryComponent,
+      DistributionsComponent,
+      ModifyDistributionComponent,
+      CreateDistributionsComponent,
+      TransportsComponent,
+      CreateTransportComponent,
+      ModifyTransportComponent,
+      ExpendituresComponent,
+      CreateExpenditureComponent,
+      UpdateExpenditureComponent,
+      OrganismsComponent,
+      CreateOrganismComponent,
+      ModifyOrganismComponent,
+      CreateSolicitationComponent,
+      HolidaysComponent,
+      CreateHolidaysComponent,
+      ModifyHolidaysComponent,
+      AddNewExpenditureComponent,
+      AddDestinyComponent,
+      ExpendituresUsersComponent,
+      SolicitationSubsidydetailComponent,
+      AddSupervisorComponent,
+      AgentsAndSupervisorsComponent,
+      NotifyRejectComponent,
+      PrintComponent,
+      SupervisorComponent,
+      AgentComponent,
+      AceptOrRefuseComponent,
+      HolographSignComponent,
+      FileNumberComponent,
+      SelectorDirective
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutesModule,
+      HttpModule,
+      FormsModule,
+      HttpClientModule,
+      ReactiveFormsModule,
+      NgbModule,
+      NgxPaginationModule,
+      NgbDatepickerModule,
+      FontAwesomeModule,
+      TreeviewModule.forRoot(),
+      FileUploadModule,
+      BrowserAnimationsModule,
+      NgxSpinnerModule,
+      SelectDropDownModule,
+      BsDatepickerModule.forRoot()
+   ],
+   providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}
+  
+      // provider used to create fake backend
+      //fakeBackendProvider    
+    ],
+   entryComponents: [
+      NgbdModalContent,
+      ListNotificationsComponent,
+      AddNewExpenditureComponent,
+      AddDestinyComponent,
+      AddSupervisorComponent,
+      SolicitationSubsidydetailComponent,
+      NotifyRejectComponent,
+      FileNumberComponent
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }

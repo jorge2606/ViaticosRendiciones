@@ -1,3 +1,4 @@
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { DateDto } from './../../_models/holiday';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { ComplementariesCitiesDto } from './../../_models/city';
@@ -22,6 +23,7 @@ import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
 
+
 @Component({
   selector: 'app-add-destiny',
   templateUrl: './add-destiny.component.html',
@@ -40,7 +42,7 @@ export class AddDestinyComponent implements OnInit {
   model = new DestinyDto;
   codeLiquidations: codeLiquidationBaseDto[] = [];
   codeLiquidationsMock: codeLiquidationBaseDto[] = [];
-  error: any;
+  error: string[] = [];
   @Input() destiniesAdded: DestinyDto[] = [];
   isCollapsed = false;
   categories: AllCategoryDto[] = [];
@@ -53,6 +55,7 @@ export class AddDestinyComponent implements OnInit {
   selectedTransport: number;
   total: number = 0;
   carIsUsed: boolean;
+  errorWhenCreateDestiny : string = "";
   today  : DateDto = new DateDto();
   config = {
     displayKey: "name", //if objects array passed which key to be displayed defaults to description
@@ -80,8 +83,7 @@ export class AddDestinyComponent implements OnInit {
     private countryservice: CountryService,
     private codeLiquidationService: CodeLiquidationService,
     private spinner: NgxSpinnerService,
-    private authService: AuthenticationService
-  ) { }
+    private authService: AuthenticationService ) { }
 
   ngOnInit() {
     let todayDate = new Date();
@@ -97,6 +99,10 @@ export class AddDestinyComponent implements OnInit {
     this.allTransports();
     this.allCountries();
     this.allCodeLiquidation();
+  }
+
+  event(e : any){
+    console.log(e);
   }
 
   allTransports() {
@@ -183,71 +189,100 @@ export class AddDestinyComponent implements OnInit {
         return
       }
     }
-    let newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation();
+
+    this.error = [];
+    var newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation();
     newCarIsBeingUsed.id = this.model.transportId;
     newCarIsBeingUsed.days = this.model.days;
     newCarIsBeingUsed.StartDate = this.model.startDate;
+    var result;
     
-    this.transportService.carIsBeingUsedByOtherSolicitation(newCarIsBeingUsed)
-      .subscribe(
-        x => {
-            this.error = [];
-            let newDestiny = new DestinyDto;
-            newDestiny.placeId = this.model.placeId;
-            newDestiny.cityId = this.model.cityId;
-            if (this.model.cityId != null) {
-              newDestiny.cityName = this.cities.find(x => x.id == this.model.cityId).name;
-            }
+    var startDateFromView = new Date(newCarIsBeingUsed.StartDate.year,newCarIsBeingUsed.StartDate.month,newCarIsBeingUsed.StartDate.day);
+    var endDateFromView = new Date(newCarIsBeingUsed.StartDate.year,newCarIsBeingUsed.StartDate.month,newCarIsBeingUsed.StartDate.day);
+    endDateFromView.setDate(endDateFromView.getDate() + newCarIsBeingUsed.days);
 
-            newDestiny.supplementaryCities = [];
+    this.destiniesAdded.forEach(
+      dest => {
+        var startDateStored = new Date(dest.startDate.year,dest.startDate.month,dest.startDate.day);
+        var endDateStored = new Date(dest.startDate.year,dest.startDate.month,dest.startDate.day);
+        endDateStored.setDate(endDateStored.getDate() + dest.days);
 
-            if (this.model.supplementaryCities) {
-              this.model.supplementaryCities.forEach(x => {
-                let newSup = new SupplementaryCityDto();
-                newSup.cityId = x.id;
-                let idCity = this.cities.find(j => j.id == x.id);
-                if (idCity) {
-                  newSup.name = idCity.name;
-                }
-                newDestiny.supplementaryCities.push(newSup);
-              }
-              );
-            }
-            newDestiny.countryId = this.model.countryId;
-            if (this.model.countryId != null) {
-              newDestiny.countryName = this.countries.find(x => x.id == this.model.countryId).name;
-            }
-            newDestiny.provinceId = this.model.provinceId;
-            if (this.model.provinceId != null) {
-              newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
-            }
-            newDestiny.days = this.model.days;
-            newDestiny.categoryId = this.model.categoryId;
-            if (this.model.categoryId != null) {
-              let cat = this.categories.find(x => x.id == this.model.categoryId);
-              newDestiny.categoryName = cat.name;
-              newDestiny.advanceCategory = cat.advance;
-            }
-            
-            if (this.model.codeLiquidationId){
-              newDestiny.codeLiquidationId = this.model.codeLiquidationId;
-              let codLiq = this.codeLiquidations.find(x=> x.id == this.model.codeLiquidationId);
-              newDestiny.percentageCodeLiquidation = codLiq.percentage;
-            }
-            newDestiny.startDate = this.model.startDate;
-            newDestiny.transportId = this.model.transportId;
-            newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;
-            newDestiny.transportModel = this.transports.find(x => x.id == this.model.transportId).model;
+        if (!( endDateStored <  startDateFromView 
+                || 
+                startDateStored > endDateFromView )
+           )
+          {
+              this.errorWhenCreateDestiny = 'El rango de fecha coincide con una solicitud anterior';
+              return;
+          }
+        this.errorWhenCreateDestiny = '';  
+      }
+    );
 
-            this.destiniesAdded = this.destiniesAdded || [];
-            this.destiniesAdded.push(newDestiny);
-            this.sendDataToComponent(this.destiniesAdded);
+    if (this.errorWhenCreateDestiny != ''){
+      return;
+    }
           
-        },
-        e => {
-              this.error = e.error.errors.Error;
-            }
-      );
+    this.transportService.carIsBeingUsedByOtherSolicitation(newCarIsBeingUsed)
+    .subscribe(
+    carIsBeingUsed => {
+      this.error = [];
+      let newDestiny = new DestinyDto;
+      newDestiny.placeId = this.model.placeId;
+      newDestiny.cityId = this.model.cityId;
+      if (this.model.cityId != null) {
+        newDestiny.cityName = this.cities.find(x => x.id == this.model.cityId).name;
+      }
+
+      newDestiny.supplementaryCities = [];
+
+      if (this.model.supplementaryCities) {
+        this.model.supplementaryCities.forEach(x => {
+          let newSup = new SupplementaryCityDto();
+          newSup.cityId = x.id;
+          let idCity = this.cities.find(j => j.id == x.id);
+          if (idCity) {
+            newSup.name = idCity.name;
+          }
+          newDestiny.supplementaryCities.push(newSup);
+        }
+        );
+      }
+      newDestiny.countryId = this.model.countryId;
+      if (this.model.countryId != null) {
+        newDestiny.countryName = this.countries.find(x => x.id == this.model.countryId).name;
+      }
+      newDestiny.provinceId = this.model.provinceId;
+      if (this.model.provinceId != null) {
+        newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
+      }
+      newDestiny.days = this.model.days;
+      newDestiny.categoryId = this.model.categoryId;
+      if (this.model.categoryId != null) {
+        let cat = this.categories.find(x => x.id == this.model.categoryId);
+        newDestiny.categoryName = cat.name;
+        newDestiny.advanceCategory = cat.advance;
+      }
+      
+      if (this.model.codeLiquidationId){
+        newDestiny.codeLiquidationId = this.model.codeLiquidationId;
+        let codLiq = this.codeLiquidations.find(x=> x.id == this.model.codeLiquidationId);
+        newDestiny.percentageCodeLiquidation = codLiq.percentage;
+      }
+      newDestiny.startDate = this.model.startDate;
+      newDestiny.transportId = this.model.transportId;
+      newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;
+      newDestiny.transportModel = this.transports.find(x => x.id == this.model.transportId).model;
+
+      this.destiniesAdded = this.destiniesAdded || [];
+      this.destiniesAdded.push(newDestiny);
+      this.sendDataToComponent(this.destiniesAdded);
+
+    },
+    e => {
+        this.error = e.error.errors.Error;
+      }
+    );
   }
 
   totalResultExpenditure() {
@@ -317,7 +352,6 @@ export class AddDestinyComponent implements OnInit {
   }
 
   citiesThisProvince(provinceId: any, place: AllPlaceDto) {
-    console.log(this.provinces.length + " " + this.countries.length);
     if (this.provinces.length == 0 && this.countries.length > 0) {
       //si hay paises y provincias => va a viajar fuera del pais
       this.model.cityId = null;

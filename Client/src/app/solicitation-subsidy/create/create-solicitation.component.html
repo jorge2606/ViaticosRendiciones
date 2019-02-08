@@ -1,5 +1,5 @@
 <a class="btn btn-primary mb-1 ml-1" href="" routerLink="/SolicitationSubsidy/agent">
-    <fa-icon title="volver a menú" icon="angle-left"></fa-icon> Menú
+    <fa-icon title="volver a menú" icon="angle-left"></fa-icon>
 </a>
 
 <div class="mt-1">
@@ -89,9 +89,9 @@
             
                                 <td class="small">
                                     <span *ngIf="destiny.countryId">{{destiny.countryName}} </span> 
-                                    <span *ngIf="!destiny.countryId">{{destiny.provinceName}} - {{destiny.cityName}}, </span>
+                                    <span *ngIf="!destiny.countryId">{{destiny.provinceName}} - {{destiny.cityName}} </span>
                                     <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCities"> 
-                                        <span *ngIf="!destiny.countryId">{{ c.name }}</span>
+                                        <span *ngIf="!destiny.countryId">, {{ c.name }}</span>
                                     </span>
                                 </td>
                                 <td>

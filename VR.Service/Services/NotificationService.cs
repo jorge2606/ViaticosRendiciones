@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Audit.Data;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Service.Common.ServiceResult;
 using VR.Data;
 using VR.Data.Model;
@@ -118,6 +119,7 @@ namespace VR.Service.Services
                 LastModifierUserId = create.LastModifierUserId,
                 Read = false,
                 TextData = create.TextData,
+                SolicitationSubsidyId = create.SolicitationSubsidyId
                
             };
 

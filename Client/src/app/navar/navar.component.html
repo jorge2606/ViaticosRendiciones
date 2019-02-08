@@ -3,76 +3,97 @@
 
     <ul class="navbar-nav mr-auto">
       
-      <li class="nav-item active">
-        <a 
-          routerLink="/" 
-          class="nav-item text-white nav-link" 
+      <li id="homeId" class="nav-item">
+        <a
+          routerLink="/"  
+          class="nav-item text-white nav-link"
           href="#" >
           <fa-icon icon="home"></fa-icon> Home
         </a>
       </li>
 
-      <li class="nav-item active">
-        <a routerLink="/users" 
-          class="nav-item text-white nav-link" 
-          href="#"
-          routerLinkActive="['bg-dark', 'bg-info']"
-          routerLinkActiveOptions="{exact : true}">
+      <li id="userId" class="nav-item">
+        <a  
+          routerLink="/users"
+          class="nav-item text-white nav-link"
+          href="#">
           <fa-icon icon="users"></fa-icon> Usuarios
         </a>
       </li>
 
-      <li class="nav-item">
+      <li id="roleId" class="nav-item">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-        <a class="nav-item text-white nav-link" href="#" [routerLink]="['/roles']">
+        <a      
+          class="nav-item text-white nav-link" 
+          href="#" 
+          [routerLink]="['/roles']">
           <fa-icon icon="key"></fa-icon> Roles
         </a>
       </li>
 
-      <li class="nav-item">
+      <li id="categoryId" class="nav-item">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-        <a class="nav-item text-white nav-link" href="#" [routerLink]="['/category']">
+        <a       
+          class="nav-item text-white nav-link" 
+          href="#"
+          [routerLink]="['/category']">
           <fa-icon icon="tags"></fa-icon> Categorías
         </a>
       </li>
 
-      <li class="nav-item">
+      <li id="distId" class="nav-item">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-        <a class="nav-item text-white nav-link" href="#" [routerLink]="['/distribution']">
+        <a    
+          class="nav-item text-white nav-link"
+          href="#" 
+          [routerLink]="['/distribution']">
           <fa-icon icon="building"></fa-icon> Reparticiones
         </a>
       </li>
 
-      <li class="nav-item">
+      <li id="transportId" class="nav-item">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-          <a class="nav-item text-white nav-link" href="#" [routerLink]="['/transport']">
+          <a        
+            class="nav-item text-white nav-link"
+            href="#" 
+            [routerLink]="['/transport']">
             <fa-icon icon="car"></fa-icon> Transporte
           </a>
       </li>
 
-      <li class="nav-item">
+      <li id="expId" class="nav-item">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-        <a class="nav-item text-white nav-link" href="#" [routerLink]="['/expenditure']">
+        <a       
+          class="nav-item text-white nav-link" 
+          href="#"
+          [routerLink]="['/expenditure']">
           <fa-icon icon="money-check-alt"></fa-icon> Gastos
         </a>
       </li>
 
-      <li class="nav-item">
+      <li id="orgId" class="nav-item">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-        <a class="nav-item text-white nav-link" href="#" [routerLink]="['/organism']">
+        <a         
+          class="nav-item text-white nav-link" 
+          href="#" 
+          [routerLink]="['/organism']">
           <fa-icon icon="sitemap"></fa-icon> Organismos
         </a>
       </li>
 
-      <li class="nav-item active">
-        <a routerLink="/SolicitationSubsidy/agent" class="nav-item text-white nav-link" href="#">
-          <fa-icon icon="home"></fa-icon>Solicitar Viático
+      <li id="solId" class="nav-item active">
+        <a     
+          routerLink="/SolicitationSubsidy/agent"
+          class="nav-item text-white nav-link" href="#">
+          <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
         </a>
       </li>
 
-      <li class="nav-item active">
-          <a routerLink="/holidays" class="nav-item text-white nav-link" href="#">
-            <fa-icon icon="home"></fa-icon>Feriados
+      <li id="holId" class="nav-item active">
+          <a             
+            routerLink="/holidays" 
+            class="nav-item text-white nav-link" href="#">
+            <fa-icon icon="calendar"></fa-icon> Feriados
           </a>
         </li>
 
@@ -93,8 +114,10 @@
                 <ul *ngIf="cantNotif == 0" class="dropdown-item text-center small alert alert-primary h-3">
                       No hay notificaciones nuevas
                 </ul>
-                <button *ngFor="let j of notification" class="dropdown-item small alert" [ngClass]="{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}" (click)="seeThisNotification(j)">
-                    {{j.tittle}}
+                <button *ngFor="let j of notification" class="dropdown-item small alert" 
+                  [ngClass]="{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}"
+                   (click)="seeThisNotification(j)">
+                    <p style="font-size: 11px">{{j.textData}}</p>
                 </button>
                 <button (click)="seeAllNotification()" type="button" class="btn btn-link">
                   <p class="small">ver todos {{notification.length}}</p>
@@ -126,8 +149,7 @@
               </button>
               </div>
           </div>
-      </li>      
-
+      </li>   
     </ul>
   </div>
 </nav>

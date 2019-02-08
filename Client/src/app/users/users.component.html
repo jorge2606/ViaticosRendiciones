@@ -1,39 +1,37 @@
-<div class="container mb-1" >
-		<label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
-		<div class="d-inline-block pl-1 pr-1 col-4">
-			<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
-				class="form-control d-inline-block pl-1">
-				<option value=""></option>
-				<option *ngFor="let dist of distributions" value="{{dist.id}}">
-					{{dist.name}}
-				</option>
-			</select>
-		</div>
-
-		<label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
-		<div class="d-inline-block pl-1 pr-1 col-4">
-			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.userName" type="text" class="form-control">
-		</div>
-
-		<label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
-		<div class="d-inline-block pl-1 pr-1 col-2">
-			<input (keyup)="findWhileWrite()" [(ngModel)]="filters.dni"  type="number" class="form-control">
-		</div>
+<label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
+<div class="d-inline-block pl-1 pr-1 col-4">
+	<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
+		class="form-control d-inline-block pl-1">
+		<option value=""></option>
+		<option *ngFor="let dist of distributions" value="{{dist.id}}">
+			{{dist.name}}
+		</option>
+	</select>
 </div>
 
-	<div class="d-inline-block pb-2 pt-2">
+<label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
+<div class="d-inline-block pl-1 pr-1 col-4">
+	<input (keyup)="findWhileWrite()" [(ngModel)]="filters.userName" type="text" class="form-control">
+</div>
+
+<label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
+<div class="d-inline-block pl-1 pr-1 col-2">
+	<input (keyup)="findWhileWrite()" [(ngModel)]="filters.dni"  type="number" class="form-control">
+</div>
+
+	<div class="d-inline-block mt-3 mb-3 mr-1">
 		<a href="" class="btn btn-success" routerLink="/users/create">
 			<fa-icon icon="plus"></fa-icon> Nuevo
 		</a>
 	</div>
 	
 
-	<div class="d-inline-block pl-1 pb-2 pt-2">
+	<div class="d-inline-block mt-3 mb-3 mr-1">
 		<button class="btn btn-success" [disabled]="users_check.length == 0" (click)="AddSupervisor()">
 			Enlazar a Supervisor
 		</button>
 	</div>
-	<div class="d-inline-block pl-1 pb-2 pt-2">
+	<div class="d-inline-block mt-3 mb-3">
 			<button class="btn btn-success" routerLink="/AgentsAndSupervisors">
 				Supervisores <-> Agentes
 			</button>

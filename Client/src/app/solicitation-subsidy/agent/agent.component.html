@@ -54,19 +54,17 @@
               <td class="col" *ngIf="sol.state != 'Rechazado' && sol.state != 'Aceptado'">
                   {{sol.state}}
               </td>
-              <td class="col" *ngIf="sol.state == 'Pendiente'" class="col">
+              <td *ngIf="sol.state == 'Pendiente'" class="col">
                   <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
                   <a 
-                    *ngIf="sol.state == 'Pendiente'" 
                     class="pr-3" 
                     routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
                     <fa-icon title="Editar Solicitud" style="color:gray;" icon="edit" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <a class="pr-3" 
                     routerLink="/SolicitationSubsidy/agent" 
-                    *ngIf="sol.state == 'Pendiente'"
                     (click)="openEliminar(sol)">
                     <fa-icon title="Eliminar Solicitud" class="{{sizeIcon}}" style="color:red;" icon="trash"></fa-icon>
                   </a>
@@ -77,7 +75,6 @@
                     <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
                   </a>-->
                   <a href="" 
-                    *ngIf="sol.state != 'Enviado'"
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
@@ -89,14 +86,12 @@
                 <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
-                  <a *ngIf="sol.state == 'Pendiente'" 
-                      class="pr-3" 
+                  <a class="pr-3" 
                       routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
                     <fa-icon title="Editar Solicitud" style="color:gray;" icon="edit" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <a class="pr-3" 
-                    routerLink="/SolicitationSubsidy/agent" 
-                    *ngIf="sol.state == 'Pendiente'"
+                    routerLink="/SolicitationSubsidy/agent"
                     (click)="openEliminar(sol)">
                     <fa-icon style="color:red;" title="Eliminar Solicitud" icon="trash" class="{{sizeIcon}}"></fa-icon>
                   </a>
@@ -107,7 +102,6 @@
                     <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
                   </a>-->
                   <a href="" 
-                    *ngIf="sol.state != 'Enviado'"
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
@@ -120,6 +114,7 @@
                     <fa-icon class="{{sizeIcon}}"  title="Imprimir" style="color: black;" icon="print"></fa-icon>
                   </a>
               </td>
+              <td *ngIf="sol.state == 'Enviado'" class="col"></td>
             </tr>
           </tbody>
         </table>

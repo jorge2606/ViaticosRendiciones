@@ -1,12 +1,16 @@
+import { SelectorDirective } from './../directives/selector.directive';
 import { AuthenticationService } from './../_services/authentication.service';
 import { Observable } from 'rxjs';
 import { Notifications } from './../_models/notifications';
 import { NotificationsService } from './../_services/notifications.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { MessBetweenCompService } from '../_services/mess-between-comp.service';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListNotificationsComponent } from '../modals/list-notifications/list-notifications.component';
+import { NotifyRejectComponent } from '../modals/notify-reject/notify-reject.component';
+import { SolicitationSubsidydetailComponent } from '../solicitation-subsidy/detail/solicitation-subsidydetail.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navar',
@@ -18,7 +22,7 @@ export class NavarComponent implements OnInit {
   constructor(private notificaionServices : NotificationsService, 
               private authService : AuthenticationService,
               private messaBetweenComp : MessBetweenCompService,
-              private modalService: NgbModal ) { }
+              private modalService: NgbModal) { }
 
   notification : Notifications[] = [];
   isLogged : Observable<boolean>;
@@ -62,7 +66,6 @@ export class NavarComponent implements OnInit {
     }
     
   }
-
   logout(){
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.Encabezado = "Cerrar Sesión";
@@ -80,7 +83,7 @@ export class NavarComponent implements OnInit {
   }
 
   //MODALS
-  seeThisNotification(notificationridden : any) {
+  /** seeThisNotification(notificationridden : any) {
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.Encabezado = "Notificación";
     modalRef.componentInstance.Contenido = notificationridden.textData;
@@ -90,6 +93,22 @@ export class NavarComponent implements OnInit {
     
     this.notificaionServices.notificationRidden(notificationridden).subscribe(
         () => this.retriveNotifications()
+    )
+
+  }*/
+
+  seeThisNotification(notificationridden : any) {
+
+      this.notificaionServices.notificationRidden(notificationridden).subscribe(
+        () =>{
+            this.retriveNotifications();
+            const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+            modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+            modalRef.result.then(() => {    },
+            () => {
+                console.log('Backdrop click');
+            })
+          } 
     )
 
   }

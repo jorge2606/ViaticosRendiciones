@@ -52,11 +52,19 @@
                 <div class="form-row">
                     <div class="form-group col">
                             <label for="">Descripción</label>
-                            <textarea required [(ngModel)]="modelExp.description" #description="ngModel" 
+                            <textarea required [(ngModel)]="modelExp.description" 
+                            #description="ngModel" 
                             value="{{modelExp.description}}"
                             placeholder="Ingrese la descripción"
-                            name="description" class="form-control" type="text"></textarea>
-
+                            name="description" 
+                            class="form-control" 
+                            [maxlength]="150"
+                            type="text"
+                            style="resize : none;"></textarea>
+                            {{description.maxlength}}
+                            <div *ngIf="description.maxlength == 149">
+                                Solo se permiten 150 caracteres
+                            </div>
                             <div *ngIf="description.invalid && (description.dirty || description.touched)"
                                 class="alert alert-danger mt-1">
                                 <div *ngIf="description.errors.required">

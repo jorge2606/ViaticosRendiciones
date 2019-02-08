@@ -189,5 +189,25 @@ namespace VR.Data
             return resultFull;
         }
 
+        public Boolean Overlaping_dates(DateTime startDateDatetime, DateTime endDateDatetime, Guid userId)
+        {
+            var resultFull = new List<OverlapingDatesResult>();
+            this.LoadStoredProc("dbo.overlaping_dates")
+                .WithSqlParam("@StartDateDatetime", startDateDatetime)
+                .WithSqlParam("@EndDateDatetime", endDateDatetime)
+                .WithSqlParam("@UserId", userId)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<OverlapingDatesResult>)handler.ReadToList<OverlapingDatesResult>();
+                    handler.NextResult();
+                });
+            if (resultFull.Count() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

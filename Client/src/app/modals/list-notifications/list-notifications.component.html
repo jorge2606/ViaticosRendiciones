@@ -1,29 +1,32 @@
 <div class="modal-header">
-  <h4 class="modal-title">Notificaciones nuevas</h4>
+  <h4 class="modal-title">Notificaciones</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
   <div *ngFor="let j of Contenido" class="small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">
-    <div class="row h-10">    
-          <h6 class="mr-auto pl-1">Titulo : {{j.tittle}}
-              <a class="pl-3" (click)="delete(j.id)">
-                  <fa-icon style="color:red;" icon="trash"></fa-icon>
-              </a>
-          </h6>
+    <div class="row h-10">   
+      <div class="col">
+          <h6>{{j.textData}} </h6>
+      </div> 
 
-          <button id="collapseExample{{j.id}}" type="button" class="btn btn-default mr-2 small" (click)="onChange(j)"
+      <div class="col-1 mt-3">
+          <a class="" (click)="delete(j.id)">
+              <fa-icon title="Eliminar notificación" class="fa-lg" style="color:red;" icon="trash"></fa-icon>
+          </a>
+      </div>
+         <!-- <button id="collapseExample{{j.id}}" type="button" class="btn btn-default mr-2 small" (click)="onChange(j)"
                 [attr.aria-expanded]="j.colapse" aria-controls="collapseExample">
                 <fa-icon icon="{{verOcultar}}"></fa-icon>
-          </button>
+          </button>-->
       </div>
-      <div id="{{j.id}}" class="text-justify pt-3 pb-3" [ngbCollapse]="!j.colapse">
+      <!--<div id="{{j.id}}" class="text-justify pt-3 pb-3" [ngbCollapse]="!j.colapse">
           <textarea class="form-control text-left" rows="5" readonly>{{j.textData}}</textarea>
-      </div>
+      </div>-->
   </div>
 
-  <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
+  <ngb-pagination *ngIf="col_size > 0" (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
 aria-label="Default pagination"></ngb-pagination>
 
 </div>

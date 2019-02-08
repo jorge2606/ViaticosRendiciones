@@ -15,7 +15,10 @@ namespace VR.Data.Model
         public Guid EntityId { set; get; }
         public int NotificationType { set; get; }
         public bool Read { set; get; }
-        
+        [ForeignKey("SolicitationSubsidy")]
+        public Guid SolicitationSubsidyId { set; get; }
+
+        public SolicitationSubsidy SolicitationSubsidy { set; get; }
         public User User { set; get; }
     }
     

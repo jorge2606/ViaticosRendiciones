@@ -15,6 +15,7 @@ namespace VR.Dto
         public Guid UserId { get; set; }
         public int NotificationType { get; set; }
         public Guid EntityId { get; set; }
+        public Guid SolicitationSubsidyId { get; set; }
     }
 
 
@@ -26,6 +27,7 @@ namespace VR.Dto
         public bool Read { get; set; }
         public Guid UserId { get; set; }
         public DateTime CreationTime { get; set; }
+        public Guid SolicitationSubsidyId { get; set; }
     }
 
     public class CreateNotificationDto
@@ -40,5 +42,6 @@ namespace VR.Dto
         public Guid UserId { get; set; }
         public int NotificationType { get; set; }
         public Guid EntityId { get; set; }
+        public Guid SolicitationSubsidyId { get; set; }
     }
 }

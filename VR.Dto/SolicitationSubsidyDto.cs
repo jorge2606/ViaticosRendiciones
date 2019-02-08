@@ -57,7 +57,7 @@ namespace VR.Dto
         public string Motive { set; get; }
         public decimal Total { set; get; }
         public List<ExpenditureFromSolicitationSubsidyByIdDto> Expenditures { set; get; }
-        public List<DestinyFromSolicitationSubsidyByIdDto> Destinies { set; get; }
+        public List<DestinyFromSolicitationSubsidyFindByIdDto> Destinies { set; get; }
         public Guid UserId { set; get; }
         public UserDto User { set; get; }
     }
