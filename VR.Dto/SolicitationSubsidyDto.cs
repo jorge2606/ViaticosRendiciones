@@ -33,6 +33,7 @@ namespace VR.Dto
         public UserDto User { set; get; }
     }
 
+
     public class SolicitationObjectsSubsidyBaseDto : SolicitationSubsidyBaseDto
     {
         public string UserUserName { set; get; }
@@ -84,6 +85,7 @@ namespace VR.Dto
         public Guid Id { set; get; }
         public string MotiveReject { set; get; }
         public string FileNumber { set; get; }
+        public Guid SupervisorId { set; get; }
     }
 
     public class FilterSolicitationSubsidyDto

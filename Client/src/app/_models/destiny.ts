@@ -23,6 +23,7 @@ export class DestinyDto{
     advanceCategory : number;
     percentageCodeLiquidation : number;
     solicitationTotalLetter : string;
+    textPercentage : string;
 }
 
 export class destinies_from_store_procedure{

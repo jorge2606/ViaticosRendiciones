@@ -9,6 +9,7 @@ namespace VR.Data.Model
     {
         public Guid Id { set; get; }
         public Double Percentage { set; get; }
+        public string TextPercentage { set; get; }
 
         [ForeignKey("Place")]
         public Guid PlaceId { set; get; }

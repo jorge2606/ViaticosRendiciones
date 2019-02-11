@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VR.Dto;
@@ -37,6 +38,33 @@ namespace VR.Web.Controllers
         public IActionResult AllSupervisorAgents()
         {
             var result = _service.AllSupervisorAgent();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
+        public Guid GetIdUser()
+        {
+            var currentUser = Helpers.HttpContext.Current.User.Claims;
+            var result = Guid.Empty;
+            foreach (var i in currentUser)
+            {
+                if (i.Type.Equals("NameIdentifier"))
+                {
+                    result = Guid.Parse(i.Value);
+                }
+            }
+
+            return result;
+        }
+        [HttpGet("IsAgent/{otherId}")]
+        [Authorize]
+        public IActionResult IsAgent(Guid otherId)
+        {
+            var result = _service.IsAgent(GetIdUser(), otherId);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

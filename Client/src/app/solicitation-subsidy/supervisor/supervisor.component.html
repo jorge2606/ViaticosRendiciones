@@ -20,9 +20,9 @@
           <thead>
             <tr class="row">
               <th class="col-2">Agente</th>
-              <th class="col-2">Fecha de Creación</th>
-              <th class="col">Objeto</th>
-              <th class="col-4">Localidades-Itinerario</th>
+              <th class="col">Fecha de Creación</th>
+              <th class="col-3">Objeto</th>
+              <th class="col-3">Localidades-Itinerario</th>
               <th class="col">Total</th>
               <th class="col">Estado</th>
               <th class="col"></th>
@@ -31,9 +31,9 @@
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
               <td class="col-2">{{sol.fullName}}</td>
-              <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-              <td class="col no-wrap">{{sol.motive}}</td>
-              <td class="col-4">
+              <td class="col">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+              <td class="col-3 no-wrap">{{sol.motive}}</td>
+              <td class="col-3">
                 <li *ngFor="let d of sol.destinies">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
                     <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span>

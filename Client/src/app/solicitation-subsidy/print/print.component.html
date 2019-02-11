@@ -52,19 +52,25 @@
                     Sueldo Básico: $ 4.220,65 <br>
                     <ins><b>DE LA COMISIÓN:</b></ins><br>	
                     <span *ngFor="let des of model.destinies">
-                      Fecha de Iniciación: {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}} 
-                      <span *ngIf="des.countryName"> 
-                        Destino: {{des.countryName}}
-                      </span><br>
-                      <span *ngIf="des.provinceName">
-                         Destino: {{des.provinceName}}, {{des.cityName}} 
-                      </span><br>
                       <span>
-                        Medio de Transporte: {{des.transportModel}} - {{des.transportBrand}}
-                      </span><br>
-                      <span>
-                        Objeto:	{{model.motive}}
+                          Fecha de Iniciación: <b>{{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}</b>
                       </span>
+                      <span *ngIf="des.countryName">
+                          <br>
+                          Destino: {{des.countryName}}
+                      </span>
+                      <span *ngIf="des.provinceName">
+                          <br>
+                          Destino: {{des.provinceName}}, {{des.cityName}} 
+                      </span>
+                      <span>
+                          <br>
+                          Medio de Transporte: {{des.transportModel}} - {{des.transportBrand}}
+                      </span>
+                      <span>
+                        <br>
+                        Objeto:	{{model.motive}}
+                      </span><br>
                     </span>				
                 </td>
               </tr>
@@ -94,9 +100,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let des of destinieWithDaysInLetters">
-                  <td class="col-8" *ngIf="des.days == 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) día de viático a razón de $ {{des.advanceCategory | number}} por día.</td>
-                  <td class="col-8" *ngIf="des.days != 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) días de viático a razón de $ {{des.advanceCategory | number}} por día.</td> 
-                  <td class="col text-center">{{des.advanceCategory | number}}</td>
+                  <td class="col-8" *ngIf="des.days == 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) día de viático a razón de {{des.advanceCategory | currency}} {{des.textPercentage}} {{ (des.days * des.advanceCategory) | currency}} por día.</td>
+                  <td class="col-8" *ngIf="des.days != 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) días de viático a razón de {{des.advanceCategory | currency}} {{des.textPercentage}} {{ (des.days * des.advanceCategory) | currency}} por día.</td> 
+                  <td class="col text-center">{{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}</td>
                   <td class="col"></td>
               </tr>
               <tr *ngFor="let exp of model.expenditures">
@@ -104,13 +110,13 @@
                   {{exp.expenditureTypeName}} : {{exp.description}}
                 </td>
                 <td class="text-center col">
-                  {{exp.amount | number}}
+                  {{exp.amount | currency}}
                 </td>
                 <td></td>
               </tr>
               <tr>
                   <td class="text-right col">TOTAL $....</td>
-                  <td colspan="2" style="border : 2px solid black;" class="text-center col"><b>{{totalExpenditures | number}}</b></td>
+                  <td colspan="2" style="border : 2px solid black;" class="text-center col"><b>{{totalExpenditures | currency}}</b></td>
               </tr>
             </tbody>
           </table>
@@ -155,7 +161,7 @@
                   <p *ngIf="i == 0"><ins><b>RECIBÍ</b></ins> de la Tesorería de la Dirección de Administración del Ministerio de Producción, Trabajo y Turismo													
                   cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
                   y cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
-                  por la suma de pesos: <b>{{des.solicitationTotalLetter}}</b> ($<b>{{model.total | number}}</b>), en concepto de Anticipo de Viáticos, cuya rendición de cuentas me comprometo a realizar dentro de los <b>Tres</b> días													
+                  por la suma de pesos: <b>{{des.solicitationTotalLetter}}</b> (<b>{{model.total | currency}}</b>), en concepto de Anticipo de Viáticos, cuya rendición de cuentas me comprometo a realizar dentro de los <b>Tres</b> días													
                   hábiles de finalizada la comisión,  caso contrario me sujeto a las sanciones establecidas en la Ley de Contabilidad. <br>	</p>												
                   
                   <div *ngIf="i == 0" class="row ml-auto col-9">

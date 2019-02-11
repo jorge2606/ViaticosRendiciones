@@ -1,3 +1,5 @@
+import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
+import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 import { SelectorDirective } from './../directives/selector.directive';
 import { AuthenticationService } from './../_services/authentication.service';
 import { Observable } from 'rxjs';
@@ -24,7 +26,10 @@ export class NavarComponent implements OnInit {
               private authService : AuthenticationService,
               private messaBetweenComp : MessBetweenCompService,
               private modalService: NgbModal,
-              private comunicationService : GenericsCommunicationsComponentsService) { }
+              private supervisorUserAgentService : SupervisorUserAgentService,
+              private comunicationService : GenericsCommunicationsComponentsService,
+              private solicitationSubsidyService : SolicitationSubsidyService,
+              private router : Router) { }
 
   notification : Notifications[] = [];
   isLogged : Observable<boolean>;
@@ -104,18 +109,56 @@ export class NavarComponent implements OnInit {
   }*/
 
   seeThisNotification(notificationridden : any) {
+      this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
+      .subscribe(user => {
+          if (user){
+            this.notificaionServices.notificationRidden(notificationridden).subscribe(
+              () =>{
+                  this.retriveNotifications();
+                  const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+                  modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                  modalRef.result.then(() => {    },
+                  () => {
+                      console.log('Backdrop click');
+                  })
+                } 
+            )
+          }else{
+            this.solicitationSubsidyService.wichStateSolicitation(notificationridden.solicitationSubsidyId)
+            .subscribe(solicitationState => {
+              if (solicitationState.description == 'Rechazado'){
+                //significa que es mi supervisor y la nootificación es para mi
+                this.notificaionServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
+                      modalRef.componentInstance.Contenido = "Rechazado";
+                      modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
+                      modalRef.componentInstance.MsgClose = "Cerrar";
+                      modalRef.componentInstance.GuardaroEliminarHidden = true;
+                      modalRef.componentInstance.MsgCloseClass = "btn-primary";
+                      this.router.navigate(['SolicitationSubsidy/agent']);
+                      modalRef.result.then(() => {    },
+                      () => {
+                          console.log('Backdrop click');
+                      })
+                    } 
+                )
+              }
 
-      this.notificaionServices.notificationRidden(notificationridden).subscribe(
-        () =>{
-            this.retriveNotifications();
-            const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
-            modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-            modalRef.result.then(() => {    },
-            () => {
-                console.log('Backdrop click');
-            })
-          } 
-    )
+              if(solicitationState.description == 'Aceptado'){
+                this.notificaionServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      this.router.navigateByUrl('print/'+notificationridden.solicitationSubsidyId);
+                    } 
+                )
+              }
+              
+            });
+
+          }
+      });
 
   }
 

@@ -124,9 +124,21 @@ namespace VR.Web.Controllers
 
             return new PagedResult<AllSolicitationSubsidyDto>
             {
-                List = results.List.Select(_mapper.Map<AllSolicitationSubsidyDto>).ToList(),
+                List = results.List.Select(_mapper.Map<AllSolicitationSubsidyDto>).OrderByDescending(x => x.CreateDate).ToList(),
                 TotalRecords = results.TotalRecords
             };
+        }
+
+        [HttpGet("WichStateSolicitation/{solicitationId}")]
+        public IActionResult WichStateSolicitation(Guid solicitationId)
+        {
+            var result = _solicitationSubsidyService.WichStateSolicitation(solicitationId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(new StateDto(){Description = result.Response});
         }
 
         [HttpGet("pageSupervisor")]
@@ -193,8 +205,10 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("AceptedSolicitation")]
+        [Authorize]
         public IActionResult AceptedOrRefusedSolicitation([FromBody] SolicitationIdDto solicitationId)
         {
+            solicitationId.SupervisorId = GetIdUser();
             var result = _solicitationSubsidyService.AceptedSolicitation(solicitationId);
             if (!result.IsSuccess)
             {
@@ -205,8 +219,10 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("RefusedSolicitation")]
+        [Authorize]
         public IActionResult RefusedSolicitation([FromBody] SolicitationIdDto solicitationId)
         {
+            solicitationId.SupervisorId = GetIdUser();
             var result = _solicitationSubsidyService.RefusedSolicitation(solicitationId);
             if (!result.IsSuccess)
             {

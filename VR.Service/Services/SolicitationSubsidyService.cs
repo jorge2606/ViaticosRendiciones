@@ -436,6 +436,21 @@ namespace VR.Service.Services
                 StateId = State.Accepted
             };
 
+            _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Su solicitud de viático fue aceptada",
+                    TextData = "Su Solicitud de viático fue aceptada",
+                    UserId = solicitation.UserId,
+                    CreationTime = DateTime.Today,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitationDto.SupervisorId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Today,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+
             _dataContext.SolicitationStates.Add(solicitationState);
             _dataContext.SaveChanges();
 
@@ -463,6 +478,21 @@ namespace VR.Service.Services
                 MotiveReject = solicitationDto.MotiveReject
             };
 
+            _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Su solicitud de viático fue rechazada",
+                    TextData = "Su solicitud de viático fue rechazada",
+                    UserId = solicitation.UserId,
+                    CreationTime = DateTime.Today,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitationDto.SupervisorId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Today,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+
             _dataContext.SolicitationStates.Add(solicitationState);
             _dataContext.SaveChanges();
 
@@ -487,7 +517,7 @@ namespace VR.Service.Services
             {
                 ServiceResult<Boolean> notify = new ServiceResult<bool>(true);
                 const NotificationType notificationType = NotificationType.Error;
-                notify.AddError(notificationType.ToString(), "Las Fechas estan Solapadas");
+                notify.AddError(notificationType.ToString(), "Las fechas estan solapadas");
                 return notify;
             }
 
@@ -500,6 +530,15 @@ namespace VR.Service.Services
             (
                 _dataContext.SolicitationApprovedBySupervisorId(Id)
             ); 
+        }
+
+        public ServiceResult<string> WichStateSolicitation(Guid solicitationId)
+        {
+            var result = _dataContext.SolicitationStates
+                .Include(x => x.State)
+                .OrderByDescending(x => x.ChangeDate)
+                .FirstOrDefault(x => x.SolicitationSubsidyId == solicitationId).State.Description;
+            return new ServiceResult<string>(result);
         }
 
     }

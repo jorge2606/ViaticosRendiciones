@@ -29,7 +29,7 @@ namespace VR.Service.Services
             
             if (user != null)
             {
-                var apiKey = "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";
+                var apiKey = "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";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("no-reply@devlights.com", "Devlights");
                 var to = new EmailAddress(email, string.Empty);

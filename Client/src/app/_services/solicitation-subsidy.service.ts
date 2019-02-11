@@ -54,4 +54,8 @@ export class SolicitationSubsidyService {
   SolicitationApprovedBySupervisorId(id : number){
     return this.http.get<any>("http://localhost:63098/api/SolicitationSubsidy/SolicitationApprovedBySupervisorId/"+id);
   }
+
+  wichStateSolicitation(solicitationId : number){
+    return this.http.get<any>("http://localhost:63098/api/SolicitationSubsidy/WichStateSolicitation/"+solicitationId);
+  }
 }

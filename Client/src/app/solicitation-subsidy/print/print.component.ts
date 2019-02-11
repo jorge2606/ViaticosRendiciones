@@ -37,6 +37,7 @@ export class PrintComponent implements OnInit {
   printObservable = new Subject<boolean>();
   categoryName : string;
   categoryDescription : string;
+  totDest : number = 0;
 
 
   constructor(
@@ -74,18 +75,18 @@ export class PrintComponent implements OnInit {
                   this.categoryName = this.model.user.categoryName;
                   this.categoryDescription = this.model.user.categoryDescription;
                   this.dni = this.model.user.dni;
-                  let totDest : number = 0;
+
                   this.model.destinies.forEach(totalDestinies => {
-                    totDest = totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.codeLiquidationPercentage);
+                    this.totDest =  this.totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.percentageCodeLiquidation);
                   });
 
                   this.model.expenditures.forEach(exp => this.totalExpenditures = this.totalExpenditures + exp.amount );
-                  this.totalExpenditures = this.totalExpenditures + totDest;
-
+                  
                   this.destinyService.get_destinies(url.id)
                   .subscribe(
                         j => {
                               this.destinieWithDaysInLetters = j;
+                              this.totalExpenditures = this.totalExpenditures +  this.totDest;
                               setTimeout(() => {
                                 this.captureScreen();
                               }, 500);

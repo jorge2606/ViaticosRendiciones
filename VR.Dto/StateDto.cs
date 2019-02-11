@@ -9,4 +9,9 @@ namespace VR.Dto
         public Guid Id { set; get; }
         public string Description { set; get; }
     }
+
+    public class StateDescriptionDto
+    {
+        public string Description { set; get; }
+    }
 }

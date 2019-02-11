@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore.Internal;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
@@ -45,7 +46,10 @@ namespace WebApi.Helpers
             CreateMap<SupervisorUserAgent, AllSupervisorAgentDto>();
             CreateMap<User, AllUserDto>();
             CreateMap<State, StateDto>();
+            CreateMap<State, StateDescriptionDto>();
+            CreateMap<SolicitationState, SolicitationStateDto>();
             CreateMap<Distribution, AllDistributionDto>();
+
         }
     }
 }

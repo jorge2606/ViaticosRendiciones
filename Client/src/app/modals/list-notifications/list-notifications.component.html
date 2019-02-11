@@ -5,6 +5,9 @@
   </button>
 </div>
 <div class="modal-body">
+  <div class="alert alert-primary" *ngIf="col_size == 0">
+      No hay notificaciones para mostrar
+  </div>
   <div *ngFor="let j of Contenido" class="small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">
     <div class="row h-10">   
       <div class="col">

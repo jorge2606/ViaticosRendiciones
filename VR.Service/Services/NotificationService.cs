@@ -43,11 +43,12 @@ namespace VR.Service.Services
 
         public ActionResult<List<NotificationDto>> GetSomeNotifications(Guid id)
         {
-            return _contextNotification.Notifications
+            var result = _contextNotification.Notifications
                 .Select(_mapper.Map<NotificationDto>)
                 .Where(x => x.UserId == id && x.Read == false)
                 .OrderBy(x => x.CreationTime)
                 .Take(5).ToList();
+            return result;
         }
 
         public ActionResult<List<NotificationDto>> GetAllNotifications()

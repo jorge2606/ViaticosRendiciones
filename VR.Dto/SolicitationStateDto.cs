@@ -17,4 +17,5 @@ namespace VR.Dto
     {
         public string FileNumber { set; get; }
     }
+
 }

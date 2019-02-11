@@ -61,5 +61,24 @@ namespace VR.Service.Services
             return new ServiceResult<List<AllSupervisorAgentDto>>(result);
         }
 
+        public ServiceResult<Boolean> IsAgent(Guid myUserId, Guid otherUserId)
+        {
+            var isSupervisor = _Context.SupervisorUserAgents
+                .FirstOrDefault(x => x.SupervisorId == otherUserId && x.AgentId == myUserId);
+            var isAgent = _Context.SupervisorUserAgents.FirstOrDefault(x => x.AgentId == otherUserId && x.SupervisorId == myUserId);
+
+            if (isSupervisor != null)
+            {
+                return new ServiceResult<Boolean>(false);
+            }
+
+            if (isAgent != null)
+            {
+                return new ServiceResult<Boolean>(true);
+            }
+
+            return new ServiceResult<bool>(false);
+        }
+
     }
 }

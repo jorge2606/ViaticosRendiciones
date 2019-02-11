@@ -17,4 +17,8 @@ export class SupervisorUserAgentService {
   getAll(){
     return this.http.get<any>("http://localhost:63098/api/SupervisorUserAgent/AllSupervisorAgents");
   }
+
+  isAgent(userId : number){
+    return this.http.get<any>("http://localhost:63098/api/SupervisorUserAgent/IsAgent/"+userId);
+  }
 }

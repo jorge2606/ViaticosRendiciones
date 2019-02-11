@@ -10,5 +10,7 @@ namespace VR.Data.Model.ModelStoreProcedure
         public string DaysLetters { set; get; }
         public Decimal AdvanceCategory { set; get; }
         public string SolicitationTotalLetter { set; get; }
+        public Decimal PercentageCodeLiquidation { set; get; }
+        public string TextPercentage { set; get; }
     }
 }
