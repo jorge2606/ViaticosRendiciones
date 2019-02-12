@@ -2,35 +2,37 @@
 	<fa-icon icon="plus"></fa-icon> Nuevo
 </a>
 
-<table class="table table-hover">
-	<thead>
-		<tr style="font-weight: bold;">
-      <td>Tipo</td>
-      <td>Modelo</td>
-      <td>Marca</td>			
-      <td>Patente</td>
-      <td>Acción</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let trans of transport">
-			<td>{{trans.type}}</td>
-			<td>{{trans.model}}</td>
-			<td>{{trans.brand}}</td>
-			<td>{{trans.carPlate}}</td>
-			<td>
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<a class="pr-3" routerLink="/transport/update/{{trans.id}}">
-						<fa-icon style="color:gray;" icon="edit"></fa-icon>
-					</a>
-					<a routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">
-						<fa-icon style="color:red;" icon="trash"></fa-icon>
-					</a>
-			</div>
-		</td>
-		</tr>
-	</tbody>
-</table>
+<div class="" style="min-height: 300px;">
+	<table class="table table-striped">
+			<thead>
+				<tr style="font-weight: bold;">
+				<td>Tipo</td>
+				<td>Modelo</td>
+				<td>Marca</td>			
+				<td>Patente</td>
+				<td>Acción</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let trans of transport">
+					<td>{{trans.type}}</td>
+					<td>{{trans.model}}</td>
+					<td>{{trans.brand}}</td>
+					<td>{{trans.carPlate}}</td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Basic example">
+							<a class="pr-3" routerLink="/transport/update/{{trans.id}}">
+								<fa-icon style="color:gray;" icon="edit"></fa-icon>
+							</a>
+							<a routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">
+								<fa-icon style="color:red;" icon="trash"></fa-icon>
+							</a>
+					</div>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+</div>
 
 <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
- aria-label="Default pagination"></ngb-pagination>
+aria-label="Default pagination"></ngb-pagination>

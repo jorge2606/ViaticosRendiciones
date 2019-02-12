@@ -109,6 +109,7 @@ export class NavarComponent implements OnInit {
   }*/
 
   seeThisNotification(notificationridden : any) {
+      this.modalService.dismissAll();
       this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
       .subscribe(user => {
           if (user){

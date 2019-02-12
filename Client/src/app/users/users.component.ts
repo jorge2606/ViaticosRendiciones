@@ -122,6 +122,7 @@ export class UsersComponent implements OnInit {
     modalRef.componentInstance.Contenido = "¿Desea eliminar a " + dni + " " + usuario + "?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";
     modalRef.componentInstance.MsgClose = "Cancelar";
+    modalRef.componentInstance.GuardaroEliminarClass="btn-danger";
     modalRef.result.then(() => {
       this.var_user_service.deleteUser(id).subscribe(
         data => {

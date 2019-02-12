@@ -1,27 +1,25 @@
-<div class="container mt-4" style="height: 500px;">
-      <div class="row">
-          <label class="d-inline-block pl-1 pr-1 pt-2" for="">Nombre</label>
-          <div class="d-inline-block pl-1 pr-1 col-2">
-            <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
-          </div>
+        <label class="d-inline-block pl-1 pr-1 pt-2" for="">Nombre</label>
+        <div class="d-inline-block pl-1 pr-1 col-2">
+          <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
+        </div>
+    
+        <label class="d-inline-block pl-1 pr-1 pt-2" for="">Apellido</label>
+        <div class="d-inline-block pl-1 pr-1 col-2">
+          <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
+        </div>
+    
+        <label class="d-inline-block pl-1 pr-1 pt-2" for="">D.N.I</label>
+        <div class="d-inline-block pl-1 pr-1 col-2">
+          <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
+        </div>
       
-          <label class="d-inline-block pl-1 pr-1 pt-2" for="">Apellido</label>
-          <div class="d-inline-block pl-1 pr-1 col-2">
-            <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
-          </div>
-      
-          <label class="d-inline-block pl-1 pr-1 pt-2" for="">D.N.I</label>
-          <div class="d-inline-block pl-1 pr-1 col-2">
-            <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
-          </div>
-      </div>
-
-        <table class="table table-sm mt-4">
+    <div class="container mt-2" style="min-height: 300px;">
+        <table class="table table-striped">
           <thead>
             <tr class="row">
               <th class="col-2">Agente</th>
-              <th class="col">Fecha de Creación</th>
-              <th class="col-3">Objeto</th>
+              <th class="col-2">Fecha de Creación</th>
+              <th class="col-1">Objeto</th>
               <th class="col-3">Localidades-Itinerario</th>
               <th class="col">Total</th>
               <th class="col">Estado</th>
@@ -31,8 +29,8 @@
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
               <td class="col-2">{{sol.fullName}}</td>
-              <td class="col">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-              <td class="col-3 no-wrap">{{sol.motive}}</td>
+              <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+              <td class="col-1 no-wrap">{{sol.motive}}</td>
               <td class="col-3">
                 <li *ngFor="let d of sol.destinies">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
@@ -40,7 +38,7 @@
                     
                                     
                 </li>  
-                <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>       
+                <span class="" > {{ sol.localities }}</span>       
               </td>
               <td class="col">{{sol.total | currency}}</td>
               <td class="col">{{sol.state}}</td>
@@ -58,16 +56,13 @@
             </tr>
           </tbody>
         </table>
-
   </div>
 
-  <div class="row">
-      <ngb-pagination 
-      (pageChange)="loadPage($event)" 
-      [collectionSize]="col_size"
-       [pageSize]="itemsPerPage" 
-       [(page)]="filters.page"
-       class="ml-auto"
-      aria-label="Default pagination"></ngb-pagination>
-  </div>
+  <ngb-pagination 
+  (pageChange)="loadPage($event)" 
+  [collectionSize]="col_size"
+    [pageSize]="itemsPerPage" 
+    [(page)]="filters.page"
+    class="ml-auto"
+  aria-label="Default pagination"></ngb-pagination>
   

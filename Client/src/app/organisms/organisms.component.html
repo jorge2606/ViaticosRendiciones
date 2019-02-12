@@ -1,5 +1,5 @@
 <div class="container mb-1" >
-	<label class="d-inline-block pl-1 pr-1" for="">Name </label>
+	<label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
 	<div class="d-inline-block pl-1 pr-1">
 		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
 	</div>
@@ -8,33 +8,35 @@
 <a href="" class="btn btn-success mb-3 mt-3" routerLink="create">
 	<fa-icon icon="plus"></fa-icon> Nuevo
 </a>
-<table class="table table-hover">
-	<thead>
-		<tr style="font-weight: bold;">
-			<td>Name</td>
-			<td>Descripción</td>
-			<td></td>
-			<td></td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let org of organism">
-			<td>{{org.name}}</td>
-			<td>{{org.description}}</td>
-			<td><a href="" routerLink="/distribution/{{org.id}}">Reparticiones</a></td>
-			<td>
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<a class="pr-3" routerLink="/organism/update/{{org.id}}">
-						<fa-icon style="color:gray;" icon="edit"></fa-icon>
-					</a>
-					<a routerLink="/organism" (click)="openEliminar(org.id,org.name,org.description)">
-						<fa-icon style="color:red;" icon="trash"></fa-icon>
-					</a>
-				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div class="" style="min-height: 300px;">
+	<table class="table table-striped">
+			<thead>
+				<tr style="font-weight: bold;">
+					<td>Nombre</td>
+					<td>Descripción</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let org of organism">
+					<td>{{org.name}}</td>
+					<td>{{org.description}}</td>
+					<td><a href="" routerLink="/distribution/{{org.id}}">Reparticiones</a></td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Basic example">
+							<a class="pr-3" routerLink="/organism/update/{{org.id}}">
+								<fa-icon style="color:gray;" icon="edit"></fa-icon>
+							</a>
+							<a routerLink="/organism" (click)="openEliminar(org.id,org.name,org.description)">
+								<fa-icon style="color:red;" icon="trash"></fa-icon>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+</div>
 
 <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
  aria-label="Default pagination"></ngb-pagination>

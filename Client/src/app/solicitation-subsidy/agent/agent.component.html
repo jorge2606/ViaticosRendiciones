@@ -1,26 +1,23 @@
-<div class="container" style="height: 500px;">
-
-    <div class="row">
-        <div class="d-inline-block pb-2 pt-2">
-            <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
-              <fa-icon icon="plus"></fa-icon> Nuevo
-            </a>
-        </div>
-    
-        <div class="d-inline-block pb-2 pt-2 ml-1">
-          <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/supervisor">
-            Moderar Solicitudes
-          </a>
-        </div>
+    <div class="d-inline-block pb-2 pt-2">
+        <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
+          <fa-icon icon="plus"></fa-icon> Nuevo
+        </a>
     </div>
 
-       
-        <table class="table table-sm mt-3">
+    <div class="d-inline-block pb-2 pt-2 ml-1">
+      <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/supervisor">
+        Moderar Solicitudes
+      </a>
+    </div>
+
+
+    <div class="container" style="min-height: 300px;">
+      <table class="table table-striped">
           <thead>
             <tr class="row">
-              <th class="col-1">Fecha de Creación</th>
+              <th class="col-2">Fecha de Creación</th>
               <th class="col-3">Objeto</th>
-              <th class="col-4">Localidades- Itinerarios</th>
+              <th class="col-3">Localidades- Itinerarios</th>
               <th class="col">Total</th>
               <th class="col">Estado</th>
               <th class="col"></th>
@@ -28,14 +25,14 @@
           </thead>
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
-              <td class="col-1">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
+              <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
               <td class="col-3 no-wrap">{{sol.motive}}</td>
-              <td class="col-4">
+              <td class="col-3">
                   <li *ngFor="let d of sol.destinies">
                       <span *ngIf="d.countryName">{{d.countryName}}</span>
                       <span *ngIf="d.provinceName && d.cityName">{{d.provinceName}} - {{d.cityName}}</span> 
                   </li>  
-                  <span class="mr-1 cardInsideTd" > {{ sol.localities }}</span>   
+                  <span class="" > {{ sol.localities }}</span>   
               </td>
               <td class="col">{{sol.total | currency}}</td>
               <td *ngIf="sol.state == 'Rechazado'" class="col">
@@ -118,21 +115,20 @@
             </tr>
           </tbody>
         </table>
- 
-        <ngx-spinner 
-          bdColor="rgba(51,51,51,0.8)"
-          size="medium"
-          color="#fff"
-          type="ball-scale-multiple">
-        <p style="font-size: 20px; color: white">Enviando...</p>>
-        </ngx-spinner>
-  </div>
-  <div class="row">
-      <ngb-pagination (pageChange)="loadPage($event)" 
-      [collectionSize]="col_size" 
-      [pageSize]="itemsPerPage" 
-      [(page)]="filters.page"
-      class="ml-auto"
-      aria-label="Default pagination"></ngb-pagination>
-  </div>
+    </div>       
+
+    <ngx-spinner 
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-scale-multiple">
+      <p style="font-size: 20px; color: white">Enviando...</p>>
+    </ngx-spinner>
+
+    <ngb-pagination (pageChange)="loadPage($event)" 
+    [collectionSize]="col_size" 
+    [pageSize]="itemsPerPage" 
+    [(page)]="filters.page"
+    class="ml-auto"
+    aria-label="Default pagination"></ngb-pagination>
   

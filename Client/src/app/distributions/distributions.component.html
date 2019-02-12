@@ -9,7 +9,7 @@
 		</select>
 	</div>
 
-	<label class="d-inline-block mt-2 ml-2 mr-2" for="">Name </label>
+	<label class="d-inline-block mt-2 ml-2 mr-2" for="">Nombre </label>
 	<div class="d-inline-block pl-1 pr-1">
 		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
 	</div>
@@ -18,35 +18,48 @@
 <a href="" class="btn btn-success mb-3 mt-3" routerLink="/distribution/create">
 	<fa-icon icon="plus"></fa-icon> Nuevo
 </a>
-<table class="table table-hover">
-	<thead>
-		<tr style="font-weight: bold;">
-			<td>Name</td>
-			<td>Descripción</td>
-			<td>Organismos</td>
-			<td>Usuarios</td>
-			<td></td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let dist of distribution">
-			<td>{{dist.name}}</td>
-			<td>{{dist.description}}</td>
-			<td><button class="btn btn-link" [disabled]="!dist.organism" (click)="seeOrganism(dist.organism)">ver</button></td>
-			<td><button class="btn btn-link" [disabled]="!dist.users" routerLink="/users/{{dist.id}}">ver</button></td>
-			<td>
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<a class="pr-3" routerLink="/distribution/update/{{dist.id}}">
-						<fa-icon style="color:gray;" icon="edit"></fa-icon>
-					</a>
-					<a routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">
-						<fa-icon style="color:red;" icon="trash"></fa-icon>
-					</a>
-				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+
+<div class="" style="min-height: 300px;">
+	<table class="table table-striped">
+			<thead>
+				<tr style="font-weight: bold;">
+					<td>Nombre</td>
+					<td>Descripción</td>
+					<td>Organismos</td>
+					<td>Usuarios</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let dist of distribution">
+					<td>{{dist.name}}</td>
+					<td>{{dist.description}}</td>
+					<td>
+						<!--<a 	[ngStyle]="{'pointer-events ' : '!dist.organism' ? 'none' : 'auto' }" 
+							routerLink="/distribution" (click)="seeOrganism(dist.organism)">
+							ver
+						</a>-->
+						<span *ngIf="dist.organism.name">{{ dist.organism.name }}</span>
+					</td>
+					<td>
+						<a routerLink="/users/{{dist.id}}">
+							ver
+						</a>
+					</td>
+					<td>
+						<div class="btn-group" role="group" aria-label="Basic example">
+							<a class="pr-3" routerLink="/distribution/update/{{dist.id}}">
+								<fa-icon style="color:gray;" icon="edit"></fa-icon>
+							</a>
+							<a routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">
+								<fa-icon style="color:red;" icon="trash"></fa-icon>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+</div>
 
 <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
- aria-label="Default pagination"></ngb-pagination>
+aria-label="Default pagination"></ngb-pagination>
