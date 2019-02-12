@@ -2,11 +2,14 @@ import { Notifications } from './../../_models/notifications';
 import { HolidaysService } from './../../_services/holidays.service';
 import { CreateHolidayDto } from './../../_models/holiday';
 import { Component, OnInit } from '@angular/core';
+import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-holidays',
   templateUrl: './create-holidays.component.html',
-  styleUrls: ['./create-holidays.component.css']
+  styleUrls: ['./create-holidays.component.css'],
+  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
 })
 export class CreateHolidaysComponent implements OnInit {
 

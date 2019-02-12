@@ -3,11 +3,14 @@ import { UpdateHolidayDto } from './../../_models/holiday';
 import { HolidaysService } from './../../_services/holidays.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modify-holidays',
   templateUrl: './modify-holidays.component.html',
-  styleUrls: ['./modify-holidays.component.css']
+  styleUrls: ['./modify-holidays.component.css'],
+  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
 })
 export class ModifyHolidaysComponent implements OnInit {
 
