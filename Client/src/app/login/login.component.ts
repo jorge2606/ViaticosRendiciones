@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   notifications = '';  
+  logout : boolean;
   
 
   constructor(private http : HttpClient,
@@ -58,15 +59,22 @@ export class LoginComponent implements OnInit {
    }
 
     ngOnInit() {
-        this.loginForm = this.formBuilder.group({
-          username: ['', Validators.required],
-          Password: ['', Validators.required]
-        });
-
         //this.isLogged = this.authenticationService.isLoggedIn;
-        this.isLogged = of(this.authenticationService.ifLogged());
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.authenticationService.isLoggedIn
+        .subscribe(x => {
+            this.logout = x;
+
+            if(!this.logout){
+                this.loginForm = this.formBuilder.group({
+                    username: ['', Validators.required],
+                    Password: ['', Validators.required]
+                  });
+                  // get return url from route parameters or default to '/'
+                  this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            }else{
+                this.router.navigate(['']);
+            }
+        });
     }
 
 }
