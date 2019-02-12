@@ -22,12 +22,14 @@ import { CountryService } from 'src/app/_services/country.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
+import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
 
 
 @Component({
   selector: 'app-add-destiny',
   templateUrl: './add-destiny.component.html',
-  styleUrls: ['./add-destiny.component.css']
+  styleUrls: ['./add-destiny.component.css'],
+  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
 })
 export class AddDestinyComponent implements OnInit {
 
