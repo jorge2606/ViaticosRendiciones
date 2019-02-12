@@ -108,6 +108,7 @@
         
                                         <div class="form-row">
                                                 <div class="form-group col">
+                                                    
                                                     <label for="">Fecha </label>
                                                         <div class="input-group">
                                                             <input class="form-control" 
@@ -123,7 +124,7 @@
                                                                 #dp="ngModel" 
                                                                 minlength="8" 
                                                                 maxlength="8"
-                                                                [minDate]="today"
+                                                                [minDate]="minDate"
                                                                 [(ngModel)]="model.startDate"
                                                                 required>
                                                             <div class="input-group-append">
@@ -132,7 +133,6 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                    
                                                         <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
                                                             <div *ngIf="dp.errors.required">
                                                                 Campo requerido.

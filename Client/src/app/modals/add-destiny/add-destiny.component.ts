@@ -1,3 +1,4 @@
+import { NgbDateStruct, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { DateDto } from './../../_models/holiday';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { ComplementariesCitiesDto } from './../../_models/city';
@@ -55,7 +56,7 @@ export class AddDestinyComponent implements OnInit {
   total: number = 0;
   carIsUsed: boolean;
   errorWhenCreateDestiny : string = "";
-  today  : DateDto = new DateDto();
+  minDate  : any =  {year : new Date().getFullYear(),month : new Date().getMonth() + 1,day :new Date().getDay()};
   config = {
     displayKey: "name", //if objects array passed which key to be displayed defaults to description
     search: true,//true/false for the search functionlity defaults to false,
@@ -85,11 +86,6 @@ export class AddDestinyComponent implements OnInit {
     private authService: AuthenticationService ) { }
 
   ngOnInit() {
-    let todayDate = new Date();
-    this.today.day =  todayDate.getDay();
-    this.today.month =  todayDate.getMonth() + 1;
-    this.today.year =  todayDate.getFullYear();
-
     this.selectedCountry = this.model.countryId;
     this.selectedProvince = this.model.provinceId;
     this.AllPlace();
