@@ -1,26 +1,24 @@
+import { Title } from '@angular/platform-browser';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
 import { CountryService } from './../../_services/country.service';
 import { AllCountryDto } from './../../_models/country';
-import { CityBaseDto, ComplementariesCitiesDto } from './../../_models/city';
+import { CityBaseDto } from './../../_models/city';
 import { DestinyDto } from 'src/app/_models/destiny';
 import { AddDestinyComponent } from './../../modals/add-destiny/add-destiny.component';
-import { PlaceService } from './../../_services/place.service';
-import { AllPlaceDto, PlaceBaseDto } from './../../_models/place';
 import { AddNewExpenditureComponent } from './../../modals/add-new-expenditure/add-new-expenditure.component';
-import { ExpenditureTypeBaseDto, AllExpenditureDto } from '../../_models/expenditureType';
+import { AllExpenditureDto } from '../../_models/expenditureType';
 import { ExpenditureService } from '../../_services/expenditure.service';
 import { MotiveService } from './../../_services/motive.service';
 import { CityService } from './../../_services/city.service';
-import { AllProvinceDto, ProvinceBaseDto } from './../../_models/province';
+import { ProvinceBaseDto } from './../../_models/province';
 import { AllCategoryDto } from './../../_models/category';
 import { CategoryService } from 'src/app/_services/category.service';
-import { CreateSolicitationSubsidyDto, SolicitationSubsidyBaseDto, Expenditure } from './../../_models/solicitationSubsidy';
+import { CreateSolicitationSubsidyDto, Expenditure } from './../../_models/solicitationSubsidy';
 import { Component, OnInit } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { ProvinceService } from 'src/app/_services/province.service';
-import { AllCitiesDto } from 'src/app/_models/city';
 import { AllMotiveDto } from 'src/app/_models/motive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -78,10 +76,12 @@ export class CreateSolicitationComponent implements OnInit {
       private countryService : CountryService,
       private codeLiquidationService : CodeLiquidationService,
       private solicitationSubsidyService : SolicitationSubsidyService,
-      private expenditureAgentService : ExpendituresUserService
+      private expenditureAgentService : ExpendituresUserService,
+      private titleService : Title
       ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Crear Solicitud');
     this.route.params.subscribe(
       x =>{
         this.id = x.id
@@ -99,6 +99,7 @@ export class CreateSolicitationComponent implements OnInit {
     this.allCodeLiquidation();
     
     if (this.id){
+        this.titleService.setTitle('Modificar Solicitud');
         this.solicitationSubsidyService.getByIdSolicitation(this.id)
         .subscribe(
           x => {
@@ -291,7 +292,7 @@ export class CreateSolicitationComponent implements OnInit {
     let listExpenditures : Expenditure[] = this.model.expenditures;
 
     modalRef.componentInstance.expendituresAdded = listExpenditures;
-    modalRef.result.then(x=> {
+    modalRef.result.then(()=> {
       this.totalResultExpenditure();
     },
     j => {
@@ -313,7 +314,7 @@ export class CreateSolicitationComponent implements OnInit {
     modalRef.componentInstance.destiniesAdded = listDestinies;
     
     modalRef.result.then(
-      x =>this.totalResultExpenditure()
+      () =>this.totalResultExpenditure()
     ,
     j => {
           console.log(j);

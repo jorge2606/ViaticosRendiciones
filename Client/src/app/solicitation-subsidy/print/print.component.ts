@@ -8,7 +8,7 @@ import html2canvas from 'html2canvas';
 import { ActivatedRoute } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -41,12 +41,15 @@ export class PrintComponent implements OnInit {
 
 
   constructor(
-    private route : ActivatedRoute,
-    private solicitationSubsidyService : SolicitationSubsidyService,
-    private destinyService : DestinyService,
-    private domSanitazer : DomSanitizer,
-    private spinner: NgxSpinnerService,
-  ) { }
+              private route : ActivatedRoute,
+              private solicitationSubsidyService : SolicitationSubsidyService,
+              private destinyService : DestinyService,
+              private domSanitazer : DomSanitizer,
+              private spinner: NgxSpinnerService,
+              private titleService : Title
+            ) { 
+                this.titleService.setTitle('Imprimir Solcitud');
+            }
 
   ngOnInit() {
     this.spinner.show();

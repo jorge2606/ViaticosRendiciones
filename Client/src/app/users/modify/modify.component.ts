@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UsersComponent } from '../users.component';
@@ -5,6 +6,7 @@ import { UserService } from '../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { modifyUser } from '../users';
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -25,7 +27,8 @@ export class ModifyuserComponent implements OnInit {
           private route: ActivatedRoute, 
           private userService: UserService,
           private distributionService : DistributionService,
-          private categoryService : CategoryService) {
+          private categoryService : CategoryService,
+          private titleService : Title) {
   }
   
 
@@ -45,6 +48,7 @@ export class ModifyuserComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.titleService.setTitle('Modificar Usuario - Perfil');
     //le asigno el id que extraigo de la url
     this.route.params.subscribe(
       p => this.id = p.id
@@ -56,6 +60,10 @@ export class ModifyuserComponent implements OnInit {
     
     this.allDistribution();
 
+  }
+
+  setTitleTab(){
+    this.titleService.setTitle('Modificar Usuario - Perfil');
   }
 
   getByIdAdministrator(){

@@ -7,6 +7,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-holograph-sign',
@@ -30,7 +31,8 @@ export class HolographSignComponent implements OnInit {
     private messaBetweenComp : MessBetweenCompService,
     private userService : UserService,
     private http : HttpClient,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private titleService : Title
     ) { }
 
     fileOverBase(e:any):void {
@@ -38,6 +40,7 @@ export class HolographSignComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.titleService.setTitle('Crear Usuario - Firma Hológrafa');
       //image
       this.initializeUploader();
       this.idUser = this.authService.userId('id');

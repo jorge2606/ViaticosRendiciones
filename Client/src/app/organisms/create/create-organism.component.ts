@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { CreateOrganismDto } from './../../_models/organism';
 import { Component, OnInit } from '@angular/core';
 import { OrganismService } from 'src/app/_services/organism.service';
@@ -12,7 +13,11 @@ export class CreateOrganismComponent implements OnInit {
   responseSuccess : any;
   error = '';
   model = new CreateOrganismDto();
-  constructor(private organismServcice : OrganismService) { }
+  constructor(
+              private organismServcice : OrganismService,
+              private titleService : Title) {
+                this.titleService.setTitle('Crear Organismo');
+               }
 
   ngOnInit() {}
 

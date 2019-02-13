@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { UpdateOrganismDto } from 'src/app/_models/organism';
 import { OrganismService } from 'src/app/_services/organism.service';
@@ -15,9 +16,14 @@ export class ModifyOrganismComponent implements OnInit {
   responseSuccess : any;
   error = '';
 
-  constructor(private organismService : OrganismService,
-    private route : ActivatedRoute,
-    private router : Router) { }
+  constructor(
+              private organismService : OrganismService,
+              private route : ActivatedRoute,
+              private router : Router,
+              private titleService : Title
+              ) { 
+                this.titleService.setTitle('Modificar Organismo');
+              }
 
   ngOnInit() {
     this.route.params.subscribe(

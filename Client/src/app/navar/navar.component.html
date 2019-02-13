@@ -115,15 +115,14 @@
                       No hay notificaciones nuevas
                 </ul>
 
-                <button *ngFor="let j of notification" class="dropdown-item small alert" 
+                <button style="white-space :normal; cursor : pointer;" *ngFor="let j of notification" class="dropdown-item small alert" 
                   [ngClass]="{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}"
                   (click)="seeThisNotification(j)">
                   <p style="font-size: 11px">{{j.textData}}</p>
                 </button>
-
-                <button (click)="seeAllNotification()" type="button" class="btn btn-link">
-                  <p class="small">ver todos {{notification.length}}</p>
-                </button>
+                <a href="#" routerLink="{{router.url}}" (click)="seeAllNotification()" class="small">
+                  ver todos ({{notification.length}})
+                </a>
               </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { FileNumberComponent } from './../../modals/file-number/file-number.component';
 import { Component, OnInit } from '@angular/core';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
@@ -34,12 +35,15 @@ export class AgentComponent implements OnInit {
    sizeIcon = "fa-lg";
 
   constructor(
-    private solicitationSubsidyservice : SolicitationSubsidyService,
-    private transportService : TransportService,
-    private modalService: NgbModal,
-    private router : Router,
-    private spinner: NgxSpinnerService
-  ) { }
+            private solicitationSubsidyservice : SolicitationSubsidyService,
+            private transportService : TransportService,
+            private modalService: NgbModal,
+            private router : Router,
+            private spinner: NgxSpinnerService,
+            private titleService : Title
+            ) { 
+              this.titleService.setTitle('Mis Solicitudes de Viático');
+            }
 
   ngOnInit() {
     this.getAll(this.filters);

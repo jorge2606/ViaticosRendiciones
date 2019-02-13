@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Category } from './../../_models/category';
 import { CategoryService } from './../../_services/category.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,11 @@ export class CreateCategoryComponent implements OnInit {
   error = '';
   responseSuccess : any;
   
-  constructor(private categoryService : CategoryService) { }
+  constructor(
+            private categoryService : CategoryService,
+            private titleService : Title) {
+                this.titleService.setTitle('Crear Categoría');
+             }
 
   ngOnInit() {
     

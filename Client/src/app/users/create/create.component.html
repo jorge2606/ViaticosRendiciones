@@ -2,7 +2,7 @@
     <fa-icon icon="angle-left"></fa-icon>    
 </a>
 
-<ngb-tabset #t="ngbTabset">
+<ngb-tabset #t="ngbTabset" (tabChange)="setTitleTabProfile()">
         <ngb-tab id="tab-selectbyid1" title="Perfil">
             <ng-template ngbTabContent>
                     <div class="container col-5">

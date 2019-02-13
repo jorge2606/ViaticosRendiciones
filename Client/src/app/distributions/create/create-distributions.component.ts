@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { CreateDistributionDto } from './../../_models/distributions';
@@ -17,7 +18,12 @@ export class CreateDistributionsComponent implements OnInit {
 
   organism : any[];
 
-  constructor(private ditributionService : DistributionService, private organismService : OrganismService) { }
+  constructor(
+              private ditributionService : DistributionService, 
+              private organismService : OrganismService,
+              private titleService : Title) { 
+                this.titleService.setTitle('Crear Distribución');
+              }
 
   ngOnInit() {
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { CreateTransportDto } from 'src/app/_models/transport';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-transport',
@@ -15,9 +16,12 @@ export class CreateTransportComponent implements OnInit {
   responseSuccess : any;
 
 
-  constructor(private transportService : TransportService) { }
+  constructor(
+        private transportService : TransportService,
+        private titleService : Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Crear Transporte');
   }
 
   onSubmit(){

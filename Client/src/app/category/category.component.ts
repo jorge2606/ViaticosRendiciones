@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { CategoryService } from './../_services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
@@ -22,7 +23,12 @@ export class CategoryComponent implements OnInit {
   textListEmpty : string = "No se encontró ningúna categoría";
   classListEmpty : string = "alert-primary";
 
-  constructor(private categoryService : CategoryService, private modalService: NgbModal) { }
+  constructor(
+            private categoryService : CategoryService,
+            private modalService: NgbModal,
+            private titleService : Title) { 
+              this.titleService.setTitle('Categorías');
+            }
 
   ngOnInit() {
     this.getAllCategories(this.filters); 

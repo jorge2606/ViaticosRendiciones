@@ -93,21 +93,6 @@ export class NavarComponent implements OnInit {
     })
   }
 
-  //MODALS
-  /** seeThisNotification(notificationridden : any) {
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.Encabezado = "Notificación";
-    modalRef.componentInstance.Contenido = notificationridden.textData;
-    modalRef.componentInstance.MsgClose = "Cerrar";
-    modalRef.componentInstance.MsgCloseClass = "btn-primary";
-    modalRef.componentInstance.GuardaroEliminarHidden = true;
-    
-    this.notificaionServices.notificationRidden(notificationridden).subscribe(
-        () => this.retriveNotifications()
-    )
-
-  }*/
-
   seeThisNotification(notificationridden : any) {
       this.modalService.dismissAll();
       this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
@@ -169,16 +154,6 @@ export class NavarComponent implements OnInit {
     modalRef.componentInstance.button = "Entendido";
     modalRef.componentInstance.ButtonHidden = false;
     modalRef.result.then(() => {
-      /*this.notificationridden.id = id,
-      this.notificationridden.read = true,
-      this.notificationridden.textData = "";
-      this.notificationridden.tittle = "" 
-      this.notificaionServices.notificationRidden(this.notificationridden).subscribe(
-        x => this.notificaionServices.getAllNotifications().subscribe(
-          x => console.log(x)
-          
-        )
-      )*/
     },
       () => {
         console.log('Backdrop click');

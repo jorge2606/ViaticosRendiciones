@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { UsersComponent } from '../users.component';
@@ -17,7 +18,8 @@ export class SettingofuserComponent implements OnInit {
 
   constructor(private router : Router,
     private route: ActivatedRoute, 
-    private userService: UserService) {
+    private userService: UserService,
+    private titleService : Title) {
   }
   model = new modifyUser;
 
@@ -39,7 +41,7 @@ export class SettingofuserComponent implements OnInit {
   }
   
   ngOnInit() {
-    
+    this.titleService.setTitle('Mi Perfil');
     this.userService.getById().subscribe(i => {
         this.model.dni = i.dni,
         this.model.userName = i.userName,
@@ -51,6 +53,10 @@ export class SettingofuserComponent implements OnInit {
         this.model.firstName = i.firstName,
         this.model.lastName = i.lastName
     })
+  }
+
+  setTitleTab(e : any){
+    this.titleService.setTitle('Mi Perfil');
   }
 
 }

@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { UpdateExpenditureDto } from 'src/app/_models/expenditureType';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
@@ -16,9 +17,13 @@ export class UpdateExpenditureComponent implements OnInit {
 
   responseSuccess : any;
 
-  constructor(private expenditureService : ExpenditureService,
-    private route : ActivatedRoute,
-    private router : Router) { }
+  constructor(
+              private expenditureService : ExpenditureService,
+              private route : ActivatedRoute,
+              private router : Router,
+              private titleService : Title) { 
+                this.titleService.setTitle('Modificar Tipo de Gasto');
+              }
 
   ngOnInit() {
     this.route.params.subscribe(

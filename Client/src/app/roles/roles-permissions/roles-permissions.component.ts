@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { RoleClaimPermission } from './../../_models/role-claim-permission';
 import { Roles } from './../../_models/roles';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +18,12 @@ export class RolesPermissionsComponent implements OnInit {
 
   model: Roles;
   id : string;
-  constructor(private rolesServices: RolesPermissionsService, private route: ActivatedRoute) { }
+  constructor(
+        private rolesServices: RolesPermissionsService, 
+        private route: ActivatedRoute,
+        private titleService : Title) {
+          this.titleService.setTitle('Roles - Permisos');
+         }
 
   dropdownEnabled = true;
   items: TreeviewItem[] = [];

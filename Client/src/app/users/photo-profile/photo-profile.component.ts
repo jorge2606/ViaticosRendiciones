@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { Subject } from 'rxjs';
 import { MessBetweenCompService } from '../../_services/mess-between-comp.service';
 import { $ } from 'protractor';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-photo-profile',
@@ -16,7 +17,8 @@ export class PhotoProfileComponent implements OnInit {
 
   constructor(private authService : AuthenticationService, 
               private messaBetweenComp : MessBetweenCompService,
-              private userService : UserService) { }
+              private userService : UserService,
+              private titleService : Title) { }
 
     //image
     uploader:FileUploader;
@@ -62,6 +64,7 @@ export class PhotoProfileComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.titleService.setTitle('Mi Perfil - Imagen');
     //image
     this.initializeUploader();
     this.idUser = this.authService.userId('id');

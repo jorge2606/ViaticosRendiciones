@@ -8,17 +8,18 @@
   <div class="alert alert-primary" *ngIf="col_size == 0">
       No hay notificaciones para mostrar
   </div>
-  <div *ngFor="let j of Contenido" class="small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">
-    <div class="row h-10">   
+  <div *ngFor="let j of Contenido" >
+    <div class="form-row h-10 small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">   
       <div class="col">
-          <h6>{{j.textData}}</h6> <button class="btn btn-primary" (click)="seeThisNotification(j)"> Ir a solicitud</button>
+            <h6>{{j.textData}}</h6><a href="#" routerLink="{{router.url}}" (click)="seeThisNotification(j)"> Ir a solicitud</a>
       </div> 
 
-      <div class="col-1 mt-3">
+      <div style="cursor: pointer;" class="ml-auto mt-4">
           <a class="" (click)="delete(j.id)">
               <fa-icon title="Eliminar notificación" class="fa-lg" style="color:red;" icon="trash"></fa-icon>
           </a>
       </div>
+      
          <!-- <button id="collapseExample{{j.id}}" type="button" class="btn btn-default mr-2 small" (click)="onChange(j)"
                 [attr.aria-expanded]="j.colapse" aria-controls="collapseExample">
                 <fa-icon icon="{{verOcultar}}"></fa-icon>

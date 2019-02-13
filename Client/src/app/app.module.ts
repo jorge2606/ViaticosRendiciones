@@ -1,6 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CreateuserComponent } from './users/create/create.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -153,10 +153,8 @@ library.add(fas);
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-      { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}
-  
-      // provider used to create fake backend
-      //fakeBackendProvider    
+      { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter},
+      Title 
     ],
    entryComponents: [
       NgbdModalContent,

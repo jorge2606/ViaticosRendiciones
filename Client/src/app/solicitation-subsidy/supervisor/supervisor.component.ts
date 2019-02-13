@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { AllSolicitationSubsidyDto, SolicitationSubsidyBaseDto, SolicitationIdDto } from 'src/app/_models/solicitationSubsidy';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
@@ -31,11 +32,14 @@ export class SupervisorComponent implements OnInit {
    sizeIcon="fa-lg";
    
   constructor(
-    private solicitationSubsidyservice : SolicitationSubsidyService,
-    private transportService : TransportService,
-    private modalService: NgbModal,
-    private router : Router
-  ) { }
+              private solicitationSubsidyservice : SolicitationSubsidyService,
+              private transportService : TransportService,
+              private modalService: NgbModal,
+              private router : Router,
+              private titleService : Title
+            ) { 
+                this.titleService.setTitle('Ver Solicitudes De Mis Agentes');
+            }
 
 
   ngOnInit() {

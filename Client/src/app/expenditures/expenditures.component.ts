@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ExpenditureService } from '../_services/expenditure.service';
@@ -21,7 +22,10 @@ export class ExpendituresComponent implements OnInit {
 
   constructor(
             private expenditureService : ExpenditureService,
-            private modalService : NgbModal) { }
+            private modalService : NgbModal,
+            private titleService : Title) { 
+              this.titleService.setTitle('Tipos de Gastos');
+            }
 
   ngOnInit() {
     this.getAllExpenditure(this.page); 

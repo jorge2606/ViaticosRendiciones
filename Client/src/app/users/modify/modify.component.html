@@ -2,8 +2,9 @@
     <fa-icon icon="angle-left"></fa-icon>
 </a>
 
-<ngb-tabset #t="ngbTabset">
-    <ngb-tab id="tab-selectbyid1" title="Usuario">
+<ngb-tabset #t="ngbTabset" (tabChange)="setTitleTab()">
+    <ngb-tab id="tab-selectbyid1">
+        <ng-template ngbTabTitle><span >Perfil</span></ng-template>
         <ng-template ngbTabContent>
             <div class="container col-5 mt-1">
 
@@ -135,10 +136,10 @@
                 <div class="alert alert-danger mt-1" *ngIf="userForm.form.invalid">
                     Hay Campos erroneos en el formulario, verifiquelos
                 </div>
-    </div>
+            </div>
         </ng-template>
     </ngb-tab>
-    <ngb-tab id="tab-selectbyid2">
+    <ngb-tab>
         <ng-template ngbTabTitle>Auditoría</ng-template>
         <ng-template ngbTabContent>
             <app-audit-users [userId]="id"></app-audit-users>

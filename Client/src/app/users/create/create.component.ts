@@ -7,6 +7,7 @@ import { RoleService } from '../../_services/role.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { Router } from '@angular/router';
 import { UsersComponent } from '../users.component';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-createuser',
   templateUrl: './create.component.html',
@@ -26,7 +27,8 @@ export class CreateuserComponent implements OnInit {
               private router : Router,
               private rolService : RoleService,
               private distributionService : DistributionService,
-              private categoryService : CategoryService) {}
+              private categoryService : CategoryService,
+              private titleService : Title) {}
 
 
   getAllRoles(){
@@ -41,6 +43,7 @@ export class CreateuserComponent implements OnInit {
   }
 
   onSubmit(){
+    this.titleService.setTitle('Crear Usuario - Perfil');
     this.UserService.createWithObjectUser(this.model).subscribe(
       data => {
           this.router.navigate(['/users']);
@@ -53,6 +56,7 @@ export class CreateuserComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.titleService.setTitle('Crear Usuario');
     this.getAllRoles();
     this.getAllCategories();
     this.distributionService.allDistribution().subscribe(
@@ -60,6 +64,10 @@ export class CreateuserComponent implements OnInit {
         this.distribution = x;
       }
     );
+  }
+
+  setTitleTabProfile(){
+    this.titleService.setTitle('Crear Usuario - Perfil');
   }
 
 }

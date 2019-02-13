@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { UpdateOrganismDto } from 'src/app/_models/organism';
 import { UpdateDistributionDto } from './../../_models/distributions';
 import { DistributionsComponent } from './../distributions.component';
@@ -23,8 +24,12 @@ export class ModifyDistributionComponent implements OnInit {
   organism :  any[];
 
   constructor(private route : ActivatedRoute,
-    private router : Router,
-    private distributionService : DistributionService, private organismService : OrganismService) { }
+              private router : Router,
+              private distributionService : DistributionService, 
+              private organismService : OrganismService,
+              private titleService : Title) {
+                this.titleService.setTitle('Modificar Repartición');
+               }
 
   ngOnInit() {
     //le asigno el id que extraigo de la url

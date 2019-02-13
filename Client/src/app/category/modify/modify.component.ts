@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { CategoryComponent } from './../category.component';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_services/category.service';
@@ -17,8 +18,13 @@ export class ModifyCategoryComponent implements OnInit {
 
   responseSuccess : any;
 
-  constructor(private categoryService : CategoryService, private route: ActivatedRoute,
-    private router : Router) { }
+  constructor(
+            private categoryService : CategoryService, 
+            private route: ActivatedRoute,
+            private router : Router,
+            private titleService : Title) { 
+              this.titleService.setTitle('Modificar Categoría');
+            }
 
   ngOnInit() {
     //le asigno el id que extraigo de la url

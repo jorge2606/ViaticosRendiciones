@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { DistributionService } from '../_services/distribution.service';
 import { DistributionBaseDto } from '../_models/distributions';
@@ -31,7 +32,10 @@ export class DistributionsComponent implements OnInit {
               private distributionService : DistributionService,
               private modalService: NgbModal,
               private organismService : OrganismService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private titleService : Title) { 
+                this.titleService.setTitle('Reparticiones');
+              }
 
   ngOnInit() {
     this.route.params.subscribe(

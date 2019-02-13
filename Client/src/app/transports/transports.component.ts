@@ -3,6 +3,7 @@ import { TransportService } from './../_services/transport.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-transports',
@@ -16,9 +17,13 @@ export class TransportsComponent implements OnInit {
   col_size : number;
   itemsPerPage : number = 10;
 
-  constructor(private transportService : TransportService, private modalService: NgbModal) { }
+  constructor(
+          private transportService : TransportService, 
+          private modalService: NgbModal,
+          private titleService : Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Transporte');
     this.getAllTransports(this.page); 
   }
 

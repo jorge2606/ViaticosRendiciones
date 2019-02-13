@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { CreateExpenditureDto } from 'src/app/_models/expenditureType';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
@@ -13,7 +14,11 @@ export class CreateExpenditureComponent implements OnInit {
   error = '';
   responseSuccess : any;
 
-  constructor(private expenditureService : ExpenditureService) { }
+  constructor(
+            private expenditureService : ExpenditureService,
+            private titleService : Title) {
+              this.titleService.setTitle('Crear Tipo de Gasto');
+             }
 
   ngOnInit() {
   }

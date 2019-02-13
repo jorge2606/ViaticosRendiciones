@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { UserRoles } from 'src/app/_models/userRoles';
 import { AddSupervisorComponent } from './../modals/add-supervisor/add-supervisor.component';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { User } from './users';
 import { DistributionService } from '../_services/distribution.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AspNetRolesService } from '../_services/asp-net-roles.service';
 import { AspNetUsersRolesService } from '../_services/asp-net-users-roles.service';
 import { AllAspNetRolesDto } from '../_models/aspNetRoles';
@@ -44,10 +45,13 @@ export class UsersComponent implements OnInit {
               private distributionService: DistributionService,
               private route: ActivatedRoute,
               private aspNetRolesService : AspNetRolesService,
-              private aspNetUsersRolesService : AspNetUsersRolesService) {}
+              private aspNetUsersRolesService : AspNetUsersRolesService,
+              private titleService : Title,
+              private router : Router) {}
 
 
   ngOnInit() {
+    this.titleService.setTitle('Usuarios');
     this.allUsersWithInPage();
     this.allAspNetRolesService();
     this.allAspNetUserRolesService();

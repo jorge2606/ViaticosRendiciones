@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { CreateOrganismDto } from './../_models/organism';
 import { Component, OnInit } from '@angular/core';
 import { OrganismService } from '../_services/organism.service';
@@ -19,8 +20,12 @@ export class OrganismsComponent implements OnInit {
   textListEmpty : string = "No se encontró ningún organismo";
   classListEmpty : string = "alert-primary";
 
-  constructor(private organismService : OrganismService,
-    private modalService : NgbModal) { }
+  constructor(
+              private organismService : OrganismService,
+              private modalService : NgbModal,
+              private titleService : Title) { 
+                this.titleService.setTitle('Organismos');
+              }
 
   ngOnInit() {
     this.getAllOrganism(this.filters); 

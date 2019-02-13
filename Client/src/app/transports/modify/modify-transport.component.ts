@@ -2,6 +2,7 @@ import { TransportService } from './../../_services/transport.service';
 import { Component, OnInit } from '@angular/core';
 import { UpdateTransportDto } from 'src/app/_models/transport';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-modify-transport',
@@ -18,9 +19,12 @@ export class ModifyTransportComponent implements OnInit {
 
   constructor(private route : ActivatedRoute,
     private router : Router,
-    private tranportService : TransportService) { }
+    private tranportService : TransportService,
+    private titleService : Title
+    ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Modificar Transporte');
     this.route.params.subscribe(
       p => this.id = p.id
     );
