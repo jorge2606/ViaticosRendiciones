@@ -1,5 +1,6 @@
-<a class="btn btn-primary mb-1 ml-1" href="" routerLink="/SolicitationSubsidy/agent">
-    <fa-icon title="volver a menú" icon="angle-left"></fa-icon>
+<a  placement="bottom" ngbTooltip="Volver al listado de solicitudes de viáticos" 
+    class="btn btn-primary mb-1 ml-1" href="" routerLink="/SolicitationSubsidy/agent">
+    <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>
 </a>
 
 <div class="card mt-1">
@@ -42,13 +43,15 @@
                 </div>
         
                 <div class="form-row mt-1 mb-1">
-                    <button type="button" class="btn btn-success small" (click)="AddDestiny()">
-                            <fa-icon title="Agregar destino" icon="plus"></fa-icon> Destino
+                    <button placement="bottom" ngbTooltip="Agregar un nuevo destino" 
+                        type="button" class="btn btn-success small" (click)="AddDestiny()">
+                            <fa-icon class="fa-lg" icon="plus"></fa-icon> Destino
                     </button> 
                     <a (click)="deleteAllDestinies()" 
                         *ngIf="model.destinies.length > 0"
-                        class="btn btn-danger ml-1 text-white small">
-                        <fa-icon title="Eliminar todos los destinos" icon="trash"></fa-icon> Eliminar Todos
+                        class="btn btn-danger ml-1 text-white small"
+                        placement="bottom" ngbTooltip="Eliminar todos los destinos">
+                        <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
                     </a>
         
                     <button
@@ -59,8 +62,9 @@
                     *ngIf="model.destinies.length > 0"
                     [attr.aria-expanded]="!isCollapsedDestiny" 
                     aria-controls="collapseDestiny"
+                    placement="bottom" ngbTooltip="Ocultar todos los destinos" 
                     >
-                        <fa-icon title="Ocultar todos los destinos" icon="{{verOcultarIconDestiny}}"></fa-icon>
+                        <fa-icon class="fa-lg" icon="{{verOcultarIconDestiny}}"></fa-icon>
                         {{verOcultarTextDestiny}} ({{model.destinies.length}})
                 </button>
                 </div>
@@ -112,34 +116,38 @@
                                 {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
                             </td>    
                             <td>
-                                <a class="btn btn-danger text-white small" (click)="removeDestiny(destiny)">
-                                    <fa-icon title="Eliminar destino" icon="trash"></fa-icon>
+                                <a  placement="bottom" ngbTooltip="Eliminar este destino" 
+                                    class="btn btn-danger text-white small" (click)="removeDestiny(destiny)">
+                                    <fa-icon class="fa-lg" icon="trash"></fa-icon>
                                 </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="form-row mt-1 mb-1">
-                        <a (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white small">
-                            <fa-icon title="Agregar un nuevo gasto" icon="plus"></fa-icon> Concepto de Gasto
+                        <a  placement="bottom" ngbTooltip="Agregar un nuevo concepto gasto"
+                            (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white small">
+                            <fa-icon class="fa-lg" icon="plus"></fa-icon> Concepto de Gasto
                         </a>
             
-                        <a (click)="deleteAllConcepts()" 
+                        <a  placement="bottom" ngbTooltip="Eliminar todos los conceptos de gasto" 
+                            (click)="deleteAllConcepts()" 
                             *ngIf="model.expenditures.length > 0"
                             class="btn btn-danger ml-1 mb-1 text-white small">
-                                <fa-icon title="Eliminar todos los gastos" icon="trash"></fa-icon> Eliminar Todos
+                            <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
                         </a>
                         <!--Concepto de Gasto-->
                         <button 
+                            placement="bottom" 
+                            ngbTooltip="Ocultar todos los gastos" 
                             type="button" 
-                            type="button"
                             class="btn btn-default ml-auto mb-1 small" 
                             [hidden]="!model.expenditures"
                             (click)="changeCollapseExpenditure()"
                             *ngIf="model.expenditures.length > 0"
                             [attr.aria-expanded]="!isCollapsedExpenditure"
                             aria-controls="collapseExpenditure">
-                            <fa-icon title="Ocultar todos los gastos" icon="{{verOcultarIconExpenditure}}"></fa-icon>
+                            <fa-icon class="fa-lg" icon="{{verOcultarIconExpenditure}}"></fa-icon>
                                 {{verOcultarTextExpenditure}}
                                 ({{model.expenditures.length}})
                         </button>
@@ -169,8 +177,10 @@
                                     {{modelExp.amount | currency}}
                                 </td>
                                 <td class="col-1">
-                                    <a class="btn btn-danger text-white small" (click)="removeExpenditure(modelExp)">
-                                        <fa-icon title="Eliminar gasto" icon="trash"></fa-icon>
+                                    <a  placement="bottom" ngbTooltip="Eliminar este concepto de gasto" 
+                                        class="btn btn-danger text-white small" 
+                                        (click)="removeExpenditure(modelExp)">
+                                        <fa-icon class="fa-lg" icon="trash"></fa-icon>
                                     </a>
                                 </td>
                             </tr>
@@ -179,8 +189,10 @@
 
                 
                 <div class="form-row float-right">
-                    <button [disabled]="!solicitationSubsidy.valid" class="btn btn-success small">
-                        <fa-icon title="Guardar solicitud" icon="save"></fa-icon> Guardar
+                    <button 
+                        placement="bottom" ngbTooltip="Enviar este formulario" 
+                        [disabled]="!solicitationSubsidy.valid" class="btn btn-success small">
+                        <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                     </button>
                 </div>
         

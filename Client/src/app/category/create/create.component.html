@@ -1,5 +1,7 @@
-<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/category">
-  <fa-icon icon="angle-left"></fa-icon>    
+<a  placement="bottom" 
+    ngbTooltip="Volver al listado de categorías" 
+    style="margin-left : 5px;" class="btn btn-primary" href="" routerLink="/category">
+  <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 
 
@@ -38,8 +40,9 @@
                         </div>
                 
                     <div style="margin-bottom:5px;" class="form-row">
-                        <button class="btn btn-success ml-auto" >
-                            <fa-icon icon="save"></fa-icon> Guardar
+                        <button placement="bottom" ngbTooltip="Enviar este formulario" 
+                             class="btn btn-success ml-auto" >
+                            <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                         </button>
                     </div>
                 

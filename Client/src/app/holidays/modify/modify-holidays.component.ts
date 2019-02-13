@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { HolidaysComponent } from './../holidays.component';
 import { UpdateHolidayDto } from './../../_models/holiday';
 import { HolidaysService } from './../../_services/holidays.service';
@@ -21,7 +22,11 @@ export class ModifyHolidaysComponent implements OnInit {
 
   constructor(private route : ActivatedRoute, 
               private holidayService : HolidaysService,
-              private router : Router) { }
+              private router : Router,
+              private titleService : Title
+              ) { 
+                this.titleService.setTitle('Modificar Feriado');
+              }
 
   ngOnInit() {
     this.route.params.subscribe(

@@ -1,5 +1,8 @@
-<a class="btn btn-primary mb-1" href="" routerLink="/users">
-    <fa-icon icon="angle-left"></fa-icon>    
+<a 
+    placement="bottom" 
+    ngbTooltip="Volver al listado de usuarios" 
+    class="btn btn-primary mb-1" href="" routerLink="/users">
+    <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 
 <ngb-tabset #t="ngbTabset" (tabChange)="setTitleTabProfile()">
@@ -49,7 +52,8 @@
                                                 #firstName="ngModel" 
                                                 required name="firstName" 
                                                 type="text"
-                                                placeholder="Nombre">
+                                                placeholder="Nombre"
+                                                maxlength="100">
                                         </div>
                                 
                                         <div *ngIf="submitted && firstName.invalid" clas="alert alert-danger mt-1">
@@ -63,7 +67,8 @@
                                                 #lastName="ngModel" 
                                                 required name="lastName" 
                                                 type="text"
-                                                placeholder="Apellido">
+                                                placeholder="Apellido"
+                                                maxlength="100">
                                         </div>
                                 
                                         <div *ngIf="submitted && lastName.invalid" clas="alert alert-danger mt-1">
@@ -130,8 +135,10 @@
                                         </div>
                                 
                                         <div class="form-row mt-1">
-                                                <button class="btn btn-success ml-auto" [disabled]="!userForm.form.valid">
-                                                    <fa-icon icon="save"></fa-icon> Guardar
+                                                <button placement="top" 
+                                                    ngbTooltip="Enviar este formulario" 
+                                                    class="btn btn-success ml-auto" [disabled]="!userForm.form.valid">
+                                                    <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                                                 </button>
                                         </div>
                                 </form>

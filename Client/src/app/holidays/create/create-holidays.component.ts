@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Notifications } from './../../_models/notifications';
 import { HolidaysService } from './../../_services/holidays.service';
 import { CreateHolidayDto } from './../../_models/holiday';
@@ -17,7 +18,12 @@ export class CreateHolidaysComponent implements OnInit {
   errors = '';
   errorDatapicker = '';
 
-  constructor(private holidayService: HolidaysService) { }
+  constructor(
+                private holidayService: HolidaysService,
+                private titleService :Title
+                ) { 
+                    this.titleService.setTitle('Crear Feriado');
+                }
 
   ngOnInit() {
 

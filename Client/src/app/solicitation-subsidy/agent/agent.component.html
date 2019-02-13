@@ -1,11 +1,17 @@
     <div class="d-inline-block pb-2 pt-2">
-        <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
-          <fa-icon icon="plus"></fa-icon> Nuevo
+        <a  
+          placement="bottom" 
+          ngbTooltip="Agregar una nueva solicitud de viático" 
+          href="" class="btn btn-success" routerLink="/SolicitationSubsidy/create">
+          <fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
         </a>
     </div>
 
     <div class="d-inline-block pb-2 pt-2 ml-1">
-      <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/supervisor">
+      <a  
+        placement="bottom" 
+        ngbTooltip="Ver las solicitudes de viáticos de agentes a mi cargo" 
+        href="" class="btn btn-success" routerLink="/SolicitationSubsidy/supervisor">
         Moderar Solicitudes
       </a>
     </div>
@@ -26,7 +32,9 @@
           <tbody>
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
               <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-              <td class="col-3 no-wrap">{{sol.motive}}</td>
+              <td class="col-3 no-wrap" placement="bottom" ngbTooltip="{{sol.motive}}">
+                {{sol.motive}}
+              </td>
               <td class="col-3">
                   <li *ngFor="let d of sol.destinies">
                       <span *ngIf="d.countryName">{{d.countryName}}</span>
@@ -36,13 +44,19 @@
               </td>
               <td class="col">{{sol.total | currency}}</td>
               <td *ngIf="sol.state == 'Rechazado'" class="col">
-                  <a  href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
+                <a
+                  placement="bottom" 
+                  ngbTooltip="Ver motivo de rechazo"   
+                  href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
                   (click)="openMotiveReject(sol.motiveReject)">
                   {{sol.state}}
-                  </a>
+                </a>
               </td>  
               <td class="col" *ngIf="sol.state == 'Aceptado'">
-                  <a href="" alt="Número de Archivo" 
+                  <a 
+                    placement="bottom" 
+                    ngbTooltip="Agregar número de expediente" 
+                    href=""
                     (click)="addFileNumber(sol.id)"
                     routerLink="/SolicitationSubsidy/agent" class="pr-3">
                     {{sol.state}}
@@ -56,14 +70,21 @@
                   role="group" 
                   aria-label="Basic example">
                   <a 
+                    placement="bottom" 
+                    ngbTooltip="Editar esta solicitud de viático" 
                     class="pr-3" 
                     routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
-                    <fa-icon title="Editar Solicitud" style="color:gray;" icon="edit" class="{{sizeIcon}}"></fa-icon>
+                    <fa-icon style="color:gray;" icon="edit" class="{{sizeIcon}}">
+                    </fa-icon>
                   </a>
-                  <a class="pr-3" 
+                  <a 
+                    placement="bottom" 
+                    ngbTooltip="Eliminar esta solicitud de viático" 
+                    class="pr-3" 
                     routerLink="/SolicitationSubsidy/agent" 
                     (click)="openEliminar(sol)">
-                    <fa-icon title="Eliminar Solicitud" class="{{sizeIcon}}" style="color:red;" icon="trash"></fa-icon>
+                    <fa-icon class="{{sizeIcon}}" style="color:red;" icon="trash">
+                    </fa-icon>
                   </a>
                   <!--<a href="" 
                     class="pr-3" 
@@ -71,11 +92,18 @@
                     (click)="openDetail(sol.id)">
                     <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
                   </a>-->
-                  <a href="" 
+                  <a
+                    placement="bottom" 
+                    ngbTooltip="Enviar solicitud al supervisor"  
+                    href="" 
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
-                    <fa-icon title="Enviar solicitud al supervisor" class="{{sizeIcon}}" style="color: black;" icon="envelope"></fa-icon>
+                    <fa-icon 
+                      class="{{sizeIcon}}" 
+                      style="color: black;" 
+                      icon="envelope">
+                    </fa-icon>
                   </a>
                 </div>
               </td>
@@ -84,13 +112,22 @@
                   role="group" 
                   aria-label="Basic example">
                   <a class="pr-3" 
-                      routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
-                    <fa-icon title="Editar Solicitud" style="color:gray;" icon="edit" class="{{sizeIcon}}"></fa-icon>
+                    placement="bottom" 
+                    ngbTooltip="Editar esta solicitud de viático" 
+                    routerLink="/SolicitationSubsidy/modify/{{sol.id}}">
+                    <fa-icon style="color:gray;" 
+                        icon="edit" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <a class="pr-3" 
+                    placement="bottom" 
+                    ngbTooltip="Eliminar esta solicitud de viático" 
                     routerLink="/SolicitationSubsidy/agent"
                     (click)="openEliminar(sol)">
-                    <fa-icon style="color:red;" title="Eliminar Solicitud" icon="trash" class="{{sizeIcon}}"></fa-icon>
+                    <fa-icon 
+                      style="color:red;"
+                      placement="bottom" 
+                      ngbTooltip="Eliminar esta solicitud de viático" 
+                      icon="trash" class="{{sizeIcon}}"></fa-icon>
                   </a>
                   <!--<a href="" 
                     class="pr-3" 
@@ -98,17 +135,28 @@
                     (click)="openDetail(sol.id)">
                     <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
                   </a>-->
-                  <a href="" 
+                  <a
+                    placement="bottom" 
+                    ngbTooltip="Enviar esta solicitud de viático al supervisor"  
+                    href="" 
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
-                    <fa-icon style="color: black;" icon="envelope" title="Enviar solicitud al supervisor" class="{{sizeIcon}}"></fa-icon>
+                    <fa-icon 
+                        style="color: black;" 
+                        icon="envelope" 
+                        title="Enviar solicitud al supervisor" 
+                        class="{{sizeIcon}}">
+                    </fa-icon>
                   </a>
                 </div>
               </td>
               <td *ngIf="sol.state == 'Aceptado'" class="col">
-                  <a href="" routerLink="/print/{{sol.id}}" class="pr-3">
-                    <fa-icon class="{{sizeIcon}}"  title="Imprimir" style="color: black;" icon="print"></fa-icon>
+                  <a 
+                    placement="bottom" 
+                    ngbTooltip="Imprimir esta solicitud de viático" 
+                    href="" routerLink="/print/{{sol.id}}" class="pr-3">
+                    <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
               </td>
               <td *ngIf="sol.state == 'Enviado'" class="col"></td>

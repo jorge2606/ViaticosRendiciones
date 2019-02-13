@@ -5,37 +5,45 @@
 	</div>
 </div>
 
-<a href="" class="btn btn-success mb-3 mt-3" routerLink="create">
-	<fa-icon icon="plus"></fa-icon> Nuevo
+<a 	href="" 
+	placement="bottom" 
+	ngbTooltip="Crear una nueva categoría"
+	class="btn btn-success mb-3 mt-3" 
+	routerLink="create">
+	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 </a>
 <div class="" style="min-height: 300px;">
 	<table class="table table-striped">
-			<thead>
-				<tr style="font-weight: bold;">
-					<td>Nombre</td>
-					<td>Descripción</td>
-					<td>Adelanto</td>
-					<td></td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let cat of categories">
-					<td>{{cat.name}}</td>
-					<td>{{cat.description}}</td>
-					<td>{{cat.advance | number}}</td>
-					<td>
-						<div class="btn-group" role="group" aria-label="Basic example">
-							<a class="pr-3" routerLink="/category/update/{{cat.id}}">
-								<fa-icon style="color:gray;" icon="edit"></fa-icon>
-							</a>
-							<a routerLink="/category" (click)="openEliminar(cat.id,cat.name,cat.description)">
-								<fa-icon style="color:red;" icon="trash"></fa-icon>
-							</a>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<thead>
+			<tr style="font-weight: bold;">
+				<td>Nombre</td>
+				<td>Descripción</td>
+				<td>Adelanto</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let cat of categories">
+				<td>{{cat.name}}</td>
+				<td>{{cat.description}}</td>
+				<td>{{cat.advance | number}}</td>
+				<td>
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<a 	placement="bottom" 
+							ngbTooltip="Editar esta categoría" 
+							class="pr-3" routerLink="/category/update/{{cat.id}}">
+							<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
+						</a>
+						<a placement="bottom" 
+							ngbTooltip="Eliminar esta categoría"
+							routerLink="/category" (click)="openEliminar(cat.id,cat.name,cat.description)">
+							<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
 		<app-alert 
 			*ngIf="category_list_length == 0" 

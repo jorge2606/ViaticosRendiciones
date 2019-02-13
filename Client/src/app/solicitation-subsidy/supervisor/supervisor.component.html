@@ -30,7 +30,9 @@
             <tr *ngFor="let sol of solicitationSubsidies" class="row">
               <td class="col-2">{{sol.fullName}}</td>
               <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
-              <td class="col-1 no-wrap">{{sol.motive}}</td>
+              <td class="col-1 no-wrap" 
+                placement="bottom" 
+                ngbTooltip="{{sol.motive}}">{{sol.motive}}</td>
               <td class="col-3">
                 <li *ngFor="let d of sol.destinies">
                     <span *ngIf="d.countryName">{{d.countryName}}</span>
@@ -42,14 +44,15 @@
               </td>
               <td class="col">{{sol.total | currency}}</td>
               <td class="col">{{sol.state}}</td>
-              <td class="col">
+              <td class="col text-center" placement="bottom" 
+                  ngbTooltip="Ver detalle de la solicitud de viático para aceptar o rechazar">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <!--<a class="pr-3" routerLink="/SolicitationSubsidy/supervisor" (click)="openEliminar(sol)">
                     <fa-icon class="{{sizeIcon}}"  title="Eliminar Solicitud" style="color:red;" icon="trash"></fa-icon>
                   </a>-->
                   <a href="" class="pr-3" routerLink="/SolicitationSubsidy/supervisor"
-                  (click)="openDetail(sol.id)">
-                    <fa-icon class="{{sizeIcon}}"  title="Ver detalle de solicitud" style="color:gray;" icon="info-circle"></fa-icon>
+                    (click)="openDetail(sol.id)">
+                    <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="info-circle"></fa-icon>
                   </a>
                 </div>
               </td>

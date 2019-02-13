@@ -8,7 +8,7 @@
     <tbody>
       <tr *ngFor="let rol of modelRoles">
         <td>{{rol.name}}</td>
-        <td><a routerLink="/roles/permissions/{{rol.id}}">Permisos</a></td>
+        <td><a placement="bottom" ngbTooltip="Ver permisos de este rol" routerLink="/roles/permissions/{{rol.id}}">Permisos</a></td>
       </tr>
     </tbody>
   </table>

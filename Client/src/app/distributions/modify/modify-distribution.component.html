@@ -1,5 +1,8 @@
-<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/distribution">
-  <fa-icon icon="angle-left"></fa-icon>    
+<a 
+    placement="bottom" 
+    ngbTooltip="Volver al listado de reparticiones" 
+    style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/distribution">
+  <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 
 <div class="container col-6 navarStyle">
@@ -33,8 +36,9 @@
                     </select>
               
                     <div class="form-row mt-1">
-                        <button [disabled]="!CategoryForm.valid" class="btn btn-success ml-auto">
-                            <fa-icon icon="save"></fa-icon> Guardar
+                        <button placement="bottom" ngbTooltip="Enviar este formulario" 
+                            [disabled]="!CategoryForm.valid" class="btn btn-success ml-auto">
+                            <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                         </button>
                     </div>
               

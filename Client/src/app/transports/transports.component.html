@@ -1,5 +1,7 @@
-<a href="" class="btn btn-success mb-3" routerLink="create">
-	<fa-icon icon="plus"></fa-icon> Nuevo
+<a 	placement="bottom" 
+	ngbTooltip="Agregar nuevo transporte" 
+	href="" class="btn btn-success mb-3" routerLink="create">
+	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 </a>
 
 <div class="" style="min-height: 300px;">
@@ -21,11 +23,15 @@
 					<td>{{trans.carPlate}}</td>
 					<td>
 						<div class="btn-group" role="group" aria-label="Basic example">
-							<a class="pr-3" routerLink="/transport/update/{{trans.id}}">
-								<fa-icon style="color:gray;" icon="edit"></fa-icon>
+							<a  placement="bottom" 
+								ngbTooltip="Editar este transporte" 
+								class="pr-3" routerLink="/transport/update/{{trans.id}}">
+								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
-							<a routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">
-								<fa-icon style="color:red;" icon="trash"></fa-icon>
+							<a 	placement="bottom" 
+								ngbTooltip="Eliminar este transporte" 
+								routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">
+								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 							</a>
 					</div>
 				</td>

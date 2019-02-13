@@ -20,8 +20,16 @@
 </div>
 
 	<div class="d-inline-block mt-3 mb-3 mr-1">
-		<a href="" class="btn btn-success" routerLink="/users/create">
-			<fa-icon icon="plus"></fa-icon> Nuevo
+		<a 
+			href="" 
+			class="btn btn-success" 
+			placement="bottom" 
+			ngbTooltip="Agregar nuevo usuario" 
+			routerLink="/users/create">
+			<fa-icon 
+				class="fa-lg" 
+				icon="plus" 
+			></fa-icon> Nuevo
 		</a>
 	</div>
 	
@@ -76,10 +84,19 @@
 					<td>
 						<div class="btn-group" role="group" aria-label="Basic example">
 							<a style="cursor:pointer" class="pr-3" routerLink="/users/update/{{user.id}}">
-								<fa-icon style="color:gray;" icon="edit"></fa-icon>
+								<fa-icon 
+									placement="top" 
+									ngbTooltip="Editar usuario"
+									class="fa-lg" 
+									style="color:gray;" 
+									icon="edit"></fa-icon>
 							</a>
 							<a style="cursor:pointer" (click)="openEliminar(user.id,user.dni,user.userName)">
-								<fa-icon style="color:red;" icon="trash"></fa-icon>
+								<fa-icon 
+									placement="top" 
+									ngbTooltip="Eliminar usuario" 
+									class="fa-lg" style="color:red;" 
+									icon="trash"></fa-icon>
 							</a>
 						</div>
 					</td>

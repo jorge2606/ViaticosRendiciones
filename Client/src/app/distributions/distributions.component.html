@@ -15,8 +15,10 @@
 	</div>
 </div>
 
-<a href="" class="btn btn-success mb-3 mt-3" routerLink="/distribution/create">
-	<fa-icon icon="plus"></fa-icon> Nuevo
+<a 	placement="bottom" 
+	ngbTooltip="Agregar nueva repartición" 
+	href="" class="btn btn-success mb-3 mt-3" routerLink="/distribution/create">
+	<fa-icon icon="plus" class="fa-lg"></fa-icon> Nuevo
 </a>
 
 <div class="" style="min-height: 300px;">
@@ -42,17 +44,23 @@
 						<span *ngIf="dist.organism.name">{{ dist.organism.name }}</span>
 					</td>
 					<td>
-						<a routerLink="/users/{{dist.id}}">
+						<a 	placement="bottom" 
+							ngbTooltip="Ver usuarios de esta distribución" 
+							routerLink="/users/{{dist.id}}">
 							ver
 						</a>
 					</td>
 					<td>
 						<div class="btn-group" role="group" aria-label="Basic example">
-							<a class="pr-3" routerLink="/distribution/update/{{dist.id}}">
-								<fa-icon style="color:gray;" icon="edit"></fa-icon>
+							<a 	placement="bottom" 
+								ngbTooltip="Editar repartición" 
+								class="pr-3" routerLink="/distribution/update/{{dist.id}}">
+								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
-							<a routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">
-								<fa-icon style="color:red;" icon="trash"></fa-icon>
+							<a 	placement="bottom" 
+								ngbTooltip="Eliminar repartición" 
+								routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">
+								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 							</a>
 						</div>
 					</td>

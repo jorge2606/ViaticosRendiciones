@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { HolidayBaseDto } from './../_models/holiday';
 import { HolidaysService } from './../_services/holidays.service';
 import { Component, OnInit } from '@angular/core';
@@ -29,7 +30,10 @@ export class HolidaysComponent implements OnInit {
   constructor(
     private holidayService : HolidaysService,
     private modalService: NgbModal,
-  ) {}
+    private titleService : Title
+  ) {
+      this.titleService.setTitle('Feriados');
+  }
 
   ngOnInit() {
     this.getAllHolidays(this.filters);
