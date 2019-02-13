@@ -59,6 +59,11 @@
 				</tr>
 			</tbody>
 		</table>
+		<app-alert 
+			*ngIf="distribution_list_length == 0" 
+			[textAlert]="textListEmpty"
+			[typeAlert]="classListEmpty">			
+		</app-alert>
 </div>
 
 <ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"

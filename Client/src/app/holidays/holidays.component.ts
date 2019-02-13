@@ -21,7 +21,11 @@ export class HolidaysComponent implements OnInit {
   col_size : number;
   itemsPerPage : number = 8;
   errorDatapicker : string;
-    //
+  //
+
+  holiday_list_length: number;
+  textListEmpty : string = "No se encontró ningún feriado";
+  classListEmpty : string = "alert-primary";
   constructor(
     private holidayService : HolidaysService,
     private modalService: NgbModal,
@@ -35,6 +39,7 @@ export class HolidaysComponent implements OnInit {
     this.holidayService.getPageHoliday(filters).subscribe(
       x => {
             this.holidays = x.list;
+            this.holiday_list_length = this.holidays.length,
             this.col_size = x.totalRecords;
             }
     );

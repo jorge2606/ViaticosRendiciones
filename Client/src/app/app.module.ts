@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
-import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter, NgbAlertModule, NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modals.component';
 //Paginator
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -71,6 +71,7 @@ import { FileNumberComponent } from './modals/file-number/file-number.component'
 import { SelectorDirective } from './directives/selector.directive';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
+import { AlertComponent } from './alert/alert.component';
 
 library.add(fas);
 
@@ -128,7 +129,8 @@ library.add(fas);
       AceptOrRefuseComponent,
       HolographSignComponent,
       FileNumberComponent,
-      SelectorDirective
+      SelectorDirective,
+      AlertComponent
    ],
    imports: [
       BrowserModule,
@@ -145,7 +147,8 @@ library.add(fas);
       FileUploadModule,
       BrowserAnimationsModule,
       NgxSpinnerModule,
-      SelectDropDownModule
+      SelectDropDownModule,
+      NgbAlertModule
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

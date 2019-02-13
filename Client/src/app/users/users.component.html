@@ -46,6 +46,7 @@
 							<input type="checkbox" [checked]="allCheckedProperty" (change)="allChecked()" class="form-check-input">
 						</div>
 					</td>
+					<td>D.N.I</td>
 					<td>Nombre</td>
 					<td>Apellido</td>
 					<td>Repartición</td>
@@ -67,6 +68,7 @@
 							(change)="check(user)">
 						</div>
 					</td>
+					<td>{{user.dni}}</td>
 					<td>{{user.firstName}}</td>
 					<td>{{user.lastName}}</td>
 					<td>{{user.distribution.name}}</td>
@@ -84,11 +86,15 @@
 				</tr>
 			</tbody>
 		</table>
+		<app-alert 
+			*ngIf="user_list_length == 0" 
+			[textAlert]="textListEmpty"
+			[typeAlert]="classListEmpty">			
+		</app-alert>
+		
 </div>
 
-
-
-	<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
-	aria-label="Default pagination"></ngb-pagination>
+<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="filters.page"
+aria-label="Default pagination"></ngb-pagination>
 		
 

@@ -18,6 +18,10 @@ export class CategoryComponent implements OnInit {
   //
   categories : any[];
   error : any;
+  category_list_length: number;
+  textListEmpty : string = "No se encontró ningúna categoría";
+  classListEmpty : string = "alert-primary";
+
   constructor(private categoryService : CategoryService, private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -35,6 +39,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getPaginator(filters).subscribe(
       result => {
         this.categories = result.list,
+        this.category_list_length = this.categories.length,
         this.col_size = result.totalRecords
       },
       error => console.log(error)

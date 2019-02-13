@@ -34,6 +34,9 @@ export class UsersComponent implements OnInit {
   allCheckedProperty = false;
   userRoles : RoleUserDto[];
   roles : AllAspNetRolesDto[]
+  user_list_length: number;
+  textListEmpty : string = "No se encontró ningún usuario";
+  classListEmpty : string = "alert-primary";
 
 
   constructor(private var_user_service: UserService, 
@@ -100,6 +103,7 @@ export class UsersComponent implements OnInit {
   getAllUsers(filters: any): void {
     this.var_user_service.getPaginator(filters).subscribe(result => {
       this.user_list = result.list;
+          this.user_list_length = this.user_list.length;
           this.users_check.forEach(
             users_checked=> {
                 this.user_list.forEach(

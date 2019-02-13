@@ -22,6 +22,11 @@ export class DistributionsComponent implements OnInit {
   itemsPerPage : number = 10;
   //
   distribution : DistributionBaseDto[];
+  distribution_list_length: number;
+  user_list_length: number;
+  textListEmpty : string = "No se encontró ningúna repartición.";
+  classListEmpty : string = "alert-primary";
+  
   constructor(
               private distributionService : DistributionService,
               private modalService: NgbModal,
@@ -46,6 +51,7 @@ export class DistributionsComponent implements OnInit {
     this.distributionService.getPaginator(filters).subscribe(
       result => {
         this.distribution = result.list,
+        this.distribution_list_length = this.distribution.length,
         this.col_size = result.totalRecords
       },
       error => console.log(error)

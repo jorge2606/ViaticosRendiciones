@@ -15,6 +15,9 @@ export class OrganismsComponent implements OnInit {
   organism : CreateOrganismDto[];
   col_size : number;
   itemsPerPage : number = 10;
+  organism_list_length: number;
+  textListEmpty : string = "No se encontró ningún organismo";
+  classListEmpty : string = "alert-primary";
 
   constructor(private organismService : OrganismService,
     private modalService : NgbModal) { }
@@ -27,6 +30,7 @@ export class OrganismsComponent implements OnInit {
     this.organismService.getPaginator(this.filters).subscribe(
       result => {
         this.organism = result.list,
+        this.organism_list_length = this.organism.length,
         this.col_size = result.totalRecords
       },
       error => console.log(error)
