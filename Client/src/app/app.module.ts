@@ -72,6 +72,8 @@ import { SelectorDirective } from './directives/selector.directive';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AlertComponent } from './alert/alert.component';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 library.add(fas);
 
@@ -148,7 +150,8 @@ library.add(fas);
       BrowserAnimationsModule,
       NgxSpinnerModule,
       SelectDropDownModule,
-      NgbAlertModule
+      NgbAlertModule,
+      ToastrModule.forRoot() // ToastrModule added
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

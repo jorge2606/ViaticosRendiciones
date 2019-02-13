@@ -2539,6 +2539,77 @@ var UserService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/alert/alert.component.css":
+/*!*******************************************!*\
+  !*** ./src/app/alert/alert.component.css ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FsZXJ0L2FsZXJ0LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/alert/alert.component.html":
+/*!********************************************!*\
+  !*** ./src/app/alert/alert.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"alert {{typeAlert}} text-center mt-1\">\n    {{textAlert}}\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/alert/alert.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/alert/alert.component.ts ***!
+  \******************************************/
+/*! exports provided: AlertComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AlertComponent", function() { return AlertComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AlertComponent = /** @class */ (function () {
+    function AlertComponent() {
+    }
+    AlertComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], AlertComponent.prototype, "typeAlert", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], AlertComponent.prototype, "textAlert", void 0);
+    AlertComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-alert',
+            template: __webpack_require__(/*! ./alert.component.html */ "./src/app/alert/alert.component.html"),
+            styles: [__webpack_require__(/*! ./alert.component.css */ "./src/app/alert/alert.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], AlertComponent);
+    return AlertComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/app-routes.module.ts":
 /*!**************************************!*\
   !*** ./src/app/app-routes.module.ts ***!
@@ -2708,7 +2779,7 @@ var AppRoutesModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".navarStyle {\r\n  font-size : 13px;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n  padding: 8px;\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQkFBaUI7RUFDakIseUlBQXlJO0VBQ3pJLGFBQWE7Q0FDZCIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm5hdmFyU3R5bGUge1xyXG4gIGZvbnQtc2l6ZSA6IDEzcHg7XHJcbiAgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgJ1NlZ29lIFVJJywgUm9ib3RvLCBPeHlnZW4sIFVidW50dSwgQ2FudGFyZWxsLCAnT3BlbiBTYW5zJywgJ0hlbHZldGljYSBOZXVlJywgc2Fucy1zZXJpZjtcclxuICBwYWRkaW5nOiA4cHg7XHJcbn1cclxuXHJcbiJdfQ== */"
+module.exports = "\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -2735,6 +2806,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_services/authentication.service */ "./src/app/_services/authentication.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2746,10 +2818,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(authService) {
+    function AppComponent(authService, titleService) {
         this.authService = authService;
+        this.titleService = titleService;
         this.urlImage = "";
+        this.titleService.setTitle('Viáticos y Rendiciones');
     }
     AppComponent.prototype.ngOnInit = function () {
         this.idUser = this.authService.userId('id');
@@ -2761,7 +2836,8 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_1__["AuthenticationService"]])
+        __metadata("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_1__["AuthenticationService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["Title"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -2851,6 +2927,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _directives_selector_directive__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! ./directives/selector.directive */ "./src/app/directives/selector.directive.ts");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! ./_helpers */ "./src/app/_helpers/index.ts");
 /* harmony import */ var _holidays_ngb_parseFormatter__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! ./holidays/ngb-parseFormatter */ "./src/app/holidays/ngb-parseFormatter.ts");
+/* harmony import */ var _alert_alert_component__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! ./alert/alert.component */ "./src/app/alert/alert.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2873,6 +2950,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 //Paginator
+
 
 
 
@@ -2986,7 +3064,8 @@ var AppModule = /** @class */ (function () {
                 _solicitation_subsidy_acept_or_refuse_acept_or_refuse_component__WEBPACK_IMPORTED_MODULE_64__["AceptOrRefuseComponent"],
                 _users_holograph_sign_holograph_sign_component__WEBPACK_IMPORTED_MODULE_65__["HolographSignComponent"],
                 _modals_file_number_file_number_component__WEBPACK_IMPORTED_MODULE_66__["FileNumberComponent"],
-                _directives_selector_directive__WEBPACK_IMPORTED_MODULE_67__["SelectorDirective"]
+                _directives_selector_directive__WEBPACK_IMPORTED_MODULE_67__["SelectorDirective"],
+                _alert_alert_component__WEBPACK_IMPORTED_MODULE_70__["AlertComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
@@ -3003,14 +3082,14 @@ var AppModule = /** @class */ (function () {
                 ng2_file_upload__WEBPACK_IMPORTED_MODULE_28__["FileUploadModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_24__["BrowserAnimationsModule"],
                 ngx_spinner__WEBPACK_IMPORTED_MODULE_56__["NgxSpinnerModule"],
-                ngx_select_dropdown__WEBPACK_IMPORTED_MODULE_60__["SelectDropDownModule"]
+                ngx_select_dropdown__WEBPACK_IMPORTED_MODULE_60__["SelectDropDownModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__["NgbAlertModule"]
             ],
             providers: [
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HTTP_INTERCEPTORS"], useClass: _helpers__WEBPACK_IMPORTED_MODULE_68__["JwtInterceptor"], multi: true },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HTTP_INTERCEPTORS"], useClass: _helpers__WEBPACK_IMPORTED_MODULE_68__["ErrorInterceptor"], multi: true },
-                { provide: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__["NgbDateParserFormatter"], useClass: _holidays_ngb_parseFormatter__WEBPACK_IMPORTED_MODULE_69__["NgbDateFRParserFormatter"] }
-                // provider used to create fake backend
-                //fakeBackendProvider    
+                { provide: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__["NgbDateParserFormatter"], useClass: _holidays_ngb_parseFormatter__WEBPACK_IMPORTED_MODULE_69__["NgbDateFRParserFormatter"] },
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["Title"]
             ],
             entryComponents: [
                 _modals_modals_component__WEBPACK_IMPORTED_MODULE_14__["NgbdModalContent"],
@@ -3068,6 +3147,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuditUsersComponent", function() { return AuditUsersComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_audits_users_audit_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_services/audits/users-audit.service */ "./src/app/_services/audits/users-audit.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3079,12 +3159,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var AuditUsersComponent = /** @class */ (function () {
-    function AuditUsersComponent(userAuditService) {
+    function AuditUsersComponent(userAuditService, titleService) {
         this.userAuditService = userAuditService;
+        this.titleService = titleService;
     }
     AuditUsersComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Modificar Usuario - Auditoría');
         this.userAuditService.fetchModifiedOfUser(this.userId).subscribe(function (x) { return _this.userAudit = x; }, function (error) { return console.log(error); });
     };
     __decorate([
@@ -3097,7 +3180,8 @@ var AuditUsersComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./audit-users.component.html */ "./src/app/audits/audit-users/audit-users.component.html"),
             styles: [__webpack_require__(/*! ./audit-users.component.css */ "./src/app/audits/audit-users/audit-users.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_audits_users_audit_service__WEBPACK_IMPORTED_MODULE_1__["UsersAuditService"]])
+        __metadata("design:paramtypes", [_services_audits_users_audit_service__WEBPACK_IMPORTED_MODULE_1__["UsersAuditService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["Title"]])
     ], AuditUsersComponent);
     return AuditUsersComponent;
 }());
@@ -3187,7 +3271,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mb-1\" >\t\n\t<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Nombre </label>\n\t<div class=\"d-inline-block pl-1 pr-1\">\n\t\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.name\"  type=\"text\" class=\"form-control\">\n\t</div>\n</div>\n\n<a href=\"\" class=\"btn btn-success mb-3 mt-3\" routerLink=\"create\">\n\t<fa-icon icon=\"plus\"></fa-icon> Nuevo\n</a>\n<table class=\"table table-hover\">\n\t<thead>\n\t\t<tr style=\"font-weight: bold;\">\n\t\t\t<td>Nombre</td>\n\t\t\t<td>Descripción</td>\n\t\t\t<td>Adelanto</td>\n\t\t\t<td></td>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr *ngFor=\"let cat of categories\">\n\t\t\t<td>{{cat.name}}</td>\n\t\t\t<td>{{cat.description}}</td>\n\t\t\t<td>{{cat.advance | number}}</td>\n\t\t\t<td>\n\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t<a class=\"pr-3\" routerLink=\"/category/update/{{cat.id}}\">\n\t\t\t\t\t\t<fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t\t<a routerLink=\"/category\" (click)=\"openEliminar(cat.id,cat.name,cat.description)\">\n\t\t\t\t\t\t<fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n aria-label=\"Default pagination\"></ngb-pagination>"
+module.exports = "<div class=\"mb-1\" >\t\n\t<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Nombre </label>\n\t<div class=\"d-inline-block pl-1 pr-1\">\n\t\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.name\"  type=\"text\" class=\"form-control\">\n\t</div>\n</div>\n\n<a \thref=\"\" \n\tplacement=\"bottom\" \n\tngbTooltip=\"Crear una nueva categoría\"\n\tclass=\"btn btn-success mb-3 mt-3\" \n\trouterLink=\"create\">\n\t<fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Nuevo\n</a>\n<div class=\"\" style=\"min-height: 300px;\">\n\t<table class=\"table table-striped\">\n\t\t<thead>\n\t\t\t<tr style=\"font-weight: bold;\">\n\t\t\t\t<td>Nombre</td>\n\t\t\t\t<td>Descripción</td>\n\t\t\t\t<td>Adelanto</td>\n\t\t\t\t<td></td>\n\t\t\t</tr>\n\t\t</thead>\n\t\t<tbody>\n\t\t\t<tr *ngFor=\"let cat of categories\">\n\t\t\t\t<td>{{cat.name}}</td>\n\t\t\t\t<td>{{cat.description}}</td>\n\t\t\t\t<td>{{cat.advance | number}}</td>\n\t\t\t\t<td>\n\t\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t\t<a \tplacement=\"bottom\" \n\t\t\t\t\t\t\tngbTooltip=\"Editar esta categoría\" \n\t\t\t\t\t\t\tclass=\"pr-3\" routerLink=\"/category/update/{{cat.id}}\">\n\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t\t<a placement=\"bottom\" \n\t\t\t\t\t\t\tngbTooltip=\"Eliminar esta categoría\"\n\t\t\t\t\t\t\trouterLink=\"/category\" (click)=\"openEliminar(cat.id,cat.name,cat.description)\">\n\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t</tbody>\n\t</table>\n\n\t\t<app-alert \n\t\t\t*ngIf=\"category_list_length == 0\" \n\t\t\t[textAlert]=\"textListEmpty\"\n\t\t\t[typeAlert]=\"classListEmpty\">\t\t\t\n\t\t</app-alert>\n</div>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\naria-label=\"Default pagination\"></ngb-pagination>\n"
 
 /***/ }),
 
@@ -3201,10 +3285,11 @@ module.exports = "<div class=\"mb-1\" >\t\n\t<label class=\"d-inline-block pl-1 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryComponent", function() { return CategoryComponent; });
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_services/category.service */ "./src/app/_services/category.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_services/category.service */ "./src/app/_services/category.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3218,13 +3303,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CategoryComponent = /** @class */ (function () {
-    function CategoryComponent(categoryService, modalService) {
+    function CategoryComponent(categoryService, modalService, titleService) {
         this.categoryService = categoryService;
         this.modalService = modalService;
+        this.titleService = titleService;
         this.filters = { page: 0, name: "" };
         this.page = 0;
         this.itemsPerPage = 10;
+        this.textListEmpty = "No se encontró ningúna categoría";
+        this.classListEmpty = "alert-primary";
+        this.titleService.setTitle('Categorías');
     }
     CategoryComponent.prototype.ngOnInit = function () {
         this.getAllCategories(this.filters);
@@ -3239,13 +3329,14 @@ var CategoryComponent = /** @class */ (function () {
         var _this = this;
         this.categoryService.getPaginator(filters).subscribe(function (result) {
             _this.categories = result.list,
+                _this.category_list_length = _this.categories.length,
                 _this.col_size = result.totalRecords;
         }, function (error) { return console.log(error); });
     };
     //MODALS
     CategoryComponent.prototype.openEliminar = function (idCategory, name, descp) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_2__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar la Categoría : " + name + " " + descp + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -3265,12 +3356,14 @@ var CategoryComponent = /** @class */ (function () {
         this.getAllCategories(this.filters);
     };
     CategoryComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-category',
             template: __webpack_require__(/*! ./category.component.html */ "./src/app/category/category.component.html"),
             styles: [__webpack_require__(/*! ./category.component.css */ "./src/app/category/category.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_category_service__WEBPACK_IMPORTED_MODULE_0__["CategoryService"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_category_service__WEBPACK_IMPORTED_MODULE_1__["CategoryService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CategoryComponent);
     return CategoryComponent;
 }());
@@ -3297,7 +3390,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/category\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n            <h5 class=\"card-header\">Nuevo</h5>\n            <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n                    \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                            placeholder=\"Nombre\">\n                    </div>\n                \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                        Nombre Incorrecto\n                    </div>\n                \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                            placeholder=\"Descripción\">\n                    </div>\n                \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                        Descripción Incorrecta\n                    </div>\n                \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.advance\" required #advance=\"ngModel\" name=\"advance\" \n                            type=\"text\"\n                                placeholder=\"Anticipo\">\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && advance.invalid\" class=\"alert alert-danger\">\n                            Anticipo Incorrecta\n                        </div>\n                \n                    <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                        <button class=\"btn btn-success ml-auto\" >\n                            <fa-icon icon=\"save\"></fa-icon> Guardar\n                        </button>\n                    </div>\n                \n                </form>\n                    \n            <!--<div style=\"margin-top: 10px;\" *ngIf=\"CategoryForm.form.invalid\">\n                Hay Campos erroneos en el formulario, verifiquelos\n            </div>-->\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>\n            \n        </div>\n    </div>\n</div>\n\n\n\n\n  \n\n\n\n\n"
+module.exports = "<a  placement=\"bottom\" \n    ngbTooltip=\"Volver al listado de categorías\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary\" href=\"\" routerLink=\"/category\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n            <h5 class=\"card-header\">Nuevo</h5>\n            <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n                    \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                            placeholder=\"Nombre\">\n                    </div>\n                \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                        Nombre Incorrecto\n                    </div>\n                \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                            placeholder=\"Descripción\">\n                    </div>\n                \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                        Descripción Incorrecta\n                    </div>\n                \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.advance\" required #advance=\"ngModel\" name=\"advance\" \n                            type=\"text\"\n                                placeholder=\"Anticipo\">\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && advance.invalid\" class=\"alert alert-danger\">\n                            Anticipo Incorrecta\n                        </div>\n                \n                    <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                        <button placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                             class=\"btn btn-success ml-auto\" >\n                            <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                        </button>\n                    </div>\n                \n                </form>\n                    \n            <!--<div style=\"margin-top: 10px;\" *ngIf=\"CategoryForm.form.invalid\">\n                Hay Campos erroneos en el formulario, verifiquelos\n            </div>-->\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>\n            \n        </div>\n    </div>\n</div>\n\n\n\n\n  \n\n\n\n\n"
 
 /***/ }),
 
@@ -3311,9 +3404,10 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateCategoryComponent", function() { return CreateCategoryComponent; });
-/* harmony import */ var _models_category__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/category */ "./src/app/_models/category.ts");
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/category.service */ "./src/app/_services/category.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _models_category__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/category */ "./src/app/_models/category.ts");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/category.service */ "./src/app/_services/category.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3326,11 +3420,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateCategoryComponent = /** @class */ (function () {
-    function CreateCategoryComponent(categoryService) {
+    function CreateCategoryComponent(categoryService, titleService) {
         this.categoryService = categoryService;
-        this.model = new _models_category__WEBPACK_IMPORTED_MODULE_0__["Category"]();
+        this.titleService = titleService;
+        this.model = new _models_category__WEBPACK_IMPORTED_MODULE_1__["Category"]();
         this.error = '';
+        this.titleService.setTitle('Crear Categoría');
     }
     CreateCategoryComponent.prototype.ngOnInit = function () {
     };
@@ -3339,12 +3436,13 @@ var CreateCategoryComponent = /** @class */ (function () {
         this.categoryService.createCategory(this.model).subscribe(function (x) { return _this.responseSuccess = x; }, function (error) { return _this.error = error.error.notifications; });
     };
     CreateCategoryComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-create-Category',
             template: __webpack_require__(/*! ./create.component.html */ "./src/app/category/create/create.component.html"),
             styles: [__webpack_require__(/*! ./create.component.css */ "./src/app/category/create/create.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_category_service__WEBPACK_IMPORTED_MODULE_1__["CategoryService"]])
+        __metadata("design:paramtypes", [_services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CreateCategoryComponent);
     return CreateCategoryComponent;
 }());
@@ -3371,7 +3469,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/category\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n                <h5 class=\"card-header\">Modificar</h5>\n                <div class=\"card-body\">\n                    \n                            <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n                                \n                                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                                        placeholder=\"Nombre\">\n                                </div>\n                            \n                                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                                    Nombre Incorrecto\n                                </div>\n                            \n                                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                                        placeholder=\"Descripción\">\n                                </div>\n                            \n                                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                                    Descripción Incorrecta\n                                </div>\n                            \n                                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                        <input class=\"form-control\" [(ngModel)]=\"model.advance\" required #advance=\"ngModel\" name=\"advance\" \n                                        type=\"text\"\n                                            placeholder=\"Anticipo\">\n                                    </div>\n                            \n                                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && advance.invalid\" class=\"alert alert-danger\">\n                                        Anticipo Incorrecta\n                                    </div>\n                            \n                                <div class=\"form-row\">\n                                    <button class=\"btn btn-success ml-auto\">\n                                        <fa-icon icon=\"save\"></fa-icon> Guardar\n                                    </button>\n                                </div>\n                            \n                            </form>\n                        <!--<div style=\"margin-top: 10px;\" *ngIf=\"CategoryForm.form.invalid\">\n                            Hay Campos erroneos en el formulario, verifiquelos\n                        </div>-->\n                        \n                        <div class=\"alert alert-danger\" *ngIf=\"error\">\n                            <ul *ngFor=\"let e of error\">\n                                <li>{{e.value}}</li>\n                            </ul>\n                        </div>\n                        \n                        <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                            <ul>\n                                <li>Guardado</li>\n                            </ul>\n                        </div>\n            </div>\n        </div>\n</div>\n\n"
+module.exports = "<a  placement=\"bottom\" \n    ngbTooltip=\"Volver al listado de categorías\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/category\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n                <h5 class=\"card-header\">Modificar</h5>\n                <div class=\"card-body\">\n                    \n                            <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n                                \n                                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                                        placeholder=\"Nombre\">\n                                </div>\n                            \n                                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                                    Nombre Incorrecto\n                                </div>\n                            \n                                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                                        placeholder=\"Descripción\">\n                                </div>\n                            \n                                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                                    Descripción Incorrecta\n                                </div>\n                            \n                                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                        <input class=\"form-control\" [(ngModel)]=\"model.advance\" required #advance=\"ngModel\" name=\"advance\" \n                                        type=\"text\"\n                                            placeholder=\"Anticipo\">\n                                    </div>\n                            \n                                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && advance.invalid\" class=\"alert alert-danger\">\n                                        Anticipo Incorrecta\n                                    </div>\n                            \n                                <div class=\"form-row\">\n                                    <button \n                                        class=\"btn btn-success ml-auto\"\n                                        placement=\"bottom\" ngbTooltip=\"Enviar este formulario\"\n                                    >\n                                        <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                                    </button>\n                                </div>\n                            \n                            </form>\n                        <!--<div style=\"margin-top: 10px;\" *ngIf=\"CategoryForm.form.invalid\">\n                            Hay Campos erroneos en el formulario, verifiquelos\n                        </div>-->\n                        \n                        <div class=\"alert alert-danger\" *ngIf=\"error\">\n                            <ul *ngFor=\"let e of error\">\n                                <li>{{e.value}}</li>\n                            </ul>\n                        </div>\n                        \n                        <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                            <ul>\n                                <li>Guardado</li>\n                            </ul>\n                        </div>\n            </div>\n        </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -3385,10 +3483,11 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifyCategoryComponent", function() { return ModifyCategoryComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_services/category.service */ "./src/app/_services/category.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_models_category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_models/category */ "./src/app/_models/category.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/category.service */ "./src/app/_services/category.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_models_category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_models/category */ "./src/app/_models/category.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3402,13 +3501,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ModifyCategoryComponent = /** @class */ (function () {
-    function ModifyCategoryComponent(categoryService, route, router) {
+    function ModifyCategoryComponent(categoryService, route, router, titleService) {
         this.categoryService = categoryService;
         this.route = route;
         this.router = router;
-        this.model = new src_app_models_category__WEBPACK_IMPORTED_MODULE_3__["FindByIdCategoryDto"];
+        this.titleService = titleService;
+        this.model = new src_app_models_category__WEBPACK_IMPORTED_MODULE_4__["FindByIdCategoryDto"];
         this.error = '';
+        this.titleService.setTitle('Modificar Categoría');
     }
     ModifyCategoryComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3427,13 +3529,15 @@ var ModifyCategoryComponent = /** @class */ (function () {
         //this.router.navigate([CategoryComponent]);
     };
     ModifyCategoryComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-modify',
             template: __webpack_require__(/*! ./modify.component.html */ "./src/app/category/modify/modify.component.html"),
             styles: [__webpack_require__(/*! ./modify.component.css */ "./src/app/category/modify/modify.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_category_service__WEBPACK_IMPORTED_MODULE_1__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], ModifyCategoryComponent);
     return ModifyCategoryComponent;
 }());
@@ -3570,7 +3674,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/distribution\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6 navarStyle\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Nuevo</h5>\n        <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #DistributionForm=\"ngForm\">\n      \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                                placeholder=\"Nombre\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                            Nombre Incorrecto\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                                placeholder=\"Descripción\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                            Descripción Incorrecta\n                        </div>\n                        <select class=\"form-control\" #organismId=\"ngModel\" name=\"organismId\" [(ngModel)]=\"model.organismId\">\n                              <option *ngIf=\"selectedOrganismId == model.organismId\" [ngValue]=\"selectedOrganismId\" disabled>\n                                  Seleccione un Organismo...\n                              </option>\n                            <option *ngFor=\"let org of organism\" value=\"{{org.id}}\">{{org.name}}</option>\n                        </select>\n                  \n                        <div class=\"form-row mt-1\">\n                            <button [disabled]=\"!DistributionForm.valid\" class=\"btn btn-success ml-auto\">\n                                <fa-icon icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                  \n                    </form>\n            <!--<div style=\"margin-top: 10px;\" *ngIf=\"DistributionForm.form.invalid\">\n                Hay Campos erroneos en el formulario, verifiquelos\n            </div>-->\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>    \n        </div>\n    </div>\n</div>\n\n\n\n  "
+module.exports = "<a  placement=\"bottom\" \n    ngbTooltip=\"Volver al listado de reparticiones\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary\" href=\"\" routerLink=\"/distribution\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Nuevo</h5>\n        <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #DistributionForm=\"ngForm\">\n      \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                                placeholder=\"Nombre\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                            Nombre Incorrecto\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                                placeholder=\"Descripción\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                            Descripción Incorrecta\n                        </div>\n                        <select class=\"form-control\" #organismId=\"ngModel\" name=\"organismId\" [(ngModel)]=\"model.organismId\">\n                              <option *ngIf=\"selectedOrganismId == model.organismId\" [ngValue]=\"selectedOrganismId\" disabled>\n                                  Seleccione un Organismo...\n                              </option>\n                            <option *ngFor=\"let org of organism\" value=\"{{org.id}}\">{{org.name}}</option>\n                        </select>\n                  \n                        <div class=\"form-row mt-1\">\n                            <button \n                                placement=\"bottom\" \n                                ngbTooltip=\"Enviar este formulario\" \n                                [disabled]=\"!DistributionForm.valid\" \n                                class=\"btn btn-success ml-auto\">\n                                <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                  \n                    </form>\n            <!--<div style=\"margin-top: 10px;\" *ngIf=\"DistributionForm.form.invalid\">\n                Hay Campos erroneos en el formulario, verifiquelos\n            </div>-->\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>    \n        </div>\n    </div>\n</div>\n\n\n\n  "
 
 /***/ }),
 
@@ -3584,10 +3688,11 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateDistributionsComponent", function() { return CreateDistributionsComponent; });
-/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
-/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
-/* harmony import */ var _models_distributions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_models/distributions */ "./src/app/_models/distributions.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
+/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
+/* harmony import */ var _models_distributions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_models/distributions */ "./src/app/_models/distributions.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3601,11 +3706,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateDistributionsComponent = /** @class */ (function () {
-    function CreateDistributionsComponent(ditributionService, organismService) {
+    function CreateDistributionsComponent(ditributionService, organismService, titleService) {
         this.ditributionService = ditributionService;
         this.organismService = organismService;
-        this.model = new _models_distributions__WEBPACK_IMPORTED_MODULE_2__["CreateDistributionDto"]();
+        this.titleService = titleService;
+        this.model = new _models_distributions__WEBPACK_IMPORTED_MODULE_3__["CreateDistributionDto"]();
+        this.titleService.setTitle('Crear Distribución');
     }
     CreateDistributionsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3616,12 +3724,14 @@ var CreateDistributionsComponent = /** @class */ (function () {
         this.ditributionService.creteDistribution(this.model).subscribe(function (x) { return _this.responseSuccess = x; }, function (error) { return _this.error = error.error.notifications; });
     };
     CreateDistributionsComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-create-distributions',
             template: __webpack_require__(/*! ./create-distributions.component.html */ "./src/app/distributions/create/create-distributions.component.html"),
             styles: [__webpack_require__(/*! ./create-distributions.component.css */ "./src/app/distributions/create/create-distributions.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_distribution_service__WEBPACK_IMPORTED_MODULE_1__["DistributionService"], src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_0__["OrganismService"]])
+        __metadata("design:paramtypes", [_services_distribution_service__WEBPACK_IMPORTED_MODULE_2__["DistributionService"],
+            src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_1__["OrganismService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CreateDistributionsComponent);
     return CreateDistributionsComponent;
 }());
@@ -3648,7 +3758,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mb-1\" >\n\t<label class=\"d-inline-block mt-2 mr-2\" for=\"\">Organismos </label>\n\t<div class=\"d-inline-block pl-1\">\n\t\t<select  (change)=\"filterList()\" [(ngModel)]=\"filters.organismId\" class=\"form-control d-inline-block pl-1\">\n\t\t\t<option value=\"\"></option>\n\t\t\t<option *ngFor=\"let org of organisms\" value=\"{{org.id}}\">\n\t\t\t\t{{org.name}}\n\t\t\t</option>\n\t\t</select>\n\t</div>\n\n\t<label class=\"d-inline-block mt-2 ml-2 mr-2\" for=\"\">Name </label>\n\t<div class=\"d-inline-block pl-1 pr-1\">\n\t\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.name\" type=\"text\" class=\"form-control\">\n\t</div>\n</div>\n\n<a href=\"\" class=\"btn btn-success mb-3 mt-3\" routerLink=\"/distribution/create\">\n\t<fa-icon icon=\"plus\"></fa-icon> Nuevo\n</a>\n<table class=\"table table-hover\">\n\t<thead>\n\t\t<tr style=\"font-weight: bold;\">\n\t\t\t<td>Name</td>\n\t\t\t<td>Descripción</td>\n\t\t\t<td>Organismos</td>\n\t\t\t<td>Usuarios</td>\n\t\t\t<td></td>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr *ngFor=\"let dist of distribution\">\n\t\t\t<td>{{dist.name}}</td>\n\t\t\t<td>{{dist.description}}</td>\n\t\t\t<td><button class=\"btn btn-link\" [disabled]=\"!dist.organism\" (click)=\"seeOrganism(dist.organism)\">ver</button></td>\n\t\t\t<td><button class=\"btn btn-link\" [disabled]=\"!dist.users\" routerLink=\"/users/{{dist.id}}\">ver</button></td>\n\t\t\t<td>\n\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t<a class=\"pr-3\" routerLink=\"/distribution/update/{{dist.id}}\">\n\t\t\t\t\t\t<fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t\t<a routerLink=\"/distribution\" (click)=\"openEliminar(dist.id,dist.name,dist.description)\">\n\t\t\t\t\t\t<fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n aria-label=\"Default pagination\"></ngb-pagination>"
+module.exports = "<div class=\"mb-1\" >\n\t<label class=\"d-inline-block mt-2 mr-2\" for=\"\">Organismos </label>\n\t<div class=\"d-inline-block pl-1\">\n\t\t<select  (change)=\"filterList()\" [(ngModel)]=\"filters.organismId\" class=\"form-control d-inline-block pl-1\">\n\t\t\t<option value=\"\"></option>\n\t\t\t<option *ngFor=\"let org of organisms\" value=\"{{org.id}}\">\n\t\t\t\t{{org.name}}\n\t\t\t</option>\n\t\t</select>\n\t</div>\n\n\t<label class=\"d-inline-block mt-2 ml-2 mr-2\" for=\"\">Nombre </label>\n\t<div class=\"d-inline-block pl-1 pr-1\">\n\t\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.name\" type=\"text\" class=\"form-control\">\n\t</div>\n</div>\n\n<a \tplacement=\"bottom\" \n\tngbTooltip=\"Agregar nueva repartición\" \n\thref=\"\" class=\"btn btn-success mb-3 mt-3\" routerLink=\"/distribution/create\">\n\t<fa-icon icon=\"plus\" class=\"fa-lg\"></fa-icon> Nuevo\n</a>\n\n<div class=\"\" style=\"min-height: 300px;\">\n\t<table class=\"table table-striped\">\n\t\t\t<thead>\n\t\t\t\t<tr style=\"font-weight: bold;\">\n\t\t\t\t\t<td>Nombre</td>\n\t\t\t\t\t<td>Descripción</td>\n\t\t\t\t\t<td>Organismos</td>\n\t\t\t\t\t<td>Usuarios</td>\n\t\t\t\t\t<td></td>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr *ngFor=\"let dist of distribution\">\n\t\t\t\t\t<td>{{dist.name}}</td>\n\t\t\t\t\t<td>{{dist.description}}</td>\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<!--<a \t[ngStyle]=\"{'pointer-events ' : '!dist.organism' ? 'none' : 'auto' }\" \n\t\t\t\t\t\t\trouterLink=\"/distribution\" (click)=\"seeOrganism(dist.organism)\">\n\t\t\t\t\t\t\tver\n\t\t\t\t\t\t</a>-->\n\t\t\t\t\t\t<span *ngIf=\"dist.organism.name\">{{ dist.organism.name }}</span>\n\t\t\t\t\t</td>\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<a \tplacement=\"bottom\" \n\t\t\t\t\t\t\tngbTooltip=\"Ver usuarios de esta distribución\" \n\t\t\t\t\t\t\trouterLink=\"/users/{{dist.id}}\">\n\t\t\t\t\t\t\tver\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</td>\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t\t\t<a \tplacement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Editar repartición\" \n\t\t\t\t\t\t\t\tclass=\"pr-3\" routerLink=\"/distribution/update/{{dist.id}}\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<a \tplacement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Eliminar repartición\" \n\t\t\t\t\t\t\t\trouterLink=\"/distribution\" (click)=\"openEliminar(dist.id,dist.name,dist.description)\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t\t<app-alert \n\t\t\t*ngIf=\"distribution_list_length == 0\" \n\t\t\t[textAlert]=\"textListEmpty\"\n\t\t\t[typeAlert]=\"classListEmpty\">\t\t\t\n\t\t</app-alert>\n</div>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\naria-label=\"Default pagination\"></ngb-pagination>"
 
 /***/ }),
 
@@ -3662,12 +3772,13 @@ module.exports = "<div class=\"mb-1\" >\n\t<label class=\"d-inline-block mt-2 mr
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DistributionsComponent", function() { return DistributionsComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
-/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_organism_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_services/organism.service */ "./src/app/_services/organism.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_organism_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../_services/organism.service */ "./src/app/_services/organism.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3683,15 +3794,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var DistributionsComponent = /** @class */ (function () {
-    function DistributionsComponent(distributionService, modalService, organismService, route) {
+    function DistributionsComponent(distributionService, modalService, organismService, route, titleService) {
         this.distributionService = distributionService;
         this.modalService = modalService;
         this.organismService = organismService;
         this.route = route;
+        this.titleService = titleService;
         this.filters = { page: 0, name: "", organismId: "" };
         this.page = 0;
         this.itemsPerPage = 10;
+        this.textListEmpty = "No se encontró ningúna repartición.";
+        this.classListEmpty = "alert-primary";
+        this.titleService.setTitle('Reparticiones');
     }
     DistributionsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3707,6 +3823,7 @@ var DistributionsComponent = /** @class */ (function () {
         var _this = this;
         this.distributionService.getPaginator(filters).subscribe(function (result) {
             _this.distribution = result.list,
+                _this.distribution_list_length = _this.distribution.length,
                 _this.col_size = result.totalRecords;
         }, function (error) { return console.log(error); });
     };
@@ -3719,7 +3836,7 @@ var DistributionsComponent = /** @class */ (function () {
     //MODALS
     DistributionsComponent.prototype.openEliminar = function (distributionId, name, descp) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_2__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar la distribución : " + name + " " + descp + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -3736,7 +3853,7 @@ var DistributionsComponent = /** @class */ (function () {
         });
     };
     DistributionsComponent.prototype.seeOrganism = function (org) {
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_2__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = org.name;
         modalRef.componentInstance.Contenido = org.name + " " + org.description;
         modalRef.componentInstance.GuardaroEliminarHidden = true;
@@ -3753,15 +3870,16 @@ var DistributionsComponent = /** @class */ (function () {
         this.getAllDistributions(this.filters);
     };
     DistributionsComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-distributions',
             template: __webpack_require__(/*! ./distributions.component.html */ "./src/app/distributions/distributions.component.html"),
             styles: [__webpack_require__(/*! ./distributions.component.css */ "./src/app/distributions/distributions.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_distribution_service__WEBPACK_IMPORTED_MODULE_1__["DistributionService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"],
-            _services_organism_service__WEBPACK_IMPORTED_MODULE_5__["OrganismService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_services_distribution_service__WEBPACK_IMPORTED_MODULE_2__["DistributionService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            _services_organism_service__WEBPACK_IMPORTED_MODULE_6__["OrganismService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], DistributionsComponent);
     return DistributionsComponent;
 }());
@@ -3788,7 +3906,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/distribution\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6 navarStyle\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Modificar</h5>\n        <div class=\"card-body\"> \n                <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n                    \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                            placeholder=\"Nombre\">\n                    </div>\n              \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                        Nombre Incorrecto\n                    </div>\n              \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                            placeholder=\"Descripción\">\n                    </div>\n              \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                        Descripción Incorrecta\n                    </div>\n              \n                    <select class=\"form-control\" #organismId=\"ngModel\" \n                        name=\"organismId\" \n                        [(ngModel)]=\"model.organismId\" required>\n                      <option *ngFor=\"let org of organism\" [ngValue]=\"org.id\">{{org.name}}</option>\n                    </select>\n              \n                    <div class=\"form-row mt-1\">\n                        <button [disabled]=\"!CategoryForm.valid\" class=\"btn btn-success ml-auto\">\n                            <fa-icon icon=\"save\"></fa-icon> Guardar\n                        </button>\n                    </div>\n              \n                </form>\n                <!--<div style=\"margin-top: 10px;\" *ngIf=\"CategoryForm.form.invalid\">\n                    Hay Campos erroneos en el formulario, verifiquelos\n                </div>-->\n              \n                <div class=\"alert alert-danger\" *ngIf=\"error\">\n                  <ul *ngFor=\"let e of error\">\n                      <li>{{e.value}}</li>\n                  </ul>\n                </div>\n              \n                <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                  <ul>\n                      <li>Guardado</li>\n                  </ul>\n                </div> \n        </div>\n    </div>\n</div>\n"
+module.exports = "<a \n    placement=\"bottom\" \n    ngbTooltip=\"Volver al listado de reparticiones\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/distribution\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6 navarStyle\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Modificar</h5>\n        <div class=\"card-body\"> \n                <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n                    \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                            placeholder=\"Nombre\">\n                    </div>\n              \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                        Nombre Incorrecto\n                    </div>\n              \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                            placeholder=\"Descripción\">\n                    </div>\n              \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                        Descripción Incorrecta\n                    </div>\n              \n                    <select class=\"form-control\" #organismId=\"ngModel\" \n                        name=\"organismId\" \n                        [(ngModel)]=\"model.organismId\" required>\n                      <option *ngFor=\"let org of organism\" [ngValue]=\"org.id\">{{org.name}}</option>\n                    </select>\n              \n                    <div class=\"form-row mt-1\">\n                        <button placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                            [disabled]=\"!CategoryForm.valid\" class=\"btn btn-success ml-auto\">\n                            <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                        </button>\n                    </div>\n              \n                </form>\n                <!--<div style=\"margin-top: 10px;\" *ngIf=\"CategoryForm.form.invalid\">\n                    Hay Campos erroneos en el formulario, verifiquelos\n                </div>-->\n              \n                <div class=\"alert alert-danger\" *ngIf=\"error\">\n                  <ul *ngFor=\"let e of error\">\n                      <li>{{e.value}}</li>\n                  </ul>\n                </div>\n              \n                <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                  <ul>\n                      <li>Guardado</li>\n                  </ul>\n                </div> \n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -3802,11 +3920,12 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifyDistributionComponent", function() { return ModifyDistributionComponent; });
-/* harmony import */ var _models_distributions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/distributions */ "./src/app/_models/distributions.ts");
-/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _models_distributions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/distributions */ "./src/app/_models/distributions.ts");
+/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3821,14 +3940,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ModifyDistributionComponent = /** @class */ (function () {
-    function ModifyDistributionComponent(route, router, distributionService, organismService) {
+    function ModifyDistributionComponent(route, router, distributionService, organismService, titleService) {
         this.route = route;
         this.router = router;
         this.distributionService = distributionService;
         this.organismService = organismService;
-        this.model = new _models_distributions__WEBPACK_IMPORTED_MODULE_0__["UpdateDistributionDto"]();
+        this.titleService = titleService;
+        this.model = new _models_distributions__WEBPACK_IMPORTED_MODULE_1__["UpdateDistributionDto"]();
         this.error = '';
+        this.titleService.setTitle('Modificar Repartición');
     }
     ModifyDistributionComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3854,14 +3976,16 @@ var ModifyDistributionComponent = /** @class */ (function () {
         //this.router.navigate(['/distribution']);
     };
     ModifyDistributionComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-modify-distribution',
             template: __webpack_require__(/*! ./modify-distribution.component.html */ "./src/app/distributions/modify/modify-distribution.component.html"),
             styles: [__webpack_require__(/*! ./modify-distribution.component.css */ "./src/app/distributions/modify/modify-distribution.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__["DistributionService"], src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_4__["OrganismService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _services_distribution_service__WEBPACK_IMPORTED_MODULE_2__["DistributionService"],
+            src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_5__["OrganismService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], ModifyDistributionComponent);
     return ModifyDistributionComponent;
 }());
@@ -3951,7 +4075,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/expenditure\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n            <h5 class=\"card-header\">Nuevo</h5>\n            <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n            \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                            placeholder=\"Nombre\">\n                    </div>\n                \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                        Nombre Incorrecto\n                    </div>\n                \n                    <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                        <button class=\"btn btn-success ml-auto\" >\n                            <fa-icon icon=\"save\"></fa-icon> Guardar\n                        </button>\n                    </div>\n                \n                </form>\n                        \n                <div class=\"alert alert-danger\" *ngIf=\"error\">\n                    <ul *ngFor=\"let e of error\">\n                        <li>{{e.value}}</li>\n                    </ul>\n                </div>\n                \n                <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                    <ul>\n                        <li>Guardado</li>\n                    </ul>\n                </div>\n        \n            </div>\n        </div>\n</div>\n"
+module.exports = "<a  placement=\"bottom\" ngbTooltip=\"Volver al listado de tipos de gasto\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/expenditure\">\n    <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n            <h5 class=\"card-header\">Nuevo</h5>\n            <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #CategoryForm=\"ngForm\">\n            \n                    <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                        <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                            placeholder=\"Nombre\">\n                    </div>\n                \n                    <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                        Nombre Incorrecto\n                    </div>\n                \n                    <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                        <button placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                            class=\"btn btn-success ml-auto\" >\n                            <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                        </button>\n                    </div>\n                \n                </form>\n                        \n                <div class=\"alert alert-danger\" *ngIf=\"error\">\n                    <ul *ngFor=\"let e of error\">\n                        <li>{{e.value}}</li>\n                    </ul>\n                </div>\n                \n                <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                    <ul>\n                        <li>Guardado</li>\n                    </ul>\n                </div>\n        \n            </div>\n        </div>\n</div>\n"
 
 /***/ }),
 
@@ -3965,9 +4089,10 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateExpenditureComponent", function() { return CreateExpenditureComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_models/expenditureType */ "./src/app/_models/expenditureType.ts");
-/* harmony import */ var src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/expenditureType */ "./src/app/_models/expenditureType.ts");
+/* harmony import */ var src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3980,11 +4105,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateExpenditureComponent = /** @class */ (function () {
-    function CreateExpenditureComponent(expenditureService) {
+    function CreateExpenditureComponent(expenditureService, titleService) {
         this.expenditureService = expenditureService;
-        this.model = new src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_1__["CreateExpenditureDto"]();
+        this.titleService = titleService;
+        this.model = new src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_2__["CreateExpenditureDto"]();
         this.error = '';
+        this.titleService.setTitle('Crear Tipo de Gasto');
     }
     CreateExpenditureComponent.prototype.ngOnInit = function () {
     };
@@ -3996,12 +4124,13 @@ var CreateExpenditureComponent = /** @class */ (function () {
         }, function (error) { return _this.error = error.error.notifications; });
     };
     CreateExpenditureComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-create-expenditure',
             template: __webpack_require__(/*! ./create-expenditure.component.html */ "./src/app/expenditures/create/create-expenditure.component.html"),
             styles: [__webpack_require__(/*! ./create-expenditure.component.css */ "./src/app/expenditures/create/create-expenditure.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_2__["ExpenditureService"]])
+        __metadata("design:paramtypes", [src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_3__["ExpenditureService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CreateExpenditureComponent);
     return CreateExpenditureComponent;
 }());
@@ -4028,7 +4157,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a href=\"\" class=\"btn btn-success mb-3\" routerLink=\"create\">\n\t<fa-icon icon=\"plus\"></fa-icon> Nuevo\n</a>\n<table class=\"table table-hover\">\n\t<thead>\n\t\t<tr style=\"font-weight: bold;\">\n\t\t\t<td>Name</td>\n\t\t\t<td></td>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr *ngFor=\"let exp of expenditures\">\n\t\t\t<td>{{exp.name}}</td>\n\t\t\t<td>\n\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t<a class=\"pr-3\" routerLink=\"/expenditure/update/{{exp.id}}\">\n\t\t\t\t\t\t<fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t\t<a routerLink=\"/expenditure\" (click)=\"openEliminar(exp.id,exp.name,exp.description)\">\n\t\t\t\t\t\t<fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n aria-label=\"Default pagination\"></ngb-pagination>\n"
+module.exports = "<a  placement=\"bottom\" \n\tngbTooltip=\"Agregar nuevo tipo de gasto\" \n\thref=\"\" class=\"btn btn-success mb-3\" routerLink=\"create\">\n\t<fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Nuevo\n</a>\n\n<div class=\"\" style=\"min-height: 300px;\">\n\t<table class=\"table table-striped\">\n\t\t\t<thead>\n\t\t\t\t<tr style=\"font-weight: bold;\">\n\t\t\t\t\t<td>Nombre</td>\n\t\t\t\t\t<td></td>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr *ngFor=\"let exp of expenditures\">\n\t\t\t\t\t<td>{{exp.name}}</td>\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t\t\t<a\n\t\t\t\t\t\t\tplacement=\"bottom\" \n\t\t\t\t\t\t\tngbTooltip=\"Editar tipo de gasto\"  \n\t\t\t\t\t\t\tclass=\"pr-3\" routerLink=\"/expenditure/update/{{exp.id}}\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<a \n\t\t\t\t\t\t\t\tplacement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Eliminar tipo de gasto\"  \n\t\t\t\t\t\t\t\trouterLink=\"/expenditure\" (click)=\"openEliminar(exp.id,exp.name,exp.description)\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n</div>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n aria-label=\"Default pagination\"></ngb-pagination>\n"
 
 /***/ }),
 
@@ -4042,10 +4171,11 @@ module.exports = "<a href=\"\" class=\"btn btn-success mb-3\" routerLink=\"creat
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpendituresComponent", function() { return ExpendituresComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_expenditure_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
-/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_expenditure_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4059,12 +4189,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ExpendituresComponent = /** @class */ (function () {
-    function ExpendituresComponent(expenditureService, modalService) {
+    function ExpendituresComponent(expenditureService, modalService, titleService) {
         this.expenditureService = expenditureService;
         this.modalService = modalService;
+        this.titleService = titleService;
         this.page = 0;
         this.itemsPerPage = 10;
+        this.titleService.setTitle('Tipos de Gastos');
     }
     ExpendituresComponent.prototype.ngOnInit = function () {
         this.getAllExpenditure(this.page);
@@ -4083,7 +4216,7 @@ var ExpendituresComponent = /** @class */ (function () {
     };
     ExpendituresComponent.prototype.openEliminar = function (expenditureId, name, descp) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_2__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar el Gasto : " + name + " " + descp + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -4100,13 +4233,14 @@ var ExpendituresComponent = /** @class */ (function () {
         });
     };
     ExpendituresComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-expenditures',
             template: __webpack_require__(/*! ./expenditures.component.html */ "./src/app/expenditures/expenditures.component.html"),
             styles: [__webpack_require__(/*! ./expenditures.component.css */ "./src/app/expenditures/expenditures.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_expenditure_service__WEBPACK_IMPORTED_MODULE_1__["ExpenditureService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_expenditure_service__WEBPACK_IMPORTED_MODULE_2__["ExpenditureService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], ExpendituresComponent);
     return ExpendituresComponent;
 }());
@@ -4147,10 +4281,11 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateExpenditureComponent", function() { return UpdateExpenditureComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_models/expenditureType */ "./src/app/_models/expenditureType.ts");
-/* harmony import */ var src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/expenditureType */ "./src/app/_models/expenditureType.ts");
+/* harmony import */ var src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4164,13 +4299,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UpdateExpenditureComponent = /** @class */ (function () {
-    function UpdateExpenditureComponent(expenditureService, route, router) {
+    function UpdateExpenditureComponent(expenditureService, route, router, titleService) {
         this.expenditureService = expenditureService;
         this.route = route;
         this.router = router;
-        this.model = new src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_1__["UpdateExpenditureDto"]();
+        this.titleService = titleService;
+        this.model = new src_app_models_expenditureType__WEBPACK_IMPORTED_MODULE_2__["UpdateExpenditureDto"]();
         this.error = '';
+        this.titleService.setTitle('Modificar Tipo de Gasto');
     }
     UpdateExpenditureComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -4182,14 +4320,15 @@ var UpdateExpenditureComponent = /** @class */ (function () {
         this.expenditureService.updateExpenditure(this.model).subscribe(function (x) { return _this.responseSuccess = x; }, function (error) { return _this.error = error.error.notifications; });
     };
     UpdateExpenditureComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-update-expenditure',
             template: __webpack_require__(/*! ./update-expenditure.component.html */ "./src/app/expenditures/update/update-expenditure.component.html"),
             styles: [__webpack_require__(/*! ./update-expenditure.component.css */ "./src/app/expenditures/update/update-expenditure.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_2__["ExpenditureService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_expenditure_service__WEBPACK_IMPORTED_MODULE_3__["ExpenditureService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], UpdateExpenditureComponent);
     return UpdateExpenditureComponent;
 }());
@@ -4230,9 +4369,12 @@ module.exports = "<a class=\"btn btn-primary\" href=\"\" routerLink=\"/holidays\
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateHolidaysComponent", function() { return CreateHolidaysComponent; });
-/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
-/* harmony import */ var _models_holiday__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/holiday */ "./src/app/_models/holiday.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
+/* harmony import */ var _models_holiday__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_models/holiday */ "./src/app/_models/holiday.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n */ "./node_modules/@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4245,12 +4387,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var CreateHolidaysComponent = /** @class */ (function () {
-    function CreateHolidaysComponent(holidayService) {
+    function CreateHolidaysComponent(holidayService, titleService) {
         this.holidayService = holidayService;
-        this.model = new _models_holiday__WEBPACK_IMPORTED_MODULE_1__["CreateHolidayDto"]();
+        this.titleService = titleService;
+        this.model = new _models_holiday__WEBPACK_IMPORTED_MODULE_2__["CreateHolidayDto"]();
         this.errors = '';
         this.errorDatapicker = '';
+        this.titleService.setTitle('Crear Feriado');
     }
     CreateHolidaysComponent.prototype.ngOnInit = function () {
     };
@@ -4277,12 +4424,14 @@ var CreateHolidaysComponent = /** @class */ (function () {
         return true;
     };
     CreateHolidaysComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-create-holidays',
             template: __webpack_require__(/*! ./create-holidays.component.html */ "./src/app/holidays/create/create-holidays.component.html"),
-            styles: [__webpack_require__(/*! ./create-holidays.component.css */ "./src/app/holidays/create/create-holidays.component.css")]
+            styles: [__webpack_require__(/*! ./create-holidays.component.css */ "./src/app/holidays/create/create-holidays.component.css")],
+            providers: [_ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_4__["I18n"], { provide: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbDatepickerI18n"], useClass: _ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_4__["CustomLanguageDatepickerI18n"] }]
         }),
-        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_0__["HolidaysService"]])
+        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_1__["HolidaysService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CreateHolidaysComponent);
     return CreateHolidaysComponent;
 }());
@@ -4309,7 +4458,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "  <div class=\"\">\n      <label class=\"d-inline-block mt-2 mr-2\" for=\"\">Fecha </label>\n      <div class=\"d-inline-block pl-1\">\n          <form class=\"form-inline\">\n              <div class=\"form-group\">\n                <div class=\"input-group\">\n                  <input \n                    (dateSelect)=\"filter()\"\n                    (keyup)=\"filter()\"\n                    class=\"form-control\" \n                    placeholder=\"yyyy-mm-dd\"\n                    name=\"dp\" \n                    [displayMonths]=\"displayMonths\" \n                    [navigation]=\"navigation\" \n                    [outsideDays]=\"outsideDays\" \n                    [showWeekNumbers]=\"showWeekNumbers\"\n                    ngbDatepicker \n                    #d=\"ngbDatepicker\" \n                    [(ngModel)]=\"filters.date\">\n                  <div class=\"input-group-append\">\n                    <button class=\"btn btn-outline-secondary calendar\" (click)=\"d.toggle()\" type=\"button\">\n                        <fa-icon icon=\"calendar-alt\"></fa-icon>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </form>\n  \n            <div *ngIf=\"errorDatapicker\" class=\"alert alert-danger mt-1\">\n                <label for=\"\">\n                    {{errorDatapicker}}\n                </label>\n            </div>\n      </div>\n\n      <label class=\"d-inline-block mt-2 ml-3 mr-3\" for=\"\">Descripción </label>\n      <div class=\"d-inline-block pl-1 pr-1\">\n        <input (keyup)=\"filter()\" [(ngModel)]=\"filters.description\" type=\"text\" class=\"form-control\">\n      </div>\n  </div>\n\n<div style=\"height: 500px;\">\n  <a href=\"\" class=\"btn btn-success mb-3 mt-3\" routerLink=\"/holidays/create\">\n    <fa-icon icon=\"plus\"></fa-icon> Nuevo\n  </a>\n  <table class=\"table table-hover\">\n    <thead>\n      <tr style=\"font-weight: bold;\">\n        <td>Fecha</td>\n        <td>Descripción</td>  \n        <td>Acción</td>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let holiday of holidays\">\n        <td>{{holiday.date.day}}/{{holiday.date.month}}/{{holiday.date.year}}</td>\n        <td>{{holiday.description}}</td>\n        <td>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n            <a class=\"pr-3\" routerLink=\"/holidays/update/{{holiday.id}}\">\n              <fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n            </a>\n            <a routerLink=\"/holidays\" (click)=\"openEliminar(holiday)\">\n              <fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n            </a>\n          </div>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  </div>\n  \n  <ngb-pagination (pageChange)=\"loadPage($event)\"\n      [collectionSize]=\"col_size\" \n      [pageSize]=\"itemsPerPage\"\n      [(page)]=\"filters.page\"\n      aria-label=\"Default pagination\"></ngb-pagination>"
+module.exports = "<div>\n    <label class=\"d-inline-block mt-2 mr-2\" for=\"\">Fecha </label>\n    <div class=\"d-inline-block ml-1\">\n        <form class=\"form-inline\">\n            <div class=\"form-group\">\n              <div class=\"input-group\">\n                <input \n                  (dateSelect)=\"filter()\"\n                  (keyup)=\"filter()\"\n                  class=\"form-control\" \n                  placeholder=\"yyyy-mm-dd\"\n                  name=\"dp\" \n                  [displayMonths]=\"displayMonths\" \n                  [navigation]=\"navigation\" \n                  [outsideDays]=\"outsideDays\" \n                  [showWeekNumbers]=\"showWeekNumbers\"\n                  ngbDatepicker \n                  #d=\"ngbDatepicker\" \n                  [(ngModel)]=\"filters.date\">\n                <div class=\"input-group-append\">\n                  <button class=\"btn btn-outline-secondary calendar\" (click)=\"d.toggle()\" type=\"button\">\n                      <fa-icon icon=\"calendar-alt\"></fa-icon>\n                  </button>\n                </div>\n              </div>\n            </div>\n          </form>\n    \n          <div *ngIf=\"errorDatapicker\" class=\"alert alert-danger mt-1\">\n              <label for=\"\">\n                  {{errorDatapicker}}\n              </label>\n          </div>\n    </div>\n    \n    <label class=\"d-inline-block mt-2 ml-3 mr-3\" for=\"\">Descripción </label>\n    <div class=\"d-inline-block ml-1 mr-1\">\n      <input (keyup)=\"filter()\" [(ngModel)]=\"filters.description\" type=\"text\" class=\"form-control\">\n    </div>\n    \n</div>\n\n  <a  placement=\"bottom\" \n      ngbTooltip=\"Agregar un nuevo día de feria\" \n      href=\"\" class=\"btn btn-success mt-2\" routerLink=\"/holidays/create\">\n    <fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Nuevo\n  </a>\n\n  <div class=\"mt-2\" style=\"min-height: 300px;\">\n    <table class=\"table table-striped\">\n      <thead>\n        <tr style=\"font-weight: bold;\">\n          <td>Fecha</td>\n          <td>Descripción</td>  \n          <td>Acción</td>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let holiday of holidays\">\n          <td>{{holiday.date.day}}/{{holiday.date.month}}/{{holiday.date.year}}</td>\n          <td>{{holiday.description}}</td>\n          <td>\n            <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n              <a \n                placement=\"bottom\" \n                ngbTooltip=\"Editar este día de feria\" \n                class=\"pr-3\" routerLink=\"/holidays/update/{{holiday.id}}\">\n                <fa-icon class=\"fa-lg\" style=\"color:gray;\" icon=\"edit\"></fa-icon>\n              </a>\n              <a\n                placement=\"bottom\" \n                ngbTooltip=\"Eliminar este día de feria\"               \n                routerLink=\"/holidays\" (click)=\"openEliminar(holiday)\">\n                <fa-icon class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n              </a>\n            </div>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n  \n      <app-alert \n        *ngIf=\"holiday_list_length == 0\"\n        [textAlert]=\"textListEmpty\"\n        [typeAlert]=\"classListEmpty\">\t\t\t\n    </app-alert>\n  </div>\n  \n  <ngb-pagination (pageChange)=\"loadPage($event)\"\n      [collectionSize]=\"col_size\" \n      [pageSize]=\"itemsPerPage\"\n      [(page)]=\"filters.page\"\n      aria-label=\"Default pagination\"></ngb-pagination>"
 
 /***/ }),
 
@@ -4323,10 +4472,12 @@ module.exports = "  <div class=\"\">\n      <label class=\"d-inline-block mt-2 m
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HolidaysComponent", function() { return HolidaysComponent; });
-/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n */ "./node_modules/@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4340,13 +4491,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var HolidaysComponent = /** @class */ (function () {
-    //
-    function HolidaysComponent(holidayService, modalService) {
+    function HolidaysComponent(holidayService, modalService, titleService) {
         this.holidayService = holidayService;
         this.modalService = modalService;
+        this.titleService = titleService;
         this.filters = { page: 0, description: "", date: null };
         this.itemsPerPage = 8;
+        this.textListEmpty = "No se encontró ningún feriado";
+        this.classListEmpty = "alert-primary";
+        this.titleService.setTitle('Feriados');
     }
     HolidaysComponent.prototype.ngOnInit = function () {
         this.getAllHolidays(this.filters);
@@ -4355,7 +4511,8 @@ var HolidaysComponent = /** @class */ (function () {
         var _this = this;
         this.holidayService.getPageHoliday(filters).subscribe(function (x) {
             _this.holidays = x.list;
-            _this.col_size = x.totalRecords;
+            _this.holiday_list_length = _this.holidays.length,
+                _this.col_size = x.totalRecords;
         });
     };
     HolidaysComponent.prototype.filter = function () {
@@ -4389,7 +4546,7 @@ var HolidaysComponent = /** @class */ (function () {
     //MODALS
     HolidaysComponent.prototype.openEliminar = function (holiday) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_4__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         var dateToShow = holiday.date;
         modalRef.componentInstance.Contenido = "¿Desea eliminar feriado : " + holiday.description + " " +
@@ -4408,13 +4565,15 @@ var HolidaysComponent = /** @class */ (function () {
         });
     };
     HolidaysComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-holidays',
             template: __webpack_require__(/*! ./holidays.component.html */ "./src/app/holidays/holidays.component.html"),
-            styles: [__webpack_require__(/*! ./holidays.component.css */ "./src/app/holidays/holidays.component.css")]
+            styles: [__webpack_require__(/*! ./holidays.component.css */ "./src/app/holidays/holidays.component.css")],
+            providers: [_ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_5__["I18n"], { provide: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDatepickerI18n"], useClass: _ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_5__["CustomLanguageDatepickerI18n"] }]
         }),
-        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_0__["HolidaysService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_holidays_service__WEBPACK_IMPORTED_MODULE_1__["HolidaysService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], HolidaysComponent);
     return HolidaysComponent;
 }());
@@ -4455,10 +4614,13 @@ module.exports = "<a class=\"btn btn-primary\" href=\"\" routerLink=\"/holidays\
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifyHolidaysComponent", function() { return ModifyHolidaysComponent; });
-/* harmony import */ var _models_holiday__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/holiday */ "./src/app/_models/holiday.ts");
-/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _models_holiday__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/holiday */ "./src/app/_models/holiday.ts");
+/* harmony import */ var _services_holidays_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/holidays.service */ "./src/app/_services/holidays.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n */ "./node_modules/@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4472,13 +4634,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var ModifyHolidaysComponent = /** @class */ (function () {
-    function ModifyHolidaysComponent(route, holidayService, router) {
+    function ModifyHolidaysComponent(route, holidayService, router, titleService) {
         this.route = route;
         this.holidayService = holidayService;
         this.router = router;
-        this.model = new _models_holiday__WEBPACK_IMPORTED_MODULE_0__["UpdateHolidayDto"]();
+        this.titleService = titleService;
+        this.model = new _models_holiday__WEBPACK_IMPORTED_MODULE_1__["UpdateHolidayDto"]();
         this.errorDatapicker = '';
+        this.titleService.setTitle('Modificar Feriado');
     }
     ModifyHolidaysComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -4512,14 +4679,16 @@ var ModifyHolidaysComponent = /** @class */ (function () {
         return true;
     };
     ModifyHolidaysComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
             selector: 'app-modify-holidays',
             template: __webpack_require__(/*! ./modify-holidays.component.html */ "./src/app/holidays/modify/modify-holidays.component.html"),
-            styles: [__webpack_require__(/*! ./modify-holidays.component.css */ "./src/app/holidays/modify/modify-holidays.component.css")]
+            styles: [__webpack_require__(/*! ./modify-holidays.component.css */ "./src/app/holidays/modify/modify-holidays.component.css")],
+            providers: [_ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_5__["I18n"], { provide: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbDatepickerI18n"], useClass: _ng_bootstrap_ng_bootstrap_datepicker_CustomLanguagedatepicker_i18n__WEBPACK_IMPORTED_MODULE_5__["CustomLanguageDatepickerI18n"] }]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _services_holidays_service__WEBPACK_IMPORTED_MODULE_1__["HolidaysService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _services_holidays_service__WEBPACK_IMPORTED_MODULE_2__["HolidaysService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], ModifyHolidaysComponent);
     return ModifyHolidaysComponent;
 }());
@@ -4632,7 +4801,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    Home\n</div>\n\n"
+module.exports = "<div>\n \n</div>\n\n"
 
 /***/ }),
 
@@ -4649,6 +4818,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_services/user.service */ "./src/app/_services/user.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4661,12 +4831,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(userService, route) {
+    function HomeComponent(userService, route, titleService) {
         this.userService = userService;
         this.route = route;
+        this.titleService = titleService;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('Inicio');
     };
     HomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -4674,7 +4847,9 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/home/home.component.html"),
             styles: [__webpack_require__(/*! ./home.component.css */ "./src/app/home/home.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["Title"]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -5730,7 +5905,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\">Notificaciones</h4>\n  <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n<div class=\"modal-body\">\n  <div class=\"alert alert-primary\" *ngIf=\"col_size == 0\">\n      No hay notificaciones para mostrar\n  </div>\n  <div *ngFor=\"let j of Contenido\" class=\"small alert\" [ngClass]=\"{'alert-secondary': j.read,'alert-success' : !j.read}\">\n    <div class=\"row h-10\">   \n      <div class=\"col\">\n          <h6>{{j.textData}}</h6> <button class=\"btn btn-primary\" (click)=\"seeThisNotification(j)\"> Ir a solicitud</button>\n      </div> \n\n      <div class=\"col-1 mt-3\">\n          <a class=\"\" (click)=\"delete(j.id)\">\n              <fa-icon title=\"Eliminar notificación\" class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n          </a>\n      </div>\n         <!-- <button id=\"collapseExample{{j.id}}\" type=\"button\" class=\"btn btn-default mr-2 small\" (click)=\"onChange(j)\"\n                [attr.aria-expanded]=\"j.colapse\" aria-controls=\"collapseExample\">\n                <fa-icon icon=\"{{verOcultar}}\"></fa-icon>\n          </button>-->\n      </div>\n      <!--<div id=\"{{j.id}}\" class=\"text-justify pt-3 pb-3\" [ngbCollapse]=\"!j.colapse\">\n          <textarea class=\"form-control text-left\" rows=\"5\" readonly>{{j.textData}}</textarea>\n      </div>-->\n  </div>\n\n  <ngb-pagination *ngIf=\"col_size > 0\" (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\naria-label=\"Default pagination\"></ngb-pagination>\n\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" hidden=\"{{ButtonHidden}}\" class=\"btn btn-primary\" (click)=\"activeModal.dismiss('Close click')\">Cerrar</button>\n</div>"
+module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\">Notificaciones</h4>\n  <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n<div class=\"modal-body\">\n  <div class=\"alert alert-primary\" *ngIf=\"col_size == 0\">\n      No hay notificaciones para mostrar\n  </div>\n  <div *ngFor=\"let j of Contenido\" >\n    <div class=\"form-row h-10 small alert\" [ngClass]=\"{'alert-secondary': j.read,'alert-success' : !j.read}\">   \n      <div class=\"col\">\n            <h6>{{j.textData}}</h6><a href=\"#\" routerLink=\"{{router.url}}\" (click)=\"seeThisNotification(j)\"> Ir a solicitud</a>\n      </div> \n\n      <div style=\"cursor: pointer;\" class=\"ml-auto mt-4\">\n          <a class=\"\" (click)=\"delete(j.id)\">\n              <fa-icon title=\"Eliminar notificación\" class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n          </a>\n      </div>\n      \n         <!-- <button id=\"collapseExample{{j.id}}\" type=\"button\" class=\"btn btn-default mr-2 small\" (click)=\"onChange(j)\"\n                [attr.aria-expanded]=\"j.colapse\" aria-controls=\"collapseExample\">\n                <fa-icon icon=\"{{verOcultar}}\"></fa-icon>\n          </button>-->\n      </div>\n      <!--<div id=\"{{j.id}}\" class=\"text-justify pt-3 pb-3\" [ngbCollapse]=\"!j.colapse\">\n          <textarea class=\"form-control text-left\" rows=\"5\" readonly>{{j.textData}}</textarea>\n      </div>-->\n  </div>\n\n  <ngb-pagination *ngIf=\"col_size > 0\" (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\naria-label=\"Default pagination\"></ngb-pagination>\n\n</div>\n\n<div class=\"modal-footer\">\n  <button type=\"button\" hidden=\"{{ButtonHidden}}\" class=\"btn btn-primary\" (click)=\"activeModal.dismiss('Close click')\">Cerrar</button>\n</div>"
 
 /***/ }),
 
@@ -5744,13 +5919,16 @@ module.exports = "<div class=\"modal-header\">\n  <h4 class=\"modal-title\">Noti
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListNotificationsComponent", function() { return ListNotificationsComponent; });
-/* harmony import */ var _services_notifications_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/notifications.service */ "./src/app/_services/notifications.service.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _models_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_models/notifications */ "./src/app/_models/notifications.ts");
-/* harmony import */ var _modals_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var src_app_solicitation_subsidy_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component */ "./src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component.ts");
-/* harmony import */ var src_app_services_generics_communications_components_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_services/generics-communications-components.service */ "./src/app/_services/generics-communications-components.service.ts");
+/* harmony import */ var _services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_notifications_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/notifications.service */ "./src/app/_services/notifications.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _models_notifications__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../_models/notifications */ "./src/app/_models/notifications.ts");
+/* harmony import */ var _modals_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var src_app_solicitation_subsidy_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component */ "./src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component.ts");
+/* harmony import */ var src_app_services_generics_communications_components_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/generics-communications-components.service */ "./src/app/_services/generics-communications-components.service.ts");
+/* harmony import */ var src_app_services_supervisor_user_agent_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/supervisor-user-agent.service */ "./src/app/_services/supervisor-user-agent.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5767,16 +5945,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var ListNotificationsComponent = /** @class */ (function () {
-    function ListNotificationsComponent(activeModal, notifService, modalService, comunicationService) {
+    function ListNotificationsComponent(activeModal, modalService, comunicationService, supervisorUserAgentService, notificationServices, solicitationSubsidyService, router) {
         this.activeModal = activeModal;
-        this.notifService = notifService;
         this.modalService = modalService;
         this.comunicationService = comunicationService;
+        this.supervisorUserAgentService = supervisorUserAgentService;
+        this.notificationServices = notificationServices;
+        this.solicitationSubsidyService = solicitationSubsidyService;
+        this.router = router;
         this.itemsPerPage = 5;
         this.page = 0;
         this.verOcultar = 'angle-down';
-        this.notificationRidden = new _models_notifications__WEBPACK_IMPORTED_MODULE_3__["Notifications"]();
+        this.notificationRidden = new _models_notifications__WEBPACK_IMPORTED_MODULE_5__["Notifications"]();
         this.isCollapsed = true;
     }
     ListNotificationsComponent.prototype.ngOnInit = function () {
@@ -5789,26 +5973,67 @@ var ListNotificationsComponent = /** @class */ (function () {
     };
     ListNotificationsComponent.prototype.getAllNotifications = function (page) {
         var _this = this;
-        this.notifService.getPaginator(page).subscribe(function (result) {
+        this.notificationServices.getPaginator(page).subscribe(function (result) {
             _this.Contenido = result.list;
             _this.col_size = result.totalRecords;
             _this.comunicationService.sendMessage(true);
         });
     };
+    ListNotificationsComponent.prototype.retriveNotifications = function () {
+        var _this = this;
+        this.notificationServices.getAllNotifications().subscribe(function (x) {
+            _this.Contenido = x;
+            _this.col_size = _this.Contenido.length;
+        }, function () {
+            console.log('');
+        });
+    };
     ListNotificationsComponent.prototype.seeThisNotification = function (notificationridden) {
         var _this = this;
-        this.notifService.notificationRidden(notificationridden).subscribe(function () {
-            _this.getAllNotifications(_this.page);
-            var modalRef = _this.modalService.open(src_app_solicitation_subsidy_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_5__["SolicitationSubsidydetailComponent"], { size: "lg" });
-            modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-            modalRef.result.then(function () { }, function () {
-                console.log('Backdrop click');
-            });
+        this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
+            .subscribe(function (user) {
+            if (user) {
+                _this.notificationServices.notificationRidden(notificationridden).subscribe(function () {
+                    _this.retriveNotifications();
+                    var modalRef = _this.modalService.open(src_app_solicitation_subsidy_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_7__["SolicitationSubsidydetailComponent"], { size: "lg" });
+                    modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                    modalRef.result.then(function () { }, function () {
+                        console.log('Backdrop click');
+                    });
+                });
+            }
+            else {
+                _this.solicitationSubsidyService.wichStateSolicitation(notificationridden.solicitationSubsidyId)
+                    .subscribe(function (solicitationState) {
+                    if (solicitationState.description == 'Rechazado') {
+                        //significa que es mi supervisor y la nootificación es para mi
+                        _this.notificationServices.notificationRidden(notificationridden).subscribe(function () {
+                            _this.retriveNotifications();
+                            var modalRef = _this.modalService.open(_modals_component__WEBPACK_IMPORTED_MODULE_6__["NgbdModalContent"], { size: "lg" });
+                            modalRef.componentInstance.Contenido = "Rechazado";
+                            modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
+                            modalRef.componentInstance.MsgClose = "Cerrar";
+                            modalRef.componentInstance.GuardaroEliminarHidden = true;
+                            modalRef.componentInstance.MsgCloseClass = "btn-primary";
+                            _this.router.navigate(['SolicitationSubsidy/agent']);
+                            modalRef.result.then(function () { }, function () {
+                                console.log('Backdrop click');
+                            });
+                        });
+                    }
+                    if (solicitationState.description == 'Aceptado') {
+                        _this.notificationServices.notificationRidden(notificationridden).subscribe(function () {
+                            _this.retriveNotifications();
+                            _this.router.navigateByUrl('print/' + notificationridden.solicitationSubsidyId);
+                        });
+                    }
+                });
+            }
         });
     };
     ListNotificationsComponent.prototype.delete = function (id) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_component__WEBPACK_IMPORTED_MODULE_4__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_component__WEBPACK_IMPORTED_MODULE_6__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea Eliminar?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -5816,7 +6041,7 @@ var ListNotificationsComponent = /** @class */ (function () {
         modalRef.componentInstance.MsgClose = "Cancelar";
         modalRef.componentInstance.MsgCloseClass = "btn-default";
         modalRef.result.then(function () {
-            _this.notifService.delete(id).subscribe(function () {
+            _this.notificationServices.delete(id).subscribe(function () {
                 _this.getAllNotifications(_this.page);
             }, function (error) {
                 console.log("error", error);
@@ -5843,7 +6068,7 @@ var ListNotificationsComponent = /** @class */ (function () {
         //si no esta leido que vaya a la base de datos y actualize
         //colapsable abierto
         if (notification.read == false) {
-            this.notifService.notificationRidden(notification).subscribe(
+            this.notificationServices.notificationRidden(notification).subscribe(
             //x => this.getAllNotifications(this.page),
             function () {
                 notification.colapse = !notification.colapse,
@@ -5858,27 +6083,30 @@ var ListNotificationsComponent = /** @class */ (function () {
         }
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
         __metadata("design:type", Object)
     ], ListNotificationsComponent.prototype, "Encabezado", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
         __metadata("design:type", Object)
     ], ListNotificationsComponent.prototype, "button", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"])(),
         __metadata("design:type", Object)
     ], ListNotificationsComponent.prototype, "ButtonHidden", void 0);
     ListNotificationsComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
             selector: 'app-list-notifications',
             template: __webpack_require__(/*! ./list-notifications.component.html */ "./src/app/modals/list-notifications/list-notifications.component.html"),
             styles: [__webpack_require__(/*! ./list-notifications.component.css */ "./src/app/modals/list-notifications/list-notifications.component.css")]
         }),
-        __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbActiveModal"],
-            _services_notifications_service__WEBPACK_IMPORTED_MODULE_0__["NotificationsService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"],
-            src_app_services_generics_communications_components_service__WEBPACK_IMPORTED_MODULE_6__["GenericsCommunicationsComponentsService"]])
+        __metadata("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbActiveModal"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            src_app_services_generics_communications_components_service__WEBPACK_IMPORTED_MODULE_8__["GenericsCommunicationsComponentsService"],
+            src_app_services_supervisor_user_agent_service__WEBPACK_IMPORTED_MODULE_9__["SupervisorUserAgentService"],
+            _services_notifications_service__WEBPACK_IMPORTED_MODULE_2__["NotificationsService"],
+            _services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_0__["SolicitationSubsidyService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], ListNotificationsComponent);
     return ListNotificationsComponent;
 }());
@@ -6070,7 +6298,7 @@ module.exports = ".pointer {\r\n    cursor: pointer;\r\n}\r\n/*# sourceMappingUR
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav *ngIf=\"isLogged | async\" class=\"navbar navbar-expand-lg navbar-dark bg-dark mb-3 font-weight-light\">\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      \r\n      <li id=\"homeId\" class=\"nav-item\">\r\n        <a\r\n          routerLink=\"/\"  \r\n          class=\"nav-item text-white nav-link\"\r\n          href=\"#\" >\r\n          <fa-icon icon=\"home\"></fa-icon> Home\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"userId\" class=\"nav-item\">\r\n        <a  \r\n          routerLink=\"/users\"\r\n          class=\"nav-item text-white nav-link\"\r\n          href=\"#\">\r\n          <fa-icon icon=\"users\"></fa-icon> Usuarios\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"roleId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a      \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\" \r\n          [routerLink]=\"['/roles']\">\r\n          <fa-icon icon=\"key\"></fa-icon> Roles\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"categoryId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a       \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\"\r\n          [routerLink]=\"['/category']\">\r\n          <fa-icon icon=\"tags\"></fa-icon> Categorías\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"distId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a    \r\n          class=\"nav-item text-white nav-link\"\r\n          href=\"#\" \r\n          [routerLink]=\"['/distribution']\">\r\n          <fa-icon icon=\"building\"></fa-icon> Reparticiones\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"transportId\" class=\"nav-item\">\r\n          <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n          <a        \r\n            class=\"nav-item text-white nav-link\"\r\n            href=\"#\" \r\n            [routerLink]=\"['/transport']\">\r\n            <fa-icon icon=\"car\"></fa-icon> Transporte\r\n          </a>\r\n      </li>\r\n\r\n      <li id=\"expId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a       \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\"\r\n          [routerLink]=\"['/expenditure']\">\r\n          <fa-icon icon=\"money-check-alt\"></fa-icon> Gastos\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"orgId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a         \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\" \r\n          [routerLink]=\"['/organism']\">\r\n          <fa-icon icon=\"sitemap\"></fa-icon> Organismos\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"solId\" class=\"nav-item active\">\r\n        <a     \r\n          routerLink=\"/SolicitationSubsidy/agent\"\r\n          class=\"nav-item text-white nav-link\" href=\"#\">\r\n          <fa-icon icon=\"file-signature\"></fa-icon> Solicitar Viático\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"holId\" class=\"nav-item active\">\r\n          <a             \r\n            routerLink=\"/holidays\" \r\n            class=\"nav-item text-white nav-link\" href=\"#\">\r\n            <fa-icon icon=\"calendar\"></fa-icon> Feriados\r\n          </a>\r\n        </li>\r\n\r\n    </ul>\r\n\r\n    <ul class=\"navbar-nav ml-auto small\">\r\n      <li class=\"nav-item dropdown\">\r\n        <div class=\"d-inline-block pull-right\" ngbDropdown #myDrop=\"ngbDropdown\">\r\n          <button *ngIf=\"cantNotif == 0\" class=\"btn btn-light mr-2 small\" id=\"dropdownManual\" ngbDropdownAnchor (focus)=\"myDrop.open()\">\r\n            <fa-icon icon=\"bell\"></fa-icon>\r\n          </button>\r\n          <button *ngIf=\"cantNotif != 0\" class=\"btn btn-light mr-2 small\" id=\"dropdownManual\" ngbDropdownAnchor (focus)=\"myDrop.open()\">\r\n              <fa-icon style=\"color:red;\" icon=\"bell\"></fa-icon>\r\n              <span  style=\"background-color:red;\" class=\"badge badge-primary badge-pill\">{{notification.length}}</span>\r\n          </button>\r\n          <div ngbDropdownMenu aria-labelledby=\"dropdownManual\">\r\n              <div class=\"p-2\">\r\n                <ul *ngIf=\"cantNotif == 0\" class=\"dropdown-item text-center small alert alert-primary h-3\">\r\n                      No hay notificaciones nuevas\r\n                </ul>\r\n\r\n                <button *ngFor=\"let j of notification\" class=\"dropdown-item small alert\" \r\n                  [ngClass]=\"{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}\"\r\n                  (click)=\"seeThisNotification(j)\">\r\n                  <p style=\"font-size: 11px\">{{j.textData}}</p>\r\n                </button>\r\n\r\n                <button (click)=\"seeAllNotification()\" type=\"button\" class=\"btn btn-link\">\r\n                  <p class=\"small\">ver todos {{notification.length}}</p>\r\n                </button>\r\n              </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n\r\n      \r\n      <li class=\"nav-item dropdown small\">\r\n          <div class=\"d-inline-block pull-right\" ngbDropdown #myDropCloseSession=\"ngbDropdown\">\r\n              <button class=\"btn btn-outline-light mr-2 small\" id=\"dropdownManual\" ngbDropdownToggle \r\n                (focus)=\"myDropCloseSession.open()\">\r\n              <!-- <fa-icon icon=\"user\"></fa-icon>-->\r\n                <img class=\"rounded-circle\" src=\"{{urlImage}}\" alt=\"\">\r\n              </button>\r\n              <div ngbDropdownMenu aria-labelledby=\"dropdownManual\">\r\n              <div class=\"dropdown-item small\">\r\n                  <b>{{lastName}}, {{firstName}}</b><br>\r\n                  <p style=\"font-size: 11px\">{{userName}}</p> \r\n              </div>\r\n\r\n              <button routerLink=\"/settingUser/{{idUser}}\" class=\"dropdown-item small pointer\">\r\n                <fa-icon icon=\"address-card\"></fa-icon> Mi Perfil\r\n              </button>\r\n              <button (click)=\"logout()\" class=\"dropdown-item small pointer\">\r\n                <fa-icon icon=\"sign-out-alt\"></fa-icon> Cerrar Sesión\r\n              </button>\r\n              </div>\r\n          </div>\r\n      </li>   \r\n    </ul>\r\n  </div>\r\n</nav>\r\n\r\n<router-outlet class=\"small\"></router-outlet>\r\n"
+module.exports = "<nav *ngIf=\"isLogged | async\" class=\"navbar navbar-expand-lg navbar-dark bg-dark mb-3 font-weight-light\">\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\r\n\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      \r\n      <li id=\"homeId\" class=\"nav-item\">\r\n        <a \r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ir al menú principal\" \r\n          routerLink=\"/\"  \r\n          class=\"nav-item text-white nav-link\"\r\n          href=\"#\" >\r\n          <fa-icon icon=\"home\"></fa-icon> Inicio\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"userId\" class=\"nav-item\">\r\n        <a  \r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todos los usuarios\" \r\n          routerLink=\"/users\"\r\n          class=\"nav-item text-white nav-link\"\r\n          href=\"#\">\r\n          <fa-icon icon=\"users\"></fa-icon> Usuarios\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"roleId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a      \r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todos los roles\" \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\" \r\n          [routerLink]=\"['/roles']\">\r\n          <fa-icon icon=\"key\"></fa-icon> Roles\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"categoryId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a\r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todas las categorías\" \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\"\r\n          [routerLink]=\"['/category']\">\r\n          <fa-icon icon=\"tags\"></fa-icon> Categorías\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"distId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a\r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todas las reparticiones\" \r\n          class=\"nav-item text-white nav-link\"\r\n          href=\"#\" \r\n          [routerLink]=\"['/distribution']\">\r\n          <fa-icon icon=\"building\"></fa-icon> Reparticiones\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"transportId\" class=\"nav-item\">\r\n          <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n          <a        \r\n            placement=\"bottom\" \r\n            ngbTooltip=\"Ver el listado de todos los transportes\" \r\n            class=\"nav-item text-white nav-link\"\r\n            href=\"#\" \r\n            [routerLink]=\"['/transport']\">\r\n            <fa-icon icon=\"car\"></fa-icon> Transporte\r\n          </a>\r\n      </li>\r\n\r\n      <li id=\"expId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a       \r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todos los tipos de gasto\" \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\"\r\n          [routerLink]=\"['/expenditure']\">\r\n          <fa-icon icon=\"money-check-alt\"></fa-icon> Gastos\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"orgId\" class=\"nav-item\">\r\n        <!--<a style=\"color: white;\" class=\"nav-item nav-link active\" href=\"#\" routerLink=\"/login\">Login</a>-->\r\n        <a         \r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todos los organismos\" \r\n          class=\"nav-item text-white nav-link\" \r\n          href=\"#\" \r\n          [routerLink]=\"['/organism']\">\r\n          <fa-icon icon=\"sitemap\"></fa-icon> Organismos\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"solId\" class=\"nav-item active\">\r\n        <a     \r\n          placement=\"bottom\" \r\n          ngbTooltip=\"Ver el listado de todas las solicitudes de viático\" \r\n          routerLink=\"/SolicitationSubsidy/agent\"\r\n          class=\"nav-item text-white nav-link\" href=\"#\">\r\n          <fa-icon icon=\"file-signature\"></fa-icon> Solicitar Viático\r\n        </a>\r\n      </li>\r\n\r\n      <li id=\"holId\" class=\"nav-item active\">\r\n          <a    \r\n            placement=\"bottom\"\r\n            ngbTooltip=\"Ver el listado de los días no laborables\"          \r\n            routerLink=\"/holidays\" \r\n            class=\"nav-item text-white nav-link\" href=\"#\">\r\n            <fa-icon icon=\"calendar\"></fa-icon> Feriados\r\n          </a>\r\n        </li>\r\n\r\n    </ul>\r\n\r\n    <ul class=\"navbar-nav ml-auto small\">\r\n      <li class=\"nav-item dropdown\">\r\n        <div class=\"d-inline-block pull-right\" ngbDropdown #myDrop=\"ngbDropdown\">\r\n          <button *ngIf=\"cantNotif == 0\" class=\"btn btn-light mr-2 small\" id=\"dropdownManual\" ngbDropdownAnchor (focus)=\"myDrop.open()\">\r\n            <fa-icon icon=\"bell\"></fa-icon>\r\n          </button>\r\n          <button *ngIf=\"cantNotif != 0\" class=\"btn btn-light mr-2 small\" id=\"dropdownManual\" ngbDropdownAnchor (focus)=\"myDrop.open()\">\r\n              <fa-icon style=\"color:red;\" icon=\"bell\"></fa-icon>\r\n              <span  style=\"background-color:red;\" class=\"badge badge-primary badge-pill\">{{notification.length}}</span>\r\n          </button>\r\n          <div ngbDropdownMenu aria-labelledby=\"dropdownManual\">\r\n              <div class=\"p-2\">\r\n                <ul *ngIf=\"cantNotif == 0\" class=\"dropdown-item text-center small alert alert-primary h-3\">\r\n                      No hay notificaciones nuevas\r\n                </ul>\r\n\r\n                <button style=\"white-space :normal; cursor : pointer;\" *ngFor=\"let j of notification\" class=\"dropdown-item small alert\" \r\n                  [ngClass]=\"{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}\"\r\n                  (click)=\"seeThisNotification(j)\">\r\n                  <p style=\"font-size: 11px\">{{j.textData}}</p>\r\n                </button>\r\n                <a href=\"#\" routerLink=\"{{router.url}}\" (click)=\"seeAllNotification()\" class=\"small\">\r\n                  ver todos ({{notification.length}})\r\n                </a>\r\n              </div>\r\n          </div>\r\n        </div>\r\n      </li>\r\n\r\n      \r\n      <li class=\"nav-item dropdown small\">\r\n          <div class=\"d-inline-block pull-right\" ngbDropdown #myDropCloseSession=\"ngbDropdown\">\r\n              <button class=\"btn btn-outline-light mr-2 small\" id=\"dropdownManual\" ngbDropdownToggle \r\n                (focus)=\"myDropCloseSession.open()\">\r\n              <!-- <fa-icon icon=\"user\"></fa-icon>-->\r\n                <img class=\"rounded-circle\" src=\"{{urlImage}}\" alt=\"\">\r\n              </button>\r\n              <div ngbDropdownMenu aria-labelledby=\"dropdownManual\">\r\n              <div class=\"dropdown-item small\">\r\n                  <b>{{lastName}}, {{firstName}}</b><br>\r\n                  <p style=\"font-size: 11px\">{{userName}}</p> \r\n              </div>\r\n\r\n              <button \r\n                  placement=\"left\" ngbTooltip=\"Editar información personal\" \r\n                  routerLink=\"/settingUser/{{idUser}}\" class=\"dropdown-item small pointer\">\r\n                <fa-icon class=\"fa-lg\" icon=\"address-card\"></fa-icon> Mi Perfil\r\n              </button>\r\n              <button placement=\"left\" ngbTooltip=\"Salir del sistema\" \r\n                (click)=\"logout()\" class=\"dropdown-item small pointer\">\r\n                <fa-icon class=\"fa-lg\" icon=\"sign-out-alt\"></fa-icon> Cerrar Sesión\r\n              </button>\r\n              </div>\r\n          </div>\r\n      </li>   \r\n    </ul>\r\n  </div>\r\n</nav>\r\n\r\n<router-outlet class=\"small\"></router-outlet>\r\n"
 
 /***/ }),
 
@@ -6175,22 +6403,9 @@ var NavarComponent = /** @class */ (function () {
             console.log('Backdrop click');
         });
     };
-    //MODALS
-    /** seeThisNotification(notificationridden : any) {
-      const modalRef = this.modalService.open(NgbdModalContent);
-      modalRef.componentInstance.Encabezado = "Notificación";
-      modalRef.componentInstance.Contenido = notificationridden.textData;
-      modalRef.componentInstance.MsgClose = "Cerrar";
-      modalRef.componentInstance.MsgCloseClass = "btn-primary";
-      modalRef.componentInstance.GuardaroEliminarHidden = true;
-      
-      this.notificaionServices.notificationRidden(notificationridden).subscribe(
-          () => this.retriveNotifications()
-      )
-  
-    }*/
     NavarComponent.prototype.seeThisNotification = function (notificationridden) {
         var _this = this;
+        this.modalService.dismissAll();
         this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
             .subscribe(function (user) {
             if (user) {
@@ -6238,16 +6453,6 @@ var NavarComponent = /** @class */ (function () {
         modalRef.componentInstance.button = "Entendido";
         modalRef.componentInstance.ButtonHidden = false;
         modalRef.result.then(function () {
-            /*this.notificationridden.id = id,
-            this.notificationridden.read = true,
-            this.notificationridden.textData = "";
-            this.notificationridden.tittle = ""
-            this.notificaionServices.notificationRidden(this.notificationridden).subscribe(
-              x => this.notificaionServices.getAllNotifications().subscribe(
-                x => console.log(x)
-                
-              )
-            )*/
         }, function () {
             console.log('Backdrop click');
         });
@@ -6312,7 +6517,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/organism\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n            <h5 class=\"card-header\">Nuevo</h5>\n            <div class=\"card-body\">\n                    <form (ngSubmit)=\"onSubmit()\" #OrganismForm=\"ngForm\">\n                \n                            <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                                    placeholder=\"Nombre\">\n                            </div>\n                        \n                            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                                Nombre Incorrecto\n                            </div>\n                        \n                            <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                                    placeholder=\"Descripción\">\n                            </div>\n                        \n                            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                                Descripción Incorrecta\n                            </div>\n                        \n                            <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                                <button class=\"btn btn-success ml-auto\" >\n                                    <fa-icon icon=\"save\"></fa-icon> Guardar\n                                </button>\n                            </div>\n                        \n                        </form>\n                \n                    \n                    <div class=\"alert alert-danger\" *ngIf=\"error\">\n                        <ul *ngFor=\"let e of error\">\n                            <li>{{e.value}}</li>\n                        </ul>\n                    </div>\n                    \n                    <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                        <ul>\n                            <li>Guardado</li>\n                        </ul>\n                    </div>\n            </div>\n        </div>\n</div>\n\n"
+module.exports = "<a  placement=\"bottom\" ngbTooltip=\"Volver al listado de organismos\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/organism\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n            <h5 class=\"card-header\">Nuevo</h5>\n            <div class=\"card-body\">\n                    <form (ngSubmit)=\"onSubmit()\" #OrganismForm=\"ngForm\">\n                \n                            <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                                    placeholder=\"Nombre\">\n                            </div>\n                        \n                            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                                Nombre Incorrecto\n                            </div>\n                        \n                            <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                                <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                                    placeholder=\"Descripción\">\n                            </div>\n                        \n                            <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                                Descripción Incorrecta\n                            </div>\n                        \n                            <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                                <button placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                                    class=\"btn btn-success ml-auto\" >\n                                    <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                                </button>\n                            </div>\n                        \n                        </form>\n                \n                    \n                    <div class=\"alert alert-danger\" *ngIf=\"error\">\n                        <ul *ngFor=\"let e of error\">\n                            <li>{{e.value}}</li>\n                        </ul>\n                    </div>\n                    \n                    <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                        <ul>\n                            <li>Guardado</li>\n                        </ul>\n                    </div>\n            </div>\n        </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -6326,9 +6531,10 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateOrganismComponent", function() { return CreateOrganismComponent; });
-/* harmony import */ var _models_organism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/organism */ "./src/app/_models/organism.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _models_organism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/organism */ "./src/app/_models/organism.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6341,11 +6547,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateOrganismComponent = /** @class */ (function () {
-    function CreateOrganismComponent(organismServcice) {
+    function CreateOrganismComponent(organismServcice, titleService) {
         this.organismServcice = organismServcice;
+        this.titleService = titleService;
         this.error = '';
-        this.model = new _models_organism__WEBPACK_IMPORTED_MODULE_0__["CreateOrganismDto"]();
+        this.model = new _models_organism__WEBPACK_IMPORTED_MODULE_1__["CreateOrganismDto"]();
+        this.titleService.setTitle('Crear Organismo');
     }
     CreateOrganismComponent.prototype.ngOnInit = function () { };
     CreateOrganismComponent.prototype.onSubmit = function () {
@@ -6353,12 +6562,13 @@ var CreateOrganismComponent = /** @class */ (function () {
         this.organismServcice.createOrganism(this.model).subscribe(function (x) { return _this.responseSuccess = x; }, function (error) { return _this.error = error.error.notifications; });
     };
     CreateOrganismComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-create-organism',
             template: __webpack_require__(/*! ./create-organism.component.html */ "./src/app/organisms/create/create-organism.component.html"),
             styles: [__webpack_require__(/*! ./create-organism.component.css */ "./src/app/organisms/create/create-organism.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_2__["OrganismService"]])
+        __metadata("design:paramtypes", [src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_3__["OrganismService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CreateOrganismComponent);
     return CreateOrganismComponent;
 }());
@@ -6385,7 +6595,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/organism\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Modificar</h5>\n        <div class=\"card-body\">\n            <form (ngSubmit)=\"onSubmit()\" #OrganismForm=\"ngForm\">\n    \n                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                    <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                        placeholder=\"Nombre\">\n                </div>\n            \n                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                    Nombre Incorrecto\n                </div>\n            \n                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                    <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                        placeholder=\"Descripción\">\n                </div>\n            \n                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                    Descripción Incorrecta\n                </div>\n            \n                <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                    <button class=\"btn btn-success ml-auto\" >\n                        <fa-icon icon=\"save\"></fa-icon> Guardar\n                    </button>\n                </div>\n            \n            </form>\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>                      \n\n        </div>\n    </div>\n</div>\n"
+module.exports = "<a  placement=\"bottom\" ngbTooltip=\"Volver al listado de organismos\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/organism\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Modificar</h5>\n        <div class=\"card-body\">\n            <form (ngSubmit)=\"onSubmit()\" #OrganismForm=\"ngForm\">\n    \n                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                    <input class=\"form-control\" [(ngModel)]=\"model.name\" #name=\"ngModel\" required name=\"name\" type=\"text\"\n                        placeholder=\"Nombre\">\n                </div>\n            \n                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                    Nombre Incorrecto\n                </div>\n            \n                <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                    <input class=\"form-control\" [(ngModel)]=\"model.description\" required #description=\"ngModel\" name=\"description\" type=\"text\"\n                        placeholder=\"Descripción\">\n                </div>\n            \n                <div style=\"margin-top: 10px;\" *ngIf=\"submitted && description.invalid\" class=\"alert alert-danger\">\n                    Descripción Incorrecta\n                </div>\n            \n                <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                    <button placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                        class=\"btn btn-success ml-auto\" >\n                        <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                    </button>\n                </div>\n            \n            </form>\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>                      \n\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -6399,10 +6609,11 @@ module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarS
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifyOrganismComponent", function() { return ModifyOrganismComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_models_organism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_models/organism */ "./src/app/_models/organism.ts");
-/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_organism__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/organism */ "./src/app/_models/organism.ts");
+/* harmony import */ var src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/organism.service */ "./src/app/_services/organism.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6416,13 +6627,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ModifyOrganismComponent = /** @class */ (function () {
-    function ModifyOrganismComponent(organismService, route, router) {
+    function ModifyOrganismComponent(organismService, route, router, titleService) {
         this.organismService = organismService;
         this.route = route;
         this.router = router;
-        this.model = new src_app_models_organism__WEBPACK_IMPORTED_MODULE_1__["UpdateOrganismDto"]();
+        this.titleService = titleService;
+        this.model = new src_app_models_organism__WEBPACK_IMPORTED_MODULE_2__["UpdateOrganismDto"]();
         this.error = '';
+        this.titleService.setTitle('Modificar Organismo');
     }
     ModifyOrganismComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -6434,14 +6648,15 @@ var ModifyOrganismComponent = /** @class */ (function () {
         this.organismService.updateOrganism(this.model).subscribe(function (x) { return _this.responseSuccess = x; }, function (error) { return _this.error = error.error.notifications; });
     };
     ModifyOrganismComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-modify-organism',
             template: __webpack_require__(/*! ./modify-organism.component.html */ "./src/app/organisms/modify/modify-organism.component.html"),
             styles: [__webpack_require__(/*! ./modify-organism.component.css */ "./src/app/organisms/modify/modify-organism.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_2__["OrganismService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_organism_service__WEBPACK_IMPORTED_MODULE_3__["OrganismService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], ModifyOrganismComponent);
     return ModifyOrganismComponent;
 }());
@@ -6468,7 +6683,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container mb-1\" >\n\t<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Name </label>\n\t<div class=\"d-inline-block pl-1 pr-1\">\n\t\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.name\" type=\"text\" class=\"form-control\">\n\t</div>\n</div>\n\n<a href=\"\" class=\"btn btn-success mb-3 mt-3\" routerLink=\"create\">\n\t<fa-icon icon=\"plus\"></fa-icon> Nuevo\n</a>\n<table class=\"table table-hover\">\n\t<thead>\n\t\t<tr style=\"font-weight: bold;\">\n\t\t\t<td>Name</td>\n\t\t\t<td>Descripción</td>\n\t\t\t<td></td>\n\t\t\t<td></td>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr *ngFor=\"let org of organism\">\n\t\t\t<td>{{org.name}}</td>\n\t\t\t<td>{{org.description}}</td>\n\t\t\t<td><a href=\"\" routerLink=\"/distribution/{{org.id}}\">Reparticiones</a></td>\n\t\t\t<td>\n\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t<a class=\"pr-3\" routerLink=\"/organism/update/{{org.id}}\">\n\t\t\t\t\t\t<fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t\t<a routerLink=\"/organism\" (click)=\"openEliminar(org.id,org.name,org.description)\">\n\t\t\t\t\t\t<fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n aria-label=\"Default pagination\"></ngb-pagination>\n"
+module.exports = "<div class=\"container mb-1\" >\n\t<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Nombre </label>\n\t<div class=\"d-inline-block pl-1 pr-1\">\n\t\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.name\" type=\"text\" class=\"form-control\">\n\t</div>\n</div>\n\n<a \n\tplacement=\"bottom\" \n\tngbTooltip=\"Agregar nuevo organismo\" \n\thref=\"\" class=\"btn btn-success mb-3 mt-3\" routerLink=\"create\">\n\t<fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Nuevo\n</a>\n<div class=\"\" style=\"min-height: 300px;\">\n\t<table class=\"table table-striped\">\n\t\t\t<thead>\n\t\t\t\t<tr style=\"font-weight: bold;\">\n\t\t\t\t\t<td>Nombre</td>\n\t\t\t\t\t<td>Descripción</td>\n\t\t\t\t\t<td></td>\n\t\t\t\t\t<td></td>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr *ngFor=\"let org of organism\">\n\t\t\t\t\t<td>{{org.name}}</td>\n\t\t\t\t\t<td>{{org.description}}</td>\n\t\t\t\t\t<td><a \n\t\t\t\t\t\t\tplacement=\"bottom\" \n\t\t\t\t\t\t\tngbTooltip=\"Ver las reparticiones de este organismo\" \n\t\t\t\t\t\t\thref=\"\" routerLink=\"/distribution/{{org.id}}\">Reparticiones\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</td>\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t\t\t<a \n\t\t\t\t\t\t\t\tplacement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Editar este organismo\" \n\t\t\t\t\t\t\t\tclass=\"pr-3\" routerLink=\"/organism/update/{{org.id}}\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<a \n\t\t\t\t\t\t\t\tplacement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Eliminar este organismo\" \n\t\t\t\t\t\t\t\trouterLink=\"/organism\" (click)=\"openEliminar(org.id,org.name,org.description)\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\n\t\t<app-alert \n\t\t\t*ngIf=\"organism_list_length == 0\"\n\t\t\t[textAlert]=\"textListEmpty\"\n\t\t\t[typeAlert]=\"classListEmpty\">\t\t\t\n\t\t</app-alert>\n\n</div>\n\n\t<ngb-pagination \n\t\t(pageChange)=\"loadPage($event)\" \n\t\t[collectionSize]=\"col_size\" \n\t\t[pageSize]=\"itemsPerPage\" \n\t\t[(page)]=\"page\"\n\t\taria-label=\"Default pagination\">\n\t</ngb-pagination>\n"
 
 /***/ }),
 
@@ -6482,10 +6697,11 @@ module.exports = "<div class=\"container mb-1\" >\n\t<label class=\"d-inline-blo
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrganismsComponent", function() { return OrganismsComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_organism_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_services/organism.service */ "./src/app/_services/organism.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_organism_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/organism.service */ "./src/app/_services/organism.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6499,12 +6715,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var OrganismsComponent = /** @class */ (function () {
-    function OrganismsComponent(organismService, modalService) {
+    function OrganismsComponent(organismService, modalService, titleService) {
         this.organismService = organismService;
         this.modalService = modalService;
+        this.titleService = titleService;
         this.filters = { page: 0, name: "" };
         this.itemsPerPage = 10;
+        this.textListEmpty = "No se encontró ningún organismo";
+        this.classListEmpty = "alert-primary";
+        this.titleService.setTitle('Organismos');
     }
     OrganismsComponent.prototype.ngOnInit = function () {
         this.getAllOrganism(this.filters);
@@ -6513,6 +6734,7 @@ var OrganismsComponent = /** @class */ (function () {
         var _this = this;
         this.organismService.getPaginator(this.filters).subscribe(function (result) {
             _this.organism = result.list,
+                _this.organism_list_length = _this.organism.length,
                 _this.col_size = result.totalRecords;
         }, function (error) { return console.log(error); });
     };
@@ -6524,7 +6746,7 @@ var OrganismsComponent = /** @class */ (function () {
     };
     OrganismsComponent.prototype.openEliminar = function (id, name, descp) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_4__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar el Organismo : " + name + " " + descp + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -6544,13 +6766,14 @@ var OrganismsComponent = /** @class */ (function () {
         this.getAllOrganism(this.filters);
     };
     OrganismsComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-organisms',
             template: __webpack_require__(/*! ./organisms.component.html */ "./src/app/organisms/organisms.component.html"),
             styles: [__webpack_require__(/*! ./organisms.component.css */ "./src/app/organisms/organisms.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_organism_service__WEBPACK_IMPORTED_MODULE_1__["OrganismService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_organism_service__WEBPACK_IMPORTED_MODULE_2__["OrganismService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], OrganismsComponent);
     return OrganismsComponent;
 }());
@@ -6745,12 +6968,13 @@ module.exports = "<div class=\"col-3\">\n  <ngx-treeview class=\"navarStyle\" [c
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RolesPermissionsComponent", function() { return RolesPermissionsComponent; });
-/* harmony import */ var _models_role_claim_permission__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_models/role-claim-permission */ "./src/app/_models/role-claim-permission.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _models_update_role_claim_permission__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../_models/update-role-claim-permission */ "./src/app/_models/update-role-claim-permission.ts");
-/* harmony import */ var node_modules_ngx_treeview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! node_modules/ngx-treeview */ "./node_modules/ngx-treeview/src/index.js");
-/* harmony import */ var _services_roles_permissions_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../_services/roles-permissions.service */ "./src/app/_services/roles-permissions.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _models_role_claim_permission__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_models/role-claim-permission */ "./src/app/_models/role-claim-permission.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _models_update_role_claim_permission__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_models/update-role-claim-permission */ "./src/app/_models/update-role-claim-permission.ts");
+/* harmony import */ var node_modules_ngx_treeview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! node_modules/ngx-treeview */ "./node_modules/ngx-treeview/src/index.js");
+/* harmony import */ var _services_roles_permissions_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../_services/roles-permissions.service */ "./src/app/_services/roles-permissions.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6766,14 +6990,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RolesPermissionsComponent = /** @class */ (function () {
-    function RolesPermissionsComponent(rolesServices, route) {
+    function RolesPermissionsComponent(rolesServices, route, titleService) {
         this.rolesServices = rolesServices;
         this.route = route;
+        this.titleService = titleService;
         this.dropdownEnabled = true;
         this.items = [];
-        this.updateRoleClaimPermission = new _models_update_role_claim_permission__WEBPACK_IMPORTED_MODULE_2__["UpdateRoleClaimPermission"]();
-        this.config = node_modules_ngx_treeview__WEBPACK_IMPORTED_MODULE_3__["TreeviewConfig"].create({
+        this.updateRoleClaimPermission = new _models_update_role_claim_permission__WEBPACK_IMPORTED_MODULE_3__["UpdateRoleClaimPermission"]();
+        this.config = node_modules_ngx_treeview__WEBPACK_IMPORTED_MODULE_4__["TreeviewConfig"].create({
             hasAllCheckBox: true,
             hasFilter: true,
             hasCollapseExpand: true,
@@ -6791,12 +7017,13 @@ var RolesPermissionsComponent = /** @class */ (function () {
             'btn-outline-dark'
         ];
         this.buttonClass = this.buttonClasses[0];
+        this.titleService.setTitle('Roles - Permisos');
     }
     RolesPermissionsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (p) { return _this.id = p.id; });
         this.rolesServices.getAllRoleClaims(this.id).subscribe(function (claims) {
-            _this.items = claims.map(function (x) { return new node_modules_ngx_treeview__WEBPACK_IMPORTED_MODULE_3__["TreeviewItem"](x); });
+            _this.items = claims.map(function (x) { return new node_modules_ngx_treeview__WEBPACK_IMPORTED_MODULE_4__["TreeviewItem"](x); });
         });
     };
     RolesPermissionsComponent.prototype.onFilterChange = function (value) {
@@ -6804,7 +7031,7 @@ var RolesPermissionsComponent = /** @class */ (function () {
     };
     RolesPermissionsComponent.prototype.mapToRoleClaimPermission = function (treeViewItem) {
         var _this = this;
-        var roleClaim = new _models_role_claim_permission__WEBPACK_IMPORTED_MODULE_0__["RoleClaimPermission"]();
+        var roleClaim = new _models_role_claim_permission__WEBPACK_IMPORTED_MODULE_1__["RoleClaimPermission"]();
         roleClaim.checked = treeViewItem.checked;
         roleClaim.text = treeViewItem.text;
         roleClaim.value = treeViewItem.value;
@@ -6827,12 +7054,14 @@ var RolesPermissionsComponent = /** @class */ (function () {
         this.rolesServices.saveRoleClaims(this.updateRoleClaimPermission);
     };
     RolesPermissionsComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-roles-permissions',
             template: __webpack_require__(/*! ./roles-permissions.component.html */ "./src/app/roles/roles-permissions/roles-permissions.component.html"),
             styles: [__webpack_require__(/*! ./roles-permissions.component.css */ "./src/app/roles/roles-permissions/roles-permissions.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_roles_permissions_service__WEBPACK_IMPORTED_MODULE_4__["RolesPermissionsService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_services_roles_permissions_service__WEBPACK_IMPORTED_MODULE_5__["RolesPermissionsService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], RolesPermissionsComponent);
     return RolesPermissionsComponent;
 }());
@@ -6859,7 +7088,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<table class=\"table\">\n    <thead>\n      <tr>\n        <th scope=\"col\">Roles</th>\n        <th></th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let rol of modelRoles\">\n        <th scope=\"row\">{{rol.name}}</th>\n        <th scope=\"row\"><a routerLink=\"/roles/permissions/{{rol.id}}\">Permisos</a></th>\n      </tr>\n    </tbody>\n  </table>\n"
+module.exports = "<table class=\"table table-striped\">\n    <thead>\n      <tr>\n        <th scope=\"col\">Roles</th>\n        <th></th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr *ngFor=\"let rol of modelRoles\">\n        <td>{{rol.name}}</td>\n        <td><a placement=\"bottom\" ngbTooltip=\"Ver permisos de este rol\" routerLink=\"/roles/permissions/{{rol.id}}\">Permisos</a></td>\n      </tr>\n    </tbody>\n  </table>\n"
 
 /***/ }),
 
@@ -6873,8 +7102,9 @@ module.exports = "<table class=\"table\">\n    <thead>\n      <tr>\n        <th 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RolesComponent", function() { return RolesComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_role_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_services/role.service */ "./src/app/_services/role.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_role_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/role.service */ "./src/app/_services/role.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6886,9 +7116,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var RolesComponent = /** @class */ (function () {
-    function RolesComponent(rolesService) {
+    function RolesComponent(rolesService, titleService) {
         this.rolesService = rolesService;
+        this.titleService = titleService;
+        this.titleService.setTitle('Roles');
     }
     RolesComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -6897,12 +7130,13 @@ var RolesComponent = /** @class */ (function () {
         });
     };
     RolesComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-roles',
             template: __webpack_require__(/*! ./roles.component.html */ "./src/app/roles/roles.component.html"),
             styles: [__webpack_require__(/*! ./roles.component.css */ "./src/app/roles/roles.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_role_service__WEBPACK_IMPORTED_MODULE_1__["RoleService"]])
+        __metadata("design:paramtypes", [_services_role_service__WEBPACK_IMPORTED_MODULE_2__["RoleService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], RolesComponent);
     return RolesComponent;
 }());
@@ -7045,7 +7279,7 @@ module.exports = ".no-wrap {\r\n    display: block;\r\n    width: 400px;\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" style=\"height: 500px;\">\n\n    <div class=\"row\">\n        <div class=\"d-inline-block pb-2 pt-2\">\n            <a href=\"\" class=\"btn btn-success\" routerLink=\"/SolicitationSubsidy/create\">\n              <fa-icon icon=\"plus\"></fa-icon> Nuevo\n            </a>\n        </div>\n    \n        <div class=\"d-inline-block pb-2 pt-2 ml-1\">\n          <a href=\"\" class=\"btn btn-success\" routerLink=\"/SolicitationSubsidy/supervisor\">\n            Moderar Solicitudes\n          </a>\n        </div>\n    </div>\n\n       \n        <table class=\"table table-sm mt-3\">\n          <thead>\n            <tr class=\"row\">\n              <th class=\"col-1\">Fecha de Creación</th>\n              <th class=\"col-3\">Objeto</th>\n              <th class=\"col-4\">Localidades- Itinerarios</th>\n              <th class=\"col\">Total</th>\n              <th class=\"col\">Estado</th>\n              <th class=\"col\"></th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let sol of solicitationSubsidies\" class=\"row\">\n              <td class=\"col-1\">{{sol.createDate | date:'dd/MM/yyyy'}}</td>\n              <td class=\"col-3 no-wrap\">{{sol.motive}}</td>\n              <td class=\"col-4\">\n                  <li *ngFor=\"let d of sol.destinies\">\n                      <span *ngIf=\"d.countryName\">{{d.countryName}}</span>\n                      <span *ngIf=\"d.provinceName && d.cityName\">{{d.provinceName}} - {{d.cityName}}</span> \n                  </li>  \n                  <span class=\"mr-1 cardInsideTd\" > {{ sol.localities }}</span>   \n              </td>\n              <td class=\"col\">{{sol.total | currency}}</td>\n              <td *ngIf=\"sol.state == 'Rechazado'\" class=\"col\">\n                  <a  href=\"\" class=\"pr-3\" routerLink=\"/SolicitationSubsidy/agent\"\n                  (click)=\"openMotiveReject(sol.motiveReject)\">\n                  {{sol.state}}\n                  </a>\n              </td>  \n              <td class=\"col\" *ngIf=\"sol.state == 'Aceptado'\">\n                  <a href=\"\" alt=\"Número de Archivo\" \n                    (click)=\"addFileNumber(sol.id)\"\n                    routerLink=\"/SolicitationSubsidy/agent\" class=\"pr-3\">\n                    {{sol.state}}\n                  </a>\n              </td>  \n              <td class=\"col\" *ngIf=\"sol.state != 'Rechazado' && sol.state != 'Aceptado'\">\n                  {{sol.state}}\n              </td>\n              <td *ngIf=\"sol.state == 'Pendiente'\" class=\"col\">\n                  <div class=\"btn-group\" \n                  role=\"group\" \n                  aria-label=\"Basic example\">\n                  <a \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/modify/{{sol.id}}\">\n                    <fa-icon title=\"Editar Solicitud\" style=\"color:gray;\" icon=\"edit\" class=\"{{sizeIcon}}\"></fa-icon>\n                  </a>\n                  <a class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\" \n                    (click)=\"openEliminar(sol)\">\n                    <fa-icon title=\"Eliminar Solicitud\" class=\"{{sizeIcon}}\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n                  </a>\n                  <!--<a href=\"\" \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    (click)=\"openDetail(sol.id)\">\n                    <fa-icon style=\"color:gray;\" icon=\"info-circle\"></fa-icon>\n                  </a>-->\n                  <a href=\"\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    class=\"pr-3\" \n                    (click)=\"sendToSupervisor(sol.id)\">\n                    <fa-icon title=\"Enviar solicitud al supervisor\" class=\"{{sizeIcon}}\" style=\"color: black;\" icon=\"envelope\"></fa-icon>\n                  </a>\n                </div>\n              </td>\n              <td *ngIf=\"sol.state == 'Rechazado'\" class=\"col\">\n                <div class=\"btn-group\" \n                  role=\"group\" \n                  aria-label=\"Basic example\">\n                  <a class=\"pr-3\" \n                      routerLink=\"/SolicitationSubsidy/modify/{{sol.id}}\">\n                    <fa-icon title=\"Editar Solicitud\" style=\"color:gray;\" icon=\"edit\" class=\"{{sizeIcon}}\"></fa-icon>\n                  </a>\n                  <a class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    (click)=\"openEliminar(sol)\">\n                    <fa-icon style=\"color:red;\" title=\"Eliminar Solicitud\" icon=\"trash\" class=\"{{sizeIcon}}\"></fa-icon>\n                  </a>\n                  <!--<a href=\"\" \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    (click)=\"openDetail(sol.id)\">\n                    <fa-icon style=\"color:gray;\" icon=\"info-circle\"></fa-icon>\n                  </a>-->\n                  <a href=\"\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    class=\"pr-3\" \n                    (click)=\"sendToSupervisor(sol.id)\">\n                    <fa-icon style=\"color: black;\" icon=\"envelope\" title=\"Enviar solicitud al supervisor\" class=\"{{sizeIcon}}\"></fa-icon>\n                  </a>\n                </div>\n              </td>\n              <td *ngIf=\"sol.state == 'Aceptado'\" class=\"col\">\n                  <a href=\"\" routerLink=\"/print/{{sol.id}}\" class=\"pr-3\">\n                    <fa-icon class=\"{{sizeIcon}}\"  title=\"Imprimir\" style=\"color: black;\" icon=\"print\"></fa-icon>\n                  </a>\n              </td>\n              <td *ngIf=\"sol.state == 'Enviado'\" class=\"col\"></td>\n            </tr>\n          </tbody>\n        </table>\n \n        <ngx-spinner \n          bdColor=\"rgba(51,51,51,0.8)\"\n          size=\"medium\"\n          color=\"#fff\"\n          type=\"ball-scale-multiple\">\n        <p style=\"font-size: 20px; color: white\">Enviando...</p>>\n        </ngx-spinner>\n  </div>\n  <div class=\"row\">\n      <ngb-pagination (pageChange)=\"loadPage($event)\" \n      [collectionSize]=\"col_size\" \n      [pageSize]=\"itemsPerPage\" \n      [(page)]=\"filters.page\"\n      class=\"ml-auto\"\n      aria-label=\"Default pagination\"></ngb-pagination>\n  </div>\n  \n"
+module.exports = "    <div class=\"d-inline-block pb-2 pt-2\">\n        <a  \n          placement=\"bottom\" \n          ngbTooltip=\"Agregar una nueva solicitud de viático\" \n          href=\"\" class=\"btn btn-success\" routerLink=\"/SolicitationSubsidy/create\">\n          <fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Nuevo\n        </a>\n    </div>\n\n    <div class=\"d-inline-block pb-2 pt-2 ml-1\">\n      <a  \n        placement=\"bottom\" \n        ngbTooltip=\"Ver las solicitudes de viáticos de agentes a mi cargo\" \n        href=\"\" class=\"btn btn-success\" routerLink=\"/SolicitationSubsidy/supervisor\">\n        Moderar Solicitudes\n      </a>\n    </div>\n\n\n    <div class=\"container\" style=\"min-height: 300px;\">\n      <table class=\"table table-striped\">\n          <thead>\n            <tr class=\"row\">\n              <th class=\"col-2\">Fecha de Creación</th>\n              <th class=\"col-3\">Objeto</th>\n              <th class=\"col-3\">Localidades- Itinerarios</th>\n              <th class=\"col\">Total</th>\n              <th class=\"col\">Estado</th>\n              <th class=\"col\"></th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let sol of solicitationSubsidies\" class=\"row\">\n              <td class=\"col-2\">{{sol.createDate | date:'dd/MM/yyyy'}}</td>\n              <td class=\"col-3 no-wrap\" placement=\"bottom\" ngbTooltip=\"{{sol.motive}}\">\n                {{sol.motive}}\n              </td>\n              <td class=\"col-3\">\n                  <li *ngFor=\"let d of sol.destinies\">\n                      <span *ngIf=\"d.countryName\">{{d.countryName}}</span>\n                      <span *ngIf=\"d.provinceName && d.cityName\">{{d.provinceName}} - {{d.cityName}}</span> \n                  </li>  \n                  <span class=\"\" > {{ sol.localities }}</span>   \n              </td>\n              <td class=\"col\">{{sol.total | currency}}</td>\n              <td *ngIf=\"sol.state == 'Rechazado'\" class=\"col\">\n                <a\n                  placement=\"bottom\" \n                  ngbTooltip=\"Ver motivo de rechazo\"   \n                  href=\"\" class=\"pr-3\" routerLink=\"/SolicitationSubsidy/agent\"\n                  (click)=\"openMotiveReject(sol.motiveReject)\">\n                  {{sol.state}}\n                </a>\n              </td>  \n              <td class=\"col\" *ngIf=\"sol.state == 'Aceptado'\">\n                  <a \n                    placement=\"bottom\" \n                    ngbTooltip=\"Agregar número de expediente\" \n                    href=\"\"\n                    (click)=\"addFileNumber(sol.id)\"\n                    routerLink=\"/SolicitationSubsidy/agent\" class=\"pr-3\">\n                    {{sol.state}}\n                  </a>\n              </td>  \n              <td class=\"col\" *ngIf=\"sol.state != 'Rechazado' && sol.state != 'Aceptado'\">\n                  {{sol.state}}\n              </td>\n              <td *ngIf=\"sol.state == 'Pendiente'\" class=\"col\">\n                  <div class=\"btn-group\" \n                  role=\"group\" \n                  aria-label=\"Basic example\">\n                  <a \n                    placement=\"bottom\" \n                    ngbTooltip=\"Editar esta solicitud de viático\" \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/modify/{{sol.id}}\">\n                    <fa-icon style=\"color:gray;\" icon=\"edit\" class=\"{{sizeIcon}}\">\n                    </fa-icon>\n                  </a>\n                  <a \n                    placement=\"bottom\" \n                    ngbTooltip=\"Eliminar esta solicitud de viático\" \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\" \n                    (click)=\"openEliminar(sol)\">\n                    <fa-icon class=\"{{sizeIcon}}\" style=\"color:red;\" icon=\"trash\">\n                    </fa-icon>\n                  </a>\n                  <!--<a href=\"\" \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    (click)=\"openDetail(sol.id)\">\n                    <fa-icon style=\"color:gray;\" icon=\"info-circle\"></fa-icon>\n                  </a>-->\n                  <a\n                    placement=\"bottom\" \n                    ngbTooltip=\"Enviar solicitud al supervisor\"  \n                    href=\"\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    class=\"pr-3\" \n                    (click)=\"sendToSupervisor(sol.id)\">\n                    <fa-icon \n                      class=\"{{sizeIcon}}\" \n                      style=\"color: black;\" \n                      icon=\"envelope\">\n                    </fa-icon>\n                  </a>\n                </div>\n              </td>\n              <td *ngIf=\"sol.state == 'Rechazado'\" class=\"col\">\n                <div class=\"btn-group\" \n                  role=\"group\" \n                  aria-label=\"Basic example\">\n                  <a class=\"pr-3\" \n                    placement=\"bottom\" \n                    ngbTooltip=\"Editar esta solicitud de viático\" \n                    routerLink=\"/SolicitationSubsidy/modify/{{sol.id}}\">\n                    <fa-icon style=\"color:gray;\" \n                        icon=\"edit\" class=\"{{sizeIcon}}\"></fa-icon>\n                  </a>\n                  <a class=\"pr-3\" \n                    placement=\"bottom\" \n                    ngbTooltip=\"Eliminar esta solicitud de viático\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    (click)=\"openEliminar(sol)\">\n                    <fa-icon \n                      style=\"color:red;\"\n                      placement=\"bottom\" \n                      ngbTooltip=\"Eliminar esta solicitud de viático\" \n                      icon=\"trash\" class=\"{{sizeIcon}}\"></fa-icon>\n                  </a>\n                  <!--<a href=\"\" \n                    class=\"pr-3\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    (click)=\"openDetail(sol.id)\">\n                    <fa-icon style=\"color:gray;\" icon=\"info-circle\"></fa-icon>\n                  </a>-->\n                  <a\n                    placement=\"bottom\" \n                    ngbTooltip=\"Enviar esta solicitud de viático al supervisor\"  \n                    href=\"\" \n                    routerLink=\"/SolicitationSubsidy/agent\"\n                    class=\"pr-3\" \n                    (click)=\"sendToSupervisor(sol.id)\">\n                    <fa-icon \n                        style=\"color: black;\" \n                        icon=\"envelope\" \n                        title=\"Enviar solicitud al supervisor\" \n                        class=\"{{sizeIcon}}\">\n                    </fa-icon>\n                  </a>\n                </div>\n              </td>\n              <td *ngIf=\"sol.state == 'Aceptado'\" class=\"col\">\n                  <a \n                    placement=\"bottom\" \n                    ngbTooltip=\"Imprimir esta solicitud de viático\" \n                    href=\"\" routerLink=\"/print/{{sol.id}}\" class=\"pr-3\">\n                    <fa-icon class=\"{{sizeIcon}}\" style=\"color: black;\" icon=\"print\"></fa-icon>\n                  </a>\n              </td>\n              <td *ngIf=\"sol.state == 'Enviado'\" class=\"col\"></td>\n            </tr>\n          </tbody>\n        </table>\n    </div>       \n\n    <ngx-spinner \n      bdColor=\"rgba(51,51,51,0.8)\"\n      size=\"medium\"\n      color=\"#fff\"\n      type=\"ball-scale-multiple\">\n      <p style=\"font-size: 20px; color: white\">Enviando...</p>>\n    </ngx-spinner>\n\n    <ngb-pagination (pageChange)=\"loadPage($event)\" \n    [collectionSize]=\"col_size\" \n    [pageSize]=\"itemsPerPage\" \n    [(page)]=\"filters.page\"\n    class=\"ml-auto\"\n    aria-label=\"Default pagination\"></ngb-pagination>\n  \n"
 
 /***/ }),
 
@@ -7059,16 +7293,17 @@ module.exports = "<div class=\"container\" style=\"height: 500px;\">\n\n    <div
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AgentComponent", function() { return AgentComponent; });
-/* harmony import */ var _modals_file_number_file_number_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../modals/file-number/file-number.component */ "./src/app/modals/file-number/file-number.component.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
-/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
-/* harmony import */ var src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/modals/modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var _detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../detail/solicitation-subsidydetail.component */ "./src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component.ts");
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _modals_file_number_file_number_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../modals/file-number/file-number.component */ "./src/app/modals/file-number/file-number.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
+/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
+/* harmony import */ var src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../detail/solicitation-subsidydetail.component */ "./src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7088,13 +7323,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AgentComponent = /** @class */ (function () {
-    function AgentComponent(solicitationSubsidyservice, transportService, modalService, router, spinner) {
+    function AgentComponent(solicitationSubsidyservice, transportService, modalService, router, spinner, titleService) {
         this.solicitationSubsidyservice = solicitationSubsidyservice;
         this.transportService = transportService;
         this.modalService = modalService;
         this.router = router;
         this.spinner = spinner;
+        this.titleService = titleService;
         this.filters = {
             page: 0,
             firstName: "",
@@ -7105,6 +7342,7 @@ var AgentComponent = /** @class */ (function () {
         this.itemsPerPage = 2;
         this.error = '';
         this.sizeIcon = "fa-lg";
+        this.titleService.setTitle('Mis Solicitudes de Viático');
     }
     AgentComponent.prototype.ngOnInit = function () {
         this.getAll(this.filters);
@@ -7133,7 +7371,7 @@ var AgentComponent = /** @class */ (function () {
     //MODALS
     AgentComponent.prototype.openEliminar = function (solicitud) {
         var _this = this;
-        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_7__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_8__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -7151,7 +7389,7 @@ var AgentComponent = /** @class */ (function () {
     };
     AgentComponent.prototype.openDetail = function (id) {
         var _this = this;
-        var modalRef = this.modalService.open(_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_8__["SolicitationSubsidydetailComponent"], { size: "lg" });
+        var modalRef = this.modalService.open(_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_9__["SolicitationSubsidydetailComponent"], { size: "lg" });
         modalRef.componentInstance.idModal = id;
         modalRef.result.then(function () {
             _this.getAll(_this.filters);
@@ -7161,7 +7399,7 @@ var AgentComponent = /** @class */ (function () {
     };
     AgentComponent.prototype.openMotiveReject = function (motiveReject) {
         var _this = this;
-        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_7__["NgbdModalContent"], { size: "lg" });
+        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_8__["NgbdModalContent"], { size: "lg" });
         modalRef.componentInstance.Contenido = motiveReject;
         modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
         modalRef.componentInstance.MsgClose = "Cerrar";
@@ -7175,7 +7413,7 @@ var AgentComponent = /** @class */ (function () {
     };
     AgentComponent.prototype.sendToSupervisor = function (id) {
         var _this = this;
-        var newSolicitation = new src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_6__["SolicitationIdDto"]();
+        var newSolicitation = new src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_7__["SolicitationIdDto"]();
         newSolicitation.id = id;
         this.spinner.show();
         this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
@@ -7190,7 +7428,7 @@ var AgentComponent = /** @class */ (function () {
     };
     AgentComponent.prototype.addFileNumber = function (solicitationId) {
         var _this = this;
-        var modal = this.modalService.open(_modals_file_number_file_number_component__WEBPACK_IMPORTED_MODULE_0__["FileNumberComponent"], { size: "lg", centered: true });
+        var modal = this.modalService.open(_modals_file_number_file_number_component__WEBPACK_IMPORTED_MODULE_1__["FileNumberComponent"], { size: "lg", centered: true });
         modal.componentInstance.solicitatioId = solicitationId;
         modal.result.then(function () {
             _this.getAll(_this.filters);
@@ -7199,16 +7437,17 @@ var AgentComponent = /** @class */ (function () {
         });
     };
     AgentComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-agent',
             template: __webpack_require__(/*! ./agent.component.html */ "./src/app/solicitation-subsidy/agent/agent.component.html"),
             styles: [__webpack_require__(/*! ./agent.component.css */ "./src/app/solicitation-subsidy/agent/agent.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_2__["SolicitationSubsidyService"],
-            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_3__["TransportService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_9__["NgxSpinnerService"]])
+        __metadata("design:paramtypes", [src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_3__["SolicitationSubsidyService"],
+            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_4__["TransportService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_10__["NgxSpinnerService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], AgentComponent);
     return AgentComponent;
 }());
@@ -7235,7 +7474,7 @@ module.exports = ".small{\r\n    font-size: 12px;\r\n}\r\n\r\n.cardInsideTd {\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a class=\"btn btn-primary mb-1 ml-1\" href=\"\" routerLink=\"/SolicitationSubsidy/agent\">\n    <fa-icon title=\"volver a menú\" icon=\"angle-left\"></fa-icon>\n</a>\n\n<div class=\"card mt-1\">\n    <h5 *ngIf=\"!id\" class=\"card-header\">Nueva Solicitud</h5>\n    <h5 *ngIf=\"id\" class=\"card-header\">Modificar</h5>\n    <div class=\"card-body\">\n        <form (ngSubmit)=\"onSubmit()\" #solicitationSubsidy=\"ngForm\">\n                <div class=\"navar navbar-collapse\"> \n                    <label for=\"\">Total</label>\n                    <ul class=\"navbar-nav ml-auto\">\n                        <li>\n                            <div class=\"form-inline my-2 my-lg-0\">\n                                <input \n                                    type=\"text\" \n                                    class=\"form-control text-right\" \n                                    name=\"total\"\n                                    disabled \n                                    #total=\"ngModel\" \n                                    [ngModel]=\"model.total | currency\" \n                                    (ngChange)=\"model.total=$event\">\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n        \n                <div class=\"form-row\">\n                        <div class=\"form-group pt-1 col\">\n                                <label for=\"\">Motivo</label>\n                                <textarea required class=\"form-control textareaResize\" #motive=\"ngModel\"\n                                [ngClass]=\"{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}\"\n                                name=\"motive\" [(ngModel)]=\"model.motive\">\n                                </textarea>\n        \n                                <div *ngIf=\"motive.invalid && (motive.dirty || motive.touched)\" class=\"alert alert-danger mt-1\">\n                                    <div *ngIf=\"motive.errors.required\">\n                                        Campo requerido.\n                                    </div>\n                                </div>\n                        </div>\n                </div>\n        \n                <div class=\"form-row mt-1 mb-1\">\n                    <button type=\"button\" class=\"btn btn-success small\" (click)=\"AddDestiny()\">\n                            <fa-icon title=\"Agregar destino\" icon=\"plus\"></fa-icon> Destino\n                    </button> \n                    <a (click)=\"deleteAllDestinies()\" \n                        *ngIf=\"model.destinies.length > 0\"\n                        class=\"btn btn-danger ml-1 text-white small\">\n                        <fa-icon title=\"Eliminar todos los destinos\" icon=\"trash\"></fa-icon> Eliminar Todos\n                    </a>\n        \n                    <button\n                    class=\"btn btn-default ml-auto mb-1 small\"\n                    type=\"button\" \n                    [hidden]=\"!model.destinies\"\n                    (click)=\"onChangeColapse()\"\n                    *ngIf=\"model.destinies.length > 0\"\n                    [attr.aria-expanded]=\"!isCollapsedDestiny\" \n                    aria-controls=\"collapseDestiny\"\n                    >\n                        <fa-icon title=\"Ocultar todos los destinos\" icon=\"{{verOcultarIconDestiny}}\"></fa-icon>\n                        {{verOcultarTextDestiny}} ({{model.destinies.length}})\n                </button>\n                </div>\n        \n                <!--Destino-->\n                <table *ngIf=\"model.destinies.length > 0\" class=\"table table-sm\">\n                    <thead>\n                        <tr>\n                            <th scope=\"col\">Fecha</th>\n                            <th scope=\"col\">Destino</th>\n                            <th scope=\"col\">Categoría</th>\n                            <th scope=\"col\">Transporte</th>\n                            <th scope=\"col\">Dias</th>\n                            <th scope=\"col\">Precio/dia</th>\n                            <th scope=\"col\">Cod. Liq.</th>\n                            <th scope=\"col\">Subtotal</th>\n                            <th scope=\"col\"></th>\n                        </tr>  \n                    </thead>\n                    <tbody id=\"collapseDestiny\" [ngbCollapse]=\"isCollapsedDestiny\" *ngFor=\"let destiny of model.destinies\">\n                        <tr>\n                            <td>\n                                {{destiny.startDate.day}}/{{destiny.startDate.month}}/{{destiny.startDate.year}}\n                            </td>\n        \n                            <td class=\"small\">\n                                <span *ngIf=\"destiny.countryId\">{{destiny.countryName}} </span> \n                                <span *ngIf=\"!destiny.countryId\">{{destiny.provinceName}} - {{destiny.cityName}} </span>\n                                <span class=\"mr-1 cardInsideTd\" *ngFor=\"let c of destiny.supplementaryCities\"> \n                                    <span *ngIf=\"!destiny.countryId\">, {{ c.name }}</span>\n                                </span>\n                            </td>\n                            <td>\n                                {{destiny.categoryName}}\n                            </td>\n                            <td>\n                                {{destiny.transportModel}}-{{destiny.transportBrand}}\n                            </td>\n                            <td>\n                                {{destiny.days}}\n                            </td>\n                            <td>\n                                {{destiny.advanceCategory}}\n                            </td>\n                            <td>\n                                {{destiny.percentageCodeLiquidation}}\n                            </td>\n                            <td>\n                                {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}\n                            </td>    \n                            <td>\n                                <a class=\"btn btn-danger text-white small\" (click)=\"removeDestiny(destiny)\">\n                                    <fa-icon title=\"Eliminar destino\" icon=\"trash\"></fa-icon>\n                                </a>\n                            </td>\n                        </tr>\n                    </tbody>\n                </table>\n                <div class=\"form-row mt-1 mb-1\">\n                        <a (click)=\"openAddNewConcept()\" class=\"btn btn-success mb-1 text-white small\">\n                            <fa-icon title=\"Agregar un nuevo gasto\" icon=\"plus\"></fa-icon> Concepto de Gasto\n                        </a>\n            \n                        <a (click)=\"deleteAllConcepts()\" \n                            *ngIf=\"model.expenditures.length > 0\"\n                            class=\"btn btn-danger ml-1 mb-1 text-white small\">\n                                <fa-icon title=\"Eliminar todos los gastos\" icon=\"trash\"></fa-icon> Eliminar Todos\n                        </a>\n                        <!--Concepto de Gasto-->\n                        <button \n                            type=\"button\" \n                            type=\"button\"\n                            class=\"btn btn-default ml-auto mb-1 small\" \n                            [hidden]=\"!model.expenditures\"\n                            (click)=\"changeCollapseExpenditure()\"\n                            *ngIf=\"model.expenditures.length > 0\"\n                            [attr.aria-expanded]=\"!isCollapsedExpenditure\"\n                            aria-controls=\"collapseExpenditure\">\n                            <fa-icon title=\"Ocultar todos los gastos\" icon=\"{{verOcultarIconExpenditure}}\"></fa-icon>\n                                {{verOcultarTextExpenditure}}\n                                ({{model.expenditures.length}})\n                        </button>\n                </div>\n\n                <table *ngIf=\"model.expenditures.length > 0\" class=\"table table-sm\">\n                        <thead>\n                            <tr class=\"form-row\">\n                                <th class=\"col-2\">Concepto</th>\n                                <th class=\"col-7\">Descripción</th>\n                                <th class=\"col-2\">Importe</th>\n                                <th class=\"col-1\"></th>\n                            </tr>\n                        </thead>\n                        <tbody id=\"collapseExpenditure\" [ngbCollapse]=\"isCollapsedExpenditure\" \n                                *ngFor=\"let modelExp of model.expenditures\" class=\"collapse show\">\n                            <tr class=\"form-row\">\n                                <td class=\"col-2\">\n                                    {{modelExp.expenditureTypeName}}\n                                </td>    <!-- filas para agregar-->\n                                <td class=\"col-7\">\n                                    <div style=\"white-space : normal;\">\n                                        {{modelExp.description}}\n                                    </div>\n                                </td>\n                                <td class=\"col-2\">\n                                    {{modelExp.amount | currency}}\n                                </td>\n                                <td class=\"col-1\">\n                                    <a class=\"btn btn-danger text-white small\" (click)=\"removeExpenditure(modelExp)\">\n                                        <fa-icon title=\"Eliminar gasto\" icon=\"trash\"></fa-icon>\n                                    </a>\n                                </td>\n                            </tr>\n                        </tbody>\n                </table> \n\n                \n                <div class=\"form-row float-right\">\n                    <button [disabled]=\"!solicitationSubsidy.valid\" class=\"btn btn-success small\">\n                        <fa-icon title=\"Guardar solicitud\" icon=\"save\"></fa-icon> Guardar\n                    </button>\n                </div>\n        \n        \n            </form>\n            <div class=\"alert alert-danger ml-4 mr-4\" *ngIf=\"msj\">\n                <ul>\n                    <li>{{msj}}</li>\n                </ul>\n            </div>\n            <div class=\"alert alert-danger ml-4 mr-4\" *ngIf=\"msjExito\">\n                <ul>\n                    <li>\n                        {{msjExito}}\n                    </li>\n                </ul>\n            </div>\n        \n            <div *ngIf=\"solicitationSubsidy.form.invalid && (solicitationSubsidy.dirty || solicitationSubsidy.touched)\" \n                class=\"alert alert-danger mt-5\">\n                <div>\n                        Hay Campos erroneos en el formulario, verifiquelos\n                </div>\n            </div>    \n    </div>\n</div>\n\n"
+module.exports = "<a  placement=\"bottom\" ngbTooltip=\"Volver al listado de solicitudes de viáticos\" \n    class=\"btn btn-primary mb-1 ml-1\" href=\"\" routerLink=\"/SolicitationSubsidy/agent\">\n    <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>\n</a>\n\n<div class=\"card mt-1\">\n    <h5 *ngIf=\"!id\" class=\"card-header\">Nueva Solicitud</h5>\n    <h5 *ngIf=\"id\" class=\"card-header\">Modificar</h5>\n    <div class=\"card-body\">\n        <form (ngSubmit)=\"onSubmit()\" #solicitationSubsidy=\"ngForm\">\n                <div class=\"navar navbar-collapse\"> \n                    <label for=\"\">Total</label>\n                    <ul class=\"navbar-nav ml-auto\">\n                        <li>\n                            <div class=\"form-inline my-2 my-lg-0\">\n                                <input \n                                    type=\"text\" \n                                    class=\"form-control text-right\" \n                                    name=\"total\"\n                                    disabled \n                                    #total=\"ngModel\" \n                                    [ngModel]=\"model.total | currency\" \n                                    (ngChange)=\"model.total=$event\">\n                            </div>\n                        </li>\n                    </ul>\n                </div>\n        \n                <div class=\"form-row\">\n                        <div class=\"form-group pt-1 col\">\n                                <label for=\"\">Motivo</label>\n                                <textarea required class=\"form-control textareaResize\" #motive=\"ngModel\"\n                                [ngClass]=\"{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}\"\n                                name=\"motive\" [(ngModel)]=\"model.motive\">\n                                </textarea>\n        \n                                <div *ngIf=\"motive.invalid && (motive.dirty || motive.touched)\" class=\"alert alert-danger mt-1\">\n                                    <div *ngIf=\"motive.errors.required\">\n                                        Campo requerido.\n                                    </div>\n                                </div>\n                        </div>\n                </div>\n        \n                <div class=\"form-row mt-1 mb-1\">\n                    <button placement=\"bottom\" ngbTooltip=\"Agregar un nuevo destino\" \n                        type=\"button\" class=\"btn btn-success small\" (click)=\"AddDestiny()\">\n                            <fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Destino\n                    </button> \n                    <a (click)=\"deleteAllDestinies()\" \n                        *ngIf=\"model.destinies.length > 0\"\n                        class=\"btn btn-danger ml-1 text-white small\"\n                        placement=\"bottom\" ngbTooltip=\"Eliminar todos los destinos\">\n                        <fa-icon class=\"fa-lg\" icon=\"trash\"></fa-icon> Eliminar Todos\n                    </a>\n        \n                    <button\n                    class=\"btn btn-default ml-auto mb-1 small\"\n                    type=\"button\" \n                    [hidden]=\"!model.destinies\"\n                    (click)=\"onChangeColapse()\"\n                    *ngIf=\"model.destinies.length > 0\"\n                    [attr.aria-expanded]=\"!isCollapsedDestiny\" \n                    aria-controls=\"collapseDestiny\"\n                    placement=\"bottom\" ngbTooltip=\"Ocultar todos los destinos\" \n                    >\n                        <fa-icon class=\"fa-lg\" icon=\"{{verOcultarIconDestiny}}\"></fa-icon>\n                        {{verOcultarTextDestiny}} ({{model.destinies.length}})\n                </button>\n                </div>\n        \n                <!--Destino-->\n                <table *ngIf=\"model.destinies.length > 0\" class=\"table table-sm\">\n                    <thead>\n                        <tr>\n                            <th scope=\"col\">Fecha</th>\n                            <th scope=\"col\">Destino</th>\n                            <th scope=\"col\">Categoría</th>\n                            <th scope=\"col\">Transporte</th>\n                            <th scope=\"col\">Dias</th>\n                            <th scope=\"col\">Precio/dia</th>\n                            <th scope=\"col\">Cod. Liq.</th>\n                            <th scope=\"col\">Subtotal</th>\n                            <th scope=\"col\"></th>\n                        </tr>  \n                    </thead>\n                    <tbody id=\"collapseDestiny\" [ngbCollapse]=\"isCollapsedDestiny\" *ngFor=\"let destiny of model.destinies\">\n                        <tr>\n                            <td>\n                                {{destiny.startDate.day}}/{{destiny.startDate.month}}/{{destiny.startDate.year}}\n                            </td>\n        \n                            <td class=\"small\">\n                                <span *ngIf=\"destiny.countryId\">{{destiny.countryName}} </span> \n                                <span *ngIf=\"!destiny.countryId\">{{destiny.provinceName}} - {{destiny.cityName}} </span>\n                                <span class=\"mr-1 cardInsideTd\" *ngFor=\"let c of destiny.supplementaryCities\"> \n                                    <span *ngIf=\"!destiny.countryId\">, {{ c.name }}</span>\n                                </span>\n                            </td>\n                            <td>\n                                {{destiny.categoryName}}\n                            </td>\n                            <td>\n                                {{destiny.transportModel}}-{{destiny.transportBrand}}\n                            </td>\n                            <td>\n                                {{destiny.days}}\n                            </td>\n                            <td>\n                                {{destiny.advanceCategory}}\n                            </td>\n                            <td>\n                                {{destiny.percentageCodeLiquidation}}\n                            </td>\n                            <td>\n                                {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}\n                            </td>    \n                            <td>\n                                <a  placement=\"bottom\" ngbTooltip=\"Eliminar este destino\" \n                                    class=\"btn btn-danger text-white small\" (click)=\"removeDestiny(destiny)\">\n                                    <fa-icon class=\"fa-lg\" icon=\"trash\"></fa-icon>\n                                </a>\n                            </td>\n                        </tr>\n                    </tbody>\n                </table>\n                <div class=\"alert alert-danger mt-1\" *ngIf=\"msjWhenUserTryDeleteLastDestiny\">\n                        <ul>\n                            <li style=\"list-style: none\" class=\"text-center mt-2\">\n                                {{msjWhenUserTryDeleteLastDestiny}}\n                            </li>\n                        </ul>\n                </div>\n                <div class=\"form-row mt-1 mb-1\">\n                        <a  placement=\"bottom\" ngbTooltip=\"Agregar un nuevo concepto gasto\"\n                            (click)=\"openAddNewConcept()\" class=\"btn btn-success mb-1 text-white small\">\n                            <fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Concepto de Gasto\n                        </a>\n            \n                        <a  placement=\"bottom\" ngbTooltip=\"Eliminar todos los conceptos de gasto\" \n                            (click)=\"deleteAllConcepts()\" \n                            *ngIf=\"model.expenditures.length > 0\"\n                            class=\"btn btn-danger ml-1 mb-1 text-white small\">\n                            <fa-icon class=\"fa-lg\" icon=\"trash\"></fa-icon> Eliminar Todos\n                        </a>\n                        <!--Concepto de Gasto-->\n                        <button \n                            placement=\"bottom\" \n                            ngbTooltip=\"Ocultar todos los gastos\" \n                            type=\"button\" \n                            class=\"btn btn-default ml-auto mb-1 small\" \n                            [hidden]=\"!model.expenditures\"\n                            (click)=\"changeCollapseExpenditure()\"\n                            *ngIf=\"model.expenditures.length > 0\"\n                            [attr.aria-expanded]=\"!isCollapsedExpenditure\"\n                            aria-controls=\"collapseExpenditure\">\n                            <fa-icon class=\"fa-lg\" icon=\"{{verOcultarIconExpenditure}}\"></fa-icon>\n                                {{verOcultarTextExpenditure}}\n                                ({{model.expenditures.length}})\n                        </button>\n                </div>\n\n                <table *ngIf=\"model.expenditures.length > 0\" class=\"table table-sm\">\n                        <thead>\n                            <tr class=\"form-row\">\n                                <th class=\"col-2\">Concepto</th>\n                                <th class=\"col-7\">Descripción</th>\n                                <th class=\"col-2\">Importe</th>\n                                <th class=\"col-1\"></th>\n                            </tr>\n                        </thead>\n                        <tbody id=\"collapseExpenditure\" [ngbCollapse]=\"isCollapsedExpenditure\" \n                                *ngFor=\"let modelExp of model.expenditures\" class=\"collapse show\">\n                            <tr class=\"form-row\">\n                                <td class=\"col-2\">\n                                    {{modelExp.expenditureTypeName}}\n                                </td>    <!-- filas para agregar-->\n                                <td class=\"col-7\">\n                                    <div style=\"white-space : normal;\">\n                                        {{modelExp.description}}\n                                    </div>\n                                </td>\n                                <td class=\"col-2\">\n                                    {{modelExp.amount | currency}}\n                                </td>\n                                <td class=\"col-1\">\n                                    <a  placement=\"bottom\" ngbTooltip=\"Eliminar este concepto de gasto\" \n                                        class=\"btn btn-danger text-white small\" \n                                        (click)=\"removeExpenditure(modelExp)\">\n                                        <fa-icon class=\"fa-lg\" icon=\"trash\"></fa-icon>\n                                    </a>\n                                </td>\n                            </tr>\n                        </tbody>\n                </table> \n\n                \n                <div class=\"form-row float-right\">\n                    <button \n                        placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                        [disabled]=\"!solicitationSubsidy.valid\" class=\"btn btn-success small\">\n                        <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                    </button>\n                </div>\n        \n        \n            </form>\n            <div class=\"alert alert-danger ml-4 mr-4\" *ngIf=\"msj\">\n                <ul>\n                    <li>{{msj}}</li>\n                </ul>\n            </div>\n            <div class=\"alert alert-danger ml-4 mr-4\" *ngIf=\"msjExito\">\n                <ul>\n                    <li>\n                        {{msjExito}}\n                    </li>\n                </ul>\n            </div>\n        \n            <div *ngIf=\"solicitationSubsidy.form.invalid && (solicitationSubsidy.dirty || solicitationSubsidy.touched)\" \n                class=\"alert alert-danger mt-5\">\n                <div>\n                        Hay Campos erroneos en el formulario, verifiquelos\n                </div>\n            </div>    \n    </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -7249,23 +7488,24 @@ module.exports = "<a class=\"btn btn-primary mb-1 ml-1\" href=\"\" routerLink=\"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateSolicitationComponent", function() { return CreateSolicitationComponent; });
-/* harmony import */ var _services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
-/* harmony import */ var _services_code_liquidation_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/code-liquidation.service */ "./src/app/_services/code-liquidation.service.ts");
-/* harmony import */ var _services_country_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/country.service */ "./src/app/_services/country.service.ts");
-/* harmony import */ var _modals_add_destiny_add_destiny_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../modals/add-destiny/add-destiny.component */ "./src/app/modals/add-destiny/add-destiny.component.ts");
-/* harmony import */ var _modals_add_new_expenditure_add_new_expenditure_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../modals/add-new-expenditure/add-new-expenditure.component */ "./src/app/modals/add-new-expenditure/add-new-expenditure.component.ts");
-/* harmony import */ var _services_expenditure_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
-/* harmony import */ var _services_motive_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../_services/motive.service */ "./src/app/_services/motive.service.ts");
-/* harmony import */ var _services_city_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../_services/city.service */ "./src/app/_services/city.service.ts");
-/* harmony import */ var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_services/category.service */ "./src/app/_services/category.service.ts");
-/* harmony import */ var _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
-/* harmony import */ var src_app_services_province_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/_services/province.service */ "./src/app/_services/province.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var src_app_services_destiny_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/_services/destiny.service */ "./src/app/_services/destiny.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_expenditures_user_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/_services/expenditures-user.service */ "./src/app/_services/expenditures-user.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
+/* harmony import */ var _services_code_liquidation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/code-liquidation.service */ "./src/app/_services/code-liquidation.service.ts");
+/* harmony import */ var _services_country_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_services/country.service */ "./src/app/_services/country.service.ts");
+/* harmony import */ var _modals_add_destiny_add_destiny_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../modals/add-destiny/add-destiny.component */ "./src/app/modals/add-destiny/add-destiny.component.ts");
+/* harmony import */ var _modals_add_new_expenditure_add_new_expenditure_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../modals/add-new-expenditure/add-new-expenditure.component */ "./src/app/modals/add-new-expenditure/add-new-expenditure.component.ts");
+/* harmony import */ var _services_expenditure_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../_services/expenditure.service */ "./src/app/_services/expenditure.service.ts");
+/* harmony import */ var _services_motive_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../_services/motive.service */ "./src/app/_services/motive.service.ts");
+/* harmony import */ var _services_city_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../_services/city.service */ "./src/app/_services/city.service.ts");
+/* harmony import */ var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/_services/category.service */ "./src/app/_services/category.service.ts");
+/* harmony import */ var _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
+/* harmony import */ var src_app_services_province_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/_services/province.service */ "./src/app/_services/province.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var src_app_services_destiny_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! src/app/_services/destiny.service */ "./src/app/_services/destiny.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_expenditures_user_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/_services/expenditures-user.service */ "./src/app/_services/expenditures-user.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7292,8 +7532,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateSolicitationComponent = /** @class */ (function () {
-    function CreateSolicitationComponent(route, router, motiveService, expenditureService, modalService, destinyService, provinceService, cityService, categoryService, transportService, countryService, codeLiquidationService, solicitationSubsidyService, expenditureAgentService) {
+    function CreateSolicitationComponent(route, router, motiveService, expenditureService, modalService, destinyService, provinceService, cityService, categoryService, transportService, countryService, codeLiquidationService, solicitationSubsidyService, expenditureAgentService, titleService) {
         this.route = route;
         this.router = router;
         this.motiveService = motiveService;
@@ -7308,6 +7549,7 @@ var CreateSolicitationComponent = /** @class */ (function () {
         this.codeLiquidationService = codeLiquidationService;
         this.solicitationSubsidyService = solicitationSubsidyService;
         this.expenditureAgentService = expenditureAgentService;
+        this.titleService = titleService;
         this.isCollapsedDestiny = false;
         this.categories = [];
         this.transports = [];
@@ -7316,7 +7558,7 @@ var CreateSolicitationComponent = /** @class */ (function () {
         this._disabled = false;
         this.motives = [];
         this.destinies = [];
-        this.model = new _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_9__["CreateSolicitationSubsidyDto"];
+        this.model = new _models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_10__["CreateSolicitationSubsidyDto"];
         this.radioButtonRequired = true;
         this.verOcultarIconDestiny = "arrow-circle-up";
         this.verOcultarTextDestiny = "Ocultar";
@@ -7327,9 +7569,11 @@ var CreateSolicitationComponent = /** @class */ (function () {
         this.citiesModify = [];
         this.msj = '';
         this.msjExito = '';
+        this.msjWhenUserTryDeleteLastDestiny = '';
     }
     CreateSolicitationComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Crear Solicitud');
         this.route.params.subscribe(function (x) {
             _this.id = x.id;
         });
@@ -7344,6 +7588,7 @@ var CreateSolicitationComponent = /** @class */ (function () {
         this.allCountries();
         this.allCodeLiquidation();
         if (this.id) {
+            this.titleService.setTitle('Modificar Solicitud');
             this.solicitationSubsidyService.getByIdSolicitation(this.id)
                 .subscribe(function (x) {
                 _this.model = x;
@@ -7444,8 +7689,7 @@ var CreateSolicitationComponent = /** @class */ (function () {
         var category = this.categories.find(function (x) { return x.id == destiny.categoryId; });
         minus = minus + (codLiq.percentage * category.advance);
         if (index > -1) {
-            this.deleteFromDatabaseDestinies(destiny.id);
-            this.model.destinies.splice(index, 1);
+            this.deleteFromDatabaseDestinies(destiny.id, index);
         }
         this.totalResultExpenditure();
     };
@@ -7477,8 +7721,7 @@ var CreateSolicitationComponent = /** @class */ (function () {
             minus = minus + (codLiq.percentage * category.advance);
             var indexDeleteAll = this_1.model.destinies.indexOf(array[i], 0);
             if (indexDeleteAll > -1) {
-                this_1.deleteFromDatabaseDestinies(array[i].id);
-                this_1.model.destinies.splice(indexDeleteAll, 1);
+                this_1.deleteFromDatabaseDestinies(array[i].id, indexDeleteAll);
             }
         };
         var this_1 = this;
@@ -7490,13 +7733,13 @@ var CreateSolicitationComponent = /** @class */ (function () {
     //MODALS
     CreateSolicitationComponent.prototype.openAddNewConcept = function () {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_add_new_expenditure_add_new_expenditure_component__WEBPACK_IMPORTED_MODULE_4__["AddNewExpenditureComponent"]);
+        var modalRef = this.modalService.open(_modals_add_new_expenditure_add_new_expenditure_component__WEBPACK_IMPORTED_MODULE_5__["AddNewExpenditureComponent"]);
         if (this.model.expenditures === undefined) {
             this.model.expenditures = [];
         }
         var listExpenditures = this.model.expenditures;
         modalRef.componentInstance.expendituresAdded = listExpenditures;
-        modalRef.result.then(function (x) {
+        modalRef.result.then(function () {
             _this.totalResultExpenditure();
         }, function (j) {
             console.log(j);
@@ -7504,13 +7747,13 @@ var CreateSolicitationComponent = /** @class */ (function () {
     };
     CreateSolicitationComponent.prototype.AddDestiny = function () {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_add_destiny_add_destiny_component__WEBPACK_IMPORTED_MODULE_3__["AddDestinyComponent"], { size: 'lg' });
+        var modalRef = this.modalService.open(_modals_add_destiny_add_destiny_component__WEBPACK_IMPORTED_MODULE_4__["AddDestinyComponent"], { size: 'lg' });
         if (this.model.destinies === undefined) {
             this.model.destinies = [];
         }
         var listDestinies = this.model.destinies;
         modalRef.componentInstance.destiniesAdded = listDestinies;
-        modalRef.result.then(function (x) { return _this.totalResultExpenditure(); }, function (j) {
+        modalRef.result.then(function () { return _this.totalResultExpenditure(); }, function (j) {
             console.log(j);
         });
     };
@@ -7525,9 +7768,17 @@ var CreateSolicitationComponent = /** @class */ (function () {
         this.expenditureAgentService.delete(id)
             .subscribe(function () { return []; });
     };
-    CreateSolicitationComponent.prototype.deleteFromDatabaseDestinies = function (id) {
+    CreateSolicitationComponent.prototype.deleteFromDatabaseDestinies = function (id, index) {
+        var _this = this;
         this.destinyService.delete(id)
-            .subscribe(function () { return []; });
+            .subscribe(function (success) {
+            _this.model.destinies.splice(index, 1);
+        }, function (e) {
+            var errors = e.error.notifications;
+            errors.forEach(function (element) {
+                _this.msjWhenUserTryDeleteLastDestiny = element.value;
+            });
+        });
     };
     CreateSolicitationComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -7578,25 +7829,26 @@ var CreateSolicitationComponent = /** @class */ (function () {
         this.model.total = resultExpenditure + resultDestiny;
     };
     CreateSolicitationComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_10__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_11__["Component"])({
             selector: 'app-create-solicitation',
             template: __webpack_require__(/*! ./create-solicitation.component.html */ "./src/app/solicitation-subsidy/create/create-solicitation.component.html"),
             styles: [__webpack_require__(/*! ./create-solicitation.component.css */ "./src/app/solicitation-subsidy/create/create-solicitation.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_15__["ActivatedRoute"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_15__["Router"],
-            _services_motive_service__WEBPACK_IMPORTED_MODULE_6__["MotiveService"],
-            _services_expenditure_service__WEBPACK_IMPORTED_MODULE_5__["ExpenditureService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_13__["NgbModal"],
-            src_app_services_destiny_service__WEBPACK_IMPORTED_MODULE_14__["DestinyService"],
-            src_app_services_province_service__WEBPACK_IMPORTED_MODULE_12__["ProvinceService"],
-            _services_city_service__WEBPACK_IMPORTED_MODULE_7__["CityService"],
-            src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__["CategoryService"],
-            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_11__["TransportService"],
-            _services_country_service__WEBPACK_IMPORTED_MODULE_2__["CountryService"],
-            _services_code_liquidation_service__WEBPACK_IMPORTED_MODULE_1__["CodeLiquidationService"],
-            _services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_0__["SolicitationSubsidyService"],
-            src_app_services_expenditures_user_service__WEBPACK_IMPORTED_MODULE_16__["ExpendituresUserService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_16__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_16__["Router"],
+            _services_motive_service__WEBPACK_IMPORTED_MODULE_7__["MotiveService"],
+            _services_expenditure_service__WEBPACK_IMPORTED_MODULE_6__["ExpenditureService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__["NgbModal"],
+            src_app_services_destiny_service__WEBPACK_IMPORTED_MODULE_15__["DestinyService"],
+            src_app_services_province_service__WEBPACK_IMPORTED_MODULE_13__["ProvinceService"],
+            _services_city_service__WEBPACK_IMPORTED_MODULE_8__["CityService"],
+            src_app_services_category_service__WEBPACK_IMPORTED_MODULE_9__["CategoryService"],
+            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_12__["TransportService"],
+            _services_country_service__WEBPACK_IMPORTED_MODULE_3__["CountryService"],
+            _services_code_liquidation_service__WEBPACK_IMPORTED_MODULE_2__["CodeLiquidationService"],
+            _services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_1__["SolicitationSubsidyService"],
+            src_app_services_expenditures_user_service__WEBPACK_IMPORTED_MODULE_17__["ExpendituresUserService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], CreateSolicitationComponent);
     return CreateSolicitationComponent;
 }());
@@ -7623,7 +7875,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"container-pdf\" class=\"container small\">\r\n    <div class=\"modal-header\">\r\n      <h4 class=\"modal-title pull-left\">Detalle de solicitud de viatico</h4><br>\r\n      <button (click)=\"activeModal.dismiss('Close click')\" type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Apellido, Nombre : {{lastName}}, {{firstName}} <br> C.U.I.L : {{prefixCuil}}-{{dni}}-{{suffixCuil}}</h5>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n          <div class=\"form-row\">\r\n              <label for=\"\">Motivo</label>\r\n              <textarea \r\n                rows=\"10\" \r\n                style=\"height: 100px; resize: none;\" \r\n                class=\"h-45 form-control\" \r\n                value=\"{{model.motive}}\"\r\n                disabled>\r\n              \r\n              </textarea>\r\n          </div>\r\n\r\n          <div class=\"form-row\">\r\n              <label for=\"\">Gastos</label>\r\n              <table class=\"table table-striped\">\r\n                <thead>\r\n                  <tr class=\"form-row\">\r\n                    <th class=\"col-2\" style=\"padding : 0px;\">Concepto</th>\r\n                    <th class=\"col\"style=\"padding : 0px;\">Descripción</th>\r\n                    <th class=\"col-2\"style=\"padding : 0px;\">Importe</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody>\r\n                  <tr class=\"form-row\" *ngFor=\"let exp of model.expenditures\">\r\n                    <td class=\"col-2\" style=\"padding : 1px;\">\r\n                      {{exp.expenditureTypeName}}\r\n                    </td>\r\n                    <td class=\"col\" style=\"padding : 1px;\">\r\n                      {{exp.description}}\r\n                    </td>\r\n                    <td class=\"col-2 text-right\" style=\"padding : 1px;\">\r\n                      {{exp.amount | currency}}\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n          </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n          <div class=\"form-row\">\r\n              <label for=\"\">Destinos</label>\r\n              <table class=\"table table-striped\" style=\"padding :0;\">\r\n                <thead>\r\n                  <tr class=\"text-center\" >\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Fecha</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Destino</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Categoría</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Transporte</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Dias</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Precio/Dia</th>                      \r\n                      <th scope=\"col\" style=\"padding : 0px;\">Cod. Liq.</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Subtotal</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody>\r\n                  <tr *ngFor=\"let des of model.destinies\">\r\n                    <td style=\"padding : 1px;\">\r\n                        {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}\r\n                    </td>\r\n                    <td style=\"padding : 1px;\">\r\n                        <span *ngIf=\"des.countryId\">{{des.countryName}} </span> \r\n                        <span *ngIf=\"!des.countryId\">{{des.provinceName}} - {{des.cityName}} </span>\r\n                        <span class=\"mr-1 cardInsideTd\" *ngFor=\"let c of des.supplementaryCities\"> \r\n                            <span *ngIf=\"!des.countryId\">, {{ c.name }}</span>\r\n                        </span>\r\n                    </td>\r\n                    <td style=\"padding : 1px;\">\r\n                        {{des.categoryName}}\r\n                    </td>\r\n                    <td style=\"padding : 1px;\">\r\n                        {{des.transportModel}} - {{des.transportBrand}}\r\n                    </td>\r\n                    <td class=\"text-center\" style=\"padding : 1px;\">\r\n                        {{des.days}}\r\n                    </td>\r\n                    <td class=\"text-right\" style=\"padding : 1px;\">\r\n                        {{des.advanceCategory | currency}}\r\n                    </td>\r\n                    <td class=\"text-center\" style=\"padding : 1px;\">\r\n                        {{des.percentageCodeLiquidation}}\r\n                    </td>\r\n                    <td class=\"text-right\" style=\"padding : 1px;\">\r\n                        {{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}\r\n                    </td> \r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n          </div>  \r\n          \r\n    </div>\r\n\r\n    <div class=\"modal-body\">\r\n        <div class=\"form-row\">\r\n            <div class=\"col-5 form-inline ml-auto\">\r\n                <label for=\"\" class=\"col-2\">Total</label>\r\n                <input type=\"text\" disabled value=\"{{model.total | currency}}\" \r\n                class=\"col form-control text-right small\">\r\n            </div>\r\n          </div>\r\n    </div>\r\n</div>\r\n\r\n  <div class=\"modal-footer mt-6\">\r\n    <div class=\"mr-auto\">\r\n        <button type=\"button\" class=\"btn btn-success small\">Aceptar</button>\r\n    </div>\r\n    <div class=\"ml-auto\">\r\n        <button type=\"submit\" (click)=\"AddMotive('reject','Motivo de Rechazo')\" class=\"btn btn-danger small\">Rechazar</button>\r\n    </div>\r\n    <!--<div col=\"col ml-auto\">\r\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"activeModal.dismiss('Close click')\">Cerrar</button>\r\n    </div>-->\r\n  </div> \r\n\r\n\r\n\r\n"
+module.exports = "<div id=\"container-pdf\" class=\"container small\">\r\n    <div class=\"modal-header\">\r\n      <h4 class=\"modal-title pull-left\">Detalle de solicitud de viatico</h4><br>\r\n      <button (click)=\"activeModal.dismiss('Close click')\" type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\">Apellido, Nombre : {{lastName}}, {{firstName}} <br> C.U.I.L : {{prefixCuil}}-{{dni}}-{{suffixCuil}}</h5>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n          <div class=\"form-row\">\r\n              <label for=\"\">Motivo</label>\r\n              <textarea \r\n                rows=\"10\" \r\n                style=\"height: 100px; resize: none;\" \r\n                class=\"h-45 form-control\" \r\n                value=\"{{model.motive}}\"\r\n                disabled>\r\n              \r\n              </textarea>\r\n          </div>\r\n\r\n          <div class=\"form-row\">\r\n              <label for=\"\">Gastos</label>\r\n              <table class=\"table table-striped\">\r\n                <thead>\r\n                  <tr class=\"form-row\">\r\n                    <th class=\"col-2\" style=\"padding : 0px;\">Concepto</th>\r\n                    <th class=\"col\"style=\"padding : 0px;\">Descripción</th>\r\n                    <th class=\"col-2\"style=\"padding : 0px;\">Importe</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody>\r\n                  <tr class=\"form-row\" *ngFor=\"let exp of model.expenditures\">\r\n                    <td class=\"col-2\" style=\"padding : 1px;\">\r\n                      {{exp.expenditureTypeName}}\r\n                    </td>\r\n                    <td class=\"col\" style=\"padding : 1px;\">\r\n                      {{exp.description}}\r\n                    </td>\r\n                    <td class=\"col-2 text-right\" style=\"padding : 1px;\">\r\n                      {{exp.amount | currency}}\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n          </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n          <div class=\"form-row\">\r\n              <label for=\"\">Destinos</label>\r\n              <table class=\"table table-striped\" style=\"padding :0;\">\r\n                <thead>\r\n                  <tr class=\"text-center\" >\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Fecha</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Destino</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Categoría</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Transporte</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Dias</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Precio/Dia</th>                      \r\n                      <th scope=\"col\" style=\"padding : 0px;\">Cod. Liq.</th>\r\n                      <th scope=\"col\" style=\"padding : 0px;\">Subtotal</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody>\r\n                  <tr *ngFor=\"let des of model.destinies\">\r\n                    <td style=\"padding : 1px;\">\r\n                        {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}\r\n                    </td>\r\n                    <td style=\"padding : 1px;\">\r\n                        <span *ngIf=\"des.countryId\">{{des.countryName}} </span> \r\n                        <span *ngIf=\"!des.countryId\">{{des.provinceName}} - {{des.cityName}} </span>\r\n                        <span class=\"mr-1 cardInsideTd\" *ngFor=\"let c of des.supplementaryCities\"> \r\n                            <span *ngIf=\"!des.countryId\">, {{ c.name }}</span>\r\n                        </span>\r\n                    </td>\r\n                    <td style=\"padding : 1px;\">\r\n                        {{des.categoryName}}\r\n                    </td>\r\n                    <td style=\"padding : 1px;\">\r\n                        {{des.transportModel}} - {{des.transportBrand}}\r\n                    </td>\r\n                    <td class=\"text-center\" style=\"padding : 1px;\">\r\n                        {{des.days}}\r\n                    </td>\r\n                    <td class=\"text-right\" style=\"padding : 1px;\">\r\n                        {{des.advanceCategory | currency}}\r\n                    </td>\r\n                    <td class=\"text-center\" style=\"padding : 1px;\">\r\n                        {{des.percentageCodeLiquidation}}\r\n                    </td>\r\n                    <td class=\"text-right\" style=\"padding : 1px;\">\r\n                        {{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}\r\n                    </td> \r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n          </div>  \r\n          \r\n    </div>\r\n\r\n    <div class=\"modal-body\">\r\n        <div class=\"form-row\">\r\n            <div class=\"col-5 form-inline ml-auto\">\r\n                <label for=\"\" class=\"col-2\">Total</label>\r\n                <input type=\"text\" disabled value=\"{{model.total | currency}}\" \r\n                class=\"col form-control text-right small\">\r\n            </div>\r\n          </div>\r\n    </div>\r\n</div>\r\n\r\n  <div class=\"modal-footer mt-6\">\r\n    <div class=\"mr-auto\">\r\n        <button (click)=\"acepted()\" type=\"button\" class=\"btn btn-success small\">Aceptar</button>\r\n    </div>\r\n    <div class=\"ml-auto\">\r\n        <button type=\"submit\" (click)=\"AddMotive('reject','Motivo de Rechazo')\" class=\"btn btn-danger small\">Rechazar</button>\r\n    </div>\r\n    <!--<div col=\"col ml-auto\">\r\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"activeModal.dismiss('Close click')\">Cerrar</button>\r\n    </div>-->\r\n  </div> \r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -7811,12 +8063,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var PrintComponent = /** @class */ (function () {
-    function PrintComponent(route, solicitationSubsidyService, destinyService, domSanitazer, spinner) {
+    function PrintComponent(route, solicitationSubsidyService, destinyService, domSanitazer, spinner, titleService) {
         this.route = route;
         this.solicitationSubsidyService = solicitationSubsidyService;
         this.destinyService = destinyService;
         this.domSanitazer = domSanitazer;
         this.spinner = spinner;
+        this.titleService = titleService;
         this.model = new src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_7__["SolicitationSubsidyDetail"];
         this.motive = "";
         this.today = new Date();
@@ -7826,6 +8079,7 @@ var PrintComponent = /** @class */ (function () {
         this.hideHtml = false;
         this.printObservable = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.totDest = 0;
+        this.titleService.setTitle('Imprimir Solcitud');
     }
     PrintComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -7903,7 +8157,8 @@ var PrintComponent = /** @class */ (function () {
             src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_6__["SolicitationSubsidyService"],
             src_app_services_destiny_service__WEBPACK_IMPORTED_MODULE_1__["DestinyService"],
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__["DomSanitizer"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_9__["NgxSpinnerService"]])
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_9__["NgxSpinnerService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__["Title"]])
     ], PrintComponent);
     return PrintComponent;
 }());
@@ -7930,7 +8185,7 @@ module.exports = ".no-wrap {\r\n    display: block;\r\n    width: 400px;\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container mt-4\" style=\"height: 500px;\">\n      <div class=\"row\">\n          <label class=\"d-inline-block pl-1 pr-1 pt-2\" for=\"\">Nombre</label>\n          <div class=\"d-inline-block pl-1 pr-1 col-2\">\n            <input (keyup)=\"filter()\" [(ngModel)]=\"filters.firstName\" type=\"text\" class=\"form-control\">\n          </div>\n      \n          <label class=\"d-inline-block pl-1 pr-1 pt-2\" for=\"\">Apellido</label>\n          <div class=\"d-inline-block pl-1 pr-1 col-2\">\n            <input (keyup)=\"filter()\" [(ngModel)]=\"filters.lastName\" type=\"text\" class=\"form-control\">\n          </div>\n      \n          <label class=\"d-inline-block pl-1 pr-1 pt-2\" for=\"\">D.N.I</label>\n          <div class=\"d-inline-block pl-1 pr-1 col-2\">\n            <input (keyup)=\"filter()\" [(ngModel)]=\"filters.dni\" type=\"number\" class=\"form-control\">\n          </div>\n      </div>\n\n        <table class=\"table table-sm mt-4\">\n          <thead>\n            <tr class=\"row\">\n              <th class=\"col-2\">Agente</th>\n              <th class=\"col\">Fecha de Creación</th>\n              <th class=\"col-3\">Objeto</th>\n              <th class=\"col-3\">Localidades-Itinerario</th>\n              <th class=\"col\">Total</th>\n              <th class=\"col\">Estado</th>\n              <th class=\"col\"></th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let sol of solicitationSubsidies\" class=\"row\">\n              <td class=\"col-2\">{{sol.fullName}}</td>\n              <td class=\"col\">{{sol.createDate | date:'dd/MM/yyyy'}}</td>\n              <td class=\"col-3 no-wrap\">{{sol.motive}}</td>\n              <td class=\"col-3\">\n                <li *ngFor=\"let d of sol.destinies\">\n                    <span *ngIf=\"d.countryName\">{{d.countryName}}</span>\n                    <span *ngIf=\"d.provinceName && d.cityName\">{{d.provinceName}} - {{d.cityName}}</span>\n                    \n                                    \n                </li>  \n                <span class=\"mr-1 cardInsideTd\" > {{ sol.localities }}</span>       \n              </td>\n              <td class=\"col\">{{sol.total | currency}}</td>\n              <td class=\"col\">{{sol.state}}</td>\n              <td class=\"col\">\n                <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                  <!--<a class=\"pr-3\" routerLink=\"/SolicitationSubsidy/supervisor\" (click)=\"openEliminar(sol)\">\n                    <fa-icon class=\"{{sizeIcon}}\"  title=\"Eliminar Solicitud\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n                  </a>-->\n                  <a href=\"\" class=\"pr-3\" routerLink=\"/SolicitationSubsidy/supervisor\"\n                  (click)=\"openDetail(sol.id)\">\n                    <fa-icon class=\"{{sizeIcon}}\"  title=\"Ver detalle de solicitud\" style=\"color:gray;\" icon=\"info-circle\"></fa-icon>\n                  </a>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n  </div>\n\n  <div class=\"row\">\n      <ngb-pagination \n      (pageChange)=\"loadPage($event)\" \n      [collectionSize]=\"col_size\"\n       [pageSize]=\"itemsPerPage\" \n       [(page)]=\"filters.page\"\n       class=\"ml-auto\"\n      aria-label=\"Default pagination\"></ngb-pagination>\n  </div>\n  \n"
+module.exports = "        <label class=\"d-inline-block pl-1 pr-1 pt-2\" for=\"\">Nombre</label>\n        <div class=\"d-inline-block pl-1 pr-1 col-2\">\n          <input (keyup)=\"filter()\" [(ngModel)]=\"filters.firstName\" type=\"text\" class=\"form-control\">\n        </div>\n    \n        <label class=\"d-inline-block pl-1 pr-1 pt-2\" for=\"\">Apellido</label>\n        <div class=\"d-inline-block pl-1 pr-1 col-2\">\n          <input (keyup)=\"filter()\" [(ngModel)]=\"filters.lastName\" type=\"text\" class=\"form-control\">\n        </div>\n    \n        <label class=\"d-inline-block pl-1 pr-1 pt-2\" for=\"\">D.N.I</label>\n        <div class=\"d-inline-block pl-1 pr-1 col-2\">\n          <input (keyup)=\"filter()\" [(ngModel)]=\"filters.dni\" type=\"number\" class=\"form-control\">\n        </div>\n      \n    <div class=\"container mt-2\" style=\"min-height: 300px;\">\n        <table class=\"table table-striped\">\n          <thead>\n            <tr class=\"row\">\n              <th class=\"col-2\">Agente</th>\n              <th class=\"col-2\">Fecha de Creación</th>\n              <th class=\"col-1\">Objeto</th>\n              <th class=\"col-3\">Localidades-Itinerario</th>\n              <th class=\"col\">Total</th>\n              <th class=\"col\">Estado</th>\n              <th class=\"col\"></th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let sol of solicitationSubsidies\" class=\"row\">\n              <td class=\"col-2\">{{sol.fullName}}</td>\n              <td class=\"col-2\">{{sol.createDate | date:'dd/MM/yyyy'}}</td>\n              <td class=\"col-1 no-wrap\" \n                placement=\"bottom\" \n                ngbTooltip=\"{{sol.motive}}\">{{sol.motive}}</td>\n              <td class=\"col-3\">\n                <li *ngFor=\"let d of sol.destinies\">\n                    <span *ngIf=\"d.countryName\">{{d.countryName}}</span>\n                    <span *ngIf=\"d.provinceName && d.cityName\">{{d.provinceName}} - {{d.cityName}}</span>\n                    \n                                    \n                </li>  \n                <span class=\"\" > {{ sol.localities }}</span>       \n              </td>\n              <td class=\"col\">{{sol.total | currency}}</td>\n              <td class=\"col\">{{sol.state}}</td>\n              <td class=\"col text-center\" placement=\"bottom\" \n                  ngbTooltip=\"Ver detalle de la solicitud de viático para aceptar o rechazar\">\n                <div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n                  <!--<a class=\"pr-3\" routerLink=\"/SolicitationSubsidy/supervisor\" (click)=\"openEliminar(sol)\">\n                    <fa-icon class=\"{{sizeIcon}}\"  title=\"Eliminar Solicitud\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n                  </a>-->\n                  <a href=\"\" class=\"pr-3\" routerLink=\"/SolicitationSubsidy/supervisor\"\n                    (click)=\"openDetail(sol.id)\">\n                    <fa-icon class=\"{{sizeIcon}}\" style=\"color:gray;\" icon=\"info-circle\"></fa-icon>\n                  </a>\n                </div>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n  </div>\n\n  <ngb-pagination \n  (pageChange)=\"loadPage($event)\" \n  [collectionSize]=\"col_size\"\n    [pageSize]=\"itemsPerPage\" \n    [(page)]=\"filters.page\"\n    class=\"ml-auto\"\n  aria-label=\"Default pagination\"></ngb-pagination>\n  \n"
 
 /***/ }),
 
@@ -7944,14 +8199,15 @@ module.exports = "<div class=\"container mt-4\" style=\"height: 500px;\">\n     
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SupervisorComponent", function() { return SupervisorComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
-/* harmony import */ var src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
-/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/modals/modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var _detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../detail/solicitation-subsidydetail.component */ "./src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/solicitationSubsidy */ "./src/app/_models/solicitationSubsidy.ts");
+/* harmony import */ var src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/solicitation-subsidy.service */ "./src/app/_services/solicitation-subsidy.service.ts");
+/* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../detail/solicitation-subsidydetail.component */ "./src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7969,12 +8225,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SupervisorComponent = /** @class */ (function () {
-    function SupervisorComponent(solicitationSubsidyservice, transportService, modalService, router) {
+    function SupervisorComponent(solicitationSubsidyservice, transportService, modalService, router, titleService) {
         this.solicitationSubsidyservice = solicitationSubsidyservice;
         this.transportService = transportService;
         this.modalService = modalService;
         this.router = router;
+        this.titleService = titleService;
         this.filters = {
             page: 0,
             firstName: "",
@@ -7987,6 +8245,7 @@ var SupervisorComponent = /** @class */ (function () {
         this.solicitationSubsidies = [];
         this.error = '';
         this.sizeIcon = "fa-lg";
+        this.titleService.setTitle('Ver Solicitudes De Mis Agentes');
     }
     SupervisorComponent.prototype.ngOnInit = function () {
         this.getAll(this.filters);
@@ -8018,7 +8277,7 @@ var SupervisorComponent = /** @class */ (function () {
     //MODALS
     SupervisorComponent.prototype.openEliminar = function (solicitud) {
         var _this = this;
-        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_6__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_7__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -8036,7 +8295,7 @@ var SupervisorComponent = /** @class */ (function () {
     };
     SupervisorComponent.prototype.openDetail = function (id) {
         var _this = this;
-        var modalRef = this.modalService.open(_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_7__["SolicitationSubsidydetailComponent"], { size: "lg" });
+        var modalRef = this.modalService.open(_detail_solicitation_subsidydetail_component__WEBPACK_IMPORTED_MODULE_8__["SolicitationSubsidydetailComponent"], { size: "lg" });
         modalRef.componentInstance.idModal = id;
         modalRef.result.then(function () {
             _this.getAll(_this.filters);
@@ -8046,7 +8305,7 @@ var SupervisorComponent = /** @class */ (function () {
     };
     SupervisorComponent.prototype.openMotiveReject = function (motiveReject) {
         var _this = this;
-        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_6__["NgbdModalContent"], { size: "sm" });
+        var modalRef = this.modalService.open(src_app_modals_modals_component__WEBPACK_IMPORTED_MODULE_7__["NgbdModalContent"], { size: "sm" });
         modalRef.componentInstance.Contenido = motiveReject;
         modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
         modalRef.componentInstance.MsgClose = "Cerrar";
@@ -8059,7 +8318,7 @@ var SupervisorComponent = /** @class */ (function () {
         });
     };
     SupervisorComponent.prototype.sendToSupervisor = function (id) {
-        var newSolicitation = new src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_1__["SolicitationIdDto"]();
+        var newSolicitation = new src_app_models_solicitationSubsidy__WEBPACK_IMPORTED_MODULE_2__["SolicitationIdDto"]();
         newSolicitation.id = id;
         this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
             .subscribe(function (x) { console.log(x); }, function (error) {
@@ -8067,15 +8326,16 @@ var SupervisorComponent = /** @class */ (function () {
         });
     };
     SupervisorComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-supervisor',
             template: __webpack_require__(/*! ./supervisor.component.html */ "./src/app/solicitation-subsidy/supervisor/supervisor.component.html"),
             styles: [__webpack_require__(/*! ./supervisor.component.css */ "./src/app/solicitation-subsidy/supervisor/supervisor.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_2__["SolicitationSubsidyService"],
-            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_3__["TransportService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+        __metadata("design:paramtypes", [src_app_services_solicitation_subsidy_service__WEBPACK_IMPORTED_MODULE_3__["SolicitationSubsidyService"],
+            src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_4__["TransportService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], SupervisorComponent);
     return SupervisorComponent;
 }());
@@ -8102,7 +8362,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/transport\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6 navarStyle\">\n        <div class=\"card\">\n                <h5 class=\"card-header\">Nuevo</h5>\n                <div class=\"card-body\">\n                    <form (ngSubmit)=\"onSubmit()\" #DistributionForm=\"ngForm\">\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.model\" #name=\"ngModel\"\n                                required name=\"model\" type=\"text\" placeholder=\"Modelo\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                            Modelo Incorrecto\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.type\" required \n                            #type=\"ngModel\" name=\"type\" type=\"text\" placeholder=\"Tipo\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && type.invalid\" class=\"alert alert-danger\">\n                            Tipo Incorrecta\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.brand\" required \n                            #brand=\"ngModel\" name=\"brand\" type=\"text\" placeholder=\"Marca\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && brand.invalid\" class=\"alert alert-danger\">\n                            Marca Incorrecta\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.carPlate\" required \n                            #carPlate=\"ngModel\" name=\"carPlate\" type=\"text\" placeholder=\"Patente\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && carPlate.invalid\" class=\"alert alert-danger\">\n                            Patente Incorrecta\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <button class=\"btn btn-success ml-auto\">\n                                <fa-icon icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                    \n                    </form>\n            <!--<div style=\"margin-top: 10px;\" *ngIf=\"DistributionForm.form.invalid\">\n                Hay Campos erroneos en el formulario, verifiquelos\n            </div>-->\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>\n    \n        </div>\n    </div>\n\n</div>\n\n\n"
+module.exports = "<a  class=\"fa-lg\"\n    placement=\"bottom\" ngbTooltip=\"Volver al listado de transportes\"  \n    style=\"margin-left : 5px;\" class=\"btn btn-primary\" href=\"\" routerLink=\"/transport\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n        <div class=\"card\">\n                <h5 class=\"card-header\">Nuevo</h5>\n                <div class=\"card-body\">\n                    <form (ngSubmit)=\"onSubmit()\" #DistributionForm=\"ngForm\">\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.model\" #name=\"ngModel\"\n                                required name=\"model\" type=\"text\" placeholder=\"Modelo\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                            Modelo Incorrecto\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.type\" required \n                            #type=\"ngModel\" name=\"type\" type=\"text\" placeholder=\"Tipo\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && type.invalid\" class=\"alert alert-danger\">\n                            Tipo Incorrecta\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.brand\" required \n                            #brand=\"ngModel\" name=\"brand\" type=\"text\" placeholder=\"Marca\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && brand.invalid\" class=\"alert alert-danger\">\n                            Marca Incorrecta\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.carPlate\" required \n                            #carPlate=\"ngModel\" name=\"carPlate\" type=\"text\" placeholder=\"Patente\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && carPlate.invalid\" class=\"alert alert-danger\">\n                            Patente Incorrecta\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <button \n                                placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                                class=\"btn btn-success ml-auto\">\n                                <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                    \n                    </form>\n            <!--<div style=\"margin-top: 10px;\" *ngIf=\"DistributionForm.form.invalid\">\n                Hay Campos erroneos en el formulario, verifiquelos\n            </div>-->\n            \n            <div class=\"alert alert-danger\" *ngIf=\"error\">\n                <ul *ngFor=\"let e of error\">\n                    <li>{{e.value}}</li>\n                </ul>\n            </div>\n            \n            <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n                <ul>\n                    <li>Guardado</li>\n                </ul>\n            </div>\n    \n        </div>\n    </div>\n\n</div>\n\n\n"
 
 /***/ }),
 
@@ -8119,6 +8379,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_services/transport.service */ "./src/app/_services/transport.service.ts");
 /* harmony import */ var src_app_models_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/transport */ "./src/app/_models/transport.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8131,13 +8392,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateTransportComponent = /** @class */ (function () {
-    function CreateTransportComponent(transportService) {
+    function CreateTransportComponent(transportService, titleService) {
         this.transportService = transportService;
+        this.titleService = titleService;
         this.modelTransport = new src_app_models_transport__WEBPACK_IMPORTED_MODULE_2__["CreateTransportDto"]();
         this.error = '';
     }
     CreateTransportComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('Crear Transporte');
     };
     CreateTransportComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -8157,7 +8421,8 @@ var CreateTransportComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./create-transport.component.html */ "./src/app/transports/create/create-transport.component.html"),
             styles: [__webpack_require__(/*! ./create-transport.component.css */ "./src/app/transports/create/create-transport.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_1__["TransportService"]])
+        __metadata("design:paramtypes", [src_app_services_transport_service__WEBPACK_IMPORTED_MODULE_1__["TransportService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["Title"]])
     ], CreateTransportComponent);
     return CreateTransportComponent;
 }());
@@ -8184,7 +8449,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/transport\">\n  <fa-icon icon=\"angle-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Modificar</h5>\n        <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #DistributionForm=\"ngForm\">\n      \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.model\" #name=\"ngModel\"\n                             required name=\"model\" type=\"text\" placeholder=\"Modelo\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                            Modelo Incorrecto\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.type\" required \n                            #type=\"ngModel\" name=\"type\" type=\"text\" placeholder=\"Tipo\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && type.invalid\" class=\"alert alert-danger\">\n                            Tipo Incorrecta\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.brand\" required \n                            #brand=\"ngModel\" name=\"brand\" type=\"text\" placeholder=\"Marca\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && brand.invalid\" class=\"alert alert-danger\">\n                            Marca Incorrecta\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.carPlate\" required \n                            #carPlate=\"ngModel\" name=\"carPlate\" type=\"text\" placeholder=\"Patente\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && carPlate.invalid\" class=\"alert alert-danger\">\n                            Patente Incorrecta\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <button class=\"btn btn-success ml-auto\">\n                                <fa-icon icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                  \n                    </form>\n        <!--<div style=\"margin-top: 10px;\" *ngIf=\"DistributionForm.form.invalid\">\n            Hay Campos erroneos en el formulario, verifiquelos\n        </div>-->\n        \n        <div class=\"alert alert-danger\" *ngIf=\"error\">\n            <ul *ngFor=\"let e of error\">\n                <li>{{e.value}}</li>\n            </ul>\n        </div>\n        \n        <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n            <ul>\n                <li>Guardado</li>\n            </ul>\n        </div>\n\n        </div>\n    </div>\n</div>\n"
+module.exports = "<a  placement=\"bottom\" ngbTooltip=\"Volver al listado de transportes\" \n    style=\"margin-left : 5px;\" class=\"btn btn-primary navarStyle\" href=\"\" routerLink=\"/transport\">\n  <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<div class=\"container col-6\">\n    <div class=\"card\">\n        <h5 class=\"card-header\">Modificar</h5>\n        <div class=\"card-body\">\n                <form (ngSubmit)=\"onSubmit()\" #DistributionForm=\"ngForm\">\n      \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.model\" #name=\"ngModel\"\n                             required name=\"model\" type=\"text\" placeholder=\"Modelo\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && name.invalid\" clas=\"alert alert-danger\">\n                            Modelo Incorrecto\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.type\" required \n                            #type=\"ngModel\" name=\"type\" type=\"text\" placeholder=\"Tipo\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && type.invalid\" class=\"alert alert-danger\">\n                            Tipo Incorrecta\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.brand\" required \n                            #brand=\"ngModel\" name=\"brand\" type=\"text\" placeholder=\"Marca\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && brand.invalid\" class=\"alert alert-danger\">\n                            Marca Incorrecta\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"modelTransport.carPlate\" required \n                            #carPlate=\"ngModel\" name=\"carPlate\" type=\"text\" placeholder=\"Patente\">\n                        </div>\n                  \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && carPlate.invalid\" class=\"alert alert-danger\">\n                            Patente Incorrecta\n                        </div>\n                  \n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <button placement=\"bottom\" ngbTooltip=\"Enviar este formulario\" \n                                class=\"btn btn-success ml-auto\">\n                                <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                  \n                    </form>\n        <!--<div style=\"margin-top: 10px;\" *ngIf=\"DistributionForm.form.invalid\">\n            Hay Campos erroneos en el formulario, verifiquelos\n        </div>-->\n        \n        <div class=\"alert alert-danger\" *ngIf=\"error\">\n            <ul *ngFor=\"let e of error\">\n                <li>{{e.value}}</li>\n            </ul>\n        </div>\n        \n        <div class=\"alert alert-success\" *ngIf=\"responseSuccess\">\n            <ul>\n                <li>Guardado</li>\n            </ul>\n        </div>\n\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -8202,6 +8467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_models_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/_models/transport */ "./src/app/_models/transport.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8215,16 +8481,19 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ModifyTransportComponent = /** @class */ (function () {
-    function ModifyTransportComponent(route, router, tranportService) {
+    function ModifyTransportComponent(route, router, tranportService, titleService) {
         this.route = route;
         this.router = router;
         this.tranportService = tranportService;
+        this.titleService = titleService;
         this.modelTransport = new src_app_models_transport__WEBPACK_IMPORTED_MODULE_2__["UpdateTransportDto"]();
         this.error = '';
     }
     ModifyTransportComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Modificar Transporte');
         this.route.params.subscribe(function (p) { return _this.id = p.id; });
         this.tranportService.findByIdTransport(this.id).subscribe(function (x) {
             _this.modelTransport.id = x.id;
@@ -8253,7 +8522,8 @@ var ModifyTransportComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _services_transport_service__WEBPACK_IMPORTED_MODULE_0__["TransportService"]])
+            _services_transport_service__WEBPACK_IMPORTED_MODULE_0__["TransportService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["Title"]])
     ], ModifyTransportComponent);
     return ModifyTransportComponent;
 }());
@@ -8280,7 +8550,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a href=\"\" class=\"btn btn-success mb-3\" routerLink=\"create\">\n\t<fa-icon icon=\"plus\"></fa-icon> Nuevo\n</a>\n\n<table class=\"table table-hover\">\n\t<thead>\n\t\t<tr style=\"font-weight: bold;\">\n      <td>Tipo</td>\n      <td>Modelo</td>\n      <td>Marca</td>\t\t\t\n      <td>Patente</td>\n      <td>Acción</td>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr *ngFor=\"let trans of transport\">\n\t\t\t<td>{{trans.type}}</td>\n\t\t\t<td>{{trans.model}}</td>\n\t\t\t<td>{{trans.brand}}</td>\n\t\t\t<td>{{trans.carPlate}}</td>\n\t\t\t<td>\n\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t<a class=\"pr-3\" routerLink=\"/transport/update/{{trans.id}}\">\n\t\t\t\t\t\t<fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t\t\t<a routerLink=\"/transport\" (click)=\"openEliminar(trans.id,trans.carPlate,trans.model)\">\n\t\t\t\t\t\t<fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t</a>\n\t\t\t</div>\n\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\n aria-label=\"Default pagination\"></ngb-pagination>"
+module.exports = "<a \tplacement=\"bottom\" \n\tngbTooltip=\"Agregar nuevo transporte\" \n\thref=\"\" class=\"btn btn-success mb-3\" routerLink=\"create\">\n\t<fa-icon class=\"fa-lg\" icon=\"plus\"></fa-icon> Nuevo\n</a>\n\n<div class=\"\" style=\"min-height: 300px;\">\n\t<table class=\"table table-striped\">\n\t\t\t<thead>\n\t\t\t\t<tr style=\"font-weight: bold;\">\n\t\t\t\t<td>Tipo</td>\n\t\t\t\t<td>Modelo</td>\n\t\t\t\t<td>Marca</td>\t\t\t\n\t\t\t\t<td>Patente</td>\n\t\t\t\t<td>Acción</td>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr *ngFor=\"let trans of transport\">\n\t\t\t\t\t<td>{{trans.type}}</td>\n\t\t\t\t\t<td>{{trans.model}}</td>\n\t\t\t\t\t<td>{{trans.brand}}</td>\n\t\t\t\t\t<td>{{trans.carPlate}}</td>\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\n\t\t\t\t\t\t\t<a  placement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Editar este transporte\" \n\t\t\t\t\t\t\t\tclass=\"pr-3\" routerLink=\"/transport/update/{{trans.id}}\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:gray;\" icon=\"edit\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<a \tplacement=\"bottom\" \n\t\t\t\t\t\t\t\tngbTooltip=\"Eliminar este transporte\" \n\t\t\t\t\t\t\t\trouterLink=\"/transport\" (click)=\"openEliminar(trans.id,trans.carPlate,trans.model)\">\n\t\t\t\t\t\t\t\t<fa-icon class=\"fa-lg\" style=\"color:red;\" icon=\"trash\"></fa-icon>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n</div>\n\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"page\"\naria-label=\"Default pagination\"></ngb-pagination>\n"
 
 /***/ }),
 
@@ -8298,6 +8568,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modals/modals.component */ "./src/app/modals/modals.component.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8311,14 +8582,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var TransportsComponent = /** @class */ (function () {
-    function TransportsComponent(transportService, modalService) {
+    function TransportsComponent(transportService, modalService, titleService) {
         this.transportService = transportService;
         this.modalService = modalService;
+        this.titleService = titleService;
         this.page = 0;
         this.itemsPerPage = 10;
     }
     TransportsComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('Transporte');
         this.getAllTransports(this.page);
     };
     TransportsComponent.prototype.getAllTransports = function (page) {
@@ -8358,7 +8632,9 @@ var TransportsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./transports.component.html */ "./src/app/transports/transports.component.html"),
             styles: [__webpack_require__(/*! ./transports.component.css */ "./src/app/transports/transports.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_transport_service__WEBPACK_IMPORTED_MODULE_0__["TransportService"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"]])
+        __metadata("design:paramtypes", [_services_transport_service__WEBPACK_IMPORTED_MODULE_0__["TransportService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["Title"]])
     ], TransportsComponent);
     return TransportsComponent;
 }());
@@ -8385,7 +8661,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<table class=\"table table-striped\">\n    <thead>\n      <tr>\n        <th scope=\"col\">Supervisor</th>\n        <th scope=\"col\">Agente</th>\n      </tr>\n    </thead>\n    <tbody *ngFor=\"let a of agentsSupervisors\">\n      <tr>\n        <th>{{a.supervisors.userName}}</th>\n        <td>{{a.agents.userName}}</td>\n      </tr>\n    </tbody>\n  </table>"
+module.exports = "<a \n    placement=\"bottom\" \n    ngbTooltip=\"Volver al listado de usuarios\" \n    class=\"btn btn-primary mb-1\" href=\"\" routerLink=\"/users\">\n    <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<table class=\"table table-striped\">\n    <thead>\n      <tr>\n        <th scope=\"col\">Supervisor</th>\n        <th scope=\"col\">Agente</th>\n      </tr>\n    </thead>\n    <tbody *ngFor=\"let a of agentsSupervisors\">\n      <tr>\n        <th>{{a.supervisors.userName}}</th>\n        <td>{{a.agents.userName}}</td>\n      </tr>\n    </tbody>\n  </table>"
 
 /***/ }),
 
@@ -8401,6 +8677,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AgentsAndSupervisorsComponent", function() { return AgentsAndSupervisorsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_supervisor_user_agent_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_services/supervisor-user-agent.service */ "./src/app/_services/supervisor-user-agent.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8412,12 +8689,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var AgentsAndSupervisorsComponent = /** @class */ (function () {
-    function AgentsAndSupervisorsComponent(agentsAndSupervisors) {
+    function AgentsAndSupervisorsComponent(agentsAndSupervisors, titleService) {
         this.agentsAndSupervisors = agentsAndSupervisors;
+        this.titleService = titleService;
     }
     AgentsAndSupervisorsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Agentes y Supervisores');
         this.agentsAndSupervisors.getAll()
             .subscribe(function (x) {
             _this.agentsSupervisors = x;
@@ -8429,7 +8709,8 @@ var AgentsAndSupervisorsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./agents-and-supervisors.component.html */ "./src/app/users/agents-and-supervisors/agents-and-supervisors.component.html"),
             styles: [__webpack_require__(/*! ./agents-and-supervisors.component.css */ "./src/app/users/agents-and-supervisors/agents-and-supervisors.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_supervisor_user_agent_service__WEBPACK_IMPORTED_MODULE_1__["SupervisorUserAgentService"]])
+        __metadata("design:paramtypes", [src_app_services_supervisor_user_agent_service__WEBPACK_IMPORTED_MODULE_1__["SupervisorUserAgentService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["Title"]])
     ], AgentsAndSupervisorsComponent);
     return AgentsAndSupervisorsComponent;
 }());
@@ -8456,7 +8737,7 @@ module.exports = ".ng-valid[required], .ng-valid.required  {\r\n  border-left: 5
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a class=\"btn btn-primary mb-1\" href=\"\" routerLink=\"/users\">\r\n    <fa-icon icon=\"angle-left\"></fa-icon>    \r\n</a>\r\n\r\n<ngb-tabset #t=\"ngbTabset\">\r\n        <ngb-tab id=\"tab-selectbyid1\" title=\"Perfil\">\r\n            <ng-template ngbTabContent>\r\n                    <div class=\"container col-5\">\r\n                        <div class=\"card\">\r\n                                <h5 class=\"card-header\">Nuevo</h5>\r\n                            <div class=\"card-body\">\r\n                    \r\n                                <form (ngSubmit)=\"onSubmit()\" #userForm=\"ngForm\">\r\n                    \r\n                                        <div class=\"form-row mb-1\">\r\n                                            <div class=\"col\">\r\n                                                <input class=\"form-control\" \r\n                                                [(ngModel)]=\"model.prefixCuil\" \r\n                                                #prefixCuil=\"ngModel\" required \r\n                                                name=\"prefixCuil\" \r\n                                                type=\"number\">\r\n                                            </div>\r\n                                            <div class=\"col-6\">\r\n                                                <input \r\n                                                class=\"form-control\" \r\n                                                [(ngModel)]=\"model.dni\" \r\n                                                #Dni=\"ngModel\" \r\n                                                name=\"Dni\"  \r\n                                                type=\"number\"\r\n                                                placeholder=\"Dni\" \r\n                                                maxlength=\"8\"\r\n                                                required>\r\n                                            </div>\r\n                                            <div class=\"col\">\r\n                                                <input class=\"form-control\" \r\n                                                [(ngModel)]=\"model.suffixCuil\" #suffixCuil=\"ngModel\" required \r\n                                                name=\"suffixCuil\"  type=\"number\">\r\n                                            </div>\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && Dni.invalid\" clas=\"alert alert-danger mb-1\">\r\n                                            Dni Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input \r\n                                                class=\"form-control\" \r\n                                                [(ngModel)]=\"model.firstName\" \r\n                                                #firstName=\"ngModel\" \r\n                                                required name=\"firstName\" \r\n                                                type=\"text\"\r\n                                                placeholder=\"Nombre\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && firstName.invalid\" clas=\"alert alert-danger mt-1\">\r\n                                                Nombre Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input \r\n                                                class=\"form-control\" \r\n                                                [(ngModel)]=\"model.lastName\" \r\n                                                #lastName=\"ngModel\" \r\n                                                required name=\"lastName\" \r\n                                                type=\"text\"\r\n                                                placeholder=\"Apellido\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && lastName.invalid\" clas=\"alert alert-danger mt-1\">\r\n                                                Apellido Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input class=\"form-control\" [(ngModel)]=\"model.userName\" required #Usuario=\"ngModel\" name=\"Usuario\" type=\"text\"\r\n                                                placeholder=\"Usuario o Email\" value=\"\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && Usuario.invalid\" class=\"alert alert-danger mt-1\">\r\n                                            Usuario Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input class=\"form-control\" [(ngModel)]=\"model.password\" #Usuario=\"ngModel\" name=\"Password\" type=\"password\"\r\n                                                placeholder=\"Nueva Contraseña\" value=\"\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && Password.invalid\" class=\"alert alert-danger mt-1\">\r\n                                            Contraseña Incorrecta\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-0\">\r\n                                            <div class=\"row\">\r\n                                                <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\r\n                                                    <div class=\"col\">\r\n                                                        <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\r\n                                                        <label style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\r\n                                                    </div>\r\n                                                </li>\r\n                                            </div>\r\n                                        </div> \r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input class=\"form-control\" [(ngModel)]=\"model.phoneNumber\" required #PhoneNumber=\"ngModel\" name=\"phoneNumber\"\r\n                                                type=\"text\" placeholder=\"Telefóno\" value=\"\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger mt-1\">\r\n                                            Telefóno Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <select class=\"form-control mt-1\" #distributionId=\"ngModel\" name=\"distributionId\" [(ngModel)]=\"model.distributionId\"\r\n                                            required>\r\n                                                <option class=\"form-control\" *ngIf=\"selecteddistributionId == model.distributionId\" [ngValue]=\"selecteddistributionId\" disabled>\r\n                                                    Seleccione una Distribución...\r\n                                                </option>\r\n                                                <option class=\"form-control\" *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\r\n                                            </select>\r\n                                        </div>\r\n                                \r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <select class=\"form-control mt-1\" #categoryId=\"ngModel\" name=\"categoryId\" [(ngModel)]=\"model.categoryId\"\r\n                                            required>\r\n                                                <option class=\"form-control\" *ngIf=\"selectedCategoryId == model.categoryId\" [ngValue]=\"selectedCategoryId\" disabled>\r\n                                                    Seleccione una Categoría...\r\n                                                </option>\r\n                                                <option class=\"form-control\" *ngFor=\"let cat of categories\" value=\"{{cat.id}}\">{{cat.name}} - {{cat.description}}</option>\r\n                                            </select>\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-row mt-1\">\r\n                                                <button class=\"btn btn-success ml-auto\" [disabled]=\"!userForm.form.valid\">\r\n                                                    <fa-icon icon=\"save\"></fa-icon> Guardar\r\n                                                </button>\r\n                                        </div>\r\n                                </form>\r\n                    \r\n                    \r\n                            </div>\r\n                        </div>\r\n                    \r\n                        <div class=\"alert alert-danger\" *ngIf=\"errors\">\r\n                            <ul *ngFor=\"let e of errors\">\r\n                                <li>{{e.value}}</li>\r\n                            </ul>\r\n                        </div>\r\n                        <div *ngIf=\" submitted && !userForm.form.valid\">\r\n                            Hay Campos erroneos en el formulario, verifiquelos\r\n                        </div>\r\n                    </div>\r\n            </ng-template>\r\n        </ngb-tab>\r\n        <ngb-tab>\r\n            <ng-template ngbTabTitle>Firma Hológrafa</ng-template>\r\n            <ng-template ngbTabContent>\r\n                <div class=\"container col-4\">\r\n                    <app-holograph-sign></app-holograph-sign>\r\n                </div>\r\n            </ng-template>\r\n        </ngb-tab>\r\n    </ngb-tabset>\r\n\r\n\r\n\r\n    \r\n\r\n\r\n\r\n"
+module.exports = "<a \r\n    placement=\"bottom\" \r\n    ngbTooltip=\"Volver al listado de usuarios\" \r\n    class=\"btn btn-primary mb-1\" href=\"\" routerLink=\"/users\">\r\n    <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \r\n</a>\r\n\r\n<ngb-tabset #t=\"ngbTabset\" (tabChange)=\"setTitleTabProfile()\">\r\n        <ngb-tab id=\"tab-selectbyid1\" title=\"Perfil\">\r\n            <ng-template ngbTabContent>\r\n                    <div class=\"container col-5\">\r\n                        <div class=\"card\">\r\n                                <h5 class=\"card-header\">Nuevo</h5>\r\n                            <div class=\"card-body\">\r\n                    \r\n                                <form (ngSubmit)=\"onSubmit()\" #userForm=\"ngForm\">\r\n                    \r\n                                        <div class=\"form-row mb-1\">\r\n                                            <div class=\"col\">\r\n                                                <input class=\"form-control\" \r\n                                                [(ngModel)]=\"model.prefixCuil\" \r\n                                                #prefixCuil=\"ngModel\" required \r\n                                                name=\"prefixCuil\" \r\n                                                type=\"number\">\r\n                                            </div>\r\n                                            <div class=\"col-6\">\r\n                                                <input \r\n                                                class=\"form-control\" \r\n                                                [(ngModel)]=\"model.dni\" \r\n                                                #Dni=\"ngModel\" \r\n                                                name=\"Dni\"  \r\n                                                type=\"number\"\r\n                                                placeholder=\"Dni\" \r\n                                                maxlength=\"8\"\r\n                                                required>\r\n                                            </div>\r\n                                            <div class=\"col\">\r\n                                                <input class=\"form-control\" \r\n                                                [(ngModel)]=\"model.suffixCuil\" #suffixCuil=\"ngModel\" required \r\n                                                name=\"suffixCuil\"  type=\"number\">\r\n                                            </div>\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && Dni.invalid\" clas=\"alert alert-danger mb-1\">\r\n                                            Dni Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input \r\n                                                class=\"form-control\" \r\n                                                [(ngModel)]=\"model.firstName\" \r\n                                                #firstName=\"ngModel\" \r\n                                                required name=\"firstName\" \r\n                                                type=\"text\"\r\n                                                placeholder=\"Nombre\"\r\n                                                maxlength=\"100\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && firstName.invalid\" clas=\"alert alert-danger mt-1\">\r\n                                                Nombre Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input \r\n                                                class=\"form-control\" \r\n                                                [(ngModel)]=\"model.lastName\" \r\n                                                #lastName=\"ngModel\" \r\n                                                required name=\"lastName\" \r\n                                                type=\"text\"\r\n                                                placeholder=\"Apellido\"\r\n                                                maxlength=\"100\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && lastName.invalid\" clas=\"alert alert-danger mt-1\">\r\n                                                Apellido Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input class=\"form-control\" [(ngModel)]=\"model.userName\" required #Usuario=\"ngModel\" name=\"Usuario\" type=\"text\"\r\n                                                placeholder=\"Usuario o Email\" value=\"\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && Usuario.invalid\" class=\"alert alert-danger mt-1\">\r\n                                            Usuario Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input class=\"form-control\" [(ngModel)]=\"model.password\" #Usuario=\"ngModel\" name=\"Password\" type=\"password\"\r\n                                                placeholder=\"Nueva Contraseña\" value=\"\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && Password.invalid\" class=\"alert alert-danger mt-1\">\r\n                                            Contraseña Incorrecta\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-0\">\r\n                                            <div class=\"row\">\r\n                                                <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\r\n                                                    <div class=\"col\">\r\n                                                        <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\r\n                                                        <label style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\r\n                                                    </div>\r\n                                                </li>\r\n                                            </div>\r\n                                        </div> \r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <input class=\"form-control\" [(ngModel)]=\"model.phoneNumber\" required #PhoneNumber=\"ngModel\" name=\"phoneNumber\"\r\n                                                type=\"text\" placeholder=\"Telefóno\" value=\"\">\r\n                                        </div>\r\n                                \r\n                                        <div *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger mt-1\">\r\n                                            Telefóno Incorrecto\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <select class=\"form-control mt-1\" #distributionId=\"ngModel\" name=\"distributionId\" [(ngModel)]=\"model.distributionId\"\r\n                                            required>\r\n                                                <option class=\"form-control\" *ngIf=\"selecteddistributionId == model.distributionId\" [ngValue]=\"selecteddistributionId\" disabled>\r\n                                                    Seleccione una Distribución...\r\n                                                </option>\r\n                                                <option class=\"form-control\" *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\r\n                                            </select>\r\n                                        </div>\r\n                                \r\n                                \r\n                                        <div class=\"form-group mb-1\">\r\n                                            <select class=\"form-control mt-1\" #categoryId=\"ngModel\" name=\"categoryId\" [(ngModel)]=\"model.categoryId\"\r\n                                            required>\r\n                                                <option class=\"form-control\" *ngIf=\"selectedCategoryId == model.categoryId\" [ngValue]=\"selectedCategoryId\" disabled>\r\n                                                    Seleccione una Categoría...\r\n                                                </option>\r\n                                                <option class=\"form-control\" *ngFor=\"let cat of categories\" value=\"{{cat.id}}\">{{cat.name}} - {{cat.description}}</option>\r\n                                            </select>\r\n                                        </div>\r\n                                \r\n                                        <div class=\"form-row mt-1\">\r\n                                                <button placement=\"top\" \r\n                                                    ngbTooltip=\"Enviar este formulario\" \r\n                                                    class=\"btn btn-success ml-auto\" [disabled]=\"!userForm.form.valid\">\r\n                                                    <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\r\n                                                </button>\r\n                                        </div>\r\n                                </form>\r\n                    \r\n                    \r\n                            </div>\r\n                        </div>\r\n                    \r\n                        <div class=\"alert alert-danger\" *ngIf=\"errors\">\r\n                            <ul *ngFor=\"let e of errors\">\r\n                                <li>{{e.value}}</li>\r\n                            </ul>\r\n                        </div>\r\n                        <div *ngIf=\" submitted && !userForm.form.valid\">\r\n                            Hay Campos erroneos en el formulario, verifiquelos\r\n                        </div>\r\n                    </div>\r\n            </ng-template>\r\n        </ngb-tab>\r\n        <ngb-tab>\r\n            <ng-template ngbTabTitle>Firma Hológrafa</ng-template>\r\n            <ng-template ngbTabContent>\r\n                <div class=\"container col-4\">\r\n                    <app-holograph-sign></app-holograph-sign>\r\n                </div>\r\n            </ng-template>\r\n        </ngb-tab>\r\n    </ngb-tabset>\r\n\r\n\r\n\r\n    \r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -8477,6 +8758,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../users */ "./src/app/users/users.ts");
 /* harmony import */ var _services_role_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../_services/role.service */ "./src/app/_services/role.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8493,13 +8775,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CreateuserComponent = /** @class */ (function () {
-    function CreateuserComponent(UserService, router, rolService, distributionService, categoryService) {
+    function CreateuserComponent(UserService, router, rolService, distributionService, categoryService, titleService) {
         this.UserService = UserService;
         this.router = router;
         this.rolService = rolService;
         this.distributionService = distributionService;
         this.categoryService = categoryService;
+        this.titleService = titleService;
         this.model = new _users__WEBPACK_IMPORTED_MODULE_4__["createUser"]();
     }
     CreateuserComponent.prototype.getAllRoles = function () {
@@ -8513,6 +8797,7 @@ var CreateuserComponent = /** @class */ (function () {
     };
     CreateuserComponent.prototype.onSubmit = function () {
         var _this = this;
+        this.titleService.setTitle('Crear Usuario - Perfil');
         this.UserService.createWithObjectUser(this.model).subscribe(function (data) {
             _this.router.navigate(['/users']);
             console.log("POST Request is successful ", data);
@@ -8522,11 +8807,15 @@ var CreateuserComponent = /** @class */ (function () {
     };
     CreateuserComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Crear Usuario');
         this.getAllRoles();
         this.getAllCategories();
         this.distributionService.allDistribution().subscribe(function (x) {
             _this.distribution = x;
         });
+    };
+    CreateuserComponent.prototype.setTitleTabProfile = function () {
+        this.titleService.setTitle('Crear Usuario - Perfil');
     };
     CreateuserComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -8538,7 +8827,8 @@ var CreateuserComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
             _services_role_service__WEBPACK_IMPORTED_MODULE_5__["RoleService"],
             _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__["DistributionService"],
-            _services_category_service__WEBPACK_IMPORTED_MODULE_0__["CategoryService"]])
+            _services_category_service__WEBPACK_IMPORTED_MODULE_0__["CategoryService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["Title"]])
     ], CreateuserComponent);
     return CreateuserComponent;
 }());
@@ -8589,6 +8879,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8607,13 +8898,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var HolographSignComponent = /** @class */ (function () {
-    function HolographSignComponent(authService, messaBetweenComp, userService, http, spinner) {
+    function HolographSignComponent(authService, messaBetweenComp, userService, http, spinner, titleService) {
         this.authService = authService;
         this.messaBetweenComp = messaBetweenComp;
         this.userService = userService;
         this.http = http;
         this.spinner = spinner;
+        this.titleService = titleService;
         this.hasBaseDropZoneOver = false;
         this.baseUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].apiUrl;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_7__["Subject"]();
@@ -8623,6 +8916,7 @@ var HolographSignComponent = /** @class */ (function () {
         this.hasBaseDropZoneOver = e;
     };
     HolographSignComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('Crear Usuario - Firma Hológrafa');
         //image
         this.initializeUploader();
         this.idUser = this.authService.userId('id');
@@ -8695,7 +8989,8 @@ var HolographSignComponent = /** @class */ (function () {
             src_app_services_mess_between_comp_service__WEBPACK_IMPORTED_MODULE_3__["MessBetweenCompService"],
             src_app_services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_8__["NgxSpinnerService"]])
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_8__["NgxSpinnerService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__["Title"]])
     ], HolographSignComponent);
     return HolographSignComponent;
 }());
@@ -8722,7 +9017,7 @@ module.exports = ".ng-valid[required], .ng-valid.required  {\r\n    border-left:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a class=\"btn btn-primary mb-1\" href=\"\" routerLink=\"/users\">\n    <fa-icon icon=\"angle-left\"></fa-icon>\n</a>\n\n<ngb-tabset #t=\"ngbTabset\">\n    <ngb-tab id=\"tab-selectbyid1\" title=\"Usuario\">\n        <ng-template ngbTabContent>\n            <div class=\"container col-5 mt-1\">\n\n                <div class=\"card\">\n                        <h5 class=\"card-header\">Modificar</h5>\n                    <div class=\"card-body\">\n\n                        <form (ngSubmit)=\"onSubmit()\" #userForm=\"ngForm\">\n                                <div class=\"form-row mb-1\">\n                                        <div class=\"col\">\n                                            <input class=\"form-control\" \n                                            [(ngModel)]=\"model.prefixCuil\" \n                                            #prefixCuil=\"ngModel\" required \n                                            name=\"prefixCuil\" \n                                            type=\"number\">\n                                        </div>\n                                        <div class=\"col-6\">\n                                            <input \n                                            class=\"form-control\" \n                                            [(ngModel)]=\"model.dni\" \n                                            #Dni=\"ngModel\" \n                                            name=\"Dni\"  \n                                            type=\"number\"\n                                            placeholder=\"Dni\" \n                                            maxlength=\"8\"\n                                            required>\n                                        </div>\n                                        <div class=\"col\">\n                                            <input class=\"form-control\" \n                                            [(ngModel)]=\"model.suffixCuil\" #suffixCuil=\"ngModel\" required \n                                            name=\"suffixCuil\"  type=\"number\">\n                                        </div>\n                                </div>\n                            \n                                <div *ngIf=\"submitted && Dni.invalid\" clas=\"alert alert-danger mt-1\">\n                                    Dni Incorrecto\n                                </div>\n                            \n                                    <div class=\"form-group mb-1\">\n                                        <input class=\"form-control\" \n                                            [(ngModel)]=\"model.firstName\" \n                                            #firstName=\"ngModel\" \n                                            required name=\"firstName\" \n                                            type=\"text\"\n                                            placeholder=\"Nombre\">\n                                    </div>\n                            \n                                    <div *ngIf=\"submitted && firstName.invalid\" clas=\"alert alert-danger mt-1\">\n                                            Nombre Incorrecto\n                                    </div>\n                            \n                                    <div class=\"form-group mb-1\">\n                                        <input class=\"form-control\" \n                                            [(ngModel)]=\"model.lastName\" \n                                            #lastName=\"ngModel\" \n                                            required name=\"lastName\" \n                                            type=\"text\"\n                                            placeholder=\"Apellido\">\n                                    </div>\n                            \n                                    <div *ngIf=\"submitted && lastName.invalid\" clas=\"alert alert-danger mt-1\">\n                                            Apellido Incorrecto\n                                    </div>\n                        \n                                <div class=\"form-group mb-1\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.userName\" required #Usuario=\"ngModel\" name=\"Usuario\" type=\"text\"\n                                        placeholder=\"Username\" value=\"\">\n                                </div>\n                        \n                                <div *ngIf=\"submitted && Usuario.invalid\" class=\"alert alert-danger mt-1\">\n                                    Usuario Incorrecto\n                                </div>\n                        \n                                <div class=\"form-group mb-1\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.password\" #Usuario=\"ngModel\" name=\"Password\" type=\"password\"\n                                        placeholder=\"Nueva Contraseña\" value=\"\">\n                                </div>\n                        \n                                <div *ngIf=\"submitted && Password.invalid\" class=\"alert alert-danger mt-1\">\n                                    Contraseña Incorrecta\n                                </div>\n                        \n                                <div class=\"form-group mb-0\">\n                                    <div class=\"row\">\n                                        <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\n                                            <div class=\"col\">\n                                                <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\n                                                <label style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\n                                            </div>\n                                        </li>\n                                    </div>\n                                </div> \n                        \n                                <div class=\"form-group mb-1\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.phoneNumber\" required #PhoneNumber=\"ngModel\" name=\"phoneNumber\"\n                                        type=\"text\" placeholder=\"Telefóno\" value=\"\">\n                                </div>\n                                \n                                <div *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger mt-1\">\n                                    Telefóno Incorrecto\n                                </div>\n\n                                <div class=\"form-group mb-1\">    \n                                    <select class=\"form-control\" #distributionId=\"ngModel\" name=\"distributionId\" [(ngModel)]=\"model.distributionId\">\n                                        <option *ngIf=\"selectedDistributionId == model.distributionId\" [ngValue]=\"selectedDistributionId\" disabled>\n                                            Seleccione una Distribución...\n                                        </option>\n                                        <option *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\n                                    </select>\n                                </div>\n\n                                <div class=\"form-group mb-1\">\n                                    <select class=\"form-control\" #categoryId=\"ngModel\" name=\"categoryId\" [(ngModel)]=\"model.categoryId\">\n                                        <option *ngFor=\"let cat of categories\" [ngValue]=\"cat.id\">{{cat.name}} - {{cat.description}}</option>\n                                    </select>\n                                </div>\n                        \n                                <div class=\"form-row mb-1\">\n                                        <button class=\"btn btn-success ml-auto\" [disabled]=\"!userForm.form.valid\">\n                                            <fa-icon icon=\"save\"></fa-icon> Guardar\n                                        </button>\n                                </div>\n                        \n                        </form>\n\n                    </div>\n                </div>\n\n                <div class=\"alert alert-danger mt-1\" *ngIf=\"userForm.form.invalid\">\n                    Hay Campos erroneos en el formulario, verifiquelos\n                </div>\n    </div>\n        </ng-template>\n    </ngb-tab>\n    <ngb-tab id=\"tab-selectbyid2\">\n        <ng-template ngbTabTitle>Auditoría</ng-template>\n        <ng-template ngbTabContent>\n            <app-audit-users [userId]=\"id\"></app-audit-users>\n        </ng-template>\n    </ngb-tab>\n</ngb-tabset>"
+module.exports = "<a \n    placement=\"bottom\" \n    ngbTooltip=\"Volver al listado de usuarios\" \n    class=\"btn btn-primary mb-1\" href=\"\" routerLink=\"/users\">\n    <fa-icon class=\"fa-lg\" icon=\"arrow-left\"></fa-icon>    \n</a>\n\n<ngb-tabset #t=\"ngbTabset\" (tabChange)=\"setTitleTab()\">\n    <ngb-tab id=\"tab-selectbyid1\">\n        <ng-template ngbTabTitle><span >Perfil</span></ng-template>\n        <ng-template ngbTabContent>\n            <div class=\"container col-5 mt-1\">\n\n                <div class=\"card\">\n                        <h5 class=\"card-header\">Modificar</h5>\n                    <div class=\"card-body\">\n\n                        <form (ngSubmit)=\"onSubmit()\" #userForm=\"ngForm\">\n                                <div class=\"form-row mb-1\">\n                                        <div class=\"col\">\n                                            <input class=\"form-control\" \n                                            [(ngModel)]=\"model.prefixCuil\" \n                                            #prefixCuil=\"ngModel\" required \n                                            name=\"prefixCuil\" \n                                            type=\"number\">\n                                        </div>\n                                        <div class=\"col-6\">\n                                            <input \n                                            class=\"form-control\" \n                                            [(ngModel)]=\"model.dni\" \n                                            #Dni=\"ngModel\" \n                                            name=\"Dni\"  \n                                            type=\"number\"\n                                            placeholder=\"Dni\" \n                                            maxlength=\"8\"\n                                            required>\n                                        </div>\n                                        <div class=\"col\">\n                                            <input class=\"form-control\" \n                                            [(ngModel)]=\"model.suffixCuil\" #suffixCuil=\"ngModel\" required \n                                            name=\"suffixCuil\"  type=\"number\">\n                                        </div>\n                                </div>\n                            \n                                <div *ngIf=\"submitted && Dni.invalid\" clas=\"alert alert-danger mt-1\">\n                                    Dni Incorrecto\n                                </div>\n                            \n                                    <div class=\"form-group mb-1\">\n                                        <input class=\"form-control\" \n                                            [(ngModel)]=\"model.firstName\" \n                                            #firstName=\"ngModel\" \n                                            required name=\"firstName\" \n                                            type=\"text\"\n                                            placeholder=\"Nombre\">\n                                    </div>\n                            \n                                    <div *ngIf=\"submitted && firstName.invalid\" clas=\"alert alert-danger mt-1\">\n                                            Nombre Incorrecto\n                                    </div>\n                            \n                                    <div class=\"form-group mb-1\">\n                                        <input class=\"form-control\" \n                                            [(ngModel)]=\"model.lastName\" \n                                            #lastName=\"ngModel\" \n                                            required name=\"lastName\" \n                                            type=\"text\"\n                                            placeholder=\"Apellido\">\n                                    </div>\n                            \n                                    <div *ngIf=\"submitted && lastName.invalid\" clas=\"alert alert-danger mt-1\">\n                                            Apellido Incorrecto\n                                    </div>\n                        \n                                <div class=\"form-group mb-1\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.userName\" required #Usuario=\"ngModel\" name=\"Usuario\" type=\"text\"\n                                        placeholder=\"Username\" value=\"\">\n                                </div>\n                        \n                                <div *ngIf=\"submitted && Usuario.invalid\" class=\"alert alert-danger mt-1\">\n                                    Usuario Incorrecto\n                                </div>\n                        \n                                <div class=\"form-group mb-1\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.password\" #Usuario=\"ngModel\" name=\"Password\" type=\"password\"\n                                        placeholder=\"Nueva Contraseña\" value=\"\">\n                                </div>\n                        \n                                <div *ngIf=\"submitted && Password.invalid\" class=\"alert alert-danger mt-1\">\n                                    Contraseña Incorrecta\n                                </div>\n                        \n                                <div class=\"form-group mb-0\">\n                                    <div class=\"row\">\n                                        <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\n                                            <div class=\"col\">\n                                                <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\n                                                <label style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\n                                            </div>\n                                        </li>\n                                    </div>\n                                </div> \n                        \n                                <div class=\"form-group mb-1\">\n                                    <input class=\"form-control\" [(ngModel)]=\"model.phoneNumber\" required #PhoneNumber=\"ngModel\" name=\"phoneNumber\"\n                                        type=\"text\" placeholder=\"Telefóno\" value=\"\">\n                                </div>\n                                \n                                <div *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger mt-1\">\n                                    Telefóno Incorrecto\n                                </div>\n\n                                <div class=\"form-group mb-1\">    \n                                    <select class=\"form-control\" #distributionId=\"ngModel\" name=\"distributionId\" [(ngModel)]=\"model.distributionId\">\n                                        <option *ngIf=\"selectedDistributionId == model.distributionId\" [ngValue]=\"selectedDistributionId\" disabled>\n                                            Seleccione una Distribución...\n                                        </option>\n                                        <option *ngFor=\"let dist of distribution\" value=\"{{dist.id}}\">{{dist.name}}</option>\n                                    </select>\n                                </div>\n\n                                <div class=\"form-group mb-1\">\n                                    <select class=\"form-control\" #categoryId=\"ngModel\" name=\"categoryId\" [(ngModel)]=\"model.categoryId\">\n                                        <option *ngFor=\"let cat of categories\" [ngValue]=\"cat.id\">{{cat.name}} - {{cat.description}}</option>\n                                    </select>\n                                </div>\n                        \n                                <div class=\"form-row mb-1\">\n                                        <button placement=\"top\" ngbTooltip=\"Enviar este formulario\" \n                                            class=\"btn btn-success ml-auto\" [disabled]=\"!userForm.form.valid\">\n                                            <fa-icon class=\"fa-lg\" icon=\"save\"></fa-icon> Guardar\n                                        </button>\n                                </div>\n                        \n                        </form>\n\n                    </div>\n                </div>\n\n                <div class=\"alert alert-danger mt-1\" *ngIf=\"userForm.form.invalid\">\n                    Hay Campos erroneos en el formulario, verifiquelos\n                </div>\n            </div>\n        </ng-template>\n    </ngb-tab>\n    <ngb-tab>\n        <ng-template ngbTabTitle>Auditoría</ng-template>\n        <ng-template ngbTabContent>\n            <app-audit-users [userId]=\"id\"></app-audit-users>\n        </ng-template>\n    </ngb-tab>\n</ngb-tabset>"
 
 /***/ }),
 
@@ -8736,12 +9031,13 @@ module.exports = "<a class=\"btn btn-primary mb-1\" href=\"\" routerLink=\"/user
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifyuserComponent", function() { return ModifyuserComponent; });
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_services/category.service */ "./src/app/_services/category.service.ts");
-/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../_services/user.service */ "./src/app/_services/user.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../users */ "./src/app/users/users.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_services/category.service */ "./src/app/_services/category.service.ts");
+/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_services/user.service */ "./src/app/_services/user.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../users */ "./src/app/users/users.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8757,14 +9053,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ModifyuserComponent = /** @class */ (function () {
-    function ModifyuserComponent(router, route, userService, distributionService, categoryService) {
+    function ModifyuserComponent(router, route, userService, distributionService, categoryService, titleService) {
         this.router = router;
         this.route = route;
         this.userService = userService;
         this.distributionService = distributionService;
         this.categoryService = categoryService;
-        this.model = new _users__WEBPACK_IMPORTED_MODULE_5__["modifyUser"];
+        this.titleService = titleService;
+        this.model = new _users__WEBPACK_IMPORTED_MODULE_6__["modifyUser"];
     }
     ModifyuserComponent.prototype.onChange = function (rol) {
         console.log(rol.rolBelongUser);
@@ -8779,11 +9077,15 @@ var ModifyuserComponent = /** @class */ (function () {
     };
     ModifyuserComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Modificar Usuario - Perfil');
         //le asigno el id que extraigo de la url
         this.route.params.subscribe(function (p) { return _this.id = p.id; });
         this.getAllCategories();
         this.getByIdAdministrator();
         this.allDistribution();
+    };
+    ModifyuserComponent.prototype.setTitleTab = function () {
+        this.titleService.setTitle('Modificar Usuario - Perfil');
     };
     ModifyuserComponent.prototype.getByIdAdministrator = function () {
         var _this = this;
@@ -8813,16 +9115,17 @@ var ModifyuserComponent = /** @class */ (function () {
         });
     };
     ModifyuserComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             selector: 'app-modifyuser',
             template: __webpack_require__(/*! ./modify.component.html */ "./src/app/users/modify/modify.component.html"),
             styles: [__webpack_require__(/*! ./modify.component.css */ "./src/app/users/modify/modify.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"],
-            _services_distribution_service__WEBPACK_IMPORTED_MODULE_1__["DistributionService"],
-            _services_category_service__WEBPACK_IMPORTED_MODULE_0__["CategoryService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _services_distribution_service__WEBPACK_IMPORTED_MODULE_2__["DistributionService"],
+            _services_category_service__WEBPACK_IMPORTED_MODULE_1__["CategoryService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], ModifyuserComponent);
     return ModifyuserComponent;
 }());
@@ -8871,6 +9174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _services_mess_between_comp_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../_services/mess-between-comp.service */ "./src/app/_services/mess-between-comp.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8887,11 +9191,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var PhotoProfileComponent = /** @class */ (function () {
-    function PhotoProfileComponent(authService, messaBetweenComp, userService) {
+    function PhotoProfileComponent(authService, messaBetweenComp, userService, titleService) {
         this.authService = authService;
         this.messaBetweenComp = messaBetweenComp;
         this.userService = userService;
+        this.titleService = titleService;
         this.hasBaseDropZoneOver = false;
         this.baseUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiUrl;
         this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
@@ -8929,6 +9235,7 @@ var PhotoProfileComponent = /** @class */ (function () {
         }
     };
     PhotoProfileComponent.prototype.ngOnInit = function () {
+        this.titleService.setTitle('Mi Perfil - Imagen');
         //image
         this.initializeUploader();
         this.idUser = this.authService.userId('id');
@@ -8959,7 +9266,8 @@ var PhotoProfileComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"],
             _services_mess_between_comp_service__WEBPACK_IMPORTED_MODULE_6__["MessBetweenCompService"],
-            _services_user_service__WEBPACK_IMPORTED_MODULE_0__["UserService"]])
+            _services_user_service__WEBPACK_IMPORTED_MODULE_0__["UserService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["Title"]])
     ], PhotoProfileComponent);
     return PhotoProfileComponent;
 }());
@@ -8986,7 +9294,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a class=\"btn btn-primary mr-auto mb-1\" href=\"\" routerLink=\"/users\">\n    <fa-icon icon=\"angle-left\"></fa-icon>\n</a>\n<ngb-tabset #t=\"ngbTabset\">\n    <ngb-tab id=\"tab-selectbyid1\" title=\"Perfil\">\n        <ng-template ngbTabContent>\n        \n        <div class=\"container col-6 mt-1\">    \n            <div class=\"card\">\n                    <h5 class=\"card-header\">Mi Perfil</h5>\n                <div class=\"card-body\">\n                    <form (ngSubmit)=\"onSubmit()\" #userForm=\"ngForm\">\n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <div class=\"col\">\n                                <input class=\"form-control\" \n                                [(ngModel)]=\"model.prefixCuil\" \n                                #prefixCuil=\"ngModel\" required \n                                name=\"prefixCuil\" \n                                type=\"number\">\n                            </div>\n                            <div class=\"col-6\">\n                                <input class=\"form-control\" \n                                [(ngModel)]=\"model.dni\" \n                                #Dni=\"ngModel\" required \n                                name=\"Dni\"  type=\"number\"\n                                placeholder=\"Dni\">\n                            </div>\n                            <div class=\"col\">\n                                <input class=\"form-control\" \n                                [(ngModel)]=\"model.suffixCuil\" #suffixCuil=\"ngModel\" required \n                                name=\"suffixCuil\"  type=\"number\">\n                            </div>\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && Dni.invalid\" clas=\"alert alert-danger\">\n                            Dni Incorrecto\n                        </div>\n                \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" \n                                [(ngModel)]=\"model.firstName\" \n                                #firstName=\"ngModel\" \n                                required name=\"firstName\" \n                                type=\"text\"\n                                placeholder=\"Nombre\">\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && firstName.invalid\" clas=\"alert alert-danger\">\n                                Nombre Incorrecto\n                        </div>\n                \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" \n                                [(ngModel)]=\"model.lastName\" \n                                #lastName=\"ngModel\" \n                                required name=\"lastName\" \n                                type=\"text\"\n                                placeholder=\"Apellido\">\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && lastName.invalid\" clas=\"alert alert-danger\">\n                                Apellido Incorrecto\n                        </div>  \n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.userName\" required #Usuario=\"ngModel\" name=\"Usuario\" type=\"text\"\n                                placeholder=\"Username\" value=\"\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && Usuario.invalid\" class=\"alert alert-danger\">\n                            Usuario Incorrecto\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.password\" #Usuario=\"ngModel\" name=\"Password\" type=\"password\"\n                                placeholder=\"Nueva Contraseña\" value=\"\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && Password.invalid\" class=\"alert alert-danger\">\n                            Contraseña Incorrecta\n                        </div>\n                    \n                        <div class=\"form-group\" style=\"margin-bottom : 0px;\">\n                            <div class=\"row\">\n                                <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\n                                    <div class=\"col\">\n                                        <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\n                                        <label class=\"navarStyle\" style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\n                                    </div>\n                                </li>\n                            </div>\n                        </div> \n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.phoneNumber\" required #PhoneNumber=\"ngModel\" name=\"phoneNumber\"\n                                type=\"text\" placeholder=\"Telefóno\" value=\"\">\n                        </div>\n                        \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger\">\n                            Telefóno Incorrecto\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <button class=\"btn btn-success ml-auto\" [disabled]=\"!userForm.form.valid\">\n                                <fa-icon icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                    \n                    \n                    </form>\n                    <div style=\"margin-top: 10px;\" *ngIf=\"userForm.form.invalid\">\n                        Hay Campos erroneos en el formulario, verifiquelos\n                    </div>\n\n                </div>\n            </div>\n        </div>            \n            \n\n            \n        </ng-template>\n    </ngb-tab>\n    <ngb-tab>\n        <ng-template ngbTabTitle>Imagen</ng-template>\n        <ng-template ngbTabContent>\n            <div class=\"container col-4\">\n                <app-photo-profile></app-photo-profile>\n            </div>\n        </ng-template>\n    </ngb-tab>\n</ngb-tabset>\n\n\n"
+module.exports = "<a class=\"btn btn-primary mr-auto mb-1\" href=\"\" routerLink=\"/users\">\n    <fa-icon icon=\"angle-left\"></fa-icon>\n</a>\n<ngb-tabset #t=\"ngbTabset\" (tabChange)=\"setTitleTab($e)\">\n    <ngb-tab id=\"tab-selectbyid1\" title=\"Perfil\">\n        <ng-template ngbTabContent>\n        \n        <div class=\"container col-6 mt-1\">    \n            <div class=\"card\">\n                    <h5 class=\"card-header\">Mi Perfil</h5>\n                <div class=\"card-body\">\n                    <form (ngSubmit)=\"onSubmit()\" #userForm=\"ngForm\">\n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <div class=\"col\">\n                                <input class=\"form-control\" \n                                [(ngModel)]=\"model.prefixCuil\" \n                                #prefixCuil=\"ngModel\" required \n                                name=\"prefixCuil\" \n                                type=\"number\">\n                            </div>\n                            <div class=\"col-6\">\n                                <input class=\"form-control\" \n                                [(ngModel)]=\"model.dni\" \n                                #Dni=\"ngModel\" required \n                                name=\"Dni\"  type=\"number\"\n                                placeholder=\"Dni\">\n                            </div>\n                            <div class=\"col\">\n                                <input class=\"form-control\" \n                                [(ngModel)]=\"model.suffixCuil\" #suffixCuil=\"ngModel\" required \n                                name=\"suffixCuil\"  type=\"number\">\n                            </div>\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && Dni.invalid\" clas=\"alert alert-danger\">\n                            Dni Incorrecto\n                        </div>\n                \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" \n                                [(ngModel)]=\"model.firstName\" \n                                #firstName=\"ngModel\" \n                                required name=\"firstName\" \n                                type=\"text\"\n                                placeholder=\"Nombre\">\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && firstName.invalid\" clas=\"alert alert-danger\">\n                                Nombre Incorrecto\n                        </div>\n                \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" \n                                [(ngModel)]=\"model.lastName\" \n                                #lastName=\"ngModel\" \n                                required name=\"lastName\" \n                                type=\"text\"\n                                placeholder=\"Apellido\">\n                        </div>\n                \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && lastName.invalid\" clas=\"alert alert-danger\">\n                                Apellido Incorrecto\n                        </div>  \n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.userName\" required #Usuario=\"ngModel\" name=\"Usuario\" type=\"text\"\n                                placeholder=\"Username\" value=\"\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && Usuario.invalid\" class=\"alert alert-danger\">\n                            Usuario Incorrecto\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.password\" #Usuario=\"ngModel\" name=\"Password\" type=\"password\"\n                                placeholder=\"Nueva Contraseña\" value=\"\">\n                        </div>\n                    \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && Password.invalid\" class=\"alert alert-danger\">\n                            Contraseña Incorrecta\n                        </div>\n                    \n                        <div class=\"form-group\" style=\"margin-bottom : 0px;\">\n                            <div class=\"row\">\n                                <li *ngFor=\"let rol of model.rolesUser\" style=\"list-style:none\">\n                                    <div class=\"col\">\n                                        <input type=\"checkbox\" name=\"{{rol.id}}\" value=\"{{rol.id}}\" [(ngModel)]=\"rol.rolBelongUser\" />\n                                        <label class=\"navarStyle\" style=\"text-transform: capitalize; padding-left: 5px;font-size: 11px;\" for=\"exampleCheck1\">{{rol.name}}</label>\n                                    </div>\n                                </li>\n                            </div>\n                        </div> \n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-group\">\n                            <input class=\"form-control\" [(ngModel)]=\"model.phoneNumber\" required #PhoneNumber=\"ngModel\" name=\"phoneNumber\"\n                                type=\"text\" placeholder=\"Telefóno\" value=\"\">\n                        </div>\n                        \n                        <div style=\"margin-top: 10px;\" *ngIf=\"submitted && PhoneNumber.invalid\" class=\"alert alert-danger\">\n                            Telefóno Incorrecto\n                        </div>\n                    \n                        <div style=\"margin-bottom:5px;\" class=\"form-row\">\n                            <button class=\"btn btn-success ml-auto\" [disabled]=\"!userForm.form.valid\">\n                                <fa-icon icon=\"save\"></fa-icon> Guardar\n                            </button>\n                        </div>\n                    \n                    \n                    </form>\n                    <div style=\"margin-top: 10px;\" *ngIf=\"userForm.form.invalid\">\n                        Hay Campos erroneos en el formulario, verifiquelos\n                    </div>\n\n                </div>\n            </div>\n        </div>            \n            \n\n            \n        </ng-template>\n    </ngb-tab>\n    <ngb-tab>\n        <ng-template ngbTabTitle>Imagen</ng-template>\n        <ng-template ngbTabContent>\n            <div class=\"container col-4\">\n                <app-photo-profile></app-photo-profile>\n            </div>\n        </ng-template>\n    </ngb-tab>\n</ngb-tabset>\n\n\n"
 
 /***/ }),
 
@@ -9000,11 +9308,12 @@ module.exports = "<a class=\"btn btn-primary mr-auto mb-1\" href=\"\" routerLink
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingofuserComponent", function() { return SettingofuserComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _users_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../users.component */ "./src/app/users/users.component.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_services/user.service */ "./src/app/_services/user.service.ts");
-/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../users */ "./src/app/users/users.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _users_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../users.component */ "./src/app/users/users.component.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../_services/user.service */ "./src/app/_services/user.service.ts");
+/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../users */ "./src/app/users/users.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9019,12 +9328,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SettingofuserComponent = /** @class */ (function () {
-    function SettingofuserComponent(router, route, userService) {
+    function SettingofuserComponent(router, route, userService, titleService) {
         this.router = router;
         this.route = route;
         this.userService = userService;
-        this.model = new _users__WEBPACK_IMPORTED_MODULE_4__["modifyUser"];
+        this.titleService = titleService;
+        this.model = new _users__WEBPACK_IMPORTED_MODULE_5__["modifyUser"];
     }
     SettingofuserComponent.prototype.onChange = function (rol) {
         console.log(rol.rolBelongUser);
@@ -9036,10 +9347,11 @@ var SettingofuserComponent = /** @class */ (function () {
         }, function (error) {
             console.log(error);
         });
-        this.router.navigate([_users_component__WEBPACK_IMPORTED_MODULE_1__["UsersComponent"]]);
+        this.router.navigate([_users_component__WEBPACK_IMPORTED_MODULE_2__["UsersComponent"]]);
     };
     SettingofuserComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Mi Perfil');
         this.userService.getById().subscribe(function (i) {
             _this.model.dni = i.dni,
                 _this.model.userName = i.userName,
@@ -9052,15 +9364,19 @@ var SettingofuserComponent = /** @class */ (function () {
                 _this.model.lastName = i.lastName;
         });
     };
+    SettingofuserComponent.prototype.setTitleTab = function (e) {
+        this.titleService.setTitle('Mi Perfil');
+    };
     SettingofuserComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-settingofuser',
             template: __webpack_require__(/*! ./settingofuser.component.html */ "./src/app/users/setting/settingofuser.component.html"),
             styles: [__webpack_require__(/*! ./settingofuser.component.css */ "./src/app/users/setting/settingofuser.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"]])
     ], SettingofuserComponent);
     return SettingofuserComponent;
 }());
@@ -9087,7 +9403,7 @@ module.exports = "input::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Repartición </label>\r\n<div class=\"d-inline-block pl-1 pr-1 col-4\">\r\n\t<select  (change)=\"filterList()\" [(ngModel)]=\"filters.distributionId\" \r\n\t\tclass=\"form-control d-inline-block pl-1\">\r\n\t\t<option value=\"\"></option>\r\n\t\t<option *ngFor=\"let dist of distributions\" value=\"{{dist.id}}\">\r\n\t\t\t{{dist.name}}\r\n\t\t</option>\r\n\t</select>\r\n</div>\r\n\r\n<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Usuario</label>\r\n<div class=\"d-inline-block pl-1 pr-1 col-4\">\r\n\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.userName\" type=\"text\" class=\"form-control\">\r\n</div>\r\n\r\n<label class=\"d-inline-block pl-1 pr-1\" for=\"\">D.N.I </label>\r\n<div class=\"d-inline-block pl-1 pr-1 col-2\">\r\n\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.dni\"  type=\"number\" class=\"form-control\">\r\n</div>\r\n\r\n\t<div class=\"d-inline-block mt-3 mb-3 mr-1\">\r\n\t\t<a href=\"\" class=\"btn btn-success\" routerLink=\"/users/create\">\r\n\t\t\t<fa-icon icon=\"plus\"></fa-icon> Nuevo\r\n\t\t</a>\r\n\t</div>\r\n\t\r\n\r\n\t<div class=\"d-inline-block mt-3 mb-3 mr-1\">\r\n\t\t<button class=\"btn btn-success\" [disabled]=\"users_check.length == 0\" (click)=\"AddSupervisor()\">\r\n\t\t\tEnlazar a Supervisor\r\n\t\t</button>\r\n\t</div>\r\n\t<div class=\"d-inline-block mt-3 mb-3\">\r\n\t\t\t<button class=\"btn btn-success\" routerLink=\"/AgentsAndSupervisors\">\r\n\t\t\t\tSupervisores <-> Agentes\r\n\t\t\t</button>\r\n\t</div>\r\n\r\n<table class=\"table table-hover\">\r\n\t<thead>\r\n\t\t<tr style=\"font-weight: bold;\">\r\n\t\t\t<td>\r\n\t\t\t\t<div class=\"form-check\">\r\n\t\t\t\t\t<input type=\"checkbox\" [checked]=\"allCheckedProperty\" (change)=\"allChecked()\" class=\"form-check-input\">\r\n\t\t\t\t</div>\r\n\t\t\t</td>\r\n\t\t\t<td>Nombre</td>\r\n\t\t\t<td>Apellido</td>\r\n\t\t\t<td>Repartición</td>\r\n\t\t\t<td>Roles</td>\r\n\t\t\t<td>Accción<td>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr *ngFor=\"let user of user_list\">\r\n\t\t\t<td>\r\n\t\t\t\t<div class=\"form-check\">\r\n\t\t\t\t\t<input \r\n\t\t\t\t\ttype=\"checkbox\" \r\n\t\t\t\t\tname=\"checked\"\r\n\t\t\t\t\tvalue=\"{{user.id}}\"\r\n\t\t\t\t\t[(ngModel)]=\"user.checked\"\r\n\t\t\t\t\t[checked]=\"user.checked\"\r\n\t\t\t\t\tclass=\"form-check-input\"\r\n\t\t\t\t\t(change)=\"check(user)\" \r\n\t\t\t\t\t>\r\n\t\t\t\t</div>\r\n\t\t\t</td>\r\n\t\t\t<td>{{user.firstName}}</td>\r\n\t\t\t<td>{{user.lastName}}</td>\r\n\t\t\t<td>{{user.distribution.name}}</td>\r\n\t\t\t<td>{{user.rol}}</td>\r\n\t\t\t<td>\r\n\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\r\n\t\t\t\t\t<a class=\"pr-3\" routerLink=\"/users/update/{{user.id}}\">\r\n\t\t\t\t\t\t<fa-icon style=\"color:gray;\" icon=\"edit\"></fa-icon>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t\t<a routerLink=\"/users\" (click)=\"openEliminar(user.id,user.dni,user.userName)\">\r\n\t\t\t\t\t\t<fa-icon style=\"color:red;\" icon=\"trash\"></fa-icon>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"filters.page\"\r\n aria-label=\"Default pagination\"></ngb-pagination>"
+module.exports = "<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Repartición </label>\r\n<div class=\"d-inline-block pl-1 pr-1 col-4\">\r\n\t<select  (change)=\"filterList()\" [(ngModel)]=\"filters.distributionId\" \r\n\t\tclass=\"form-control d-inline-block pl-1\">\r\n\t\t<option value=\"\"></option>\r\n\t\t<option *ngFor=\"let dist of distributions\" value=\"{{dist.id}}\">\r\n\t\t\t{{dist.name}}\r\n\t\t</option>\r\n\t</select>\r\n</div>\r\n\r\n<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Usuario</label>\r\n<div class=\"d-inline-block pl-1 pr-1 col-4\">\r\n\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.userName\" type=\"text\" class=\"form-control\">\r\n</div>\r\n\r\n<label class=\"d-inline-block pl-1 pr-1\" for=\"\">D.N.I </label>\r\n<div class=\"d-inline-block pl-1 pr-1 col-2\">\r\n\t<input (keyup)=\"findWhileWrite()\" [(ngModel)]=\"filters.dni\"  type=\"number\" class=\"form-control\">\r\n</div>\r\n\r\n\t<div class=\"d-inline-block mt-3 mb-3 mr-1\">\r\n\t\t<a \r\n\t\t\thref=\"\" \r\n\t\t\tclass=\"btn btn-success\" \r\n\t\t\tplacement=\"bottom\" \r\n\t\t\tngbTooltip=\"Agregar nuevo usuario\" \r\n\t\t\trouterLink=\"/users/create\">\r\n\t\t\t<fa-icon \r\n\t\t\t\tclass=\"fa-lg\" \r\n\t\t\t\ticon=\"plus\" \r\n\t\t\t></fa-icon> Nuevo\r\n\t\t</a>\r\n\t</div>\r\n\t\r\n\r\n\t<div class=\"d-inline-block mt-3 mb-3 mr-1\">\r\n\t\t<button class=\"btn btn-success\" [disabled]=\"users_check.length == 0\" (click)=\"AddSupervisor()\">\r\n\t\t\tEnlazar a Supervisor\r\n\t\t</button>\r\n\t</div>\r\n\t<div class=\"d-inline-block mt-3 mb-3\">\r\n\t\t\t<button class=\"btn btn-success\" routerLink=\"/AgentsAndSupervisors\">\r\n\t\t\t\tSupervisores <-> Agentes\r\n\t\t\t</button>\r\n\t</div>\r\n\r\n<div style=\"min-height: 300px;\">\r\n\t<table class=\"table table-striped\">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr style=\"font-weight: bold;\">\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div class=\"form-check\">\r\n\t\t\t\t\t\t\t<input type=\"checkbox\" [checked]=\"allCheckedProperty\" (change)=\"allChecked()\" class=\"form-check-input\">\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>D.N.I</td>\r\n\t\t\t\t\t<td>Nombre</td>\r\n\t\t\t\t\t<td>Apellido</td>\r\n\t\t\t\t\t<td>Repartición</td>\r\n\t\t\t\t\t<td>Roles</td>\r\n\t\t\t\t\t<td>Accción</td>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody>\r\n\t\t\t\t<tr *ngFor=\"let user of user_list\">\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div class=\"form-check\">\r\n\t\t\t\t\t\t\t<input \r\n\t\t\t\t\t\t\ttype=\"checkbox\" \r\n\t\t\t\t\t\t\tname=\"checked\"\r\n\t\t\t\t\t\t\tvalue=\"{{user.id}}\"\r\n\t\t\t\t\t\t\t[(ngModel)]=\"user.checked\"\r\n\t\t\t\t\t\t\t[checked]=\"user.checked\"\r\n\t\t\t\t\t\t\tclass=\"form-check-input\"\r\n\t\t\t\t\t\t\t(change)=\"check(user)\">\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>{{user.dni}}</td>\r\n\t\t\t\t\t<td>{{user.firstName}}</td>\r\n\t\t\t\t\t<td>{{user.lastName}}</td>\r\n\t\t\t\t\t<td>{{user.distribution.name}}</td>\r\n\t\t\t\t\t<td>{{user.rol}}</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">\r\n\t\t\t\t\t\t\t<a style=\"cursor:pointer\" class=\"pr-3\" routerLink=\"/users/update/{{user.id}}\">\r\n\t\t\t\t\t\t\t\t<fa-icon \r\n\t\t\t\t\t\t\t\t\tplacement=\"top\" \r\n\t\t\t\t\t\t\t\t\tngbTooltip=\"Editar usuario\"\r\n\t\t\t\t\t\t\t\t\tclass=\"fa-lg\" \r\n\t\t\t\t\t\t\t\t\tstyle=\"color:gray;\" \r\n\t\t\t\t\t\t\t\t\ticon=\"edit\"></fa-icon>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<a style=\"cursor:pointer\" (click)=\"openEliminar(user.id,user.dni,user.userName)\">\r\n\t\t\t\t\t\t\t\t<fa-icon \r\n\t\t\t\t\t\t\t\t\tplacement=\"top\" \r\n\t\t\t\t\t\t\t\t\tngbTooltip=\"Eliminar usuario\" \r\n\t\t\t\t\t\t\t\t\tclass=\"fa-lg\" style=\"color:red;\" \r\n\t\t\t\t\t\t\t\t\ticon=\"trash\"></fa-icon>\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t<app-alert \r\n\t\t\t*ngIf=\"user_list_length == 0\" \r\n\t\t\t[textAlert]=\"textListEmpty\"\r\n\t\t\t[typeAlert]=\"classListEmpty\">\t\t\t\r\n\t\t</app-alert>\r\n\t\t\r\n</div>\r\n\r\n<ngb-pagination (pageChange)=\"loadPage($event)\" [collectionSize]=\"col_size\" [pageSize]=\"itemsPerPage\" [(page)]=\"filters.page\"\r\naria-label=\"Default pagination\"></ngb-pagination>\r\n\t\t\r\n\r\n"
 
 /***/ }),
 
@@ -9101,16 +9417,17 @@ module.exports = "<label class=\"d-inline-block pl-1 pr-1\" for=\"\">Repartició
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersComponent", function() { return UsersComponent; });
-/* harmony import */ var _modals_add_supervisor_add_supervisor_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../modals/add-supervisor/add-supervisor.component */ "./src/app/modals/add-supervisor/add-supervisor.component.ts");
-/* harmony import */ var _models_roles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_models/roles */ "./src/app/_models/roles.ts");
-/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../modals/modals.component */ "./src/app/modals/modals.component.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_services/user.service */ "./src/app/_services/user.service.ts");
-/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../_services/asp-net-roles.service */ "./src/app/_services/asp-net-roles.service.ts");
-/* harmony import */ var _services_asp_net_users_roles_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../_services/asp-net-users-roles.service */ "./src/app/_services/asp-net-users-roles.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _modals_add_supervisor_add_supervisor_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../modals/add-supervisor/add-supervisor.component */ "./src/app/modals/add-supervisor/add-supervisor.component.ts");
+/* harmony import */ var _models_roles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_models/roles */ "./src/app/_models/roles.ts");
+/* harmony import */ var _modals_modals_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../modals/modals.component */ "./src/app/modals/modals.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../_services/user.service */ "./src/app/_services/user.service.ts");
+/* harmony import */ var _services_distribution_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../_services/distribution.service */ "./src/app/_services/distribution.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../_services/asp-net-roles.service */ "./src/app/_services/asp-net-roles.service.ts");
+/* harmony import */ var _services_asp_net_users_roles_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../_services/asp-net-users-roles.service */ "./src/app/_services/asp-net-users-roles.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9130,23 +9447,29 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UsersComponent = /** @class */ (function () {
-    function UsersComponent(var_user_service, modalService, distributionService, route, aspNetRolesService, aspNetUsersRolesService) {
+    function UsersComponent(var_user_service, modalService, distributionService, route, aspNetRolesService, aspNetUsersRolesService, titleService, router) {
         this.var_user_service = var_user_service;
         this.modalService = modalService;
         this.distributionService = distributionService;
         this.route = route;
         this.aspNetRolesService = aspNetRolesService;
         this.aspNetUsersRolesService = aspNetUsersRolesService;
+        this.titleService = titleService;
+        this.router = router;
         this.filters = { page: 0, distributionId: null, dni: "" };
         this.itemsPerPage = 10;
         this.displayedColumns = ['dni', 'userName'];
-        this.changeRolDto = new _models_roles__WEBPACK_IMPORTED_MODULE_1__["RoleUserDto"]();
+        this.changeRolDto = new _models_roles__WEBPACK_IMPORTED_MODULE_2__["RoleUserDto"]();
         this.users_check = [];
         this.allCheckedProperty = false;
+        this.textListEmpty = "No se encontró ningún usuario";
+        this.classListEmpty = "alert-primary";
     }
     UsersComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.titleService.setTitle('Usuarios');
         this.allUsersWithInPage();
         this.allAspNetRolesService();
         this.allAspNetUserRolesService();
@@ -9188,6 +9511,7 @@ var UsersComponent = /** @class */ (function () {
         var _this = this;
         this.var_user_service.getPaginator(filters).subscribe(function (result) {
             _this.user_list = result.list;
+            _this.user_list_length = _this.user_list.length;
             _this.users_check.forEach(function (users_checked) {
                 _this.user_list.forEach(function (user_list) {
                     if (user_list.id == users_checked.id) {
@@ -9202,11 +9526,12 @@ var UsersComponent = /** @class */ (function () {
     //MODALS
     UsersComponent.prototype.openEliminar = function (id, dni, usuario) {
         var _this = this;
-        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_2__["NgbdModalContent"]);
+        var modalRef = this.modalService.open(_modals_modals_component__WEBPACK_IMPORTED_MODULE_3__["NgbdModalContent"]);
         modalRef.componentInstance.Encabezado = "Eliminar";
         modalRef.componentInstance.Contenido = "¿Desea eliminar a " + dni + " " + usuario + "?";
         modalRef.componentInstance.GuardaroEliminar = "Eliminar";
         modalRef.componentInstance.MsgClose = "Cancelar";
+        modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
         modalRef.result.then(function () {
             _this.var_user_service.deleteUser(id).subscribe(function (data) {
                 _this.getAllUsers(_this.filters);
@@ -9238,7 +9563,7 @@ var UsersComponent = /** @class */ (function () {
         }
     };
     UsersComponent.prototype.AddSupervisor = function () {
-        var modalRef = this.modalService.open(_modals_add_supervisor_add_supervisor_component__WEBPACK_IMPORTED_MODULE_0__["AddSupervisorComponent"], { size: "lg" });
+        var modalRef = this.modalService.open(_modals_add_supervisor_add_supervisor_component__WEBPACK_IMPORTED_MODULE_1__["AddSupervisorComponent"], { size: "lg" });
         modalRef.componentInstance.usersSelected = this.users_check;
         modalRef.componentInstance.allUsers = this.allUsers;
         modalRef.result.then(function (data) {
@@ -9291,17 +9616,19 @@ var UsersComponent = /** @class */ (function () {
         );
     };
     UsersComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_5__["Component"])({
             selector: 'app-users',
             template: __webpack_require__(/*! ./users.component.html */ "./src/app/users/users.component.html"),
             styles: [__webpack_require__(/*! ./users.component.css */ "./src/app/users/users.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModal"],
-            _services_distribution_service__WEBPACK_IMPORTED_MODULE_6__["DistributionService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"],
-            _services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_8__["AspNetRolesService"],
-            _services_asp_net_users_roles_service__WEBPACK_IMPORTED_MODULE_9__["AspNetUsersRolesService"]])
+        __metadata("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModal"],
+            _services_distribution_service__WEBPACK_IMPORTED_MODULE_7__["DistributionService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"],
+            _services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_9__["AspNetRolesService"],
+            _services_asp_net_users_roles_service__WEBPACK_IMPORTED_MODULE_10__["AspNetUsersRolesService"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["Title"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]])
     ], UsersComponent);
     return UsersComponent;
 }());

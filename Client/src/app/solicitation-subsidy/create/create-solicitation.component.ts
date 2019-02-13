@@ -26,6 +26,7 @@ import { DestinyService } from 'src/app/_services/destiny.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-solicitation',
@@ -78,7 +79,8 @@ export class CreateSolicitationComponent implements OnInit {
       private codeLiquidationService : CodeLiquidationService,
       private solicitationSubsidyService : SolicitationSubsidyService,
       private expenditureAgentService : ExpendituresUserService,
-      private titleService : Title
+      private titleService : Title,
+      private toastrService: ToastrService
       ) { }
 
   ngOnInit() {
@@ -349,8 +351,22 @@ export class CreateSolicitationComponent implements OnInit {
                 errors.forEach(element => {
                   this.msjWhenUserTryDeleteLastDestiny = element.value
                 })
-              }
+
+                this.msjToastError(this.msjWhenUserTryDeleteLastDestiny);
+            }
     
+    );
+  }
+
+  msjToastError(msg : string){
+    this.toastrService.error(msg, 'Error',
+        {timeOut : 3000,closeButton : true }
+    );
+  }
+
+  msjToastSuccess(msg : string){
+    this.toastrService.success(msg, 'Éxito',
+        {timeOut : 3000,closeButton : true }
     );
   }
 
@@ -366,6 +382,7 @@ export class CreateSolicitationComponent implements OnInit {
           () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
             this.msjExito = 'Solicitud Enviada';
+            this.msjToastSuccess('La solicitud de viático se guardo correctamente');
           },
           error => console.log(error) 
         );
@@ -374,6 +391,7 @@ export class CreateSolicitationComponent implements OnInit {
           () => {
               this.router.navigate(['SolicitationSubsidy/agent']);
               this.msjExito = 'Solicitud Actualizada';
+              this.msjToastSuccess('La solicitud de viático se guardo correctamente');
           }
         );
       }

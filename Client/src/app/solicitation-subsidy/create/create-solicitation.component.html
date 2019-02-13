@@ -124,13 +124,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="alert alert-danger mt-1" *ngIf="msjWhenUserTryDeleteLastDestiny">
-                        <ul>
-                            <li style="list-style: none" class="text-center mt-2">
-                                {{msjWhenUserTryDeleteLastDestiny}}
-                            </li>
-                        </ul>
-                </div>
                 <div class="form-row mt-1 mb-1">
                         <a  placement="bottom" ngbTooltip="Agregar un nuevo concepto gasto"
                             (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white small">
@@ -197,7 +190,7 @@
                 
                 <div class="form-row float-right">
                     <button 
-                        placement="bottom" ngbTooltip="Enviar este formulario" 
+                        placement="top" ngbTooltip="Enviar este formulario" 
                         [disabled]="!solicitationSubsidy.valid" class="btn btn-success small">
                         <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                     </button>
