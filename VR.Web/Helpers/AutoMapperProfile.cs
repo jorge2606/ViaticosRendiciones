@@ -48,8 +48,12 @@ namespace WebApi.Helpers
             CreateMap<State, StateDto>();
             CreateMap<State, StateDescriptionDto>();
             CreateMap<SolicitationState, SolicitationStateDto>();
+            CreateMap<Distribution, DistributionBaseDto>();
             CreateMap<Distribution, AllDistributionDto>();
-
+            CreateMap<Distribution, FindByIdDistributionDto>();
+            CreateMap<Organism, OrganismBaseDto>();
+            CreateMap<Organism, GetallOrganismDto>();
+            CreateMap<Organism, FindByIdOrganismDto>();
         }
     }
 }

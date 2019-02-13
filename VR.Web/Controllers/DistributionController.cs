@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -100,7 +101,11 @@ namespace VR.Web.Controllers
 
         public IQueryable<AllDistributionDto> queryableUser()
         {
-            var Paginator = _dataContext.Distributions.Select( x=> _mapper.Map<AllDistributionDto>(x)).OrderBy(x => x.Id);
+            var Paginator = _dataContext.Distributions
+                .Include(x => x.Users)
+                .Include(q => q.Organism)
+                .Select(dist => _mapper.Map<AllDistributionDto>(dist))
+                .Where(y => y.IsDeleted != true);
             return Paginator;
         }
 
@@ -108,21 +113,17 @@ namespace VR.Web.Controllers
         public PagedResult<AllDistributionDto> userPagination([FromQuery] FilterDistributionDto filters)
         {       
             const int pageSize = 10;
-            var queryPaginator = queryableUser().Where(x => x.IsDeleted != true);
+            var queryPaginator = queryableUser();
 
-            var result = queryPaginator.
-                Where( 
+            var result = queryPaginator
+                .Where( 
                    x => (string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper()))
                          &&
                         (!filters.OrganismId.HasValue || x.OrganismId == filters.OrganismId)
                 ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            foreach (var distribution in result)
-            {
-                distribution.Organism = _dataContext.Organisms.FirstOrDefault(x => x.Id == distribution.OrganismId);
-                distribution.Users = _dataContext.Users.Where(x => x.DistributionId == distribution.Id).ToList();
-            }
+
             return new PagedResult<AllDistributionDto>
             {
                 List = result,

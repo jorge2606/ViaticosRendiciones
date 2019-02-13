@@ -64,6 +64,11 @@ namespace VR.Dto.User
         public Boolean IsDeleted { set; get; }
     }
 
+    public class UserDistribution {
+        public int Dni { set; get; }
+    }
+    
+
 
     public class ModifyUserDto
     {

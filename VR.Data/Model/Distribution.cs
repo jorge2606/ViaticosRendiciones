@@ -13,7 +13,7 @@ namespace VR.Data.Model
         public Guid Id { set; get; }
         public string Name { set; get; }
         public string Description { set; get; }
-        public ICollection<User> Users { set; get; }
+        public List<User> Users { set; get; }
         public Boolean IsDeleted { set; get; }
 
         [ForeignKey("Organism")]

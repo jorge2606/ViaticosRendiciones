@@ -27,8 +27,8 @@ namespace VR.Dto
         public string Name { set; get; }
         public string Description { set; get; }
         public Guid OrganismId { set; get; }
-        public Organism Organism { set; get; }
-        public List<Data.Model.User> Users { set; get; }
+        public OrganismBaseDto Organism { set; get; }
+        public List<UserDto> Users { set; get; }
         public Boolean IsDeleted { set; get; }
 
     }
@@ -37,7 +37,10 @@ namespace VR.Dto
 
     public class UpdateDistributionDto : DistributionBaseDto { }
 
-    public class AllDistributionDto : DistributionBaseDto { }
+    public class AllDistributionDto : DistributionBaseDto
+    {
+        public new List<UserDistribution> Users { set; get; }
+    }
 
     public class DeleteDistributionDto : DistributionBaseDto { }
 

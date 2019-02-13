@@ -60,6 +60,7 @@ export class CreateSolicitationComponent implements OnInit {
   citiesModify : CityBaseDto[] = [];
   msj = '';
   msjExito = '';
+  msjWhenUserTryDeleteLastDestiny = '';
   supplementariesCities : string[];
 
   constructor(
@@ -236,8 +237,7 @@ export class CreateSolicitationComponent implements OnInit {
 
       minus = minus + (codLiq.percentage * category.advance);
       if (index > -1) {
-        this.deleteFromDatabaseDestinies(destiny.id);
-        this.model.destinies.splice(index, 1);
+        this.deleteFromDatabaseDestinies(destiny.id,index);
       }
 
       this.totalResultExpenditure();
@@ -274,8 +274,8 @@ export class CreateSolicitationComponent implements OnInit {
           minus = minus + (codLiq.percentage * category.advance);
           const indexDeleteAll = this.model.destinies.indexOf(array[i], 0);
           if (indexDeleteAll > -1) {
-            this.deleteFromDatabaseDestinies(array[i].id);
-            this.model.destinies.splice(indexDeleteAll, 1);
+            this.deleteFromDatabaseDestinies(array[i].id,indexDeleteAll);
+            
           }
      }
      this.totalResultExpenditure();
@@ -338,10 +338,19 @@ export class CreateSolicitationComponent implements OnInit {
     );
   }
 
-  deleteFromDatabaseDestinies(id : number){
+  deleteFromDatabaseDestinies(id : number, index : number){
     this.destinyService.delete(id)
     .subscribe(
-      () => []
+      success => {
+        this.model.destinies.splice(index, 1);
+      },
+      e => {
+                var errors : any = e.error.notifications;
+                errors.forEach(element => {
+                  this.msjWhenUserTryDeleteLastDestiny = element.value
+                })
+              }
+    
     );
   }
 

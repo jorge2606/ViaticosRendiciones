@@ -21,13 +21,28 @@ namespace VR.Service.Services
         public ServiceResult<DestinyBaseDto> Delete(Guid id)
         {
             var destiny = _context.Destinies.FirstOrDefault(x => x.Id == id);
+
             if (destiny == null)
             {
                 return new ServiceResult<DestinyBaseDto>(null);
             }
 
+            var destinies_solitation = _context.SolicitationSubsidies
+                .Where(x => x.Id == destiny.SolicitationSubsidyId)
+                .ToList();
+
+            if (destinies_solitation.Count() == 1)
+            {
+                ServiceResult<DestinyBaseDto> result = new ServiceResult<DestinyBaseDto>();
+                result
+                    .AddNotification(NotificationType.Error, "Una solicitud de viático debe contener al menos 1 destino");
+                return result;
+            }
+
             _context.Destinies.Remove(destiny);
             _context.SaveChanges();
+
+
             return new ServiceResult<DestinyBaseDto>(new DestinyBaseDto());
         }
 
