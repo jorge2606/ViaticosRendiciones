@@ -98,17 +98,7 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-
-        public IQueryable<AllSolicitationSubsidyDto> queryableUser()
-        {
-            var Paginator = _dataContext.SolicitationSubsidies
-                .Select(x => _mapper.Map<AllSolicitationSubsidyDto>(x))
-                .OrderBy(x => x.Id);
-            return Paginator;
-        }
-
-
-        [HttpGet("pageAgent")]
+       [HttpGet("pageAgent")]
         [Authorize]
         public PagedResult<AllSolicitationSubsidyDto> AgentPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {

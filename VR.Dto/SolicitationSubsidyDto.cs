@@ -78,6 +78,7 @@ namespace VR.Dto
         public string FileNumber { set; get; }
         public string FullName { set; get; }
         public string Localities { set; get; }
+        public Boolean IsDeleted {set; get; }
     }
 
     public class SolicitationIdDto

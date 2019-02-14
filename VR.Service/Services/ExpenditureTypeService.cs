@@ -61,12 +61,9 @@ namespace VR.Service.Services
                     validate.ToServiceResult<UpdateExpenditureTypeDto>(null));
             }
 
-            ExpenditureType updateExpend = new ExpenditureType()
-            {
-                Name = expenditure.Name,
-            };
+            updateExpenditure.Name = expenditure.Name;
 
-            _dataContext.ExpenditureTypes.Update(updateExpend);
+            _dataContext.ExpenditureTypes.Update(updateExpenditure);
             _dataContext.SaveChanges();
 
             return new ServiceResult<UpdateExpenditureTypeDto>(expenditure);

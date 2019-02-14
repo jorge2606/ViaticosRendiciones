@@ -100,11 +100,11 @@ namespace VR.Service.Services
 
             Transport updateTran = new Transport()
             {
+                Id = updateTransport.Id,
                 Model = updateTransport.Model,
                 Brand = updateTransport.Brand,
                 CarPlate = updateTransport.CarPlate,
                 Type = updateTransport.Type
-
             };
 
             _dataContext.Transports.Update(updateTran);

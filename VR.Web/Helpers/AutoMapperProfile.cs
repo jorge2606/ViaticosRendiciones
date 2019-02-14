@@ -51,9 +51,11 @@ namespace WebApi.Helpers
             CreateMap<Distribution, DistributionBaseDto>();
             CreateMap<Distribution, AllDistributionDto>();
             CreateMap<Distribution, FindByIdDistributionDto>();
+            CreateMap<Distribution, DeleteDistributionDto>();
             CreateMap<Organism, OrganismBaseDto>();
             CreateMap<Organism, GetallOrganismDto>();
             CreateMap<Organism, FindByIdOrganismDto>();
+            CreateMap<Organism, DeleteOrganismDto>();
         }
     }
 }

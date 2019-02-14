@@ -10,7 +10,6 @@ namespace VR.Dto
         public ExpenditureTypeValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithName("Nombre");
-            RuleFor(x => x.Name).MinimumLength(5).WithName("Nombre");
             RuleFor(x => x.Name).MaximumLength(100).WithName("Nombre");
         }
     }

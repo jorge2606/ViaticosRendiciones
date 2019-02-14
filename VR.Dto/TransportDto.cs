@@ -12,25 +12,21 @@ namespace VR.Dto
         {
             RuleFor(x => x.Brand)
                 .NotEmpty()
-                .MinimumLength(5)
                 .MaximumLength(100)
                 .WithName("Marca");
 
             RuleFor(x => x.Type)
                 .NotEmpty()
-                .MinimumLength(5)
                 .MaximumLength(100)
                 .WithName("Tipo");
 
             RuleFor(x => x.Model)
                 .NotEmpty()
-                .MinimumLength(5)
                 .MaximumLength(100)
                 .WithName("Modelo");
 
             RuleFor(x => x.CarPlate)
                 .NotEmpty()
-                .MinimumLength(5)
                 .MaximumLength(100)
                 .WithName("Patente");
 

@@ -46,8 +46,8 @@ namespace VR.Web.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost("CreateCategory")]
-        public IActionResult CreateCategory([FromBody]CreateCategoryDto categoryDto)
+        [HttpPost("Create")]
+        public IActionResult Create([FromBody]CreateCategoryDto categoryDto)
         {
             var response = _categoryService.CreateCategory(categoryDto);
 

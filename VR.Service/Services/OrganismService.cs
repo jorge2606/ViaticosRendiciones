@@ -30,19 +30,17 @@ namespace VR.Service.Services
         public ServiceResult<UpdateOrganismDto> UpdateOrganism(UpdateOrganismDto updateOrganism)
         {
             var validate = _fluentValidator.Validate(updateOrganism);
+            var organismoForModifying = _dataContext.Organisms.FirstOrDefault(x => x.Id == updateOrganism.Id);
 
-            if (!validate.IsValid)
+            if (!validate.IsValid || organismoForModifying == null)
             {
                 return _mapper.Map<ServiceResult<UpdateOrganismDto>>(validate.ToServiceResult<UpdateOrganismDto>(null));
             }
 
-            Organism newOrganism = new Organism()
-            {
-                Description = updateOrganism.Description,
-                Name = updateOrganism.Name
-            };
+            organismoForModifying.Description = updateOrganism.Description;
+            organismoForModifying.Name = updateOrganism.Name;
 
-            _dataContext.Update(newOrganism);
+            _dataContext.Update(organismoForModifying);
             _dataContext.SaveChanges();
 
             return new ServiceResult<UpdateOrganismDto>(updateOrganism);
