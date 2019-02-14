@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-transports',
@@ -20,7 +21,9 @@ export class TransportsComponent implements OnInit {
   constructor(
           private transportService : TransportService, 
           private modalService: NgbModal,
-          private titleService : Title) { }
+          private titleService : Title,
+          private toastrService : ToastrService
+          ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Transporte');
@@ -55,6 +58,8 @@ export class TransportsComponent implements OnInit {
       modalRef.result.then(() => {
         this.transportService.deleteTransport(id).subscribe(
           data => {
+              this.toastrService.success("El transporte '"+name+"' se ha eliminado correctamente.",'',
+              {positionClass : 'toast-top-center', timeOut : 3000});
               this.getAllTransports(this.page);
           },
           error => {

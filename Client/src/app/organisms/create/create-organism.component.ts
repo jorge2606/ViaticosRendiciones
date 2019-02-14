@@ -2,6 +2,8 @@ import { Title } from '@angular/platform-browser';
 import { CreateOrganismDto } from './../../_models/organism';
 import { Component, OnInit } from '@angular/core';
 import { OrganismService } from 'src/app/_services/organism.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-organism',
@@ -15,7 +17,10 @@ export class CreateOrganismComponent implements OnInit {
   model = new CreateOrganismDto();
   constructor(
               private organismServcice : OrganismService,
-              private titleService : Title) {
+              private titleService : Title,
+              private toastrService : ToastrService,
+              private routerService : Router
+              ) {
                 this.titleService.setTitle('Crear Organismo');
                }
 
@@ -23,7 +28,12 @@ export class CreateOrganismComponent implements OnInit {
 
     onSubmit(){
       this.organismServcice.createOrganism(this.model).subscribe(
-        x=>this.responseSuccess = x,
+        x=> {
+            this.responseSuccess = x;
+            this.routerService.navigate(['/organism']);
+            this.toastrService.success("El organismo '"+this.model.name+"' se ha modificado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
+            },
         error => this.error = error.error.notifications
       );
     }

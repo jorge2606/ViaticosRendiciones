@@ -3,6 +3,7 @@ import { CategoryService } from './../_services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category',
@@ -26,7 +27,9 @@ export class CategoryComponent implements OnInit {
   constructor(
             private categoryService : CategoryService,
             private modalService: NgbModal,
-            private titleService : Title) { 
+            private titleService : Title,
+            private toastrService : ToastrService
+            ) { 
               this.titleService.setTitle('Categorías');
             }
 
@@ -63,7 +66,9 @@ export class CategoryComponent implements OnInit {
     modalRef.result.then(() => {
       this.categoryService.deleteCategory(idCategory).subscribe(
         data => {
-            this.getAllCategories(this.filters);
+          this.toastrService.success("La categoría '"+name+"' se ha eliminado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+          this.getAllCategories(this.filters);
         },
         error => {
             console.log("error", error);

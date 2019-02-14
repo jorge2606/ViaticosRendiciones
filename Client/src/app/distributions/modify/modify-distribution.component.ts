@@ -7,6 +7,7 @@ import { DistributionService } from './../../_services/distribution.service';
 import { Component, OnInit } from '@angular/core';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { OrganismService } from 'src/app/_services/organism.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modify-distribution',
@@ -18,13 +19,14 @@ export class ModifyDistributionComponent implements OnInit {
   id : number;
   model = new UpdateDistributionDto();
   error = '';
-  responseSuccess : any;
   selectedOrganismId : number;
 
   organism :  any[];
 
-  constructor(private route : ActivatedRoute,
+  constructor(
+              private route : ActivatedRoute,
               private router : Router,
+              private toastrService : ToastrService,
               private distributionService : DistributionService, 
               private organismService : OrganismService,
               private titleService : Title) {
@@ -56,8 +58,9 @@ export class ModifyDistributionComponent implements OnInit {
     this.model.id = this.id;
     this.distributionService.updateDistribution(this.model).subscribe(
       x => {
-        this.responseSuccess = x;
-        //this.router.navigate(['/distribution']);
+          this.toastrService.success("La repartición '"+this.model.name+"' se ha modificado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+          this.router.navigate(['/distribution']);
       },
         error => {
           this.error = error.error.notifications

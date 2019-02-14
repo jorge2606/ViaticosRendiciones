@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { modifyUser } from '../users';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -28,8 +29,9 @@ export class ModifyuserComponent implements OnInit {
           private userService: UserService,
           private distributionService : DistributionService,
           private categoryService : CategoryService,
-          private titleService : Title) {
-  }
+          private titleService : Title,
+          private toastrService : ToastrService
+          ) {}
   
 
   onChange(rol){
@@ -41,8 +43,11 @@ export class ModifyuserComponent implements OnInit {
     this.userService.updateUsers(this.model).subscribe(
       () => {
         this.router.navigate(['/users']);
+        this.toastrService.success(' El usuario se ha modificado correctamente.','',
+        {positionClass : 'toast-top-center', timeOut : 3000});
       },
-        () => {
+        e => {
+          console.log(e);
       }      
     );
   }

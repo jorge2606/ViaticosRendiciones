@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UpdateOrganismDto } from 'src/app/_models/organism';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modify-organism',
@@ -13,14 +14,14 @@ export class ModifyOrganismComponent implements OnInit {
 
   model = new UpdateOrganismDto();
   id : number;
-  responseSuccess : any;
   error = '';
 
   constructor(
               private organismService : OrganismService,
               private route : ActivatedRoute,
-              private router : Router,
-              private titleService : Title
+              private routerservice : Router,
+              private titleService : Title,
+              private toastrService : ToastrService
               ) { 
                 this.titleService.setTitle('Modificar Organismo');
               }
@@ -38,7 +39,11 @@ export class ModifyOrganismComponent implements OnInit {
 
   onSubmit(){
     this.organismService.updateOrganism(this.model).subscribe(
-      x=> this.responseSuccess = x,
+      x=> {
+        this.routerservice.navigate(['/organism']);
+        this.toastrService.success("El organismo '"+this.model.name+"' se ha modificado correctamente.",'',
+        {positionClass : 'toast-top-center', timeOut : 3000});
+      },
       error => this.error = error.error.notifications
     );
   }

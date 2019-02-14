@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganismBaseDto } from '../_models/organism';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrganismService } from '../_services/organism.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-distributions',
@@ -33,7 +34,8 @@ export class DistributionsComponent implements OnInit {
               private modalService: NgbModal,
               private organismService : OrganismService,
               private route: ActivatedRoute,
-              private titleService : Title) { 
+              private titleService : Title,
+              private toastrService : ToastrService) { 
                 this.titleService.setTitle('Reparticiones');
               }
 
@@ -81,6 +83,8 @@ export class DistributionsComponent implements OnInit {
     modalRef.result.then(() => {
       this.distributionService.deleteDistribution(distributionId).subscribe(
         () => {
+          this.toastrService.success("La repartición '"+name+"' se ha eliminado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
           this.getAllDistributions(this.filters);
         },
         error => {

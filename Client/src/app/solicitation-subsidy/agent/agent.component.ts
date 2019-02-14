@@ -9,6 +9,7 @@ import { SolicitationSubsidyBaseDto, SolicitationIdDto, AllSolicitationSubsidyDt
 import { NgbdModalContent } from 'src/app/modals/modals.component';
 import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-agent',
@@ -38,9 +39,10 @@ export class AgentComponent implements OnInit {
             private solicitationSubsidyservice : SolicitationSubsidyService,
             private transportService : TransportService,
             private modalService: NgbModal,
-            private router : Router,
+            private routerService : Router,
             private spinner: NgxSpinnerService,
-            private titleService : Title
+            private titleService : Title,
+            private toastrService : ToastrService
             ) { 
               this.titleService.setTitle('Mis Solicitudes de Viático');
             }
@@ -88,6 +90,8 @@ export class AgentComponent implements OnInit {
       modalRef.result.then(() => {
         this.solicitationSubsidyservice.delete(solicitud.id).subscribe(
           data => {
+            this.toastrService.success("La solicitud de viático se ha eliminado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
             this.getAll(this.filters);
           },
           error => {
@@ -134,12 +138,15 @@ export class AgentComponent implements OnInit {
       .subscribe(
         x => {
             this.spinner.hide();
+            this.toastrService.success("La solicitud de viático se ha enviado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
             this.getAll(this.filters);
           }
         ,
         error =>{
-          console.log(error);
           this.spinner.hide();
+          this.toastrService.error("La solicitud de viático No se ha enviado.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
           this.getAll(this.filters);
         }
       );

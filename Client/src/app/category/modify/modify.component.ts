@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FindByIdCategoryDto } from 'src/app/_models/category';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modify',
@@ -22,7 +23,9 @@ export class ModifyCategoryComponent implements OnInit {
             private categoryService : CategoryService, 
             private route: ActivatedRoute,
             private router : Router,
-            private titleService : Title) { 
+            private titleService : Title,
+            private toastrService : ToastrService
+            ) { 
               this.titleService.setTitle('Modificar Categoría');
             }
 
@@ -45,6 +48,8 @@ export class ModifyCategoryComponent implements OnInit {
         this.responseSuccess = x;
         this.error = '';
         this.router.navigate(['/category']);
+        this.toastrService.success("La categoría '"+this.model.name+"' se ha modificado correctamente.",'',
+        {positionClass : 'toast-top-center', timeOut : 3000});
       },
         err => this.error = err.error.notifications
     );

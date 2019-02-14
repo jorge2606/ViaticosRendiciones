@@ -27,7 +27,7 @@
                         <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
                             Descripción Incorrecta
                         </div>
-                        <select class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
+                        <select required class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
                               <option *ngIf="selectedOrganismId == model.organismId" [ngValue]="selectedOrganismId" disabled>
                                   Seleccione un Organismo...
                               </option>
@@ -54,12 +54,7 @@
                     <li>{{e.value}}</li>
                 </ul>
             </div>
-            
-            <div class="alert alert-success" *ngIf="responseSuccess">
-                <ul>
-                    <li>Guardado</li>
-                </ul>
-            </div>    
+              
         </div>
     </div>
 </div>

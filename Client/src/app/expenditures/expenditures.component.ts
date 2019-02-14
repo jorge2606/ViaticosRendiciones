@@ -1,10 +1,11 @@
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ExpenditureService } from '../_services/expenditure.service';
 import { ExpenditureTypeBaseDto } from '../_models/expenditureType';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-expenditures',
@@ -23,7 +24,9 @@ export class ExpendituresComponent implements OnInit {
   constructor(
             private expenditureService : ExpenditureService,
             private modalService : NgbModal,
-            private titleService : Title) { 
+            private titleService : Title,
+            private toastrService : ToastrService
+            ) { 
               this.titleService.setTitle('Tipos de Gastos');
             }
 
@@ -57,6 +60,8 @@ export class ExpendituresComponent implements OnInit {
     modalRef.result.then(() => {
       this.expenditureService.deleteExpenditure(expenditureId).subscribe(
         data => {
+            this.toastrService.success("El concepto de gasto '"+name+"' se ha eliminado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
             this.getAllExpenditure(this.page);
         },
         error => {

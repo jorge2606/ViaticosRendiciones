@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrganismService } from '../_services/organism.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from '../modals/modals.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-organisms',
@@ -23,7 +24,9 @@ export class OrganismsComponent implements OnInit {
   constructor(
               private organismService : OrganismService,
               private modalService : NgbModal,
-              private titleService : Title) { 
+              private titleService : Title,
+              private toastrService : ToastrService
+              ) { 
                 this.titleService.setTitle('Organismos');
               }
 
@@ -59,6 +62,8 @@ export class OrganismsComponent implements OnInit {
     modalRef.result.then(() => {
       this.organismService.deleteOrganism(id).subscribe(
         data => {
+            this.toastrService.success("El organismo '"+name+"' se ha eliminado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
             this.getAllOrganism(this.filters.page);
         },
         error => {

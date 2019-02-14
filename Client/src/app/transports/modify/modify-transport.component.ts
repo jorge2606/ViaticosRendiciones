@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UpdateTransportDto } from 'src/app/_models/transport';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modify-transport',
@@ -15,12 +16,11 @@ export class ModifyTransportComponent implements OnInit {
   id : number;
   error = '';
 
-  responseSuccess : any;
-
   constructor(private route : ActivatedRoute,
     private router : Router,
     private tranportService : TransportService,
-    private titleService : Title
+    private titleService : Title,
+    private toastrService : ToastrService
     ) { }
 
   ngOnInit() {
@@ -44,8 +44,9 @@ export class ModifyTransportComponent implements OnInit {
     this.modelTransport.id = this.id;
     this.tranportService.updateTransport(this.modelTransport).subscribe(
       x => {
-        this.responseSuccess = x; 
         this.router.navigate(['/transport']);
+        this.toastrService.success("El transporte '"+this.modelTransport.model+"' se ha modificado correctamente.",'',
+        {positionClass : 'toast-top-center', timeOut : 3000});
       },
         error => {
           this.error = error.error.notifications

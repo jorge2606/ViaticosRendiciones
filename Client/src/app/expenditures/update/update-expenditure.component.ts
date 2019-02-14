@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UpdateExpenditureDto } from 'src/app/_models/expenditureType';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-expenditure',
@@ -15,13 +16,13 @@ export class UpdateExpenditureComponent implements OnInit {
   error = '';
   id : number;
 
-  responseSuccess : any;
-
   constructor(
               private expenditureService : ExpenditureService,
               private route : ActivatedRoute,
               private router : Router,
-              private titleService : Title) { 
+              private titleService : Title,
+              private routerService : Router,
+              private toastrService : ToastrService) { 
                 this.titleService.setTitle('Modificar Tipo de Gasto');
               }
 
@@ -37,7 +38,11 @@ export class UpdateExpenditureComponent implements OnInit {
 
   onSubmit(){
     this.expenditureService.updateExpenditure(this.model).subscribe(
-      x=> this.responseSuccess = x,
+      x=> {
+            this.toastrService.success("El concepto de gasto '"+this.model.name+"' se ha modificado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
+            this.routerService.navigate(['/expenditure']);
+          },
       error => this.error = error.error.notifications
     );
   }

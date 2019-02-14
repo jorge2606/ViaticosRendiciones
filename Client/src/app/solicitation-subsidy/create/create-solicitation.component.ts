@@ -359,15 +359,13 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   msjToastError(msg : string){
-    this.toastrService.error(msg, 'Error',
-        {timeOut : 3000,closeButton : true }
-    );
+    this.toastrService.error("La solicitud de viático se ha eliminado correctamente.",'',
+    {positionClass : 'toast-top-center', timeOut : 3000});
   }
 
   msjToastSuccess(msg : string){
-    this.toastrService.success(msg, 'Éxito',
-        {timeOut : 3000,closeButton : true }
-    );
+    this.toastrService.success(msg,'',
+    {positionClass : 'toast-top-center', timeOut : 3000});
   }
 
   onSubmit(){
@@ -382,7 +380,7 @@ export class CreateSolicitationComponent implements OnInit {
           () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
             this.msjExito = 'Solicitud Enviada';
-            this.msjToastSuccess('La solicitud de viático se guardo correctamente');
+            this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
           },
           error => console.log(error) 
         );
@@ -391,7 +389,7 @@ export class CreateSolicitationComponent implements OnInit {
           () => {
               this.router.navigate(['SolicitationSubsidy/agent']);
               this.msjExito = 'Solicitud Actualizada';
-              this.msjToastSuccess('La solicitud de viático se guardo correctamente');
+              this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
           }
         );
       }

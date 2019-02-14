@@ -3,6 +3,8 @@ import { OrganismService } from 'src/app/_services/organism.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { CreateDistributionDto } from './../../_models/distributions';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-distributions',
@@ -13,7 +15,6 @@ export class CreateDistributionsComponent implements OnInit {
 
   model = new CreateDistributionDto();
   error : any;
-  responseSuccess : any;
   selectedOrganismId : number;
 
   organism : any[];
@@ -21,7 +22,10 @@ export class CreateDistributionsComponent implements OnInit {
   constructor(
               private ditributionService : DistributionService, 
               private organismService : OrganismService,
-              private titleService : Title) { 
+              private titleService : Title,
+              private toastrService : ToastrService,
+              private routerService : Router
+              ) { 
                 this.titleService.setTitle('Crear Distribución');
               }
 
@@ -36,7 +40,11 @@ export class CreateDistributionsComponent implements OnInit {
 
   onSubmit(){
     this.ditributionService.creteDistribution(this.model).subscribe(
-      x=> this.responseSuccess = x,
+      x=>{
+          this.routerService.navigate(['/distribution']);
+          this.toastrService.success("La distribución '"+this.model.name+"' se ha modificado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+      },
       error => this.error = error.error.notifications
     );
   }

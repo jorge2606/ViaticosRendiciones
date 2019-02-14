@@ -2,6 +2,8 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { CreateExpenditureDto } from 'src/app/_models/expenditureType';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-expenditure',
@@ -12,11 +14,13 @@ export class CreateExpenditureComponent implements OnInit {
 
   model = new CreateExpenditureDto();
   error = '';
-  responseSuccess : any;
 
   constructor(
             private expenditureService : ExpenditureService,
-            private titleService : Title) {
+            private titleService : Title,
+            private toastrService : ToastrService,
+            private routerService : Router
+            ) {
               this.titleService.setTitle('Crear Tipo de Gasto');
              }
 
@@ -25,7 +29,10 @@ export class CreateExpenditureComponent implements OnInit {
 
   onSubmit(){
     this.expenditureService.createExpenditure(this.model).subscribe(
-      x=>{this.responseSuccess = x;
+      x=>{
+          this.toastrService.success("El concepto de gasto '"+this.model.name+"' se ha guardado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+          this.routerService.navigate(['/expenditure']);
           this.error = '';
         },
       error => this.error = error.error.notifications

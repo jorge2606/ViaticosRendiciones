@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UserService } from './../../_services/user.service';
@@ -28,7 +29,8 @@ export class CreateuserComponent implements OnInit {
               private rolService : RoleService,
               private distributionService : DistributionService,
               private categoryService : CategoryService,
-              private titleService : Title) {}
+              private titleService : Title,
+              private toastrService : ToastrService) {}
 
 
   getAllRoles(){
@@ -47,7 +49,7 @@ export class CreateuserComponent implements OnInit {
     this.UserService.createWithObjectUser(this.model).subscribe(
       data => {
           this.router.navigate(['/users']);
-          console.log("POST Request is successful ", data);
+          this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
       },
         error => {
           this.errors = error.error.notifications;

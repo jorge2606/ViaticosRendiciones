@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   createCategory(createCategoryDto : CreateCategoryDto){
-      return this.http.post<CreateCategoryDto>('http://localhost:63098/api/Category/CreateCategory', createCategoryDto);
+      return this.http.post<any>('http://localhost:63098/api/Category/Create/', createCategoryDto);
   }
 
   getPaginator(filters: any) {

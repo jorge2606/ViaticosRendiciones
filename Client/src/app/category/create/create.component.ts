@@ -1,7 +1,9 @@
 import { Title } from '@angular/platform-browser';
-import { Category } from './../../_models/category';
+import { Category, CreateCategoryDto } from './../../_models/category';
 import { CategoryService } from './../../_services/category.service';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-Category',
@@ -10,13 +12,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCategoryComponent implements OnInit {
 
-  model = new Category();
+  model = new CreateCategoryDto();
   error = '';
-  responseSuccess : any;
   
   constructor(
             private categoryService : CategoryService,
-            private titleService : Title) {
+            private titleService : Title,
+            private toastrService : ToastrService,
+            private routerService : Router
+            ) {
                 this.titleService.setTitle('Crear Categoría');
              }
 
@@ -26,7 +30,11 @@ export class CreateCategoryComponent implements OnInit {
   
   onSubmit(){
     this.categoryService.createCategory(this.model).subscribe(
-      x=>this.responseSuccess = x,
+      x=>{
+          this.routerService.navigate(['/category']);
+          this.toastrService.success("La categoría '"+this.model.name+"' se ha guardado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+          },
       error => this.error = error.error.notifications
     );
   }

@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AspNetRolesService } from '../_services/asp-net-roles.service';
 import { AspNetUsersRolesService } from '../_services/asp-net-users-roles.service';
 import { AllAspNetRolesDto } from '../_models/aspNetRoles';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -47,7 +48,8 @@ export class UsersComponent implements OnInit {
               private aspNetRolesService : AspNetRolesService,
               private aspNetUsersRolesService : AspNetUsersRolesService,
               private titleService : Title,
-              private router : Router) {}
+              private router : Router,
+              private toastrService : ToastrService) {}
 
 
   ngOnInit() {
@@ -134,6 +136,8 @@ export class UsersComponent implements OnInit {
     modalRef.result.then(() => {
       this.var_user_service.deleteUser(id).subscribe(
         data => {
+          this.toastrService.success("El usuario '"+usuario+"' se ha eliminado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
           this.getAllUsers(this.filters);
         },
         error => {

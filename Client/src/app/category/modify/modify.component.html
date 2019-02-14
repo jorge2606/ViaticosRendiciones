@@ -40,7 +40,7 @@
                                     </div>
                             
                                 <div class="form-row">
-                                    <button 
+                                    <button [disabled]="!CategoryForm.valid"
                                         class="btn btn-success ml-auto"
                                         placement="bottom" ngbTooltip="Enviar este formulario"
                                     >
