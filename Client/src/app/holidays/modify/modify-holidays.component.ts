@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
 import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modify-holidays',
@@ -23,7 +24,8 @@ export class ModifyHolidaysComponent implements OnInit {
   constructor(private route : ActivatedRoute, 
               private holidayService : HolidaysService,
               private router : Router,
-              private titleService : Title
+              private titleService : Title,
+              private toastrService : ToastrService
               ) { 
                 this.titleService.setTitle('Modificar Feriado');
               }
@@ -41,11 +43,13 @@ export class ModifyHolidaysComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.validateDate()){
+    if (this.validateDate()){
       this.model.id = this.id;
       this.holidayService.updateHoliday(this.model).subscribe(
         () => {
           this.router.navigate(['/holidays']);
+          this.toastrService.success("La fehca '"+this.model.description+"' se ha modificado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
         },
           () => {
         }      

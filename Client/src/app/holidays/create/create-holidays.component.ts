@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Notifications } from './../../_models/notifications';
 import { HolidaysService } from './../../_services/holidays.service';
@@ -5,6 +6,7 @@ import { CreateHolidayDto } from './../../_models/holiday';
 import { Component, OnInit } from '@angular/core';
 import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
 import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-holidays',
@@ -20,7 +22,9 @@ export class CreateHolidaysComponent implements OnInit {
 
   constructor(
                 private holidayService: HolidaysService,
-                private titleService :Title
+                private titleService :Title,
+                private routerService : Router,
+                private toastrService : ToastrService
                 ) { 
                     this.titleService.setTitle('Crear Feriado');
                 }
@@ -37,7 +41,11 @@ export class CreateHolidaysComponent implements OnInit {
     this.errorDatapicker = '';
 
     this.holidayService.createHoliday(this.model).subscribe(
-      x => console.log("Create succesful"),
+      x => {
+            this.routerService.navigate(['/holidays']);
+            this.toastrService.success("La fecha '"+this.model.description+"' se ha guardado correctamente.",'',
+              {positionClass : 'toast-top-center', timeOut : 3000});
+          },
       errors => this.errors = errors.error.date
     );
 

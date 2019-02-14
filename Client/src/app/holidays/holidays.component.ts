@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { HolidayBaseDto } from './../_models/holiday';
 import { HolidaysService } from './../_services/holidays.service';
@@ -30,7 +31,8 @@ export class HolidaysComponent implements OnInit {
   constructor(
     private holidayService : HolidaysService,
     private modalService: NgbModal,
-    private titleService : Title
+    private titleService : Title,
+    private toastrService : ToastrService
   ) {
       this.titleService.setTitle('Feriados');
   }
@@ -96,7 +98,9 @@ export class HolidaysComponent implements OnInit {
       modalRef.result.then(() => {
         this.holidayService.deleteHoliday(holiday.id).subscribe(
           () => {
-           this.getAllHolidays(this.filters);
+            this.toastrService.success("La fecha '"+holiday.description+"' se ha eliminado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
+            this.getAllHolidays(this.filters);
           },
           error => {
               console.log("error", error);

@@ -22,7 +22,7 @@ export class HolidaysService {
   }
 
   updateHoliday(updateHoliday : UpdateHolidayDto){
-    return this.http.put<any>("http://localhost:63098/api/Holiday/update/",updateHoliday);
+    return this.http.put<any>("http://localhost:63098/api/Holiday/update",updateHoliday);
   }
 
   deleteHoliday(id : number){
