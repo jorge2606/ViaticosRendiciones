@@ -48,15 +48,14 @@ namespace VR.Web
 
         private const string _defaultCorsPolicyName = "localhost";
         private const string enUSCulture = "es-ES";
+        public IConfiguration Configuration { get; }
+        public IServiceProvider ServiceProvider { get; }
 
         public Startup(IConfiguration configuration, IServiceProvider serviceProvider)
         {
             Configuration = configuration;
             ServiceProvider = serviceProvider;
         }
-
-        public IConfiguration Configuration { get; }
-        public IServiceProvider ServiceProvider { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {

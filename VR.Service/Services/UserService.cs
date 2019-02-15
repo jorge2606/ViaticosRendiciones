@@ -39,6 +39,7 @@ namespace VR.Service.Services
         private readonly IValidator<LoginDto> _fluentValidatorLogin;
         private readonly IValidator<CreateUserDto> _fluentValidatorCreateUser;
         private readonly SignInManager _signInManager;
+        private IConfiguration _configuration;
 
         public UserService(DataContext context,
             UserManager userManager,
@@ -65,8 +66,6 @@ namespace VR.Service.Services
             _fluentValidatorLogin = fluentValidatorLogin;
             _fluentValidatorCreateUser = fluentValidatorCreateUser;
         }
-
-        private IConfiguration _configuration { get; }
 
         public ServiceResult<List<AllUserDto>> GetAll()
         {
@@ -436,7 +435,7 @@ namespace VR.Service.Services
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackUrl = string.Format("http://localhost:4200/CambiarPassword?code={0}&userId={1}", code, user.Id);
+            var callbackUrl = string.Format(_configuration["AppSettings:localUrl"] +"/CambiarPassword?code={0}&userId={1}", code, user.Id);
 
             await _emailSender.SendEmailAsync(model.Email, "Reset Password",
             "<html>" +

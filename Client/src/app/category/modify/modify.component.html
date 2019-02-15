@@ -12,30 +12,45 @@
                             <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
                                 
                                 <div style="margin-bottom:5px;" class="form-group">
-                                    <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
+                                    <input class="form-control" 
+                                        [(ngModel)]="model.name" 
+                                        #name="ngModel" 
+                                        required 
+                                        name="name" 
+                                        type="text"
+                                        maxlength="150"
                                         placeholder="Nombre">
                                 </div>
                             
-                                <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
+                                <div style="margin-top: 10px;" *ngIf="name.dirty && name.invalid" class="alert alert-danger">
                                     Nombre Incorrecto
                                 </div>
                             
                                 <div style="margin-bottom:5px;" class="form-group">
-                                    <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
+                                    <input class="form-control" 
+                                        [(ngModel)]="model.description" 
+                                        required #description="ngModel" 
+                                        name="description" 
+                                        type="text"
+                                        maxlength="150"
                                         placeholder="Descripción">
                                 </div>
                             
-                                <div style="margin-top: 10px;" *ngIf="description.invalid" class="alert alert-danger">
+                                <div style="margin-top: 10px;" *ngIf="description.dirty && description.invalid" class="alert alert-danger">
                                     Descripción Incorrecta
                                 </div>
                             
                                 <div style="margin-bottom:5px;" class="form-group">
-                                        <input class="form-control" [(ngModel)]="model.advance" required #advance="ngModel" name="advance" 
-                                        type="text"
-                                            placeholder="Anticipo">
+                                        <input class="form-control" 
+                                        [(ngModel)]="model.advance" 
+                                        required #advance="ngModel" 
+                                        name="advance" 
+                                        type="number"
+                                        placeholder="Anticipo"
+                                        maxlength="8">
                                     </div>
                             
-                                    <div style="margin-top: 10px;" *ngIf="advance.invalid" class="alert alert-danger">
+                                    <div style="margin-top: 10px;" *ngIf="advance.dirty && advance.invalid" class="alert alert-danger">
                                         Anticipo Incorrecta
                                     </div>
                             

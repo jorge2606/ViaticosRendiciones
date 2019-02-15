@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Service.Common;
 using Service.Common.Extensions;
 using Service.Common.ServiceResult;
@@ -31,6 +32,7 @@ namespace VR.Service.Services
         private IMapper _mapper;
         private readonly IEmailSender _emailSender;
         private readonly INotificationService _notificationService;
+        public IConfiguration _configuration { get; }
 
         public SolicitationSubsidyService(
             DataContext dataContext,
@@ -38,7 +40,9 @@ namespace VR.Service.Services
             IMapper mapper,
             UserManager<User> userManager,
             IEmailSender emailSender,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IConfiguration configuration
+            )
         {
             _dataContext = dataContext;
             _fluentValidator = fluentValidator;
@@ -46,6 +50,7 @@ namespace VR.Service.Services
             _userManager = userManager;
             _emailSender = emailSender;
             _notificationService = notificationService;
+            _configuration = configuration;
         }
 
         public ServiceResult<CreateSolicitationSubsidyDto> Create(CreateSolicitationSubsidyDto subsidy)
@@ -368,7 +373,7 @@ namespace VR.Service.Services
             }
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
 
-            var url = string.Format("http://localhost:4200/SolicitationSubsidy/confirm/{0}",solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/confirm/{0}",solicitation.Id);
 
             var html = "<body>" +
                         "<head>" +

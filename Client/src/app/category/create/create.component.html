@@ -9,45 +9,66 @@
         <div class="card">
             <h5 class="card-header">Nuevo</h5>
             <div class="card-body">
-                <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
+                <form (ngSubmit)="onSubmit(CategoryForm)" #CategoryForm="ngForm">
                     
                     <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" [(ngModel)]="model.name" 
-                            #name="ngModel" required 
+                        <input class="form-control" 
+                            [(ngModel)]="model.name" 
+                            [ngClass]="{ 'is-invalid': (name.dirty || submitted) && name.invalid }"
+                            #name="ngModel" 
+                            required 
                             name="name" 
                             type="text"
                             maxlength="150"
                             placeholder="Nombre">
                     </div>
                 
-                    <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
-                        Nombre Incorrecto
+                    <div style="margin-top: 10px;" 
+                        *ngIf="name.dirty && !submitted && name.invalid" 
+                        class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            El campo 'Nombre' no debería estar vacío
+                        </div>
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" [(ngModel)]="model.description" 
-                            required #description="ngModel" 
-                            name="description" type="text"
+                        <input class="form-control" 
+                            [(ngModel)]="model.description" 
+                            required 
+                            #description="ngModel" 
+                            name="description" 
+                            type="text"
                             maxlength="150"
-                            placeholder="Descripción">
+                            placeholder="Descripción"
+                            [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid }">
                     </div>
-                
-                    <div style="margin-top: 10px;" *ngIf="description.invalid" class="alert alert-danger">
-                        Descripción Incorrecta
+                    <div style="margin-top: 10px;" 
+                        *ngIf="description.dirty && !submitted && description.invalid" 
+                        class="alert alert-danger">
+                        <div *ngIf="description.errors.required">
+                            El campo 'Descripción' no debería estar vacío
+                        </div>
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-group">
                         <input class="form-control"
                             [(ngModel)]="model.advance" 
-                            required #advance="ngModel" 
+                            required 
+                            #advance="ngModel" 
                             name="advance" 
                             type="number"
                             maxlength="8"
-                            placeholder="Anticipo">
+                            pattern="[0-9]+"
+                            placeholder="Anticipo"
+                            [ngClass]="{ 'is-invalid': (advance.dirty || submitted) && advance.invalid }">
                     </div>
                 
-                    <div style="margin-top: 10px;" *ngIf="advance.invalid" class="alert alert-danger">
-                        Anticipo Incorrecta
+                    <div style="margin-top: 10px;" 
+                        *ngIf="advance.dirty && !submitted && advance.invalid" 
+                        class="alert alert-danger">
+                        <div *ngIf="advance.errors.required">
+                            El campo 'Anticipo' no debería estar vacío
+                        </div>
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-row">
@@ -64,12 +85,6 @@
             <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
                 Hay Campos erroneos en el formulario, verifiquelos
             </div>-->
-            
-            <div class="alert alert-danger" *ngIf="error">
-                <ul *ngFor="let e of error">
-                    <li>{{e.value}}</li>
-                </ul>
-            </div>
             
             
         </div>
