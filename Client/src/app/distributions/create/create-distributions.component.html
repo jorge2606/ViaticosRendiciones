@@ -15,7 +15,7 @@
                                 placeholder="Nombre">
                         </div>
                   
-                        <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
+                        <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
                             Nombre Incorrecto
                         </div>
                   
@@ -24,7 +24,7 @@
                                 placeholder="Descripción">
                         </div>
                   
-                        <div style="margin-top: 10px;" *ngIf="submitted && description.invalid" class="alert alert-danger">
+                        <div style="margin-top: 10px;" *ngIf="description.invalid" class="alert alert-danger">
                             Descripción Incorrecta
                         </div>
                         <select required class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">

@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
-  //apiUrl: 'http://viaticosservices.devlights.com/api/File/'
-  apiUrl: 'http://localhost:63098/api/File/'
+  production: false,
+  // apiUrl: 'http://viaticosservices.devlights.com/api/File/'
+  //apiUrl: 'http://localhost:63098/api/File/'
+  apiUrl: 'http://localhost:63098/api/'
 };
 
 /*

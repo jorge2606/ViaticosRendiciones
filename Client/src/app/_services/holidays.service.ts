@@ -1,6 +1,7 @@
 import { CreateHolidayDto, FindByIdHolidayDto, UpdateHolidayDto } from './../_models/holiday';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,23 +11,23 @@ export class HolidaysService {
   constructor(private http : HttpClient) { }
 
   getPageHoliday(filters : any){
-    return this.http.get<any>("http://localhost:63098/api/Holiday/GetPageHoliday", {params : filters});
+    return this.http.get<any>(environment.apiUrl+"Holiday/GetPageHoliday", {params : filters});
   }
 
   createHoliday(newHoliday : CreateHolidayDto){
-    return this.http.post<any>("http://localhost:63098/api/Holiday/create",newHoliday);
+    return this.http.post<any>(environment.apiUrl+"Holiday/create",newHoliday);
   }
 
   getByIdHoliday(id : number) {
-    return this.http.get<FindByIdHolidayDto>("http://localhost:63098/api/Holiday/getById/"+id);
+    return this.http.get<FindByIdHolidayDto>(environment.apiUrl+"Holiday/getById/"+id);
   }
 
   updateHoliday(updateHoliday : UpdateHolidayDto){
-    return this.http.put<any>("http://localhost:63098/api/Holiday/update",updateHoliday);
+    return this.http.put<any>(environment.apiUrl+"Holiday/update",updateHoliday);
   }
 
   deleteHoliday(id : number){
-    return this.http.delete<any>("http://localhost:63098/api/Holiday/Delete/"+id);
+    return this.http.delete<any>(environment.apiUrl+"Holiday/Delete/"+id);
   }
 
 }

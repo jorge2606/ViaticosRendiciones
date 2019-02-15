@@ -22,7 +22,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class UsersComponent implements OnInit {
-  filters = { page: 0, distributionId: null, dni : "" }
+  filters = { page: 0, distributionId: null, dni : "", userName : "" }
   user_list: User[];
   allUsers : User[];
   roles_list: Roles;

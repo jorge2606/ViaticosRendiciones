@@ -60,9 +60,9 @@
 </div>
 
 	<ngb-pagination 
-		(pageChange)="loadPage($event)" 
+		(pageChange)="loadPage()" 
 		[collectionSize]="col_size" 
 		[pageSize]="itemsPerPage" 
-		[(page)]="page"
+		[(page)]="filters.page"
 		aria-label="Default pagination">
 	</ngb-pagination>

@@ -2,6 +2,7 @@ import { CreateTransportDto, CarIsBeingUsedByOtherSolicitation } from 'src/app/_
 import { UpdateTransportDto } from './../_models/transport';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +12,31 @@ export class TransportService {
   constructor(private http : HttpClient) { }
 
   getPaginator(page: number) {
-    return this.http.get<any>('http://localhost:63098/api/Transport/page/' + page);
+    return this.http.get<any>(environment.apiUrl+'Transport/page/' + page);
   }
 
   findByIdTransport(id : number){
-    return this.http.get<any>('http://localhost:63098/api/Transport/FindByIdTransport/'+id);
+    return this.http.get<any>(environment.apiUrl+'Transport/FindByIdTransport/'+id);
   }
 
   updateTransport(updateTransport : UpdateTransportDto){
-    return this.http.put<any>('http://localhost:63098/api/Transport/Update/',updateTransport);
+    return this.http.put<any>(environment.apiUrl+'Transport/Update/',updateTransport);
   }
 
   createTransport(CreateTransport : CreateTransportDto){
-    return this.http.post<any>('http://localhost:63098/api/Transport/Create/',CreateTransport);
+    return this.http.post<any>(environment.apiUrl+'Transport/Create/',CreateTransport);
   }
 
   deleteTransport(id : number){
-    return this.http.delete<any>('http://localhost:63098/api/Transport/Delete/'+id);
+    return this.http.delete<any>(environment.apiUrl+'Transport/Delete/'+id);
   }
 
   getAll(){
-    return this.http.get<any>('http://localhost:63098/api/Transport/GetAll/');
+    return this.http.get<any>(environment.apiUrl+'Transport/GetAll/');
   }
 
   carIsBeingUsedByOtherSolicitation(transport : CarIsBeingUsedByOtherSolicitation){
-    return this.http.post<boolean>("http://localhost:63098/api/Transport/CarIsBeingUsedByOtherSolicitation", transport);
+    return this.http.post<boolean>(environment.apiUrl+'Transport/CarIsBeingUsedByOtherSolicitation', transport);
   }
 
 

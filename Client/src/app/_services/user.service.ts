@@ -7,37 +7,38 @@ import { User, modifyUser, createUser } from '../users/users';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
     constructor(private http: HttpClient, private authenticationService : AuthenticationService) { }
 
     getAll() {
-        return this.http.get<any>('http://localhost:63098/api/User/getall');
+        return this.http.get<any>(environment.apiUrl+'User/getall');
     }
 
     getPaginator(filters: any) {
-        return this.http.get<any>('http://localhost:63098/api/User/page/',{params: filters});
+        return this.http.get<any>(environment.apiUrl+'User/page/',{params: filters});
     }
 
     getById() {
-        return this.http.get<modifyUser>('http://localhost:63098/api/User/getbyid/');
+        return this.http.get<modifyUser>(environment.apiUrl+'User/getbyid/');
     }
 
     getByIdAdministrator(id : number) {
-        return this.http.get<modifyUser>('http://localhost:63098/api/User/getbyidAdministrator/'+id);
+        return this.http.get<modifyUser>(environment.apiUrl+'User/getbyidAdministrator/'+id);
     }
 
     updateUsers(user: User) : Observable<any> {
-        return this.http.put('http://localhost:63098/api/User/UpdateProfileAsAdmin/', user);
+        return this.http.put(environment.apiUrl+'User/UpdateProfileAsAdmin/', user);
     }
 
     updateProfileUsers(user: modifyUser) : Observable<any> {
-        return this.http.put('http://localhost:63098/api/User/UpdateMyProfile', user);
+        return this.http.put(environment.apiUrl+'User/UpdateMyProfile', user);
     }
 
     createWithObjectUser(user: createUser): Observable<any> {
-        return this.http.post('http://localhost:63098/api/User/Save', user)
+        return this.http.post(environment.apiUrl+'User/Save', user)
         .pipe(
             map(this.authenticationService.saveToken),
             catchError(error => this.handleError(error))
@@ -45,11 +46,11 @@ export class UserService {
     }
 
     deleteUser(id: number) {
-        return this.http.delete('http://localhost:63098/api/User/' + id);
+        return this.http.delete(environment.apiUrl+'User/' + id);
     }
 
     register(user: Register): Observable<any> {
-        return this.http.post<any>('http://localhost:63098/api/User/register',user)
+        return this.http.post<any>(environment.apiUrl+'User/register',user)
         .pipe(
             map(this.authenticationService.saveToken),
             catchError(error => this.handleError(error))
@@ -61,7 +62,7 @@ export class UserService {
     }
 
     SaveUserRoles(RoleUserDto: RoleUserDto) {
-        this.http.post('http://localhost:63098/api/User/SaveRolUser/', RoleUserDto).subscribe(
+        this.http.post(environment.apiUrl+'User/SaveRolUser/', RoleUserDto).subscribe(
             data => {
                 console.log("POST Request is successful ", data);
             },
@@ -72,7 +73,7 @@ export class UserService {
     }
 
     deleteProfilePhoto(id: number) {
-        return this.http.delete('http://localhost:63098/api/File/removePhoto/' + id);
+        return this.http.delete(environment.apiUrl+'File/removePhoto/' + id);
     }
 
 }

@@ -55,7 +55,7 @@ export class SettingofuserComponent implements OnInit {
     })
   }
 
-  setTitleTab(e : any){
+  setTitleTab(){
     this.titleService.setTitle('Mi Perfil');
   }
 

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -23,7 +24,6 @@ export class HolographSignComponent implements OnInit {
   idUser : number;
   urlImage : string;
   subject = new Subject<any>();
-  successMsj : string;
   errorMsj : string;
   isDeleted : boolean;
 
@@ -32,7 +32,8 @@ export class HolographSignComponent implements OnInit {
     private userService : UserService,
     private http : HttpClient,
     private spinner: NgxSpinnerService,
-    private titleService : Title
+    private titleService : Title,
+    private toastrService : ToastrService
     ) { }
 
     fileOverBase(e:any):void {
@@ -53,7 +54,7 @@ export class HolographSignComponent implements OnInit {
 
     initializeUploader() {
       this.uploader = new FileUploader({
-      url: this.baseUrl+'HolographSignUpdate/',
+      url: this.baseUrl+'File/HolographSignUpdate/',
       authToken: 'Bearer ' + this.authService.userId('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -67,7 +68,7 @@ export class HolographSignComponent implements OnInit {
         if (response) {
           this.isDeleted = response["isDeleted"];
           this.urlImage = this.urlFile(this.idUser,200,200) + "r=" + (Math.random() * 100) + 1;
-          this.successMsj = 'Firma Actualizada'; 
+          this.toastrService.success('Firma Actualizada','',{positionClass : 'toast-top-center', timeOut : 3000});
           //this.messaBetweenComp.sendMessage(this.urlImage); --> envia a la miniatura del navar 
         }
       }   
@@ -106,7 +107,6 @@ export class HolographSignComponent implements OnInit {
         this.urlImage =  url + "r=" + (Math.random() * 100) + 1,
         this.url = '',
         this.messaBetweenComp.sendMessage(this.urlImage),
-        this.successMsj = '',
         this.spinner.hide();
     },
     error => {

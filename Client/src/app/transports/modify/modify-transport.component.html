@@ -14,7 +14,7 @@
                              required name="model" type="text" placeholder="Modelo">
                         </div>
                   
-                        <div style="margin-top: 10px;" *ngIf="submitted && name.invalid" clas="alert alert-danger">
+                        <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
                             Modelo Incorrecto
                         </div>
                   
@@ -23,7 +23,7 @@
                             #type="ngModel" name="type" type="text" placeholder="Tipo">
                         </div>
                   
-                        <div style="margin-top: 10px;" *ngIf="submitted && type.invalid" class="alert alert-danger">
+                        <div style="margin-top: 10px;" *ngIf="type.invalid" class="alert alert-danger">
                             Tipo Incorrecta
                         </div>
                   
@@ -32,7 +32,7 @@
                             #brand="ngModel" name="brand" type="text" placeholder="Marca">
                         </div>
                   
-                        <div style="margin-top: 10px;" *ngIf="submitted && brand.invalid" class="alert alert-danger">
+                        <div style="margin-top: 10px;" *ngIf="brand.invalid" class="alert alert-danger">
                             Marca Incorrecta
                         </div>
                   
@@ -41,7 +41,7 @@
                             #carPlate="ngModel" name="carPlate" type="text" placeholder="Patente">
                         </div>
                   
-                        <div style="margin-top: 10px;" *ngIf="submitted && carPlate.invalid" class="alert alert-danger">
+                        <div style="margin-top: 10px;" *ngIf="carPlate.invalid" class="alert alert-danger">
                             Patente Incorrecta
                         </div>
                   

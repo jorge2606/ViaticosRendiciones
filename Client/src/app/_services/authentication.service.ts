@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,7 +21,7 @@ export class AuthenticationService {
     }
 
     login(user: Login) {
-        return this.http.post<any>('http://localhost:63098/api/User/Auth', user)
+        return this.http.post<any>(environment.apiUrl+'User/Auth', user)
             .pipe(map(this.saveToken));
     }
 
@@ -66,7 +67,7 @@ export class AuthenticationService {
     }
 
     urlFile(userId : number, width : number, height: number){
-        return "http://localhost:63098/api/File/"+userId+"/"+width+"/"+height;
+        return environment.apiUrl+"File/"+userId+"/"+width+"/"+height;
     }
 
 }

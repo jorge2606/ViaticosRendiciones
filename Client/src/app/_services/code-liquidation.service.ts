@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,6 @@ export class CodeLiquidationService {
   ) { }
 
   getAll(){
-    return this.http.get<any>("http://localhost:63098/api/CodeLiquidation/");
+    return this.http.get<any>(environment.apiUrl+"CodeLiquidation/");
   }
 }

@@ -25,4 +25,8 @@ export class FileNumberComponent implements OnInit {
       this.solicitationState.addFielNumber(this.model)
       .subscribe(x => this.activeModal.close());
   }
+
+  closeModal(){
+    this.activeModal.dismiss('Close click')
+  }
 }

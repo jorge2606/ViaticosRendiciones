@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DestinyDto } from 'src/app/_models/destiny';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class DestinyService {
   constructor(private http : HttpClient) { }
   
   delete(id : number){
-      return this.http.delete<any>("http://localhost:63098/api/Destiny/Delete/"+id);
+      return this.http.delete<any>(environment.apiUrl+"Destiny/Delete/"+id);
   }
   sendMessage(message: DestinyDto[]) {
       this.subject.next(message);
@@ -28,7 +29,7 @@ export class DestinyService {
   }
 
   get_destinies(solicitationId : number){
-    return this.http.get<any>("http://localhost:63098/api/Destiny/Get_Destiny/"+solicitationId);
+    return this.http.get<any>(environment.apiUrl+"Destiny/Get_Destiny/"+solicitationId);
   }
   
 }

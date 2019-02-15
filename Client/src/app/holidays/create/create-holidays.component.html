@@ -19,7 +19,7 @@
                             id="description" type="text" placeholder="Descripción">
                         </div>
                 
-                        <div *ngIf="submitted && description.invalid" clas="alert alert-danger mt-1">
+                        <div *ngIf="description.invalid" clas="alert alert-danger mt-1">
                             Descripción Incorrecta
                         </div>
                 
@@ -27,11 +27,12 @@
                         <div class="input-group">
                             <input class="form-control col-5" 
                                 placeholder="yyyy-mm-dd"
-                                    name="dp" [displayMonths]="displayMonths" 
+                                    name="dp" 
+                                    displayMonths="displayMonths" 
                                     required 
-                                    [navigation]="navigation"
-                                    [outsideDays]="outsideDays" 
-                                    [showWeekNumbers]="showWeekNumbers"
+                                    navigation="navigation"
+                                    outsideDays="outsideDays" 
+                                    showWeekNumbers="showWeekNumbers"
                                     ngbDatepicker #d="ngbDatepicker" 
                                     (keyup)="validateDate()"
                                     [(ngModel)]="model.date">
@@ -67,7 +68,7 @@
         </ul>
     </div>
 
-  <div *ngIf="submitted && holidaysForm.form.invalid" class="mt-1">
+  <div *ngIf="holidaysForm.form.invalid" class="mt-1">
       Hay Campos erroneos en el formulario, verifiquelos
   </div>
 </div>

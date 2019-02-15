@@ -75,4 +75,8 @@ export class AceptOrRefuseComponent implements OnInit {
     })
   }
 
+  dimiss(){
+    this.modalService.dismissAll('Close click');
+  }
+
 }
