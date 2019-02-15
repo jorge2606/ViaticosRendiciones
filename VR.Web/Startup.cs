@@ -62,7 +62,8 @@ namespace VR.Web
         {
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ASPDatabase")));
-            services.AddDbContext<AuditContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuditDatabase")));
+            services.AddDbContext<AuditContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("AuditDatabase")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddHttpContextAccessor();
@@ -70,7 +71,12 @@ namespace VR.Web
             //begin Audit config
             Audit.Core.Configuration.Setup()
                 .UseEntityFramework(ef => ef
-                    .UseDbContext<AuditContext>()
+                    .UseDbContext(x =>
+                    {
+                        var sp = services.BuildServiceProvider();
+                        return sp.GetService<AuditContext>();
+                    })
+                    //.UseDbContext<AuditContext>(Configuration.GetConnectionString("AuditDatabase"))
                     .AuditTypeExplicitMapper(m => m
                         .Map<Notification, Audit_Notification>()
                         .Map<User, Audit_User>()

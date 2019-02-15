@@ -17,11 +17,11 @@ namespace Audit.Data
             base.OnModelCreating(builder);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(
-                "Data Source=.\\SQLEXPRESS;Initial Catalog=Audits;Integrated Security = True;Trusted_Connection=True;MultipleActiveResultSets=true");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+           // optionsBuilder.UseSqlServer(
+            //    "Data Source=.\\SQLEXPRESS;Initial Catalog=Audits;Integrated Security = True;Trusted_Connection=True;MultipleActiveResultSets=true");
+        //}
 
         public virtual DbSet<Audit_Notification> Audit_Notifications { get; set; }
         public virtual DbSet<Audit_User> Audit_Users { get; set; }
