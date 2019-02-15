@@ -27,6 +27,7 @@ export class rolesBelongUser{
 }
 export class modifyUser extends User{
   rolesUser : rolesBelongUser[];
+  repeatPassword : string;
 }
 
 

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
@@ -16,12 +17,19 @@ export class SettingofuserComponent implements OnInit {
 
   
 
-  constructor(private router : Router,
-    private route: ActivatedRoute, 
-    private userService: UserService,
-    private titleService : Title) {
+  constructor(
+            private router : Router,
+            private userService: UserService,
+            private titleService : Title,
+            private toastrService : ToastrService
+            ){
+              this.currentUrl = this.router.url;
   }
   model = new modifyUser;
+  submitted : boolean;
+  passwordsAreEquals : Boolean = true;
+  passwordEmpty : boolean = true;
+  currentUrl : string;
 
 
   onChange(rol){
@@ -29,9 +37,28 @@ export class SettingofuserComponent implements OnInit {
   }
 
    onSubmit() {
+    this.submitted = true;
+
+    if (this.model.password || this.model.repeatPassword){
+        if (this.model.password !== this.model.repeatPassword){
+          this.passwordsAreEquals = false;
+            this.toastrService
+            .error('Las contraseñas no coinciden','',{timeOut : 3000, positionClass : 'toast-top-center'})
+          this.submitted = false;
+        }else{
+          this.passwordsAreEquals = true;
+        }
+    }
+
+    if (!this.submitted){
+      return;
+    }
+
     this.userService.updateProfileUsers(this.model).subscribe(
       result => {
-        this.router.navigate(['/users']);
+        this.toastrService
+          .success('El perfil se actualizó correctamente','',{timeOut : 3000, positionClass : 'toast-top-center'})
+        //this.router.navigate([this.currentUrl]);
       },
         error => {
          console.log(error);
@@ -57,6 +84,18 @@ export class SettingofuserComponent implements OnInit {
 
   setTitleTab(){
     this.titleService.setTitle('Mi Perfil');
+  }
+
+  comparePassword(){
+    if (!this.model.password && !this.model.repeatPassword){
+      this.passwordEmpty = true;
+      this.passwordsAreEquals = true;
+      return;
+    }
+    
+    this.passwordsAreEquals = this.model.password === this.model.repeatPassword;
+    this.passwordEmpty = false;
+    return;
   }
 
 }

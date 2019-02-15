@@ -22,6 +22,9 @@ export class ModifyuserComponent implements OnInit {
   model = new modifyUser;
   selectedDistributionId : number;
   categories : any;
+  passwordEmpty : boolean = true;
+  passwordsAreEquals : boolean = true;
+  submitted : boolean;
 
   constructor(
           private router : Router,
@@ -39,6 +42,24 @@ export class ModifyuserComponent implements OnInit {
   }
 
   onSubmit() {
+
+    this.submitted = true;
+
+    if (this.model.password || this.model.repeatPassword){
+        if (this.model.password !== this.model.repeatPassword){
+          this.passwordsAreEquals = false;
+            this.toastrService
+            .error('Las contraseñas no coinciden','',{timeOut : 3000, positionClass : 'toast-top-center'})
+          this.submitted = false;
+        }else{
+          this.passwordsAreEquals = true;
+        }
+    }
+
+    if (!this.submitted){
+      return;
+    }
+
     this.model.id = this.id;
     this.userService.updateUsers(this.model).subscribe(
       () => {
@@ -100,6 +121,18 @@ export class ModifyuserComponent implements OnInit {
         this.distribution = x;
       }
     );
+  }
+
+  comparePassword(){
+    if (!this.model.password && !this.model.repeatPassword){
+      this.passwordEmpty = true;
+      this.passwordsAreEquals = true;
+      return;
+    }
+    
+    this.passwordsAreEquals = this.model.password === this.model.repeatPassword;
+    this.passwordEmpty = false;
+    return;
   }
 
 }

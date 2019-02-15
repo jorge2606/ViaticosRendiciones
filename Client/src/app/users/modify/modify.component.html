@@ -73,8 +73,13 @@
                                     </div>
                         
                                 <div class="form-group mb-1">
-                                    <input class="form-control" [(ngModel)]="model.userName" required #Usuario="ngModel" name="Usuario" type="text"
-                                        placeholder="Username" value="">
+                                    <input class="form-control" 
+                                            [(ngModel)]="model.userName" 
+                                            required 
+                                            #Usuario="ngModel" 
+                                            name="Usuario" 
+                                            type="text"
+                                            placeholder="Correo electrónico" disabled>
                                 </div>
                         
                                 <div *ngIf="submitted && Usuario.invalid" class="alert alert-danger mt-1">
@@ -82,8 +87,35 @@
                                 </div>
                         
                                 <div class="form-group mb-1">
-                                    <input class="form-control" [(ngModel)]="model.password" #Usuario="ngModel" name="Password" type="password"
-                                        placeholder="Nueva Contraseña" value="">
+                                    <input 
+                                        class="form-control" 
+                                        #password="ngModel" 
+                                        name="password" 
+                                        (keyup)="comparePassword()"
+                                        [(ngModel)]="model.password" 
+                                        [ngClass]="{
+                                            'is-invalid' : !passwordsAreEquals && !passwordEmpty ,
+                                            'is-valid' : passwordsAreEquals && !passwordEmpty
+                                        }"
+                                        type="password"
+                                        placeholder="Nueva Contraseña" 
+                                        value="">
+                                </div>
+
+                                <div style="margin-bottom:5px;" class="form-group">
+                                    <input 
+                                        class="form-control"
+                                        (keyup)="comparePassword()" 
+                                        [(ngModel)]="model.repeatPassword" 
+                                        [ngClass]="{
+                                            'is-invalid' : !passwordsAreEquals && !passwordEmpty ,
+                                            'is-valid' : passwordsAreEquals && !passwordEmpty
+                                        }"
+                                        #repeatPassword="ngModel" 
+                                        name="repeatPassword" 
+                                        type="password"
+                                        placeholder="Repetir Contraseña" 
+                                        value="">
                                 </div>
                         
                                 <div *ngIf="submitted && Password.invalid" class="alert alert-danger mt-1">
