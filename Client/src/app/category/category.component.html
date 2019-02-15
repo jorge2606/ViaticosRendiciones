@@ -1,17 +1,21 @@
+<div class="d-inline-block mt-0 mb-1 mr-1">
+	<a 	href="" 
+		placement="bottom" 
+		ngbTooltip="Crear una nueva categoría"
+		class="btn btn-success" 
+		routerLink="create">
+		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+	</a>
+</div>
+
+
 <div class="mb-1" >	
 	<label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
-	<div class="d-inline-block pl-1 pr-1">
+	<div class="d-inline-block">
 		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name"  type="text" class="form-control">
 	</div>
 </div>
 
-<a 	href="" 
-	placement="bottom" 
-	ngbTooltip="Crear una nueva categoría"
-	class="btn btn-success mb-3 mt-3" 
-	routerLink="create">
-	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-</a>
 <div class="" style="min-height: 300px;">
 	<table class="table table-striped">
 		<thead>

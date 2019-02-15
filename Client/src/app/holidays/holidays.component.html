@@ -1,50 +1,51 @@
-<div>
-    <label class="d-inline-block mt-2 mr-2" for="">Fecha </label>
-    <div class="d-inline-block ml-1">
-        <form class="form-inline">
-            <div class="form-group">
-              <div class="input-group">
-                <input 
-                  (dateSelect)="filter()"
-                  (keyup)="filter()"
-                  class="form-control" 
-                  placeholder="yyyy-mm-dd"
-                  name="dp" 
-                  displayMonths="displayMonths" 
-                  navigation="navigation" 
-                  outsideDays="outsideDays" 
-                  showWeekNumbers="showWeekNumbers"
-                  ngbDatepicker 
-                  #d="ngbDatepicker" 
-                  [(ngModel)]="filters.date">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                      <fa-icon icon="calendar-alt"></fa-icon>
-                  </button>
-                </div>
+<div class="d-inline-block mb-1">
+  <a  placement="bottom" 
+    ngbTooltip="Agregar un nuevo día de feria" 
+    href="" class="btn btn-success" routerLink="/holidays/create">
+    <fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+  </a>
+</div>
+
+<br>
+
+  <label class="d-inline-block mt-2 mr-2" for="">Fecha </label>
+  <div class="d-inline-block ml-1">
+      <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <input 
+                (dateSelect)="filter()"
+                (keyup)="filter()"
+                class="form-control" 
+                placeholder="yyyy-mm-dd"
+                name="dp" 
+                displayMonths="displayMonths" 
+                navigation="navigation" 
+                outsideDays="outsideDays" 
+                showWeekNumbers="showWeekNumbers"
+                ngbDatepicker 
+                #d="ngbDatepicker" 
+                [(ngModel)]="filters.date">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
               </div>
             </div>
-          </form>
-    
-          <div *ngIf="errorDatapicker" class="alert alert-danger mt-1">
-              <label for="">
-                  {{errorDatapicker}}
-              </label>
           </div>
-    </div>
+        </form>
+  
+        <div *ngIf="errorDatapicker" class="alert alert-danger mt-1">
+            <label for="">
+                {{errorDatapicker}}
+            </label>
+        </div>
+  </div>
     
     <label class="d-inline-block mt-2 ml-3 mr-3" for="">Descripción </label>
     <div class="d-inline-block ml-1 mr-1">
       <input (keyup)="filter()" [(ngModel)]="filters.description" type="text" class="form-control">
     </div>
-    
-</div>
-
-  <a  placement="bottom" 
-      ngbTooltip="Agregar un nuevo día de feria" 
-      href="" class="btn btn-success mt-2" routerLink="/holidays/create">
-    <fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-  </a>
 
   <div class="mt-2" style="min-height: 300px;">
     <table class="table table-striped">

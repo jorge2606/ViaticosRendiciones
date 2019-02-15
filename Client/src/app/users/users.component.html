@@ -1,5 +1,31 @@
+<div class="d-inline-block mt-0 mb-1 mr-1">
+	<a 
+		href="" 
+		class="btn btn-success" 
+		placement="bottom" 
+		ngbTooltip="Agregar nuevo usuario" 
+		routerLink="/users/create">
+		<fa-icon 
+			class="fa-lg" 
+			icon="plus" 
+		></fa-icon> Nuevo
+	</a>
+</div>
+
+
+<div class="d-inline-block mt-0 mb-1 mr-1">
+	<button class="btn btn-success" [disabled]="users_check.length == 0" (click)="AddSupervisor()">
+		Enlazar a Supervisor
+	</button>
+</div>
+<div class="d-inline-block mt-0 mb-1">
+		<button class="btn btn-success" routerLink="/AgentsAndSupervisors">
+			Supervisores <fa-icon class="fa-lg" icon="user-tie"></fa-icon> Agentes
+		</button>
+</div>
+<br>
 <label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
-<div class="d-inline-block pl-1 pr-1 col-4">
+<div class="d-inline-block pl-1 pr-1 col-4 mb-1">
 	<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
 		class="form-control d-inline-block pl-1">
 		<option value=""></option>
@@ -10,40 +36,15 @@
 </div>
 
 <label class="d-inline-block pl-1 pr-1" for="">Usuario</label>
-<div class="d-inline-block pl-1 pr-1 col-4">
+<div class="d-inline-block pl-1 pr-1 col-4 mb-1">
 	<input (keyup)="findWhileWrite()" [(ngModel)]="filters.userName" type="text" class="form-control">
 </div>
 
 <label class="d-inline-block pl-1 pr-1" for="">D.N.I </label>
-<div class="d-inline-block pl-1 pr-1 col-2">
+<div class="d-inline-block pl-1 pr-1 col-2 mb-1">
 	<input (keyup)="findWhileWrite()" [(ngModel)]="filters.dni"  type="number" class="form-control">
 </div>
 
-	<div class="d-inline-block mt-3 mb-3 mr-1">
-		<a 
-			href="" 
-			class="btn btn-success" 
-			placement="bottom" 
-			ngbTooltip="Agregar nuevo usuario" 
-			routerLink="/users/create">
-			<fa-icon 
-				class="fa-lg" 
-				icon="plus" 
-			></fa-icon> Nuevo
-		</a>
-	</div>
-	
-
-	<div class="d-inline-block mt-3 mb-3 mr-1">
-		<button class="btn btn-success" [disabled]="users_check.length == 0" (click)="AddSupervisor()">
-			Enlazar a Supervisor
-		</button>
-	</div>
-	<div class="d-inline-block mt-3 mb-3">
-			<button class="btn btn-success" routerLink="/AgentsAndSupervisors">
-				Supervisores <fa-icon class="fa-lg" icon="user-tie"></fa-icon> Agentes
-			</button>
-	</div>
 
 <div style="min-height: 300px;">
 	<table class="table table-striped">

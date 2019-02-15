@@ -1,16 +1,17 @@
-<div class="container mb-1" >
-	<label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
-	<div class="d-inline-block pl-1 pr-1">
-		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
-	</div>
+<div class="d-inline-block">
+	<a 
+		placement="bottom" 
+		ngbTooltip="Agregar nuevo organismo" 
+		href="" class="btn btn-success" routerLink="create">
+		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+	</a>
+</div>
+<br>
+<label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
+<div class="d-inline-block pl-1 pr-1 mt-1 mb-1">
+	<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
 </div>
 
-<a 
-	placement="bottom" 
-	ngbTooltip="Agregar nuevo organismo" 
-	href="" class="btn btn-success mb-3 mt-3" routerLink="create">
-	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-</a>
 <div class="" style="min-height: 300px;">
 	<table class="table table-striped">
 			<thead>
