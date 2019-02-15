@@ -100,8 +100,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let des of destinieWithDaysInLetters">
-                  <td class="col-8" *ngIf="des.days == 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) día de viático a razón de {{des.advanceCategory | currency}} {{des.textPercentage}} {{ (des.days * des.advanceCategory) | currency}} por día.</td>
-                  <td class="col-8" *ngIf="des.days != 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) días de viático a razón de {{des.advanceCategory | currency}} {{des.textPercentage}} {{ (des.days * des.advanceCategory) | currency}} por día.</td> 
+                  <td class="col-8" *ngIf="des.days == 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) día de viático a razón de {{des.advanceCategory | currency}} {{des.textPercentage}} {{ (des.percentageCodeLiquidation * des.advanceCategory) | currency}} por día.</td>
+                  <td class="col-8" *ngIf="des.days != 1">DÍAS DE VIATICOS : {{des.days}} ({{des.daysLetters}}) días de viático a razón de {{des.advanceCategory | currency}} {{des.textPercentage}} {{ (des.percentageCodeLiquidation * des.advanceCategory) | currency}} por día.</td> 
                   <td class="col text-center">{{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}</td>
                   <td class="col"></td>
               </tr>

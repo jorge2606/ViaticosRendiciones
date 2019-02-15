@@ -29,7 +29,7 @@
     </div>
 </nav>
 <div *ngIf="!logout">
-    <ul style="margin-top : 15px;" *ngIf="notifications" class="alert alert-danger" role="alert">
+    <ul style="list-style-type: none;" *ngIf="notifications" class="alert alert-danger mt-1 col-6 ml-auto text-center" role="alert">
         <li *ngFor="let e of notifications">{{ e.value }}</li>
     </ul>
 </div>

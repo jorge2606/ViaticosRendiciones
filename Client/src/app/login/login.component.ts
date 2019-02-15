@@ -1,13 +1,12 @@
-import { AuthGuard } from './../_guards/auth.guard';
-import { User } from './../users/users';
-import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from './login';
 import { AuthenticationService } from '../_services/authentication.service';
 import { first } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +22,13 @@ export class LoginComponent implements OnInit {
   logout : boolean;
   
 
-  constructor(private http : HttpClient,
+  constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private spinnerService : NgxSpinnerService
+    ) { }
 
     model = new Login();
     isLogged : Observable<boolean>;
@@ -36,23 +37,18 @@ export class LoginComponent implements OnInit {
    get f() { return this.loginForm.controls; }
 
    onSubmit() {
-       //this.addUserPassword();
+       this.spinnerService.show();
        this.submitted = true;
-
-       // stop here if form is invalid
-       //if (this.loginForm.invalid) {
-       //  alert(this.loginForm.invalid);
-       //    return;
-       //}
-
        this.loading = true;
        this.authenticationService.login(this.model)
            .pipe(first())
            .subscribe(
-               data => {
+               () => {
+                   this.spinnerService.hide();
                    this.router.navigate([this.returnUrl]);
                },
                error => {
+                   this.spinnerService.hide();
                    this.notifications = error.error.notifications;
                    this.loading = false;
                });
