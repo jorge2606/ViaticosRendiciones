@@ -327,18 +327,6 @@ namespace VR.Data.Migrations
                     b.ToTable("Holidays");
                 });
 
-            modelBuilder.Entity("VR.Data.Model.Motive", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Motives");
-                });
-
             modelBuilder.Entity("VR.Data.Model.Notification", b =>
                 {
                     b.Property<Guid>("Id")

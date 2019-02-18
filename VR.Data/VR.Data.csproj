@@ -30,6 +30,9 @@
     <Compile Remove="Migrations\20190207171221_add solicitationSubsidy Obj property to Notifications.cs" />
     <Compile Remove="Migrations\20190207171906_add solicitationSubsidy Obj property to Notifications.cs" />
     <Compile Remove="Migrations\20190212195226_List-Users to Distribution.cs" />
+    <Compile Remove="Migrations\20190215204022_add prefix and suffix from users table.cs" />
+    <Compile Remove="Migrations\20190215204212_add prefix and suffix from users table.cs" />
+    <Compile Remove="Migrations\20190215204856_first migration.cs" />
   </ItemGroup>
 
   <ItemGroup>

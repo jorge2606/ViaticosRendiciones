@@ -33,7 +33,6 @@ namespace VR.Data
         public virtual DbSet<Organism> Organisms { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<Destiny> Destinies { get; set; }
-        public virtual DbSet<Motive> Motives { get; set; }
         public virtual DbSet<SolicitationSubsidy> SolicitationSubsidies { get; set; }
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }

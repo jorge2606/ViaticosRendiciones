@@ -185,7 +185,6 @@ namespace VR.Web
             services.AddScoped<IHolidayService, HolidayService>();
             services.AddScoped<IProvinceService, ProvinceService>();
             services.AddScoped<ICityService, CityService>();
-            services.AddScoped<IMotiveService, MotiveService>();
             services.AddScoped<IPlaceService,PlaceService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICodeLiquidationService, CodeLiquidationService>();

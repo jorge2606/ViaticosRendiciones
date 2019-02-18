@@ -30,6 +30,7 @@ export class SettingofuserComponent implements OnInit {
   passwordsAreEquals : Boolean = true;
   passwordEmpty : boolean = true;
   currentUrl : string;
+  validCuit : Boolean;
 
 
   onChange(rol){
@@ -37,7 +38,8 @@ export class SettingofuserComponent implements OnInit {
   }
 
    onSubmit() {
-    this.submitted = true;
+    this.validateCuil();
+    /** this.submitted = true;
 
     if (this.model.password || this.model.repeatPassword){
         if (this.model.password !== this.model.repeatPassword){
@@ -58,13 +60,13 @@ export class SettingofuserComponent implements OnInit {
       result => {
         this.toastrService
           .success('El perfil se actualizó correctamente','',{timeOut : 3000, positionClass : 'toast-top-center'})
-        //this.router.navigate([this.currentUrl]);
+          this.router.navigate([this.currentUrl]);
       },
         error => {
          console.log(error);
         }      
     );
-    this.router.navigate([UsersComponent]);
+    this.router.navigate([UsersComponent]);**/
   }
   
   ngOnInit() {
@@ -98,4 +100,23 @@ export class SettingofuserComponent implements OnInit {
     return;
   }
 
+  validateCuil(){
+    this.validCuit = false;
+    var dniArray : number[] = [0,0,0,0,0,0,0,0,0,0];
+    var cuit : string = this.model.prefixCuil.toString()+this.model.dni.toString();
+    var base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
+    var result = 0;
+    var result2 = 0;
+    var codVerificacion = this.model.suffixCuil;
+
+    dniArray.forEach((item,index) => {
+        result = result + (base[index] * parseInt(cuit.charAt(index)));
+    });
+    codVerificacion = 11 - (result % 11);
+    if (codVerificacion == 11){
+      codVerificacion = 0;
+    }
+
+    this.validCuit = parseInt(cuit.charAt(9)) == codVerificacion;
+  }
 }

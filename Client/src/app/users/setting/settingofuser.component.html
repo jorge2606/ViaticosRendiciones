@@ -14,7 +14,8 @@
                             <div class="col">
                                 <input class="form-control" 
                                 [(ngModel)]="model.prefixCuil" 
-                                #prefixCuil="ngModel" required 
+                                #prefixCuil="ngModel" 
+                                required 
                                 name="prefixCuil" 
                                 type="number">
                             </div>
@@ -26,9 +27,13 @@
                                 placeholder="Dni">
                             </div>
                             <div class="col">
-                                <input class="form-control" 
-                                [(ngModel)]="model.suffixCuil" #suffixCuil="ngModel" required 
-                                name="suffixCuil"  type="number">
+                                <input 
+                                class="form-control" 
+                                [(ngModel)]="model.suffixCuil" 
+                                #suffixCuil="ngModel" 
+                                required 
+                                name="suffixCuil"  
+                                type="number">
                             </div>
                         </div>
                 
@@ -141,7 +146,7 @@
                                 <fa-icon icon="save"></fa-icon> Guardar
                             </button>
                         </div>
-                    
+                    {{validCuit}}
                     
                     </form>
                     <div style="margin-top: 10px;" *ngIf="userForm.form.invalid">
