@@ -51,6 +51,11 @@ export class CreateuserComponent implements OnInit {
 
     this.submitted = true;
 
+    if (this.model.dni.length < 11){
+      this.toastrService.info('Faltan 1 o más dígitos en el campo Dni','',{timeOut : 1000, positionClass : 'toast-top-center'});
+      this.submitted = false;
+    }
+
     if (this.model.password || this.model.repeatPassword){
         if (this.model.password !== this.model.repeatPassword){
           this.passwordsAreEquals = false;

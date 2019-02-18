@@ -42,8 +42,12 @@ export class ModifyuserComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.submitted = true;
+
+    if (this.model.dni.length < 11){
+      this.toastrService.info('Faltan 1 o más dígitos en el campo Dni','',{timeOut : 1000, positionClass : 'toast-top-center'});
+      this.submitted = false;
+    }
 
     if (this.model.password || this.model.repeatPassword){
         if (this.model.password !== this.model.repeatPassword){
@@ -101,8 +105,6 @@ export class ModifyuserComponent implements OnInit {
         this.model.rolesUser = i.rolesUser;
         this.model.firstName = i.firstName;
         this.model.lastName = i.lastName;
-        this.model.prefixCuil = i.prefixCuil;
-        this.model.suffixCuil = i.suffixCuil;
         this.model.distributionId = i.distributionId;
         this.model.categoryId = i.categoryId;
     });

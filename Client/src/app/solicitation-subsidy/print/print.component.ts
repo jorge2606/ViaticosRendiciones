@@ -23,7 +23,7 @@ export class PrintComponent implements OnInit {
   lastName : string;
   prefixCuil : number;
   suffixCuil : number;
-  dni : number;
+  dni : string;
   motive : string = "";
   today = new Date();
   totalExpenditures = 0.0;
@@ -73,8 +73,6 @@ export class PrintComponent implements OnInit {
                   this.model = solicitation;
                   this.firstName = this.model.user.firstName;
                   this.lastName = this.model.user.lastName;
-                  this.prefixCuil = this.model.user.prefixCuil;
-                  this.suffixCuil = this.model.user.suffixCuil;
                   this.categoryName = this.model.user.categoryName;
                   this.categoryDescription = this.model.user.categoryDescription;
                   this.dni = this.model.user.dni;

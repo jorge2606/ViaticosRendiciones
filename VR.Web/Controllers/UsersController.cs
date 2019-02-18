@@ -163,8 +163,6 @@ namespace VR.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PrefixCuil = user.PrefixCuil,
-                SuffixCuil = user.SuffixCuil,
                 DistributionId = user.DistributionId,
                 CategoryId = user.CategoryId
             };
@@ -220,8 +218,6 @@ namespace VR.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PrefixCuil = user.PrefixCuil,
-                SuffixCuil = user.SuffixCuil,
                 DistributionId = user.DistributionId
             };
 
@@ -267,11 +263,17 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("UpdateMyProfile")]
+        [Authorize]
         public async Task<IActionResult> UpdateMyProfile([FromBody]UpdateMyProfile userDto)
         {
             userDto.Id = GetIdUser();
-            await _userService.UpdateMyProfile(userDto);
-            return Ok();
+            var result = await _userService.UpdateMyProfile(userDto);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            
+            return Ok(result.Response);
         }
 
         [HttpDelete("{id}")]

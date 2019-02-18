@@ -33,8 +33,8 @@ export class UserService {
         return this.http.put(environment.apiUrl+'User/UpdateProfileAsAdmin/', user);
     }
 
-    updateProfileUsers(user: modifyUser) : Observable<any> {
-        return this.http.put(environment.apiUrl+'User/UpdateMyProfile', user);
+    updateProfileUsers(user: modifyUser) {
+        return this.http.put<any>(environment.apiUrl+'User/UpdateMyProfile', user);
     }
 
     createWithObjectUser(user: createUser): Observable<any> {

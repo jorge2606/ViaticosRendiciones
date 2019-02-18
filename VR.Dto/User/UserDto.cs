@@ -11,15 +11,15 @@ namespace VR.Dto.User
     {
         public UserValidator()
         {
-            RuleFor(x => x.Dni.ToString()).NotEmpty().MaximumLength(8);
-            RuleFor(x => x.Dni.ToString()).NotEmpty().MinimumLength(8);
-            RuleFor(x => x.UserName).NotEmpty();
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.Dni).NotEmpty().WithName("Dni");
+            RuleFor(x => x.Dni).NotEmpty().WithName("Dni");
+            RuleFor(x => x.UserName).NotEmpty().WithName("Usuario");
+            RuleFor(x => x.Password).NotEmpty().WithName("Contraseña");
             RuleFor(x => x.Email)
                 .EmailAddress()
-                .MaximumLength(256);
-            RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(8);
-            RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(8);
+                .MaximumLength(256).WithName("Email");
+            RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(8).WithName("Telefóno");
+            RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(8).WithName("Telefóno");
         }
     }
 
@@ -27,10 +27,10 @@ namespace VR.Dto.User
     {
         public UserCreateValidator()
         {
-            RuleFor(x => x.Dni.ToString()).NotEmpty().MaximumLength(8).WithName("Dni");
+            RuleFor(x => x.Dni.ToString()).NotEmpty().WithName("Dni");
             RuleFor(x => x.UserName).NotEmpty().WithName("Usuario");
             RuleFor(x => x.Password).NotEmpty().WithName("Contraseña");
-            RuleFor(x => x.PhoneNumber).NotEmpty().MinimumLength(8).WithName("Telefóno");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithName("Telefóno");
         }
     }
 
@@ -47,12 +47,10 @@ namespace VR.Dto.User
     public class UserDto
     {
         public Guid Id { set; get; }
-        public int Dni { set; get; }
+        public string Dni { set; get; }
         public string UserName { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
-        public int PrefixCuil { set; get; }
-        public int SuffixCuil { set; get; }
         public string PhoneNumber { set; get; }
         public string Token { get; set; }
         public string Path { get; set; }
@@ -65,7 +63,7 @@ namespace VR.Dto.User
     }
 
     public class UserDistribution {
-        public int Dni { set; get; }
+        public string Dni { set; get; }
     }
     
 
@@ -73,12 +71,10 @@ namespace VR.Dto.User
     public class ModifyUserDto
     {
         public Guid Id { get; set; }
-        public int Dni { set; get; }
+        public string Dni { set; get; }
         public string UserName { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
-        public int PrefixCuil { set; get; }
-        public int SuffixCuil { set; get; }
         public string Password { get; set; }
         public string PhoneNumber { set; get; }
         public List<RoleWhenModifyUser> RolesUser { set; get; }
@@ -88,20 +84,18 @@ namespace VR.Dto.User
     }
 
     //admin and common user can use this Dto, because they update its own the same way 
-    public class UpdateMyProfile : ModifyUserDto{}
+    public class UpdateMyProfile : ModifyUserDto {}
 
     public class UpdateProfileAsAdmin : CreateUserDto {}
 
     public class CreateUserDto
     {
         public Guid Id { get; set; }
-        public int Dni { set; get; }
+        public string Dni { set; get; }
         public string UserName { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public string Password { get; set; }
-        public int PrefixCuil { set; get; }
-        public int SuffixCuil { set; get; }
         public string PhoneNumber { set; get; }
         public List<RoleWhenModifyUser> RolesUser { set; get; }
         public Guid DistributionId { set; get; }
@@ -111,11 +105,9 @@ namespace VR.Dto.User
     public class AllUserDto
     {
         public Guid Id { get; set; }
-        public int Dni { set; get; }
+        public string Dni { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
-        public int PrefixCuil { set; get; }
-        public int SuffixCuil { set; get; }
         public string UserName { set; get; }
         public string PhoneNumber { set; get; }
         public Guid DistributionId { set; get; }
@@ -131,7 +123,7 @@ namespace VR.Dto.User
     public class UserOfSolicitationSubsidy
     {
         public Guid Id { set; get; }
-        public int Dni { set; get; }
+        public string Dni { set; get; }
         public string UserName { set; get; }
         public string PhoneNumber { set; get; }
     }

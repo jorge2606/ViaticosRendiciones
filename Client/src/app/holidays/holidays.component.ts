@@ -2,10 +2,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { HolidayBaseDto } from './../_models/holiday';
 import { HolidaysService } from './../_services/holidays.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgbModal, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from '../modals/modals.component';
 import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
+import { MaskService } from 'ngx-mask';
 
 @Component({
   selector: 'app-holidays',
@@ -28,6 +29,7 @@ export class HolidaysComponent implements OnInit {
   holiday_list_length: number;
   textListEmpty : string = "No se encontró ningún feriado";
   classListEmpty : string = "alert-primary";
+
   constructor(
     private holidayService : HolidaysService,
     private modalService: NgbModal,

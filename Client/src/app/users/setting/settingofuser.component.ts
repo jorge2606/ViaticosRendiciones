@@ -30,7 +30,6 @@ export class SettingofuserComponent implements OnInit {
   passwordsAreEquals : Boolean = true;
   passwordEmpty : boolean = true;
   currentUrl : string;
-  validCuit : Boolean;
 
 
   onChange(rol){
@@ -38,8 +37,13 @@ export class SettingofuserComponent implements OnInit {
   }
 
    onSubmit() {
-    this.validateCuil();
-    /** this.submitted = true;
+    this.submitted = true;
+
+    if (!this.validateCuil()){
+      this.toastrService.info('El número de cuit/cuil no es válido');
+      this.submitted = false;
+      return;
+    }
 
     if (this.model.password || this.model.repeatPassword){
         if (this.model.password !== this.model.repeatPassword){
@@ -50,6 +54,11 @@ export class SettingofuserComponent implements OnInit {
         }else{
           this.passwordsAreEquals = true;
         }
+    }
+
+    if (this.model.dni.length < 11){
+        this.toastrService.info('Faltan 1 o más dígitos en el campo Dni','',{timeOut : 1000, positionClass : 'toast-top-center'});
+        this.submitted = false;
     }
 
     if (!this.submitted){
@@ -64,9 +73,9 @@ export class SettingofuserComponent implements OnInit {
       },
         error => {
          console.log(error);
+         this.router.navigate([this.currentUrl]);
         }      
     );
-    this.router.navigate([UsersComponent]);**/
   }
   
   ngOnInit() {
@@ -77,10 +86,10 @@ export class SettingofuserComponent implements OnInit {
         this.model.id = i.id,
         this.model.phoneNumber = i.phoneNumber,
         this.model.rolesUser = i.rolesUser,
-        this.model.prefixCuil = i.prefixCuil,
-        this.model.suffixCuil = i.suffixCuil,
         this.model.firstName = i.firstName,
-        this.model.lastName = i.lastName
+        this.model.lastName = i.lastName,
+        this.model.distributionId = i.distributionId,
+        this.model.categoryId = i.categoryId
     })
   }
 
@@ -101,13 +110,12 @@ export class SettingofuserComponent implements OnInit {
   }
 
   validateCuil(){
-    this.validCuit = false;
     var dniArray : number[] = [0,0,0,0,0,0,0,0,0,0];
-    var cuit : string = this.model.prefixCuil.toString()+this.model.dni.toString();
+    var cuit : string = this.model.dni;
     var base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
     var result = 0;
     var result2 = 0;
-    var codVerificacion = this.model.suffixCuil;
+    var codVerificacion = parseInt(cuit.charAt(10));
 
     dniArray.forEach((item,index) => {
         result = result + (base[index] * parseInt(cuit.charAt(index)));
@@ -116,7 +124,6 @@ export class SettingofuserComponent implements OnInit {
     if (codVerificacion == 11){
       codVerificacion = 0;
     }
-
-    this.validCuit = parseInt(cuit.charAt(9)) == codVerificacion;
+    return parseInt(cuit.charAt(10)) == codVerificacion;
   }
 }

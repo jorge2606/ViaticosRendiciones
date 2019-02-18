@@ -11,34 +11,28 @@
                 <div class="card-body">
                     <form (ngSubmit)="onSubmit()" #userForm="ngForm">
                         <div style="margin-bottom:5px;" class="form-row">
-                            <div class="col">
-                                <input class="form-control" 
-                                [(ngModel)]="model.prefixCuil" 
-                                #prefixCuil="ngModel" 
-                                required 
-                                name="prefixCuil" 
-                                type="number">
-                            </div>
-                            <div class="col-6">
-                                <input class="form-control" 
-                                [(ngModel)]="model.dni" 
-                                #Dni="ngModel" required 
-                                name="Dni"  type="number"
-                                placeholder="Dni">
-                            </div>
-                            <div class="col">
+                            <div class="col-4">
                                 <input 
+                                type='text' 
+                                mask='00-00000000-0'
                                 class="form-control" 
-                                [(ngModel)]="model.suffixCuil" 
-                                #suffixCuil="ngModel" 
+                                [(ngModel)]="model.dni" 
+                                #dni="ngModel" 
                                 required 
-                                name="suffixCuil"  
-                                type="number">
+                                name="Dni"  
+                                type="text"
+                                placeholder="xx-xxxxxxxx-x"
+                                [ngClass]="{ 'is-invalid': (dni.dirty || submitted) && dni.invalid }"
+                                [showMaskTyped] = "true">
                             </div>
                         </div>
-                
-                        <div style="margin-top: 10px;" *ngIf="submitted && Dni.invalid" clas="alert alert-danger">
-                            Dni Incorrecto
+
+                        <div style="margin-top: 10px;" 
+                            *ngIf="dni.dirty && !submitted && dni.invalid" 
+                            class="alert alert-danger">
+                            <div *ngIf="dni.errors.required">
+                                El campo 'Dni' no debería estar vacío
+                            </div>
                         </div>
                 
                         <div style="margin-bottom:5px;" class="form-group">
@@ -146,7 +140,6 @@
                                 <fa-icon icon="save"></fa-icon> Guardar
                             </button>
                         </div>
-                    {{validCuit}}
                     
                     </form>
                     <div style="margin-top: 10px;" *ngIf="userForm.form.invalid">

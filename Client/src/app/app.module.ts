@@ -74,6 +74,7 @@ import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AlertComponent } from './alert/alert.component';
  
 import { ToastrModule } from 'ngx-toastr';
+import {NgxMaskModule} from 'ngx-mask'
 
 library.add(fas);
 
@@ -151,7 +152,8 @@ library.add(fas);
       NgxSpinnerModule,
       SelectDropDownModule,
       NgbAlertModule,
-      ToastrModule.forRoot() // ToastrModule added
+      ToastrModule.forRoot(), // ToastrModule added
+      NgxMaskModule.forRoot()
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

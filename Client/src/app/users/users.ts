@@ -2,7 +2,7 @@ import { DistributionBaseDto } from 'src/app/_models/distributions';
 
 export class User{
   id : number;
-  dni: number;
+  dni: string;
   userName : string;
   phoneNumber : string;
   password : string;
@@ -12,8 +12,6 @@ export class User{
   rol : string;
   firstName : string;
   lastName : string;
-  prefixCuil : number;
-  suffixCuil : number;
   categoryId : number;
   categoryName : string;
   categoryDescription : string;

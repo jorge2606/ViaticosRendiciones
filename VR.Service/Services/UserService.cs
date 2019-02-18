@@ -216,8 +216,6 @@ namespace VR.Service.Services
               user.Email = userParam.UserName;
               user.PhoneNumber = userParam.PhoneNumber;
               user.DistributionId = userParam.DistributionId;
-              user.PrefixCuil = userParam.PrefixCuil;
-              user.SuffixCuil = userParam.SuffixCuil;
               user.FirstName = userParam.FirstName;
               user.LastName = userParam.LastName;
               user.CategoryId = userParam.CategoryId;
@@ -239,7 +237,7 @@ namespace VR.Service.Services
               _context.SaveChanges();
           }
 
-        public async Task UpdateMyProfile(UpdateMyProfile userParam)
+        public async Task<ServiceResult<UpdateMyProfile>> UpdateMyProfile(UpdateMyProfile userParam)
         {
             var user = _context.Users.Find(userParam.Id);
 
@@ -260,8 +258,6 @@ namespace VR.Service.Services
             user.PhoneNumber = userParam.PhoneNumber;
             user.FirstName = userParam.FirstName;
             user.LastName = userParam.LastName;
-            user.PrefixCuil = userParam.PrefixCuil;
-            user.SuffixCuil = userParam.SuffixCuil;
 
             //actualizo los roles del usuario
             foreach (var role in userParam.RolesUser)
@@ -277,6 +273,7 @@ namespace VR.Service.Services
             }
             _context.Users.Update(user);
             _context.SaveChanges();
+            return new ServiceResult<UpdateMyProfile>(userParam);
         }
 
         public async Task<ServiceResult<CreateUserDto>> CreateAsync(CreateUserDto user)
@@ -300,8 +297,6 @@ namespace VR.Service.Services
                 DistributionId = user.DistributionId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PrefixCuil = user.PrefixCuil,
-                SuffixCuil = user.SuffixCuil,
                 CategoryId = user.CategoryId
             };
 

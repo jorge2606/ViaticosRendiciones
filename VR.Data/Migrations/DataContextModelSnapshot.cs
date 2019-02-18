@@ -578,7 +578,7 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid?>("DistributionId");
 
-                    b.Property<int>("Dni");
+                    b.Property<string>("Dni");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -607,11 +607,7 @@ namespace VR.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("PrefixCuil");
-
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<int>("SuffixCuil");
 
                     b.Property<bool>("TwoFactorEnabled");
 

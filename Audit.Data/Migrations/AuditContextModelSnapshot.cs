@@ -60,7 +60,7 @@ namespace Audit.Data.Migrations
 
                     b.Property<Guid>("AuditUserId");
 
-                    b.Property<int>("Dni");
+                    b.Property<string>("Dni");
 
                     b.Property<Guid>("EntityId");
 

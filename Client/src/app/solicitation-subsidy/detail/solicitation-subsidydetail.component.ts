@@ -22,7 +22,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   lastName : string;
   prefixCuil : number;
   suffixCuil : number;
-  dni : number;
+  dni : string;
   motive : string = "";
   supscription : any;
 
@@ -48,8 +48,6 @@ export class SolicitationSubsidydetailComponent implements OnInit {
                     this.model = solicitation;
                     this.firstName = this.model.user.firstName;
                     this.lastName = this.model.user.lastName;
-                    this.prefixCuil = this.model.user.prefixCuil;
-                    this.suffixCuil = this.model.user.suffixCuil;
                     this.dni = this.model.user.dni;
                     }
               );

@@ -13,7 +13,7 @@ namespace VR.Service.Interfaces
     public interface IUserService
     {
         Task<ServiceResult<UserDto>> Authenticate(LoginDto p_LoginDto);
-        Task UpdateMyProfile(UpdateMyProfile user);
+        Task<ServiceResult<UpdateMyProfile>> UpdateMyProfile(UpdateMyProfile user);
         Task UpdateProfileAsAdmin(UpdateProfileAsAdmin user);
         Task<ServiceResult<CreateUserDto>> CreateAsync(CreateUserDto user);
         void Delete(Guid id);
