@@ -46,19 +46,19 @@ const routes: Routes = [
     data: {breadcrumb: 'inicio',isHome: true,show: true},component: HomeComponent, canActivate : [AuthGuard] },
   { path: 'login', data: {breadcrumb: 'login',isHome: false,show: true}, component: LoginComponent },
 
-  { path: 'users',  
-    children:[ 
+  { path: 'users',
+    data: {breadcrumb: 'usuarios',isHome: false,show: true},
+    children: [ 
       { path : '',
-        data: {breadcrumb: 'usuarios',isHome: false,show: true}, 
         component: UsersComponent, canActivate : [AuthGuard]
       },
       { path: 'create',
+        component: CreateuserComponent, canActivate : [AuthGuard],
         data: {
           breadcrumb: 'crear',
           isHome: false,
           show: true
-        }, 
-        component: CreateuserComponent, canActivate : [AuthGuard] 
+        } 
       },
       { path: 'update/:id',
         data: {
@@ -79,9 +79,10 @@ const routes: Routes = [
   { path: 'settingUser/:id', data: {breadcrumb: 'mi perfil',isHome: false,show: true},component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
 
-  { path: 'roles', 
+  { path: 'roles',
+    data: {breadcrumb: 'roles',isHome: false,show: true}, 
     children : [
-      { path : '', data: {breadcrumb: 'roles',isHome: false,show: true}, component: RolesComponent, canActivate : [AuthGuard] },
+      { path : '', component: RolesComponent, canActivate : [AuthGuard] },
       { path: 'permissions/:id',data: {breadcrumb: 'roles-permisos',isHome: false,show: true}, component: RolesPermissionsComponent, canActivate : [AuthGuard] },  
     ],
   },
@@ -89,10 +90,10 @@ const routes: Routes = [
   { path: 'RecuperarContraseña', component: ManagePasswordComponent},
   { path: 'CambiarPassword', component: ResetPasswordComponent},
 
-  { path: 'category', 
+  { path: 'category',
+    data: {breadcrumb: 'categoría',isHome: false,show: true},  
     children : [
-      {path : '', 
-        data: {breadcrumb: 'categoría',isHome: false,show: true}, 
+      {path : '',
         component : CategoryComponent, canActivate : [AuthGuard]
       },
       { path: 'create', 
@@ -105,9 +106,10 @@ const routes: Routes = [
     
   },
   
-  { path: 'distribution',  
+  { path: 'distribution',
+    data: {breadcrumb: 'repartición',isHome: false,show: true},  
     children : [
-      {path : '', data: {breadcrumb: 'repartición',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
+      {path : '', component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard]},
       { path: ':organismId', data: {breadcrumb: 'distribución-organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard]},
@@ -115,8 +117,9 @@ const routes: Routes = [
   },
 
   { path: 'transport',
+    data: {breadcrumb: 'transporte',isHome: false,show: true},
     children : [
-      { path: '', data: {breadcrumb: 'transporte',isHome: false,show: true}, component : TransportsComponent, canActivate : [AuthGuard]},
+      { path: '', component : TransportsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateTransportComponent, canActivate : [AuthGuard]},
       { path: ':id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyTransportComponent, canActivate : [AuthGuard]},
     ]
@@ -124,8 +127,9 @@ const routes: Routes = [
     
 
   { path: 'expenditure',
+    data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},
     children : [
-      { path : '',data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},component : ExpendituresComponent, canActivate : [AuthGuard]},
+      { path : '',component : ExpendituresComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear', isHome: false,show: true}, component : CreateExpenditureComponent, canActivate : [AuthGuard]},
       { path: 'update/:id',  data: {breadcrumb: 'modificar', isHome: false,show: true}, component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
       { path: ':id',  data: {breadcrumb: 'concepto-de-gastos-usuarios', isHome: false,show: true}, component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
@@ -133,16 +137,18 @@ const routes: Routes = [
   },
 
   { path: 'organism',
+    data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},
     children : [
-      { path : '',data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},component : OrganismsComponent, canActivate : [AuthGuard]},
+      { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},
       { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard]},
     ],
   },
 
   { path: 'SolicitationSubsidy',
+    data: {breadcrumb: 'solicitud-de-viático',isHome: false,show: true},
     children : [
-      { path : 'supervisor', data: {breadcrumb: 'solicitud-de-viático',isHome: false,show: true},component : SupervisorComponent, canActivate : [AuthGuard]},
+      { path : 'supervisor',component : SupervisorComponent, canActivate : [AuthGuard]},
       { path: 'agent',data: {breadcrumb: 'agentes',isHome: false,show: true}, component : AgentComponent, canActivate : [AuthGuard]},
       { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'detail/:id',data: {breadcrumb: 'detalle',isHome: false,show: true}, component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
@@ -152,8 +158,9 @@ const routes: Routes = [
   },
 
   { path: 'holidays',  
+    data: {breadcrumb: 'feriados',isHome: false,show: true},
     children : [
-      { path : '', data: {breadcrumb: 'feriados',isHome: false,show: true}, component : HolidaysComponent, canActivate : [AuthGuard]} ,
+      { path : '', component : HolidaysComponent, canActivate : [AuthGuard]} ,
       { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateHolidaysComponent, canActivate : [AuthGuard]},
       { path: 'update/:id' ,data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
     ]

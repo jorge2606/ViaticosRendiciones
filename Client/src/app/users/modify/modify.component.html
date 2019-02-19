@@ -111,15 +111,19 @@
                                         placeholder="Repetir Contraseña" 
                                         value="">
                                 </div>
-                        
+
                                 <div class="form-group mb-0">
-                                    <div class="row">
-                                        <li *ngFor="let rol of model.rolesUser" style="list-style:none">
-                                            <div class="col">
-                                                <input type="checkbox" name="{{rol.id}}" value="{{rol.id}}" [(ngModel)]="rol.rolBelongUser" />
-                                                <label style="text-transform: capitalize; padding-left: 5px;font-size: 11px;" for="exampleCheck1">{{rol.name}}</label>
-                                            </div>
-                                        </li>
+                                    <div class="form-row ml-0">
+                                        <div *ngFor="let rol of model.rolesUser" class="custom-control custom-checkbox mr-2">
+                                            <input name="{{rol.id}}" 
+                                                value="{{rol.id}}" 
+                                                [(ngModel)]="rol.rolBelongUser" 
+                                                type="checkbox" 
+                                                class="custom-control-input" 
+                                                id="customControlValidation{{rol.id}}" 
+                                                >
+                                            <label class="custom-control-label" for="customControlValidation{{rol.id}}">{{rol.name}}</label>
+                                        </div>
                                     </div>
                                 </div> 
                         
