@@ -149,8 +149,6 @@
                     </select>
                 </div>
 
-                {{model.organismId}}
-
                 <div class="form-group mb-1">
                     <select class="form-control mt-1" 
                         #distributionId="ngModel"
@@ -163,8 +161,7 @@
                         <option class="form-control" *ngFor="let dist of distributionList" [ngValue]="dist.id">{{dist.name}}</option>
                     </select>
                 </div>
-                {{model.distributionId}}
-            
+                
                 <div style="margin-bottom:5px;" class="form-row">
                     <button class="btn btn-success ml-auto" [disabled]="!userForm.form.valid">
                         <fa-icon icon="save"></fa-icon> Guardar

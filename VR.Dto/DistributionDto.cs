@@ -44,6 +44,15 @@ namespace VR.Dto
 
     public class FindByIdDistributionDto : DistributionBaseDto { }
 
+    public class FindByIdOrganismIdDto
+    {
+        public Guid Id { set; get; }
+        public string Name { set; get; }
+        public string Description { set; get; }
+        public Boolean IsDeleted { set; get; }
+        public Guid OrganismId { set; get; }
+    }
+
     public class FilterDistributionDto
     {
         public int? Page { set; get; }

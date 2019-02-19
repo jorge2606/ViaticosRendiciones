@@ -59,26 +59,29 @@ export class NavarComponent implements OnInit {
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedIn;
-    this.comunicationService.getMessage()
-    .subscribe(x => {
-        this.retriveNotifications();
-    });
+
     this.isLogged.subscribe(x => {
       this.isloggedUser = x;
+      //si el usuario esta logueado
       if(x){
+        this.comunicationService.getMessage()
+        .subscribe(x => {
+            this.retriveNotifications();
+        });
+
+        this.messaBetweenComp.getMessage().subscribe( 
+          () => this.urlImage = this.authService.urlFile(this.idUser, 25, 25) + "r=" + (Math.random() * 100) + 1 
+        );
+        
+        if (!this.urlImage){
+          this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1;
+        }
         this.retriveNotifications();
       }  
-    })
-
-    this.messaBetweenComp.getMessage().subscribe( 
-      () => this.urlImage = this.authService.urlFile(this.idUser, 25, 25) + "r=" + (Math.random() * 100) + 1 
-    );
-    
-    if (!this.urlImage){
-      this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1;
-    }
-    
+    })    
   }
+
+  
   logout(){
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.Encabezado = "Cerrar Sesión";

@@ -9,6 +9,7 @@ using VR.Web.Helpers;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
 using Service.Common.ServiceResult;
 using VR.Data;
@@ -206,7 +207,9 @@ namespace VR.Web.Controllers
         public ActionResult<ModifyUserDto> GetById()
         {
             var userId = GetIdUser();
-            var user = _context.Users.Find(userId);
+            var user = _context.Users
+                .Include(x => x.Distribution)
+                .FirstOrDefault(j => j.Id == userId);
             if (user == null)
             {
                 return null;
@@ -218,7 +221,8 @@ namespace VR.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                DistributionId = user.DistributionId
+                DistributionId = user.DistributionId,
+                OrganismId = user.Distribution.OrganismId
             };
 
             var RolesUser = _context.UserRoles.ToList();

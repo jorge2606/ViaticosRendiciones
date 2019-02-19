@@ -75,6 +75,7 @@ export class SettingofuserComponent implements OnInit {
       return;
     }
 
+    console.log(this.model);
     this.userService.updateProfileUsers(this.model).subscribe(
       result => {
         this.toastrService
@@ -116,7 +117,7 @@ export class SettingofuserComponent implements OnInit {
         this.model.distributionId = i.distributionId,
         this.model.organismId = i.organismId,
         this.model.categoryId = i.categoryId,
-        this.distributionService.findByIdOrganism(i.organismId);
+        this.selectDistribution(this.model.organismId);
     })
   }
 
@@ -155,14 +156,19 @@ export class SettingofuserComponent implements OnInit {
   }
 
   selectDistribution(organismId : number){
-    var nameOrganim = this.organismList.find(x => x.id == organismId).name;
+    var nameOrganim = "";
+    if (this.organismList.find(x => x.id == organismId)){
+        nameOrganim = this.organismList.find(x => x.id == organismId).name;
+    }
     this.distributionService.findByIdOrganism(organismId)
     .subscribe(
       x => 
         {
           this.distributionList = x;
-          if (this.distributionList.length == 0){
+          if (this.distributionList.length < 1){
             this.toastrService.info('El organismo '+nameOrganim+' no tiene reparticiones.','',{timeOut : 2000, positionClass : 'toast-top-center'})
+          }else{
+            this.model.distributionId = this.distributionList[0].id;
           }
         }
     );

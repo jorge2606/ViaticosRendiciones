@@ -72,6 +72,18 @@ namespace VR.Web.Controllers
             return Ok(response.Response);
         }
 
+        [HttpGet("FindByIdOrganism/{organismId}")]
+        public IActionResult FindByIdOrganism(Guid organismId)
+        {
+            var result = _distributionService.FindByIdOrganism(organismId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpDelete("DeleteDistribution/{distributionId}")]
         public IActionResult DeleteDistribution(Guid distributionId)
         {

@@ -107,6 +107,22 @@ namespace VR.Service.Services
             return new ServiceResult<FindByIdDistributionDto>(_mapper.Map<FindByIdDistributionDto>(distribution));
         }
 
+        public ServiceResult<List<FindByIdOrganismIdDto>> FindByIdOrganism(Guid organismId)
+        {
+            var distributionFromOrganims = _distributionContext
+                .Distributions
+                .Select(q => _mapper.Map<FindByIdOrganismIdDto>(q))
+                .Where(x => x.IsDeleted != true && x.OrganismId == organismId)
+                .ToList();
+
+            if (distributionFromOrganims == null)
+            {
+                return new ServiceResult<List<FindByIdOrganismIdDto>>(null);
+            }
+
+            return new ServiceResult<List<FindByIdOrganismIdDto>>(distributionFromOrganims);
+        }
+
         public ServiceResult<DeleteDistributionDto> DeleteDistribution(Guid distributionId)
         {
             var distribution = _distributionContext.Distributions.FirstOrDefault(x => x.Id == distributionId);
