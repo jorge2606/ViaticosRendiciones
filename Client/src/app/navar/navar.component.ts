@@ -39,6 +39,7 @@ export class NavarComponent implements OnInit {
   userName : string;
   firstName : string;
   lastName : string;
+  isloggedUser : boolean;
 
 
   retriveNotifications(){
@@ -63,6 +64,7 @@ export class NavarComponent implements OnInit {
         this.retriveNotifications();
     });
     this.isLogged.subscribe(x => {
+      this.isloggedUser = x;
       if(x){
         this.retriveNotifications();
       }  

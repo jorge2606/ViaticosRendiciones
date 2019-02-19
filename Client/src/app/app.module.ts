@@ -75,6 +75,7 @@ import { AlertComponent } from './alert/alert.component';
  
 import { ToastrModule } from 'ngx-toastr';
 import {NgxMaskModule} from 'ngx-mask';
+import { NgxBreadcrumbsModule } from '@nivans/ngx-breadcrumbs';
 
 library.add(fas);
 
@@ -153,7 +154,8 @@ library.add(fas);
       SelectDropDownModule,
       NgbAlertModule,
       ToastrModule.forRoot(), // ToastrModule added
-      NgxMaskModule.forRoot()
+      NgxMaskModule.forRoot(),
+      NgxBreadcrumbsModule
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

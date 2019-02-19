@@ -1,3 +1,4 @@
+import { CreateuserComponent } from './create/create.component';
 import { Title } from '@angular/platform-browser';
 import { UserRoles } from 'src/app/_models/userRoles';
 import { AddSupervisorComponent } from './../modals/add-supervisor/add-supervisor.component';
@@ -239,5 +240,4 @@ export class UsersComponent implements OnInit {
       }//users
     );
   }
-
 }
