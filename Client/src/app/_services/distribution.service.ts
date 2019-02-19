@@ -21,6 +21,10 @@ export class DistributionService {
     return this.http.get<FindByIdDistributionDto>(environment.apiUrl+'Distribution/FindByIdDistribution/'+distributionId)
   }
 
+  findByIdOrganism(organismId : number){
+    return this.http.get<any>(environment.apiUrl+'Distribution/FindByIdOrganism/'+organismId);
+  }
+
   updateDistribution(updateDistribution : UpdateDistributionDto){
     return this.http.put(environment.apiUrl+'Distribution/UpdateDistribution',updateDistribution);
   }

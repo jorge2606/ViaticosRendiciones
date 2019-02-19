@@ -25,6 +25,7 @@ export class ModifyuserComponent implements OnInit {
   passwordEmpty : boolean = true;
   passwordsAreEquals : boolean = true;
   submitted : boolean;
+  validCheckbox : boolean = false;
 
   constructor(
           private router : Router,
@@ -43,6 +44,20 @@ export class ModifyuserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    
+    this.model.rolesUser.forEach(
+      x => {
+          if(x.rolBelongUser){
+            this.validCheckbox = true;
+          }
+      }
+    );
+
+    if (!this.validCheckbox){
+      this.toastrService.info('Debe seleccionar al menos un rol','',{timeOut : 1000, positionClass : 'toast-top-center'});
+      this.submitted = false;
+      return;
+    }
 
     if (this.model.dni.length < 11){
       this.toastrService.info('Faltan 1 o más dígitos en el campo Dni','',{timeOut : 1000, positionClass : 'toast-top-center'});

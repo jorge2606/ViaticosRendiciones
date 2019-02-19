@@ -258,6 +258,7 @@ namespace VR.Service.Services
             user.PhoneNumber = userParam.PhoneNumber;
             user.FirstName = userParam.FirstName;
             user.LastName = userParam.LastName;
+            user.DistributionId = userParam.DistributionId;
 
             //actualizo los roles del usuario
             foreach (var role in userParam.RolesUser)

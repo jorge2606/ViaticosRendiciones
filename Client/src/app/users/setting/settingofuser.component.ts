@@ -1,3 +1,4 @@
+import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { environment } from './../../../environments/environment';
@@ -7,6 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../_services/user.service';
 import { modifyUser } from '../users';
 import { FileUploader } from 'ng2-file-upload';
+import { OrganismService } from 'src/app/_services/organism.service';
+import { DistributionService } from 'src/app/_services/distribution.service';
+import { OrganismBaseDto } from 'src/app/_models/organism';
 
 @Component({
   selector: 'app-settingofuser',
@@ -21,15 +25,21 @@ export class SettingofuserComponent implements OnInit {
             private router : Router,
             private userService: UserService,
             private titleService : Title,
-            private toastrService : ToastrService
-            ){
-              this.currentUrl = this.router.url;
+            private toastrService : ToastrService,
+            private organimService : OrganismService,
+            private distributionService : DistributionService
+  ){
+    this.currentUrl = this.router.url;
   }
   model = new modifyUser;
   submitted : boolean;
   passwordsAreEquals : Boolean = true;
   passwordEmpty : boolean = true;
   currentUrl : string;
+  organismList : OrganismBaseDto[];
+  distributionList : DistributionBaseDto[];
+  selectedorganismId : number;
+  selecteddistributionId : number;
 
 
   onChange(rol){
@@ -65,6 +75,7 @@ export class SettingofuserComponent implements OnInit {
       return;
     }
 
+    console.log(this.model);
     this.userService.updateProfileUsers(this.model).subscribe(
       result => {
         this.toastrService
@@ -77,9 +88,24 @@ export class SettingofuserComponent implements OnInit {
         }      
     );
   }
+
+  getOrganismAll(){
+    this.organimService.getAllOrganism()
+    .subscribe(
+      x => this.organismList = x
+    );
+  }
+
+  getDistributionAll(){
+    this.distributionService.allDistribution()
+    .subscribe(
+      x => this.distributionList = x
+    );
+  }
   
   ngOnInit() {
     this.titleService.setTitle('Mi Perfil');
+    this.getOrganismAll();
     this.userService.getById().subscribe(i => {
         this.model.dni = i.dni,
         this.model.userName = i.userName,
@@ -89,7 +115,9 @@ export class SettingofuserComponent implements OnInit {
         this.model.firstName = i.firstName,
         this.model.lastName = i.lastName,
         this.model.distributionId = i.distributionId,
-        this.model.categoryId = i.categoryId
+        this.model.organismId = i.organismId,
+        this.model.categoryId = i.categoryId,
+        this.selectDistribution(this.model.organismId);
     })
   }
 
@@ -125,5 +153,24 @@ export class SettingofuserComponent implements OnInit {
       codVerificacion = 0;
     }
     return parseInt(cuit.charAt(10)) == codVerificacion;
+  }
+
+  selectDistribution(organismId : number){
+    var nameOrganim = "";
+    if (this.organismList.find(x => x.id == organismId)){
+        nameOrganim = this.organismList.find(x => x.id == organismId).name;
+    }
+    this.distributionService.findByIdOrganism(organismId)
+    .subscribe(
+      x => 
+        {
+          this.distributionList = x;
+          if (this.distributionList.length < 1){
+            this.toastrService.info('El organismo '+nameOrganim+' no tiene reparticiones.','',{timeOut : 2000, positionClass : 'toast-top-center'})
+          }else{
+            this.model.distributionId = this.distributionList[0].id;
+          }
+        }
+    );
   }
 }

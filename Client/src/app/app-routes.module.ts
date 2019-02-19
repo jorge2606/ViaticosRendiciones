@@ -42,48 +42,130 @@ import { SupervisorComponent } from './solicitation-subsidy/supervisor/superviso
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
-  { path: '', component: HomeComponent, canActivate : [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  //{ path: 'register', component: RegisterComponent},
-  { path: 'users', component: UsersComponent, canActivate : [AuthGuard] },
-  { path: 'users/create', component: CreateuserComponent, canActivate : [AuthGuard] },
-  { path: 'users/:distributionId', component: UsersComponent, canActivate : [AuthGuard] },
-  { path: 'users/update/:id', component: ModifyuserComponent, canActivate : [AuthGuard] },
-  { path: 'AgentsAndSupervisors', component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] },
-  { path: 'settingUser/:id', component: SettingofuserComponent, canActivate : [AuthGuard] },
+  { path: '', 
+    data: {breadcrumb: 'inicio',isHome: true,show: true},component: HomeComponent, canActivate : [AuthGuard] },
+  { path: 'login', data: {breadcrumb: 'login',isHome: false,show: true}, component: LoginComponent },
+
+  { path: 'users',
+    data: {breadcrumb: 'usuarios',isHome: false,show: true},
+    children: [ 
+      { path : '',
+        component: UsersComponent, canActivate : [AuthGuard]
+      },
+      { path: 'create',
+        component: CreateuserComponent, canActivate : [AuthGuard],
+        data: {
+          breadcrumb: 'crear',
+          isHome: false,
+          show: true
+        } 
+      },
+      { path: 'update/:id',
+        data: {
+          breadcrumb: 'modificar',
+          isHome: false,
+          show: true
+        }, component: ModifyuserComponent, canActivate : [AuthGuard] 
+      },
+      { path: ':distributionId', 
+        data: {breadcrumb: 'usuarios-distribución',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
+      },
+    ]
+  },
+  
+  
+  { path: 'AgentsAndSupervisors', data: {breadcrumb: 'agentes-supervisores',isHome: false,show: true},component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] },
+
+  { path: 'settingUser/:id', data: {breadcrumb: 'mi perfil',isHome: false,show: true},component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
 
-  { path: 'roles', component: RolesComponent, canActivate : [AuthGuard] },
-  { path: 'roles/permissions/:id', component: RolesPermissionsComponent, canActivate : [AuthGuard] },
+  { path: 'roles',
+    data: {breadcrumb: 'roles',isHome: false,show: true}, 
+    children : [
+      { path : '', component: RolesComponent, canActivate : [AuthGuard] },
+      { path: 'permissions/:id',data: {breadcrumb: 'roles-permisos',isHome: false,show: true}, component: RolesPermissionsComponent, canActivate : [AuthGuard] },  
+    ],
+  },
+  
   { path: 'RecuperarContraseña', component: ManagePasswordComponent},
   { path: 'CambiarPassword', component: ResetPasswordComponent},
-  { path: 'category', component : CategoryComponent, canActivate : [AuthGuard]},
-  { path: 'category/create', component : CreateCategoryComponent},
-  { path: 'category/update/:id', component : ModifyCategoryComponent, canActivate : [AuthGuard]},
-  { path: 'distribution', component : DistributionsComponent, canActivate : [AuthGuard]},
-  { path: 'distribution/create', component : CreateDistributionsComponent, canActivate : [AuthGuard]},
-  { path: 'distribution/:organismId', component : DistributionsComponent, canActivate : [AuthGuard]},
-  { path: 'distribution/update/:id', component : ModifyDistributionComponent, canActivate : [AuthGuard]},
-  { path: 'transport', component : TransportsComponent, canActivate : [AuthGuard]},
-  { path: 'transport/create', component : CreateTransportComponent, canActivate : [AuthGuard]},
-  { path: 'transport/update/:id', component : ModifyTransportComponent, canActivate : [AuthGuard]},
-  { path: 'expenditure', component : ExpendituresComponent, canActivate : [AuthGuard]},
-  { path: 'expenditure/create', component : CreateExpenditureComponent, canActivate : [AuthGuard]},
-  { path: 'expenditure/update/:id', component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
-  { path: 'expenditureUsers/:id', component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
-  { path: 'organism', component : OrganismsComponent, canActivate : [AuthGuard]},
-  { path: 'organism/create', component : CreateOrganismComponent, canActivate : [AuthGuard]},
-  { path: 'organism/update/:id', component : ModifyOrganismComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/supervisor', component : SupervisorComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/agent', component : AgentComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/create', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/detail/:id', component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/modify/:id', component : CreateSolicitationComponent, canActivate : [AuthGuard]},
-  { path: 'SolicitationSubsidy/confirm/:id', component : AceptOrRefuseComponent, canActivate : [AuthGuard]},  
-  { path: 'holidays', component : HolidaysComponent, canActivate : [AuthGuard]},
-  { path: 'holidays/create', component : CreateHolidaysComponent, canActivate : [AuthGuard]},
-  { path: 'holidays/update/:id', component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
-  { path: 'print/:id', component : PrintComponent, canActivate : [AuthGuard]},
+
+  { path: 'category',
+    data: {breadcrumb: 'categoría',isHome: false,show: true},  
+    children : [
+      {path : '',
+        component : CategoryComponent, canActivate : [AuthGuard]
+      },
+      { path: 'create', 
+        data: {breadcrumb: 'crear',isHome: false,show: true},
+        component : CreateCategoryComponent, canActivate : [AuthGuard]},
+      { path: 'update/:id', 
+        data: {breadcrumb: 'modificar',isHome: false,show: true},
+        component : ModifyCategoryComponent, canActivate : [AuthGuard]},
+    ]
+    
+  },
+  
+  { path: 'distribution',
+    data: {breadcrumb: 'repartición',isHome: false,show: true},  
+    children : [
+      {path : '', component : DistributionsComponent, canActivate : [AuthGuard]},
+      { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard]},
+      { path: ':organismId', data: {breadcrumb: 'distribución-organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
+      { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard]},
+    ]
+  },
+
+  { path: 'transport',
+    data: {breadcrumb: 'transporte',isHome: false,show: true},
+    children : [
+      { path: '', component : TransportsComponent, canActivate : [AuthGuard]},
+      { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateTransportComponent, canActivate : [AuthGuard]},
+      { path: ':id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyTransportComponent, canActivate : [AuthGuard]},
+    ]
+  },
+    
+
+  { path: 'expenditure',
+    data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},
+    children : [
+      { path : '',component : ExpendituresComponent, canActivate : [AuthGuard]},
+      { path: 'create', data: {breadcrumb: 'crear', isHome: false,show: true}, component : CreateExpenditureComponent, canActivate : [AuthGuard]},
+      { path: 'update/:id',  data: {breadcrumb: 'modificar', isHome: false,show: true}, component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
+      { path: ':id',  data: {breadcrumb: 'concepto-de-gastos-usuarios', isHome: false,show: true}, component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
+    ]
+  },
+
+  { path: 'organism',
+    data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},
+    children : [
+      { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
+      { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},
+      { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard]},
+    ],
+  },
+
+  { path: 'SolicitationSubsidy',
+    data: {breadcrumb: 'solicitud-de-viático',isHome: false,show: true},
+    children : [
+      { path : 'supervisor',component : SupervisorComponent, canActivate : [AuthGuard]},
+      { path: 'agent',data: {breadcrumb: 'agentes',isHome: false,show: true}, component : AgentComponent, canActivate : [AuthGuard]},
+      { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+      { path: 'detail/:id',data: {breadcrumb: 'detalle',isHome: false,show: true}, component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
+      { path: 'modify/:id',data: {breadcrumb: 'modificar',isHome: false,show: true},component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+      { path: 'confirm/:id',data: {breadcrumb: 'confirmar',isHome: false,show: true}, component : AceptOrRefuseComponent, canActivate : [AuthGuard]},  
+    ],
+  },
+
+  { path: 'holidays',  
+    data: {breadcrumb: 'feriados',isHome: false,show: true},
+    children : [
+      { path : '', component : HolidaysComponent, canActivate : [AuthGuard]} ,
+      { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateHolidaysComponent, canActivate : [AuthGuard]},
+      { path: 'update/:id' ,data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
+    ]
+  },
+  { path: 'print/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintComponent, canActivate : [AuthGuard]},
   
   
   // otherwise redirect to home

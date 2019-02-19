@@ -13,5 +13,6 @@ namespace VR.Service.Interfaces
         ServiceResult<DeleteDistributionDto> DeleteDistribution(Guid distributionId);
         ServiceResult<List<AllDistributionDto>> AllDistribution();
         ServiceResult<FindByIdDistributionDto> FindByIdDistribution(Guid id);
+        ServiceResult<List<FindByIdOrganismIdDto>> FindByIdOrganism(Guid organismId);
     }
 }
