@@ -74,7 +74,7 @@ import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AlertComponent } from './alert/alert.component';
  
 import { ToastrModule } from 'ngx-toastr';
-import {NgxMaskModule} from 'ngx-mask'
+import {NgxMaskModule} from 'ngx-mask';
 
 library.add(fas);
 
