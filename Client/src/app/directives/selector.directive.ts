@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, HostListener} from '@angular/core';
+import { Directive, Input, ElementRef, HostListener, Renderer2, Renderer} from '@angular/core';
 
 @Directive({
   selector: '[appSelector]'
@@ -19,7 +19,7 @@ export class SelectorDirective {
     private elementRef : ElementRef
   ) { }
 
-  @HostListener('mouseenter') onMouseEnter() {
+  /** @HostListener('mouseenter') onMouseEnter() {
     this.highlight(this.mouseEnterBgColor, this.mouseEnterColor);
   }
 
@@ -30,10 +30,10 @@ export class SelectorDirective {
   @HostListener('mouseover') onMouseOver() {
     this.highlight(this.mouseOverBgColor, this.mouseOverColor);
   }
-
+*/
   @HostListener('click') onClickChange() {
-    this.highlight(this.onClickBgColor, this.onClickColor);
   }
+
 
   highlight(bgColor : string, color : string){
     this.elementRef.nativeElement.style.backgroundColor = bgColor;

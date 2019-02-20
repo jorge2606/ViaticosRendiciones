@@ -5,7 +5,7 @@ import { AuthenticationService } from './../_services/authentication.service';
 import { Observable } from 'rxjs';
 import { Notifications } from './../_models/notifications';
 import { NotificationsService } from './../_services/notifications.service';
-import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild, Renderer } from '@angular/core';
 import { MessBetweenCompService } from '../_services/mess-between-comp.service';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +29,7 @@ export class NavarComponent implements OnInit {
               private supervisorUserAgentService : SupervisorUserAgentService,
               private comunicationService : GenericsCommunicationsComponentsService,
               private solicitationSubsidyService : SolicitationSubsidyService,
+              private renderer : Renderer,
               private router : Router) { }
 
   notification : Notifications[] = [];
@@ -56,6 +57,18 @@ export class NavarComponent implements OnInit {
       }
       );
    }
+
+   activate(idItem : string){
+    var btnContainer = document.getElementById("navbarNavAltMarkup");
+    var btns = btnContainer.getElementsByClassName("nav-item");
+    var seleccionado =  document.getElementById(idItem);
+    for (var i = 0; i < btns.length; i++) {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        seleccionado.className += " active";
+        
+   }
+  }
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedIn;

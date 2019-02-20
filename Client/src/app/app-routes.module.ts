@@ -60,6 +60,8 @@ const routes: Routes = [
           show: true
         } 
       },
+      { path: 'AgentsAndSupervisors', data: {breadcrumb: 'agentes y supervisores',isHome: false,show: true},component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] 
+      },
       { path: 'update/:id',
         data: {
           breadcrumb: 'modificar',
@@ -69,12 +71,9 @@ const routes: Routes = [
       },
       { path: ':distributionId', 
         data: {breadcrumb: 'usuarios y distribuciones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
-      },
+      }
     ]
   },
-  
-  
-  { path: 'AgentsAndSupervisors', data: {breadcrumb: 'agentes y supervisores',isHome: false,show: true},component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] },
 
   { path: 'settingUser/:id', data: {breadcrumb: 'mi perfil',isHome: false,show: true},component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },

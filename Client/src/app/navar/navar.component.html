@@ -3,67 +3,74 @@
 
     <ul class="navbar-nav mr-auto">
       
-      <li id="homeId" class="nav-item">
+      <li id="homeId">
         <a 
           placement="bottom" 
+          id="inicio"
+          (click)="activate('inicio')"
           ngbTooltip="Ir al menú principal" 
-          routerLink="/"  
-          class="nav-item text-white nav-link"
+          routerLink="/" 
+          class="nav-item text-white nav-link active"
           href="#" >
           <fa-icon icon="home"></fa-icon> Inicio
         </a>
       </li>
 
-      <li id="userId" class="nav-item">
+      <li id="userId">
         <a  
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los usuarios" 
           routerLink="/users"
+          (click)="activate('userId')"
           class="nav-item text-white nav-link"
           href="#">
           <fa-icon icon="users"></fa-icon> Usuarios
         </a>
       </li>
 
-      <li id="roleId" class="nav-item">
+      <li id="roleId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a      
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los roles" 
           class="nav-item text-white nav-link" 
+          (click)="activate('roleId')"
           href="#" 
           [routerLink]="['/roles']">
           <fa-icon icon="key"></fa-icon> Roles
         </a>
       </li>
 
-      <li id="categoryId" class="nav-item">
+      <li id="categoryId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a
           placement="bottom" 
           ngbTooltip="Ver el listado de todas las categorías" 
           class="nav-item text-white nav-link" 
           href="#"
+          (click)="activate('categoryId')"
           [routerLink]="['/category']">
           <fa-icon icon="tags"></fa-icon> Categorías
         </a>
       </li>
 
-      <li id="distId" class="nav-item">
+      <li id="distId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a
           placement="bottom" 
           ngbTooltip="Ver el listado de todas las reparticiones" 
           class="nav-item text-white nav-link"
+          (click)="activate('distId')"
           href="#" 
           [routerLink]="['/distribution']">
           <fa-icon icon="building"></fa-icon> Reparticiones
         </a>
       </li>
 
-      <li id="transportId" class="nav-item">
+      <li id="transportId">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-          <a        
+          <a 
+            (click)="activate('transportId')"       
             placement="bottom" 
             ngbTooltip="Ver el listado de todos los transportes" 
             class="nav-item text-white nav-link"
@@ -73,9 +80,10 @@
           </a>
       </li>
 
-      <li id="expId" class="nav-item">
+      <li id="expId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a       
+          (click)="activate('expId')"
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los tipos de gasto" 
           class="nav-item text-white nav-link" 
@@ -85,10 +93,11 @@
         </a>
       </li>
 
-      <li id="orgId" class="nav-item">
+      <li id="orgId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a         
           placement="bottom" 
+          (click)="activate('orgId')"
           ngbTooltip="Ver el listado de todos los organismos" 
           class="nav-item text-white nav-link" 
           href="#" 
@@ -97,9 +106,10 @@
         </a>
       </li>
 
-      <li id="solId" class="nav-item active">
+      <li id="solId">
         <a     
           placement="bottom" 
+          (click)="activate('solId')"
           ngbTooltip="Ver el listado de todas las solicitudes de viático" 
           routerLink="/SolicitationSubsidy/agent"
           class="nav-item text-white nav-link" href="#">
@@ -107,11 +117,12 @@
         </a>
       </li>
 
-      <li id="holId" class="nav-item active">
+      <li id="holId">
           <a    
             placement="bottom"
             ngbTooltip="Ver el listado de los días no laborables"          
             routerLink="/holidays" 
+            (click)="activate('holId')"
             class="nav-item text-white nav-link" href="#">
             <fa-icon icon="calendar"></fa-icon> Feriados
           </a>
