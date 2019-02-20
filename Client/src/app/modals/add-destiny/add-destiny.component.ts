@@ -1,7 +1,4 @@
-import { NgbDateStruct, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
-import { DateDto } from './../../_models/holiday';
 import { AuthenticationService } from './../../_services/authentication.service';
-import { ComplementariesCitiesDto } from './../../_models/city';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
 import { AllCountryDto } from './../../_models/country';
 import { DestinyService } from 'src/app/_services/destiny.service';
@@ -22,14 +19,13 @@ import { CountryService } from 'src/app/_services/country.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
-import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
 
 
 @Component({
   selector: 'app-add-destiny',
   templateUrl: './add-destiny.component.html',
-  styleUrls: ['./add-destiny.component.css'],
-  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
+  styleUrls: ['./add-destiny.component.css']
+  //,providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
 })
 export class AddDestinyComponent implements OnInit {
 
@@ -192,7 +188,6 @@ export class AddDestinyComponent implements OnInit {
     newCarIsBeingUsed.id = this.model.transportId;
     newCarIsBeingUsed.days = this.model.days;
     newCarIsBeingUsed.StartDate = this.model.startDate;
-    var result;
     
     var startDateFromView = new Date(newCarIsBeingUsed.StartDate.year,newCarIsBeingUsed.StartDate.month,newCarIsBeingUsed.StartDate.day);
     var endDateFromView = new Date(newCarIsBeingUsed.StartDate.year,newCarIsBeingUsed.StartDate.month,newCarIsBeingUsed.StartDate.day);
@@ -222,7 +217,7 @@ export class AddDestinyComponent implements OnInit {
           
     this.transportService.carIsBeingUsedByOtherSolicitation(newCarIsBeingUsed)
     .subscribe(
-    carIsBeingUsed => {
+    () => {
       this.error = [];
       let newDestiny = new DestinyDto;
       newDestiny.placeId = this.model.placeId;
@@ -348,7 +343,7 @@ export class AddDestinyComponent implements OnInit {
     this.model.cityId = cityId;
   }
 
-  citiesThisProvince(provinceId: any, place: AllPlaceDto) {
+  citiesThisProvince(provinceId: any) {
     if (this.provinces.length == 0 && this.countries.length > 0) {
       //si hay paises y provincias => va a viajar fuera del pais
       this.model.cityId = null;

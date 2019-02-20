@@ -1,11 +1,14 @@
-<a class="btn btn-primary" href="" routerLink="/holidays">
-    <fa-icon icon="angle-left"></fa-icon>    
-  </a>
+<a 
+    placement="bottom" 
+    ngbTooltip="Volver al listado de usuarios" 
+    class="btn btn-primary mb-1" href="" routerLink="/holidays">
+    <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
+</a>
   <div class="container col-5">
     
     <div class="card">
           <div class="card-header">
-              <h5>Crear</h5>
+              <h5>Modificar</h5>
           </div>
           <div class="card-body">
               <form (ngSubmit)="onSubmit()" #holidaysForm="ngForm">
@@ -16,11 +19,13 @@
                               #description="ngModel" 
                               required 
                               [ngClass]="{ 'is-invalid': (description.dirty || holidaysForm.submitted) && description.invalid,
-                              'is-valid' : description.dirty && description.valid}"
+                              'is-valid' : description.valid}"
                               name="description"
                               id="description" 
                               type="text" 
-                              placeholder="Descripción">
+                              placeholder="Descripción"
+                              appCheckSpaceBlankOnInput
+                              (msgEvent)="msjValidEvent($msj)">
                           </div>
                   
   
@@ -39,7 +44,7 @@
                                       displayMonths="displayMonths" 
                                       required 
                                       [ngClass]="{ 'is-invalid': (date.dirty || holidaysForm.submitted) && date.invalid,
-                                      'is-valid' : date.dirty && date.valid}"
+                                      'is-valid' : date.valid}"
                                       navigation="navigation"
                                       outsideDays="outsideDays" 
                                       showWeekNumbers="showWeekNumbers"

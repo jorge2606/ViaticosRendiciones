@@ -11,8 +11,8 @@ import { MaskService } from 'ngx-mask';
 @Component({
   selector: 'app-holidays',
   templateUrl: './holidays.component.html',
-  styleUrls: ['./holidays.component.css'],
-  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
+  styleUrls: ['./holidays.component.css']
+  //,providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
 })
 
 export class HolidaysComponent implements OnInit {
