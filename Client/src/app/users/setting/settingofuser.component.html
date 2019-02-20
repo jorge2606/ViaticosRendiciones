@@ -1,5 +1,8 @@
-<a class="btn btn-primary mr-auto mb-1" href="" routerLink="/users">
-    <fa-icon icon="angle-left"></fa-icon>
+<a 
+    placement="bottom" 
+    ngbTooltip="Volver al listado de usuarios" 
+    class="btn btn-primary mb-1" href="" routerLink="/users">
+    <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 <ngb-tabset #t="ngbTabset" (tabChange)="setTitleTab()">
     <ngb-tab id="tab-selectbyid1" title="Perfil">

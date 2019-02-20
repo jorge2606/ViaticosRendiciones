@@ -74,8 +74,7 @@ export class SettingofuserComponent implements OnInit {
     if (!this.submitted){
       return;
     }
-
-    console.log(this.model);
+    
     this.userService.updateProfileUsers(this.model).subscribe(
       result => {
         this.toastrService

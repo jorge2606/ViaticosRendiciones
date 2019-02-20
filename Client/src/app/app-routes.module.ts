@@ -68,13 +68,13 @@ const routes: Routes = [
         }, component: ModifyuserComponent, canActivate : [AuthGuard] 
       },
       { path: ':distributionId', 
-        data: {breadcrumb: 'usuarios-distribución',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
+        data: {breadcrumb: 'usuarios y distribuciones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
       },
     ]
   },
   
   
-  { path: 'AgentsAndSupervisors', data: {breadcrumb: 'agentes-supervisores',isHome: false,show: true},component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] },
+  { path: 'AgentsAndSupervisors', data: {breadcrumb: 'agentes y supervisores',isHome: false,show: true},component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] },
 
   { path: 'settingUser/:id', data: {breadcrumb: 'mi perfil',isHome: false,show: true},component: SettingofuserComponent, canActivate : [AuthGuard] },
   { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
@@ -83,7 +83,7 @@ const routes: Routes = [
     data: {breadcrumb: 'roles',isHome: false,show: true}, 
     children : [
       { path : '', component: RolesComponent, canActivate : [AuthGuard] },
-      { path: 'permissions/:id',data: {breadcrumb: 'roles-permisos',isHome: false,show: true}, component: RolesPermissionsComponent, canActivate : [AuthGuard] },  
+      { path: 'permissions/:id',data: {breadcrumb: 'roles permisos',isHome: false,show: true}, component: RolesPermissionsComponent, canActivate : [AuthGuard] },  
     ],
   },
   
@@ -111,7 +111,7 @@ const routes: Routes = [
     children : [
       {path : '', component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard]},
-      { path: ':organismId', data: {breadcrumb: 'distribución-organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
+      { path: ':organismId', data: {breadcrumb: 'distribución organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard]},
     ]
   },
@@ -127,17 +127,17 @@ const routes: Routes = [
     
 
   { path: 'expenditure',
-    data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},
+    data: {breadcrumb: 'conceptos de gastos',isHome: false,show: true},
     children : [
       { path : '',component : ExpendituresComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear', isHome: false,show: true}, component : CreateExpenditureComponent, canActivate : [AuthGuard]},
       { path: 'update/:id',  data: {breadcrumb: 'modificar', isHome: false,show: true}, component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
-      { path: ':id',  data: {breadcrumb: 'concepto-de-gastos-usuarios', isHome: false,show: true}, component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
+      { path: ':id',  data: {breadcrumb: 'concepto de gastos usuarios', isHome: false,show: true}, component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
     ]
   },
 
   { path: 'organism',
-    data: {breadcrumb: 'conceptos-de-gastos',isHome: false,show: true},
+    data: {breadcrumb: 'conceptos de gastos',isHome: false,show: true},
     children : [
       { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},
@@ -145,11 +145,11 @@ const routes: Routes = [
     ],
   },
 
-  { path: 'SolicitationSubsidy',
-    data: {breadcrumb: 'solicitud-de-viático',isHome: false,show: true},
+  { path: 'SolicitationSubsidy/agent',
+    data: {breadcrumb: 'mis solicitudes de viático',isHome: false,show: true},
     children : [
-      { path : 'supervisor',component : SupervisorComponent, canActivate : [AuthGuard]},
-      { path: 'agent',data: {breadcrumb: 'agentes',isHome: false,show: true}, component : AgentComponent, canActivate : [AuthGuard]},
+      { path: '', component : AgentComponent, canActivate : [AuthGuard]},
+      { path: 'supervisor', data: {breadcrumb: 'solicitud de viático de agentes a mi cargo',isHome: false,show: true}, component : SupervisorComponent, canActivate : [AuthGuard]},      
       { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'detail/:id',data: {breadcrumb: 'detalle',isHome: false,show: true}, component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
       { path: 'modify/:id',data: {breadcrumb: 'modificar',isHome: false,show: true},component : CreateSolicitationComponent, canActivate : [AuthGuard]},
