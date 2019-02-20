@@ -128,17 +128,24 @@ namespace VR.Web.Controllers
             var queryPaginator = queryableUser();
 
             var result = queryPaginator
-                .Where( 
-                   x => (string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper()))
+                .Where(
+                    x => (string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper()))
                          &&
-                        (!filters.OrganismId.HasValue || x.OrganismId == filters.OrganismId)
-                ).Skip((filters.Page ?? 0) * pageSize)
-                .Take(pageSize)
-                .ToList();
+                         (!filters.OrganismId.HasValue || x.OrganismId == filters.OrganismId)
+            );
+
+            if (filters.OrganismId.HasValue)
+            {
+                return new PagedResult<AllDistributionDto>
+                {
+                    List = result.Skip((filters.Page ?? 0) * pageSize).Take(pageSize).ToList(),
+                    TotalRecords = result.Count()
+                };
+            }
 
             return new PagedResult<AllDistributionDto>
             {
-                List = result,
+                List = result.Skip((filters.Page ?? 0) * pageSize).Take(pageSize).ToList(),
                 TotalRecords = queryPaginator.Count()
             };
         }

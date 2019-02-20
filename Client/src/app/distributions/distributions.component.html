@@ -70,11 +70,17 @@
 			</tbody>
 		</table>
 		<app-alert 
-			*ngIf="distribution_list_length == 0" 
+			*ngIf="col_size == 0" 
 			[textAlert]="textListEmpty"
 			[typeAlert]="classListEmpty">			
 		</app-alert>
 </div>
 
-<ngb-pagination (pageChange)="loadPage($event)" [collectionSize]="col_size" [pageSize]="itemsPerPage" [(page)]="page"
-aria-label="Default pagination"></ngb-pagination>
+<ngb-pagination 
+	*ngIf="col_size >= (itemsPerPage + 1)"
+	(pageChange)="loadPage($event)" 
+	[collectionSize]="col_size" 
+	[pageSize]="itemsPerPage" 
+	[(page)]="page"
+	aria-label="Default pagination">
+</ngb-pagination>

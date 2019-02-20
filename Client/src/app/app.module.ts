@@ -70,7 +70,6 @@ import { HolographSignComponent } from './users/holograph-sign/holograph-sign.co
 import { FileNumberComponent } from './modals/file-number/file-number.component';
 import { SelectorDirective } from './directives/selector.directive';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { AlertComponent } from './alert/alert.component';
  
 import { ToastrModule } from 'ngx-toastr';
@@ -163,7 +162,6 @@ library.add(fas);
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-      { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter},
       Title,
       I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}
     ],

@@ -117,7 +117,7 @@ namespace VR.Web.Controllers
             return new PagedResult<GetallOrganismDto>
             {
                 List = result,
-                TotalRecords = result.Count()
+                TotalRecords = queryPaginator.Count()
             };
         }
     }

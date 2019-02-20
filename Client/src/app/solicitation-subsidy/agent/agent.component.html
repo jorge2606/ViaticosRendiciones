@@ -173,10 +173,13 @@
       <p style="font-size: 20px; color: white">Enviando...</p>>
     </ngx-spinner>
 
-    <ngb-pagination (pageChange)="loadPage($event)" 
+    <ngb-pagination 
+    *ngIf="col_size >= (itemsPerPage + 1)"
+    (pageChange)="loadPage($event)" 
     [collectionSize]="col_size" 
     [pageSize]="itemsPerPage" 
     [(page)]="filters.page"
     class="ml-auto"
-    aria-label="Default pagination"></ngb-pagination>
+    aria-label="Default pagination">
+  </ngb-pagination>
   

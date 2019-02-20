@@ -42,9 +42,9 @@ import { SupervisorComponent } from './solicitation-subsidy/supervisor/superviso
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
-  { path: '', 
-    data: {breadcrumb: 'inicio',isHome: true,show: true},component: HomeComponent, canActivate : [AuthGuard] },
-  { path: 'login', data: {breadcrumb: 'login',isHome: false,show: true}, component: LoginComponent },
+  { path: '', data: {breadcrumb: 'inicio',isHome: true,show: true, },component: HomeComponent, canActivate : [AuthGuard] },
+
+  { path: 'login', component: LoginComponent },
 
   { path: 'users',
     data: {breadcrumb: 'usuarios',isHome: false,show: true},
@@ -111,7 +111,6 @@ const routes: Routes = [
     children : [
       {path : '', component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard]},
-      { path: ':organismId', data: {breadcrumb: 'distribución organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard]},
     ]
   },
@@ -140,6 +139,7 @@ const routes: Routes = [
     data: {breadcrumb: 'Organismos',isHome: false,show: true},
     children : [
       { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
+      { path: 'distributions/:organismId', data: {breadcrumb: 'distribución organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},
       { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard]},
     ],

@@ -137,7 +137,8 @@ namespace VR.Web.Controllers
             const int pageSize = 10;
             var queryPaginator = queryableUser();
 
-            var result = queryPaginator.Skip((page ?? 0) * pageSize)
+            var result = queryPaginator
+                .Skip((page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
             return new PagedResult<Transport>

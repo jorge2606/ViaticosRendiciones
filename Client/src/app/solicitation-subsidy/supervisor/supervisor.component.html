@@ -62,10 +62,11 @@
   </div>
 
   <ngb-pagination 
-  (pageChange)="loadPage($event)" 
-  [collectionSize]="col_size"
+    *ngIf="col_size >= (itemsPerPage + 1)"
+    (pageChange)="loadPage($event)" 
+    [collectionSize]="col_size"
     [pageSize]="itemsPerPage" 
     [(page)]="filters.page"
     class="ml-auto"
-  aria-label="Default pagination"></ngb-pagination>
+    aria-label="Default pagination"></ngb-pagination>
   

@@ -14,8 +14,9 @@ export class CheckSpaceBlankOnInputDirective {
     }
 
   sendMessage(msj : any){
-    this.msgEvent.emit();
+    this.msgEvent.emit(msj);
   }
+
   
   @HostListener('keyup') validSpaceBlank(){
     if (this.el.nativeElement.value.toString().length > 0){

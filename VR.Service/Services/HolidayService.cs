@@ -122,7 +122,7 @@ namespace VR.Service.Services
 
         public ServiceResult<PagedResult<AllHolidayDto>> Pagination(FilterHolidayDto filters)
         {
-            const int pageSize = 8;
+            const int pageSize = 10;
 
             var resultFull = _dataContext.Holidays
                 .Where(x => x.IsDeleted != true);

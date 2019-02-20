@@ -17,7 +17,6 @@ export class OrganismsComponent implements OnInit {
   organism : CreateOrganismDto[];
   col_size : number;
   itemsPerPage : number = 10;
-  organism_list_length: number;
   textListEmpty : string = "No se encontró ningún organismo";
   classListEmpty : string = "alert-primary";
 
@@ -38,18 +37,18 @@ export class OrganismsComponent implements OnInit {
     this.organismService.getPaginator(this.filters).subscribe(
       result => {
         this.organism = result.list,
-        this.organism_list_length = this.organism.length,
         this.col_size = result.totalRecords
       },
       error => console.log(error)
     ); 
   }
 
-  loadPage(){
-    if (this.filters.page != 0){
-      this.filters.page = this.filters.page - 1;
+  loadPage(page : number){
+    if (page != 0){
+      this.filters.page = page - 1;
       this.getAllOrganism(this.filters);
     }
+    
   }
 
   openEliminar(id: number, name: string, descp: string) {

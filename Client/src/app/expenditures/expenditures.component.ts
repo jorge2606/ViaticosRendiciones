@@ -16,9 +16,9 @@ export class ExpendituresComponent implements OnInit {
 
   page = 0;
   col_size : number;
+  itemsPerPage : number = 10;
   expenditures : ExpenditureTypeBaseDto[];
   error : any;
-  itemsPerPage : number = 10;
   id : number;
 
   constructor(

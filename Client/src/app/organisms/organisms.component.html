@@ -29,7 +29,7 @@
 					<td><a 
 							placement="bottom" 
 							ngbTooltip="Ver las reparticiones de este organismo" 
-							href="" routerLink="/distribution/{{org.id}}">Reparticiones
+							href="" routerLink="/organism/distributions/{{org.id}}">Reparticiones
 						</a>
 					</td>
 					<td>
@@ -53,17 +53,18 @@
 		</table>
 
 		<app-alert 
-			*ngIf="organism_list_length == 0"
+			*ngIf="col_size == 0"
 			[textAlert]="textListEmpty"
 			[typeAlert]="classListEmpty">			
 		</app-alert>
 
 </div>
 
-	<ngb-pagination 
-		(pageChange)="loadPage()" 
-		[collectionSize]="col_size" 
-		[pageSize]="itemsPerPage" 
-		[(page)]="filters.page"
-		aria-label="Default pagination">
-	</ngb-pagination>
+<ngb-pagination 
+	*ngIf="col_size >= (itemsPerPage + 1)"
+	(pageChange)="loadPage($event)" 
+	[collectionSize]="col_size" 
+	[pageSize]="itemsPerPage" 
+	[(page)]="filters.page"
+	aria-label="Default pagination">
+</ngb-pagination>
