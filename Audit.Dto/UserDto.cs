@@ -7,7 +7,7 @@ namespace Audit.Dto
 {
     public class UserAuditDto
     {
-        public int Dni { set; get; }
+        public string Dni { set; get; }
         public string UserName { set; get; }
         public string PhoneNumber { set; get; }
     }
