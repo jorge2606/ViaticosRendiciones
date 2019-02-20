@@ -5,81 +5,94 @@
 </a>
 
 <div class="container col-6">
-        <div class="card">
-                <h5 class="card-header">Modificar</h5>
-                <div class="card-body">
-                    
-                            <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
-                                
-                                <div style="margin-bottom:5px;" class="form-group">
-                                    <input class="form-control" 
-                                        [(ngModel)]="model.name" 
-                                        #name="ngModel" 
-                                        required 
-                                        name="name" 
-                                        type="text"
-                                        maxlength="150"
-                                        placeholder="Nombre">
-                                </div>
-                            
-                                <div style="margin-top: 10px;" *ngIf="name.dirty && name.invalid" class="alert alert-danger">
-                                    Nombre Incorrecto
-                                </div>
-                            
-                                <div style="margin-bottom:5px;" class="form-group">
-                                    <input class="form-control" 
-                                        [(ngModel)]="model.description" 
-                                        required #description="ngModel" 
-                                        name="description" 
-                                        type="text"
-                                        maxlength="150"
-                                        placeholder="Descripción">
-                                </div>
-                            
-                                <div style="margin-top: 10px;" *ngIf="description.dirty && description.invalid" class="alert alert-danger">
-                                    Descripción Incorrecta
-                                </div>
-                            
-                                <div style="margin-bottom:5px;" class="form-group">
-                                        <input class="form-control" 
-                                        [(ngModel)]="model.advance" 
-                                        required #advance="ngModel" 
-                                        name="advance" 
-                                        type="number"
-                                        placeholder="Anticipo"
-                                        maxlength="8">
-                                    </div>
-                            
-                                    <div style="margin-top: 10px;" *ngIf="advance.dirty && advance.invalid" class="alert alert-danger">
-                                        Anticipo Incorrecta
-                                    </div>
-                            
-                                <div class="form-row">
-                                    <button [disabled]="!CategoryForm.valid"
-                                        class="btn btn-success ml-auto"
-                                        placement="bottom" ngbTooltip="Enviar este formulario"
-                                    >
-                                        <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
-                                    </button>
-                                </div>
-                            
-                            </form>
-                        <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
-                            Hay Campos erroneos en el formulario, verifiquelos
-                        </div>-->
-                        
-                        <div class="alert alert-danger" *ngIf="error">
-                            <ul *ngFor="let e of error">
-                                <li>{{e.value}}</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="alert alert-success" *ngIf="responseSuccess">
-                            <ul>
-                                <li>Guardado</li>
-                            </ul>
-                        </div>
+<div class="card">
+<h5 class="card-header">Modificar</h5>
+<div class="card-body">
+    
+    <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
+        
+        <div style="margin-bottom:5px;" class="form-group">
+            <input class="form-control" 
+                [(ngModel)]="model.name" 
+                [ngClass]="{ 'is-invalid': (name.dirty || CategoryForm.submitted) && name.invalid,
+                'is-valid' : name.valid}"
+                #name="ngModel" 
+                required 
+                name="name" 
+                type="text"
+                maxlength="150"
+                placeholder="Nombre">
+        </div>
+    
+        <div  
+            *ngIf="name.dirty && !CategoryForm.submitted && name.invalid" 
+            class="alert alert-danger mt-1">
+            <div *ngIf="name.errors.required">
+                El campo 'Nombre' no debería estar vacío
             </div>
         </div>
+    
+        <div style="margin-bottom:5px;" class="form-group">
+            <input class="form-control" 
+                [(ngModel)]="model.description" 
+                required 
+                #description="ngModel" 
+                [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid,
+                'is-valid' : description.valid}"
+                name="description" 
+                type="text"
+                maxlength="150"
+                placeholder="Descripción">
+        </div>
+    
+        <div  
+            *ngIf="description.dirty && !CategoryForm.submitted && description.invalid" 
+            class="alert alert-danger mt-1">
+            <div *ngIf="description.errors.required">
+                El campo 'Descripción' no debería estar vacío
+            </div>
+        </div>
+    
+        <div style="margin-bottom:5px;" class="form-group">
+                <input class="form-control" 
+                [(ngModel)]="model.advance" 
+                required #advance="ngModel" 
+                name="advance" 
+                type="number"
+                placeholder="Anticipo"
+                maxlength="8">
+            </div>
+    
+            <div  *ngIf="advance.dirty && advance.invalid" class="alert alert-danger">
+                Anticipo Incorrecta
+            </div>
+    
+        <div class="form-row">
+            <button [disabled]="!CategoryForm.valid"
+                class="btn btn-success ml-auto"
+                placement="bottom" ngbTooltip="Enviar este formulario"
+            >
+                <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
+            </button>
+        </div>
+    
+    </form>
+    <!--<div  *ngIf="CategoryForm.form.invalid">
+        Hay Campos erroneos en el formulario, verifiquelos
+    </div>-->
+    
+    <div class="alert alert-danger" *ngIf="error">
+        <ul *ngFor="let e of error">
+            <li>{{e.value}}</li>
+        </ul>
+    </div>
+    
+    <div class="alert alert-success" *ngIf="responseSuccess">
+        <ul>
+            <li>Guardado</li>
+        </ul>
+    </div>
+</div>
+</div>
 </div>
 

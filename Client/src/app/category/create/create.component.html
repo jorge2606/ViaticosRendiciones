@@ -14,7 +14,8 @@
                     <div style="margin-bottom:5px;" class="form-group">
                         <input class="form-control" 
                             [(ngModel)]="model.name" 
-                            [ngClass]="{ 'is-invalid': (name.dirty || submitted) && name.invalid }"
+                            [ngClass]="{ 'is-invalid': (name.dirty || submitted) && name.invalid,
+                            'is-valid' : name.dirty && name.valid }"
                             #name="ngModel" 
                             required 
                             name="name" 
@@ -23,9 +24,9 @@
                             placeholder="Nombre">
                     </div>
                 
-                    <div style="margin-top: 10px;" 
+                    <div  
                         *ngIf="name.dirty && !submitted && name.invalid" 
-                        class="alert alert-danger">
+                        class="alert alert-danger mt-1">
                         <div *ngIf="name.errors.required">
                             El campo 'Nombre' no debería estar vacío
                         </div>
@@ -40,11 +41,12 @@
                             type="text"
                             maxlength="150"
                             placeholder="Descripción"
-                            [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid }">
+                            [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid,
+                            'is-valid' : description.dirty && description.valid }">
                     </div>
-                    <div style="margin-top: 10px;" 
+                    <div
                         *ngIf="description.dirty && !submitted && description.invalid" 
-                        class="alert alert-danger">
+                        class="alert alert-danger mt-1">
                         <div *ngIf="description.errors.required">
                             El campo 'Descripción' no debería estar vacío
                         </div>
@@ -60,12 +62,13 @@
                             maxlength="8"
                             pattern="[0-9]+"
                             placeholder="Anticipo"
-                            [ngClass]="{ 'is-invalid': (advance.dirty || submitted) && advance.invalid }">
+                            [ngClass]="{ 'is-invalid': (advance.dirty || submitted) && advance.invalid,
+                            'is-valid' : advance.dirty && advance.valid }">
                     </div>
                 
-                    <div style="margin-top: 10px;" 
+                    <div  
                         *ngIf="advance.dirty && !submitted && advance.invalid" 
-                        class="alert alert-danger">
+                        class="alert alert-danger mt-1">
                         <div *ngIf="advance.errors.required">
                             El campo 'Anticipo' no debería estar vacío
                         </div>
@@ -80,13 +83,7 @@
                         </button>
                     </div>
                 
-                </form>
-                    
-            <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
-                Hay Campos erroneos en el formulario, verifiquelos
-            </div>-->
-            
-            
+                </form>            
         </div>
     </div>
 </div>
