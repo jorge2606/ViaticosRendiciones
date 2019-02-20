@@ -8,31 +8,55 @@
         <h5 class="card-header">Modificar</h5>
         <div class="card-body">
             <form (ngSubmit)="onSubmit()" #OrganismForm="ngForm">
-    
-                <div style="margin-bottom:5px;" class="form-group">
-                    <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
-                        placeholder="Nombre">
-                </div>
-            
-                <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
-                    Nombre Incorrecto
-                </div>
-            
-                <div style="margin-bottom:5px;" class="form-group">
-                    <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
-                        placeholder="Descripción">
-                </div>
-            
-                <div style="margin-top: 10px;" *ngIf="description.invalid" class="alert alert-danger">
-                    Descripción Incorrecta
-                </div>
-            
-                <div style="margin-bottom:5px;" class="form-row">
-                    <button placement="bottom" ngbTooltip="Enviar este formulario" 
-                        class="btn btn-success ml-auto" >
-                        <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
-                    </button>
-                </div>
+                <div class="form-group">
+                        <input 
+                            class="form-control" 
+                            [ngClass]="{ 'is-invalid': (name.dirty || OrganismForm.submitted) && name.invalid,
+                            'is-valid' : name.valid}"
+                            [(ngModel)]="model.name"
+                            #name="ngModel" 
+                            required 
+                            name="name" 
+                            type="text"
+                            placeholder="Nombre">
+                    </div>
+                
+                    <div *ngIf="name.dirty && !OrganismForm.submitted && name.invalid" 
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="name.errors.required">
+                            El campo 'Nombre' no debería estar vacío
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <input 
+                            class="form-control" 
+                            [ngClass]="{ 'is-invalid': (description.dirty || OrganismForm.submitted) && description.invalid,
+                            'is-valid' : description.valid }"
+                            [(ngModel)]="model.description" 
+                            required 
+                            #description="ngModel" 
+                            name="description"
+                            type="text"
+                            placeholder="Descripción">
+                    </div>
+                
+                    <div *ngIf="description.dirty && !OrganismForm.submitted && description.invalid" 
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="description.errors.required">
+                            El campo 'Descripción' no debería estar vacío
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <button 
+                            placement="bottom" 
+                            [disabled]="!OrganismForm.valid"
+                            ngbTooltip="Enviar este formulario" 
+                            class="btn btn-success ml-auto" >
+                            <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
+                        </button>
+                    </div>
             
             </form>
             

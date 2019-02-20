@@ -9,49 +9,70 @@
     <div class="card">
         <h5 class="card-header">Modificar</h5>
         <div class="card-body"> 
-                <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
-                    
-                    <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
-                            placeholder="Nombre">
-                    </div>
-              
-                    <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
-                        Nombre Incorrecto
-                    </div>
-              
-                    <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
-                            placeholder="Descripción">
-                    </div>
-              
-                    <div style="margin-top: 10px;" *ngIf="description.invalid" class="alert alert-danger">
-                        Descripción Incorrecta
-                    </div>
-              
-                    <select class="form-control" #organismId="ngModel" 
-                        name="organismId" 
-                        [(ngModel)]="model.organismId" required>
-                      <option *ngFor="let org of organism" [ngValue]="org.id">{{org.name}}</option>
-                    </select>
-              
-                    <div class="form-row mt-1">
-                        <button placement="bottom" ngbTooltip="Enviar este formulario" 
-                            [disabled]="!CategoryForm.valid" class="btn btn-success ml-auto">
-                            <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
-                        </button>
-                    </div>
-              
-                </form>
-                <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
-                    Hay Campos erroneos en el formulario, verifiquelos
-                </div>-->
-              
-                <div class="alert alert-danger" *ngIf="error">
-                  <ul *ngFor="let e of error">
-                      <li>{{e.value}}</li>
-                  </ul>
+            <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
+                
+                <div style="margin-bottom:5px;" class="form-group">
+                    <input 
+                        class="form-control" 
+                        [(ngModel)]="model.name" 
+                        #name="ngModel" 
+                        required 
+                        name="name" 
+                        type="text"
+                        placeholder="Nombre">
                 </div>
+        
+                <div *ngIf="name.dirty && !submitted && name.invalid" 
+                    class="alert alert-danger mt-1">
+                    <div *ngIf="name.errors.required">
+                        El campo 'Nombre' no debería estar vacío
+                    </div>
+                </div>
+        
+                <div style="margin-bottom:5px;" class="form-group">
+                    <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
+                        placeholder="Descripción">
+                </div>
+        
+                <div style="margin-top: 10px;" 
+                *ngIf="description.dirty && !submitted && description.invalid" 
+                class="alert alert-danger">
+                    <div *ngIf="description.errors.required">
+                        El campo 'Descripción' no debería estar vacío
+                    </div>
+                </div>
+        
+                <select class="form-control" #organismId="ngModel" 
+                    name="organismId" 
+                    [(ngModel)]="model.organismId" required>
+                <option *ngFor="let org of organism" [ngValue]="org.id">{{org.name}}</option>
+                </select>
+        
+                <div style="margin-top: 10px;" 
+                *ngIf="organismId.dirty && !submitted && organismId.invalid" 
+                class="alert alert-danger">
+                    <div *ngIf="organismId.errors.required">
+                        Debe seleccionar un Organismo
+                    </div>
+                </div>
+                
+                <div class="form-row mt-1">
+                    <button placement="bottom" ngbTooltip="Enviar este formulario" 
+                        [disabled]="!CategoryForm.valid" class="btn btn-success ml-auto">
+                        <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
+                    </button>
+                </div>
+        
+            </form>
+            <!--<div style="margin-top: 10px;" *ngIf="CategoryForm.form.invalid">
+                Hay Campos erroneos en el formulario, verifiquelos
+            </div>-->
+        
+            <div class="alert alert-danger" *ngIf="error">
+            <ul *ngFor="let e of error">
+                <li>{{e.value}}</li>
+            </ul>
+            </div>
               
         </div>
     </div>

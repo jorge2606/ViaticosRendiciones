@@ -9,12 +9,22 @@
             <form (ngSubmit)="onSubmit()" #ExpenditureForm="ngForm">
     
                     <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
+                        <input 
+                            class="form-control" 
+                            [(ngModel)]="model.name" 
+                            [ngClass]="{ 'is-invalid': (name.dirty || ExpenditureForm.submitted) && name.invalid }"
+                            #name="ngModel" 
+                            required 
+                            name="name" 
+                            type="text"
                             placeholder="Nombre">
                     </div>
                 
-                    <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
-                        Nombre Incorrecto
+                    <div *ngIf="name.dirty && !ExpenditureForm.submitted && name.invalid" 
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="name.errors.required">
+                            El campo 'Nombre' no debería estar vacío
+                        </div>
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-row">

@@ -8,48 +8,82 @@
     <div class="card">
         <h5 class="card-header">Nuevo</h5>
         <div class="card-body">
-                <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
-      
-                        <div style="margin-bottom:5px;" class="form-group">
-                            <input class="form-control" [(ngModel)]="model.name" #name="ngModel" required name="name" type="text"
-                                placeholder="Nombre">
+            <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
+    
+                    <div style="margin-bottom:5px;" class="form-group">
+                        <input class="form-control" 
+                            [(ngModel)]="model.name"
+                            [ngClass]="{ 'is-invalid': (name.dirty || submitted) && name.invalid }" 
+                            #name="ngModel" 
+                            required 
+                            name="name" 
+                            type="text"
+                            placeholder="Nombre">
+                    </div>
+                
+                    <div 
+                        *ngIf="name.dirty && !submitted && name.invalid" 
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="name.errors.required">
+                            El campo 'Nombre' no debería estar vacío
                         </div>
-                  
-                        <div style="margin-top: 10px;" *ngIf="name.invalid" clas="alert alert-danger">
-                            Nombre Incorrecto
+                    </div>
+                
+                    <div style="margin-bottom:5px;" class="form-group">
+                        <input 
+                            class="form-control" 
+                            [(ngModel)]="model.description" 
+                            [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid }"
+                            required 
+                            #description="ngModel" 
+                            name="description" 
+                            type="text"
+                            placeholder="Descripción">
+                    </div>
+                
+                    <div *ngIf="description.dirty && !submitted && description.invalid" 
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="description.errors.required">
+                            El campo 'Descripción' no debería estar vacío
                         </div>
-                  
-                        <div style="margin-bottom:5px;" class="form-group">
-                            <input class="form-control" [(ngModel)]="model.description" required #description="ngModel" name="description" type="text"
-                                placeholder="Descripción">
+                    </div>
+
+                    <select 
+                        required 
+                        class="form-control" 
+                        #organismId="ngModel" 
+                        name="organismId" 
+                        [(ngModel)]="model.organismId">
+                            <option *ngIf="selectedOrganismId == model.organismId" 
+                                [ngValue]="selectedOrganismId" disabled>
+                                Seleccione un Organismo...
+                            </option>
+                        <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
+                    </select>
+
+                    <div *ngIf="organismId.dirty && !submitted && organismId.invalid" 
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="organismId.errors.required">
+                            Debe seleccionar un Organismo
                         </div>
-                  
-                        <div style="margin-top: 10px;" *ngIf="description.invalid" class="alert alert-danger">
-                            Descripción Incorrecta
-                        </div>
-                        <select required class="form-control" #organismId="ngModel" name="organismId" [(ngModel)]="model.organismId">
-                              <option *ngIf="selectedOrganismId == model.organismId" [ngValue]="selectedOrganismId" disabled>
-                                  Seleccione un Organismo...
-                              </option>
-                            <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
-                        </select>
-                  
-                        <div class="form-row mt-1">
-                            <button 
-                                placement="bottom" 
-                                ngbTooltip="Enviar este formulario" 
-                                [disabled]="!DistributionForm.valid" 
-                                class="btn btn-success ml-auto">
-                                <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
-                            </button>
-                        </div>
-                  
-                    </form>
+                    </div>
+                
+                    <div class="form-row mt-1">
+                        <button 
+                            placement="bottom" 
+                            ngbTooltip="Enviar este formulario" 
+                            [disabled]="!DistributionForm.valid" 
+                            class="btn btn-success ml-auto">
+                            <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
+                        </button>
+                    </div>
+                
+                </form>
             <!--<div style="margin-top: 10px;" *ngIf="DistributionForm.form.invalid">
                 Hay Campos erroneos en el formulario, verifiquelos
             </div>-->
             
-            <div class="alert alert-danger" *ngIf="error">
+            <div class="alert alert-danger mt-1" *ngIf="error">
                 <ul *ngFor="let e of error">
                     <li>{{e.value}}</li>
                 </ul>

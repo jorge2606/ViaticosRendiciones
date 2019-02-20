@@ -22,6 +22,7 @@ export class ModifyDistributionComponent implements OnInit {
   selectedOrganismId : number;
 
   organism :  any[];
+  submitted : boolean;
 
   constructor(
               private route : ActivatedRoute,
@@ -55,6 +56,7 @@ export class ModifyDistributionComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     this.model.id = this.id;
     this.distributionService.updateDistribution(this.model).subscribe(
       x => {

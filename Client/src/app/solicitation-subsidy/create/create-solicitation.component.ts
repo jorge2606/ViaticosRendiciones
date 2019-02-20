@@ -9,7 +9,6 @@ import { AddDestinyComponent } from './../../modals/add-destiny/add-destiny.comp
 import { AddNewExpenditureComponent } from './../../modals/add-new-expenditure/add-new-expenditure.component';
 import { AllExpenditureDto } from '../../_models/expenditureType';
 import { ExpenditureService } from '../../_services/expenditure.service';
-import { MotiveService } from './../../_services/motive.service';
 import { CityService } from './../../_services/city.service';
 import { ProvinceBaseDto } from './../../_models/province';
 import { AllCategoryDto } from './../../_models/category';
@@ -43,7 +42,6 @@ export class CreateSolicitationComponent implements OnInit {
   subscriptionExpenditure: Subscription;
   subscriptionDestiny : Subscription;
   _disabled = false;
-  motives    : AllMotiveDto[] = []; 
   expenditures : AllExpenditureDto[];
   Allexpenditures : AllExpenditureDto[];
   destinies : DestinyDto[] = [];
@@ -67,7 +65,6 @@ export class CreateSolicitationComponent implements OnInit {
   constructor(
       private route : ActivatedRoute,
       private router : Router,
-      private motiveService : MotiveService,
       private expenditureService : ExpenditureService,
       private modalService: NgbModal,
       private destinyService : DestinyService,
@@ -92,7 +89,6 @@ export class CreateSolicitationComponent implements OnInit {
     
     this.model.destinies = [];
     this.model.expenditures = [];
-    this.allMotive();
     this.allexpenditures();
     this.allExpenditureFromModal();
     this.allDestinyFromModal();
@@ -201,12 +197,6 @@ export class CreateSolicitationComponent implements OnInit {
         this.model.expenditures = x;
       },
       error => console.log(error)
-    );
-  }
-
-  allMotive(){
-    this.motiveService.getAll().subscribe(
-      x => this.motives = x
     );
   }
 
