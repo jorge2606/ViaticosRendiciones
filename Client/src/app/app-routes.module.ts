@@ -137,7 +137,7 @@ const routes: Routes = [
   },
 
   { path: 'organism',
-    data: {breadcrumb: 'conceptos de gastos',isHome: false,show: true},
+    data: {breadcrumb: 'Organismos',isHome: false,show: true},
     children : [
       { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},

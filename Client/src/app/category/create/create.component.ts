@@ -29,6 +29,10 @@ export class CreateCategoryComponent implements OnInit {
     
   }
   
+  msjValidEvent(msj : any){
+    console.log(msj);
+  }
+
   onSubmit(){
     this.submitted = true;
     var lenName = this.model.name.trimLeft().length;

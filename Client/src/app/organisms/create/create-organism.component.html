@@ -19,7 +19,9 @@
                         required 
                         name="name" 
                         type="text"
-                        placeholder="Nombre">
+                        placeholder="Nombre"
+                        appCheckSpaceBlankOnInput
+                        (msgEvent)="msjValidEvent($msj)">
                 </div>
             
                 <div *ngIf="name.dirty && !OrganismForm.submitted && name.invalid" 
@@ -39,7 +41,9 @@
                         #description="ngModel" 
                         name="description"
                         type="text"
-                        placeholder="Descripción">
+                        placeholder="Descripción"
+                        appCheckSpaceBlankOnInput
+                        (msgEvent)="msjValidEvent($msj)">
                 </div>
             
                 <div *ngIf="description.dirty && !OrganismForm.submitted && description.invalid" 

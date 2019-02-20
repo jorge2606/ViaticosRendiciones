@@ -76,6 +76,7 @@ import { AlertComponent } from './alert/alert.component';
 import { ToastrModule } from 'ngx-toastr';
 import {NgxMaskModule} from 'ngx-mask';
 import { NgxBreadcrumbsModule } from '@nivans/ngx-breadcrumbs';
+import { CheckSpaceBlankOnInputDirective } from './directives/check-space-blank-on-input.directive';
 
 library.add(fas);
 
@@ -134,7 +135,8 @@ library.add(fas);
       HolographSignComponent,
       FileNumberComponent,
       SelectorDirective,
-      AlertComponent
+      AlertComponent,
+      CheckSpaceBlankOnInputDirective
    ],
    imports: [
       BrowserModule,

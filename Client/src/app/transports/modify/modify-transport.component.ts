@@ -55,4 +55,7 @@ export class ModifyTransportComponent implements OnInit {
     //this.router.navigate(['/distribution']);
   }
 
+  msjValidEvent(msj : any){
+
+  }
 }

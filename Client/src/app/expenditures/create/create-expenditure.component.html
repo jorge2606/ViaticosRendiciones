@@ -13,11 +13,15 @@
                         <input 
                             class="form-control" 
                             [(ngModel)]="model.name" 
+                            [ngClass]="{ 'is-invalid': (name.dirty || CategoryForm.submitted) && name.invalid,
+                            'is-valid' : name.dirty && name.valid}"
                             #name="ngModel" 
                             required 
                             name="name" 
                             type="text"
-                            placeholder="Nombre">
+                            placeholder="Nombre"
+                            appCheckSpaceBlankOnInput
+                            (msgEvent)="msjValidEvent($msj)">
                     </div>
                 
                     <div *ngIf="name.dirty && !CategoryForm.submitted && name.invalid" 
@@ -28,7 +32,10 @@
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-row">
-                        <button placement="bottom" ngbTooltip="Enviar este formulario" 
+                        <button 
+                            placement="bottom" 
+                            [disabled]="!CategoryForm.valid"
+                            ngbTooltip="Enviar este formulario" 
                             class="btn btn-success ml-auto" >
                             <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                         </button>

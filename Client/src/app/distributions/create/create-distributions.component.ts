@@ -16,7 +16,6 @@ export class CreateDistributionsComponent implements OnInit {
   model = new CreateDistributionDto();
   error : any;
   selectedOrganismId : number;
-  submitted : boolean;
 
   organism : any[];
 
@@ -40,7 +39,6 @@ export class CreateDistributionsComponent implements OnInit {
   }
 
   onSubmit(){
-    this.submitted = true;
     this.ditributionService.creteDistribution(this.model).subscribe(
       x=>{
           this.routerService.navigate(['/distribution']);
@@ -51,4 +49,7 @@ export class CreateDistributionsComponent implements OnInit {
     );
   }
 
+  msjValidEvent(){
+    
+  }
 }

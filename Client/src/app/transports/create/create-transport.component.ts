@@ -17,7 +17,6 @@ export class CreateTransportComponent implements OnInit {
   error = '';
 
   responseSuccess : any;
-  submitted : boolean;
 
 
   constructor(
@@ -32,7 +31,6 @@ export class CreateTransportComponent implements OnInit {
   }
 
   onSubmit(){
-    this.submitted = true;
       this.transportService.createTransport(this.modelTransport).subscribe(
           x =>{
             this.modelTransport = this.responseSuccess = x,
@@ -48,6 +46,9 @@ export class CreateTransportComponent implements OnInit {
           }, 
           error => this.error = error.error.notifications
         );
+  }
+
+  msjValidEvent(msj : any){
   }
 
 }

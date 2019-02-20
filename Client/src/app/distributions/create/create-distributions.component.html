@@ -13,16 +13,19 @@
                     <div style="margin-bottom:5px;" class="form-group">
                         <input class="form-control" 
                             [(ngModel)]="model.name"
-                            [ngClass]="{ 'is-invalid': (name.dirty || submitted) && name.invalid }" 
+                            [ngClass]="{ 'is-invalid': (name.dirty || DistributionForm.submitted) && name.invalid,
+                            'is-valid' : name.dirty && name.valid}" 
                             #name="ngModel" 
                             required 
                             name="name" 
                             type="text"
-                            placeholder="Nombre">
+                            placeholder="Nombre"
+                            appCheckSpaceBlankOnInput
+                            (msgEvent)="msjValidEvent($msj)">
                     </div>
                 
                     <div 
-                        *ngIf="name.dirty && !submitted && name.invalid" 
+                        *ngIf="name.dirty && !DistributionForm.submitted && name.invalid" 
                         class="alert alert-danger mt-1">
                         <div *ngIf="name.errors.required">
                             El campo 'Nombre' no debería estar vacío
@@ -33,15 +36,18 @@
                         <input 
                             class="form-control" 
                             [(ngModel)]="model.description" 
-                            [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid }"
+                            [ngClass]="{ 'is-invalid': (description.dirty || DistributionForm.submitted) && description.invalid,
+                            'is-valid' : description.dirty && description.valid }"
                             required 
                             #description="ngModel" 
                             name="description" 
                             type="text"
-                            placeholder="Descripción">
+                            placeholder="Descripción"
+                            appCheckSpaceBlankOnInput
+                            (msgEvent)="msjValidEvent($msj)">
                     </div>
                 
-                    <div *ngIf="description.dirty && !submitted && description.invalid" 
+                    <div *ngIf="description.dirty && !DistributionForm.submitted && description.invalid" 
                         class="alert alert-danger mt-1">
                         <div *ngIf="description.errors.required">
                             El campo 'Descripción' no debería estar vacío
@@ -53,6 +59,8 @@
                         class="form-control" 
                         #organismId="ngModel" 
                         name="organismId" 
+                        [ngClass]="{ 'is-invalid': (organismId.dirty || DistributionForm.submitted) && organismId.invalid,
+                        'is-valid' : organismId.dirty && organismId.valid }"
                         [(ngModel)]="model.organismId">
                             <option *ngIf="selectedOrganismId == model.organismId" 
                                 [ngValue]="selectedOrganismId" disabled>
@@ -61,7 +69,7 @@
                         <option *ngFor="let org of organism" value="{{org.id}}">{{org.name}}</option>
                     </select>
 
-                    <div *ngIf="organismId.dirty && !submitted && organismId.invalid" 
+                    <div *ngIf="organismId.dirty && !DistributionForm.submitted && organismId.invalid" 
                         class="alert alert-danger mt-1">
                         <div *ngIf="organismId.errors.required">
                             Debe seleccionar un Organismo
@@ -79,9 +87,6 @@
                     </div>
                 
                 </form>
-            <!--<div style="margin-top: 10px;" *ngIf="DistributionForm.form.invalid">
-                Hay Campos erroneos en el formulario, verifiquelos
-            </div>-->
             
             <div class="alert alert-danger mt-1" *ngIf="error">
                 <ul *ngFor="let e of error">

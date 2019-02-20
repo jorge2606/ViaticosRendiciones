@@ -37,5 +37,9 @@ export class CreateOrganismComponent implements OnInit {
         error => this.error = error.error.notifications
       );
     }
+
+    msjValidEvent(msj : any){
+
+    }
   
 }

@@ -20,8 +20,9 @@
                 required 
                 name="name" 
                 type="text"
-                maxlength="150"
-                placeholder="Nombre">
+                placeholder="Nombre"
+                appCheckSpaceBlankOnInput
+                (msgEvent)="msjValidEvent($msj)">
         </div>
     
         <div  
@@ -37,12 +38,13 @@
                 [(ngModel)]="model.description" 
                 required 
                 #description="ngModel" 
-                [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid,
+                [ngClass]="{ 'is-invalid': (description.dirty || CategoryForm.submitted) && description.invalid,
                 'is-valid' : description.valid}"
                 name="description" 
                 type="text"
-                maxlength="150"
-                placeholder="Descripción">
+                placeholder="Descripción"
+                appCheckSpaceBlankOnInput
+                (msgEvent)="msjValidEvent($msj)">
         </div>
     
         <div  
@@ -59,8 +61,12 @@
                 required #advance="ngModel" 
                 name="advance" 
                 type="number"
+                [ngClass]="{ 'is-invalid': (advance.dirty || CategoryForm.submitted) && advance.invalid,
+                'is-valid' : advance.valid }"
                 placeholder="Anticipo"
-                maxlength="8">
+                maxlength="8"
+                appCheckSpaceBlankOnInput
+                (msgEvent)="msjValidEvent($msj)">
             </div>
     
             <div  *ngIf="advance.dirty && advance.invalid" class="alert alert-danger">

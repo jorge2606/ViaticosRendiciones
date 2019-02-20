@@ -1,26 +1,30 @@
-<a style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/expenditure">
-  <fa-icon icon="angle-left"></fa-icon>    
+<a  placement="bottom" ngbTooltip="Volver al listado de tipos de gasto" 
+    style="margin-left : 5px;" class="btn btn-primary navarStyle" href="" routerLink="/expenditure">
+    <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 
-<div class="container col-6 navarStyle">
+<div class="container col-6">
     <div class="card">
-        <h5 class="card-header">Modificar</h5>
-        <div class="card-body">
-            <form (ngSubmit)="onSubmit()" #ExpenditureForm="ngForm">
-    
+            <h5 class="card-header">Modificar</h5>
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
+            
                     <div style="margin-bottom:5px;" class="form-group">
                         <input 
                             class="form-control" 
                             [(ngModel)]="model.name" 
-                            [ngClass]="{ 'is-invalid': (name.dirty || ExpenditureForm.submitted) && name.invalid }"
+                            [ngClass]="{ 'is-invalid': (name.dirty || CategoryForm.submitted) && name.invalid,
+                            'is-valid' : name.valid}"
                             #name="ngModel" 
                             required 
                             name="name" 
                             type="text"
-                            placeholder="Nombre">
+                            placeholder="Nombre"
+                            appCheckSpaceBlankOnInput
+                            (msgEvent)="msjValidEvent($msj)">
                     </div>
                 
-                    <div *ngIf="name.dirty && !ExpenditureForm.submitted && name.invalid" 
+                    <div *ngIf="name.dirty && !CategoryForm.submitted && name.invalid" 
                         class="alert alert-danger mt-1">
                         <div *ngIf="name.errors.required">
                             El campo 'Nombre' no debería estar vacío
@@ -28,21 +32,23 @@
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-row">
-                        <button class="btn btn-success ml-auto" >
-                            <fa-icon icon="save"></fa-icon> Guardar
+                        <button 
+                            placement="bottom" 
+                            [disabled]="!CategoryForm.valid"
+                            ngbTooltip="Enviar este formulario" 
+                            class="btn btn-success ml-auto" >
+                            <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                         </button>
                     </div>
                 
                 </form>
-                
-            <div class="alert alert-danger" *ngIf="error">
-                <ul *ngFor="let e of error">
-                    <li>{{e.value}}</li>
-                </ul>
-            </div>    
-
+                        
+                <div class="alert alert-danger" *ngIf="error">
+                    <ul *ngFor="let e of error">
+                        <li>{{e.value}}</li>
+                    </ul>
+                </div>
+        
+            </div>
         </div>
-    </div>    
 </div>
-
-  

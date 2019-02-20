@@ -48,4 +48,10 @@ export class ModifyOrganismComponent implements OnInit {
     );
   }
 
+
+  msjValidEvent(msj : any){
+  }
+  
+  
+
 }

@@ -56,4 +56,8 @@ export class ModifyCategoryComponent implements OnInit {
     //this.router.navigate([CategoryComponent]);
   }
 
+  msjValidEvent(msj : any){
+
+  }
+
 }

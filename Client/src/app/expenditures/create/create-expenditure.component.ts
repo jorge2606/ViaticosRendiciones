@@ -39,4 +39,7 @@ export class CreateExpenditureComponent implements OnInit {
     );
   }
 
+  
+  msjValidEvent(msj : any){
+  }
 }

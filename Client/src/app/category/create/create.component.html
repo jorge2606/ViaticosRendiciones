@@ -20,10 +20,11 @@
                             required 
                             name="name" 
                             type="text"
-                            maxlength="150"
-                            placeholder="Nombre">
+                            placeholder="Nombre"
+                            appCheckSpaceBlankOnInput
+                            (msgEvent)="msjValidEvent($msj)">
                     </div>
-                
+                    
                     <div  
                         *ngIf="name.dirty && !submitted && name.invalid" 
                         class="alert alert-danger mt-1">
@@ -39,10 +40,11 @@
                             #description="ngModel" 
                             name="description" 
                             type="text"
-                            maxlength="150"
                             placeholder="Descripción"
                             [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid,
-                            'is-valid' : description.dirty && description.valid }">
+                            'is-valid' : description.dirty && description.valid }"
+                            appCheckSpaceBlankOnInput
+                            (msgEvent)="msjValidEvent($msj)">
                     </div>
                     <div
                         *ngIf="description.dirty && !submitted && description.invalid" 
