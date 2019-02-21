@@ -30,7 +30,7 @@
 					<td>Nombre</td>
 					<td>Descripción</td>
 					<td>Organismos</td>
-					<td>Usuarios</td>
+					<td></td>
 					<td></td>
 				</tr>
 			</thead>
@@ -45,14 +45,14 @@
 						</a>-->
 						<span *ngIf="dist.organism.name">{{ dist.organism.name }}</span>
 					</td>
-					<td>
+					<td class="text-center">
 						<a 	placement="bottom" 
 							ngbTooltip="Ver usuarios de esta distribución" 
 							routerLink="/users/{{dist.id}}">
-							ver
+							usuarios
 						</a>
 					</td>
-					<td>
+					<td class="text-right">
 						<div class="btn-group" role="group" aria-label="Basic example">
 							<a 	placement="bottom" 
 								ngbTooltip="Editar repartición" 

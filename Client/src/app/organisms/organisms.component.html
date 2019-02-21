@@ -26,13 +26,13 @@
 				<tr *ngFor="let org of organism">
 					<td>{{org.name}}</td>
 					<td>{{org.description}}</td>
-					<td><a 
+					<td class="text-center"><a 
 							placement="bottom" 
 							ngbTooltip="Ver las reparticiones de este organismo" 
 							href="" routerLink="/organism/distributions/{{org.id}}">Reparticiones
 						</a>
 					</td>
-					<td>
+					<td class="text-right">
 						<div class="btn-group" role="group" aria-label="Basic example">
 							<a 
 								placement="bottom" 

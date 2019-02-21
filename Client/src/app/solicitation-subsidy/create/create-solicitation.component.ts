@@ -229,7 +229,14 @@ export class CreateSolicitationComponent implements OnInit {
 
       minus = minus + (codLiq.percentage * category.advance);
       if (index > -1) {
-        this.deleteFromDatabaseDestinies(destiny.id,index);
+        
+        if (destiny.id){
+          this.deleteFromDatabaseDestinies(destiny.id,index);
+        }else{
+          this.model.destinies.splice(index, 1);
+        }
+        
+        
       }
 
       this.totalResultExpenditure();
@@ -349,7 +356,7 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   msjToastError(msg : string){
-    this.toastrService.error("La solicitud de viático se ha eliminado correctamente.",'',
+    this.toastrService.error(msg,'',
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
 

@@ -115,7 +115,7 @@
                             <td>
                                 {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
                             </td>    
-                            <td>
+                            <td class="text-right">
                                 <a  placement="bottom" ngbTooltip="Eliminar este destino" 
                                     class="btn btn-danger text-white small" (click)="removeDestiny(destiny)">
                                     <fa-icon class="fa-lg" icon="trash"></fa-icon>
@@ -176,7 +176,7 @@
                                 <td class="col-2">
                                     {{modelExp.amount | currency}}
                                 </td>
-                                <td class="col-1">
+                                <td class="col-1 text-right">
                                     <a  placement="bottom" ngbTooltip="Eliminar este concepto de gasto" 
                                         class="btn btn-danger text-white small" 
                                         (click)="removeExpenditure(modelExp)">

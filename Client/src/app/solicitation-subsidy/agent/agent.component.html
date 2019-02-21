@@ -65,7 +65,7 @@
               <td class="col" *ngIf="sol.state != 'Rechazado' && sol.state != 'Aceptado'">
                   {{sol.state}}
               </td>
-              <td *ngIf="sol.state == 'Pendiente'" class="col">
+              <td *ngIf="sol.state == 'Pendiente'" class="col text-right">
                   <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
@@ -107,7 +107,7 @@
                   </a>
                 </div>
               </td>
-              <td *ngIf="sol.state == 'Rechazado'" class="col">
+              <td *ngIf="sol.state == 'Rechazado'" class="col text-right">
                 <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
@@ -151,7 +151,7 @@
                   </a>
                 </div>
               </td>
-              <td *ngIf="sol.state == 'Aceptado'" class="col">
+              <td *ngIf="sol.state == 'Aceptado'" class="col text-right">
                   <a 
                     placement="bottom" 
                     ngbTooltip="Imprimir esta solicitud de viático" 
@@ -159,7 +159,7 @@
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
               </td>
-              <td *ngIf="sol.state == 'Enviado'" class="col"></td>
+              <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
             </tr>
           </tbody>
         </table>

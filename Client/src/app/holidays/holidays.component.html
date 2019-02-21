@@ -55,14 +55,14 @@
         <tr style="font-weight: bold;">
           <td>Fecha</td>
           <td>Descripción</td>  
-          <td>Acción</td>
+          <td></td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let holiday of holidays">
           <td>{{holiday.date.day}}/{{holiday.date.month}}/{{holiday.date.year}}</td>
           <td>{{holiday.description}}</td>
-          <td>
+          <td class="text-right">
             <div class="btn-group" role="group" aria-label="Basic example">
               <a 
                 placement="bottom" 

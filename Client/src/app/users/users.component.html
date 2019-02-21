@@ -60,8 +60,8 @@
 					<td>Nombre</td>
 					<td>Apellido</td>
 					<td>Repartición</td>
-					<td>Roles</td>
-					<td>Accción</td>
+					<td class="text-center">Roles</td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -82,7 +82,7 @@
 					<td>{{user.firstName}}</td>
 					<td>{{user.lastName}}</td>
 					<td>{{user.distribution.name}}</td>
-					<td>{{user.rol}}</td>
+					<td class="text-center">{{user.rol}}</td>
 					<td>
 						<div class="btn-group" role="group" aria-label="Basic example">
 							<a style="cursor:pointer" class="pr-3" routerLink="/users/update/{{user.id}}">

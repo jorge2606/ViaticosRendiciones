@@ -22,7 +22,7 @@
 			<tr style="font-weight: bold;">
 				<td>Nombre</td>
 				<td>Descripción</td>
-				<td>Adelanto</td>
+				<td class="text-right">Adelanto</td>
 				<td></td>
 			</tr>
 		</thead>
@@ -30,8 +30,8 @@
 			<tr *ngFor="let cat of categories">
 				<td>{{cat.name}}</td>
 				<td>{{cat.description}}</td>
-				<td>{{cat.advance | number}}</td>
-				<td>
+				<td class="text-right">{{cat.advance | number}}</td>
+				<td class="text-right">
 					<div class="btn-group" role="group" aria-label="Basic example">
 						<a 	placement="bottom" 
 							ngbTooltip="Editar esta categoría" 

@@ -2,10 +2,14 @@
     cursor: pointer;
 }
 
-.active, .nav-item:hover {
-    background-color: #666;
-    color: white;
+.nav-item:hover {
+    background-color: #666666;
+    color: black;
   }
+.active, .active:hover {
+    background-color: dodgerblue;
+    color: white;
+}
 
   .dropdown-toggle::after {
     display: inline-block;
