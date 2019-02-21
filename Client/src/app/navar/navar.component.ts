@@ -59,15 +59,12 @@ export class NavarComponent implements OnInit {
    }
 
    activate(idItem : string){
-    var btnContainer = document.getElementById("navbarNavAltMarkup");
+    var btnContainer = document.getElementById("firstList");
     var btns = btnContainer.getElementsByClassName("nav-item");
     var seleccionado =  document.getElementById(idItem);
-    for (var i = 0; i < btns.length; i++) {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        seleccionado.className += " active";
-        
-   }
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    seleccionado.className += " active";
   }
 
   ngOnInit() {

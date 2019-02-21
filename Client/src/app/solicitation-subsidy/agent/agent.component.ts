@@ -143,10 +143,13 @@ export class AgentComponent implements OnInit {
             this.getAll(this.filters);
           }
         ,
-        error =>{
+        e =>{
+          e = e.error.errors.error || [];
           this.spinner.hide();
-          this.toastrService.error("La solicitud de viático No se ha enviado.",'',
-          {positionClass : 'toast-top-center', timeOut : 3000});
+          e.forEach(err => {
+            this.toastrService.error(err,'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
+          });
           this.getAll(this.filters);
         }
       );

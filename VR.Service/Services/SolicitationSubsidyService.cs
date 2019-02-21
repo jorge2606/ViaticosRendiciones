@@ -294,9 +294,23 @@ namespace VR.Service.Services
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == solicitationDto.Id);
 
+            var notifications = new ServiceResult<string>();
+                
+            if (solicitation == null)
+            {
+                notifications.AddError("error", "Esta solicitud ya no existe en la base de datos");
+                return notifications;
+            }
+
             var supervisor = _dataContext.SupervisorUserAgents
                 .Include(sup => sup.Supervisors)
                 .FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+            if (supervisor == null)
+            {
+                notifications.AddError("error", "Usted no tiene ningún supervisor asignado");
+                return notifications;
+            }
 
             if (solicitation == null)
             {

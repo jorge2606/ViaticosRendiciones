@@ -21,15 +21,17 @@ export class AceptOrRefuseComponent implements OnInit {
   suffixCuil : number;
   dni : number;
   motive : string = "";
+  currentUrl : string;
 
     constructor(
         private solicitationSubsidyService : SolicitationSubsidyService,
-        private router : ActivatedRoute,
-        private modalService : NgbModal
+        private Activatedrouter : ActivatedRoute,
+        private modalService : NgbModal,
+        private router : Router
     ) { }
 
   ngOnInit() {
-      this.router.params.subscribe(
+      this.Activatedrouter.params.subscribe(
         x => {
               this.model.id = x.id;
                 this.solicitationSubsidyService.getByIdSolicitation(x.id)
@@ -41,6 +43,7 @@ export class AceptOrRefuseComponent implements OnInit {
                       this.prefixCuil = this.model.user.prefixCuil;
                       this.suffixCuil = this.model.user.suffixCuil;
                       this.dni = this.model.user.dni;
+                      this.currentUrl = this.router.url;
                       }
                 );
           }

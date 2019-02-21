@@ -3,7 +3,7 @@ import { SolicitationSubsidyService } from './../../_services/solicitation-subsi
 import { SolicitationSubsidyBaseDto, SolicitationSubsidyDetail, SolicitationIdDto } from './../../_models/solicitationSubsidy';
 import { Component, OnInit, Input } from '@angular/core';
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenditureUserBaseDto } from 'src/app/_models/expenditureUser';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
@@ -25,9 +25,11 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   dni : string;
   motive : string = "";
   supscription : any;
+  currentUrl : string;
 
   constructor(
-    private route : ActivatedRoute,
+    private activatedRoute : ActivatedRoute,
+    private router : Router,
     private solicitationSubsidyService : SolicitationSubsidyService,
     public activeModal: NgbActiveModal,
     private modalService: NgbModal,
@@ -35,7 +37,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
+    this.activatedRoute.params.subscribe(
       x => {
         this.id = x.id;
         if (!this.id){
@@ -49,6 +51,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
                     this.firstName = this.model.user.firstName;
                     this.lastName = this.model.user.lastName;
                     this.dni = this.model.user.dni;
+                    this.currentUrl = this.router.url;
                     }
               );
             }

@@ -77,6 +77,7 @@ import {NgxMaskModule} from 'ngx-mask';
 import { NgxBreadcrumbsModule } from '@nivans/ngx-breadcrumbs';
 import { CheckSpaceBlankOnInputDirective } from './directives/check-space-blank-on-input.directive';
 import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
+import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 
 library.add(fas);
 
@@ -161,6 +162,7 @@ library.add(fas);
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter},
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
       Title,
       I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}

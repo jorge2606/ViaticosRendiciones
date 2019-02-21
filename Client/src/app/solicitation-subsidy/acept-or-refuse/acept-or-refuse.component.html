@@ -3,7 +3,7 @@
       <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
     </div>
     <div class="modal-header">
-        <h5 class="modal-title">{{lastName}}, {{firstName}} <br> {{prefixCuil}}-{{dni}}-{{suffixCuil}}</h5>
+        <h5 class="modal-title">{{lastName}}, {{firstName}} <br>{{dni}}</h5>
     </div>
     <div class="modal-body">
           <div class="form-row">
@@ -98,10 +98,13 @@
           </div>
     </div>
 </div>
+{{router.url}}
   <div class="modal-footer mt-6 ml-auto">
-      <button type="submit" (click)="acepted()" class="btn btn-success">Aceptar</button>
-      <button type="submit" (click)="AddMotive('reject','Motivo de Rechazo')" class="btn btn-danger">Rechazar</button>
-      <button type="button" class="btn btn-default" (click)="dimiss()">Cerrar</button>
+      <a routerLink="{{router.url}}" type="submit" (click)="acepted()" class="btn btn-success">Aceptar</a>
+      <a routerLink="{{router.url}}" type="submit" (click)="AddMotive('reject','Motivo de Rechazo')" class="btn btn-danger">
+        Rechazar
+      </a>
+      <a type="button" routerLink="{{router.url}}" class="btn btn-default" (click)="dimiss()">Cerrar</a>
   </div> 
 
   <div *ngIf="msjSuccess" class="alert alert-success mt-1">

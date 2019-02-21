@@ -1,7 +1,6 @@
 <nav *ngIf="isLogged | async" class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 font-weight-light">
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" id="firstList">
       
       <li id="homeId">
         <a 
@@ -10,7 +9,7 @@
           (click)="activate('inicio')"
           ngbTooltip="Ir al menú principal" 
           routerLink="/" 
-          class="nav-item text-white nav-link active"
+          class="nav-item text-white nav-link"
           href="#" >
           <fa-icon icon="home"></fa-icon> Inicio
         </a>
@@ -131,14 +130,16 @@
     </ul>
 
     <ul class="navbar-nav ml-auto small">
-      <li class="nav-item dropdown">
-        <div class="d-inline-block pull-right" ngbDropdown #myDrop="ngbDropdown">
-          <button *ngIf="cantNotif == 0" class="btn btn-light mr-2 small" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
-            <fa-icon icon="bell"></fa-icon>
+      <li class="nav-item dropdown-small">
+        <div class="d-inline-block pull-right" ngbDropdown #myDrop="ngbDropdown" placement="bottom-right">
+          <button *ngIf="cantNotif == 0" class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle (focus)="myDrop.open()">
+            <fa-icon class="fa-lg" style="color: dodgerblue;" icon="bell"></fa-icon>
+           <!-- <span style="background-color:blue;" class="badge badge-primary badge-pill">{{notification.length}}</span>-->
           </button>
-          <button *ngIf="cantNotif != 0" class="btn btn-light mr-2 small" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
-              <fa-icon style="color:red;" icon="bell"></fa-icon>
-              <span  style="background-color:red;" class="badge badge-primary badge-pill">{{notification.length}}</span>
+          <button *ngIf="cantNotif != 0" class="btn btn-outline-light bell-size" id="dropdownManual" 
+              ngbDropdownToggle (focus)="myDrop.open()">
+              <fa-icon  class="fa-lg" style="color:red;" icon="bell"></fa-icon>
+              <span style="background-color:red;" class="badge badge-primary badge-pill">{{notification.length}}</span>
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownManual">
               <div class="p-2">
@@ -160,10 +161,9 @@
       </li>
 
       
-      <li class="nav-item dropdown small">
-          <div class="d-inline-block pull-right" ngbDropdown #myDropCloseSession="ngbDropdown">
-              <button class="btn btn-outline-light mr-2 small" id="dropdownManual" ngbDropdownToggle 
-                (focus)="myDropCloseSession.open()">
+      <li class="nav-item dropdown small ml-1">
+          <div class="d-inline-block pull-right" ngbDropdown #myDropCloseSession="ngbDropdown" placement="bottom-right">
+              <button class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle (focus)="myDropCloseSession.open()">
               <!-- <fa-icon icon="user"></fa-icon>-->
                 <img class="rounded-circle" src="{{urlImage}}" alt="">
               </button>
@@ -186,7 +186,6 @@
           </div>
       </li>   
     </ul>
-  </div>
 </nav>
 
 <nvs-ngx-breadcrumbs *ngIf="isloggedUser"></nvs-ngx-breadcrumbs>
