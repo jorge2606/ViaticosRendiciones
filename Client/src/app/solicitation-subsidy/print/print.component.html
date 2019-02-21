@@ -1,6 +1,6 @@
-  <div class="container mr-auto mt-2">
+  <div class="container mb-1">
           
-      <div class="form-row mb-1"> 
+      <div class="form-row"> 
           <button class="btn btn-primary ml-auto mt-1" (click)="download()">
               <fa-icon icon="download"></fa-icon> Descargar
           </button>
@@ -48,8 +48,8 @@
                     <p><ins><b>DEL AGENTE:</b></ins><br>				
                     Apellido:	<b>{{lastName}}</b><br>			
                     Nombres: <b>{{firstName}}</b><br>
-                    Cargo: {{categoryName}} - {{categoryDescription}}	<br>			
-                    Sueldo Básico: $ 4.220,65 <br>
+                    Categoría : <b>{{categoryName}} - {{categoryDescription}}</b><br>
+                    Repartición : <b>{{distributionName}} - {{distributionDescription}}</b><br>
                     <ins><b>DE LA COMISIÓN:</b></ins><br>	
                     <span *ngFor="let des of model.destinies">
                       <span>
@@ -172,13 +172,15 @@
               <div class="form-row p-2 DivsInMiddle" width="1090">
                   <p>LA DIRECCIÓN DE ADMINISTRACIÓN CERTIFICA QUE EL DÍA	........../.........../.............. EL SEÑOR:	
                   <b>{{lastName}}, {{firstName}}</b> HA PRESENTADO LA RENDICIÓN DE CUENTAS	CORRESPONDIENTE AL ANTICIPO LIQUIDADO POR COMPROBANTE DE CONT. DE FONDO Nº													
-                  SE EXTIENDE LA PRESENTE A LOS EFECTOS PERTINENTES. <br></p>													
-                        
+                  SE EXTIENDE LA PRESENTE A LOS EFECTOS PERTINENTES. <br></p>	
                   <div class="ml-auto col-5">
                       <div class="ml-auto pt-3">
-                          <div *ngIf="!urlImage" class="container-image col-md-8 ml-auto">
-                              <img src="{{urlImage}}" class="image">
+                          <div *ngIf="urlSign" class="container-image col-md-8 ml-auto">
+                              <img src="{{urlSign}}" class="image">
                           </div>
+                          <div *ngIf="!urlSign" class="container-image col-md-8 ml-auto">
+                                <p>S/F</p>
+                            </div>
                       </div>
                       <div class="ml-auto"> FIRMA AUTORIZADA: ----------------------------------------------------------------- </div>
     

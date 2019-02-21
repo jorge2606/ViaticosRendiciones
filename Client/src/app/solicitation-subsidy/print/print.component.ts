@@ -34,9 +34,12 @@ export class PrintComponent implements OnInit {
   previewImage : any;
   hideHtml : boolean = false;
   imgUrl : string;
+  urlSign : string;
   printObservable = new Subject<boolean>();
   categoryName : string;
   categoryDescription : string;
+  distributionName : string;
+  distributionDescription : string;
   totDest : number = 0;
 
 
@@ -54,9 +57,7 @@ export class PrintComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.init();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 1000);
+    this.spinner.hide();;
     
   }
 
@@ -65,8 +66,9 @@ export class PrintComponent implements OnInit {
       url => {
           this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(url.id)
           .subscribe(x => {
-            this.urlImage = this.urlFile(x, 250,100);
-
+            this.urlSign = this.urlFile(x, 250,100);
+            setTimeout(() => {
+            }, 1000);
             this.solicitationSubsidyService.getByIdSolicitation(url.id)
             .subscribe(
                 solicitation => {
@@ -76,6 +78,8 @@ export class PrintComponent implements OnInit {
                   this.categoryName = this.model.user.categoryName;
                   this.categoryDescription = this.model.user.categoryDescription;
                   this.dni = this.model.user.dni;
+                  this.distributionName = this.model.user.distributionName;
+                  this.distributionDescription = this.model.user.distributionDescription;
 
                   this.model.destinies.forEach(totalDestinies => {
                     this.totDest =  this.totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.percentageCodeLiquidation);
@@ -88,9 +92,9 @@ export class PrintComponent implements OnInit {
                         j => {
                               this.destinieWithDaysInLetters = j;
                               this.totalExpenditures = this.totalExpenditures +  this.totDest;
+                              this.captureScreen();
                               setTimeout(() => {
-                                this.captureScreen();
-                              }, 500);
+                              }, 1000);
                               
                             }
                   );
@@ -106,8 +110,6 @@ export class PrintComponent implements OnInit {
   captureScreen()  
   {  
         this.spinner.show();
-        var namePDF = this.firstName+'-'+this.lastName+'-'+this.dni+'.pdf'; 
-        var pdf = new jspdf('p', 'mm', 'legal'); 
         var data = document.getElementById('container-print');  
         html2canvas(data).then(canvas => {  
           const img = canvas.toDataURL('image/png');
@@ -127,6 +129,7 @@ export class PrintComponent implements OnInit {
     
     pdf.addImage(this.imgUrl,'PNG',10,10,195,200);
     pdf.save(namePDF);
+    this.hideHtml = true;
     this.spinner.hide();
       
   }

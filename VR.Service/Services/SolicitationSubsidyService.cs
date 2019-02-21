@@ -244,6 +244,7 @@ namespace VR.Service.Services
                 .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
                 .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
                 .Include(x => x.User).ThenInclude(c => c.Category)
+                .Include(x => x.User).ThenInclude(c => c.Distribution)
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == id);
 
@@ -452,7 +453,8 @@ namespace VR.Service.Services
                 Id = new Guid(),
                 SolicitationSubsidy = solicitation,
                 ChangeDate = DateTime.Now,
-                StateId = State.Accepted
+                StateId = State.Accepted,
+                SupervisorId = solicitationDto.SupervisorId
             };
 
             _notificationService.Create(
