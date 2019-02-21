@@ -260,16 +260,6 @@ namespace VR.Web
                 RequestPath = "/StaticFiles"
             });
 
-        app.UseDirectoryBrowser(new DirectoryBrowserOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                        Path.Combine(Directory.GetCurrentDirectory(), "Reports")
-                    ),
-                    RequestPath = "/Reports"
-                }
-            );
-
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

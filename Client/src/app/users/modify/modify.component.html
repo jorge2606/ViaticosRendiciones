@@ -118,6 +118,8 @@
                                             <input name="{{rol.id}}" 
                                                 value="{{rol.id}}" 
                                                 [(ngModel)]="rol.rolBelongUser" 
+                                                (click)="changeStateCheckbox(rol)"
+                                                [ngClass]="{'is-invalid' : !validCheckbox}"
                                                 type="checkbox" 
                                                 class="custom-control-input" 
                                                 id="customControlValidation{{rol.id}}" 

@@ -40,14 +40,58 @@ export class SettingofuserComponent implements OnInit {
   distributionList : DistributionBaseDto[];
   selectedorganismId : number;
   selecteddistributionId : number;
+  validCheckbox : boolean = true;
 
 
   onChange(rol){
     console.log(rol.rolBelongUser);
   }
 
+  changeStateCheckbox(rol : any){
+    this.validCheckbox = false;
+
+    if (rol.rolBelongUser){
+      rol.rolBelongUser = !rol.rolBelongUser;
+      this.model.rolesUser.forEach(
+        x => {
+            var result = x.rolBelongUser.toString() == "true" ? true : false;
+            if(result){
+              this.validCheckbox = true;
+              return;
+            }
+        }
+      );
+  
+      if (!this.validCheckbox){
+        this.toastrService.info('Debe seleccionar al menos un rol','',{timeOut : 1000, positionClass : 'toast-top-center'});
+        this.submitted = false;
+        return;
+      }
+    }
+    
+    this.validCheckbox = true;
+    return;
+
+  }
+
    onSubmit() {
     this.submitted = true;
+
+    this.validCheckbox = false;
+    this.model.rolesUser.forEach(
+      x => {
+          if(x.rolBelongUser){
+            console.log(x.rolBelongUser)
+            this.validCheckbox = true;
+          }
+      }
+    );
+
+    if (!this.validCheckbox){
+      this.toastrService.info('Debe seleccionar al menos un rol','',{timeOut : 1000, positionClass : 'toast-top-center'});
+      this.submitted = false;
+      return;
+    }
 
     if (!this.validateCuil()){
       this.toastrService.info('El número de cuit/cuil no es válido');

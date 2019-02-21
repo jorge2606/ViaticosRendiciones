@@ -121,7 +121,14 @@
                 <div class="form-group" style="margin-bottom : 0px;">
                     <div class="form-row ml-0">
                         <div *ngFor="let rol of model.rolesUser" class="custom-control custom-checkbox mr-2">
-                            <input name="{{rol.id}}" value="{{rol.id}}" [(ngModel)]="rol.rolBelongUser" type="checkbox" class="custom-control-input" 
+                            <input 
+                                name="{{rol.id}}" 
+                                value="{{rol.id}}" 
+                                [(ngModel)]="rol.rolBelongUser" 
+                                type="checkbox" 
+                                class="custom-control-input" 
+                                (click)="changeStateCheckbox(rol)"
+                                [ngClass]="{'is-invalid' : !validCheckbox}"
                                 id="customControlValidation{{rol.id}}">
                             <label class="custom-control-label" for="customControlValidation{{rol.id}}">{{rol.name}}</label>
                         </div>
