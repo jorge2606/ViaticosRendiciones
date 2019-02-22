@@ -36,8 +36,8 @@ export class SettingofuserComponent implements OnInit {
   passwordsAreEquals : Boolean = true;
   passwordEmpty : boolean = true;
   currentUrl : string;
-  organismList : OrganismBaseDto[];
-  distributionList : DistributionBaseDto[];
+  organismList : OrganismBaseDto[] = [];
+  distributionList : DistributionBaseDto[]=[];
   selectedorganismId : number;
   selecteddistributionId : number;
   validCheckbox : boolean = true;

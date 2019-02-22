@@ -87,7 +87,7 @@ export class NavarComponent implements OnInit {
           this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1;
         }
         this.retriveNotifications();
-      }  
+      }
     })    
   }
 
