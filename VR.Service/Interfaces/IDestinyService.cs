@@ -11,5 +11,6 @@ namespace VR.Service.Interfaces
     {
         ServiceResult<DestinyBaseDto> Delete(Guid id);
         ServiceResult<List<Get_DestiniesResult>> Get_DestiniesProcedure(Guid solicitationId);
+        ServiceResult<List<DestinyBaseDto>> Create(List<DestinyBaseDto> Destinies);
     }
 }

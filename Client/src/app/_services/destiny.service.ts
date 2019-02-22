@@ -16,6 +16,10 @@ export class DestinyService {
   delete(id : number){
       return this.http.delete<any>(environment.apiUrl+"Destiny/Delete/"+id);
   }
+
+  create(destinations : any){
+    return this.http.post<any>(environment.apiUrl+"Destiny/Create/",destinations);
+  }
   sendMessage(message: DestinyDto[]) {
       this.subject.next(message);
   }

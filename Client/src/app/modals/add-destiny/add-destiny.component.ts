@@ -29,6 +29,7 @@ import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
 })
 export class AddDestinyComponent implements OnInit {
 
+  @Input() solicitationId : number;
   places: AllPlaceDto[] = [];
   transports: AllTransportDto[] = [];
   provinceMock: AllProvinceDto[] = [];
@@ -151,9 +152,17 @@ export class AddDestinyComponent implements OnInit {
   }
 
   sendDataToComponent(model: DestinyDto[]) {
-    this.destinyService.sendMessage(model);
+    if (!this.solicitationId){
+      this.destinyService.sendMessage(model);
+    }else{
+      this.destinyService.create(model).subscribe(
+        x=> {
+      },
+      e =>{
+        console.log(e);
+      });
+    }
     this.activeModal.close(null);
-
   }
 
   AllPlace() {
@@ -266,6 +275,9 @@ export class AddDestinyComponent implements OnInit {
       newDestiny.transportBrand = this.transports.find(x => x.id == this.model.transportId).brand;
       newDestiny.transportModel = this.transports.find(x => x.id == this.model.transportId).model;
 
+      if(this.solicitationId){
+        newDestiny.solicitationSubsidyId = this.solicitationId;
+      }
       this.destiniesAdded = this.destiniesAdded || [];
       this.destiniesAdded.push(newDestiny);
       this.sendDataToComponent(this.destiniesAdded);

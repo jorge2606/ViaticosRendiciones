@@ -1,5 +1,4 @@
 import { SupplementaryCityDto } from './supplementaryCity';
-import { CityBaseDto } from './city';
 
 export class DestinyDto{
     id : number;
@@ -23,6 +22,7 @@ export class DestinyDto{
     advanceCategory : number;
     percentageCodeLiquidation : number;
     solicitationTotalLetter : string;
+    solicitationSubsidyId : number;
     textPercentage : string;
 }
 

@@ -48,7 +48,7 @@
                             <fa-icon class="fa-lg" icon="plus"></fa-icon> Destino
                     </button> 
                     <a (click)="deleteAllDestinies()" 
-                        *ngIf="model.destinies.length > 0"
+                        *ngIf="model.destinies.length > 0 && !id"
                         class="btn btn-danger ml-1 text-white small"
                         placement="bottom" ngbTooltip="Eliminar todos los destinos">
                         <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos

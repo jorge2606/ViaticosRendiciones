@@ -221,25 +221,30 @@ export class CreateSolicitationComponent implements OnInit {
    }
 
    removeDestiny(destiny : DestinyDto){
-      let minus : number = 0;
-      const index = this.model.destinies.indexOf(destiny, 0);
-      let codLiq = this.codeLiquidations.find(x => x.id == destiny.codeLiquidationId);
       
-      let category = this.categories.find(x => x.id == destiny.categoryId);
-
-      minus = minus + (codLiq.percentage * category.advance);
-      if (index > -1) {
+        let minus : number = 0;
+        const index = this.model.destinies.indexOf(destiny, 0);
+        let codLiq = this.codeLiquidations.find(x => x.id == destiny.codeLiquidationId);
         
-        if (destiny.id){
-          this.deleteFromDatabaseDestinies(destiny.id,index);
-        }else{
-          this.model.destinies.splice(index, 1);
+        let category = this.categories.find(x => x.id == destiny.categoryId);
+  
+        minus = minus + (codLiq.percentage * category.advance);
+        if (index > -1) {
+          
+          if (destiny.id){
+            if(this.model.destinies.length > 1){
+              this.deleteFromDatabaseDestinies(destiny.id,index);
+            }else{
+              this.msjToastInfo("Una solicitud de viático debe contener al menos 1 destino");
+            }
+          }else{
+            this.model.destinies.splice(index, 1);
+          }
+
         }
-        
-        
-      }
+  
+        this.totalResultExpenditure();
 
-      this.totalResultExpenditure();
    }
 
    deleteAllConcepts(){
@@ -273,8 +278,8 @@ export class CreateSolicitationComponent implements OnInit {
           minus = minus + (codLiq.percentage * category.advance);
           const indexDeleteAll = this.model.destinies.indexOf(array[i], 0);
           if (indexDeleteAll > -1) {
-            this.deleteFromDatabaseDestinies(array[i].id,indexDeleteAll);
-            
+            //this.deleteFromDatabaseDestinies(array[i].id,indexDeleteAll);
+            this.model.destinies.splice(indexDeleteAll, 1);
           }
      }
      this.totalResultExpenditure();
@@ -311,6 +316,7 @@ export class CreateSolicitationComponent implements OnInit {
     let listDestinies : DestinyDto[] = this.model.destinies;
     
     modalRef.componentInstance.destiniesAdded = listDestinies;
+    modalRef.componentInstance.solicitationId = this.id;
     
     modalRef.result.then(
       () =>this.totalResultExpenditure()
@@ -349,7 +355,7 @@ export class CreateSolicitationComponent implements OnInit {
                   this.msjWhenUserTryDeleteLastDestiny = element.value
                 })
 
-                this.msjToastError(this.msjWhenUserTryDeleteLastDestiny);
+                this.msjToastInfo(this.msjWhenUserTryDeleteLastDestiny);
             }
     
     );
@@ -365,10 +371,14 @@ export class CreateSolicitationComponent implements OnInit {
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
 
+  msjToastInfo(msg : string){
+    this.toastrService.info(msg,'',
+    {positionClass : 'toast-top-center', timeOut : 3000});
+  }
   onSubmit(){
 
       if (this.model.destinies.length == 0){
-        this.msj = 'Debe ingresar al menos un destino';
+        this.msjToastInfo('Debe ingresar al menos un destino');
         return;
       }
 

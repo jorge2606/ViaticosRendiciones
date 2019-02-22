@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Dto;
 using VR.Service.Interfaces;
 
 namespace VR.Web.Controllers
@@ -17,6 +18,18 @@ namespace VR.Web.Controllers
         public DestinyController(IDestinyService service)
         {
             _service = service;
+        }
+
+        [HttpPost("Create")]
+        public IActionResult Create([FromBody]List<DestinyBaseDto> destinations)
+        {
+            var result = _service.Create(destinations);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok();
         }
 
         [HttpDelete("Delete/{id}")]

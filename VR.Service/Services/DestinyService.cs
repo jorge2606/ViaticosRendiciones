@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Service.Common.ServiceResult;
 using VR.Data;
+using VR.Data.Model;
 using VR.Data.Model.ModelStoreProcedure;
 using VR.Dto;
 using VR.Service.Interfaces;
@@ -18,17 +19,49 @@ namespace VR.Service.Services
             _context = context;
         }
 
-        public ServiceResult<DestinyBaseDto> Delete(Guid id)
+        public ServiceResult<List<DestinyBaseDto>> Create(List<DestinyBaseDto> Destinies)
         {
-            var destiny = _context.Destinies.FirstOrDefault(x => x.Id == id);
+            foreach (var destiny in Destinies)
+            {
+                if (destiny.Id == Guid.Empty)//si no existe en la DB
+                {
+                    Destiny newDestiny = new Destiny()
+                    {
+                        Id = new Guid(),
+                        TransportId = destiny.TransportId,
+                        CategoryId = destiny.CategoryId,
+                        CityId = destiny.CityId,
+                        CodeLiquidationId = destiny.CodeLiquidationId,
+                        CountryId = destiny.CountryId,
+                        SolicitationSubsidyId = destiny.SolicitationSubsidyId,
+                        Days = destiny.Days,
+                        StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" +
+                                                   destiny.StartDate.Month.ToString() + "/" +
+                                                   destiny.StartDate.Year.ToString()),
+                        ProvinceId = destiny.ProvinceId,
+                        AdvanceCategory = destiny.AdvanceCategory,
+                        PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
+                    };
+
+                    _context.Destinies.Add(newDestiny);
+                }
+
+            }
+            _context.SaveChanges();
+            return new ServiceResult<List<DestinyBaseDto>>(Destinies);
+        }
+
+        public ServiceResult<DestinyBaseDto> Delete(Guid destinyId)
+        {
+            var destiny = _context.Destinies.FirstOrDefault(x => x.Id == destinyId);
 
             if (destiny == null)
             {
                 return new ServiceResult<DestinyBaseDto>(null);
             }
-
-            var destinies_solitation = _context.SolicitationSubsidies
-                .Where(x => x.Id == destiny.SolicitationSubsidyId)
+           
+            var destinies_solitation = _context.Destinies
+                .Where(x => x.SolicitationSubsidyId == destiny.SolicitationSubsidyId)
                 .ToList();
 
             if (destinies_solitation.Count() == 1)

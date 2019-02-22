@@ -89,7 +89,7 @@ namespace VR.Service.Services
                     ProvinceId = destiny.ProvinceId,
                     AdvanceCategory = destiny.AdvanceCategory,
                     PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
-    };
+                };
 
                 _dataContext.Destinies.Add(newDestiny);
 
