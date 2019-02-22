@@ -167,21 +167,35 @@
               <!-- <fa-icon icon="user"></fa-icon>-->
                 <img class="rounded-circle" src="{{urlImage}}" alt="">
               </button>
-              <div ngbDropdownMenu aria-labelledby="dropdownManual">
-              <div class="dropdown-item small">
-                  <b>{{lastName}}, {{firstName}}</b><br>
-                  <p style="font-size: 11px">{{userName}}</p> 
-              </div>
+              <div ngbDropdownMenu aria-labelledby="dropdownManual" style="background-color:mintcream;" 
+                  class="pl-1 pr-1">
+                  <div class="small card" style="padding : 6px;">
+                      <span>{{lastName}}, {{firstName}}</span>
+                      <span style="font-size: 11px">{{userName}}</span> 
+                  </div>
 
-              <button 
-                  placement="left" ngbTooltip="Editar información personal" 
-                  routerLink="/settingUser/{{idUser}}" class="dropdown-item small pointer">
-                <fa-icon class="fa-lg" icon="address-card"></fa-icon> Mi Perfil
-              </button>
-              <button placement="left" ngbTooltip="Salir del sistema" 
-                (click)="logout()" class="dropdown-item small pointer">
-                <fa-icon class="fa-lg" icon="sign-out-alt"></fa-icon> Cerrar Sesión
-              </button>
+                  <div class="card mt-1">
+                    <button 
+                      placement="left" 
+                      ngbTooltip="Editar información personal" 
+                      routerLink="/settingUser/{{idUser}}" 
+                      class="dropdown-item small pointer"
+                      style="padding : 6px;">
+                        <fa-icon class="fa-lg" icon="address-card"></fa-icon> Mi Perfil
+                    </button>
+                  </div>
+
+                  <div class="card mt-1">
+                      <button 
+                        placement="left" 
+                        ngbTooltip="Salir del sistema" 
+                        (click)="logout()" 
+                        class="dropdown-item small pointer"
+                        style="padding : 6px;">
+                      <fa-icon class="fa-lg" icon="sign-out-alt"></fa-icon> Cerrar Sesión
+                    </button>
+                  </div>
+
               </div>
           </div>
       </li>   

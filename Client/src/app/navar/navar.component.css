@@ -34,3 +34,8 @@
     width: 61px; 
     height: 41px;
 }
+
+.card button:hover, .dropdown-item :hover{
+    color: white;
+    background-color: #007bff;
+}
