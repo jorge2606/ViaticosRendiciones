@@ -144,8 +144,8 @@ export class AgentComponent implements OnInit {
           }
         ,
         e =>{
-          e = e.error.errors.error || [];
           this.spinner.hide();
+          e = e.error.errors.error || [];
           e.forEach(err => {
             this.toastrService.error(err,'',
             {positionClass : 'toast-top-center', timeOut : 3000});

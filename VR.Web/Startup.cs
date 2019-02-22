@@ -171,7 +171,7 @@ namespace VR.Web
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IEmailSender, EmailService>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ISmsSender, EmailService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IFileService, FileService>();
@@ -199,7 +199,7 @@ namespace VR.Web
             services.AddScoped<ISolicitationStateService, SolicitationStateService>();
             //sender Email
             // Add application services.
-            services.AddTransient<IEmailSender, EmailService>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ISmsSender, EmailService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             //Validation

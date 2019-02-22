@@ -70,7 +70,7 @@ const routes: Routes = [
         }, component: ModifyuserComponent, canActivate : [AuthGuard] 
       },
       { path: ':distributionId', 
-        data: {breadcrumb: 'usuarios y distribuciones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
+        data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
       }
     ]
   },

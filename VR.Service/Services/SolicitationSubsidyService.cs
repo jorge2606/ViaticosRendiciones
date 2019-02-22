@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using Service.Common;
 using Service.Common.Extensions;
 using Service.Common.ServiceResult;
@@ -30,7 +32,7 @@ namespace VR.Service.Services
         private readonly UserManager<User> _userManager;
         private readonly IValidator<SolicitationSubsidyBaseDto> _fluentValidator;
         private IMapper _mapper;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
         private readonly INotificationService _notificationService;
         public IConfiguration _configuration { get; }
 
@@ -39,7 +41,7 @@ namespace VR.Service.Services
             IValidator<SolicitationSubsidyBaseDto> fluentValidator,
             IMapper mapper,
             UserManager<User> userManager,
-            IEmailSender emailSender,
+            IEmailService emailSender,
             INotificationService notificationService,
             IConfiguration configuration
             )
@@ -390,22 +392,30 @@ namespace VR.Service.Services
 
             var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/confirm/{0}",solicitation.Id);
 
-            var html = "<body>" +
-                        "<head>" +
-                            "<body>" +
-                                 "<p>" +
-                                    "Hola "+ supervisorsLastName+", "+supervisorsFirstName+"<br>"+
-                                        "El Agente "+userLastName +", "+userFirstName+" ha enviado la solicitud de un viatico."+
-                                        TableDestinies
-                                        +"<br>" +
-                                        tableExpenditures+
-                                    "Saludos" +
-                                 "</p> <br>" +
-                                " <a href='"+url+"'> Ingresar </a> " +
-                            "</body>" +
-                        "</head>" +
-                       "</body>";
-            await _emailSender.SendEmailAsync(emailSupervisor, "Solicitud de Viatico", html);
+            var html = "<!DOCTYPE html>" +
+                       "<html>" +
+                           "<head>" +
+                               "<meta charset = 'UTF-8'>" +
+                               "<title> Title of the document </title>" +
+                           "</head>" +
+                               "<body>" +
+                               "<p>" +
+                               "Hola " + supervisorsLastName + ", " + supervisorsFirstName + "<br>" +
+                               "El Agente " + userLastName + ", " + userFirstName + " ha enviado la solicitud de un viatico." +
+                               TableDestinies
+                               + "<br>" +
+                               tableExpenditures +
+                               "Saludos" +
+                               "</p> <br>" +
+                               " <a href='" + url + "'> Ingresar </a> " +
+                               "</body>" +
+                       "</html>";
+            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de Viatico", html);
+            if (!(emailSended.StatusCode == HttpStatusCode.OK))
+            {
+                notifications.AddError("error","La solicitud no pudo ser enviada al correo del supervisor.");
+                return notifications;
+            }
 
             SolicitationState solicitationState = new SolicitationState()
             {

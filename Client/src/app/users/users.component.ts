@@ -23,7 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class UsersComponent implements OnInit {
-  filters = { page: 0, distributionId: null, dni : "", userName : "" }
+  filters = { page: 0, distributionId: 0, dni : "", userName : "" }
   user_list: User[];
   allUsers : User[];
   roles_list: Roles;
@@ -60,7 +60,12 @@ export class UsersComponent implements OnInit {
     this.allAspNetUserRolesService();
     //le asigno el id que extraigo de la url
     this.route.params.subscribe(
-      p => this.filters.distributionId = p.distributionId
+      p => {
+          if (p.distributionId)
+          {
+            this.filters.distributionId = p.distributionId
+          }
+        }
     );
       
     this.distributionService.allDistribution().subscribe(

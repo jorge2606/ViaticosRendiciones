@@ -52,8 +52,17 @@
 			<thead>
 				<tr style="font-weight: bold;">
 					<td>
-						<div class="form-check">
-							<input type="checkbox" [checked]="allCheckedProperty" (change)="allChecked()" class="form-check-input">
+						<div class="custom-control custom-checkbox">
+							<input 
+								type="checkbox" 
+								class="custom-control-input" 
+								id="customCheck1"
+								[checked]="allCheckedProperty" 
+								(change)="allChecked()"
+								>
+								<label class="custom-control-label" 
+								for="customCheck1">
+								</label>
 						</div>
 					</td>
 					<td>D.N.I</td>
@@ -67,15 +76,19 @@
 			<tbody>
 				<tr *ngFor="let user of user_list">
 					<td>
-						<div class="form-check">
+						<div class="custom-control custom-checkbox">
 							<input 
 							type="checkbox" 
 							name="checked"
+							class="custom-control-input" 
+							id="customCheck{{user.id}}"
 							value="{{user.id}}"
 							[(ngModel)]="user.checked"
 							[checked]="user.checked"
-							class="form-check-input"
 							(change)="check(user)">
+							<label class="custom-control-label" 
+								for="customCheck{{user.id}}">
+							</label>
 						</div>
 					</td>
 					<td>{{user.dni}}</td>

@@ -32,7 +32,7 @@ namespace VR.Service.Services
         private readonly DataContext _context;
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
         private readonly IFileService _fileService;
         private readonly IMapper _mapper;
         private readonly IValidator<SaveUserDto> _fluentValidatorUser;
@@ -47,7 +47,7 @@ namespace VR.Service.Services
 
             IConfiguration configuration,
             SignInManager signInManager,
-            IEmailSender emailSender,
+            IEmailService emailSender,
             IFileService fileService,
             IMapper mapper,
             IValidator<SaveUserDto> fluentValidatorUser,
@@ -433,7 +433,7 @@ namespace VR.Service.Services
 
             var callbackUrl = string.Format(_configuration["AppSettings:localUrl"] +"/CambiarPassword?code={0}&userId={1}", code, user.Id);
 
-            await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+            await _emailSender.SendEmail(model.Email, "Reset Password",
             "<html>" +
               "<head></head>" +
               "<body>" +
