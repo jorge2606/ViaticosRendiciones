@@ -12,7 +12,8 @@
                 <form (ngSubmit)="onSubmit(CategoryForm)" #CategoryForm="ngForm">
                     
                     <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" 
+                        <input 
+                            class="form-control" 
                             [(ngModel)]="model.name" 
                             [ngClass]="{ 'is-invalid': (name.dirty || submitted) && name.invalid,
                             'is-valid' : name.dirty && name.valid }"
@@ -34,7 +35,8 @@
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control" 
+                        <input 
+                            class="form-control" 
                             [(ngModel)]="model.description" 
                             required 
                             #description="ngModel" 
@@ -55,7 +57,8 @@
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-group">
-                        <input class="form-control"
+                        <input 
+                            class="form-control"
                             [(ngModel)]="model.advance" 
                             required 
                             #advance="ngModel" 
@@ -64,7 +67,7 @@
                             maxlength="8"
                             pattern="[0-9]+"
                             placeholder="Anticipo"
-                            [ngClass]="{ 'is-invalid': (advance.dirty || submitted) && advance.invalid,
+                            [ngClass]="{ 'is-invalid ng-valid': (advance.dirty || submitted) && advance.invalid,
                             'is-valid' : advance.dirty && advance.valid }">
                     </div>
                 

@@ -70,7 +70,12 @@
                         </div>
                 
                         <div class="form-group mb-1">
-                            <input class="form-control" [(ngModel)]="model.userName" required #Usuario="ngModel" name="Usuario" type="text"
+                            <input class="form-control" 
+                                [(ngModel)]="model.userName" 
+                                required 
+                                #Usuario="ngModel" 
+                                name="Usuario" 
+                                type="text"
                                 placeholder="Usuario o Email" value="">
                         </div>
                 
@@ -127,8 +132,13 @@
                         </div> 
                 
                         <div class="form-group mb-1">
-                            <input class="form-control" [(ngModel)]="model.phoneNumber" required #PhoneNumber="ngModel" name="phoneNumber"
-                                type="text" placeholder="Telefóno" value="">
+                            <input class="form-control" 
+                                [(ngModel)]="model.phoneNumber" 
+                                required 
+                                #PhoneNumber="ngModel" 
+                                name="phoneNumber"
+                                type="text" 
+                                placeholder="Telefóno">
                         </div>
                 
                         <div *ngIf="submitted && PhoneNumber.invalid" class="alert alert-danger mt-1">
@@ -136,9 +146,16 @@
                         </div>
                 
                         <div class="form-group mb-1">
-                            <select class="form-control mt-1" #distributionId="ngModel" name="distributionId" [(ngModel)]="model.distributionId"
-                            required>
-                                <option class="form-control" *ngIf="selecteddistributionId == model.distributionId" [ngValue]="selecteddistributionId" disabled>
+                            <select 
+                                class="form-control mt-1" 
+                                #distributionId="ngModel" 
+                                name="distributionId" 
+                                [(ngModel)]="model.distributionId"
+                                [ngClass]="{ 'is-invalid': (distributionId.dirty || userForm.submitted) && distributionId.invalid,
+                                'is-valid' : distributionId.dirty && distributionId.valid }"
+                                required>
+                                <option class="form-control" *ngIf="selecteddistributionId == model.distributionId" 
+                                    [ngValue]="selecteddistributionId" disabled>
                                     Seleccione una Distribución...
                                 </option>
                                 <option class="form-control" *ngFor="let dist of distribution" value="{{dist.id}}">{{dist.name}}</option>
@@ -147,8 +164,14 @@
                 
                 
                         <div class="form-group mb-1">
-                            <select class="form-control mt-1" #categoryId="ngModel" name="categoryId" [(ngModel)]="model.categoryId"
-                            required>
+                            <select 
+                                class="form-control mt-1" 
+                                #categoryId="ngModel" 
+                                name="categoryId" 
+                                [(ngModel)]="model.categoryId"
+                                [ngClass]="{ 'is-invalid': (categoryId.dirty || userForm.submitted) && categoryId.invalid,
+                                'is-valid' : categoryId.dirty && categoryId.valid }"
+                                required>
                                 <option class="form-control" *ngIf="selectedCategoryId == model.categoryId" [ngValue]="selectedCategoryId" disabled>
                                     Seleccione una Categoría...
                                 </option>
