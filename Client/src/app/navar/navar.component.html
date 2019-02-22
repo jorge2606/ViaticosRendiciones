@@ -141,8 +141,8 @@
               <fa-icon  class="fa-lg" style="color:red;" icon="bell"></fa-icon>
               <span style="background-color:red;" class="badge badge-primary badge-pill">{{notification.length}}</span>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownManual">
-              <div class="p-2">
+          <div ngbDropdownMenu aria-labelledby="dropdownManual" class="p-1" style="width: max-content;">
+              <div class="card p-2">
                 <ul *ngIf="cantNotif == 0" class="dropdown-item text-center small alert alert-primary h-3">
                       No hay notificaciones nuevas
                 </ul>
@@ -152,8 +152,9 @@
                   (click)="seeThisNotification(j)">
                   <p style="font-size: 11px">{{j.textData}}</p>
                 </button>
-                <a href="#" routerLink="{{router.url}}" (click)="seeAllNotification()" class="small">
-                  ver todos ({{notification.length}})
+                <a href="#" routerLink="{{router.url}}" (click)="seeAllNotification()" class="small text-left seeAllLink" 
+                  style="text-decoration: none; padding-left: 10px;">
+                   ver todos ({{notification.length}})
                 </a>
               </div>
           </div>
