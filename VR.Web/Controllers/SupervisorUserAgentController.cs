@@ -72,5 +72,17 @@ namespace VR.Web.Controllers
 
             return Ok(result.Response);
         }
+
+        [HttpDelete("DeleteRelationshipBetweenAgentAndSupervisor/{supervisorId}/{AgentId}")]
+        public IActionResult DeleteRelationshipBetweenAgentAndSupervisor(Guid supervisorId, Guid AgentId)
+        {
+            var result = _service.DeleteRelationshipBetweenAgentAndSupervisor(supervisorId, AgentId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
     }
 }

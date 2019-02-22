@@ -25,6 +25,21 @@ namespace VR.Service.Services
             _Mapper = mapper;
         }
 
+        public ServiceResult<Guid> DeleteRelationshipBetweenAgentAndSupervisor(Guid supervisorId, Guid AgentId)
+        {
+            var agentAndSupervisor = _Context.SupervisorUserAgents.FirstOrDefault(x => x.AgentId == AgentId && x.SupervisorId == supervisorId);
+
+            if (agentAndSupervisor == null)
+            {
+                return new ServiceResult<Guid>(Guid.Empty);
+            }
+
+            _Context.SupervisorUserAgents.Remove(agentAndSupervisor);
+            _Context.SaveChanges();
+
+            return new ServiceResult<Guid>(supervisorId);
+        }
+
         public ServiceResult<List<CreateSupervisorAgentDto>> Create(List<CreateSupervisorAgentDto> createSupervisor)
         {
             if (createSupervisor == null)

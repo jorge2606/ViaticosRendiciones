@@ -16,4 +16,5 @@ namespace VR.Dto
 
     public class CreateSupervisorAgentDto : SupervisorUserAgentBaseDto { }
     public class AllSupervisorAgentDto : SupervisorUserAgentBaseDto { }
+    public class DeleteSupervisorAgentDto : SupervisorUserAgentBaseDto { }
 }

@@ -10,12 +10,22 @@
       <tr>
         <th scope="col">Supervisor</th>
         <th scope="col">Agente</th>
+        <th></th>
       </tr>
     </thead>
     <tbody *ngFor="let a of agentsSupervisors">
       <tr>
-        <th>{{a.supervisors.userName}}</th>
+        <td>{{a.supervisors.userName}}</td>
         <td>{{a.agents.userName}}</td>
+        <td class="text-right">
+          <a style="cursor:pointer" (click)="openEliminar(a.supervisors, a.agents)">
+              <fa-icon 
+                placement="top" 
+                ngbTooltip="Eliminar usuario" 
+                class="fa-lg" style="color:red;" 
+                icon="trash"></fa-icon>
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>
