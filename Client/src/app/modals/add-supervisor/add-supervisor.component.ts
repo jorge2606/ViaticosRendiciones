@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { AspNetUsersRolesService } from './../../_services/asp-net-users-roles.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/_models/user';
@@ -23,7 +24,8 @@ export class AddSupervisorComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private aspNetRolesService : AspNetUsersRolesService,
-    private supervisorUserAgentService : SupervisorUserAgentService
+    private supervisorUserAgentService : SupervisorUserAgentService,
+    private toastService : ToastrService
     ) { }
 
   ngOnInit() {
@@ -58,6 +60,7 @@ export class AddSupervisorComponent implements OnInit {
   save(){
     if (this.supervisorSelected.length == 0){
       this.msj = 'No Selecciono ningún Supervisor';
+      this.toastService.info(this.msj,'',{positionClass:'toast-top-center',timeOut: 2000})
       return;
     }
 

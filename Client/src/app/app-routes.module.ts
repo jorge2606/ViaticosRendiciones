@@ -138,7 +138,7 @@ const routes: Routes = [
     data: {breadcrumb: 'Organismos',isHome: false,show: true},
     children : [
       { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
-      { path: 'distributions/:organismId', data: {breadcrumb: 'distribución organismos',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
+      { path: 'distributions/:organismId', data: {breadcrumb: 'organismos y reparticiones',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},
       { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard]},
     ],
