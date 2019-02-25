@@ -9,7 +9,7 @@
         <div class="card">
             <h5 class="card-header">Nuevo</h5>
             <div class="card-body">
-                <form (ngSubmit)="onSubmit(CategoryForm)" #CategoryForm="ngForm">
+                <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
                     
                     <div style="margin-bottom:5px;" class="form-group">
                         <input 
@@ -23,7 +23,7 @@
                             type="text"
                             placeholder="Nombre"
                             appCheckSpaceBlankOnInput
-                            (msgEvent)="msjValidEvent($msj)">
+                            (msgEvent)="msjValidEvent(msj)">
                     </div>
                     
                     <div  
@@ -46,7 +46,7 @@
                             [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid,
                             'is-valid' : description.dirty && description.valid }"
                             appCheckSpaceBlankOnInput
-                            (msgEvent)="msjValidEvent($msj)">
+                            (msgEvent)="msjValidEvent(msj)">
                     </div>
                     <div
                         *ngIf="description.dirty && !submitted && description.invalid" 
