@@ -1,35 +1,56 @@
-<nav *ngIf="!logout" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <form class="form-inline my-2 my-lg-0 ml-auto" (ngSubmit)="LoginForm.form.valid && onSubmit()" #LoginForm="ngForm">
-                
-            <input matInput [(ngModel)]="model.Usuario" class="form-control mr-1" type="text" name="username" #username="ngModel"
+<div *ngIf="!logout" class="card mt-4 col-8 m-auto">
+    <div class="card-body">
+        <form class="" (ngSubmit)="LoginForm.form.valid && onSubmit()" #LoginForm="ngForm">
+            <div class="col-6 m-auto">
+                <input 
+                [(ngModel)]="model.Usuario" 
+                class="form-control mt-1" 
+                type="text" 
+                name="username" 
+                #username="ngModel"
                 placeholder="Usuario">
+            </div>
 
             <div *ngIf="username.invalid">
                 Usuario Incorrecto
             </div>
-
-            <input matInput [(ngModel)]="model.Password" class="form-control mr-1" type="password" placeholder="Contraseña"
-                name="Password" #password="ngModel">
+            <div style="position: relative; margin-left: 373px;">
+                <a class="small" routerLink="/RecuperarContraseña">¿olvidaste tu contraseña?</a>
+            </div>
+            <div class="col-6 m-auto">
+                <input 
+                [(ngModel)]="model.Password" 
+                class="form-control mt-1" 
+                type="password" 
+                placeholder="Contraseña"
+                name="Password" 
+                #password="ngModel">
+            </div>
 
             <div *ngIf="password.invalid">
                 Contraseña Incorrecta
             </div>
 
+            <div class="col-2 m-auto">
+                <button 
+                    style="margin-left: 91px;"
+                    [disabled]="LoginForm.form.invalid" 
+                    class="btn btn-primary mt-1">
+                    <fa-icon icon="sign-in-alt"></fa-icon> Ingresar
+                </button>
+            </div>
 
-            <button mat-button [disabled]="LoginForm.form.invalid" class="btn btn-primary mr-1">
-                <fa-icon icon="sign-in-alt"></fa-icon>
-            </button>
-            <!--<button type="button" class="btn btn-success mr-1" href="" routerLink="/register">Registrar</button>-->
-            <a class="text-white small" routerLink="/RecuperarContraseña">olvide mi contraseña</a>
             <div *ngIf="!LoginForm.form.valid">
                 Formulario Incorrecto
             </div>
         </form>
     </div>
-</nav>
+  </div>
+
+
 <div *ngIf="!logout">
-    <ul style="list-style-type: none;" *ngIf="notifications" class="alert alert-danger mt-1 col-6 ml-auto text-center" role="alert">
+    <ul style="list-style-type: none;" *ngIf="notifications" 
+        class="alert alert-danger mt-1 col-6 ml-auto text-center" role="alert">
         <li *ngFor="let e of notifications">{{ e.value }}</li>
     </ul>
 </div>

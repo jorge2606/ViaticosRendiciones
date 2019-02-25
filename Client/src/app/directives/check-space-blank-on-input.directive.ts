@@ -5,33 +5,40 @@ import { Directive, ElementRef, Input, HostListener, Output, EventEmitter } from
 })
 export class CheckSpaceBlankOnInputDirective {
 
-  @Output() msgEvent : EventEmitter<any> = new EventEmitter();
+  @Input() className : string="";
+  @Input('nameCheckBlankDirective') name : string="";
+  @Input('valueCheckBlankDirective') value : string="";
+  @Output() msgEvent : EventEmitter<string> = new EventEmitter();
 
-  namesInSpanish : any = {'name' : 'Nombre', 'description' : 'Descripción', 'advance' : 'Anticipo'};
+  namesInSpanish : any = {'name' : 'Nombre', 'description' : 'Descripción', 'advance' : 'Anticipo','default' : 's/n'};
   constructor(
       private el : ElementRef
   ) {
     }
 
-  sendMessage(msj : any){
+  sendMessage(msj : string){
+    
     this.msgEvent.emit(msj);
   }
 
   
   @HostListener('keyup') validSpaceBlank(){
-    if (this.el.nativeElement.value.toString().length > 0){
-      if (this.el.nativeElement.value.toString().trimLeft().length == 0){
-        this.sendMessage('El campo '+this.namesInSpanish[this.el.nativeElement.name]+' no deberia estar vacio');
-        this.el.nativeElement.className="form-control is-invalid";          
-      }else{
-        if (this.el.nativeElement.value.toString()[0] == ' '){
-          this.el.nativeElement.className="form-control is-invalid";
-          this.sendMessage('El primer caráctcer del campo '+this.namesInSpanish[this.el.nativeElement.name]+' no puede ser un espacio vacío');
+      var msj = 'El campo '+ this.name ? 'default' : this.name +' no deberia estar vacio';
+
+      if (this.value.length > 0){
+        if (this.value.trim().length == 0){
+          this.sendMessage(msj);
+          this.el.nativeElement.className="form-control is-invalid";          
         }else{
-          this.el.nativeElement.className="form-control is-valid";
+          if (this.value[0] == ' '){
+            var msj = 'El primer caráctcer del campo '+this.name ? 'default' : this.name +' no puede ser un espacio vacío'
+            this.el.nativeElement.className="form-control is-invalid";
+            this.sendMessage(msj);
+          }else{
+            this.el.nativeElement.className="form-control is-valid";
+          }
         }
       }
-    }
   }
 
 

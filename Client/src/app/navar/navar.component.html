@@ -9,7 +9,7 @@
           (click)="activate('inicio')"
           ngbTooltip="Ir al menú principal" 
           routerLink="/" 
-          class="nav-item text-white nav-link"
+          class="nav-item text-white nav-link active"
           href="#" >
           <fa-icon icon="home"></fa-icon> Inicio
         </a>
@@ -35,7 +35,7 @@
           class="nav-item text-white nav-link" 
           (click)="activate('roleId')"
           href="#" 
-          [routerLink]="['/roles']">
+          routerLink="/roles">
           <fa-icon icon="key"></fa-icon> Roles
         </a>
       </li>
@@ -48,7 +48,7 @@
           class="nav-item text-white nav-link" 
           href="#"
           (click)="activate('categoryId')"
-          [routerLink]="['/category']">
+          routerLink="/category">
           <fa-icon icon="tags"></fa-icon> Categorías
         </a>
       </li>
@@ -61,7 +61,7 @@
           class="nav-item text-white nav-link"
           (click)="activate('distId')"
           href="#" 
-          [routerLink]="['/distribution']">
+          routerLink="/distribution">
           <fa-icon icon="building"></fa-icon> Reparticiones
         </a>
       </li>
@@ -74,7 +74,7 @@
             ngbTooltip="Ver el listado de todos los transportes" 
             class="nav-item text-white nav-link"
             href="#" 
-            [routerLink]="['/transport']">
+            routerLink="/transport">
             <fa-icon icon="car"></fa-icon> Transporte
           </a>
       </li>
@@ -87,7 +87,7 @@
           ngbTooltip="Ver el listado de todos los tipos de gasto" 
           class="nav-item text-white nav-link" 
           href="#"
-          [routerLink]="['/expenditure']">
+          routerLink="/expenditure">
           <fa-icon icon="money-check-alt"></fa-icon> Gastos
         </a>
       </li>
@@ -100,7 +100,7 @@
           ngbTooltip="Ver el listado de todos los organismos" 
           class="nav-item text-white nav-link" 
           href="#" 
-          [routerLink]="['/organism']">
+          routerLink="/organism">
           <fa-icon icon="sitemap"></fa-icon> Organismos
         </a>
       </li>
@@ -111,7 +111,8 @@
           (click)="activate('solId')"
           ngbTooltip="Ver el listado de todas las solicitudes de viático" 
           routerLink="/SolicitationSubsidy/agent"
-          class="nav-item text-white nav-link" href="#">
+          class="nav-item text-white nav-link" 
+          href="#">
           <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
         </a>
       </li>
@@ -122,7 +123,8 @@
             ngbTooltip="Ver el listado de los días no laborables"          
             routerLink="/holidays" 
             (click)="activate('holId')"
-            class="nav-item text-white nav-link" href="#">
+            class="nav-item text-white nav-link" 
+            href="#">
             <fa-icon icon="calendar"></fa-icon> Feriados
           </a>
         </li>
@@ -130,7 +132,7 @@
     </ul>
 
     <ul class="navbar-nav ml-auto small">
-      <li class="nav-item dropdown-small">
+      <li class="dropdown-small">
         <div class="d-inline-block pull-right" ngbDropdown #myDrop="ngbDropdown" placement="bottom-right">
           <button *ngIf="cantNotif == 0" class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle (focus)="myDrop.open()">
             <fa-icon class="fa-lg" style="color: dodgerblue;" icon="bell"></fa-icon>
@@ -162,7 +164,7 @@
       </li>
 
       
-      <li class="nav-item dropdown small ml-1">
+      <li class="dropdown small ml-1">
           <div class="d-inline-block pull-right" ngbDropdown #myDropCloseSession="ngbDropdown" placement="bottom-right">
               <button class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle (focus)="myDropCloseSession.open()">
               <!-- <fa-icon icon="user"></fa-icon>-->
