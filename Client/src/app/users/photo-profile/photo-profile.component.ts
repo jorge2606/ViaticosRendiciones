@@ -27,6 +27,7 @@ export class PhotoProfileComponent implements OnInit {
     idUser : number;
     urlImage : string;
     subject = new Subject<any>();
+    url = '';
    
     fileOverBase(e:any):void {
       this.hasBaseDropZoneOver = e;
@@ -51,7 +52,6 @@ export class PhotoProfileComponent implements OnInit {
     }    
   }
 
-  url = '';
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();

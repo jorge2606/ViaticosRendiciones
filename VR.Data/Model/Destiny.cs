@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata;
 using System.Text;
 
 namespace VR.Data.Model
@@ -13,6 +14,7 @@ namespace VR.Data.Model
         public List<SupplementaryCity> SupplementaryCities { set; get; }
         public Decimal AdvanceCategory { set; get; }
         public Decimal PercentageCodeLiquidation { set; get; }
+        public Decimal CostRepayment { set; get; }
 
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }

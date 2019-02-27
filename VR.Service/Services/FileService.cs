@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using VR.Dto;
@@ -199,6 +200,38 @@ namespace VR.Service.Services
             return new ServiceResult<FileByIdDto>(imagesPath);
         }
 
+        public ServiceResult<byte[]> GetUrlExpenditureRefundFile(Guid expenditureId)
+        {
+            var expenditure = _contextFile.Files.FirstOrDefault(x => x.ExpenditureId == expenditureId);
+
+            if (expenditure == null)
+            {
+                return new ServiceResult<byte[]>(null);
+            }
+
+            return new ServiceResult<byte[]>(expenditure.Image);
+
+        }
+
+        public ServiceResult<FileCreateFromRefundDto> AddExpenditureRefundImage(FileCreateFromRefundDto image)
+        {
+            Data.Model.File newFile = new Data.Model.File()
+            {
+                Id = new Guid(),
+                UserId = image.UserId,
+                Path = image.Path,
+                ExpenditureId = image.ExpenditureId,
+                Image = image.Image,
+                MimeType = image.MimeType
+            };
+            
+            _contextFile.Files.Add(newFile);
+            _contextFile.SaveChanges();
+            return new ServiceResult<FileCreateFromRefundDto>(
+                _mapper.Map<FileCreateFromRefundDto>(image)
+                );
+        }
+
 
         public async Task<ServiceResult<UpdateMyImageDto>> HolographSignUpdate(UpdateMyImageDto model)
         {
@@ -228,6 +261,8 @@ namespace VR.Service.Services
 
                 model.Path = filePath;
                 model.MimeType = file.ContentType;
+
+                
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {

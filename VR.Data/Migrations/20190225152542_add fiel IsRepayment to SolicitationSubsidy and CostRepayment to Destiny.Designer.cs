@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190225152542_add fiel IsRepayment to SolicitationSubsidy and CostRepayment to Destiny")]
+    partial class addfielIsRepaymenttoSolicitationSubsidyandCostRepaymenttoDestiny
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,10 +301,6 @@ namespace VR.Data.Migrations
 
                     b.Property<DateTime>("DeleteTime");
 
-                    b.Property<Guid>("ExpenditureId");
-
-                    b.Property<byte[]>("Image");
-
                     b.Property<string>("MimeType");
 
                     b.Property<string>("Path");
@@ -489,7 +487,7 @@ namespace VR.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<bool>("IsRefund");
+                    b.Property<bool>("IsRepayment");
 
                     b.Property<string>("Motive");
 

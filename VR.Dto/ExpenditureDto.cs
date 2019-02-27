@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 using VR.Data.Model;
 
 namespace VR.Dto
@@ -14,6 +15,9 @@ namespace VR.Dto
 
         public SolicitationSubsidy SolicitationSubsidy { set; get; }
         public ExpenditureType ExpenditureType { set; get; }
+
+        public ImageDto ImageDto { set; get; }
+        public string UrlImage { set; get; }
     }
 
     public class ExpenditureMapperDto
@@ -39,6 +43,14 @@ namespace VR.Dto
         public decimal SubTotal { get; set; }
     }
 
-
+    public class ImageDto
+    {
+        public DateTime LastModifiedDate { get; set; } 
+        public long TypLastModified { get; set; }
+        public string Name { get; set; }
+        public long Size { get; set; }
+        public string Type { get; set; }
+        public string WebkitRelativePath { get; set; }
+    }
     
 }

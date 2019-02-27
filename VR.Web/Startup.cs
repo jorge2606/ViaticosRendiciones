@@ -259,7 +259,7 @@ namespace VR.Web
                     Path.Combine(staticFileDirectory, "Profile")),
                 RequestPath = "/StaticFiles"
             });
-
+            
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

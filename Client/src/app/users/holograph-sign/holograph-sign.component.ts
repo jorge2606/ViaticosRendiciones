@@ -29,7 +29,6 @@ export class HolographSignComponent implements OnInit {
 
   constructor(private authService : AuthenticationService, 
     private messaBetweenComp : MessBetweenCompService,
-    private userService : UserService,
     private http : HttpClient,
     private spinner: NgxSpinnerService,
     private titleService : Title,
@@ -49,7 +48,7 @@ export class HolographSignComponent implements OnInit {
     }
 
     urlFile(userId : number, width : number, height: number){
-      return "http://localhost:63098/api/File/HolographSign/"+userId+"/"+width+"/"+height;
+      return environment.apiUrl+"File/HolographSign/"+userId+"/"+width+"/"+height;
     }
 
     initializeUploader() {
@@ -95,7 +94,7 @@ export class HolographSignComponent implements OnInit {
     }
 
     deleteProfilePhoto(id: number) {
-      return this.http.delete('http://localhost:63098/api/File/removeHolographSign/' + id);
+      return this.http.delete(environment.apiUrl+'File/removeHolographSign/' + id);
     }
 
     eliminarPerfil(){

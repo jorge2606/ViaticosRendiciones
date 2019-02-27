@@ -10,5 +10,7 @@ namespace VR.Data.Model
         public DateTime UploadTime { set; get; }
         public DateTime DeleteTime { set; get; }
         public string MimeType { set; get; }
+        public byte[] Image { set; get; }
+        public Guid ExpenditureId { set; get; }
     }
 }

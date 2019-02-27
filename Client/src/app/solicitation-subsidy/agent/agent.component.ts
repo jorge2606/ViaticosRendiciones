@@ -28,7 +28,7 @@ export class AgentComponent implements OnInit {
    //paginator
    col_size : number;
    page = 0;
-   itemsPerPage : number = 2;
+   itemsPerPage : number = 10;
    //
    solicitationSubsidies : AllSolicitationSubsidyDto[];
    error = '';

@@ -16,6 +16,17 @@
       </a>
     </div>
 
+    <div class="d-inline-block ml-1 mb-1">
+        <a
+          placement="bottom" 
+          ngbTooltip="registrar un reintegro" 
+          href="" 
+          routerLink="repayment" 
+          class="btn btn-success"
+          href=""> <fa-icon class="fa-lg" icon="plus"></fa-icon> reintegro
+        </a>
+    </div>
+
 
     <div class="container" style="min-height: 300px;">
       <table class="table table-striped">
@@ -69,7 +80,15 @@
                   <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
-                  <a 
+                  <a *ngIf="sol.isRefund"
+                    placement="bottom" 
+                    ngbTooltip="Editar este reintegro" 
+                    class="pr-3" 
+                    routerLink="repayment/update/{{sol.id}}">
+                    <fa-icon style="color:gray;" icon="edit" class="{{sizeIcon}}">
+                    </fa-icon>
+                  </a>               
+                  <a *ngIf="!sol.isRefund"
                     placement="bottom" 
                     ngbTooltip="Editar esta solicitud de viático" 
                     class="pr-3" 
@@ -155,7 +174,7 @@
                   <a 
                     placement="bottom" 
                     ngbTooltip="Imprimir esta solicitud de viático" 
-                    href="" routerLink="/print/{{sol.id}}" class="pr-3">
+                    href="" routerLink="print/{{sol.id}}" class="pr-3">
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
               </td>

@@ -1,13 +1,24 @@
+import { FileItem } from 'ng2-file-upload';
 import { AllPlaceDto } from './place';
 import { DestinyDto } from './destiny';
 import { User } from '../users/users';
 
+export class ImageDto{
+    lastModified: number;
+    lastModifiedDate : any;
+    name : string;
+    size : number;
+    type : string;
+    webkitRelativePath : string;
+}
 export class Expenditure {
     id : number;
     description : string;
     amount : number;
     expenditureTypeId : number; 
     expenditureTypeName : string;   
+    urlImage : string;
+    imageDto : ImageDto;
 }
 
 export class SolicitationSubsidyBaseDto{
@@ -33,6 +44,7 @@ export class CreateSolicitationSubsidyDto{
     expenditures : Expenditure[];
     total : number;
     createDate : any;
+    isRefund : boolean;
 }
 
 export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{

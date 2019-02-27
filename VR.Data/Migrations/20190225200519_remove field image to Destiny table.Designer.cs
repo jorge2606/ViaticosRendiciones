@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190225200519_remove field image to Destiny table")]
+    partial class removefieldimagetoDestinytable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,6 +269,8 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid>("ExpenditureTypeId");
 
+                    b.Property<byte[]>("Image");
+
                     b.Property<Guid>("SolicitationSubsidyId");
 
                     b.HasKey("Id");
@@ -298,10 +302,6 @@ namespace VR.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DeleteTime");
-
-                    b.Property<Guid>("ExpenditureId");
-
-                    b.Property<byte[]>("Image");
 
                     b.Property<string>("MimeType");
 

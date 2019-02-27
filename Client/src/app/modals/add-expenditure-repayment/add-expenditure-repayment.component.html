@@ -1,0 +1,132 @@
+<form (ngSubmit)="addNewConcept()" #addNewExpForm="ngForm" action="">
+
+    <div class="modal-header">
+            <h4 class="modal-title">Nuevo gasto para reintegro</h4>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="">Gastos</label>
+                        <select required class="form-control" #expenditureId="ngModel" name="expenditureId" 
+                                [(ngModel)]="modelExp.id" required>
+                                <option *ngIf="selectedExpenditure == modelExp.id" [ngValue]="selectedExpenditure" disabled>
+                                        Seleccione un concepto...
+                                </option>
+                                <option *ngFor="let exp of expendituresCbox" value="{{exp.id}}">{{exp.name}}</option>
+                        </select>
+
+                        <div *ngIf="expenditureId.invalid && (expenditureId.dirty || expenditureId.touched)" 
+                            class="alert alert-danger mt-1">
+                            <div *ngIf="expenditureId.errors.required">
+                                Campo requerido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="">Importe</label>
+                        <input required [(ngModel)]="modelExp.amount" #amount="ngModel" 
+                        name="amount" class="form-control" type="number"
+                        value="{{modelExp.amount}}" required minlength="1" maxlength="8">
+
+                        <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+                            class="alert alert-danger mt-1">
+                            <div *ngIf="amount.errors.required">
+                                Campo requerido.
+                            </div>
+                            <div *ngIf="amount.errors.minlength">
+                                Debe contener al menos un digíto
+                            </div>
+                            <div *ngIf="amount.errors.maxlength">
+                               No debe contener mas de 8 digítos
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                            <label for="">Descripción</label>
+                            <textarea required [(ngModel)]="modelExp.description" 
+                            #description="ngModel" 
+                            value="{{modelExp.description}}"
+                            placeholder="Ingrese la descripción"
+                            name="description" 
+                            class="form-control" 
+                            [maxlength]="150"
+                            type="text"
+                            style="resize : none;"></textarea>
+                            {{description.maxlength}}
+                            <div *ngIf="description.maxlength == 149">
+                                Solo se permiten 150 caracteres
+                            </div>
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="description.errors.required">
+                                    Campo requerido.
+                                </div>
+                                <div *ngIf="description.errors.minlength">
+                                    Debe contener al menos un digíto
+                                </div>
+                                <div *ngIf="description.errors.maxlength">
+                                   No debe contener mas de 4 digítos
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
+                <label for="">Ticket</label>
+                <div class="">
+                        <div *ngIf="!url" class="">
+                            <img src="{{urlImage}}" class="imageUrl m-auto">
+                            <input 
+                                class="inputfile" 
+                                type="file"
+                                name="file" 
+                                id="file" 
+                                (change)="onSelectFile($event)" 
+                                ng2FileSelect
+                                [uploader]="uploader" 
+                                value="Cambiar" />
+                                <label for="file" 
+                                    class="btn btn-default" 
+                                    style="left: 27px;">
+                                    <fa-icon icon="upload"></fa-icon> Elegir un Archivo
+                                </label>
+                            <br>
+                        </div>
+
+                        <div *ngIf="url" class="">
+                                <img [src]="url" class="imageUrl m-auto">
+                    
+                                <ul *ngFor="let item of uploader.queue">
+                                    <div class="middle-url">
+                                        <span class="btn btn-default btn-file">
+                                            <button type="button" class="btn textDanger" 
+                                                (click)="removePreview()">
+                                                <fa-icon icon="trash"></fa-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                    
+                                </ul>
+                        </div>
+                </div>
+            
+            <div *ngIf="msgExist" class="alert alert-danger">
+                {{msgExist}}
+            </div>
+        </div>
+    </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" [disabled]="!addNewExpForm.valid">Agregar</button>
+        <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+      </div>
+
+</form>

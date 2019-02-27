@@ -39,7 +39,10 @@ namespace VR.Dto
         public string UserUserName { set; get; }
     }
 
-    public class CreateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
+    public class CreateSolicitationSubsidyDto : SolicitationSubsidyBaseDto
+    {
+        public Boolean IsRefund { set; get; }
+    }
 
     public class UpdateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
 
@@ -53,6 +56,17 @@ namespace VR.Dto
     }
 
     public class FindByIdSolicitationSubsidyDto
+    {
+        public Guid Id { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public List<ExpenditureFromSolicitationSubsidyByIdDto> Expenditures { set; get; }
+        public List<DestinyFromSolicitationSubsidyFindByIdDto> Destinies { set; get; }
+        public Guid UserId { set; get; }
+        public UserDto User { set; get; }
+    }
+
+    public class FindByIdRefundDto
     {
         public Guid Id { set; get; }
         public string Motive { set; get; }
@@ -79,6 +93,7 @@ namespace VR.Dto
         public string FullName { set; get; }
         public string Localities { set; get; }
         public Boolean IsDeleted {set; get; }
+        public Boolean IsRefund { set; get; }
     }
 
     public class SolicitationIdDto

@@ -17,5 +17,6 @@ namespace VR.Data.Model
         public string FileNumber { set; get; }
         public string FullName { set; get; }
         public string Localities { set; get; }
+        public Boolean IsRefund { set; get; }
     }
 }

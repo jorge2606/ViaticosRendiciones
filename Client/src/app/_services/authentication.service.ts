@@ -70,4 +70,8 @@ export class AuthenticationService {
         return environment.apiUrl+"File/"+userId+"/"+width+"/"+height;
     }
 
+    urlExpenditureRefundFile(expId : number, width : number, height: number){
+        return environment.apiUrl+"File/ExpenditureRefund/"+expId+"/"+width+"/"+height;
+    }
+
 }

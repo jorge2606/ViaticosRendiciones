@@ -78,6 +78,8 @@ import { NgxBreadcrumbsModule } from '@nivans/ngx-breadcrumbs';
 import { CheckSpaceBlankOnInputDirective } from './directives/check-space-blank-on-input.directive';
 import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/datepicker/CustomLanguagedatepicker-i18n';
 import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
+import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.component';
+import { AddExpenditureRepaymentComponent } from './modals/add-expenditure-repayment/add-expenditure-repayment.component';
 
 library.add(fas);
 
@@ -137,7 +139,9 @@ library.add(fas);
       FileNumberComponent,
       SelectorDirective,
       AlertComponent,
-      CheckSpaceBlankOnInputDirective
+      CheckSpaceBlankOnInputDirective,
+      RepaymentComponent,
+      AddExpenditureRepaymentComponent
    ],
    imports: [
       BrowserModule,
@@ -175,7 +179,8 @@ library.add(fas);
       AddSupervisorComponent,
       SolicitationSubsidydetailComponent,
       NotifyRejectComponent,
-      FileNumberComponent
+      FileNumberComponent,
+      AddExpenditureRepaymentComponent
    ],
    bootstrap: [
       AppComponent

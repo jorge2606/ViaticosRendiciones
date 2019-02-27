@@ -103,7 +103,7 @@ namespace VR.Web.Controllers
         public PagedResult<AllSolicitationSubsidyDto> AgentPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {
             var agentId = GetIdUser();
-            const int pageSize = 2;
+            const int pageSize = 10;
             var resultFull = new List<AllSolicitationSubsidyDto>();
             var result = new object();
             int totalRows = 0;

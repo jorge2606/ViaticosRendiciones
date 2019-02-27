@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FluentValidation;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
@@ -35,6 +36,7 @@ namespace VR.Service.Services
         private readonly IEmailService _emailSender;
         private readonly INotificationService _notificationService;
         public IConfiguration _configuration { get; }
+        private IFileService _iFileService;
 
         public SolicitationSubsidyService(
             DataContext dataContext,
@@ -43,7 +45,8 @@ namespace VR.Service.Services
             UserManager<User> userManager,
             IEmailService emailSender,
             INotificationService notificationService,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IFileService iFileService
             )
         {
             _dataContext = dataContext;
@@ -53,6 +56,7 @@ namespace VR.Service.Services
             _emailSender = emailSender;
             _notificationService = notificationService;
             _configuration = configuration;
+            _iFileService = iFileService;
         }
 
         public ServiceResult<CreateSolicitationSubsidyDto> Create(CreateSolicitationSubsidyDto subsidy)
@@ -69,7 +73,8 @@ namespace VR.Service.Services
                 UserId = subsidy.UserId,
                 Motive = subsidy.Motive,
                 Total = subsidy.Total,
-                CreateDate = DateTime.Today
+                CreateDate = DateTime.Today,
+                IsRefund = subsidy.IsRefund
                 
             };
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
@@ -118,12 +123,28 @@ namespace VR.Service.Services
                 {
                     Id = new Guid(),
                     Description = expenditure.Description,
-                    //SolicitationSubsidyId = solicitationSubsidy.Id,
                     SolicitationSubsidy = solicitationSubsidy,
                     Amount = expenditure.Amount,
                     ExpenditureTypeId = expenditure.ExpenditureTypeId
                 };
+
                 _dataContext.Expenditures.Add(newExpenditure);
+
+                if (solicitationSubsidy.IsRefund)
+                {
+                    File newFile = new File()
+                    {
+                        Id = new Guid(),
+                        MimeType = expenditure.ImageDto.Type,
+                        ExpenditureId = newExpenditure.Id,
+                        Image = Encoding.ASCII.GetBytes(expenditure.UrlImage),
+                        UserId = subsidy.UserId
+                    };
+
+                    _dataContext.Files.Add(newFile);
+                }
+
+               
             }
 
             SolicitationState solicitationState = new SolicitationState()
@@ -226,6 +247,20 @@ namespace VR.Service.Services
                 else
                 {
                     _dataContext.Expenditures.Update(newExpenditure);
+                }
+
+                if (solicitationSubsidy.IsRefund)
+                {
+                    File newFile = new File()
+                    {
+                        Id = new Guid(),
+                        MimeType = expenditure.ImageDto.Type,
+                        ExpenditureId = newExpenditure.Id,
+                        Image = Encoding.ASCII.GetBytes(expenditure.UrlImage),
+                        UserId = subsidy.UserId
+                    };
+
+                    _dataContext.Files.Add(newFile);
                 }
 
             }

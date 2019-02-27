@@ -21,6 +21,7 @@ namespace VR.Data.Model
         public decimal Total { set; get; }
         [Column(TypeName = "Date")]
         public DateTime CreateDate { set; get; }
+        public Boolean IsRefund { set; get; }
         public Boolean IsDeleted { set; get; }
 
         [ForeignKey("User")]

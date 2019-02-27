@@ -32,6 +32,11 @@ namespace VR.Dto
 
     public class CreateDetinyDto : DestinyBaseDto { }
 
+    public class CreateDestinyFromRefund : DestinyBaseDto
+    {
+        public FileCreateDto Image { set; get; }
+    }
+
     public class DestinyFromSolicitationSubsidyByIdDto
     {
         public Guid Id { set; get; }

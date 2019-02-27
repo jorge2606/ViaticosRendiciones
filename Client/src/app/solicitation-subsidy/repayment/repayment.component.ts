@@ -1,38 +1,43 @@
-import { Title } from '@angular/platform-browser';
-import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
-import { CodeLiquidationService } from './../../_services/code-liquidation.service';
-import { CountryService } from './../../_services/country.service';
-import { AllCountryDto } from './../../_models/country';
-import { CityBaseDto } from './../../_models/city';
-import { DestinyDto } from 'src/app/_models/destiny';
-import { AddDestinyComponent } from './../../modals/add-destiny/add-destiny.component';
-import { AddNewExpenditureComponent } from './../../modals/add-new-expenditure/add-new-expenditure.component';
-import { AllExpenditureDto } from '../../_models/expenditureType';
-import { ExpenditureService } from '../../_services/expenditure.service';
-import { CityService } from './../../_services/city.service';
-import { ProvinceBaseDto } from './../../_models/province';
-import { AllCategoryDto } from './../../_models/category';
-import { CategoryService } from 'src/app/_services/category.service';
-import { CreateSolicitationSubsidyDto, Expenditure } from './../../_models/solicitationSubsidy';
+import { AuthenticationService } from './../../_services/authentication.service';
+import { AddExpenditureRepaymentComponent } from './../../modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { Component, OnInit } from '@angular/core';
-import { TransportService } from 'src/app/_services/transport.service';
-import { AllTransportDto } from 'src/app/_models/transport';
-import { ProvinceService } from 'src/app/_services/province.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AllCategoryDto } from 'src/app/_models/category';
+import { AllTransportDto } from 'src/app/_models/transport';
+import { Expenditure, CreateSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { Subscription } from 'rxjs';
-import { DestinyService } from 'src/app/_services/destiny.service';
+import { AllExpenditureDto } from 'src/app/_models/expenditureType';
+import { DestinyDto } from 'src/app/_models/destiny';
+import { ProvinceBaseDto } from 'src/app/_models/province';
+import { CityBaseDto } from 'src/app/_models/city';
+import { AllCountryDto } from 'src/app/_models/country';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ExpenditureService } from 'src/app/_services/expenditure.service';
+import { DestinyService } from 'src/app/_services/destiny.service';
+import { ProvinceService } from 'src/app/_services/province.service';
+import { CityService } from 'src/app/_services/city.service';
+import { CategoryService } from 'src/app/_services/category.service';
+import { TransportService } from 'src/app/_services/transport.service';
+import { CountryService } from 'src/app/_services/country.service';
+import { CodeLiquidationService } from 'src/app/_services/code-liquidation.service';
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
+import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
+import { FileUploader } from 'ng2-file-upload';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-create-solicitation',
-  templateUrl: './create-solicitation.component.html',
-  styleUrls: ['./create-solicitation.component.css']
+  selector: 'app-repayment',
+  templateUrl: './repayment.component.html',
+  styleUrls: ['./repayment.component.css']
 })
-export class CreateSolicitationComponent implements OnInit {
+export class RepaymentComponent implements OnInit {
 
+ 
+  uploader:FileUploader;
   isCollapsedDestiny = false;
   categories : AllCategoryDto[] = [];
   transports : AllTransportDto[] = [];
@@ -54,16 +59,21 @@ export class CreateSolicitationComponent implements OnInit {
   verOcultarTextExpenditure = "Ocultar";
   countries : AllCountryDto[] = [];
   codeLiquidations : codeLiquidationBaseDto[] = [];
-  id : number;
   citiesModify : CityBaseDto[] = [];
   msj = '';
   msjExito = '';
   msjWhenUserTryDeleteLastDestiny = '';
   supplementariesCities : string[];
+  urlImage : string;
+  idUser : number;
+  id:number;
+  url = '';
+  hasBaseDropZoneOver = false;
+  baseUrl = environment.apiUrl; 
 
   constructor(
-      private route : ActivatedRoute,
       private router : Router,
+      private activateRouter : ActivatedRoute,
       private expenditureService : ExpenditureService,
       private modalService: NgbModal,
       private destinyService : DestinyService,
@@ -76,18 +86,32 @@ export class CreateSolicitationComponent implements OnInit {
       private solicitationSubsidyService : SolicitationSubsidyService,
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
-      private toastrService: ToastrService
+      private toastrService: ToastrService,
+      private authService : AuthenticationService
       ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Crear Solicitud');
-    this.route.params.subscribe(
+    this.titleService.setTitle('Crear Reintegro');
+    this.model.destinies = [];
+    this.model.expenditures = [];
+
+    this.activateRouter.params.subscribe(
       x =>{
         this.id = x.id
     });
-    
-    this.model.destinies = [];
-    this.model.expenditures = [];
+    if (this.id){
+      this.solicitationSubsidyService
+      .getByIdSolicitation(this.id)
+      .subscribe(x => {
+        this.model = x;
+          this.model.expenditures.forEach(
+            j => {
+              j.urlImage = this.authService.urlExpenditureRefundFile(j.id,169,38);   
+            }
+          );
+      });
+    }
+
     this.allexpenditures();
     this.allExpenditureFromModal();
     this.allDestinyFromModal();
@@ -95,28 +119,11 @@ export class CreateSolicitationComponent implements OnInit {
     this.allTransport();
     this.allCountries();
     this.allCodeLiquidation();
-    
-    if (this.id){
-        this.titleService.setTitle('Modificar Solicitud');
-        this.solicitationSubsidyService.getByIdSolicitation(this.id)
-        .subscribe(
-          x => {
-                this.model = x;
-                if (this.model.destinies != null){
-                  for (let index = 0; index < this.model.destinies.length; index++) {
-
-                    if (this.model.destinies[index].provinceId != null){
-                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
-                    }
-                  }                 
-                }
-                
-                this.allProvice();
-                this.totalResultExpenditure();
-          }
-        );
-      }
+    this.allProvice();
+    this.totalResultExpenditure();
   }
+
+
 
   allTransport(){
     this.transportService.getAll().subscribe(
@@ -246,6 +253,23 @@ export class CreateSolicitationComponent implements OnInit {
 
    }
 
+   initializeUploader() {
+    this.uploader = new FileUploader({
+      url: this.baseUrl+'SolicitationSubsidy/Create/',
+      authToken: 'Bearer ' + this.authService.userId('token'),
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024
+    });
+
+    this.uploader.onSuccessItem = (item, response, status, headers) => {
+      if (response) {
+      }
+    }    
+  }
+
    deleteAllConcepts(){
      let array = this.model.expenditures;
      let minus : number = 0;
@@ -286,7 +310,7 @@ export class CreateSolicitationComponent implements OnInit {
 
      //MODALS
   openAddNewConcept() {
-    const modalRef = this.modalService.open(AddNewExpenditureComponent);
+    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent);
     if (this.model.expenditures === undefined)
     {
       this.model.expenditures = [];
@@ -304,6 +328,7 @@ export class CreateSolicitationComponent implements OnInit {
     );
   }
 
+
   AddDestiny(){
     const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
 
@@ -315,7 +340,6 @@ export class CreateSolicitationComponent implements OnInit {
     let listDestinies : DestinyDto[] = this.model.destinies;
     
     modalRef.componentInstance.destiniesAdded = listDestinies;
-    modalRef.componentInstance.solicitationId = this.id;
     
     modalRef.result.then(
       () =>this.totalResultExpenditure()
@@ -375,31 +399,32 @@ export class CreateSolicitationComponent implements OnInit {
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
   onSubmit(){
+    if (this.model.destinies.length == 0){
+      this.msjToastInfo('Debe ingresar al menos un destino');
+      return;
+    }
+    this.model.isRefund = true;
+    
+    console.log(this.model);
 
-      if (this.model.destinies.length == 0){
-        this.msjToastInfo('Debe ingresar al menos un destino');
-        return;
-      }
-
-      if(this.id){
-        this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
-          () => {
+    if(this.id){
+      this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
+        () => {
+          this.router.navigate(['SolicitationSubsidy/agent']);
+          this.msjExito = 'Solicitud Enviada';
+          this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
+        },
+        error => console.log(error) 
+      );
+    }else{
+      this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
+        () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
-            this.msjExito = 'Solicitud Enviada';
-            this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
-          },
-          error => console.log(error) 
-        );
-      }else{
-        this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
-          () => {
-              this.router.navigate(['SolicitationSubsidy/agent']);
-              this.msjExito = 'Solicitud Actualizada';
-              this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
-          }
-        );
-      }
-      
+            this.msjExito = 'Solicitud Actualizada';
+            this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
+        }
+      );
+    }      
   }
 
 
@@ -439,6 +464,4 @@ export class CreateSolicitationComponent implements OnInit {
       );
       this.model.total = resultExpenditure + resultDestiny;
     }
-
-
 }

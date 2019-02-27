@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.FileProviders;
 using VR.Web.Helpers;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using VR.Dto;
@@ -159,6 +160,28 @@ namespace VR.Web.Controllers
                 return File(outputStream, "image/jpg");
             }
 
+        }
+
+
+        [HttpGet("ExpenditureRefund/{expId}/{width}/{height}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ExpenditureRefund(Guid expId, int width, int height)
+        {
+            if (width < 0 || height < 0) { return BadRequest(); }
+            var result = _fileService.GetUrlExpenditureRefundFile(expId);
+            
+
+            var outputStream = new MemoryStream(result.Response,0,result.Response.Length);
+
+            using (Image<Rgba32> image = new Image<Rgba32>(width,height))
+            {
+                image.SaveAsJpeg(outputStream);
+                outputStream.Seek(0, SeekOrigin.Begin);
+                
+                return File(outputStream, "image/jpg");
+            }
+            
+            
         }
 
     }

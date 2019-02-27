@@ -10,6 +10,7 @@ import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsi
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-print',
@@ -104,7 +105,7 @@ export class PrintComponent implements OnInit {
     );
   }
   urlFile(userId : number, width : number, height: number){
-    return "http://localhost:63098/api/File/HolographSign/"+userId+"/"+width+"/"+height;
+    return environment.apiUrl+"File/HolographSign/"+userId+"/"+width+"/"+height;
   }
 
   captureScreen()  

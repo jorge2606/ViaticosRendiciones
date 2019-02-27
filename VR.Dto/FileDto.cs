@@ -13,7 +13,9 @@ namespace VR.Dto
         public IFormFile File { set; get; }
         public string MimeType { set; get; }
         public DateTime UploadTime { set; get; }
-       
+        public byte[] Image { set; get; }
+        public Guid ExpenditureId { set; get; }
+
         public FileCreateDto()
         {
             UploadTime = DateTime.Now;
@@ -21,6 +23,24 @@ namespace VR.Dto
         }
 
     }
+
+    public class FileCreateFromRefundDto : FileDeleteDto
+    {
+        public Guid Id { set; get; }
+        public string Path { set; get; }
+        public Guid UserId { set; get; }
+        public string MimeType { set; get; }
+        public DateTime UploadTime { set; get; }
+        public byte[] Image { set; get; }
+        public Guid ExpenditureId { set; get; }
+
+        public FileCreateFromRefundDto()
+        {
+            UploadTime = DateTime.Now;
+            DeleteTime = DateTime.MinValue;
+        }
+    }
+
 
     public class UpdateMyImageDto : FileCreateDto
     {
@@ -37,4 +57,6 @@ namespace VR.Dto
         public string Paths { set; get; }
         public Boolean IsDeleted { set; get; }
     }
+
+
 }

@@ -9,9 +9,17 @@
     <div class="container">
         <div *ngIf="!url" class="container-image col-md-6">
             <img src="{{urlImage}}" class="image">
-            <input class="inputfile" type="file"  name="file" id="file" (change)="onSelectFile($event)" ng2FileSelect
-                    [uploader]="uploader" value="Cambiar" />
-                    <label for="file" class="btn btn-default" style="left: 27px;">  <fa-icon icon="upload"></fa-icon> Elegir un Archivo</label>
+            <input 
+                class="inputfile" 
+                type="file"  
+                name="file" 
+                id="file"
+                (change)="onSelectFile($event)" 
+                ng2FileSelect
+                [uploader]="uploader"
+                value="Cambiar" />
+                    <label for="file" class="btn btn-default" style="left: 27px;"> 
+                        <fa-icon icon="upload"></fa-icon> Elegir un Archivo</label>
             <br>
             <button type="button" class="btn btn-danger btn-xs" (click)="eliminarPerfil()">
                     <fa-icon icon="trash"></fa-icon>
@@ -19,36 +27,22 @@
         </div>
     </div>
 
-<div *ngIf="url" class="container-image-url col-md-6">
-        <img [src]="url" class="imageUrl">
+    <div *ngIf="url" class="container-image-url col-md-6">
+            <img [src]="url" class="imageUrl">
 
-        <ul *ngFor="let item of uploader.queue">
-            <div class="middle-url">
-                <span class="btn btn-default btn-file ml-3 pl-3">
-                    <button type="button" class="btn text" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                        <fa-icon icon="upload"></fa-icon>
-                    </button>
-                    <button type="button" class="btn textDanger" (click)="removePreview()">
-                        <fa-icon icon="trash"></fa-icon>
-                    </button>
-                </span>
-            </div>
+            <ul *ngFor="let item of uploader.queue">
+                <div class="middle-url">
+                    <span class="btn btn-default btn-file ml-3 pl-3">
+                        <button type="button" class="btn text" (click)="item.upload()" 
+                            [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                            <fa-icon icon="upload"></fa-icon>
+                        </button>
+                        <button type="button" class="btn textDanger" (click)="removePreview()">
+                            <fa-icon icon="trash"></fa-icon>
+                        </button>
+                    </span>
+                </div>
 
-        </ul>
-</div>
-    <br>
-    <!--<div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
-        <div class="col-md-3">
-
-            <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
-                [uploader]="uploader" class="card bg-faded p-3 text-center mb-3 my-drop-zone">
-                <fa-icon icon="upload"></fa-icon>
-                <b>Arrastre su imagen aqui</b>
-            </div>
-            <br>
-        </div>
-         <h3>Upload queue</h3>
-        <p>Queue length: {{ uploader?.queue?.length }}</p>
-    </div>-->
-
+            </ul>
+    </div>
 </div>
