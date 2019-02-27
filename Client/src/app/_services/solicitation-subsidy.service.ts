@@ -59,4 +59,8 @@ export class SolicitationSubsidyService {
   wichStateSolicitation(solicitationId : number){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/WichStateSolicitation/"+solicitationId);
   }
+
+  getImageRefundExpenditure(expId : number){
+    return this.http.get<any>(environment.apiUrl+"File/ExpenditureRefund/image/"+expId);
+  }
 }

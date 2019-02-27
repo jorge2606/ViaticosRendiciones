@@ -10,8 +10,8 @@ using VR.Data;
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190226123936_add field ExpenditureId to model File")]
-    partial class addfieldExpenditureIdtomodelFile
+    [Migration("20190227190035_files image to byte file table1")]
+    partial class filesimagetobytefiletable1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -305,9 +305,17 @@ namespace VR.Data.Migrations
 
                     b.Property<byte[]>("Image");
 
+                    b.Property<string>("LastModified");
+
+                    b.Property<DateTime>("LastModifiedDate");
+
                     b.Property<string>("MimeType");
 
+                    b.Property<string>("Name");
+
                     b.Property<string>("Path");
+
+                    b.Property<long>("Size");
 
                     b.Property<DateTime>("UploadTime");
 

@@ -132,13 +132,17 @@ namespace VR.Service.Services
 
                 if (solicitationSubsidy.IsRefund)
                 {
+                    string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                    byte[] data = Convert.FromBase64String(base64);
                     File newFile = new File()
                     {
                         Id = new Guid(),
                         MimeType = expenditure.ImageDto.Type,
                         ExpenditureId = newExpenditure.Id,
-                        Image = Encoding.ASCII.GetBytes(expenditure.UrlImage),
-                        UserId = subsidy.UserId
+                        Image = data,
+                        UserId = subsidy.UserId,
+                        LastModifiedDate = new DateTime()
+
                     };
 
                     _dataContext.Files.Add(newFile);
@@ -249,14 +253,20 @@ namespace VR.Service.Services
                     _dataContext.Expenditures.Update(newExpenditure);
                 }
 
-                if (solicitationSubsidy.IsRefund)
+                if (solicitationSubsidy.IsRefund && exist == null)
                 {
+                    string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                    byte[] data = Convert.FromBase64String(base64);
                     File newFile = new File()
                     {
                         Id = new Guid(),
                         MimeType = expenditure.ImageDto.Type,
+                        Name = expenditure.ImageDto.Name,
+                        Size = expenditure.ImageDto.Size,
+                        LastModified = expenditure.ImageDto.TypLastModified,
+                        LastModifiedDate = expenditure.ImageDto.LastModifiedDate,
                         ExpenditureId = newExpenditure.Id,
-                        Image = Encoding.ASCII.GetBytes(expenditure.UrlImage),
+                        Image = data,
                         UserId = subsidy.UserId
                     };
 

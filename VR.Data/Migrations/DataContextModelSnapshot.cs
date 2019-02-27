@@ -303,9 +303,17 @@ namespace VR.Data.Migrations
 
                     b.Property<byte[]>("Image");
 
+                    b.Property<string>("LastModified");
+
+                    b.Property<DateTime>("LastModifiedDate");
+
                     b.Property<string>("MimeType");
 
+                    b.Property<string>("Name");
+
                     b.Property<string>("Path");
+
+                    b.Property<long>("Size");
 
                     b.Property<DateTime>("UploadTime");
 

@@ -12,5 +12,9 @@ namespace VR.Data.Model
         public string MimeType { set; get; }
         public byte[] Image { set; get; }
         public Guid ExpenditureId { set; get; }
+        public string Name { set; get; }
+        public long Size { set; get; }
+        public string LastModified { set; get; }
+        public DateTime LastModifiedDate { set; get; }
     }
 }

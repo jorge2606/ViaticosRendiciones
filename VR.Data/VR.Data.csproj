@@ -33,6 +33,12 @@
     <Compile Remove="Migrations\20190215204022_add prefix and suffix from users table.cs" />
     <Compile Remove="Migrations\20190215204212_add prefix and suffix from users table.cs" />
     <Compile Remove="Migrations\20190215204856_first migration.cs" />
+    <Compile Remove="Migrations\20190227181229_files image to byte.cs" />
+    <Compile Remove="Migrations\20190227181430_files image to byte.cs" />
+    <Compile Remove="Migrations\20190227184200_files image to byte.cs" />
+    <Compile Remove="Migrations\20190227184905_files image to byte file table1.cs" />
+    <Compile Remove="Migrations\20190227185703_files image to byte file table1.cs" />
+    <Compile Remove="Migrations\20190227185930_files image to byte file table1.cs" />
   </ItemGroup>
 
   <ItemGroup>

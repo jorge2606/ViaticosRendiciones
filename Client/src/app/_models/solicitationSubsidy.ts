@@ -4,7 +4,7 @@ import { DestinyDto } from './destiny';
 import { User } from '../users/users';
 
 export class ImageDto{
-    lastModified: number;
+    lastModified: string;
     lastModifiedDate : any;
     name : string;
     size : number;

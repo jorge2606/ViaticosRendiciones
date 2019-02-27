@@ -104,11 +104,11 @@ export class RepaymentComponent implements OnInit {
       .getByIdSolicitation(this.id)
       .subscribe(x => {
         this.model = x;
-          this.model.expenditures.forEach(
-            j => {
-              j.urlImage = this.authService.urlExpenditureRefundFile(j.id,169,38);   
-            }
-          );
+        this.model.expenditures.forEach(
+          j => {
+                j.urlImage = this.authService.urlExpenditureRefundFile(j.id,186,60);
+          }
+        );
       });
     }
 
@@ -241,7 +241,7 @@ export class RepaymentComponent implements OnInit {
             if(this.model.destinies.length > 1){
               this.deleteFromDatabaseDestinies(destiny.id,index);
             }else{
-              this.msjToastInfo("Una solicitud de viático debe contener al menos 1 destino");
+              this.msjToastInfo("Un reintegro de viático debe contener al menos 1 destino");
             }
           }else{
             this.model.destinies.splice(index, 1);
@@ -421,7 +421,7 @@ export class RepaymentComponent implements OnInit {
         () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
             this.msjExito = 'Solicitud Actualizada';
-            this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
+            this.msjToastSuccess('El reintegro de viático se ha guardado correctamente');
         }
       );
     }      

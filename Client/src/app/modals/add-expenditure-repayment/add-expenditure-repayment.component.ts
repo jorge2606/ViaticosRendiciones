@@ -61,7 +61,15 @@ export class AddExpenditureRepaymentComponent implements OnInit {
       newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
     }
     newExp.urlImage = this.url;
-    newExp.imageDto = this.image;
+    let img = new ImageDto()
+    img.name = this.image.name;
+    img.type = this.image.type;
+    img.size = this.image.size;
+    img.webkitRelativePath = this.image.webkitRelativePath;
+    img.lastModified = this.image.lastModified;
+    img.lastModifiedDate = this.image.lastModifiedDate;
+
+    newExp.imageDto = img;
     this.expendituresAdded = this.expendituresAdded || [];
     this.expendituresAdded.push(newExp);
     this.sendData();
@@ -90,7 +98,6 @@ export class AddExpenditureRepaymentComponent implements OnInit {
 
   sendData(){
     this.activeModal.close(null);
-    console.log(this.expendituresAdded);
   }
 
   allExpenditure(){

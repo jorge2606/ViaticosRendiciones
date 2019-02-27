@@ -31,7 +31,7 @@ namespace VR.Dto
         public Guid UserId { set; get; }
         public string MimeType { set; get; }
         public DateTime UploadTime { set; get; }
-        public byte[] Image { set; get; }
+        public string Image { set; get; }
         public Guid ExpenditureId { set; get; }
 
         public FileCreateFromRefundDto()

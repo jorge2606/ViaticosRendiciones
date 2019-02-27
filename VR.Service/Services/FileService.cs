@@ -206,7 +206,7 @@ namespace VR.Service.Services
 
             if (expenditure == null)
             {
-                return new ServiceResult<byte[]>(null);
+                return new ServiceResult<byte[]> (null);
             }
 
             return new ServiceResult<byte[]>(expenditure.Image);
@@ -215,13 +215,15 @@ namespace VR.Service.Services
 
         public ServiceResult<FileCreateFromRefundDto> AddExpenditureRefundImage(FileCreateFromRefundDto image)
         {
+            string base64 = image.Image.Substring(image.Image.IndexOf(',') + 1);
+            byte[] data = Convert.FromBase64String(base64);
             Data.Model.File newFile = new Data.Model.File()
             {
                 Id = new Guid(),
                 UserId = image.UserId,
                 Path = image.Path,
                 ExpenditureId = image.ExpenditureId,
-                Image = image.Image,
+                Image = data,
                 MimeType = image.MimeType
             };
             

@@ -46,7 +46,7 @@ namespace VR.Dto
     public class ImageDto
     {
         public DateTime LastModifiedDate { get; set; } 
-        public long TypLastModified { get; set; }
+        public string TypLastModified { get; set; }
         public string Name { get; set; }
         public long Size { get; set; }
         public string Type { get; set; }

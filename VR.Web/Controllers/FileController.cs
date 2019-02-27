@@ -1,19 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.FileProviders;
+using Service.Common.ServiceResult;
 using VR.Web.Helpers;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using VR.Dto;
 using VR.Service.Interfaces;
+using System.Drawing;
+using System.Drawing.Imaging;
+using Image = SixLabors.ImageSharp.Image;
 
 namespace VR.Web.Controllers
 {
@@ -79,7 +86,7 @@ namespace VR.Web.Controllers
 
         [HttpGet("{userId}/{width}/{height}")]
         [AllowAnonymous]
-        public async Task<IActionResult> ResizeImage(Guid userId, int width, int height)
+        public IActionResult ResizeImage(Guid userId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
 
@@ -137,7 +144,7 @@ namespace VR.Web.Controllers
 
         [HttpGet("HolographSign/{userId}/{width}/{height}")]
         [AllowAnonymous]
-        public async Task<IActionResult> HolographSign(Guid userId, int width, int height)
+        public IActionResult HolographSign(Guid userId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
             var result = _fileService.GetCompletePathHolographSign(userId);
@@ -165,24 +172,37 @@ namespace VR.Web.Controllers
 
         [HttpGet("ExpenditureRefund/{expId}/{width}/{height}")]
         [AllowAnonymous]
-        public async Task<IActionResult> ExpenditureRefund(Guid expId, int width, int height)
+        public IActionResult ExpenditureRefund(Guid expId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
             var result = _fileService.GetUrlExpenditureRefundFile(expId);
-            
 
             var outputStream = new MemoryStream(result.Response,0,result.Response.Length);
-
-            using (Image<Rgba32> image = new Image<Rgba32>(width,height))
+            
+            using (var image = Image.Load(outputStream))
             {
-                image.SaveAsJpeg(outputStream);
                 outputStream.Seek(0, SeekOrigin.Begin);
-                
-                return File(outputStream, "image/jpg");
+                return File(outputStream, "image/jpeg");
             }
             
             
         }
+
+
+        /**[HttpGet("ExpenditureRefund/image/{expId}")]
+        [AllowAnonymous]
+        public IActionResult ExpenditureRefundImage(Guid expId)
+        {
+            var result = _fileService.GetUrlExpenditureRefundFile(expId);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(new ServiceResult<string>(result.Response));
+
+        }**/
 
     }
 
