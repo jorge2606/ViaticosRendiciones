@@ -177,6 +177,11 @@ namespace VR.Web.Controllers
             if (width < 0 || height < 0) { return BadRequest(); }
             var result = _fileService.GetUrlExpenditureRefundFile(expId);
 
+            if (result.Response == null)
+            {
+                return BadRequest(result);
+            }
+
             var outputStream = new MemoryStream(result.Response,0,result.Response.Length);
             
             using (var image = Image.Load(outputStream))
@@ -187,22 +192,6 @@ namespace VR.Web.Controllers
             
             
         }
-
-
-        /**[HttpGet("ExpenditureRefund/image/{expId}")]
-        [AllowAnonymous]
-        public IActionResult ExpenditureRefundImage(Guid expId)
-        {
-            var result = _fileService.GetUrlExpenditureRefundFile(expId);
-
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(new ServiceResult<string>(result.Response));
-
-        }**/
 
     }
 

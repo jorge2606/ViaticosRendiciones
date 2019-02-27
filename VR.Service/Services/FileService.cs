@@ -206,7 +206,7 @@ namespace VR.Service.Services
 
             if (expenditure == null)
             {
-                return new ServiceResult<byte[]> (null);
+                return new ServiceResult<byte[]>(null);
             }
 
             return new ServiceResult<byte[]>(expenditure.Image);
