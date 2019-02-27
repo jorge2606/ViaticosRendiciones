@@ -342,6 +342,7 @@ namespace VR.Service.Services
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == solicitationDto.Id);
 
+
             var notifications = new ServiceResult<string>();
                 
             if (solicitation == null)
@@ -349,6 +350,14 @@ namespace VR.Service.Services
                 notifications.AddError("error", "Esta solicitud ya no existe en la base de datos");
                 return notifications;
             }
+
+            var isRefundTextOrSolicitation = "solicitud de Víatico";
+
+            if (solicitation.IsRefund)
+            {
+                isRefundTextOrSolicitation = "reintegro";
+            }
+
 
             var supervisor = _dataContext.SupervisorUserAgents
                 .Include(sup => sup.Supervisors)
@@ -446,7 +455,7 @@ namespace VR.Service.Services
                                "<body>" +
                                "<p>" +
                                "Hola " + supervisorsLastName + ", " + supervisorsFirstName + "<br>" +
-                               "El Agente " + userLastName + ", " + userFirstName + " ha enviado la solicitud de un viatico." +
+                               "El Agente " + userLastName + ", " + userFirstName + " ha enviado la solicitud de "+ isRefundTextOrSolicitation + "." +
                                TableDestinies
                                + "<br>" +
                                tableExpenditures +
@@ -455,10 +464,18 @@ namespace VR.Service.Services
                                " <a href='" + url + "'> Ingresar </a> " +
                                "</body>" +
                        "</html>";
-            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de Viatico", html);
-            if (!(emailSended.StatusCode == HttpStatusCode.OK))
+            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de "+ isRefundTextOrSolicitation, html);
+            if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
             {
-                notifications.AddError("error","La solicitud no pudo ser enviada al correo del supervisor.");
+                if (solicitation.IsRefund)
+                {
+                    notifications.AddError("error", "La solicitud de reintegro no pudo ser enviada al correo del supervisor.");
+                }
+                else
+                {
+                    notifications.AddError("error", "La solicitud no pudo ser enviada al correo del supervisor.");
+                }
+                
                 return notifications;
             }
 
@@ -473,9 +490,9 @@ namespace VR.Service.Services
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
-                    Tittle = "solicitud de un viatico",
+                    Tittle = isRefundTextOrSolicitation,
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
-                               "Ha enviado la solicitud de un viatico. ",
+                               "Ha enviado : "+ isRefundTextOrSolicitation,
                     UserId = supervisor.SupervisorId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
@@ -502,6 +519,12 @@ namespace VR.Service.Services
             {
                 return new ServiceResult<SolicitationIdDto>(null);
             }
+            var isRefundTextOrSolicitation = "solicitud de Víatico";
+
+            if (solicitation.IsRefund)
+            {
+                isRefundTextOrSolicitation = "reintegro";
+            }
 
             SolicitationState solicitationState = new SolicitationState()
             {
@@ -515,8 +538,8 @@ namespace VR.Service.Services
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
-                    Tittle = "Su solicitud de viático fue aceptada",
-                    TextData = "Su Solicitud de viático fue aceptada",
+                    Tittle = "Su "+ isRefundTextOrSolicitation + " fue aceptada",
+                    TextData = "Su "+ isRefundTextOrSolicitation + " fue aceptada",
                     UserId = solicitation.UserId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
@@ -544,6 +567,12 @@ namespace VR.Service.Services
             {
                 return new ServiceResult<SolicitationIdDto>(null);
             }
+            var isRefundTextOrSolicitation = "solicitud de Víatico";
+
+            if (solicitation.IsRefund)
+            {
+                isRefundTextOrSolicitation = "reintegro";
+            }
 
             SolicitationState solicitationState = new SolicitationState()
             {
@@ -557,8 +586,8 @@ namespace VR.Service.Services
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
-                    Tittle = "Su solicitud de viático fue rechazada",
-                    TextData = "Su solicitud de viático fue rechazada",
+                    Tittle = "Su "+ isRefundTextOrSolicitation + " fue rechazada",
+                    TextData = "Su "+ isRefundTextOrSolicitation + " fue rechazada",
                     UserId = solicitation.UserId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,

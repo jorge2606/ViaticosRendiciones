@@ -112,13 +112,13 @@ export class NavarComponent implements OnInit {
       this.modalService.dismissAll();
       this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
       .subscribe(user => {
-          if (user){
+          if (user){//si es verdadero entonces este mensaje es de uno de mis agentes
             this.notificaionServices.notificationRidden(notificationridden).subscribe(
               () =>{
                   this.retriveNotifications();
                   const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
                   modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-                  modalRef.result.then(() => {    },
+                  modalRef.result.then(() => { this.router.navigate([this.router.url])},
                   () => {
                       console.log('Backdrop click');
                   })

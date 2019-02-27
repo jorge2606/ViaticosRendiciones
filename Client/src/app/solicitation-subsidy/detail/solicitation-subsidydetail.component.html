@@ -1,6 +1,8 @@
 <div id="container-pdf" class="container small">
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Detalle de solicitud de víatico</h4><br>
+
+      <h4 *ngIf="!model.isRefund" class="modal-title pull-left">Detalle de solicitud de víatico <br></h4>
+      <h4 *ngIf="model.isRefund" class="modal-title pull-left">Detalle de solicitud de reintegro <br></h4>
       <button (click)="activeModal.dismiss('Close click')" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
@@ -121,6 +123,7 @@
             Rechazar
         </a>
     </div>
+    
     <!--<div col="col ml-auto">
         <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
     </div>-->

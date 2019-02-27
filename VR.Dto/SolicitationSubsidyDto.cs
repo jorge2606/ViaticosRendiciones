@@ -64,6 +64,7 @@ namespace VR.Dto
         public List<DestinyFromSolicitationSubsidyFindByIdDto> Destinies { set; get; }
         public Guid UserId { set; get; }
         public UserDto User { set; get; }
+        public Boolean IsRefund { set; get; }
     }
 
     public class FindByIdRefundDto

@@ -29,6 +29,7 @@ export class SolicitationSubsidyBaseDto{
     expenditures : Expenditure[];
     total : number;
     createDate : any;
+    isRefund : boolean;
 }
 
 export class SolicitationSubsidyDetail extends SolicitationSubsidyBaseDto{

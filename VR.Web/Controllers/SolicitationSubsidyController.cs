@@ -82,7 +82,7 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return Ok(result.Response);
+            return Ok();
         }
 
         [HttpPost("overlaping")]
