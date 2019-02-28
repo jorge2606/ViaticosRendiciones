@@ -176,18 +176,21 @@
                   <div class="ml-auto col-5">
                       <div class="ml-auto pt-3">
                           <div *ngIf="urlSign" class="container-image col-md-8 ml-auto">
-                              <img src="{{urlSign}}" class="image">
+                              <img 
+                                width="200px" 
+                                height="100px" 
+                                [src]="urlSign" class="image">
                           </div>
                           <div *ngIf="!urlSign" class="container-image col-md-8 ml-auto">
                                 <p>S/F</p>
-                            </div>
+                        </div>
                       </div>
                       <div class="ml-auto"> FIRMA AUTORIZADA: ----------------------------------------------------------------- </div>
-    
-                    </div>	 								
+                </div>	 
+
               </div>
             
     </div>
 
-
+    
 

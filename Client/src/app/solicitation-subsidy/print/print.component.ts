@@ -62,50 +62,55 @@ export class PrintComponent implements OnInit {
     
   }
 
+
   init(){
     this.route.params.subscribe(
       url => {
           this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(url.id)
           .subscribe(x => {
-            this.urlSign = this.urlFile(x, 250,100);
-            setTimeout(() => {
-            }, 1000);
-            this.solicitationSubsidyService.getByIdSolicitation(url.id)
-            .subscribe(
-                solicitation => {
-                  this.model = solicitation;
-                  this.firstName = this.model.user.firstName;
-                  this.lastName = this.model.user.lastName;
-                  this.categoryName = this.model.user.categoryName;
-                  this.categoryDescription = this.model.user.categoryDescription;
-                  this.dni = this.model.user.dni;
-                  this.distributionName = this.model.user.distributionName;
-                  this.distributionDescription = this.model.user.distributionDescription;
-
-                  this.model.destinies.forEach(totalDestinies => {
-                    this.totDest =  this.totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.percentageCodeLiquidation);
-                  });
-
-                  this.model.expenditures.forEach(exp => this.totalExpenditures = this.totalExpenditures + exp.amount );
-                  
-                  this.destinyService.get_destinies(url.id)
-                  .subscribe(
-                        j => {
-                              this.destinieWithDaysInLetters = j;
-                              this.totalExpenditures = this.totalExpenditures +  this.totDest;
-                              this.captureScreen();
-                              setTimeout(() => {
-                              }, 1000);
-                              
-                            }
-                  );
+              this.solicitationSubsidyService.getImageHolographSignUrl(x,200,120)
+              .subscribe(urlImage =>{
+                this.urlSign = "data:image/jpg;base64,"+urlImage.response;
+                
+                setTimeout(() => {
+                }, 1000);
+                this.solicitationSubsidyService.getByIdSolicitation(url.id)
+                .subscribe(
+                    solicitation => {
+                      this.model = solicitation;
+                      this.firstName = this.model.user.firstName;
+                      this.lastName = this.model.user.lastName;
+                      this.categoryName = this.model.user.categoryName;
+                      this.categoryDescription = this.model.user.categoryDescription;
+                      this.dni = this.model.user.dni;
+                      this.distributionName = this.model.user.distributionName;
+                      this.distributionDescription = this.model.user.distributionDescription;
+    
+                      this.model.destinies.forEach(totalDestinies => {
+                        this.totDest =  this.totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.percentageCodeLiquidation);
+                      });
+    
+                      this.model.expenditures.forEach(exp => this.totalExpenditures = this.totalExpenditures + exp.amount );
+                      
+                      this.destinyService.get_destinies(url.id)
+                      .subscribe(
+                            j => {
+                                  this.destinieWithDaysInLetters = j;
+                                  this.totalExpenditures = this.totalExpenditures +  this.totDest;
+                                  this.captureScreen();
+                                  setTimeout(() => {
+                                  }, 1000);
+                                  
+                                }
+                      );
+                  });            
               });
             });
       }
     );
   }
   urlFile(userId : number, width : number, height: number){
-    return environment.apiUrl+"File/HolographSign/"+userId+"/"+width+"/"+height;
+    return environment.apiUrl+"File/HolographSignUrl/"+userId+"/"+width+"/"+height;
   }
 
   captureScreen()  
@@ -116,8 +121,9 @@ export class PrintComponent implements OnInit {
           const img = canvas.toDataURL('image/png');
           this.imgUrl = img;
           this.stringIframe = this.domSanitazer.bypassSecurityTrustResourceUrl(img);
-          this.hideHtml = true;
+         
         });
+        this.hideHtml = true;
         this.spinner.hide();
   }
 

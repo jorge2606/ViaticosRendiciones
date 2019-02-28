@@ -164,8 +164,26 @@ namespace VR.Web.Controllers
 
                 outputStream.Seek(0, SeekOrigin.Begin);
 
-                return File(outputStream, "image/jpg");
+                return File(outputStream, "image/jpeg");
             }
+
+        }
+
+
+        [HttpGet("HolographSignUrl/{userId}/{width}/{height}")]
+        [AllowAnonymous]
+        public IActionResult HolographSignUrl(Guid userId, int width, int height)
+        {
+            if (width < 0 || height < 0) { return BadRequest(); }
+            var result = _fileService.GetCompletePathHolographSign(userId);
+
+            FileInfo fileInfo = new FileInfo(result.Response.Paths);
+
+            if (!fileInfo.Exists) { return NotFound(); }
+
+            var resultUrl = Convert.ToBase64String(System.IO.File.ReadAllBytes(result.Response.Paths));
+            ServiceResult<String> resultUrlEnd = new ServiceResult<String>(resultUrl);
+            return Ok(resultUrlEnd);
 
         }
 
