@@ -27,6 +27,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   motive : string = "";
   supscription : any;
   currentUrl : string;
+  sizeIcon="fa-lg";
 
   constructor(
     private activatedRoute : ActivatedRoute,

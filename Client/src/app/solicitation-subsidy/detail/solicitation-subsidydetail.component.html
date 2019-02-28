@@ -29,8 +29,9 @@
                 <thead>
                   <tr class="form-row">
                     <th class="col-2" style="padding : 0px;">Concepto</th>
-                    <th class="col"style="padding : 0px;">Descripción</th>
-                    <th class="col-2"style="padding : 0px;">Importe</th>
+                    <th class="col" style="padding : 0px;">Descripción</th>
+                    <th class="col-2 text-right" style="padding : 0px;">Importe</th>
+                    <th class="col-2"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -44,13 +45,17 @@
                     <td class="col-2 text-right" style="padding : 1px;">
                       {{exp.amount | currency}}
                     </td>
-                    <td class="col-2 text-center">
+                    <td 
+                        placement="bottom" 
+                        ngbTooltip="Ver imagen"
+                        class="col-2 text-center p-0">
                         <a  
-                            style="width: inherit;"
+                            style="width: inherit;cursor: pointer;"
                             (click)="toSeeImageBase64InNewTab(exp.urlImage)" 
                             rel="noopener noreferrer">
-                            <img style="width: inherit; height: 40px; cursor: pointer;" 
-                                [src]="exp.urlImage">
+                            <!--<img style="width: inherit; height: 40px; cursor: pointer;" 
+                                [src]="exp.urlImage">-->
+                            <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="image"></fa-icon>
                         </a>
                     </td>
                   </tr>
