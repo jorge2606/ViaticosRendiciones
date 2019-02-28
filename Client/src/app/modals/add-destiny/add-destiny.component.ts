@@ -48,9 +48,9 @@ export class AddDestinyComponent implements OnInit {
   buttonDisbaled = true;
   selectedCountry: number;
   selectedProvince: number;
+  categoryUser = new AllCategoryDto;
   selectedCity: number;
   selectedCodeLiquidation: number;
-  selectedCategory: number;
   selectedTransport: number;
   total: number = 0;
   carIsUsed: boolean;
@@ -87,6 +87,7 @@ export class AddDestinyComponent implements OnInit {
   ngOnInit() {
     this.selectedCountry = this.model.countryId;
     this.selectedProvince = this.model.provinceId;
+    this.model.categoryId = this.authService.userId('categoryId');
     this.AllPlace();
     this.AllProvince();
     this.allCategories();
@@ -128,12 +129,12 @@ export class AddDestinyComponent implements OnInit {
     this.categoryService.getallCategories()
       .subscribe(
         x => {
-          let categoryUser = x.find(j => j.id == this.authService.userId('categoryId'));
-          x.forEach(cat => {
+          this.categoryUser = x.find(j => j.id == this.authService.userId('categoryId'));
+          /*x.forEach(cat => {
             if (cat.order <= categoryUser.order) {
               this.categories.push(cat);
             }
-          });
+          }); */
         }
       );
   }
@@ -258,11 +259,10 @@ export class AddDestinyComponent implements OnInit {
         newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
       }
       newDestiny.days = this.model.days;
-      newDestiny.categoryId = this.model.categoryId;
-      if (this.model.categoryId != null) {
-        let cat = this.categories.find(x => x.id == this.model.categoryId);
-        newDestiny.categoryName = cat.name;
-        newDestiny.advanceCategory = cat.advance;
+      newDestiny.categoryId =this.categoryUser.id;
+      if (this.categoryUser.id != null) {
+        newDestiny.categoryName = this.categoryUser.name;
+        newDestiny.advanceCategory = this.categoryUser.advance;
       }
       
       if (this.model.codeLiquidationId){

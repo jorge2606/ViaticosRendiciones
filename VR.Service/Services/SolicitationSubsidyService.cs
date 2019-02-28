@@ -467,6 +467,10 @@ namespace VR.Service.Services
             var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de "+ isRefundTextOrSolicitation, html);
             if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
             {
+                if (emailSended.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    notifications.AddError("error", "La clave api expiró , está mal escrito o es errónea");
+                }
                 if (solicitation.IsRefund)
                 {
                     notifications.AddError("error", "La solicitud de reintegro no pudo ser enviada al correo del supervisor.");

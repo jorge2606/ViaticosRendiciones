@@ -197,17 +197,19 @@
                                         <div class="form-row">
                                             <div class="form-group col">
                                                     <label for="">Categoría</label>
-                                                    <select required class="form-control" #categoryId="ngModel"
-                                                        [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched) 
-                                                        }"
-                                                        (change)="changeCategory()"
-                                                        name="categoryId" [(ngModel)]="model.categoryId">
-                                                        <option *ngIf="selectedCategory == model.categoryId" [ngValue]="selectedCategory" disabled>
-                                                            Seleccione una Categoría...
-                                                        </option>
-                                                        <option *ngFor="let cat of categories" value="{{cat.id}}">
-                                                                {{cat.name}} - {{cat.description}}
-                                                        </option>
+                                                    <select 
+                                                        class="form-control" 
+                                                        #categoryId="ngModel"
+                                                        [ngClass]="{'is-invalid' : categoryId.invalid 
+                                                                &&
+                                                                (categoryId.dirty || categoryId.touched)}"
+                                                        name="categoryId" 
+                                                        [(ngModel)]="categoryUser.id" 
+                                                        disabled
+                                                        >
+                                                        <option [ngValue]="categoryUser.id">
+                                                                {{categoryUser.name}} - {{categoryUser.description}}
+                                                        </option >
                                                     </select>
                                     
                                                     <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)
@@ -219,6 +221,7 @@
                                             </div>
                                         </div>
         
+                                        {{model.categoryId}}
                                         <div class="form-row">
                                             <label for="">Transporte</label>
                                             <select class="form-control" 

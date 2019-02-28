@@ -53,7 +53,7 @@ export class AuthenticationService {
         let current = localStorage.getItem('currentUser');
         if (current){
             var currentUserJSON = JSON.parse(current);
-            return  currentUserJSON[key];
+            return currentUserJSON[key];
         }
     }
 
