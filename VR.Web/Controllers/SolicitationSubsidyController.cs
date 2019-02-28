@@ -136,7 +136,7 @@ namespace VR.Web.Controllers
         public PagedResult<AllSolicitationSubsidyDto> SupervisorPaginationAsync(
             [FromQuery] FilterSolicitationSubsidyDto filters)
         {
-            const int pageSize = 1;
+            const int pageSize = 10;
             var resultFull = new List<AllSolicitationSubsidyDto>();
             var result = new object();
             int totalRows = 0;

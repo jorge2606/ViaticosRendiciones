@@ -44,16 +44,29 @@
               </td>
               <td class="col">{{sol.total | currency}}</td>
               <td class="col">{{sol.state}}</td>
-              <td class="col text-center" placement="bottom" 
-                  ngbTooltip="Ver detalle de la solicitud de viático para aceptar o rechazar">
+              <td class="col text-center">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <!--<a class="pr-3" routerLink="/SolicitationSubsidy/supervisor" (click)="openEliminar(sol)">
-                    <fa-icon class="{{sizeIcon}}"  title="Eliminar Solicitud" style="color:red;" icon="trash"></fa-icon>
-                  </a>-->
-                  <a href="" class="pr-3" routerLink="/SolicitationSubsidy/supervisor"
+                  
+                  <a 
+                    *ngIf="!isRefund"
+                    href="" 
+                    placement="bottom" 
+                    ngbTooltip="Ver detalle de la solicitud de viático"
+                    class="pr-3" routerLink="/SolicitationSubsidy/agent/supervisor"
                     (click)="openDetail(sol.id)">
                     <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="info-circle"></fa-icon>
                   </a>
+
+                  <a 
+                  *ngIf="isRefund"
+                    href="" 
+                    placement="bottom" 
+                    ngbTooltip="Ver detalle de la solicitud de reintegro"
+                    class="pr-3" routerLink="/SolicitationSubsidy/agent/supervisor"
+                    (click)="openDetail(sol.id)">
+                    <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="info-circle"></fa-icon>
+                  </a>
+
                 </div>
               </td>
             </tr>

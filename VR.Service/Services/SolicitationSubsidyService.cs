@@ -527,7 +527,7 @@ namespace VR.Service.Services
 
             if (solicitation.IsRefund)
             {
-                isRefundTextOrSolicitation = "reintegro";
+                isRefundTextOrSolicitation = "solicitud de reintegro";
             }
 
             SolicitationState solicitationState = new SolicitationState()

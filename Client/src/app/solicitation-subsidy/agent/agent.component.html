@@ -96,7 +96,16 @@
                     <fa-icon style="color:gray;" icon="edit" class="{{sizeIcon}}">
                     </fa-icon>
                   </a>
-                  <a 
+                  <a *ngIf="sol.isRefund"
+                    placement="bottom" 
+                    ngbTooltip="Eliminar esta solicitud de reintegro" 
+                    class="pr-3" 
+                    routerLink="/SolicitationSubsidy/agent" 
+                    (click)="openEliminar(sol)">
+                    <fa-icon class="{{sizeIcon}}" style="color:red;" icon="trash">
+                    </fa-icon>
+                  </a>
+                  <a *ngIf="!sol.isRefund"
                     placement="bottom" 
                     ngbTooltip="Eliminar esta solicitud de viático" 
                     class="pr-3" 
@@ -105,24 +114,32 @@
                     <fa-icon class="{{sizeIcon}}" style="color:red;" icon="trash">
                     </fa-icon>
                   </a>
-                  <!--<a href="" 
-                    class="pr-3" 
-                    routerLink="/SolicitationSubsidy/agent"
-                    (click)="openDetail(sol.id)">
-                    <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
-                  </a>-->
-                  <a 
+                  <a *ngIf="sol.isRefund"
                     href="" 
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
                     (click)="sendToSupervisor(sol.id)">
                     <fa-icon 
                       placement="top" 
-                      ngbTooltip="Enviar solicitud al supervisor" 
+                      ngbTooltip="Enviar solicitud de reintegro al supervisor" 
                       class="{{sizeIcon}}" 
                       style="color: black;" 
                       icon="envelope">
                     </fa-icon>
+                  </a>
+
+                  <a *ngIf="!sol.isRefund"
+                  href="" 
+                  routerLink="/SolicitationSubsidy/agent"
+                  class="pr-3" 
+                  (click)="sendToSupervisor(sol.id)">
+                  <fa-icon 
+                    placement="top" 
+                    ngbTooltip="Enviar solicitud al supervisor" 
+                    class="{{sizeIcon}}" 
+                    style="color: black;" 
+                    icon="envelope">
+                  </fa-icon>
                   </a>
                 </div>
               </td>
@@ -130,14 +147,30 @@
                 <div class="btn-group" 
                   role="group" 
                   aria-label="Basic example">
-                  <a class="pr-3" 
+
+                  <a 
+                  *ngIf="!sol.isRefund"
+                    class="pr-3" 
                     placement="bottom" 
                     ngbTooltip="Editar esta solicitud de viático" 
                     routerLink="/SolicitationSubsidy/agent/modify/{{sol.id}}">
                     <fa-icon style="color:gray;" 
                         icon="edit" class="{{sizeIcon}}"></fa-icon>
                   </a>
-                  <a class="pr-3" 
+
+                  <a
+                    *ngIf="sol.isRefund" 
+                    class="pr-3" 
+                    placement="bottom" 
+                    ngbTooltip="Editar esta solicitud de reintegro" 
+                    routerLink="/SolicitationSubsidy/agent/modify/{{sol.id}}">
+                    <fa-icon style="color:gray;" 
+                        icon="edit" class="{{sizeIcon}}"></fa-icon>
+                  </a>
+
+                  <a 
+                    *ngIf="!sol.isRefund"
+                    class="pr-3" 
                     placement="bottom" 
                     ngbTooltip="Eliminar esta solicitud de viático" 
                     routerLink="/SolicitationSubsidy/agent"
@@ -148,15 +181,11 @@
                       ngbTooltip="Eliminar esta solicitud de viático" 
                       icon="trash" class="{{sizeIcon}}"></fa-icon>
                   </a>
-                  <!--<a href="" 
-                    class="pr-3" 
-                    routerLink="/SolicitationSubsidy/agent"
-                    (click)="openDetail(sol.id)">
-                    <fa-icon style="color:gray;" icon="info-circle"></fa-icon>
-                  </a>-->
+
                   <a
+                  *ngIf="sol.isRefund"
                     placement="bottom" 
-                    ngbTooltip="Enviar esta solicitud de viático al supervisor"  
+                    ngbTooltip="Enviar esta solicitud de reintegro al supervisor"  
                     href="" 
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
@@ -168,15 +197,23 @@
                         class="{{sizeIcon}}">
                     </fa-icon>
                   </a>
+
                 </div>
               </td>
               <td *ngIf="sol.state == 'Aceptado'" class="col text-right">
-                  <a 
+                  <a *ngIf="!sol.isRefund"
                     placement="bottom" 
                     ngbTooltip="Imprimir esta solicitud de viático" 
                     href="" routerLink="print/{{sol.id}}" class="pr-3">
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
+
+                  <a *ngIf="sol.isRefund"
+                  placement="bottom" 
+                  ngbTooltip="Imprimir esta solicitud de reintegro" 
+                  href="" routerLink="print/{{sol.id}}" class="pr-3">
+                  <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
+                </a>
               </td>
               <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
             </tr>

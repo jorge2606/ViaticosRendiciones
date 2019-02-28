@@ -151,7 +151,7 @@ export class NavarComponent implements OnInit {
                 this.notificaionServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
-                      this.router.navigateByUrl('print/'+notificationridden.solicitationSubsidyId);
+                      this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
                     } 
                 )
               }
