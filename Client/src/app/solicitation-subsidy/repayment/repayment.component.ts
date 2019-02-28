@@ -464,4 +464,12 @@ export class RepaymentComponent implements OnInit {
       );
       this.model.total = resultExpenditure + resultDestiny;
     }
+
+    toSeeImageBase64InNewTab(data) {
+      var image = new Image();
+      image.src = data;
+
+      var w = window.open("");
+      w.document.write(image.outerHTML);
+    }
 }
