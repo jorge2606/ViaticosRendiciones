@@ -118,7 +118,10 @@ export class NavarComponent implements OnInit {
                   this.retriveNotifications();
                   const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
                   modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-                  modalRef.result.then(() => { this.router.navigate([this.router.url])},
+                  modalRef.result.then(() => { 
+                    console.log(this.router.url);
+                    this.router.navigate([this.router.url])
+                  },
                   () => {
                       console.log('Backdrop click');
                   })

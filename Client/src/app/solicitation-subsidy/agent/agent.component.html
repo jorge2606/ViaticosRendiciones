@@ -11,10 +11,19 @@
       <a  
         placement="bottom" 
         ngbTooltip="Ver las solicitudes de viáticos de agentes a mi cargo" 
-        href="" class="btn btn-success" routerLink="supervisor">
+        href="" class="btn btn-success" routerLink="supervisor/solicicationSubsidies/{{isRefund.isNotRefund}}">
         Moderar Solicitudes
       </a>
     </div>
+
+      <div class="d-inline-block ml-1 mb-1">
+        <a  
+          placement="bottom" 
+          ngbTooltip="Ver las solicitudes de reintegros de agentes a mi cargo" 
+          href="" class="btn btn-success" routerLink="supervisor/refunds/{{isRefund.isRefund}}">
+          Moderar Reintegros
+        </a>
+      </div>
 
     <div class="d-inline-block ml-1 mb-1">
         <a

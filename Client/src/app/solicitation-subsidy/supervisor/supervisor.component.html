@@ -52,11 +52,11 @@
                     href="" 
                     placement="bottom" 
                     ngbTooltip="Ver detalle de la solicitud de viático"
-                    class="pr-3" routerLink="/SolicitationSubsidy/agent/supervisor"
+                    class="pr-3" routerLink="{{router.url}}"
                     (click)="openDetail(sol.id)">
                     <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="info-circle"></fa-icon>
                   </a>
-
+                  
                   <a 
                   *ngIf="isRefund"
                     href="" 

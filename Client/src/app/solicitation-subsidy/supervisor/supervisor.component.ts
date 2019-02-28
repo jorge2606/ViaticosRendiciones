@@ -4,7 +4,7 @@ import { AllSolicitationSubsidyDto, SolicitationSubsidyBaseDto, SolicitationIdDt
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { TransportService } from 'src/app/_services/transport.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbdModalContent } from 'src/app/modals/modals.component';
 import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
 
@@ -18,7 +18,8 @@ export class SupervisorComponent implements OnInit {
     page : 0,
     firstName : "",
     lastName : "",
-    dni : ""
+    dni : "",
+    isRefund : 0
   }
 
    //paginator
@@ -36,6 +37,7 @@ export class SupervisorComponent implements OnInit {
               private transportService : TransportService,
               private modalService: NgbModal,
               private router : Router,
+              private activateRoute : ActivatedRoute,
               private titleService : Title
             ) { 
                 this.titleService.setTitle('Ver Solicitudes De Mis Agentes');
@@ -43,6 +45,9 @@ export class SupervisorComponent implements OnInit {
 
 
   ngOnInit() {
+    this.activateRoute.params
+    .subscribe(x => this.filters.isRefund = x.isRefund);
+    console.log(this.filters.isRefund);
     this.getAll(this.filters);
     this.getAllTransport();
     

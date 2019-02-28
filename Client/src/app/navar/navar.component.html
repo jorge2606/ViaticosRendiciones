@@ -106,16 +106,36 @@
       </li>
 
       <li id="solId">
-        <a     
-          placement="bottom" 
-          (click)="activate('solId')"
-          ngbTooltip="Ver el listado de todas las solicitudes de viático" 
-          routerLink="/SolicitationSubsidy/agent"
-          class="nav-item text-white nav-link" 
-          href="#">
-          <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
-        </a>
-      </li>
+          <div class="d-inline-block" ngbDropdown #myDropDown="ngbDropdown">
+              <a 
+                href="#"
+                routerLink="{{router.url}}"
+                class="nav-item text-white nav-link" 
+                id="dropdownManual" 
+                ngbDropdownAnchor 
+                (focus)="myDropDown.open()">
+                Solicitudes
+              </a>
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                <button
+                  placement="bottom" 
+                  (click)="activate('solId')"
+                  ngbTooltip="Ver el listado de todas las solicitudes de viático" 
+                  routerLink="/SolicitationSubsidy/agent"
+                  class="dropdown-item">
+                  <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
+                </button>
+                <button 
+                  placement="bottom" 
+                  (click)="activate('solId')"
+                  ngbTooltip="Ver el listado de todas las solicitudes de viático" 
+                  routerLink="/SolicitationSubsidy/agent/repayment"
+                  class="dropdown-item">
+                  <fa-icon icon="file-signature"></fa-icon> Reintegro
+                </button>
+            </div>
+          </div>
+        </li>
 
       <li id="holId">
           <a    

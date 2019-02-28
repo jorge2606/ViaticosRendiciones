@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { NotifyRejectComponent } from './../../modals/notify-reject/notify-reject.component';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
 import { SolicitationSubsidyBaseDto, SolicitationSubsidyDetail, SolicitationIdDto } from './../../_models/solicitationSubsidy';
@@ -33,7 +34,8 @@ export class SolicitationSubsidydetailComponent implements OnInit {
     private solicitationSubsidyService : SolicitationSubsidyService,
     public activeModal: NgbActiveModal,
     private modalService: NgbModal,
-    private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService
+    private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService,
+    private authService : AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -52,7 +54,14 @@ export class SolicitationSubsidydetailComponent implements OnInit {
                     this.lastName = this.model.user.lastName;
                     this.dni = this.model.user.dni;
                     this.currentUrl = this.router.url;
+                    if(this.model.isRefund){
+                      this.model.expenditures.forEach(
+                        exp=>{
+                            exp.urlImage = this.authService.urlExpenditureRefundFile(exp.id,186,60);
+                        }
+                      );
                     }
+                  }
               );
             }
         }
@@ -102,6 +111,14 @@ export class SolicitationSubsidydetailComponent implements OnInit {
 
   ngOnDestroy(){
     this.supscription.unsubscribe();
+  }
+
+  toSeeImageBase64InNewTab(data) {
+    var image = new Image();
+    image.src = data;
+
+    var w = window.open("");
+    w.document.write(image.outerHTML);
   }
   
 }

@@ -149,7 +149,11 @@ const routes: Routes = [
     data: {breadcrumb: 'mis solicitudes de viático',isHome: false,show: true},
     children : [
       { path: '', component : AgentComponent, canActivate : [AuthGuard]},
-      { path: 'supervisor', data: {breadcrumb: 'solicitud de viático de agentes a mi cargo',isHome: false,show: true}, component : SupervisorComponent, canActivate : [AuthGuard]},      
+      { path: 'supervisor', 
+        children: [
+          { path : 'refunds/:isRefund', data: {breadcrumb: 'reintegro de agentes a mi cargo',isHome: false,show: true}, component : SupervisorComponent, canActivate : [AuthGuard]},
+          { path : 'solicicationSubsidies/:isRefund', data: {breadcrumb: 'solicitud de viático de agentes a mi cargo',isHome: false,show: true}, component : SupervisorComponent, canActivate : [AuthGuard]},
+        ]},      
       { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'detail/:id',data: {breadcrumb: 'detalle',isHome: false,show: true}, component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
       { path: 'modify/:id',data: {breadcrumb: 'modificar',isHome: false,show: true},component : CreateSolicitationComponent, canActivate : [AuthGuard]},

@@ -34,6 +34,7 @@ export class AgentComponent implements OnInit {
    error = '';
    transports : any;
    sizeIcon = "fa-lg";
+   isRefund = {'isRefund' : true , 'isNotRefund' : false}
 
   constructor(
             private solicitationSubsidyservice : SolicitationSubsidyService,

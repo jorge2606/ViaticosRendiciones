@@ -111,6 +111,7 @@ namespace VR.Dto
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public string Dni { set; get; }
+        public Boolean IsRefund { set; get; }
     }
 
     public class OverlapingDatesDto

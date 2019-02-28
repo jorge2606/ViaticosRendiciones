@@ -81,7 +81,7 @@ export class AddSupervisorComponent implements OnInit {
     this.supervisorUserAgentService.create(this.supervisorAndAgents).subscribe(
       x => {
         this.msj = '';
-        console.log(x);
+        this.toastService.success('El supervisor fue asignado correctamente','',{positionClass:'toast-top-center',timeOut: 2000})
         this.activeModal.close();
       }
     );

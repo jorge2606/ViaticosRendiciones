@@ -468,6 +468,8 @@ export class RepaymentComponent implements OnInit {
     toSeeImageBase64InNewTab(data) {
       var image = new Image();
       image.src = data;
+      image.width=100;
+      image.height=100;
 
       var w = window.open("");
       w.document.write(image.outerHTML);

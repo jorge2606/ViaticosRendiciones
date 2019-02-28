@@ -144,7 +144,7 @@ namespace VR.Web.Controllers
             var pageIndex = filters.Page == 0 ? 1 : filters.Page;
 
             var results = _dataContext.GetAgentsSolicitationBySupervisor(supervisorId, filters.FirstName,
-                filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex);
+                filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex,filters.IsRefund);
 
             return new PagedResult<AllSolicitationSubsidyDto>()
             {

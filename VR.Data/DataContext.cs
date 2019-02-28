@@ -52,7 +52,8 @@ namespace VR.Data
             string dni,
             string sortBy,
             Nullable<int> pageSize,
-            Nullable<int> pageIndex)
+            Nullable<int> pageIndex,
+            Boolean isRefund)
         {
             
             var resultFull = new List<AgentSolicitationBySupervisorResult>();
@@ -66,6 +67,7 @@ namespace VR.Data
                 .WithSqlParam("@SortBy", sortBy)
                 .WithSqlParam("@PageSize", pageSize)
                 .WithSqlParam("@PageIndex", pageIndex)
+                .WithSqlParam("@IsRefund", isRefund)
                 .WithSqlParam("@PageTotal", (dbParam) =>
                 {
                     dbParam.Direction = System.Data.ParameterDirection.Output;
