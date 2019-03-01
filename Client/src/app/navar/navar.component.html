@@ -116,25 +116,31 @@
                 (focus)="myDropDown.open()">
                 Solicitudes
               </a>
-            <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                <button
+            <div ngbDropdownMenu aria-labelledby="dropdownManual" class="dropdown-menu show p-1">
+              <div class="card small mb-1">
+                  <button
+                    style="cursor:pointer;"
+                    placement="bottom" 
+                    (click)="activate('solId')"
+                    ngbTooltip="crear una solicitud de viático" 
+                    routerLink="/SolicitationSubsidy/agent/create"
+                    class="dropdown-item">
+                    <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
+                  </button>
+              </div>
+
+              <div class="card small">
+                  <button 
                   style="cursor:pointer;"
                   placement="bottom" 
                   (click)="activate('solId')"
-                  ngbTooltip="Ver el listado de todas las solicitudes de viático" 
-                  routerLink="/SolicitationSubsidy/agent/create"
-                  class="dropdown-item">
-                  <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
-                </button>
-                <button 
-                  style="cursor:pointer;"
-                  placement="bottom" 
-                  (click)="activate('solId')"
-                  ngbTooltip="Ver el listado de todas las solicitudes de viático" 
+                  ngbTooltip="crear una solicitud de viático" 
                   routerLink="/SolicitationSubsidy/agent/repayment"
                   class="dropdown-item">
                   <fa-icon icon="file-signature"></fa-icon> Reintegro
                 </button>
+              </div>
+
             </div>
           </div>
         </li>
