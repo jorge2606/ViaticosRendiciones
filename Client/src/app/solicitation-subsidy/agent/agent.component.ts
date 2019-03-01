@@ -167,4 +167,25 @@ export class AgentComponent implements OnInit {
         })
     }
 
+    cancelSolicitationSubsidy(solicitation : any){
+      const modal = this.modalService.open(NgbdModalContent, {size : "lg", centered : true});
+      modal.componentInstance.Contenido = '¿Desea finalizar esta solicitud de viático?';
+      modal.componentInstance.Encabezado = 'finalizar viático';
+      modal.componentInstance.GuardaroEliminar = 'Finalizar';
+      modal.componentInstance.MsgClose = 'Cerrar';
+      modal.componentInstance.GuardaroEliminarClass = 'btn-success';
+      modal.componentInstance.MsgCloseClass = 'btn-default';
+      modal.result.then(() => {
+        this.solicitationSubsidyservice.delete(solicitation.id)
+        .subscribe(x =>{
+          this.getAll(this.filters);
+          this.toastrService.success('El viático ha finalizado, debe presentar su rendición de gastos.'
+          ,'',{positionClass: 'toast-top-center', timeOut : 2000});
+        });
+        
+      },
+        () => {
+          console.log('Backdrop click');
+      })
+    }
 }

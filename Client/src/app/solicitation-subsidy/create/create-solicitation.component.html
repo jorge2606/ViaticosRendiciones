@@ -94,8 +94,8 @@
                                 <span *ngIf="destiny.countryId">{{destiny.countryName}} </span> 
                                 <span *ngIf="!destiny.countryId">{{destiny.provinceName}} - {{destiny.cityName}} </span>
                                 <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCities"> 
-                                    <span *ngIf="!destiny.countryId">, {{ c.name }}</span>
-                                </span>
+                                    <span *ngIf="!destiny.countryId"> {{ c.name }} </span>
+                                </span>,
                             </td>
                             <td>
                                 {{destiny.categoryName}}

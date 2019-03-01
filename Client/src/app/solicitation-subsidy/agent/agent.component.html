@@ -218,10 +218,18 @@
                   </a>
 
                   <a *ngIf="sol.isRefund"
-                  placement="bottom" 
-                  ngbTooltip="Imprimir esta solicitud de reintegro" 
-                  href="" routerLink="print/{{sol.id}}" class="pr-3">
-                  <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
+                    placement="bottom" 
+                    ngbTooltip="Imprimir esta solicitud de reintegro" 
+                    href="" routerLink="print/{{sol.id}}" class="pr-3">
+                    <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
+                  </a>
+
+                  <a
+                    placement="bottom" 
+                    ngbTooltip="Cancelar viático" 
+                    (click)="cancelSolicitationSubsidy(sol)"
+                    href="" routerLink="{{routerService.url}}" class="pr-3">
+                  <fa-icon class="{{sizeIcon}}" style="color: red;" icon="ban"></fa-icon>
                 </a>
               </td>
               <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
