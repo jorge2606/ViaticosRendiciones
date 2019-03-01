@@ -182,6 +182,18 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpDelete("FinalizeSubsidy/{id}")]
+        public IActionResult FinalizeSubsidy(Guid id)
+        {
+            var result = _solicitationSubsidyService.FinalizeSubsidy(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpPut("Update")]
         public IActionResult Update([FromBody] UpdateSolicitationSubsidyDto solicitation)
         {

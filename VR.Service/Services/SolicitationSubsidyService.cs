@@ -328,6 +328,68 @@ namespace VR.Service.Services
             return new ServiceResult<DeleteSolicitationSubsidyDto>(_mapper.Map<DeleteSolicitationSubsidyDto>(delete));
         }
 
+        public ServiceResult<DeleteSolicitationSubsidyDto> FinalizeSubsidy(Guid id)
+        {
+            var finalizeSolicitation = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .Include(x => x.Expenditures)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (finalizeSolicitation == null)
+            {
+                return new ServiceResult<DeleteSolicitationSubsidyDto>();
+            }
+
+            var dateThatSolicitationWasFinalize = finalizeSolicitation.FinalizeDate == null ? DateTime.Today : finalizeSolicitation.FinalizeDate;
+            finalizeSolicitation.FinalizeDate = dateThatSolicitationWasFinalize;
+
+            var minDateDestination = finalizeSolicitation.Destinies.OrderBy(x => x.StartDate).FirstOrDefault().StartDate;
+            var amountDaysSubsidy = (minDateDestination - dateThatSolicitationWasFinalize)?.Days;
+            decimal total = 0;
+            var daysCont = 0;
+
+            if (dateThatSolicitationWasFinalize?.CompareTo(minDateDestination) != -1) //si es mayor o igual
+            {
+                foreach (var destinations in finalizeSolicitation.Destinies)
+                {
+                    daysCont = daysCont + destinations.Days;
+
+                    if (amountDaysSubsidy >= daysCont)//este destino cuenta como gasto
+                    {
+                        total = total + (destinations.Days * destinations.AdvanceCategory *
+                                         destinations.PercentageCodeLiquidation);
+                        amountDaysSubsidy = amountDaysSubsidy - destinations.Days;
+                    }
+                    else
+                    {
+                        total = total + (amountDaysSubsidy ?? 0 * destinations.AdvanceCategory *
+                                         destinations.PercentageCodeLiquidation);
+                        amountDaysSubsidy = amountDaysSubsidy - destinations.Days;//le calculo con los dias que sobraron
+
+                    }
+
+                }
+            }
+
+            foreach (var expenditures in finalizeSolicitation.Expenditures)
+            {
+                total = total + expenditures.Amount;
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = finalizeSolicitation,
+                ChangeDate = DateTime.Now,
+                StateId = State.Finished//el agente puso fin a su viatico
+            };
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SolicitationSubsidies.Update(finalizeSolicitation);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<DeleteSolicitationSubsidyDto>(_mapper.Map<DeleteSolicitationSubsidyDto>(finalizeSolicitation));
+        }
+
 
         public async Task<ServiceResult<string>> SendSolicitationAsync(SolicitationIdDto solicitationDto)
         {
@@ -380,7 +442,7 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var headTable = "<table>"+
+            var headTable = "<table>" +
                 "<thead>"+
                 "<tr>"+
                     "<th>Fecha</th>"+
@@ -451,7 +513,7 @@ namespace VR.Service.Services
                            "<head>" +
                                "<meta charset = 'UTF-8'>" +
                                "<title> Title of the document </title>" +
-                           "</head>" +
+                            "</head>" +
                                "<body>" +
                                "<p>" +
                                "Hola " + supervisorsLastName + ", " + supervisorsFirstName + "<br>" +

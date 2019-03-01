@@ -35,6 +35,11 @@ export class SolicitationSubsidyService {
   delete(id : number){
      return this.http.delete<any>(environment.apiUrl+"SolicitationSubsidy/Delete/"+id);
   }
+
+  finalizeSubsidy(id : number){
+    return this.http.delete<any>(environment.apiUrl+"SolicitationSubsidy/FinalizeSubsidy/"+id);
+ }
+
   
   sendSolicitationByEmail(solicitation : SolicitationIdDto){
     return this.http.post(environment.apiUrl+"SolicitationSubsidy/sendSolicitation/",solicitation);

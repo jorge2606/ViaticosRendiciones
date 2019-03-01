@@ -224,14 +224,28 @@
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
 
+                  <a *ngIf="finalizeDate == null"
+                    placement="bottom" 
+                    ngbTooltip="Finalizar viático" 
+                    (click)="finalizeSubsidy(sol)"
+                    href="" routerLink="{{routerService.url}}" class="pr-3">
+                    <fa-icon class="{{sizeIcon}}" style="color: red;" icon="ban"></fa-icon>
+                  </a>
+              </td>
+              <td *ngIf="sol.state == 'Finalizado'" class="col text-right">
                   <a
                     placement="bottom" 
-                    ngbTooltip="Cancelar viático" 
-                    (click)="cancelSolicitationSubsidy(sol)"
-                    href="" routerLink="{{routerService.url}}" class="pr-3">
-                  <fa-icon class="{{sizeIcon}}" style="color: red;" icon="ban"></fa-icon>
-                </a>
+                    ngbTooltip="Rendir cuentas sobre gastos del viático" 
+                    href="" 
+                    routerLink="accountFor/{{sol.id}}" 
+                    class="pr-3">
+                    <fa-icon class="{{sizeIcon}}" icon="file-invoice-dollar"></fa-icon>
+                  </a>
               </td>
+              <td *ngIf="sol.state == 'Rendido'" class="col text-right">
+
+              </td>
+              
               <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
             </tr>
           </tbody>

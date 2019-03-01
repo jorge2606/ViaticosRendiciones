@@ -18,5 +18,6 @@ namespace VR.Data.Model
         public string FullName { set; get; }
         public string Localities { set; get; }
         public Boolean IsRefund { set; get; }
+        public DateTime? FinalizeDate { set; get; }
     }
 }

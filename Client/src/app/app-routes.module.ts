@@ -1,3 +1,4 @@
+import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
 import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
 import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
@@ -160,7 +161,8 @@ const routes: Routes = [
       { path: 'confirm/:id',data: {breadcrumb: 'confirmar',isHome: false,show: true}, component : AceptOrRefuseComponent, canActivate : [AuthGuard]},
       { path: 'print/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintComponent, canActivate : [AuthGuard]},
       { path: 'repayment',data: {breadcrumb: 'reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
-      { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]}  
+      { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
+      { path: 'accountFor/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForComponent, canActivate : [AuthGuard]}  
     ],
   },
 

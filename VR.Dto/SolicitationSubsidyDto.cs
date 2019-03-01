@@ -95,6 +95,7 @@ namespace VR.Dto
         public string Localities { set; get; }
         public Boolean IsDeleted {set; get; }
         public Boolean IsRefund { set; get; }
+        public DateTime? FinalizeDate { set; get; }
     }
 
     public class SolicitationIdDto

@@ -80,6 +80,7 @@ import { I18n, CustomLanguageDatepickerI18n } from '@ng-bootstrap/ng-bootstrap/d
 import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.component';
 import { AddExpenditureRepaymentComponent } from './modals/add-expenditure-repayment/add-expenditure-repayment.component';
+import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
 
 library.add(fas);
 
@@ -141,7 +142,8 @@ library.add(fas);
       AlertComponent,
       CheckSpaceBlankOnInputDirective,
       RepaymentComponent,
-      AddExpenditureRepaymentComponent
+      AddExpenditureRepaymentComponent,
+      AccountForComponent
    ],
    imports: [
       BrowserModule,

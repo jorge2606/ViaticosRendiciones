@@ -12,6 +12,7 @@ namespace VR.Service.Interfaces
         ServiceResult<CreateSolicitationSubsidyDto> Create(CreateSolicitationSubsidyDto subsidy);
         ServiceResult<FindByIdSolicitationSubsidyDto> GetByIdSubsidy(Guid id);
         ServiceResult<DeleteSolicitationSubsidyDto> Delete(Guid id);
+        ServiceResult<DeleteSolicitationSubsidyDto> FinalizeSubsidy(Guid id);
         ServiceResult<UpdateSolicitationSubsidyDto> Update(UpdateSolicitationSubsidyDto subsidy);
         Task<ServiceResult<string>> SendSolicitationAsync(SolicitationIdDto solicitationdDto);
         ServiceResult<SolicitationIdDto> AceptedSolicitation(SolicitationIdDto solicitationDto);
