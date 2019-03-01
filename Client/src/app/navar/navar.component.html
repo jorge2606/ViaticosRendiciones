@@ -125,11 +125,11 @@
                     ngbTooltip="crear una solicitud de viático" 
                     routerLink="/SolicitationSubsidy/agent/create"
                     class="dropdown-item">
-                    <fa-icon icon="file-signature"></fa-icon> Solicitar Viático
+                    <fa-icon icon="file-signature"></fa-icon> Crear solicitud de viático
                   </button>
               </div>
 
-              <div class="card small">
+              <div class="card small mb-1">
                   <button 
                   style="cursor:pointer;"
                   placement="bottom" 
@@ -137,7 +137,31 @@
                   ngbTooltip="crear una solicitud de viático" 
                   routerLink="/SolicitationSubsidy/agent/repayment"
                   class="dropdown-item">
-                  <fa-icon icon="file-signature"></fa-icon> Reintegro
+                  <fa-icon icon="file-signature"></fa-icon> Crear Reintegro
+                </button>
+              </div>
+
+              <div class="card small mb-1">
+                  <button 
+                  style="cursor:pointer;"
+                  placement="bottom" 
+                  (click)="activate('solId')"
+                  ngbTooltip="Listado de reintegros" 
+                  routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.yes}}"
+                  class="dropdown-item">
+                  <fa-icon icon="file-signature"></fa-icon> Listado de reintegros
+                </button>
+              </div>
+
+              <div class="card small">
+                  <button 
+                  style="cursor:pointer;"
+                  placement="bottom" 
+                  (click)="activate('solId')"
+                  ngbTooltip="Listado de mis solicitudes de viático" 
+                  routerLink="/SolicitationSubsidy/agent"
+                  class="dropdown-item">
+                  <fa-icon icon="file-signature"></fa-icon> Listado de mis solicitudes de viático
                 </button>
               </div>
 

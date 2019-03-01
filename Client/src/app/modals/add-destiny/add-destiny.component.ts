@@ -55,7 +55,7 @@ export class AddDestinyComponent implements OnInit {
   total: number = 0;
   carIsUsed: boolean;
   errorWhenCreateDestiny : string = "";
-  minDate  : any =  {year : new Date().getFullYear(),month : new Date().getMonth() + 1,day :new Date().getDay()};
+  minDate  : any =  {year : new Date().getFullYear(),month : new Date().getMonth() + 1,day :new Date().getDate()};
   config = {
     displayKey: "name", //if objects array passed which key to be displayed defaults to description
     search: true,//true/false for the search functionlity defaults to false,

@@ -41,6 +41,7 @@ export class NavarComponent implements OnInit {
   firstName : string;
   lastName : string;
   isloggedUser : boolean;
+  isRefund = {'yes' : true, 'not' : false};
 
 
   retriveNotifications(){
