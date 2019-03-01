@@ -183,6 +183,10 @@ export class UsersComponent implements OnInit {
     modalRef.componentInstance.allUsers = this.allUsers;
     modalRef.result.then(
         data => {
+          this.users_check = [];
+          this.user_list.forEach(x => {
+            x.checked = false;
+          });
           console.log("data", data);
         },
         error => {
