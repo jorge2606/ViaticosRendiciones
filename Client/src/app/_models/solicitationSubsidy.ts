@@ -1,5 +1,3 @@
-import { FileItem } from 'ng2-file-upload';
-import { AllPlaceDto } from './place';
 import { DestinyDto } from './destiny';
 import { User } from '../users/users';
 
@@ -18,8 +16,10 @@ export class Expenditure {
     expenditureTypeId : number; 
     expenditureTypeName : string;   
     urlImage : string;
+    accountedForAmount : number;
     imageDto : ImageDto;
 }
+
 
 export class SolicitationSubsidyBaseDto{
     id : number;

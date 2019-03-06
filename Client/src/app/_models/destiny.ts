@@ -2,6 +2,7 @@ import { SupplementaryCityDto } from './supplementaryCity';
 
 export class DestinyDto{
     id : number;
+    accountedForDays : number;
     placeId : number;
     provinceId : number;
     provinceName : string;
@@ -31,3 +32,5 @@ export class destinies_from_store_procedure{
     daysLetters : string;
     advanceCategory : number;
 }
+
+

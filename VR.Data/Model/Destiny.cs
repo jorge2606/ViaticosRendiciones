@@ -15,6 +15,7 @@ namespace VR.Data.Model
         public Decimal AdvanceCategory { set; get; }
         public Decimal PercentageCodeLiquidation { set; get; }
         public Decimal CostRepayment { set; get; }
+        public int AccountedForDays { set; get; }
 
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }

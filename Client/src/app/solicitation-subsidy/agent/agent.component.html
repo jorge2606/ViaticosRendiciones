@@ -11,7 +11,7 @@
       <a  
         placement="bottom" 
         ngbTooltip="Ver las solicitudes de viáticos de agentes a mi cargo" 
-        href="" class="btn btn-success" routerLink="supervisor/solicicationSubsidies/{{isRefund.isNotRefund}}">
+        href="" class="btn btn-success" routerLink="supervisor/solicitationSubsidies/{{isRefund.isNotRefund}}">
         Moderar Solicitudes
       </a>
     </div>
@@ -234,6 +234,7 @@
               </td>
               <td *ngIf="sol.state == 'Finalizado'" class="col text-right">
                   <a
+                    *ngIf="!sol.isRefund"
                     placement="bottom" 
                     ngbTooltip="Rendir cuentas sobre gastos del viático" 
                     href="" 

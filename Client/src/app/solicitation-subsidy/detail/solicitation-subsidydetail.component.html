@@ -45,7 +45,7 @@
                     <td class="col-2 text-right" style="padding : 1px;">
                       {{exp.amount | currency}}
                     </td>
-                    <td 
+                    <td *ngIf="model.isRefund"
                         placement="bottom" 
                         ngbTooltip="Ver imagen"
                         class="col-2 text-center p-0">

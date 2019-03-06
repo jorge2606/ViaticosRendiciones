@@ -197,6 +197,7 @@ namespace VR.Web.Controllers
 
             if (result.Response == null)
             {
+                result.AddError("0","No tiene image");
                 return BadRequest(result);
             }
 

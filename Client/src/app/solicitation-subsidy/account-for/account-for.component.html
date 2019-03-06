@@ -1,144 +1,231 @@
-<div id="container-pdf" class="container small">
-    <div class="modal-header">
+<a  placement="bottom" ngbTooltip="Volver al listado de solicitudes de viáticos" 
+    class="btn btn-primary mb-1 ml-1" href="" routerLink="/SolicitationSubsidy/agent">
+    <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>
+</a>
 
-      <h4 *ngIf="!model.isRefund" class="modal-title pull-left">Detalle de solicitud de víatico <br></h4>
-      <h4 *ngIf="model.isRefund" class="modal-title pull-left">Detalle de solicitud de reintegro <br></h4>
-      <button (click)="activeModal.dismiss('Close click')" type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-header">
-        <h5 class="modal-title">Apellido, Nombre : {{lastName}}, {{firstName}} <br> C.U.I.L : {{dni}}</h5>
-    </div>
-    <div class="modal-body">
-          <div class="form-row">
-              <label for="">Motivo</label>
-              <textarea 
-                rows="10" 
-                style="height: 100px; resize: none;" 
-                class="h-45 form-control" 
-                value="{{model.motive}}"
-                disabled>
-              
-              </textarea>
-          </div>
-
-          <div class="form-row">
-              <label for="">Gastos</label>
-              <table class="table table-striped">
-                <thead>
-                  <tr class="form-row">
-                    <th class="col-2" style="padding : 0px;">Concepto</th>
-                    <th class="col" style="padding : 0px;">Descripción</th>
-                    <th class="col-2 text-right" style="padding : 0px;">Importe</th>
-                    <th class="col-2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="form-row" *ngFor="let exp of model.expenditures">
-                    <td class="col-2" style="padding : 1px;">
-                      {{exp.expenditureTypeName}}
-                    </td>
-                    <td class="col" style="padding : 1px;">
-                      {{exp.description}}
-                    </td>
-                    <td class="col-2 text-right" style="padding : 1px;">
-                      {{exp.amount | currency}}
-                    </td>
-                    <td 
-                        placement="bottom" 
-                        ngbTooltip="Ver imagen"
-                        class="col-2 text-center p-0">
-                        <a  
-                            style="width: inherit;cursor: pointer;"
-                            (click)="toSeeImageBase64InNewTab(exp.urlImage)" 
-                            rel="noopener noreferrer">
-                            <!--<img style="width: inherit; height: 40px; cursor: pointer;" 
-                                [src]="exp.urlImage">-->
-                            <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="image"></fa-icon>
+<div class="card mt-1">
+    <h5 *ngIf="!id" class="card-header">Nuevo Reintegro</h5>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #solicitationSubsidy="ngForm">
+                <div class="navar navbar-collapse"> 
+                    <label for="">Total</label>
+                    <ul class="navbar-nav ml-auto">
+                        <li>
+                            <div class="form-inline my-2 my-lg-0">
+                                <input 
+                                    type="text" 
+                                    class="form-control text-right" 
+                                    name="total"
+                                    disabled 
+                                    #total="ngModel" 
+                                    [ngModel]="model.total | currency" 
+                                    (ngModelChange)="model.total=$event">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+        
+                <div class="form-row">
+                        <div class="form-group pt-1 col">
+                                <label for="">Motivo</label>
+                                <textarea required class="form-control textareaResize" #motive="ngModel"
+                                [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
+                                name="motive" [(ngModel)]="model.motive">
+                                </textarea>
+        
+                                <div *ngIf="motive.invalid && (motive.dirty || motive.touched)" class="alert alert-danger mt-1">
+                                    <div *ngIf="motive.errors.required">
+                                        Campo requerido.
+                                    </div>
+                                </div>
+                        </div>
+                </div>
+        
+                <div class="form-row mt-1 mb-1">
+                    <!--<button placement="bottom" ngbTooltip="Agregar un nuevo destino" 
+                        type="button" class="btn btn-success small" (click)="AddDestiny()">
+                            <fa-icon class="fa-lg" icon="plus"></fa-icon> Destino
+                    </button> 
+                    <a (click)="deleteAllDestinies()" 
+                        *ngIf="model.destinies.length > 0 && !id"
+                        class="btn btn-danger ml-1 text-white small"
+                        placement="bottom" ngbTooltip="Eliminar todos los destinos">
+                        <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
+                    </a>-->
+        
+                    <button
+                    class="btn btn-default ml-auto mb-1 small"
+                    type="button" 
+                    [hidden]="!model.destinies"
+                    (click)="onChangeColapse()"
+                    *ngIf="model.destinies.length > 0"
+                    [attr.aria-expanded]="!isCollapsedDestiny" 
+                    aria-controls="collapseDestiny"
+                    placement="bottom" ngbTooltip="Ocultar todos los destinos" 
+                    >
+                        <fa-icon class="fa-lg" icon="{{verOcultarIconDestiny}}"></fa-icon>
+                        {{verOcultarTextDestiny}} ({{model.destinies.length}})
+                </button>
+                </div>
+        
+                <!--Destino-->
+                <table *ngIf="model.destinies.length > 0" class="table table-sm">
+                    <thead>
+                        <tr class="form-row">
+                            <th class="col-4">Destino</th>
+                            <th class="col-1" style="width:8%; text-align: right;">Dias</th>
+                            <th class="col-1 text-right">Importe</th>
+                        </tr>  
+                    </thead>
+                    <tbody id="collapseDestiny" [ngbCollapse]="isCollapsedDestiny" *ngFor="let destiny of model.destinies">
+                        <tr class="form-row">        
+                            <td class="col-4">
+                                <span *ngIf="destiny.countryId">{{destiny.countryName}} </span> 
+                                <span *ngIf="!destiny.countryId">{{destiny.provinceName}} - {{destiny.cityName}} </span>
+                                <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCities"> 
+                                    <span *ngIf="!destiny.countryId">, {{ c.name }}</span>
+                                </span>
+                            </td>
+                            <td class="col-1">
+                                <input 
+                                  [(ngModel)]="destiny.days"
+                                  type="number"
+                                  min="1" 
+                                  pattern="^[0-9]+"
+                                  name="days{{destiny.id}}"
+                                  class="input-destiny"
+                                  required>
+                            </td>
+                            <td class="col-1 text-right">
+                                {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
+                            </td>  
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-row mt-1 mb-1">
+                        <a  placement="bottom" ngbTooltip="Agregar un nuevo concepto gasto"
+                            (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white small">
+                            <fa-icon class="fa-lg" icon="plus"></fa-icon> Concepto de Gasto
                         </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
+            
+                        <a  placement="bottom" ngbTooltip="Eliminar todos los conceptos de gasto" 
+                            (click)="deleteAllConcepts()" 
+                            *ngIf="model.expenditures.length > 0"
+                            class="btn btn-danger ml-1 mb-1 text-white small">
+                            <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
+                        </a>
+                        <!--Concepto de Gasto-->
+                        <button 
+                            placement="bottom" 
+                            ngbTooltip="Ocultar todos los gastos" 
+                            type="button" 
+                            class="btn btn-default ml-auto mb-1 small" 
+                            [hidden]="!model.expenditures"
+                            (click)="changeCollapseExpenditure()"
+                            *ngIf="model.expenditures.length > 0"
+                            [attr.aria-expanded]="!isCollapsedExpenditure"
+                            aria-controls="collapseExpenditure">
+                            <fa-icon class="fa-lg" icon="{{verOcultarIconExpenditure}}"></fa-icon>
+                                {{verOcultarTextExpenditure}}
+                                ({{model.expenditures.length}})
+                        </button>
+                </div>
 
-          <div class="form-row">
-              <label for="">Destinos</label>
-              <table class="table table-striped" style="padding :0;">
-                <thead>
-                  <tr class="text-center" >
-                      <th scope="col" style="padding : 0px;">Fecha</th>
-                      <th scope="col" style="padding : 0px;">Destino</th>
-                      <th scope="col" style="padding : 0px;">Categoría</th>
-                      <th scope="col" style="padding : 0px;">Transporte</th>
-                      <th scope="col" style="padding : 0px;">Dias</th>
-                      <th scope="col" style="padding : 0px;">Precio/Dia</th>                      
-                      <th scope="col" style="padding : 0px;">Cod. Liq.</th>
-                      <th scope="col" style="padding : 0px;">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let des of model.destinies">
-                    <td style="padding : 1px;">
-                        {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
-                    </td>
-                    <td style="padding : 1px;">
-                        <span *ngIf="des.countryId">{{des.countryName}} </span> 
-                        <span *ngIf="!des.countryId">{{des.provinceName}} - {{des.cityName}} </span>
-                        <span class="mr-1 cardInsideTd" *ngFor="let c of des.supplementaryCities"> 
-                            <span *ngIf="!des.countryId">, {{ c.name }}</span>
-                        </span>
-                    </td>
-                    <td style="padding : 1px;">
-                        {{des.categoryName}}
-                    </td>
-                    <td style="padding : 1px;">
-                        {{des.transportModel}} - {{des.transportBrand}}
-                    </td>
-                    <td class="text-center" style="padding : 1px;">
-                        {{des.days}}
-                    </td>
-                    <td class="text-right" style="padding : 1px;">
-                        {{des.advanceCategory | currency}}
-                    </td>
-                    <td class="text-center" style="padding : 1px;">
-                        {{des.percentageCodeLiquidation}}
-                    </td>
-                    <td class="text-right" style="padding : 1px;">
-                        {{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}
-                    </td> 
-                  </tr>
-                </tbody>
-              </table>
-          </div>  
-          
-    </div>
-
-    <div class="modal-body">
-        <div class="form-row">
-            <div class="col-5 form-inline ml-auto">
-                <label for="" class="col-2">Total</label>
-                <input type="text" disabled value="{{model.total | currency}}" 
-                class="col form-control text-right small">
+                <table *ngIf="model.expenditures.length > 0" class="table table-sm">
+                        <thead>
+                            <tr class="form-row">
+                                <th class="col-2">Concepto</th>
+                                <th class="col-8"> Descripción</th>
+                                <th class="col-1 text-right">Importe</th>
+                                <th class="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="collapseExpenditure" [ngbCollapse]="isCollapsedExpenditure" 
+                                *ngFor="let modelExp of model.expenditures" class="collapse show">
+                            <tr class="form-row">
+                                <td class="col-2">
+                                    {{modelExp.expenditureTypeName}}
+                                </td>    <!-- filas para agregar-->
+                                <td class="col-8">
+                                    <div style="white-space : normal;">
+                                        {{modelExp.description}}
+                                    </div>
+                                </td>
+                                <td class="col-1">
+                                    <input 
+                                      class="input-destiny" 
+                                      name="amount{{modelExp.id}}"
+                                      [ngModel]="modelExp.amount | currency"
+                                      (ngModelChange)="modelExp.amount=$event"
+                                      required>
+                                </td>
+                                <td class="col text-center">
+                                    <a  *ngIf="modelExp.urlImage"
+                                        style="width: inherit;"
+                                        placement="bottom" 
+                                        ngbTooltip="Ver imagen"
+                                        style="cursor:pointer"
+                                        (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
+                                        rel="noopener noreferrer">
+                                        <fa-icon class="fa-lg" icon="image"></fa-icon>
+                                        <!--<img  
+                                            style="width: inherit; height: 40px;" 
+                                            [src]="modelExp.urlImage">-->
+                                    </a>
+                                    <a  *ngIf="!modelExp.urlImage"
+                                      style="width: inherit;"
+                                      placement="bottom" 
+                                      ngbTooltip="Subir imagen"
+                                      style="cursor:pointer"
+                                      (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
+                                      rel="noopener noreferrer">
+                                      <fa-icon class="fa-lg" icon="upload"></fa-icon>
+                                          <!--<img  
+                                              style="width: inherit; height: 40px;" 
+                                              [src]="modelExp.urlImage">-->
+                                    </a>
+                                    <a  
+                                        placement="bottom" 
+                                        ngbTooltip="Eliminar este concepto de gasto" 
+                                        style="cursor:pointer" 
+                                        class="ml-4"
+                                        (click)="removeExpenditure(modelExp)">
+                                        <fa-icon style="color: red;" class="fa-lg" icon="trash">
+                                        </fa-icon>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                </table> 
+                
+                <div class="form-row float-right">
+                    <button 
+                        placement="top" ngbTooltip="Enviar este formulario" 
+                        [disabled]="!solicitationSubsidy.valid" class="btn btn-success small">
+                        <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
+                    </button>
+                </div>
+        
+        
+            </form>
+            <div class="alert alert-danger ml-4 mr-4" *ngIf="msj">
+                <ul>
+                    <li>{{msj}}</li>
+                </ul>
             </div>
-          </div>
+            <div class="alert alert-danger ml-4 mr-4" *ngIf="msjExito">
+                <ul>
+                    <li>
+                        {{msjExito}}
+                    </li>
+                </ul>
+            </div>
+        
+            <div *ngIf="solicitationSubsidy.form.invalid && (solicitationSubsidy.dirty || solicitationSubsidy.touched)" 
+                class="alert alert-danger mt-5">
+                <div>
+                        Hay Campos erroneos en el formulario, verifiquelos
+                </div>
+            </div>    
     </div>
 </div>
-  <div class="modal-footer mt-6">
-    <div class="mr-auto">
-        <a routerLink="{{currentUrl}}" (click)="acepted()" class="btn btn-success small">
-            Aceptar
-        </a>
-    </div>
-    <div class="ml-auto">
-        <a routerLink="{{currentUrl}}" (click)="AddMotive('reject','Motivo de Rechazo')" 
-            class="btn btn-danger small">
-            Rechazar
-        </a>
-    </div>
-    
-    <!--<div col="col ml-auto">
-        <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
-    </div>-->
-  </div> 
