@@ -28,6 +28,7 @@ import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { AddExpenditureRepaymentComponent } from 'src/app/modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-account-for',
@@ -48,6 +49,8 @@ export class AccountForComponent implements OnInit {
   Allexpenditures : AllExpenditureDto[];
   destinies : DestinyDto[] = [];
   model = new CreateSolicitationSubsidyDto;
+  DestinyStatic : DestinyDto[] = [];
+  expenditureStatics : Expenditure[] = [];
   radioButtonRequired : boolean = true;
   provinces : ProvinceBaseDto[];
   cities : CityBaseDto[];
@@ -84,7 +87,8 @@ export class AccountForComponent implements OnInit {
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
       private toastrService: ToastrService,
-      private authService : AuthenticationService
+      private authService : AuthenticationService,
+      private currencyPipeService : CurrencyPipe
       ) { }
 
   ngOnInit() {
@@ -101,6 +105,31 @@ export class AccountForComponent implements OnInit {
       .getByIdSolicitation(this.id)
       .subscribe(x => {
         this.model = x;
+        this.model.destinies.forEach(dest => {
+            var newDestination = new DestinyDto();
+            newDestination.days = dest.days;
+            newDestination.provinceName = dest.provinceName;
+            newDestination.countryName = dest.countryName;
+            newDestination.cityName = dest.cityName;
+            newDestination.supplementaryCities = dest.supplementaryCities;
+            newDestination.advanceCategory = dest.advanceCategory;
+            newDestination.countryId = dest.countryId;
+            newDestination.percentageCodeLiquidation = dest.percentageCodeLiquidation;
+            this.DestinyStatic.push(newDestination);
+        });
+        this.model.expenditures.forEach(
+          exp => {
+            var newExpenditure = new Expenditure();
+            newExpenditure.id = exp.id;
+            newExpenditure.expenditureTypeName = exp.expenditureTypeName;
+            newExpenditure.amount = exp.amount;
+            newExpenditure.description = exp.description;
+            newExpenditure.amount = exp.amount;
+            newExpenditure.urlImage = exp.urlImage;
+            this.expenditureStatics.push(newExpenditure);
+          }
+        );
+        
       });
     }
 
@@ -112,7 +141,7 @@ export class AccountForComponent implements OnInit {
     this.allCountries();
     this.allCodeLiquidation();
     this.allProvice();
-    this.totalResultExpenditure();
+    this.totalResult();
   }
 
 
@@ -214,7 +243,7 @@ export class AccountForComponent implements OnInit {
         this.deleteFromDatabaseExpenditure(expenditure.id);
       }
       
-      this.totalResultExpenditure();
+      this.totalResult();
       
    }
 
@@ -241,7 +270,7 @@ export class AccountForComponent implements OnInit {
 
         }
   
-        this.totalResultExpenditure();
+        this.totalResult();
 
    }
 
@@ -277,7 +306,7 @@ export class AccountForComponent implements OnInit {
           }
       }
 
-      this.totalResultExpenditure();
+      this.totalResult();
    }
 
    deleteAllDestinies(){
@@ -297,7 +326,7 @@ export class AccountForComponent implements OnInit {
             this.model.destinies.splice(indexDeleteAll, 1);
           }
      }
-     this.totalResultExpenditure();
+     this.totalResult();
   }
 
      //MODALS
@@ -312,7 +341,7 @@ export class AccountForComponent implements OnInit {
 
     modalRef.componentInstance.expendituresAdded = listExpenditures;
     modalRef.result.then(()=> {
-      this.totalResultExpenditure();
+      this.totalResult();
     },
     j => {
         console.log(j);      
@@ -334,7 +363,7 @@ export class AccountForComponent implements OnInit {
     modalRef.componentInstance.destiniesAdded = listDestinies;
     
     modalRef.result.then(
-      () =>this.totalResultExpenditure()
+      () =>this.totalResult()
     ,
     j => {
           console.log(j);
@@ -410,6 +439,33 @@ export class AccountForComponent implements OnInit {
     */  
   }
 
+  validateAmount(expenditure : Expenditure, e : any){
+    let value : any = e;
+    
+    if (e === ""){
+      value="0";
+      expenditure.amount = (value * 1);
+    }else{
+      value = value.replace(/[$,]/g,"");
+      var dot = value.indexOf(".");
+      value = value.substring(0,dot);
+      expenditure.amount = (value * 1);
+    }
+    
+    this.totalResult();
+  }
+
+  validateTotal(model : any, e : any){
+    let value : any = e;
+    if (e === ""){
+      value="0";
+      model.total = value;
+    }
+    value = value.replace(/[$,.]/g,"");
+    model.total = value;
+    this.totalResult();
+  }
+
 
   onChangeColapse(){
     this.isCollapsedDestiny = !this.isCollapsedDestiny;
@@ -433,11 +489,14 @@ export class AccountForComponent implements OnInit {
     this.verOcultarTextExpenditure = "Ocultar";    
   }
 
-    totalResultExpenditure(){
-      let resultExpenditure = 0;
-      let resultDestiny = 0;
+    totalResult(){
+      let resultExpenditure : number = 0;
+      let resultDestiny : number = 0;
       this.model.expenditures.forEach(
-        expenditure => resultExpenditure = resultExpenditure +  expenditure.amount
+        expenditure => 
+        {
+          resultExpenditure = resultExpenditure + (expenditure.amount * 1);
+        }
       );
 
       this.model.destinies.forEach(
@@ -447,6 +506,8 @@ export class AccountForComponent implements OnInit {
       );
       this.model.total = resultExpenditure + resultDestiny;
     }
+
+    
 
     toSeeImageBase64InNewTab(data) {
       var image = new Image();
