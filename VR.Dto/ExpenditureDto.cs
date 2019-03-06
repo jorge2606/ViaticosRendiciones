@@ -18,6 +18,7 @@ namespace VR.Dto
 
         public ImageDto ImageDto { set; get; }
         public string UrlImage { set; get; }
+        public Decimal AccountedForAmount { set; get; }
     }
 
     public class ExpenditureMapperDto

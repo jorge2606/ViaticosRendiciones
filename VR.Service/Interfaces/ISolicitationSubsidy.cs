@@ -10,6 +10,7 @@ namespace VR.Service.Interfaces
     public interface ISolicitationSubsidyService
     {
         ServiceResult<CreateSolicitationSubsidyDto> Create(CreateSolicitationSubsidyDto subsidy);
+        ServiceResult<CreateSolicitationSubsidyDto> CreateAccountFor(CreateSolicitationSubsidyDto subsidy);
         ServiceResult<FindByIdSolicitationSubsidyDto> GetByIdSubsidy(Guid id);
         ServiceResult<DeleteSolicitationSubsidyDto> Delete(Guid id);
         ServiceResult<DeleteSolicitationSubsidyDto> FinalizeSubsidy(Guid id);

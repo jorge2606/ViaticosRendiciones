@@ -42,6 +42,7 @@ namespace VR.Dto
     public class CreateSolicitationSubsidyDto : SolicitationSubsidyBaseDto
     {
         public Boolean IsRefund { set; get; }
+        public DateDto FinalizeDate { set; get; }
     }
 
     public class UpdateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }

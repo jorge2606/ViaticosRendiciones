@@ -220,25 +220,36 @@
                                                     style="width: inherit; height: 40px;" 
                                                     [src]="modelExp.urlImage">-->
                                             </a>
-                                            <a  *ngIf="!modelExp.urlImage"
-                                                style="width: inherit;"
-                                                placement="bottom" 
-                                                ngbTooltip="Subir imagen"
-                                                style="cursor:pointer"
-                                                (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
-                                                rel="noopener noreferrer">
-                                                <fa-icon class="fa-lg" icon="upload"></fa-icon>
-                                                    <!--<img  
-                                                        style="width: inherit; height: 40px;" 
-                                                        [src]="modelExp.urlImage">-->
-                                            </a>
+                                            <input 
+                                                *ngIf="!modelExp.urlImage"
+                                                class="inputfile" 
+                                                type="file"
+                                                name="file" 
+                                                id="file" 
+                                                (change)="onSelectFile(modelExp,$event)" 
+                                                ng2FileSelect
+                                                [uploader]="uploader"
+                                                style="display:none" 
+                                                value="Cambiar"
+                                                required />
+                                                <label for="file"
+                                                    id="file" 
+                                                    style="left: 27px;">
+                                                    <fa-icon 
+                                                        style="cursor:pointer" 
+                                                        icon="upload" 
+                                                        class="fa-lg">
+
+                                                    </fa-icon>
+                                                </label>
                                             <a  
                                                 placement="bottom" 
                                                 ngbTooltip="Eliminar este concepto de gasto" 
-                                                style="cursor:pointer" 
                                                 class="ml-4"
                                                 (click)="removeExpenditure(modelExp)">
-                                                <fa-icon style="color: red;" class="fa-lg" icon="trash">
+                                                <fa-icon 
+                                                    style="color: red;cursor:pointer" 
+                                                    class="fa-lg" icon="trash">
                                                 </fa-icon>
                                             </a>
                                         </td>

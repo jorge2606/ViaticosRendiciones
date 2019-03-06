@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Expenditure, CreateSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
+import { Expenditure, CreateSolicitationSubsidyDto, ImageDto } from 'src/app/_models/solicitationSubsidy';
 import { ActivatedRoute } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +29,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AddExpenditureRepaymentComponent } from 'src/app/modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
 import { CurrencyPipe } from '@angular/common';
+import { DateDto } from 'src/app/_models/holiday';
 
 @Component({
   selector: 'app-account-for',
@@ -71,6 +72,8 @@ export class AccountForComponent implements OnInit {
   url = '';
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl; 
+  image : ImageDto;
+  submit : boolean;
 
   constructor(
       private activateRouter : ActivatedRoute,
@@ -142,8 +145,8 @@ export class AccountForComponent implements OnInit {
     this.allCodeLiquidation();
     this.allProvice();
     this.totalResult();
+    this.initializeUploader();
   }
-
 
 
   allTransport(){
@@ -276,8 +279,8 @@ export class AccountForComponent implements OnInit {
 
    initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl+'SolicitationSubsidy/Create/',
-      authToken: 'Bearer ' + this.authService.userId('token'),
+      //url: this.baseUrl+'SolicitationSubsidy/Create/',
+      //authToken: 'Bearer ' + this.authService.userId('token'),
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -426,19 +429,62 @@ export class AccountForComponent implements OnInit {
       this.msjToastInfo('Debe ingresar al menos un destino');
       return;
     }
-    
-    console.log(this.model);
 
-     /* this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
+    var today = new Date();
+    var todayDto = new DateDto();
+    todayDto.day = today.getDate();
+    todayDto.month = (today.getMonth() + 1);
+    todayDto.year = today.getFullYear();
+    this.model.finalizeDate = todayDto;
+
+    this.model.destinies.forEach(c => 
+      {
+        c.accountedForDays = c.days;
+      });
+    this.model.expenditures.forEach(
+      j => {
+        if(!j.urlImage){
+          this.toastrService.info('No se ha seleccionado ninguna imagen del concepto "'+ j.expenditureTypeName+'".');
+          this.submit = false;
+        }
+        j.accountedForAmount = j.amount;
+      }
+    );
+    console.log(this.model);
+      if(!this.submit){
+        return;
+      }
+     this.solicitationSubsidyService.createAccountFor(this.model).subscribe(
         () => {
-            this.router.navigate(['SolicitationSubsidy/agent']);
-            this.msjExito = 'Solicitud Actualizada';
-            this.msjToastSuccess('El reintegro de viático se ha guardado correctamente');
+            //this.router.navigate(['SolicitationSubsidy/agent']);
+            this.msjToastSuccess('El rendición de viático se ha guardado correctamente');
         }
       ); 
-    */  
   }
 
+  onSelectFile(newExp : any , event) {
+    if (event.target.files && event.target.files[0]) {
+      this.image = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event : any) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+        newExp.urlImage = this.url;
+      }
+
+      let img = new ImageDto()
+      img.name = this.image.name;
+      img.type = this.image.type;
+      img.size = this.image.size;
+      img.webkitRelativePath = this.image.webkitRelativePath;
+      img.lastModified = this.image.lastModified;
+      img.lastModifiedDate = this.image.lastModifiedDate;
+  
+      newExp.imageDto = img;
+    }
+  }
   validateAmount(expenditure : Expenditure, e : any){
     let value : any = e;
     
@@ -448,7 +494,10 @@ export class AccountForComponent implements OnInit {
     }else{
       value = value.replace(/[$,]/g,"");
       var dot = value.indexOf(".");
-      value = value.substring(0,dot);
+      if (dot != -1){//si el usuario ingresar un número sobreescribiendo todos los dígitos
+        value = value.substring(0,dot);
+      }
+
       expenditure.amount = (value * 1);
     }
     
@@ -512,16 +561,16 @@ export class AccountForComponent implements OnInit {
     toSeeImageBase64InNewTab(data) {
       var image = new Image();
       image.src = data;
-      image.width=100;
-      image.height=100;
+      image.width=186;
+      image.height=60;
 
-      this.solicitationSubsidyService.getImageRefundExpenditure(this.id,186,60)
+      /*this.solicitationSubsidyService.getImageRefundExpenditure(this.id,186,60)
       .subscribe(x => {
         image.src = "data:image/jpg;base64,"+x.response;
       },
       e => {
         console.log('error consolelog : '+e);
-      });
+      });*/
       var w = window.open("");
       w.document.write(image.outerHTML);
     }

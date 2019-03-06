@@ -75,8 +75,8 @@ namespace VR.Service.Services
                 Total = subsidy.Total,
                 CreateDate = DateTime.Today,
                 IsRefund = subsidy.IsRefund
-                
             };
+
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
 
             foreach (var destiny in subsidy.Destinies)
@@ -157,6 +157,95 @@ namespace VR.Service.Services
                 SolicitationSubsidy = solicitationSubsidy,
                 ChangeDate = DateTime.Today,
                 StateId = State.Pending,
+            };
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<CreateSolicitationSubsidyDto>(_mapper.Map<CreateSolicitationSubsidyDto>(subsidy));
+        }
+
+        public ServiceResult<CreateSolicitationSubsidyDto> CreateAccountFor(CreateSolicitationSubsidyDto subsidy)
+        {
+            var validate = _fluentValidator.Validate(subsidy);
+            if (!validate.IsValid)
+            {
+                return _mapper.Map<ServiceResult<CreateSolicitationSubsidyDto>>(validate.ToServiceResult<CreateSolicitationSubsidyDto>(null));
+            }
+
+            var solicitationSubsidy = _dataContext.SolicitationSubsidies.FirstOrDefault(v => v.Id == subsidy.Id);
+
+            solicitationSubsidy.UserId = subsidy.UserId;
+            solicitationSubsidy.Motive = subsidy.Motive;
+            solicitationSubsidy.Total = subsidy.Total;
+            solicitationSubsidy.FinalizeDate = new DateTime(subsidy.FinalizeDate.Year, subsidy.FinalizeDate.Month, subsidy.FinalizeDate.Day);
+
+            _dataContext.SolicitationSubsidies.Update(solicitationSubsidy);
+
+            foreach (var destiny in subsidy.Destinies)
+            {
+                var newDestiny = _dataContext.Destinies.FirstOrDefault(x => x.Id == destiny.Id);// en una rendicion no puede insertar ni remover una localidad
+                newDestiny.AccountedForDays = destiny.AccountedForDays;
+
+                _dataContext.Destinies.Update(newDestiny);
+
+            }
+
+            foreach (var expenditure in subsidy.Expenditures)
+            {
+                Expenditure newExpenditure = new Expenditure();
+                var findExp = _dataContext.Expenditures.FirstOrDefault(q => q.Id == expenditure.Id);
+
+                if (findExp == null)
+                {
+                    newExpenditure.Id = new Guid();
+                    newExpenditure.Description = expenditure.Description;
+                    newExpenditure.SolicitationSubsidy = solicitationSubsidy;
+                    newExpenditure.Amount = expenditure.Amount;
+                    newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
+                    newExpenditure.AccountedForAmount = expenditure.AccountedForAmount;
+                    _dataContext.Expenditures.Add(newExpenditure);
+                }
+                else
+                {
+
+                     findExp.AccountedForAmount = expenditure.AccountedForAmount;
+                    _dataContext.Expenditures.Update(findExp);
+                }
+
+                string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                byte[] data = Convert.FromBase64String(base64);
+
+                var imageExist = _dataContext.Files.FirstOrDefault(p =>
+                    p.ExpenditureId == (findExp == null ? newExpenditure.Id : expenditure.Id));
+
+                if (imageExist == null)
+                {
+                    File newFile = new File()
+                    {
+                        Id = new Guid(),
+                        MimeType = expenditure.ImageDto.Type,
+                        ExpenditureId = findExp == null ? newExpenditure.Id : expenditure.Id,
+                        Image = data,
+                        Size = expenditure.ImageDto.Size,
+                        Name = expenditure.ImageDto.Name,
+                        UserId = subsidy.UserId,
+                        LastModifiedDate = new DateTime()
+
+                    };
+
+                    _dataContext.Files.Add(newFile);
+                }
+
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitationSubsidy,
+                ChangeDate = DateTime.Today,
+                StateId = State.Accounted,
             };
 
             _dataContext.SolicitationStates.Add(solicitationState);

@@ -19,6 +19,7 @@ namespace VR.Dto
         public Guid SolicitationSubsidyId { set; get; }
         public Decimal AdvanceCategory { set; get; }
         public Decimal PercentageCodeLiquidation { set; get; }
+        public int AccountedForDays { set; get; }
 
         public Category Category { set; get; }
         public CodeLiquidation CodeLiquidation { set; get; }

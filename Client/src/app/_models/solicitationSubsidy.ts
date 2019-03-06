@@ -1,5 +1,6 @@
 import { DestinyDto } from './destiny';
 import { User } from '../users/users';
+import { DateDto } from './holiday';
 
 export class ImageDto{
     lastModified: string;
@@ -46,6 +47,7 @@ export class CreateSolicitationSubsidyDto{
     total : number;
     createDate : any;
     isRefund : boolean;
+    finalizeDate : DateDto;
 }
 
 export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{

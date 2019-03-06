@@ -24,6 +24,9 @@ export class SolicitationSubsidyService {
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/Create/",createSolicitationSubsidy);
   }
 
+  createAccountFor(createSolicitationSubsidy : CreateSolicitationSubsidyDto){
+    return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/CreateAccountFor/",createSolicitationSubsidy);
+  }
   updateSolicitation(solicitation : SolicitationSubsidyBaseDto){
       return this.http.put<any>(environment.apiUrl+"SolicitationSubsidy/Update", solicitation);
   }

@@ -61,6 +61,19 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpPost("CreateAccountFor")]
+        [Authorize]
+        public IActionResult CreateAccountFor([FromBody] CreateSolicitationSubsidyDto accountForSolicitation)
+        {
+            var result = _solicitationSubsidyService.CreateAccountFor(accountForSolicitation);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpGet("getBySolicitationId/{id}")]
         public IActionResult GetBySolicitationId(Guid id)
         {
