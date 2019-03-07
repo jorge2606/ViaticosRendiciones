@@ -202,7 +202,7 @@
                                         <td class="col-2">
                                             <input 
                                                 class="input-destiny" 
-                                                name="amount{{modelExp.id}}"
+                                                name="amount{{modelExp.expenditureTypeName}}"
                                                 [ngModel]="modelExp.amount | currency "
                                                 (ngModelChange)="validateAmount(modelExp, $event)"
                                                 required>
@@ -224,16 +224,18 @@
                                                 *ngIf="!modelExp.urlImage"
                                                 class="inputfile" 
                                                 type="file"
-                                                name="file" 
-                                                id="file" 
+                                                name="file{{modelExp.expenditureTypeName}}" 
+                                                id="file{{modelExp.expenditureTypeName}}" 
                                                 (change)="onSelectFile(modelExp,$event)" 
                                                 ng2FileSelect
                                                 [uploader]="uploader"
                                                 style="display:none" 
                                                 value="Cambiar"
                                                 required />
-                                                <label for="file"
-                                                    id="file" 
+                                                <label 
+                                                    *ngIf="!modelExp.urlImage"
+                                                    for="file{{modelExp.expenditureTypeName}}"
+                                                    id="file{{modelExp.expenditureTypeName}}" 
                                                     style="left: 27px;">
                                                     <fa-icon 
                                                         style="cursor:pointer" 

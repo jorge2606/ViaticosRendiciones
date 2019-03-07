@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Expenditure, CreateSolicitationSubsidyDto, ImageDto } from 'src/app/_models/solicitationSubsidy';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -73,7 +73,7 @@ export class AccountForComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl; 
   image : ImageDto;
-  submit : boolean;
+  submit : boolean = true;
 
   constructor(
       private activateRouter : ActivatedRoute,
@@ -90,9 +90,7 @@ export class AccountForComponent implements OnInit {
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
       private toastrService: ToastrService,
-      private authService : AuthenticationService,
-      private currencyPipeService : CurrencyPipe
-      ) { }
+      private router : Router ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Reintegro');
@@ -279,8 +277,6 @@ export class AccountForComponent implements OnInit {
 
    initializeUploader() {
     this.uploader = new FileUploader({
-      //url: this.baseUrl+'SolicitationSubsidy/Create/',
-      //authToken: 'Bearer ' + this.authService.userId('token'),
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -425,6 +421,8 @@ export class AccountForComponent implements OnInit {
 
 
   onSubmit(){
+    this.submit = true;
+
     if (this.model.destinies.length == 0){
       this.msjToastInfo('Debe ingresar al menos un destino');
       return;
@@ -438,9 +436,10 @@ export class AccountForComponent implements OnInit {
     this.model.finalizeDate = todayDto;
 
     this.model.destinies.forEach(c => 
-      {
-        c.accountedForDays = c.days;
-      });
+    {
+      c.accountedForDays = c.days;
+    });
+
     this.model.expenditures.forEach(
       j => {
         if(!j.urlImage){
@@ -450,13 +449,15 @@ export class AccountForComponent implements OnInit {
         j.accountedForAmount = j.amount;
       }
     );
-    console.log(this.model);
-      if(!this.submit){
-        return;
-      }
-     this.solicitationSubsidyService.createAccountFor(this.model).subscribe(
+
+    if(!this.submit){
+      return;
+    }
+
+     this.solicitationSubsidyService.createAccountFor(this.model)
+     .subscribe(
         () => {
-            //this.router.navigate(['SolicitationSubsidy/agent']);
+            this.router.navigate(['SolicitationSubsidy/agent']);
             this.msjToastSuccess('El rendición de viático se ha guardado correctamente');
         }
       ); 
