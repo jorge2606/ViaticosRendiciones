@@ -115,9 +115,14 @@
                                 {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
                             </td>  
                             <td class="text-right">
-                                <a  placement="bottom" ngbTooltip="Eliminar este destino" 
-                                    class="btn btn-danger text-white small" (click)="removeDestiny(destiny)">
-                                    <fa-icon class="fa-lg" icon="trash"></fa-icon>
+                                <a  placement="bottom" 
+                                    ngbTooltip="Eliminar este destino" 
+                                    (click)="removeDestiny(destiny)">
+                                    <fa-icon 
+                                        style="color:red;cursor:pointer;"
+                                        class="fa-lg" 
+                                        icon="trash">
+                                    </fa-icon>
                                 </a>
                             </td>
                         </tr>
@@ -156,9 +161,9 @@
                         <thead>
                             <tr class="form-row">
                                 <th class="col-2">Concepto</th>
-                                <th class="col-6">Descripción</th>
+                                <th class="col-7">Descripción</th>
                                 <th class="col-1">Importe</th>
-                                <th class="col-2"></th>
+                                <th class="col-1"></th>
                                 <th class="col-1"></th>
                             </tr>
                         </thead>
@@ -168,7 +173,7 @@
                                 <td class="col-2">
                                     {{modelExp.expenditureTypeName}}
                                 </td>    <!-- filas para agregar-->
-                                <td class="col-6">
+                                <td class="col-7">
                                     <div style="white-space : normal;">
                                         {{modelExp.description}}
                                     </div>
@@ -176,21 +181,30 @@
                                 <td class="col-1">
                                     {{modelExp.amount | currency}}
                                 </td>
-                                <td class="col-2 text-center">
+                                <td class="col-1 text-center">
                                     <a  
                                         style="width: inherit;"
                                         (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
                                         rel="noopener noreferrer">
-                                        <img  
+                                        <!--<img  
                                             style="width: inherit; height: 40px;" 
-                                            [src]="modelExp.urlImage">
+                                            [src]="modelExp.urlImage">-->
+                                            <fa-icon 
+                                                style="cursor:pointer;"
+                                                class="fa-lg" 
+                                                icon="image">                                              
+                                            </fa-icon>
                                     </a>
                                 </td>
                                 <td class="col-1 text-right">
-                                    <a  placement="bottom" ngbTooltip="Eliminar este concepto de gasto" 
-                                        class="btn btn-danger text-white small" 
+                                    <a  placement="bottom" 
+                                        ngbTooltip="Eliminar este concepto de gasto" 
                                         (click)="removeExpenditure(modelExp)">
-                                        <fa-icon class="fa-lg" icon="trash"></fa-icon>
+                                        <fa-icon 
+                                            style="color:red; cursor: pointer;" 
+                                            class="fa-lg" 
+                                            icon="trash">
+                                        </fa-icon>
                                     </a>
                                 </td>
                             </tr>

@@ -44,7 +44,7 @@
               <th class="col-2">Fecha de Creación</th>
               <th class="col-3">Objeto</th>
               <th class="col-3">Localidades- Itinerarios</th>
-              <th class="col">Total</th>
+              <th class="col text-right">Total</th>
               <th class="col">Estado</th>
               <th class="col"></th>
             </tr>
@@ -62,7 +62,7 @@
                   </li>  
                   <span class="" > {{ sol.localities }}</span>   
               </td>
-              <td class="col">{{sol.total | currency}}</td>
+              <td class="col text-right">{{sol.total | currency}}</td>
               <td *ngIf="sol.state == 'Rechazado'" class="col">
                 <a
                   placement="bottom" 

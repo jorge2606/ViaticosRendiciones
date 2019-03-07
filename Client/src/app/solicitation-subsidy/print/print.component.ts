@@ -58,7 +58,8 @@ export class PrintComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.init();
-    this.spinner.hide();;
+
+    this.spinner.hide();
     
   }
 
@@ -97,10 +98,10 @@ export class PrintComponent implements OnInit {
                             j => {
                                   this.destinieWithDaysInLetters = j;
                                   this.totalExpenditures = this.totalExpenditures +  this.totDest;
-                                  this.captureScreen();
+                                    
                                   setTimeout(() => {
-                                  }, 1000);
-                                  
+                                    this.captureScreen();
+                                  }, 2000);                                
                                 }
                       );
                   });            
@@ -134,7 +135,7 @@ export class PrintComponent implements OnInit {
     var namePDF = this.firstName+'-'+this.lastName+'-'+this.dni+'.pdf'; 
     var pdf = new jspdf('p', 'mm', 'legal'); 
     
-    pdf.addImage(this.imgUrl,'PNG',10,10,195,200);
+    pdf.addImage(this.imgUrl,'PNG',10,10,195,330);
     pdf.save(namePDF);
     this.hideHtml = true;
     this.spinner.hide();
