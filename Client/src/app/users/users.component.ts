@@ -42,6 +42,11 @@ export class UsersComponent implements OnInit {
   textListEmpty : string = "No se encontró ningún usuario";
   classListEmpty : string = "alert-primary";
   permissions : any[] = [];
+  create: any;
+  addSupervisor: any;
+  toSeeRelationshipBeetwenSupervisorAndAgent: any;
+  edit: any;
+  delete: any;
 
   constructor(
     private var_user_service: UserService, 
@@ -59,6 +64,11 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Usuarios');
     this.permissions = this.authService.userId('roles');
+    this.create = this.permissions.find(x => x.value == 'user.create');
+    this.addSupervisor = this.permissions.find(x => x.value == 'user.addSupervisor');
+    this.toSeeRelationshipBeetwenSupervisorAndAgent = this.permissions.find(x => x.value == 'user.toSeeRelationshipBeetwenSupervisorAndAgent');
+    this.edit = this.permissions.find(x => x.value == 'user.edit');
+    this.delete = this.permissions.find(x => x.value == 'user.delete');
     this.allUsersWithInPage();
     this.allAspNetRolesService();
     this.allAspNetUserRolesService();

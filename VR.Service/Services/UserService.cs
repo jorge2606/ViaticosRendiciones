@@ -148,6 +148,7 @@ namespace VR.Service.Services
             userDto.Path = filePath.Response.Paths;
             userDto.CategoryId = user.CategoryId;
             userDto.Roles = _rolesService.FindByIdRoles(user.Id).Result.Response;
+            userDto.RolesNames = _rolesService.RolesNames(user.Id).Response;
             result.Response = userDto;
             return result;
         }

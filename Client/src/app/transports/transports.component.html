@@ -1,12 +1,10 @@
-<ul *ngFor="let permission of permissions">
-	<a 	
-		*ngIf="permission.value == 'transports.create'"
-		placement="bottom" 
-		ngbTooltip="Agregar nuevo transporte" 
-		href="" class="btn btn-success mb-3" routerLink="create">
-		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-	</a>
-</ul>
+<a 	
+	*ngIf="transportCreate"
+	placement="bottom" 
+	ngbTooltip="Agregar nuevo transporte" 
+	href="" class="btn btn-success mb-3" routerLink="create">
+	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+</a>
 
 
 <div class="" style="min-height: 300px;">
@@ -27,16 +25,16 @@
 					<td>{{trans.brand}}</td>
 					<td>{{trans.carPlate}}</td>
 					<td class="text-right">
-						<div *ngFor="let permission of permissions" class="btn-group" role="group" aria-label="Basic example">
+						<div class="btn-group" role="group" aria-label="Basic example">
 							<a  
-								*ngIf="permission.value == 'transports.edit'"
+								*ngIf="transportEdit"
 								placement="bottom" 
 								ngbTooltip="Editar este transporte" 
 								class="pr-3" routerLink="/transport/update/{{trans.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
 							<a 	
-								*ngIf="permission.value == 'transports.delete'"
+								*ngIf="transportDelete"
 								placement="bottom" 
 								ngbTooltip="Eliminar este transporte" 
 								routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">

@@ -25,6 +25,9 @@ export class CategoryComponent implements OnInit {
   textListEmpty : string = "No se encontró ningúna categoría";
   classListEmpty : string = "alert-primary";
   permissions : any[] = [];
+  categoryCreate: any;
+  categoryEdit: any;
+  categoryDelete: any;
 
   constructor(
             private categoryService : CategoryService,
@@ -54,6 +57,10 @@ export class CategoryComponent implements OnInit {
         this.category_list_length = this.categories.length;
         this.col_size = result.totalRecords;
         this.permissions = this.authService.userId('roles');
+        this.categoryCreate = this.permissions.find(x => x.value == 'categories.create');
+        this.categoryEdit = this.permissions.find(x => x.value == 'categories.edit');
+        this.categoryDelete = this.permissions.find(x => x.value == 'categories.delete');
+
       },
       error => console.log(error)
     ); 

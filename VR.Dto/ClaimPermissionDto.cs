@@ -59,7 +59,6 @@ namespace VR.Dto
                         Text  = "Ver relación agente-supervisor",
                         Value = "user.toSeeRelationshipBeetwenSupervisorAndAgent"
                     }
-
                 }
 
             });
@@ -279,8 +278,14 @@ namespace VR.Dto
                     },
                     new ClaimPermissionDto()
                     {
-                        Text  = "Ver",
-                        Value = "solicitations.view"
+                        Text  = "Ver Solicitudes",
+                        Value = "solicitations.viewSolicitation"
+                    }
+                    ,
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver Reintegros",
+                        Value = "solicitations.viewRefund"
                     },
                     new ClaimPermissionDto()
                     {
@@ -291,7 +296,37 @@ namespace VR.Dto
                     {
                         Text  = "Moderar Reintegros",
                         Value = "solicitations.moderateRefunds"
-                    }
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Aceptar Solicitudes",
+                        Value = "solicitations.approveSolicitation"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Rechazar Solicitudes",
+                        Value = "solicitations.rejectSolicitation"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Aceptar Reintegro",
+                        Value = "solicitations.approveRefund"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Rechazar Reintegro",
+                        Value = "solicitations.rejectRefund"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Aceptar Rendición",
+                        Value = "solicitations.approveAccountForSolicitation"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Rechazar Rendición",
+                        Value = "solicitations.rejectAccountForSolicitation"
+                    },
                 }
 
             });
@@ -359,4 +394,12 @@ namespace VR.Dto
     {
         public string Value { get; set; }
     }
+
+    public class RolNameDto
+    {
+        public Guid Id { get; set; }
+        public string NormalizedName { get; set; }
+    }
+
+
 }

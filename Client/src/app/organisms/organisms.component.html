@@ -1,13 +1,11 @@
-<ul  *ngFor="let permission of permissions">
-	<div *ngIf="permission.value == 'organisms.create'" class="d-inline-block">
-		<a 
-			placement="bottom" 
-			ngbTooltip="Agregar nuevo organismo" 
-			href="" class="btn btn-success" routerLink="create">
-			<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-		</a>
-	</div>
-</ul>
+<div *ngIf="organimCreate" class="d-inline-block">
+	<a 
+		placement="bottom" 
+		ngbTooltip="Agregar nuevo organismo" 
+		href="" class="btn btn-success" routerLink="create">
+		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+	</a>
+</div>
 <br>
 <label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
 <div class="d-inline-block pl-1 pr-1 mt-1 mb-1">
@@ -35,17 +33,16 @@
 						</a>
 					</td>
 					<td class="text-right">
-						<div *ngFor="let permission of permissions" 
-							class="btn-group" role="group" aria-label="Basic example">
+						<div class="btn-group" role="group" aria-label="Basic example">
 							<a 
-								*ngIf="permission.value == 'organisms.edit'"
+								*ngIf="organimEdit"
 								placement="bottom" 
 								ngbTooltip="Editar este organismo" 
 								class="pr-3" routerLink="/organism/update/{{org.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
 							<a 
-								*ngIf="permission.value == 'organisms.create'"
+								*ngIf="organimDelete"
 								placement="bottom" 
 								ngbTooltip="Eliminar este organismo" 
 								routerLink="/organism" (click)="openEliminar(org.id,org.name,org.description)">

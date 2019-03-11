@@ -19,6 +19,10 @@ export class TransportsComponent implements OnInit {
   col_size : number;
   itemsPerPage : number = 10;
   permissions : any[] = [];
+  transportCreate: any;
+  roles: any;
+  transportDelete: any;
+  transportEdit: any;
 
   constructor(
           private transportService : TransportService, 
@@ -39,6 +43,9 @@ export class TransportsComponent implements OnInit {
         this.transport = result.list;
         this.col_size = result.totalRecords;
         this.permissions = this.authService.userId('roles');
+        this.transportCreate = this.permissions.find(x => x.value == 'transports.create');
+        this.transportEdit = this.permissions.find(x => x.value == 'transports.edit');
+        this.transportDelete = this.permissions.find(x => x.value == 'transports.delete');
       },
       error => console.log(error)
     ); 

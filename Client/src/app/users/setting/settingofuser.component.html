@@ -118,7 +118,7 @@
                     Las contraseñas no coinciden
                 </div>
             
-                <div class="form-group" style="margin-bottom : 0px;">
+                <div *ngIf="editRol" class="form-group" style="margin-bottom : 0px;">
                     <div class="form-row ml-0">
                         <div *ngFor="let rol of model.rolesUser" class="custom-control custom-checkbox mr-2">
                             <input 

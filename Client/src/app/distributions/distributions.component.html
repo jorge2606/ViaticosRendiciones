@@ -1,12 +1,10 @@
-<ul *ngFor="let permission of permissions">
-	<div *ngIf="permission.value == 'distributions.create'" class="d-inline-block mb-1">
-		<a 	placement="bottom" 
-		ngbTooltip="Agregar nueva repartición" 
-		href="" class="btn btn-success" routerLink="/distribution/create">
-		<fa-icon icon="plus" class="fa-lg"></fa-icon> Nuevo
-		</a>
-	</div>
-</ul>
+<div *ngIf="distributionCreate" class="d-inline-block mb-1">
+	<a 	placement="bottom" 
+	ngbTooltip="Agregar nueva repartición" 
+	href="" class="btn btn-success" routerLink="/distribution/create">
+	<fa-icon icon="plus" class="fa-lg"></fa-icon> Nuevo
+	</a>
+</div>
 
 <div class="mb-1" >
 	<label class="d-inline-block mt-2 mr-2" for="">Organismos </label>
@@ -55,17 +53,16 @@
 						</a>
 					</td>
 					<td class="text-right">
-						<div *ngFor="let permission of permissions" 
-							class="btn-group" role="group" aria-label="Basic example">
+						<div class="btn-group" role="group" aria-label="Basic example">
 							<a 	
-								*ngIf="permission.value == 'categories.edit'"
+								*ngIf="distributionEdit"
 								placement="bottom" 
 								ngbTooltip="Editar repartición" 
 								class="pr-3" routerLink="/distribution/update/{{dist.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
 							<a 	
-								*ngIf="permission.value == 'categories.delete'"
+								*ngIf="distributionDelete"
 								placement="bottom" 
 								ngbTooltip="Eliminar repartición" 
 								routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">

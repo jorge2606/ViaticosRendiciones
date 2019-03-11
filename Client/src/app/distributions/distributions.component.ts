@@ -29,6 +29,9 @@ export class DistributionsComponent implements OnInit {
   textListEmpty : string = "No se encontró ningúna repartición.";
   classListEmpty : string = "alert-primary";
   permissions : any[] = [];
+  distributionCreate: any;
+  distributionEdit: any;
+  distributionDelete: any;
   
   constructor(
               private distributionService : DistributionService,
@@ -50,7 +53,11 @@ export class DistributionsComponent implements OnInit {
       x =>{
           this.organisms = x;
           this.getAllDistributions(this.filters);
-          this.permissions = this.authService.userId('roles'); 
+          this.permissions = this.authService.userId('roles');
+          this.distributionCreate = this.permissions.find(x => x.value == 'distributions.create');
+          this.distributionEdit = this.permissions.find(x => x.value == 'distributions.edit');
+          this.distributionDelete = this.permissions.find(x => x.value == 'distributions.delete');
+
       } 
     );
     

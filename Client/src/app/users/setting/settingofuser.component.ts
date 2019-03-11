@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
@@ -18,19 +19,6 @@ import { OrganismBaseDto } from 'src/app/_models/organism';
   styleUrls: ['./settingofuser.component.css']
 })
 export class SettingofuserComponent implements OnInit {
-
-  
-
-  constructor(
-            private router : Router,
-            private userService: UserService,
-            private titleService : Title,
-            private toastrService : ToastrService,
-            private organimService : OrganismService,
-            private distributionService : DistributionService
-  ){
-    this.currentUrl = this.router.url;
-  }
   model = new modifyUser;
   submitted : boolean;
   passwordsAreEquals : Boolean = true;
@@ -41,6 +29,22 @@ export class SettingofuserComponent implements OnInit {
   selectedorganismId : number;
   selecteddistributionId : number;
   validCheckbox : boolean = true;
+  permissions: any[] = [];
+  editRol: any;
+
+  
+
+  constructor(
+            private router : Router,
+            private userService: UserService,
+            private titleService : Title,
+            private toastrService : ToastrService,
+            private organimService : OrganismService,
+            private distributionService : DistributionService,
+            private authService : AuthenticationService
+  ){
+    this.currentUrl = this.router.url;
+  }
 
 
   onChange(rol){
@@ -148,6 +152,8 @@ export class SettingofuserComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Mi Perfil');
+    this.permissions = this.authService.userId('roles');
+    this.editRol = this.permissions.find(x => x.value == 'roles.edit');
     this.getOrganismAll();
     this.userService.getById().subscribe(i => {
         this.model.dni = i.dni,

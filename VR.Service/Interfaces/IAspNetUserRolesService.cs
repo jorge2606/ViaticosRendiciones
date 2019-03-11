@@ -12,5 +12,6 @@ namespace VR.Service.Interfaces
     {
         ServiceResult<List<AllUserRolesDto>> GetAllUserRoles();
         Task<ServiceResult<IList<ClaimDto>>> FindByIdRoles(Guid userId);
+        ServiceResult<List<RolNameDto>> RolesNames(Guid userId);
     }
 }

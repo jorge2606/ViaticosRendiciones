@@ -1,113 +1,110 @@
 <nav *ngIf="isLogged | async" class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 font-weight-light">
 
-    <ul class="navbar-nav" id="firstList">
-        <li id="homeId">
-          <a 
-            placement="bottom" 
-            id="inicio"
-            (click)="activate('inicio')"
-            ngbTooltip="Ir al menú principal" 
-            routerLink="/" 
-            class="nav-item text-white nav-link active"
-            href="#" >
-            <fa-icon icon="home"></fa-icon> Inicio
-          </a>
-        </li>
-    </ul>
-    <ul class="navbar-nav mr-auto" id="firstList">
-
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'user.view' ? 'unset' : 'none'}" id="userId">
+  <ul class="navbar-nav mr-auto">
+      <li>
+        <a 
+          [routerLinkActive]="['active']"
+          placement="bottom" 
+          ngbTooltip="Ir al menú principal" 
+          routerLink="/" 
+          class="nav-item text-white nav-link"
+          href="#" >
+          <fa-icon icon="home"></fa-icon> Inicio
+        </a>
+      </li>
+      <li *ngIf="showTabUsers">
         <a 
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los usuarios" 
           routerLink="/users"
-          (click)="activate('userId')"
+          [routerLinkActive]="['active']"
           class="nav-item text-white nav-link"
           href="#">
           <fa-icon icon="users"></fa-icon> Usuarios 
         </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'user.view' ? 'unset' : 'none'}" id="roleId">
+      <li *ngIf="showTabRoles">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a  
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los roles" 
           class="nav-item text-white nav-link" 
-          (click)="activate('roleId')"
           href="#" 
+          [routerLinkActive]="['active']"
           routerLink="/roles">
           <fa-icon icon="key"></fa-icon> Roles
         </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'categories.view' ? 'unset' : 'none'}" id="categoryId">
+      <li *ngIf="showTabCategories">
         <a
           placement="bottom" 
           ngbTooltip="Ver el listado de todas las categorías" 
           class="nav-item text-white nav-link" 
           href="#"
-          (click)="activate('categoryId')"
+          [routerLinkActive]="['active']"
           routerLink="/category">
           <fa-icon icon="tags"></fa-icon> Categorías
         </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'distributions.view' ? 'unset' : 'none'}" id="distId">
+      <li *ngIf="showTabDistribution">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a
           placement="bottom" 
+          [routerLinkActive]="['active']"
           ngbTooltip="Ver el listado de todas las reparticiones" 
           class="nav-item text-white nav-link"
-          (click)="activate('distId')"
           href="#" 
           routerLink="/distribution">
           <fa-icon icon="building"></fa-icon> Reparticiones
         </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'transports.view' ? 'unset' : 'none'}">
+      <li *ngIf="showTabTransports" >
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-          <a 
-            (click)="activate('transportId')"       
+          <a      
             placement="bottom" 
             ngbTooltip="Ver el listado de todos los transportes" 
             class="nav-item text-white nav-link"
             href="#" 
+            [routerLinkActive]="['active']"
             routerLink="/transport">
             <fa-icon icon="car"></fa-icon> Transporte
           </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'expenditures.view' ? 'unset' : 'none'}" id="expId">
+      <li *ngIf="showTabExpenditures">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a       
-          (click)="activate('expId')"
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los tipos de gasto" 
           class="nav-item text-white nav-link" 
           href="#"
+          [routerLinkActive]="['active']"
           routerLink="/expenditure">
           <fa-icon icon="money-check-alt"></fa-icon> Gastos
         </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'organisms.view' ? 'unset' : 'none'}" id="orgId">
+      <li *ngIf="showTabOrganism">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a         
           placement="bottom" 
-          (click)="activate('orgId')"
           ngbTooltip="Ver el listado de todos los organismos" 
           class="nav-item text-white nav-link" 
           href="#" 
+          [routerLinkActive]="['active']"
           routerLink="/organism">
           <fa-icon icon="sitemap"></fa-icon> Organismos
         </a>
       </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'solicitations.view' ? 'unset' : 'none'}" id="solId">
+      <li *ngIf="showTabSolicitation">
           <div class="d-inline-block" ngbDropdown #myDropDown="ngbDropdown">
-              <a 
+              <a  
+                [routerLinkActive]="['active']"
                 href="#"
                 routerLink="{{router.url}}"
                 class="nav-item text-white nav-link" 
@@ -117,11 +114,11 @@
                 Solicitudes
               </a>
             <div ngbDropdownMenu aria-labelledby="dropdownManual" class="dropdown-menu show p-1">
-              <div class="card small mb-1">
+              <div *ngIf="createSolicitation" class="card small mb-1">
                   <button
                     style="cursor:pointer;"
                     placement="bottom" 
-                    (click)="activate('solId')"
+                    [routerLinkActive]="['active']"
                     ngbTooltip="crear una solicitud de viático" 
                     routerLink="/SolicitationSubsidy/agent/create"
                     class="dropdown-item">
@@ -129,11 +126,11 @@
                   </button>
               </div>
 
-              <div class="card small mb-1">
+              <div *ngIf="createRefund" class="card small mb-1">
                   <button 
                   style="cursor:pointer;"
                   placement="bottom" 
-                  (click)="activate('solId')"
+                  [routerLinkActive]="['active']"
                   ngbTooltip="crear una solicitud de viático" 
                   routerLink="/SolicitationSubsidy/agent/repayment"
                   class="dropdown-item">
@@ -141,11 +138,35 @@
                 </button>
               </div>
 
-              <div class="card small mb-1">
+              <div *ngIf="moderateSolicitation" class="card small mb-1">
+                  <button
+                    style="cursor:pointer;"
+                    placement="bottom" 
+                    [routerLinkActive]="['active']"
+                    ngbTooltip="Moderar solicitudes de viático" 
+                    routerLink="/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/{{isRefund.not}}"
+                    class="dropdown-item">
+                    <fa-icon icon="file-signature"></fa-icon> Moderar solicitudes de viático
+                  </button>
+              </div>
+
+              <div *ngIf="moderateRefund" class="card small mb-1">
+                  <button
+                    style="cursor:pointer;"
+                    placement="bottom" 
+                    [routerLinkActive]="['active']"
+                    ngbTooltip="Moderar solicitudes de reintegro" 
+                    routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.yes}}"
+                    class="dropdown-item">
+                    <fa-icon icon="file-signature"></fa-icon> Moderar solicitudes de reintegro
+                  </button>
+              </div>
+
+              <div *ngIf="moderateViewRefund" class="card small mb-1">
                   <button 
                   style="cursor:pointer;"
                   placement="bottom" 
-                  (click)="activate('solId')"
+                  [routerLinkActive]="['active']"
                   ngbTooltip="Listado de reintegros" 
                   routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.yes}}"
                   class="dropdown-item">
@@ -153,11 +174,10 @@
                 </button>
               </div>
 
-              <div class="card small">
+              <div *ngIf="moderateViewSolicitation" class="card small mb-1">
                   <button 
                   style="cursor:pointer;"
                   placement="bottom" 
-                  (click)="activate('solId')"
                   ngbTooltip="Listado de mis solicitudes de viático" 
                   routerLink="/SolicitationSubsidy/agent"
                   class="dropdown-item">
@@ -169,12 +189,12 @@
           </div>
         </li>
 
-      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'holidays.view' ? 'unset' : 'none'}" id="holId">
+      <li *ngIf="showTabHolidays">
           <a    
+            [routerLinkActive]="['active']"
             placement="bottom"
             ngbTooltip="Ver el listado de los días no laborables"          
             routerLink="/holidays" 
-            (click)="activate('holId')"
             class="nav-item text-white nav-link" 
             href="#">
             <fa-icon icon="calendar"></fa-icon> Feriados
@@ -230,6 +250,7 @@
               <div ngbDropdownMenu aria-labelledby="dropdownManual" style="background-color:mintcream;" 
                   class="pl-1 pr-1">
                   <div class="small card" style="padding : 6px;">
+                      <span *ngFor="let rol of rolesNames"><u> {{rol.normalizedName}} </u></span>
                       <span>{{lastName}}, {{firstName}}</span>
                       <span style="font-size: 11px">{{userName}}</span> 
                   </div>
@@ -264,4 +285,3 @@
 
 <nvs-ngx-breadcrumbs *ngIf="isloggedUser"></nvs-ngx-breadcrumbs>
 <router-outlet class="small"></router-outlet>
-{{roles | json}}

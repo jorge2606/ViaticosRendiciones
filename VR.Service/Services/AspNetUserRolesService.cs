@@ -62,6 +62,27 @@ namespace VR.Service.Services
             return new ServiceResult<IList<ClaimDto> > (RolesNameDict);
         }
 
+        public ServiceResult<List<RolNameDto>> RolesNames(Guid userId)
+        {
+            var roles = _context.UserRoles
+                .Select(x => _mapper.Map<AllUserRolesDto>(x))
+                .Where(x => x.UserId == userId)
+                .ToList();
+
+            List<RolNameDto> RolesNameDict = new List<RolNameDto>();
+
+            foreach (var rolUser in roles)
+            {
+                RolNameDto rolName = _roleManager.Roles.Select(x => _mapper.Map<RolNameDto>(x)).FirstOrDefault(x => x.Id == rolUser.RoleId);
+
+                if (rolName != null)
+                {
+                    RolesNameDict.Add(rolName);
+                }
+            }
+
+            return new ServiceResult<List<RolNameDto>>(RolesNameDict);
+        }
 
     }
 }

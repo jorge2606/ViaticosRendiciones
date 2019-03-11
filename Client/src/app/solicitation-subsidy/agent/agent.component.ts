@@ -11,6 +11,7 @@ import { NgbdModalContent } from 'src/app/modals/modals.component';
 import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
   selector: 'app-agent',
@@ -37,6 +38,11 @@ export class AgentComponent implements OnInit {
    sizeIcon = "fa-lg";
    isRefund = {'isRefund' : true , 'isNotRefund' : false}
    today : string = this.pipeService.transform(new Date(),'yyyy/MM/dd');
+   permissions : any[] = [];
+  solicitationCreate: any;
+  solicitationModerate: any;
+  moderateRefund: any;
+  createRefund: any;
 
   constructor(
             private solicitationSubsidyservice : SolicitationSubsidyService,
@@ -46,7 +52,8 @@ export class AgentComponent implements OnInit {
             private spinner: NgxSpinnerService,
             private titleService : Title,
             private toastrService : ToastrService,
-            private pipeService : DatePipe
+            private pipeService : DatePipe,
+            private authService : AuthenticationService
             ) { 
               this.titleService.setTitle('Mis Solicitudes de Viático');
             }
@@ -68,6 +75,12 @@ export class AgentComponent implements OnInit {
       x => {
           this.solicitationSubsidies = x.list;
           this.col_size = x.totalRecords;
+          this.permissions = this.authService.userId('roles');
+          this.solicitationCreate = this.permissions.find(claim => claim.value == 'solicitations.create');
+          this.solicitationModerate = this.permissions.find(claim => claim.value == 'solicitations.moderateSolicitations');
+          this.moderateRefund = this.permissions.find(claim => claim.value == 'solicitations.moderateRefunds');
+          this.createRefund = this.permissions.find(claim => claim.value == 'solicitations.createRefund');
+
         }
     );
   }

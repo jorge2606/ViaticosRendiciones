@@ -5,7 +5,7 @@
 .nav-item:hover {
     background-color: #666666;
     color: black;
-  }
+}
 .active, .active:hover {
     background-color: #007bff;
     color: white;

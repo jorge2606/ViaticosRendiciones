@@ -28,6 +28,9 @@ export class HolidaysComponent implements OnInit {
   textListEmpty : string = "No se encontró ningún feriado";
   classListEmpty : string = "alert-primary";
   permissions : any[] = [];
+  holidaysCreate: any;
+  holidaysEdit: any;
+  holidaysDelete: any;
 
   constructor(
     private holidayService : HolidaysService,
@@ -49,6 +52,9 @@ export class HolidaysComponent implements OnInit {
             this.holidays = x.list;
             this.col_size = x.totalRecords;
             this.permissions = this.authService.userId('roles');
+            this.holidaysCreate = this.permissions.find(x => x.value == 'holidays.create');
+            this.holidaysEdit = this.permissions.find(x => x.value == 'holidays.edit');
+            this.holidaysDelete = this.permissions.find(x => x.value == 'holidays.delete');
             }
     );
   }

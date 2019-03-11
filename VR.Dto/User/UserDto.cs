@@ -65,6 +65,7 @@ namespace VR.Dto.User
         public Decimal CategoryAdvance { set; get; }
         public Boolean IsDeleted { set; get; }
         public IList<ClaimDto> Roles { set; get; }
+        public List<RolNameDto> RolesNames { set; get; }
     }
 
     public class UserDistribution {

@@ -22,17 +22,7 @@ import { DetailAccountForSolicitationComponent } from '../solicitation-subsidy/d
   styleUrls: ['./navar.component.css']
 })
 export class NavarComponent implements OnInit {
-
-  constructor(private notificationServices : NotificationsService, 
-              private authService : AuthenticationService,
-              private messaBetweenComp : MessBetweenCompService,
-              private modalService: NgbModal,
-              private supervisorUserAgentService : SupervisorUserAgentService,
-              private comunicationService : GenericsCommunicationsComponentsService,
-              private solicitationSubsidyService : SolicitationSubsidyService,
-              private renderer : Renderer,
-              private router : Router) { }
-
+  
   notification : Notifications[] = [];
   isLogged : Observable<boolean>;
   idUser : number;
@@ -44,6 +34,32 @@ export class NavarComponent implements OnInit {
   isloggedUser : boolean;
   isRefund = {'yes' : true, 'not' : false};
   roles : any [] = [];
+  rolesNames : any[] = []
+  showTabSolicitation : any;
+  showTabUsers : any;
+  showTabRoles : any;
+  showTabCategories : any;
+  showTabDistribution : any;
+  showTabTransports : any;
+  showTabExpenditures : any;
+  showTabOrganism : any;
+  showTabHolidays : any;
+  createSolicitation: any;
+  createRefund: any;
+  moderateSolicitation: any;
+  moderateRefund: any;
+  moderateViewRefund: any;
+  moderateViewSolicitation: any;
+
+  constructor(private notificationServices : NotificationsService, 
+              private authService : AuthenticationService,
+              private messaBetweenComp : MessBetweenCompService,
+              private modalService: NgbModal,
+              private supervisorUserAgentService : SupervisorUserAgentService,
+              private comunicationService : GenericsCommunicationsComponentsService,
+              private solicitationSubsidyService : SolicitationSubsidyService,
+              private renderer : Renderer,
+              private router : Router) { }
 
 
   retriveNotifications(){
@@ -61,15 +77,6 @@ export class NavarComponent implements OnInit {
       );
    }
 
-   activate(idItem : string){
-    var btnContainer = document.getElementById("firstList");
-    var btns = btnContainer.getElementsByClassName("nav-item");
-    var seleccionado =  document.getElementById(idItem);
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    seleccionado.className += " active";
-  }
-
   ngOnInit() {
     this.isLogged = this.authService.isLoggedIn;
 
@@ -77,7 +84,32 @@ export class NavarComponent implements OnInit {
       this.isloggedUser = x;
       //si el usuario esta logueado
       if(x){
+        this.rolesNames = this.authService.userId('rolesNames');
         this.roles = this.authService.userId('roles');
+        this.showTabSolicitation = this.roles.find(
+          claims => claims.value == 'solicitations.viewSolicitation' 
+          || claims.value == 'solicitations.create'
+          || claims.value == 'solicitations.createRefund'
+          || claims.value == 'solicitations.moderateSolicitations'
+          || claims.value == 'solicitations.moderateRefunds'
+          || claims.value == 'solicitations.viewRefund'
+          || claims.value == 'solicitations.viewSolicitation');
+
+        this.createSolicitation = this.roles.find(x => x.value == 'solicitations.create');
+        this.createRefund = this.roles.find(x => x.value == 'solicitations.createRefund');
+        this.moderateSolicitation = this.roles.find(x => x.value == 'solicitations.moderateSolicitations');
+        this.moderateRefund = this.roles.find(x => x.value == 'solicitations.moderateRefunds');
+        this.moderateViewRefund = this.roles.find(x => x.value == 'solicitations.viewRefund');
+        this.moderateViewSolicitation = this.roles.find(x => x.value == 'solicitations.viewSolicitation');
+
+        this.showTabUsers = this.roles.find(x => x.value == 'user.view');
+        this.showTabCategories = this.roles.find(x => x.value == 'categories.view');
+        this.showTabDistribution = this.roles.find(x => x.value == 'distributions.view');
+        this.showTabExpenditures = this.roles.find(x => x.value == 'expenditures.view');
+        this.showTabOrganism = this.roles.find(x => x.value == 'organisms.view');
+        this.showTabRoles = this.roles.find(x => x.value == 'roles.view');
+        this.showTabHolidays = this.roles.find(x => x.value == 'holidays.view');
+        this.showTabTransports = this.roles.find(x => x.value == 'transports.view');
 
         this.comunicationService.getMessage()
         .subscribe(x => {
