@@ -23,6 +23,10 @@ export class SupervisorUserAgentService {
     return this.http.get<any>(environment.apiUrl+"SupervisorUserAgent/IsAgent/"+userId);
   }
 
+  allSupervisors(){
+    return this.http.get<any>(environment.apiUrl+"SupervisorUserAgent/AllSupervisors");
+  }
+
   deleteRelationshipBetweenAgentAndSupervisor(supervisorId : number, agentId : number){
     return this.http.delete<any>(environment.apiUrl+"SupervisorUserAgent/deleteRelationshipBetweenAgentAndSupervisor/"+supervisorId+"/"+agentId);
   }

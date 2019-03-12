@@ -46,6 +46,19 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+
+        [HttpGet("AllSupervisors")]
+        public IActionResult AllSupervisors()
+        {
+            var result = _service.AllSupervisors();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         public Guid GetIdUser()
         {
             var currentUser = Helpers.HttpContext.Current.User.Claims;

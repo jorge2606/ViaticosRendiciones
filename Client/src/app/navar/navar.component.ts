@@ -50,6 +50,7 @@ export class NavarComponent implements OnInit {
   moderateRefund: any;
   moderateViewRefund: any;
   moderateViewSolicitation: any;
+  show : boolean = false;
 
   constructor(private notificationServices : NotificationsService, 
               private authService : AuthenticationService,

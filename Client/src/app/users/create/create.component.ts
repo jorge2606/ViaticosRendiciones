@@ -1,3 +1,5 @@
+import { User } from './../../_models/user';
+import { AllSupervisorUserAgent } from './../../_models/supervisorUserAgent';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
@@ -9,6 +11,7 @@ import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { Router } from '@angular/router';
 import { UsersComponent } from '../users.component';
 import { Title } from '@angular/platform-browser';
+import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 @Component({
   selector: 'app-createuser',
   templateUrl: './create.component.html',
@@ -26,6 +29,8 @@ export class CreateuserComponent implements OnInit {
   passwordsAreEquals : boolean = true;
   submitted : boolean;
   validCheckbox : boolean = false;
+  selectedSupervisorAgentId : number;
+  allSupervisors : User[] = [];
 
   constructor(
               private UserService : UserService, 
@@ -34,7 +39,8 @@ export class CreateuserComponent implements OnInit {
               private distributionService : DistributionService,
               private categoryService : CategoryService,
               private titleService : Title,
-              private toastrService : ToastrService) {}
+              private toastrService : ToastrService,
+              private supervisorUserAgentService : SupervisorUserAgentService) {}
 
 
   getAllRoles(){
@@ -115,7 +121,7 @@ export class CreateuserComponent implements OnInit {
     }
 
     this.titleService.setTitle('Crear Usuario - Perfil');
-    this.UserService.createWithObjectUser(this.model).subscribe(
+    /*this.UserService.createWithObjectUser(this.model).subscribe(
       data => {
           this.router.navigate(['/users']);
           this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
@@ -123,13 +129,14 @@ export class CreateuserComponent implements OnInit {
         error => {
           this.errors = error.error.notifications;
      } 
-    );
+    );*/
   }
   
   ngOnInit() {
     this.titleService.setTitle('Crear Usuario');
     this.getAllRoles();
     this.getAllCategories();
+    this.getAllUsersSupervisors();
     this.distributionService.allDistribution().subscribe(
       x => {
         this.distribution = x;
@@ -139,6 +146,16 @@ export class CreateuserComponent implements OnInit {
 
   setTitleTabProfile(){
     this.titleService.setTitle('Crear Usuario - Perfil');
+  }
+
+  getAllUsersSupervisors(){
+    this.supervisorUserAgentService.allSupervisors()
+    .subscribe(x => {
+      x.forEach(supervisor => {
+        this.allSupervisors.push(supervisor.supervisors);
+      });;
+      
+    });
   }
 
   comparePassword(){

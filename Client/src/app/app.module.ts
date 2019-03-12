@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
-import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter, NgbAlertModule, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter, NgbAlertModule, NgbDatepickerI18n, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modals.component';
 //Paginator
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -169,7 +169,8 @@ library.add(fas);
       NgbAlertModule,
       ToastrModule.forRoot(), // ToastrModule added
       NgxMaskModule.forRoot(),
-      NgxBreadcrumbsModule
+      NgxBreadcrumbsModule,
+      NgbCollapseModule.forRoot()
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

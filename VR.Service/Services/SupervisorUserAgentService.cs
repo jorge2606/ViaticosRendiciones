@@ -76,6 +76,18 @@ namespace VR.Service.Services
             return new ServiceResult<List<AllSupervisorAgentDto>>(result);
         }
 
+
+        public ServiceResult<List<AllSupervisorAgentDto>> AllSupervisors()
+        {
+            var result = _Context.SupervisorUserAgents
+                .Include(x => x.Supervisors)
+                .Select(x => _Mapper.Map<AllSupervisorAgentDto>(x))
+                .Distinct()
+                .ToList();
+
+            return new ServiceResult<List<AllSupervisorAgentDto>>(result);
+        }
+
         public ServiceResult<Boolean> IsAgent(Guid myUserId, Guid otherUserId)
         {
             var isSupervisor = _Context.SupervisorUserAgents
