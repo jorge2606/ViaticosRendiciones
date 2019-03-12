@@ -84,6 +84,7 @@ import { AccountForComponent } from './solicitation-subsidy/account-for/account-
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { DetailAccountForSolicitationComponent } from './solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
 import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 library.add(fas);
 
@@ -170,7 +171,7 @@ library.add(fas);
       ToastrModule.forRoot(), // ToastrModule added
       NgxMaskModule.forRoot(),
       NgxBreadcrumbsModule,
-      NgbCollapseModule.forRoot()
+      CollapseModule.forRoot()
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
