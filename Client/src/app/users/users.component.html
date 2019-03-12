@@ -45,10 +45,10 @@
 
 
 <div style="min-height: 300px;">
-	<table class="table table-striped">
+	<table class="table table-striped table-responsive">
 			<thead>
 				<tr style="font-weight: bold;">
-					<td *ngIf="addSupervisor">
+					<th scope="col" *ngIf="addSupervisor">
 					
 						<div class="custom-control custom-checkbox">
 							<input 
@@ -62,13 +62,13 @@
 								for="customCheck1">({{this.users_check.length}})
 								</label>
 						</div>
-					</td>
-					<td>D.N.I</td>
-					<td>Nombre</td>
-					<td>Apellido</td>
-					<td>Repartición</td>
-					<td class="text-center">Roles</td>
-					<td></td>
+					</th>
+					<th scope="col">D.N.I</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellido</th>
+					<th scope="col">Repartición</th>
+					<th class="text-center" scope="col">Roles</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
