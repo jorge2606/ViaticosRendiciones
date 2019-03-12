@@ -212,6 +212,26 @@ namespace VR.Web.Controllers
             
         }
 
+        [HttpGet("ExpenditureRefundUrl/{expId}/{width}/{height}")]
+        [AllowAnonymous]
+        public IActionResult ExpenditureRefundUrl(Guid expId, int width, int height)
+        {
+            if (width < 0 || height < 0) { return BadRequest(); }
+            var result = _fileService.GetUrlExpenditureRefundFile(expId);
+
+            if (result.Response == null)
+            {
+                result.AddError("0", "No tiene image");
+                return BadRequest(result);
+            }
+            
+
+            var resultUrl = Convert.ToBase64String(result.Response);
+            ServiceResult<String> resultUrlEnd = new ServiceResult<String>(resultUrl);
+            return Ok(resultUrlEnd);
+
+
+        }
     }
 
 }

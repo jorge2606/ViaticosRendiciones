@@ -231,17 +231,18 @@
                       href="" routerLink="{{routerService.url}}" class="pr-3">
                       <fa-icon class="{{sizeIcon}}" style="color: red;" icon="ban"></fa-icon>
                     </a>
+                    <!--El agente finalizo su viatico completamente-->
                     <a
                       *ngIf="!sol.isRefund && finalizeDate == null && ( today > pipeService.transform(sol.endDate,'yyyy/MM/dd') )"
                       placement="bottom" 
-                      ngbTooltip="Rendir cuentas sobre gastos del viático" 
+                      ngbTooltip="Rendir cuentas sobre gastos del viático 1111" 
                       href="" 
-                      routerLink="accountFor/{{sol.id}}" 
+                      routerLink="accountForNormallyFinalitation/{{sol.id}}" 
                       class="pr-3">
                     <fa-icon 
                       style="color:gray;"
                       class="{{sizeIcon}}" 
-                      icon="edit"></fa-icon>
+                      icon="file-invoice-dollar"></fa-icon>
                   </a>
                 </td>
                 <td *ngIf="sol.state == 'Finalizado'" class="col text-right">
@@ -255,7 +256,7 @@
                       <fa-icon 
                         style="color:gray;"
                         class="{{sizeIcon}}" 
-                        icon="edit"></fa-icon>
+                        icon="file-invoice-dollar"></fa-icon>
                     </a>
                     <a 
                       *ngIf="!sol.isRefund"
@@ -317,7 +318,7 @@
                     <fa-icon 
                       style="color:gray;"
                       class="{{sizeIcon}}" 
-                      icon="edit">
+                      icon="file-invoice-dollar">
                     </fa-icon>
                   </a>
   

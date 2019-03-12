@@ -101,7 +101,7 @@ export class PrintAccountForSolicitationComponent implements OnInit {
                                   this.totalExpenditures = this.totalExpenditures +  this.totDest;
                                     
                                   setTimeout(() => {
-                                    //this.captureScreen();
+                                    this.captureScreen();
                                   }, 2000);                                
                                 }
                       );

@@ -5,7 +5,7 @@
       ngbTooltip="Ir al menú principal" 
       [routerLink]="['/']"
       [routerLinkActiveOptions]="{exact : true}" 
-      class="navbar-brand"
+      class="nav-item text-white nav-link"
       href="#" >
       <fa-icon icon="home"></fa-icon> Inicio
     </a>
@@ -112,10 +112,10 @@
           </a>
         </li>
 
+
         <li *ngIf="showTabSolicitation" class="nav-item">
             <div class="d-inline-block" ngbDropdown #myDropDown="ngbDropdown">
                 <a  
-                  [routerLinkActive]="['active']"
                   href="#"
                   routerLink="{{router.url}}"
                   class="nav-item text-white nav-link" 
@@ -186,10 +186,12 @@
                 </div>
 
                 <div *ngIf="moderateViewSolicitation" class="card small mb-1">
-                    <button 
+                  <button 
                     style="cursor:pointer;"
                     placement="bottom" 
-                    ngbTooltip="Listado de mis solicitudes de viático" 
+                    ngbTooltip="Listado de mis solicitudes de viático"
+                    [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact : true}"
                     routerLink="/SolicitationSubsidy/agent"
                     class="dropdown-item">
                     <fa-icon icon="file-signature"></fa-icon> Listado de mis solicitudes de viático

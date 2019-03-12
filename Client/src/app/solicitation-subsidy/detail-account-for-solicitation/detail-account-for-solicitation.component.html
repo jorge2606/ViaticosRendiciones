@@ -27,22 +27,21 @@
             <table class="table table-striped">
               <thead>
                 <tr class="form-row">
-                  <th class="col-2" style="padding : 0px;">Concepto</th>
-                  <th class="col" style="padding : 0px;">Descripción</th>
-                  <th class="col-2 text-right" style="padding : 0px;">Importe</th>
-                  <th class="col-2">Comprobante</th>
-                  <th class="col-2"></th>
+                  <th class="col-2">Concepto</th>
+                  <th class="col">Descripción</th>
+                  <th class="col-2 text-right">Importe</th>
+                  <th class="col-2 text-center">Comprobante</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="form-row" *ngFor="let exp of model.expenditures">
-                  <td class="col-2" style="padding : 1px;">
+                  <td class="col-2">
                     {{exp.expenditureTypeName}}
                   </td>
-                  <td class="col" style="padding : 1px;">
+                  <td class="col">
                     {{exp.description}}
                   </td>
-                  <td class="col-2 text-right" style="padding : 1px;">
+                  <td class="col-2 text-right">
                     {{exp.amount | currency}}
                   </td>
                   <td 
@@ -69,14 +68,14 @@
             <table class="table table-striped" style="padding :0;">
               <thead>
                 <tr class="text-center" >
-                    <th scope="col" style="padding : 0px;">Fecha</th>
-                    <th scope="col" style="padding : 0px;">Destino</th>
-                    <th scope="col" style="padding : 0px;">Categoría</th>
-                    <th scope="col" style="padding : 0px;">Transporte</th>
-                    <th scope="col" style="padding : 0px;">Dias</th>
-                    <th scope="col" style="padding : 0px;">Precio/Dia</th>                      
-                    <th scope="col" style="padding : 0px;">Cod. Liq.</th>
-                    <th scope="col" style="padding : 0px;">Subtotal</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Destino</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Transporte</th>
+                    <th scope="col">Dias</th>
+                    <th scope="col">Precio/Dia</th>                      
+                    <th scope="col">Cod. Liq.</th>
+                    <th scope="col">Subtotal</th>
                 </tr>
               </thead>
               <tbody>

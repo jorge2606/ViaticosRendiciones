@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +8,6 @@ using Service.Common.ServiceResult;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
-using VR.Identity.Identities;
 using VR.Service.Interfaces;
 
 namespace VR.Service.Services

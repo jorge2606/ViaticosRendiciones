@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="col-md-6">
+                    <div class="col-md">
                         <!--Destino-->
                         <table *ngIf="DestinyStatic.length > 0" class="table table-sm" style="margin-bottom : 0px">
                             <thead>
@@ -86,43 +86,6 @@
                                     </td>  
                                 </tr>
                             </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <!--Destino to modify-->
-                        <table *ngIf="model.destinies.length > 0" class="table table-sm" style="margin-bottom : 0px">
-                        <thead>
-                            <tr class="form-row">
-                                <th class="col">Destino</th>
-                                <th class="col-2 text-right">Dias</th>
-                                <th class="col-2 text-right">Importe</th>
-                            </tr>  
-                        </thead>
-                        <tbody id="collapseDestiny" [ngbCollapse]="isCollapsedDestiny" *ngFor="let destiny of model.destinies">
-                            <tr class="form-row">        
-                                <td class="col">
-                                    <span *ngIf="destiny.countryId">{{destiny.countryName}} </span> 
-                                    <span *ngIf="!destiny.countryId">{{destiny.provinceName}} - {{destiny.cityName}} </span>
-                                    <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCities"> 
-                                        <span *ngIf="!destiny.countryId">, {{ c.name }}</span>
-                                    </span>
-                                </td>
-                                <td class="col-2 text-right">
-                                    <input 
-                                    [(ngModel)]="destiny.days"
-                                    type="number"
-                                    (keyup)="totalResult()"
-                                    min="0" 
-                                    pattern="^[0-9]+"
-                                    name="days{{destiny.id}}"
-                                    class="input-destiny"
-                                    required>
-                                </td>
-                                <td class="col-2 text-right">
-                                    {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
-                                </td>  
-                            </tr>
-                        </tbody>
                         </table>
                     </div>
                 </div>

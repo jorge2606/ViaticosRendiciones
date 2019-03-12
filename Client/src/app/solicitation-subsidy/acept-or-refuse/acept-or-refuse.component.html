@@ -99,11 +99,16 @@
     </div>
 </div>
   <div class="modal-footer mt-6 ml-auto">
-      <a routerLink="{{router.url}}" type="submit" (click)="acepted()" class="btn btn-success">Aceptar</a>
-      <a routerLink="{{router.url}}" type="submit" (click)="AddMotive('reject','Motivo de Rechazo')" class="btn btn-danger">
+      <button routerLink="{{router.url}}" type="button" (click)="acepted()" class="btn btn-success">
+        Aceptar
+      </button>
+      <button routerLink="{{router.url}}" type="button" (click)="AddMotive('reject','Motivo de Rechazo')" 
+        class="btn btn-danger">
         Rechazar
-      </a>
-      <a type="button" routerLink="{{router.url}}" class="btn btn-default" (click)="dimiss()">Cerrar</a>
+      </button>
+      <button type="button" routerLink="/SolicitationSubsidy/agent" class="btn btn-default" (click)="dimiss()">
+        Cerrar
+      </button>
   </div> 
 
   <div *ngIf="msjSuccess" class="alert alert-success mt-1">

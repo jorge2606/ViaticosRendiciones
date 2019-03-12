@@ -435,7 +435,7 @@ namespace VR.Service.Services
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackUrl = string.Format(_configuration["AppSettings:localUrl"] +"/CambiarPassword?code={0}&userId={1}", code, user.Id);
+            var callbackUrl = string.Format(_configuration["AppSettings:baseUrl"] +"/CambiarPassword?code={0}&userId={1}", code, user.Id);
 
             await _emailSender.SendEmail(model.Email, "Reset Password",
             "<html>" +

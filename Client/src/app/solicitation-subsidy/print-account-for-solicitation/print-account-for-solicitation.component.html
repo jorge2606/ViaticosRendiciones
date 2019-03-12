@@ -24,10 +24,10 @@ type="ball-scale-multiple">
 <!--<img src="{{previewImage}}" id="print-img" [hidden]="!previewImage" alt="">
 -->
 <div id="container-print" [hidden] = "hideHtml"  class="container">
-  <div class="form-row" style="border: 3px black double;">
+  <div class="" style="border: 3px black double;">
 
     <div class="form-col">
-      <table>
+      <table class="table">
           <thead>
             <tr><b><u>AGENTE / FUNCIONARIO COMISIONADO:</u></b></tr>
           </thead>
@@ -52,7 +52,7 @@ type="ball-scale-multiple">
    <div class="w-100"></div>
 
    <div class="form-col mt-1">
-    <table>
+    <table class="table">
         <thead>
         </thead>
         <tbody>
@@ -69,7 +69,7 @@ type="ball-scale-multiple">
    <div class="w-100"></div>
 
    <div class="form-col mt-1">
-      <table>
+      <table class="table">
         <thead>
         </thead>
         <tbody>
@@ -84,7 +84,7 @@ type="ball-scale-multiple">
    <div class="w-100"></div>
 
    <div class="form-col mt-1">
-    <table>
+    <table class="table">
       <thead>
       </thead>
       <tbody>
@@ -103,16 +103,20 @@ type="ball-scale-multiple">
 
    <div class="w-100"></div>
 
-   <div class="form-col mt-1">
-    <table style="border-top: 2px black solid;">
+   <div class="form-col mt-1" style="border-top: 3px black double;">
+    <table class="table">
       <thead>
-        <tr class="text-center"> <h5><b>COMPROBANTES PRESENTADOS</b></h5> </tr>
+        <tr> 
+          <td class="text-center" colspan="5">
+              <h5><b>COMPROBANTES PRESENTADOS</b></h5>
+          </td> 
+        </tr>
         <tr>
-          <td>N° de Orden</td>
-          <td>Fecha del comprobante</td>
-          <td>Otorgado por: </td>
-          <td>En concepto de:	</td>
-          <td>Importe del Comprobante</td>
+          <th scope="col">N° de Orden</th>
+          <th scope="col">Fecha del comprobante</th>
+          <th scope="col">Otorgado por </th>
+          <th scope="col">En concepto de	</th>
+          <th scope="col">Importe del Comprobante</th>
         </tr>
       </thead>
       <tbody>
@@ -120,15 +124,135 @@ type="ball-scale-multiple">
           <td>000</td>
           <td>03/05/1994</td>
           <td>sdsadsadsad</td>
-          <td>asdasdasdsad</td>
+          <td>{{model.motive}}</td>
           <td>333333333333333333</td>
         </tr>
-        <tr>
-          <td></td> <td></td> <td></td> <td></td> <td>Total......$ 620.00</td>
+        <tr style="border-top: 2px black solid">
+          <td></td> <td></td> <td></td> <td></td> <td><b>Total......$ 620.00</b></td>
         </tr>
       </tbody>
     </table>
    </div>
 
-  </div>     
+  </div>   
+  <p>Mi.P.T.T. - Dpto. Rendiciones de Cuentas - 2002 </p>
+  
+  <div class="mt-2" style="border: 3px black double;">
+  <table class="m-auto col-md-7" style="border: 1px black solid;">
+    <thead>
+      <tr style="border: 2px black solid;"> 
+        <td> <b><u>RESUMEN DE RENDICIÓN</u></b> </td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>1.-</b> Anticipado	$ </td> <td style="border-left : 1px black solid; border-right : 1px black solid;"></td></tr>
+      <tr><td><b>2.-</b> Comprobantes Presentados</td><td style="border-left : 1px black solid; border-right : 1px black solid; border-bottom: 1px black solid;"><b>$620,00</b></td></tr>
+      <tr><td><b>3.- SALDO</b></td><td style="border-left : 1px black solid; border-right : 1px black solid; border-top: 1px black solid;"> $620,00</td></tr>
+      <tr><td><u class="text-small">Que se Reintegra a Tesorería</u></td><td style="border-left : 1px black solid; border-right : 1px black solid;"></td></tr>
+      <tr><td><b>Que debe Reintegrárseme</b></td><td style="border-left : 1px black solid; border-right : 1px black solid;"></td></tr>
+      <tr><td><em>Tachar lo que no corresponda</em></td><td style="border-left : 1px black solid; border-right : 1px black solid; border-bottom: 1px black solid;"></td></tr>
+    </tbody>
+  </table>
+
+    <table class="m-auto">
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Art.11°</td><td>Inc. a) </td> <td>100%</td><td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td></td><td>Inc. b) </td> <td>25%</td><td><input type="checkbox"></td> <td>50%</td><td><input type="checkbox"></td>
+            <td>75%</td><td><input type="checkbox"></td>
+        </tr>
+        <tr>
+          <td></td><td>Inc. c)</td> <td></td> <td><input type="checkbox"></td> <td>Escala Superior :</td><td>.............</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="mt-5">
+      <div class="text-center">
+        ................................................... <br>
+        <div class="text-center">
+            Firma del Responsable
+        </div>   
+      </div>
+    </div>
+    
+    <br>
+    <table style="border : 2px black solid;" class="m-auto">
+      <thead>
+          <tr>
+            <td colspan="3" class="text-center"><b><u>COMPROBACIÓN DE LA REALIZACION DE LA COMISIÓN</u></b></td>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-small"><input type="checkbox"> Se adjunta Telegrama</td>
+          <td class="text-small"><input type="checkbox"> Certificación de Autoridad</td>
+          <td class="text-small"><input type="checkbox"> Certific.  Autoridad que ordenó la Comisión</td>
+        </tr>
+      </tbody>
+    </table>
+
+      <div class="m-auto text-center">
+          <div class="col-6 text-left m-auto">
+              <b><u>VISACIÓN DE AUTORIDAD QUE ORDENO LA COMISIÓN</u></b>												
+          </div>
+          <div class="nav navbar-nav">
+              <ul style="list-style: none;" class="col-6 text-left m-auto">
+                <li> <input type="checkbox" class="mr-1">Comprobación DE LA REALIZACION DE LA COMISIÓN</li>
+                <li> <input type="checkbox" class="mr-1">Utilización de Taxis o Remisses (Art. 16)</li>
+                <li> <input type="checkbox" class="mr-1">Gastos de Pasajes (Art. 17)</li>
+                <li> <input type="checkbox" class="mr-1">Comisiones de Directores de Unidades Ejecutoras (Art. 19)</li>
+                <li> <input type="checkbox" class="mr-1">Viático Mensual (Art. 20)</li>
+                <li> <input type="checkbox" class="mr-1">Comisiones en Localidades de costo elevado (Art. 24) </li>
+                <li> <input type="checkbox" class="mr-1"><b>Iniciación, Finalización y Duración de la Comisión.</b> </li>
+                <li> <input type="checkbox" class="mr-1"><b>Dió cumplimento del Art 1º del Decreto Nº 924/94.</b> </li>
+              </ul>
+          </div>
+          <br>
+          <div class="row m-1">
+              <div class="ml-auto">
+                <div class="mr-2">
+                    Fecha : <b>2/9/2018</b>
+                </div>
+              </div>
+        
+              <div class="mr-auto">
+                  <div class="ml-2 text-center">
+                    ...................................... <br>
+                                sello y firma	
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="m-auto text-center">
+        <p>Esta Rendición de Cuentas fue presentada el <b>2/9/2018</b> a la: <br>
+            <b>Dcción. de Administración del Ministerio de Producción</b> </p>
+
+        <div class="row m-1">
+          <div class="ml-auto">
+              <div class="mr-2 text-center">
+                  ............................................................................. <br>
+                  Director de Administración
+              </div>
+          </div>
+          <div class="mr-auto">
+              <div class="ml-2 text-center">
+                  ............................................................................. <br>
+                  Agente/Funcionario Comisionado
+              </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div>
+
+  </div>
 </div>

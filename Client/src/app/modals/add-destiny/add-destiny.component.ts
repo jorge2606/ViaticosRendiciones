@@ -38,7 +38,7 @@ export class AddDestinyComponent implements OnInit {
   countriesMock: AllCountryDto[] = [];
   cities: AllCitiesDto[] = [];
   citiesMock: AllCitiesDto[] = [];
-  model = new DestinyDto;
+  model  = new DestinyDto;
   codeLiquidations: codeLiquidationBaseDto[] = [];
   codeLiquidationsMock: codeLiquidationBaseDto[] = [];
   error: string[] = [];
@@ -87,7 +87,6 @@ export class AddDestinyComponent implements OnInit {
   ngOnInit() {
     this.selectedCountry = this.model.countryId;
     this.selectedProvince = this.model.provinceId;
-    this.model.categoryId = this.authService.userId('categoryId');
     this.AllPlace();
     this.AllProvince();
     this.allCategories();
@@ -290,7 +289,7 @@ export class AddDestinyComponent implements OnInit {
   }
 
   totalResultExpenditure() {
-    if (this.model.categoryId === undefined ||
+    if (this.categoryUser.id === undefined ||
       this.model.codeLiquidationId === undefined ||
       this.model.days === undefined) {
       return;
@@ -298,12 +297,10 @@ export class AddDestinyComponent implements OnInit {
 
 
     let resultDestiny = 0;
-    let category = this.categories.find(category => category.id == this.model.categoryId);
     let codLiquidation = this.codeLiquidations.find(codLiq => codLiq.id == this.model.codeLiquidationId);
-    resultDestiny = resultDestiny + (category.advance * this.model.days * codLiquidation.percentage);
+    resultDestiny = resultDestiny + (this.categoryUser.advance * this.model.days * codLiquidation.percentage);
 
     this.total = resultDestiny;
-  
   }
 
   changeCategory() {

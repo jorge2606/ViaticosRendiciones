@@ -85,6 +85,10 @@ export class SolicitationSubsidyService {
     return this.http.get<any>(environment.apiUrl+"File/ExpenditureRefund/"+expId+"/"+width+"/"+height);
   }
 
+  getUrlImageExpenditure(expId : number, width : number, height : number){
+    return this.http.get<any>(environment.apiUrl+"File/ExpenditureRefundUrl/"+expId+"/"+width+"/"+height);
+  }
+
 
   getImageHolographSignUrl(supervisorId : number, width : number, height : number){
     return this.http.get<any>(environment.apiUrl+"File/HolographSignUrl/"+supervisorId+"/"+width+"/"+height);

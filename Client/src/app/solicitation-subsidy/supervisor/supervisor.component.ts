@@ -47,7 +47,6 @@ export class SupervisorComponent implements OnInit {
   ngOnInit() {
     this.activateRoute.params
     .subscribe(x => this.filters.isRefund = x.isRefund);
-    console.log(this.filters.isRefund);
     this.getAll(this.filters);
     this.getAllTransport();
     

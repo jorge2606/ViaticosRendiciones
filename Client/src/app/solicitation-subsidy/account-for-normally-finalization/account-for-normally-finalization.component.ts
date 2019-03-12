@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Expenditure, CreateSolicitationSubsidyDto, ImageDto } from 'src/app/_models/solicitationSubsidy';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { FileUploader } from 'ng2-file-upload';
 import { AllCategoryDto } from 'src/app/_models/category';
 import { AllTransportDto } from 'src/app/_models/transport';
+import { Expenditure, CreateSolicitationSubsidyDto, ImageDto } from 'src/app/_models/solicitationSubsidy';
 import { Subscription } from 'rxjs';
 import { AllExpenditureDto } from 'src/app/_models/expenditureType';
 import { DestinyDto } from 'src/app/_models/destiny';
@@ -15,7 +11,9 @@ import { CityBaseDto } from 'src/app/_models/city';
 import { AllCountryDto } from 'src/app/_models/country';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { ProvinceService } from 'src/app/_services/province.service';
 import { CityService } from 'src/app/_services/city.service';
@@ -23,20 +21,22 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { TransportService } from 'src/app/_services/transport.service';
 import { CountryService } from 'src/app/_services/country.service';
 import { CodeLiquidationService } from 'src/app/_services/code-liquidation.service';
+import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AddExpenditureRepaymentComponent } from 'src/app/modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
-import { CurrencyPipe } from '@angular/common';
 import { DateDto } from 'src/app/_models/holiday';
 
 @Component({
-  selector: 'app-account-for',
-  templateUrl: './account-for.component.html',
-  styleUrls: ['./account-for.component.css']
+  selector: 'app-account-for-normally-finalization',
+  templateUrl: './account-for-normally-finalization.component.html',
+  styleUrls: ['./account-for-normally-finalization.component.css']
 })
-export class AccountForComponent implements OnInit {
+export class AccountForNormallyFinalizationComponent implements OnInit {
+
   uploader:FileUploader;
   isCollapsedDestiny = false;
   categories : AllCategoryDto[] = [];
@@ -449,6 +449,7 @@ export class AccountForComponent implements OnInit {
         if(!j.urlImage){
           this.toastrService.info('No se ha seleccionado ninguna imagen del concepto "'+ j.expenditureTypeName+'".');
           this.submit = false;
+          debugger
         }
         j.accountedForAmount = j.amount;
       }

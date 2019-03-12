@@ -1,3 +1,4 @@
+import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
 import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
 import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
 import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
@@ -164,7 +165,8 @@ const routes: Routes = [
       { path: 'printAccountFor/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintAccountForSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'repayment',data: {breadcrumb: 'reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
       { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
-      { path: 'accountFor/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForComponent, canActivate : [AuthGuard]}  
+      { path: 'accountFor/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForComponent, canActivate : [AuthGuard]},
+      { path: 'accountForNormallyFinalitation/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForNormallyFinalizationComponent, canActivate : [AuthGuard]}  
     ],
   },
 

@@ -85,6 +85,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { DetailAccountForSolicitationComponent } from './solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
 import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
 
 library.add(fas);
 
@@ -149,7 +150,8 @@ library.add(fas);
       AddExpenditureRepaymentComponent,
       AccountForComponent,
       DetailAccountForSolicitationComponent,
-      PrintAccountForSolicitationComponent
+      PrintAccountForSolicitationComponent,
+      AccountForNormallyFinalizationComponent
    ],
    imports: [
       BrowserModule,

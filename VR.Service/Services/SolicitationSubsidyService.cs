@@ -277,6 +277,8 @@ namespace VR.Service.Services
 
             _dataContext.SolicitationSubsidies.Update(solicitationSubsidy);
 
+            /*
+             cuando agrego un destino con el pop-up add-destiny ya lo almaceno en la base de datos 
             foreach (var destiny in subsidy.Destinies)
             {
                 var find = _dataContext.Destinies.FirstOrDefault(x => x.Id == destiny.Id);
@@ -319,7 +321,7 @@ namespace VR.Service.Services
                     //el agente no puede modificar los destinos
                     _dataContext.Destinies.Update(newDestiny);
                 }
-            }
+            }*/
 
             foreach (var expenditure in subsidy.Expenditures)
             {
@@ -623,7 +625,7 @@ namespace VR.Service.Services
             }
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
 
-            var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/confirm/{0}",solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] +"/SolicitationSubsidy/agent/confirm/{0}",solicitation.Id);
 
             var html = "<!DOCTYPE html>" +
                        "<html>" +
@@ -794,7 +796,7 @@ namespace VR.Service.Services
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
             var tableAccountForExpenditures = headTableExp + rowAccountForExp + "</tbody></table>";
 
-            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var html = "<!DOCTYPE html>" +
                        "<html>" +
