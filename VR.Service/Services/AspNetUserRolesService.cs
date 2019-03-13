@@ -38,7 +38,7 @@ namespace VR.Service.Services
                 );
         }
 
-        public async Task< ServiceResult< IList<ClaimDto>> >  FindByIdRoles(Guid userId)
+        public async Task< ServiceResult< IList<ClaimDto>> > FindByIdRoles(Guid userId)
         {
             var roles = _context.UserRoles
                 .Select(x => _mapper.Map<AllUserRolesDto>(x))

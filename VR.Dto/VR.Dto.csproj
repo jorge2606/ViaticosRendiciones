@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Service.Common\Service.Common.csproj" />
+    <ProjectReference Include="..\VR.Common\VR.Common.csproj" />
     <ProjectReference Include="..\VR.Data\VR.Data.csproj" />
   </ItemGroup>
 

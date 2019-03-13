@@ -31,7 +31,6 @@
                     <th class="col-2" style="padding : 0px;">Concepto</th>
                     <th class="col" style="padding : 0px;">Descripción</th>
                     <th class="col-2 text-right" style="padding : 0px;">Importe</th>
-                    <th class="col-2"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -70,10 +69,9 @@
                   <tr class="text-center" >
                       <th scope="col" style="padding : 0px;">Fecha</th>
                       <th scope="col" style="padding : 0px;">Destino</th>
-                      <th scope="col" style="padding : 0px;">Categoría</th>
                       <th scope="col" style="padding : 0px;">Transporte</th>
                       <th scope="col" style="padding : 0px;">Dias</th>
-                      <th scope="col" style="padding : 0px;">Precio/Dia</th>                      
+                      <th scope="col" style="padding : 0px;">$/Dia</th>                      
                       <th scope="col" style="padding : 0px;">Cod. Liq.</th>
                       <th scope="col" style="padding : 0px;">Subtotal</th>
                   </tr>
@@ -89,9 +87,6 @@
                         <span class="mr-1 cardInsideTd" *ngFor="let c of des.supplementaryCities"> 
                             <span *ngIf="!des.countryId">, {{ c.name }}</span>
                         </span>
-                    </td>
-                    <td style="padding : 1px;">
-                        {{des.categoryName}}
                     </td>
                     <td style="padding : 1px;">
                         {{des.transportModel}} - {{des.transportBrand}}

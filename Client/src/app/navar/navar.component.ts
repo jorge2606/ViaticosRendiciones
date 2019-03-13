@@ -221,6 +221,15 @@ export class NavarComponent implements OnInit {
                     } 
                 )
               }
+
+              if(solicitationState.description == 'Rendición Aceptada'){
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      this.router.navigateByUrl('SolicitationSubsidy/agent/printAccountFor/'+notificationridden.solicitationSubsidyId);
+                    } 
+                )
+              }
               
             });
 

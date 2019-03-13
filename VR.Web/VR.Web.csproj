@@ -6,7 +6,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <StartupObject>VR.Web.Program</StartupObject>
+    <StartupObject></StartupObject>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
