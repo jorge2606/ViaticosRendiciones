@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { MessBetweenCompService } from 'src/app/_services/mess-between-comp.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -17,6 +17,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class HolographSignComponent implements OnInit {
 
+  @Input('supervisorId') userIdInput : number;
   //image
   uploader:FileUploader;
   hasBaseDropZoneOver = false;
@@ -43,7 +44,12 @@ export class HolographSignComponent implements OnInit {
       this.titleService.setTitle('Crear Usuario - Firma Hológrafa');
       //image
       this.initializeUploader();
-      this.idUser = this.authService.userId('id');
+      if(!this.userIdInput){
+        this.idUser = this.authService.userId('id');
+      }else{
+        this.idUser = this.userIdInput;
+      }
+      
       this.urlImage = this.urlFile(this.idUser,200,200)  + "r=" + (Math.random() * 100) + 1;
     }
 

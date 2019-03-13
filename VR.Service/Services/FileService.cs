@@ -274,7 +274,7 @@ namespace VR.Service.Services
                 }
                 stream.Dispose();
             }
-
+            
             _contextFile.Files.Add(_mapper.Map<VR.Data.Model.File>(model));
             _contextFile.SaveChanges();
 

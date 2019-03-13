@@ -58,6 +58,11 @@ namespace VR.Dto
                     {
                         Text  = "Ver relación agente-supervisor",
                         Value = "user.toSeeRelationshipBeetwenSupervisorAndAgent"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Editar firma hológrafa",
+                        Value = "user.editSignatureHolograpich"
                     }
                 }
 

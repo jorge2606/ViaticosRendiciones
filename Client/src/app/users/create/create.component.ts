@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { User } from './../../_models/user';
 import { AllSupervisorUserAgent } from './../../_models/supervisorUserAgent';
 import { ToastrService } from 'ngx-toastr';
@@ -31,6 +32,7 @@ export class CreateuserComponent implements OnInit {
   validCheckbox : boolean = false;
   selectedSupervisorAgentId : number;
   allSupervisors : User[] = [];
+  editSignatureHolograpich: any;
 
   constructor(
               private UserService : UserService, 
@@ -40,7 +42,8 @@ export class CreateuserComponent implements OnInit {
               private categoryService : CategoryService,
               private titleService : Title,
               private toastrService : ToastrService,
-              private supervisorUserAgentService : SupervisorUserAgentService) {}
+              private supervisorUserAgentService : SupervisorUserAgentService,
+              private authService : AuthenticationService) {}
 
 
   getAllRoles(){
@@ -134,6 +137,7 @@ export class CreateuserComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Crear Usuario');
+    this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpich');
     this.getAllRoles();
     this.getAllCategories();
     this.getAllUsersSupervisors();

@@ -31,6 +31,7 @@ export class SettingofuserComponent implements OnInit {
   validCheckbox : boolean = true;
   permissions: any[] = [];
   editRol: any;
+  editSignatureHolograpich: any;
 
   
 
@@ -153,6 +154,7 @@ export class SettingofuserComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Mi Perfil');
     this.permissions = this.authService.userId('roles');
+    this.editSignatureHolograpich = this.permissions.find(x => x.value == 'user.editSignatureHolograpich');
     this.editRol = this.permissions.find(x => x.value == 'roles.edit');
     this.getOrganismAll();
     this.userService.getById().subscribe(i => {

@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
@@ -26,6 +27,7 @@ export class ModifyuserComponent implements OnInit {
   passwordsAreEquals : boolean = true;
   submitted : boolean;
   validCheckbox : boolean = true;
+  editSignatureHolograpich: any;
 
   constructor(
           private router : Router,
@@ -34,7 +36,8 @@ export class ModifyuserComponent implements OnInit {
           private distributionService : DistributionService,
           private categoryService : CategoryService,
           private titleService : Title,
-          private toastrService : ToastrService
+          private toastrService : ToastrService,
+          private authService : AuthenticationService
           ) {}
   
 
@@ -122,7 +125,10 @@ export class ModifyuserComponent implements OnInit {
     this.titleService.setTitle('Modificar Usuario - Perfil');
     //le asigno el id que extraigo de la url
     this.route.params.subscribe(
-      p => this.id = p.id
+      p => {
+            this.id = p.id;
+            this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpich');
+          }
     );
     
     this.getAllCategories();
