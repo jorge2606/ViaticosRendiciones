@@ -4,7 +4,7 @@
     class="btn btn-primary mb-1" href="" routerLink="/holidays">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
-  <div class="container col-5">
+  <div class="container col-md-5">
     
     <div class="card">
           <div class="card-header">
@@ -14,7 +14,7 @@
               <form (ngSubmit)="onSubmit()" #holidaysForm="ngForm">
   
                       <div class="form-group">
-                              <input class="form-control col" 
+                              <input class="form-control" 
                               [(ngModel)]="model.description" 
                               #description="ngModel" 
                               required 
@@ -36,7 +36,7 @@
                   
                           <div class="form-group">
                           <div class="input-group">
-                              <input class="form-control col-5" 
+                              <input class="form-control" 
                                       placeholder="dd-mm-yyyy"
                                       name="dp" 
                                       displayMonths="displayMonths" 
