@@ -92,6 +92,7 @@ namespace VR.Service.Services
                     //SolicitationSubsidyId = solicitationSubsidy.Id,
                     SolicitationSubsidy = solicitationSubsidy,
                     Days = destiny.Days,
+                    DaysWeekEnd = destiny.DaysWeekEnd,
                     StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
                     ProvinceId = destiny.ProvinceId,
                     AdvanceCategory = destiny.AdvanceCategory,
@@ -906,6 +907,32 @@ namespace VR.Service.Services
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
         }
 
+        public ServiceResult<SolicitationIdDto> AceptedMySolicitation(SolicitationIdDto solicitationDto)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<SolicitationIdDto>(null);
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                StateId = State.Accepted,
+                SupervisorId = solicitationDto.SupervisorId
+            };
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
+
         public ServiceResult<SolicitationIdDto> AceptedAccountForSolicitation(SolicitationIdDto solicitationDto)
         {
             var solicitation = _dataContext.SolicitationSubsidies
@@ -948,6 +975,32 @@ namespace VR.Service.Services
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
         }
 
+        public ServiceResult<SolicitationIdDto> AceptedMyAccountForSolicitation(SolicitationIdDto solicitationDto)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<SolicitationIdDto>(null);
+            }
+
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                StateId = State.AccountForAcepted,
+                SupervisorId = solicitationDto.SupervisorId
+            };
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
 
         public ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto)
         {

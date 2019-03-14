@@ -58,9 +58,18 @@ export class SolicitationSubsidyService {
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedSolicitation",solicitation);
   }
 
+  aceptedMySolicitation(solicitation : SolicitationIdDto){
+    return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedMySolicitation",solicitation);
+  }
+
   aceptedAccountForSolicitation(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedAccountForSolicitation",solicitation);
   }
+
+  aceptedMyAccountForSolicitation(solicitation : SolicitationIdDto){
+    return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedMyAccountForSolicitation",solicitation);
+  }
+
   refused(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/RefusedSolicitation",solicitation);
   }

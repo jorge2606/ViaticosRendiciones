@@ -86,6 +86,7 @@ import { DetailAccountForSolicitationComponent } from './solicitation-subsidy/de
 import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
+import { AddDestinyRepaymentComponent } from './modals/add-destiny-repayment/add-destiny-repayment.component';
 
 library.add(fas);
 
@@ -151,7 +152,8 @@ library.add(fas);
       AccountForComponent,
       DetailAccountForSolicitationComponent,
       PrintAccountForSolicitationComponent,
-      AccountForNormallyFinalizationComponent
+      AccountForNormallyFinalizationComponent,
+      AddDestinyRepaymentComponent
    ],
    imports: [
       BrowserModule,
@@ -194,7 +196,8 @@ library.add(fas);
       NotifyRejectComponent,
       FileNumberComponent,
       AddExpenditureRepaymentComponent,
-      DetailAccountForSolicitationComponent
+      DetailAccountForSolicitationComponent,
+      AddDestinyRepaymentComponent
    ],
    bootstrap: [
       AppComponent

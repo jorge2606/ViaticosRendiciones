@@ -15,11 +15,10 @@ export class AppComponent implements OnInit {
   islogged : Observable<boolean>;
 
   constructor(private authService : AuthenticationService,
-              private titleService : Title){
-                this.titleService.setTitle('Viáticos y Rendiciones');
-              }
+              private titleService : Title){}
   
   ngOnInit(){
+    this.titleService.setTitle('Viáticos y Rendiciones');
     this.islogged = this.authService.isLoggedIn;
 
     this.islogged.subscribe(x => {

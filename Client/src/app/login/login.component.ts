@@ -7,6 +7,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private spinnerService : NgxSpinnerService
+    private spinnerService : NgxSpinnerService,
+    private titleService : Title
     ) { }
 
     model = new Login();
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
    }
 
     ngOnInit() {
+        this.titleService.setTitle('Viáticos y Rendiciones');
         //this.isLogged = this.authenticationService.isLoggedIn;
         this.authenticationService.isLoggedIn
         .subscribe(x => {

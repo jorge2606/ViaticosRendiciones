@@ -1,9 +1,10 @@
+import { AddDestinyRepaymentComponent } from './../../modals/add-destiny-repayment/add-destiny-repayment.component';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { AddExpenditureRepaymentComponent } from './../../modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { AllCategoryDto } from 'src/app/_models/category';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { Expenditure, CreateSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
@@ -87,7 +88,8 @@ export class RepaymentComponent implements OnInit {
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
       private toastrService: ToastrService,
-      private authService : AuthenticationService
+      private authService : AuthenticationService,
+      private ngbCalendar : NgbCalendar
       ) { }
 
   ngOnInit() {
@@ -330,7 +332,7 @@ export class RepaymentComponent implements OnInit {
 
 
   AddDestiny(){
-    const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
+    const modalRef = this.modalService.open(AddDestinyRepaymentComponent,{size : 'lg'});
 
     if (this.model.destinies === undefined)
     {
@@ -340,6 +342,7 @@ export class RepaymentComponent implements OnInit {
     let listDestinies : DestinyDto[] = this.model.destinies;
     
     modalRef.componentInstance.destiniesAdded = listDestinies;
+    modalRef.componentInstance.solicitationId = this.id;
     
     modalRef.result.then(
       () =>this.totalResultExpenditure()
@@ -450,20 +453,35 @@ export class RepaymentComponent implements OnInit {
     this.verOcultarTextExpenditure = "Ocultar";    
   }
 
-    totalResultExpenditure(){
-      let resultExpenditure = 0;
-      let resultDestiny = 0;
-      this.model.expenditures.forEach(
-        expenditure => resultExpenditure = resultExpenditure +  expenditure.amount
-      );
+  totalResultExpenditure(){
+    let resultExpenditure = 0;
+    let resultDestiny = 0;
+    this.model.expenditures.forEach(
+      expenditure => resultExpenditure = resultExpenditure +  expenditure.amount
+    );
 
-      this.model.destinies.forEach(
-        destiny => {
-          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
+    this.model.destinies.forEach(
+      destiny => {
+        destiny.days = destiny.daysWeekEnd;
+
+        for (let i = destiny.daysWeekEnd; i > 0; i--) {
+          var date = new Date(destiny.startDate.year, destiny.startDate.month, destiny.startDate.day);
+          date.setDate(date.getDate() + i);
+          let dateNow = new  NgbDate(date.getFullYear(), date.getMonth(), date.getDate());
+          //extrigo lod dias para saber cual si es feriado o no , 
+          //en caso de serlo le descuento esos dias.
+          let isWeekend = this.ngbCalendar.getWeekday(dateNow);
+          //let isWeekend = this.ngbCalendar.getWeekday(destiny.startDate.setDate(destiny.startDate.getDate() + destiny.days) );
+          if (isWeekend == 6 || isWeekend == 7){
+            destiny.days = destiny.days - 1;
+          }
         }
-      );
-      this.model.total = resultExpenditure + resultDestiny;
-    }
+
+        resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
+      }
+    );
+    this.model.total = resultExpenditure + resultDestiny;
+  }
 
     toSeeImageBase64InNewTab(data) {
       var image = new Image();

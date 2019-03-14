@@ -338,6 +338,11 @@ namespace VR.Dto
                         Text  = "Rechazar Rendición",
                         Value = "solicitations.rejectAccountForSolicitation"
                     },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Aprobar mi solicitud",
+                        Value = "solicitations.acceptMySolicitation"
+                    }
                 }
 
             });

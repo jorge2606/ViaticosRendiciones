@@ -18,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { ProvinceService } from 'src/app/_services/province.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
@@ -76,7 +76,8 @@ export class CreateSolicitationComponent implements OnInit {
       private solicitationSubsidyService : SolicitationSubsidyService,
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
-      private toastrService: ToastrService
+      private toastrService: ToastrService,
+      private ngbCalendar : NgbCalendar
       ) { }
 
   ngOnInit() {
@@ -104,7 +105,6 @@ export class CreateSolicitationComponent implements OnInit {
                 this.model = x;
                 if (this.model.destinies != null){
                   for (let index = 0; index < this.model.destinies.length; index++) {
-
                     if (this.model.destinies[index].provinceId != null){
                       this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
                     }
@@ -434,6 +434,21 @@ export class CreateSolicitationComponent implements OnInit {
 
       this.model.destinies.forEach(
         destiny => {
+          destiny.days = destiny.daysWeekEnd;
+
+          for (let i = destiny.daysWeekEnd; i > 0; i--) {
+            var date = new Date(destiny.startDate.year, destiny.startDate.month, destiny.startDate.day);
+            date.setDate(date.getDate() + i);
+            let dateNow = new  NgbDate(date.getFullYear(), date.getMonth(), date.getDate());
+            //extrigo lod dias para saber cual si es feriado o no , 
+            //en caso de serlo le descuento esos dias.
+            let isWeekend = this.ngbCalendar.getWeekday(dateNow);
+            //let isWeekend = this.ngbCalendar.getWeekday(destiny.startDate.setDate(destiny.startDate.getDate() + destiny.days) );
+            if (isWeekend == 6 || isWeekend == 7){
+              destiny.days = destiny.days - 1;
+            }
+          }
+
           resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
         }
       );

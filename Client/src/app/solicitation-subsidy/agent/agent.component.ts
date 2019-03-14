@@ -43,6 +43,7 @@ export class AgentComponent implements OnInit {
   solicitationModerate: any;
   moderateRefund: any;
   createRefund: any;
+  _acceptMySolicitation: any;
 
   constructor(
             private solicitationSubsidyservice : SolicitationSubsidyService,
@@ -80,6 +81,7 @@ export class AgentComponent implements OnInit {
           this.solicitationModerate = this.permissions.find(claim => claim.value == 'solicitations.moderateSolicitations');
           this.moderateRefund = this.permissions.find(claim => claim.value == 'solicitations.moderateRefunds');
           this.createRefund = this.permissions.find(claim => claim.value == 'solicitations.createRefund');
+          this._acceptMySolicitation = this.permissions.find(claim => claim.value == 'solicitations.acceptMySolicitation');
 
         }
     );
@@ -95,30 +97,41 @@ export class AgentComponent implements OnInit {
     this.getAll(this.filters);
   }
 
-    //MODALS
-    openEliminar(solicitud : SolicitationSubsidyBaseDto) {
-      const modalRef = this.modalService.open(NgbdModalContent);
-      modalRef.componentInstance.Encabezado = "Eliminar";
-      modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
-      modalRef.componentInstance.GuardaroEliminar = "Eliminar";
-      modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
-      modalRef.componentInstance.MsgClose = "Cancelar";
-      modalRef.result.then(() => {
-        this.solicitationSubsidyservice.delete(solicitud.id).subscribe(
-          data => {
-            this.toastrService.success("La solicitud de viático se ha eliminado correctamente.",'',
-            {positionClass : 'toast-top-center', timeOut : 3000});
-            this.getAll(this.filters);
-          },
-          error => {
-              console.log("error", error);
-          }
-      );
-      },
-        () => {
-          console.log('Backdrop click');
-      })
-    }
+  acceptMySolicitation(solicitation : SolicitationIdDto){
+    this.solicitationSubsidyservice.aceptedMySolicitation(solicitation)
+    .subscribe(() => this.getAll(this.filters)
+    ,error => console.error(error));
+  }
+
+  aceptedMyAccountForSolicitation(solicitation : SolicitationIdDto){
+    this.solicitationSubsidyservice.aceptedMyAccountForSolicitation(solicitation)
+    .subscribe(() => this.getAll(this.filters)
+    ,error => console.error(error));
+  }
+  //MODALS
+  openEliminar(solicitud : SolicitationSubsidyBaseDto) {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.Encabezado = "Eliminar";
+    modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
+    modalRef.componentInstance.GuardaroEliminar = "Eliminar";
+    modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
+    modalRef.componentInstance.MsgClose = "Cancelar";
+    modalRef.result.then(() => {
+      this.solicitationSubsidyservice.delete(solicitud.id).subscribe(
+        data => {
+          this.toastrService.success("La solicitud de viático se ha eliminado correctamente.",'',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+          this.getAll(this.filters);
+        },
+        error => {
+            console.log("error", error);
+        }
+    );
+    },
+      () => {
+        console.log('Backdrop click');
+    })
+  }
 
     openDetail(id : number){
       const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});

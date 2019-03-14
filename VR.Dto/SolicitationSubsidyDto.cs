@@ -43,9 +43,13 @@ namespace VR.Dto
     {
         public Boolean IsRefund { set; get; }
         public DateDto FinalizeDate { set; get; }
+        public int DaysWeekEnd { set; get; }
     }
 
-    public class UpdateSolicitationSubsidyDto : SolicitationSubsidyBaseDto { }
+    public class UpdateSolicitationSubsidyDto : SolicitationSubsidyBaseDto
+    {
+        public int DaysWeekEnd { set; get; }
+    }
 
     public class DeleteSolicitationSubsidyDto
     {

@@ -3,7 +3,7 @@
           placement="bottom" 
           ngbTooltip="Agregar una nueva solicitud de viático" 
           href="" class="btn btn-success" routerLink="create">
-          <fa-icon class="fa-lg" icon="plus"></fa-icon> Solicitud
+          <fa-icon class="fa-lg" icon="plus"></fa-icon> Anticipo
         </a>
     </div>
 
@@ -12,7 +12,7 @@
         placement="bottom" 
         ngbTooltip="Ver las solicitudes de viáticos de agentes a mi cargo" 
         href="" class="btn btn-success" routerLink="supervisor/solicitationSubsidies/{{isRefund.isNotRefund}}">
-        Moderar Solicitudes
+        Moderar Anticipo
       </a>
     </div>
 
@@ -123,7 +123,7 @@
                       <fa-icon class="{{sizeIcon}}" style="color:red;" icon="trash">
                       </fa-icon>
                     </a>
-                    <a *ngIf="sol.isRefund"
+                    <a *ngIf="sol.isRefund && !_acceptMySolicitation"
                       href="" 
                       routerLink="/SolicitationSubsidy/agent"
                       class="pr-3" 
@@ -137,7 +137,7 @@
                       </fa-icon>
                     </a>
   
-                    <a *ngIf="!sol.isRefund"
+                    <a *ngIf="!sol.isRefund && !_acceptMySolicitation"
                     href="" 
                     routerLink="/SolicitationSubsidy/agent"
                     class="pr-3" 
@@ -150,6 +150,35 @@
                       icon="envelope">
                     </fa-icon>
                     </a>
+
+                    <a *ngIf="!sol.isRefund && _acceptMySolicitation"
+                      href="" 
+                      routerLink="/SolicitationSubsidy/agent"
+                      class="pr-3" 
+                      (click)="acceptMySolicitation(sol)">
+                      <fa-icon 
+                        placement="top" 
+                        ngbTooltip="Aprobar solicitud" 
+                        class="{{sizeIcon}}" 
+                        style="color: green;" 
+                        icon="check">
+                      </fa-icon>
+                    </a>
+
+                  <a *ngIf="sol.isRefund && _acceptMySolicitation"
+                    href="" 
+                    routerLink="/SolicitationSubsidy/agent"
+                    class="pr-3" 
+                    (click)="acceptMySolicitation(sol)">
+                    <fa-icon 
+                      placement="bottom" 
+                      ngbTooltip="Aprobar reintegro de viático" 
+                      class="{{sizeIcon}}" 
+                      style="color: green;" 
+                      icon="check">
+                    </fa-icon>
+                  </a>
+
                   </div>
                 </td>
                 <td *ngIf="sol.state == 'Rechazado'" class="col text-right">
@@ -271,7 +300,7 @@
                       </fa-icon>
                     </a>
                     <a 
-                        *ngIf="!sol.isRefund"
+                        *ngIf="!sol.isRefund && !_acceptMySolicitation"
                         href="" 
                         routerLink="/SolicitationSubsidy/agent"
                         class="pr-3" 
@@ -282,6 +311,20 @@
                         class="{{sizeIcon}}" 
                         style="color: black;" 
                         icon="envelope">
+                      </fa-icon>
+                    </a>
+
+                    <a *ngIf="!sol.isRefund && _acceptMySolicitation"
+                      href="" 
+                      routerLink="/SolicitationSubsidy/agent"
+                      class="pr-3" 
+                      (click)="aceptedMyAccountForSolicitation(sol)">
+                      <fa-icon 
+                        placement="bottom" 
+                        ngbTooltip="Aprobar rendición de solicitud" 
+                        class="{{sizeIcon}}" 
+                        style="color: green;" 
+                        icon="check">
                       </fa-icon>
                     </a>
                 </td>

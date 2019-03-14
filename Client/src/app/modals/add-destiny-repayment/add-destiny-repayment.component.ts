@@ -1,33 +1,31 @@
-import { AuthenticationService } from './../../_services/authentication.service';
-import { CodeLiquidationService } from './../../_services/code-liquidation.service';
-import { AllCountryDto } from './../../_models/country';
-import { DestinyService } from 'src/app/_services/destiny.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AllPlaceDto } from 'src/app/_models/place';
-import { PlaceService } from 'src/app/_services/place.service';
-import { AllProvinceDto } from 'src/app/_models/province';
-import { AllCitiesDto } from 'src/app/_models/city';
-import { CityService } from 'src/app/_services/city.service';
-import { ProvinceService } from 'src/app/_services/province.service';
-import { DestinyDto } from 'src/app/_models/destiny';
-import { CategoryService } from 'src/app/_services/category.service';
-import { AllCategoryDto } from 'src/app/_models/category';
-import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto, CarIsBeingUsedByOtherSolicitation } from 'src/app/_models/transport';
-import { CountryService } from 'src/app/_services/country.service';
+import { AllProvinceDto } from 'src/app/_models/province';
+import { AllCountryDto } from 'src/app/_models/country';
+import { AllCitiesDto } from 'src/app/_models/city';
+import { DestinyDto } from 'src/app/_models/destiny';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
+import { AllCategoryDto } from 'src/app/_models/category';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PlaceService } from 'src/app/_services/place.service';
+import { ProvinceService } from 'src/app/_services/province.service';
+import { CityService } from 'src/app/_services/city.service';
+import { DestinyService } from 'src/app/_services/destiny.service';
+import { CategoryService } from 'src/app/_services/category.service';
+import { TransportService } from 'src/app/_services/transport.service';
+import { CountryService } from 'src/app/_services/country.service';
+import { CodeLiquidationService } from 'src/app/_services/code-liquidation.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
 
-
 @Component({
-  selector: 'app-add-destiny',
-  templateUrl: './add-destiny.component.html',
-  styleUrls: ['./add-destiny.component.css']
-  //,providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n}] 
+  selector: 'app-add-destiny-repayment',
+  templateUrl: './add-destiny-repayment.component.html',
+  styleUrls: ['./add-destiny-repayment.component.css']
 })
-export class AddDestinyComponent implements OnInit {
+export class AddDestinyRepaymentComponent implements OnInit {
 
   @Input() solicitationId : number;
   places: AllPlaceDto[] = [];
@@ -55,7 +53,6 @@ export class AddDestinyComponent implements OnInit {
   total: number = 0;
   carIsUsed: boolean;
   errorWhenCreateDestiny : string = "";
-  minDate  : any =  {year : new Date().getFullYear(),month : new Date().getMonth() + 1,day :new Date().getDate()};
   config = {
     displayKey: "name", //if objects array passed which key to be displayed defaults to description
     search: true,//true/false for the search functionlity defaults to false,
@@ -82,8 +79,7 @@ export class AddDestinyComponent implements OnInit {
     private countryservice: CountryService,
     private codeLiquidationService: CodeLiquidationService,
     private spinner: NgxSpinnerService,
-    private authService: AuthenticationService
-    ) { }
+    private authService: AuthenticationService ) { }
 
   ngOnInit() {
     this.selectedCountry = this.model.countryId;

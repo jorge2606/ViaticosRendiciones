@@ -257,12 +257,40 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpPost("AceptedMySolicitation")]
+        [Authorize]
+        public IActionResult AceptedMySolicitation([FromBody] SolicitationIdDto solicitationId)
+        {
+            solicitationId.SupervisorId = GetIdUser();
+            var result = _solicitationSubsidyService.AceptedMySolicitation(solicitationId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpPost("AceptedAccountForSolicitation")]
         [Authorize]
         public IActionResult AceptedAccountForSolicitation([FromBody] SolicitationIdDto solicitationId)
         {
             solicitationId.SupervisorId = GetIdUser();
             var result = _solicitationSubsidyService.AceptedAccountForSolicitation(solicitationId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
+        [HttpPost("AceptedMyAccountForSolicitation")]
+        [Authorize]
+        public IActionResult AceptedMyAccountForSolicitation([FromBody] SolicitationIdDto solicitationId)
+        {
+            solicitationId.SupervisorId = GetIdUser();
+            var result = _solicitationSubsidyService.AceptedMyAccountForSolicitation(solicitationId);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

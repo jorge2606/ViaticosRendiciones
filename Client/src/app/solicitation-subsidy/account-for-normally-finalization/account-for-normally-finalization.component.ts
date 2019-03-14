@@ -449,7 +449,6 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
         if(!j.urlImage){
           this.toastrService.info('No se ha seleccionado ninguna imagen del concepto "'+ j.expenditureTypeName+'".');
           this.submit = false;
-          debugger
         }
         j.accountedForAmount = j.amount;
       }

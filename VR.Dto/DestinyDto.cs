@@ -20,6 +20,7 @@ namespace VR.Dto
         public Decimal AdvanceCategory { set; get; }
         public Decimal PercentageCodeLiquidation { set; get; }
         public int AccountedForDays { set; get; }
+        public int DaysWeekEnd { set; get; }
 
         public Category Category { set; get; }
         public CodeLiquidation CodeLiquidation { set; get; }
@@ -83,5 +84,6 @@ namespace VR.Dto
         public string TransportModel { set; get; }
         public Guid SolicitationSubsidyId { set; get; }
         public List<SupplementaryCityOnlyId> SupplementaryCities { set; get; }
+        public int DaysWeekEnd { set; get; }
     }
 }
