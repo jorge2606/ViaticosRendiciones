@@ -137,7 +137,7 @@ export class CreateuserComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Crear Usuario');
-    this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpich');
+    this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpichAsAdmin');
     this.getAllRoles();
     this.getAllCategories();
     this.getAllUsersSupervisors();

@@ -116,7 +116,10 @@ namespace VR.Web.Controllers
         [HttpPost("HolographSignUpdate")]
         public IActionResult HolographSignUpdate(UpdateMyImageDto image)
         {
-            image.UserId = GetIdUser();
+            if (image.UserId == null)
+            {
+                image.UserId = GetIdUser();
+            }
             var result = _fileService.HolographSignUpdate(image);
 
             if (!result.Result.IsSuccess)

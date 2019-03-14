@@ -61,9 +61,15 @@ namespace VR.Dto
                     },
                     new ClaimPermissionDto()
                     {
-                        Text  = "Editar firma hológrafa",
-                        Value = "user.editSignatureHolograpich"
+                        Text  = "Editar firma hológrafa como administrador",
+                        Value = "user.editSignatureHolograpichAsAdmin"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Editar firma hológrafa en el perfil",
+                        Value = "user.editSignatureHolograpichAsSupervisor"
                     }
+
                 }
 
             });

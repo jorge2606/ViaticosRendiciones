@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { MessBetweenCompService } from '../../_services/mess-between-comp.service';
 import { $ } from 'protractor';
 import { Title } from '@angular/platform-browser';
+import { ImageDto } from 'src/app/_models/solicitationSubsidy';
 
 @Component({
   selector: 'app-photo-profile',
@@ -28,6 +29,7 @@ export class PhotoProfileComponent implements OnInit {
     urlImage : string;
     subject = new Subject<any>();
     url = '';
+    image : ImageDto;
    
     fileOverBase(e:any):void {
       this.hasBaseDropZoneOver = e;

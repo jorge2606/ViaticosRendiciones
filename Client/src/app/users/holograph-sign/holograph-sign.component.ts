@@ -42,8 +42,6 @@ export class HolographSignComponent implements OnInit {
 
     ngOnInit() {
       this.titleService.setTitle('Crear Usuario - Firma Hológrafa');
-      //image
-      this.initializeUploader();
       if(!this.userIdInput){
         this.idUser = this.authService.userId('id');
       }else{
@@ -51,6 +49,8 @@ export class HolographSignComponent implements OnInit {
       }
       
       this.urlImage = this.urlFile(this.idUser,200,200)  + "r=" + (Math.random() * 100) + 1;
+      //image
+      this.initializeUploader();
     }
 
     urlFile(userId : number, width : number, height: number){
@@ -61,6 +61,9 @@ export class HolographSignComponent implements OnInit {
       this.uploader = new FileUploader({
       url: this.baseUrl+'File/HolographSignUpdate/',
       authToken: 'Bearer ' + this.authService.userId('token'),
+      additionalParameter :{
+        'userId' : this.idUser
+      },
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -83,7 +86,7 @@ export class HolographSignComponent implements OnInit {
     onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-
+      
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
         reader.onload = (event : any) => { // called once readAsDataURL is completed

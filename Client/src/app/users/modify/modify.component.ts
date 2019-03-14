@@ -127,7 +127,7 @@ export class ModifyuserComponent implements OnInit {
     this.route.params.subscribe(
       p => {
             this.id = p.id;
-            this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpich');
+            this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpichAsAdmin');
           }
     );
     

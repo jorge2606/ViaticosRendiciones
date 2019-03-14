@@ -7,7 +7,7 @@
     color: black;
 }
 .active, .active:hover {
-    background-color: #007bff;
+    background-color: dodgerblue;
     color: white;
 }
 

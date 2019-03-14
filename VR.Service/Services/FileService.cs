@@ -66,7 +66,20 @@ namespace VR.Service.Services
                 stream.Dispose();
             }
 
-            _contextFile.Files.Add(_mapper.Map<VR.Data.Model.File>(model));
+            _contextFile.Files.Add(_mapper.Map<VR.Data.Model.File>(
+                new VR.Data.Model.File()
+                {
+                    Id = new Guid(),
+                    Size = model.File.Length,
+                    Name = model.File.FileName,
+                    UploadTime = new DateTime(),
+                    LastModifiedDate = new DateTime(),
+                    LastModified = new DateTime().ToString(),
+                    UserId = model.UserId,
+                    MimeType = model.File.ContentType,
+                    Path = model.Path
+                })
+            );
             _contextFile.SaveChanges();
             
 
@@ -275,7 +288,20 @@ namespace VR.Service.Services
                 stream.Dispose();
             }
             
-            _contextFile.Files.Add(_mapper.Map<VR.Data.Model.File>(model));
+            _contextFile.Files.Add(_mapper.Map<VR.Data.Model.File>(
+                new VR.Data.Model.File()
+                    {
+                        Id = new Guid(),
+                        Size = model.File.Length,
+                        Name = model.File.FileName,
+                        UploadTime = new DateTime(),
+                        LastModifiedDate = new DateTime(),
+                        LastModified = new DateTime().ToString(),
+                        UserId = model.UserId,
+                        MimeType = model.File.ContentType,
+                        Path = model.Path
+                     }
+                ));
             _contextFile.SaveChanges();
 
 
