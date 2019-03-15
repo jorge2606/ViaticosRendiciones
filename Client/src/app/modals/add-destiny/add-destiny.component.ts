@@ -194,13 +194,11 @@ export class AddDestinyComponent implements OnInit {
     }
 
     this.error = [];
-    var newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation();
-    newCarIsBeingUsed.id = this.model.transportId;
-    newCarIsBeingUsed.days = this.model.days;
-    newCarIsBeingUsed.StartDate = this.model.startDate;
-    
-    var startDateFromView = new Date(newCarIsBeingUsed.StartDate.year,newCarIsBeingUsed.StartDate.month,newCarIsBeingUsed.StartDate.day);
-    var endDateFromView = new Date(newCarIsBeingUsed.StartDate.year,newCarIsBeingUsed.StartDate.month,newCarIsBeingUsed.StartDate.day);
+    var newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation(
+      this.model.transportId,this.model.startDate,this.model.days
+    );
+    var startDateFromView = new Date(newCarIsBeingUsed.startDate.year,newCarIsBeingUsed.startDate.month,newCarIsBeingUsed.startDate.day);
+    var endDateFromView = new Date(newCarIsBeingUsed.startDate.year,newCarIsBeingUsed.startDate.month,newCarIsBeingUsed.startDate.day);
     endDateFromView.setDate(endDateFromView.getDate() + newCarIsBeingUsed.days);
 
     this.destiniesAdded.forEach(
@@ -285,7 +283,10 @@ export class AddDestinyComponent implements OnInit {
 
     },
     e => {
-        this.error = e.error.errors.Error;
+        if (e.error){
+          this.error = e.error.errors.Error;
+        }
+        
       }
     );
   }

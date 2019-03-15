@@ -47,6 +47,7 @@ namespace VR.Service.Services
                     x.TransportId == transport.Id && 
                     !(x.StartDate.AddDays(x.Days) < startDate || x.StartDate > endDate)
                 );
+            
 
             var resultDates = _solicitationSubsidyService.OverlapingDates(new OverlapingDatesAndTransportsDto()
             {
@@ -56,23 +57,65 @@ namespace VR.Service.Services
                 UserId = transport.UserId
             });
 
-            if (destinies.Count() > 0)
-            {
-                foreach (var destiny in destinies)
-                {
-                    var stateSolicitation = _dataContext.SolicitationStates
-                        .Where(x => x.SolicitationSubsidyId == destiny.SolicitationSubsidyId)
-                        .OrderBy(q => q.ChangeDate).FirstOrDefault();//obtengo el estado de la solicitud
+            var transportIsSolcitated = false;
 
-                    if (stateSolicitation.StateId == State.Sent || stateSolicitation.StateId == State.Accepted && !destiny.SolicitationSubsidy.IsRefund)
+            foreach (var destiny in destinies)
+            {
+                
+                var stateSolicitation = _dataContext.SolicitationStates
+                    .Include(x => x.State)
+                    .Where(x => x.SolicitationSubsidyId == destiny.SolicitationSubsidyId)
+                    .OrderByDescending(q => q.ChangeDate).FirstOrDefault();//obtengo el estado de la solicitud
+
+                if (stateSolicitation.State.Id == State.Sent || stateSolicitation.State.Id == State.Accepted && !destiny.SolicitationSubsidy.IsRefund)
+                {
+                    
+                    if (!resultDates.Response)
                     {
+                        resultDates = new ServiceResult<bool>(true);
                         resultDates.AddError(NotificationType.Error.ToString(),
-                            "Este transporte ya esta solicitado");
+                            "El transporte " + _dataContext.Transports.FirstOrDefault(c => c.Id == destiny.TransportId).Brand + "-" +
+                            _dataContext.Transports.FirstOrDefault(c => c.Id == destiny.TransportId).Model + " ya fue solicitado.");
                     }
                 }
             }
 
             return resultDates;
+        }
+
+        public List<ServiceResult<bool>> CarIsBeingUsedByOtherSolicitationById(Guid solicitationId)
+        {
+            var result = new List<ServiceResult<bool>>();
+
+            var solicitation = _dataContext
+                .SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .FirstOrDefault(x => x.Id == solicitationId);
+
+            if (solicitation == null)
+            {
+                var exist = new ServiceResult<bool>();
+                exist.AddError(NotificationType.Error.ToString(), "Esta solicitud no existe.");
+                result.Add(exist);
+                return result;
+            }
+
+            foreach (var dest in solicitation.Destinies)
+            {
+                var resultMethod = CarIsBeingUsedByOtherSolicitation(new CarIsBeingUsedByOtherSolicitation()
+                {
+                    Id = dest.TransportId,
+                    Days = dest.Days,
+                    StartDate = new DateDto() { Day = dest.StartDate.Day, Month = dest.StartDate.Month, Year = dest.StartDate.Year }
+                });
+
+                if (resultMethod.Response)
+                {
+                    result.Add(resultMethod);
+                }
+            }
+
+            return result;
         }
 
 

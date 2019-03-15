@@ -12,6 +12,8 @@ import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { CarIsBeingUsedByOtherSolicitation } from 'src/app/_models/transport';
+import { errorDto } from 'src/app/_models/error';
 
 @Component({
   selector: 'app-agent',
@@ -159,30 +161,50 @@ export class AgentComponent implements OnInit {
       })
     }
 
-    sendToSupervisor(id : number){
-      let newSolicitation = new SolicitationIdDto();
-      newSolicitation.id = id;
-      this.spinner.show();
-      this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
-      .subscribe(
-        x => {
-            this.spinner.hide();
-            this.toastrService.success("La solicitud de viático se ha enviado correctamente.",'',
-            {positionClass : 'toast-top-center', timeOut : 3000});
-            this.getAll(this.filters);
-          }
-        ,
-        e =>{
-          this.spinner.hide();
-          e = e.error.errors.error || [];
-          e.forEach(err => {
-            this.toastrService.error(err,'',
-            {positionClass : 'toast-top-center', timeOut : 3000});
-          });
-          this.getAll(this.filters);
+    sendToSupervisor(sol : SolicitationSubsidyBaseDto){
+
+        this.transportService.carIsBeingUsedByOtherSolicitationById(sol.id)
+        .subscribe(carIsBeingUsed => {
+          var ListNotifications : errorDto[] = carIsBeingUsed;
+
+          ListNotifications.forEach(
+            not =>{
+              if(!not.response){
+                let newSolicitation = new SolicitationIdDto();
+                newSolicitation.id = sol.id;
+                this.spinner.show();
+                this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
+                .subscribe(
+                  x => {
+                      this.spinner.hide();
+                      this.toastrService.success("La solicitud de viático se ha enviado correctamente.",'',
+                      {positionClass : 'toast-top-center', timeOut : 3000});
+                      this.getAll(this.filters);
+                    }
+                  ,
+                  e =>{
+                    this.spinner.hide();
+                    e = e.error.errors.error || [];
+                    e.forEach(err => {
+                      this.toastrService.error(err,'',
+                      {positionClass : 'toast-top-center', timeOut : 3000});
+                    });
+                    this.getAll(this.filters);
+                  }
+                );
+              }else{
+                var result = not.errors.Error || [];
+                result.forEach(e=>{
+                  this.toastrService.info(e,'',
+                  {timeOut : 2000, positionClass: 'toast-top-right'});
+                });
+              }  
+            }
+          );
+
         }
-      );
-    } 
+        );
+      }
 
     sendAccountForSolicitationToSupervisor(id : number){
       let newSolicitation = new SolicitationIdDto();

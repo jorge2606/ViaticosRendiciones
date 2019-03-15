@@ -19,6 +19,12 @@ export class AllTransportDto extends TransportBaseDto{}
 export class CarIsBeingUsedByOtherSolicitation
 {
     id : number;
-    StartDate : any;
+    startDate : any;
     days : number;
+    
+    constructor(p_id : number, p_startDate : any, p_days : number){
+        this.id = p_id;
+        this.startDate = p_startDate;
+        this.days = p_days;
+    }
 }

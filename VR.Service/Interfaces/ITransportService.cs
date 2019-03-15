@@ -13,5 +13,6 @@ namespace VR.Service.Interfaces
         ServiceResult<FindByIdTransportDto> FindByIdTransport(Guid idTransport);
         ServiceResult<List<GetAllTransportDto>> GetAllTransport();
         ServiceResult<Boolean> CarIsBeingUsedByOtherSolicitation(CarIsBeingUsedByOtherSolicitation transport);
+        List<ServiceResult<bool>> CarIsBeingUsedByOtherSolicitationById(Guid solicitationId);
     }
 }

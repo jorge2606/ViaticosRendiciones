@@ -39,5 +39,9 @@ export class TransportService {
     return this.http.post<boolean>(environment.apiUrl+'Transport/CarIsBeingUsedByOtherSolicitation', transport);
   }
 
+  carIsBeingUsedByOtherSolicitationById(solicitationId : number){
+    return this.http.get<any>(environment.apiUrl+'Transport/CarIsBeingUsedByOtherSolicitationById/'+solicitationId);
+  }
+
 
 }

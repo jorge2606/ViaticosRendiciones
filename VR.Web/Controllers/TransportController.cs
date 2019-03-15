@@ -122,6 +122,15 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("CarIsBeingUsedByOtherSolicitationById/{solicitationId}")]
+        [Authorize]
+        public IActionResult CarIsBeingUsedByOtherSolicitationById(Guid solicitationId)
+        {
+            var result = _transportService.CarIsBeingUsedByOtherSolicitationById(solicitationId);
+
+            return Ok(result);
+        }
+
 
         public IQueryable<Transport> queryableUser()
         {
