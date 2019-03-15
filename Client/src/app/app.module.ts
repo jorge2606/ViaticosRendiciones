@@ -87,6 +87,7 @@ import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/pri
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
 import { AddDestinyRepaymentComponent } from './modals/add-destiny-repayment/add-destiny-repayment.component';
+import {CrystalGalleryModule} from 'ngx-crystal-gallery';
 
 library.add(fas);
 
@@ -175,7 +176,8 @@ library.add(fas);
       ToastrModule.forRoot(), // ToastrModule added
       NgxMaskModule.forRoot(),
       NgxBreadcrumbsModule,
-      CollapseModule.forRoot()
+      CollapseModule.forRoot(),
+      CrystalGalleryModule
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
