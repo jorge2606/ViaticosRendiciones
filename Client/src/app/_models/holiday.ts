@@ -10,6 +10,12 @@ export class DateDto{
     year : number;
 }
 
+export class FilterHolidayDto{
+    page : number;
+    description : string;
+    date : DateDto;
+}
+
 export class CreateHolidayDto extends HolidayBaseDto{}
 
 export class UpdateHolidayDto extends HolidayBaseDto{}

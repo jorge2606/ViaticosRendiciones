@@ -15,4 +15,5 @@ namespace VR.Dto
             return new DateTime(this.Year, this.Month, this.Day);
         }
     }
+    
 }

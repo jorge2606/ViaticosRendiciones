@@ -1,7 +1,7 @@
 import { AuthenticationService } from './../_services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
-import { HolidayBaseDto } from './../_models/holiday';
+import { HolidayBaseDto, DateDto, FilterHolidayDto } from './../_models/holiday';
 import { HolidaysService } from './../_services/holidays.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,7 @@ import { NgbdModalContent } from '../modals/modals.component';
 
 export class HolidaysComponent implements OnInit {
 
-  filters = { page : 0, description : "", date : null}
+  filters : FilterHolidayDto = { page : 0, description : "", date : { day : 0, month : 0, year : 0}}
   holidays : HolidayBaseDto[];
   
   //paginator
