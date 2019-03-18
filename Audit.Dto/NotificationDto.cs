@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Audit.Data
+namespace Audit.Dto
 {
-    public class Audit_Notification : AuditBase
+    public class NotificationsAuditDto
     {
         public string TextData { set; get; }
         public string Tittle { set; get; }
@@ -11,4 +13,4 @@ namespace Audit.Data
         public bool Read { set; get; }
         public Guid CreatorUserId { set; get; }
     }
-}   
+}

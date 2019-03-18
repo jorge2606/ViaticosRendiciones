@@ -1,3 +1,4 @@
+import { AuditsComponent } from './audits/audits.component';
 import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
 import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
 import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/acept-or-refuse.component';
@@ -43,6 +44,7 @@ import { PrintComponent } from './solicitation-subsidy/print/print.component';
 import { SupervisorComponent } from './solicitation-subsidy/supervisor/supervisor.component';
 import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.component';
 import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
+import { AuditNotificationComponent } from './audits/audit-notification/audit-notification.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -179,6 +181,13 @@ const routes: Routes = [
     ]
   },
   
+  { path : 'audits',
+    data : { breadcrumb : 'Auditoría', isHome : false, show : true },
+    children : [
+      {path : '', component : AuditsComponent, canActivate : [AuthGuard] },
+      {path : 'notifications', component : AuditNotificationComponent, canActivate : [AuthGuard] }
+    ]
+  },
   
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

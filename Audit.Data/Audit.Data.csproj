@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20181114132033_alter fields.cs" />
+    <Compile Remove="Migrations\20190318154935_add creatorUserId 1.cs" />
+    <Compile Remove="Migrations\20190318155312_add creatorUserId 1.cs" />
+    <Compile Remove="Migrations\20190318155730_add creatorUserId 1.cs" />
   </ItemGroup>
 
   <ItemGroup>

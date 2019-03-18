@@ -88,6 +88,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
 import { AddDestinyRepaymentComponent } from './modals/add-destiny-repayment/add-destiny-repayment.component';
 import {CrystalGalleryModule} from 'ngx-crystal-gallery';
+import { AuditNotificationComponent } from './audits/audit-notification/audit-notification.component';
 
 library.add(fas);
 
@@ -154,7 +155,8 @@ library.add(fas);
       DetailAccountForSolicitationComponent,
       PrintAccountForSolicitationComponent,
       AccountForNormallyFinalizationComponent,
-      AddDestinyRepaymentComponent
+      AddDestinyRepaymentComponent,
+      AuditNotificationComponent
    ],
    imports: [
       BrowserModule,

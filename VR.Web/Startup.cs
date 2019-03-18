@@ -22,6 +22,7 @@ using Audit.Core;
 using Microsoft.AspNetCore.Http;
 using VR.Web.Helpers;
 using Audit.EntityFramework;
+using Audit.Service.Interfaces;
 using Audit.Service.Services;
 using FluentValidation.AspNetCore;
 using FluentValidation;
@@ -177,7 +178,6 @@ namespace VR.Web
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITransportService, TransportService>();
-            services.AddScoped<Audit.Service.Interfaces.IUserAuditService, UserAuditService>();
             services.AddScoped<IDistributionService, DistributionService>();
             services.AddScoped<IExpenditureTypeService, ExpenditureTypeService>();
             services.AddScoped<IOrganismService, OrganismService>();
@@ -197,6 +197,9 @@ namespace VR.Web
             services.AddScoped<ISupplementaryCityService, SupplementaryCityService>();
             services.AddScoped<ISolcitationSubsidyProcedure, SolicitationSubsidyProcedure>();
             services.AddScoped<ISolicitationStateService, SolicitationStateService>();
+            //Auditoria
+            services.AddScoped<IUserAuditService, UserAuditService>();
+            services.AddScoped<INotificationAuditService, NotificationAuditService>();
             //sender Email
             // Add application services.
             services.AddTransient<IEmailService, EmailService>();

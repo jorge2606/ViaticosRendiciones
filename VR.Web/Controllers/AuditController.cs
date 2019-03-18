@@ -10,10 +10,15 @@ namespace VR.Web.Controllers
     public class AuditController : ControllerBase
     {
         private IUserAuditService _userService;
+        private INotificationAuditService _notificationAuditService;
 
-        public AuditController(IUserAuditService userService)
+        public AuditController(
+            IUserAuditService userService,
+            INotificationAuditService notificationAuditService
+        )
         {
             _userService = userService;
+            _notificationAuditService = notificationAuditService;
         }
 
         [HttpGet("userAudits/{userId}")]
@@ -27,5 +32,19 @@ namespace VR.Web.Controllers
             }
             return Ok(result.Response);
         }
+
+        [HttpGet("GetNotifications/{userId}")]
+        [AllowAnonymous]
+        public ActionResult GetNotifications(Guid userId)
+        {
+            var result = _notificationAuditService.GetNotificationAudit(userId);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result.Response);
+        }
+
     }
 }

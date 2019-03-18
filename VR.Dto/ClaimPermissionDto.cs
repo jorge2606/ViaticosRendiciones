@@ -378,6 +378,22 @@ namespace VR.Dto
 
             });
 
+            permissions.Add(new ClaimPermissionDto()
+            {
+                Text = "Auditoria",
+                Value = "",
+                Children = new List<ClaimPermissionDto>
+                {
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver",
+                        Value = "audits.view"
+
+                    },
+
+                }
+            });
+
             return permissions;
             
         }

@@ -177,6 +177,12 @@
             <app-audit-users [userId]="id"></app-audit-users>
         </ng-template>
     </ngb-tab>
+    <ngb-tab>
+            <ng-template ngbTabTitle>Auditoría-Notificaciones</ng-template>
+            <ng-template ngbTabContent>
+                <app-audit-notification [userId]="id"></app-audit-notification>
+            </ng-template>
+    </ngb-tab>
     <ngb-tab *ngIf="editSignatureHolograpich">
         <ng-template ngbTabTitle>Firma Hológrafa</ng-template>
         <ng-template ngbTabContent>

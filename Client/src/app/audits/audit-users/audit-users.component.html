@@ -17,24 +17,24 @@
         <td>{{user.auditDate | date:'dd/MM/yyyy (H:mm:ss) a'}}</td>
         <td>
             <ul>
-              <li *ngIf="user.current.dni != user.previous.dni && user.previous.dni">
-                 Dni: {{user.previous.dni}} --> {{user.current.dni}}
-              </li>
-              <li *ngIf="user.current.dni != user.previous.dni && !user.previous.dni">
-                Dni: {{user.current.dni}}
-             </li>
-              <li *ngIf="user.current.userName != user.previous.userName && user.previous.userName">
-                 Usuario: {{user.previous.userName}} --> {{user.current.userName}}
-              </li>
-              <li *ngIf="user.current.userName != user.previous.userName && !user.previous.userName">
-                Usuario: {{user.current.userName}}
-             </li>
-              <li *ngIf="user.current.phoneNumber != user.previous.phoneNumber && user.previous.phoneNumber">
-                Telefóno: {{user.previous.phoneNumber}} --> {{user.current.phoneNumber}}
-             </li>
-             <li *ngIf="user.current.phoneNumber != user.previous.phoneNumber && !user.previous.phoneNumber">
-              Telefóno: {{user.current.phoneNumber}}
-           </li>
+                <li *ngIf="user.current.dni != user.previous.dni && user.previous.dni">
+                  Dni: {{user.previous.dni}} --> {{user.current.dni}}
+                </li>
+                <li *ngIf="user.current.dni != user.previous.dni && !user.previous.dni">
+                  Dni: {{user.current.dni}}
+                </li>
+                <li *ngIf="user.current.userName != user.previous.userName && user.previous.userName">
+                  Usuario: {{user.previous.userName}} --> {{user.current.userName}}
+                </li>
+                <li *ngIf="user.current.userName != user.previous.userName && !user.previous.userName">
+                  Usuario: {{user.current.userName}}
+                </li>
+                <li *ngIf="user.current.phoneNumber != user.previous.phoneNumber && user.previous.phoneNumber">
+                  Telefóno: {{user.previous.phoneNumber}} --> {{user.current.phoneNumber}}
+                </li>
+                <li *ngIf="user.current.phoneNumber != user.previous.phoneNumber && !user.previous.phoneNumber">
+                Telefóno: {{user.current.phoneNumber}}
+                </li>
             </ul>          
           </td>
         <!--<td>

@@ -51,6 +51,7 @@ export class NavarComponent implements OnInit {
   moderateViewRefund: any;
   moderateViewSolicitation: any;
   show : boolean = true;
+  showTabAudits: any;
 
   constructor(private notificationServices : NotificationsService, 
               private authService : AuthenticationService,
@@ -111,6 +112,7 @@ export class NavarComponent implements OnInit {
         this.showTabRoles = this.roles.find(x => x.value == 'roles.view');
         this.showTabHolidays = this.roles.find(x => x.value == 'holidays.view');
         this.showTabTransports = this.roles.find(x => x.value == 'transports.view');
+        this.showTabAudits = this.roles.find(x => x.value == 'audits.view');
 
         this.comunicationService.getMessage()
         .subscribe(x => {

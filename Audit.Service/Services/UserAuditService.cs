@@ -23,7 +23,10 @@ namespace Audit.Service.Services
 
         public ServiceResult<List<AuditDto<UserAuditDto>>> GetUserAudit(Guid userId)
         {
-            var user = _auditContext.Audit_Users.Where(x => x.EntityId == userId).ToList().OrderByDescending(x => x.AuditDate).ToList();
+            var user = _auditContext.Audit_Users
+                .Where(x => x.EntityId == userId)
+                .OrderByDescending(x => x.AuditDate)
+                .ToList();
 
             if (user == null)
             {
