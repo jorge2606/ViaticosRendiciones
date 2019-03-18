@@ -10,7 +10,7 @@ namespace VR.Data.Model
     {
         public Guid Id { set; get; }
         public string Description { set; get; }
-        [Column(TypeName = "Date")]
+        //[Column(TypeName = "Date")]
         public DateTime Date { set; get; } 
         public Boolean IsDeleted { set; get; }
     }

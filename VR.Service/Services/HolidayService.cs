@@ -123,16 +123,26 @@ namespace VR.Service.Services
         public ServiceResult<PagedResult<AllHolidayDto>> Pagination(FilterHolidayDto filters)
         {
             const int pageSize = 10;
+            var newDatetime = new DateTime();
+            if (filters.Date.Year == 0 || filters.Date.Month == 0 || filters.Date.Day == 0)
+            {
+                filters.Date = null;
+            }
+            else
+            {
+                newDatetime = new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day);
+            }
 
             var resultFull = _dataContext.Holidays
                 .Where(x => x.IsDeleted != true);
-
 
             var resultPage = resultFull
                 .Where(
                     x => (string.IsNullOrEmpty(filters.Description) || x.Description.ToUpper().Contains(filters.Description.ToUpper()))
                          &&
-                         (filters.Date == null || DateTime.Compare(x.Date, filters.Date.ToDateTime()) == 0)
+                    //(filters.Date == null || (DateTime.Compare(x.Date, new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day)) == 0))
+                         
+                         (filters.Date == null || (x.Date.Day == newDatetime.Day && x.Date.Month == newDatetime.Month && x.Date.Year == newDatetime.Year) )
                 ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ProjectTo<AllHolidayDto>()

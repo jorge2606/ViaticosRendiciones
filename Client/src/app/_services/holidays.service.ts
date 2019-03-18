@@ -11,7 +11,16 @@ export class HolidaysService {
   constructor(private http : HttpClient) { }
 
   getPageHoliday(filters : any){
-    return this.http.get<any>(environment.apiUrl+"Holiday/GetPageHoliday", {params : filters});
+    var param = new HttpParams({
+      fromObject : {
+        'description' : filters.description,
+        'page' : filters.page,
+        'day' : filters.date == null ? 0 : filters.date.day,
+        'month' : filters.date == null ? 0 : filters.date.month, 
+        'year' : filters.date == null ? 0 : filters.date.year
+      }
+    });
+    return this.http.get<any>(environment.apiUrl+"Holiday/GetPageHoliday/", {params : param});
   }
 
   createHoliday(newHoliday : CreateHolidayDto){

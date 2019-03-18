@@ -24,8 +24,19 @@ namespace VR.Web.Controllers
         }
         // GET: api/Holiday
         [HttpGet("GetPageHoliday")]
-        public IActionResult GetPageHoliday([FromQuery] FilterHolidayDto filters)
+        public IActionResult GetPageHoliday([FromQuery] FilterHolidayDto param)
         {
+            FilterHolidayDto filters = new FilterHolidayDto()
+            {
+                Description = param.Description,
+                Date = new DateDto()
+                {
+                    Day = param.Day,
+                    Month = param.Month,
+                    Year = param.Year
+                },
+                Page = param.Page
+            };
             var response = _holidayService.Pagination(filters);
             if (!response.IsSuccess)
             {

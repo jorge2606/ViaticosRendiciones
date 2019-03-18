@@ -34,5 +34,8 @@ namespace VR.Dto
         public int? Page { set; get; }
         public string Description { set; get; }
         public DateDto Date { set; get; }
+        public int Day { set; get; }
+        public int Month { set; get; }
+        public int Year { set; get; }
     }
 }

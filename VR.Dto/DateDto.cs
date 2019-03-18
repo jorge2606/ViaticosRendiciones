@@ -14,6 +14,11 @@ namespace VR.Dto
         {
             return new DateTime(this.Year, this.Month, this.Day);
         }
+
+        public DateTime ToDateTime(int year, int month, int day)
+        {
+            return new DateTime(year,month,day);
+        }
     }
     
 }

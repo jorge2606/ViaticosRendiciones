@@ -60,13 +60,13 @@ export class HolidaysComponent implements OnInit {
   }
 
   filter(){  
-      if (!this.validateDate())
-            {
-              this.errorDatapicker = 'Formato de Fecha Incorrecto'
-              return;
-            }
-    this.errorDatapicker = '';
-    this.getAllHolidays(this.filters);
+    if (!this.validateDate())
+      {
+        this.errorDatapicker = 'Formato de Fecha Incorrecto';
+        return;
+      }
+      this.errorDatapicker = '';
+      this.loadPage(this.filters.page);
   }
 
   validateDate(){
@@ -76,19 +76,18 @@ export class HolidaysComponent implements OnInit {
         || !this.filters.date.year
         || this.filters.date.day > 31 || this.filters.date.month < 1
         || this.filters.date.month > 12 || this.filters.date.month < 1
-        || this.filters.date.year > 2099 || this.filters.date.year < 1912)) {
-      this.errorDatapicker = 'Formato de Fecha Incorrecto'
-      return false;
-    }
-    this.errorDatapicker = '';
-    return true;
+        || this.filters.date.year > 2099 || this.filters.date.year < 1912))
+        {
+          return false;
+        }
+          return true;
   }
 
   loadPage(page : any) {
-      if (page > 0) {
+    if (page > 0){
         this.filters.page = page - 1;
         this.getAllHolidays(this.filters);
-      }
+    }
   }
 
     //MODALS
