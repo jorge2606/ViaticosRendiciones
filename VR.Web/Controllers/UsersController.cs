@@ -294,9 +294,9 @@ namespace VR.Web.Controllers
         }
         
         [HttpGet("page")]
-        public IActionResult GetPageUser([FromQuery] UserFilterDto filters)
+        public IActionResult GetPageUser([FromQuery] UserFilterDto param)
         {
-            var result = _userService.GetPageUser(filters);
+            var result = _userService.GetPageUser(param);
 
             if (!result.IsSuccess)
             {

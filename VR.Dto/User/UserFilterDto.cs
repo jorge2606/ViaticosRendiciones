@@ -8,7 +8,7 @@ namespace VR.Dto.User
 {
     public class UserFilterDto : FilterBaseDto
     {
-        public int Dni { get; set; }
+        public string Dni { get; set; }
 
         public string FirstName { get; set; }
 

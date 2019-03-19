@@ -1,7 +1,7 @@
 import { Register } from './../_models/register';
 import { RoleUserDto } from './../_models/roles';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { User, modifyUser, createUser } from '../users/users';
 import { Observable, throwError, of } from 'rxjs';
@@ -18,7 +18,15 @@ export class UserService {
     }
 
     getPaginator(filters: any) {
-        return this.http.get<any>(environment.apiUrl+'User/page/',{params: filters});
+        var param = new HttpParams({
+            fromObject :{
+                'page' : filters.page,
+                'distributionId' : filters.distributionId,
+                'dni' : filters.dni == null ? "" : filters.dni.toString(),
+                'firstName' : filters.firstName
+            }
+        });
+        return this.http.get<any>(environment.apiUrl+'User/page/',{params: param});
     }
 
     getById() {

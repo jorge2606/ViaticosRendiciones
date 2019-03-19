@@ -89,7 +89,7 @@ namespace VR.Service.Services
                         &&
                         (string.IsNullOrEmpty(filters.FirstName) || x.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
                         &&
-                        (filters.Dni == 0 || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
+                        (string.IsNullOrEmpty(filters.Dni) || x.Dni.ToUpper().Contains(filters.Dni.ToString().ToUpper()))
                         &&
                         (x.IsDeleted != true)
                 );
