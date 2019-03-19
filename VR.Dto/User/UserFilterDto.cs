@@ -10,7 +10,7 @@ namespace VR.Dto.User
     {
         public int Dni { get; set; }
 
-        public string Username { get; set; }
+        public string FirstName { get; set; }
 
         public Guid? DistributionId { get; set; }
     }

@@ -87,7 +87,7 @@ namespace VR.Service.Services
                     x =>
                         (!filters.DistributionId.HasValue || x.DistributionId == filters.DistributionId)
                         &&
-                        (string.IsNullOrEmpty(filters.Username) || x.UserName.ToUpper().Contains(filters.Username.ToUpper()))
+                        (string.IsNullOrEmpty(filters.FirstName) || x.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
                         &&
                         (filters.Dni == 0 || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()))
                         &&

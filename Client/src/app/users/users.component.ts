@@ -24,7 +24,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 
 export class UsersComponent implements OnInit {
-  filters = { page: 0, distributionId: 0, dni : "", userName : "" }
+  filters = { page: 0, distributionId: 0, dni : "", firstName : "" }
   user_list: User[];
   allUsers : User[];
   roles_list: Roles;
@@ -114,16 +114,16 @@ export class UsersComponent implements OnInit {
   loadPage(page : any) {
     if (page > 0) {
       this.filters.page = page - 1;
-      this.getAllUsers(this.filters);
     }
+    this.getAllUsers(this.filters);
   }
 
   filterList() {
-    this.getAllUsers(this.filters);
+    this.loadPage(this.filters.page);
   }
 
   findWhileWrite(){
-    this.getAllUsers(this.filters);
+    this.loadPage(this.filters.page);
   }
 
   getAllUsers(filters: any): void {
