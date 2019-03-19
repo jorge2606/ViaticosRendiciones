@@ -40,9 +40,10 @@ export class ExpendituresComponent implements OnInit {
   }
 
   loadPage(page : number){
-    if (page != 0){
-      this.getAllExpenditure(page-1);
+    if (page > 0){
+      page = page - 1;
     }
+    this.getAllExpenditure(page);
   }
 
   getAllExpenditure(page : number){
@@ -71,7 +72,7 @@ export class ExpendituresComponent implements OnInit {
         data => {
             this.toastrService.success("El concepto de gasto '"+name+"' se ha eliminado correctamente.",'',
             {positionClass : 'toast-top-center', timeOut : 3000});
-            this.getAllExpenditure(this.page);
+            this.loadPage(this.page);
         },
         error => {
             console.log("error", error);

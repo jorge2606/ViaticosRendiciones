@@ -98,6 +98,14 @@ namespace VR.Service.Services
                 .Take(pageSize)
                 .ProjectTo<AllUserDto>()
                 .ToList();
+
+            if (resultPage.Count() == 0 && filters.Page > 0)
+            {
+                resultPage = resultFull.Skip( ( (filters.Page ?? 0) - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<AllUserDto>()
+                    .ToList();
+            }
             foreach (var user in resultPage)
             {
                 user.Distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);

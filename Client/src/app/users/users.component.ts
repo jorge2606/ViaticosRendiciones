@@ -47,6 +47,7 @@ export class UsersComponent implements OnInit {
   toSeeRelationshipBeetwenSupervisorAndAgent: any;
   edit: any;
   delete: any;
+  page = 0;
 
   constructor(
     private var_user_service: UserService, 
@@ -111,7 +112,7 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  loadPage(page : any) {
+  loadPage(page : number) {
     if (page > 0) {
       this.filters.page = page - 1;
     }
@@ -158,7 +159,7 @@ export class UsersComponent implements OnInit {
         data => {
           this.toastrService.success("El usuario '"+usuario+"' se ha eliminado correctamente.",'',
           {positionClass : 'toast-top-center', timeOut : 3000});
-          this.getAllUsers(this.filters);
+          this.loadPage(this.page);
         },
         error => {
           console.log("error", error);

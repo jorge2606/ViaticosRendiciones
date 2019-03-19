@@ -107,6 +107,14 @@ namespace VR.Web.Controllers
             var result = queryPaginator.Skip((page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
+
+            if (result.Count() == 0 && page > 0)
+            {
+                result = queryPaginator.Skip(( (page ?? 0) - 1 ) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+
             return new PagedResult<ExpenditureType>
             {
                 List = result,
