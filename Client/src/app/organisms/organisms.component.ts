@@ -24,6 +24,7 @@ export class OrganismsComponent implements OnInit {
   organimCreate: any;
   organimEdit: any;
   organimDelete: any;
+  organism_list_length : number;
 
   constructor(
               private organismService : OrganismService,
@@ -43,6 +44,7 @@ export class OrganismsComponent implements OnInit {
     this.organismService.getPaginator(this.filters).subscribe(
       result => {
         this.organism = result.list;
+        this.organism_list_length = this.organism.length;
         this.col_size = result.totalRecords;
         this.permissions = this.authService.userId('roles');
         this.organimCreate = this.permissions.find(x => x.value == 'organisms.create');
@@ -54,10 +56,10 @@ export class OrganismsComponent implements OnInit {
   }
 
   loadPage(page : number){
-    if (page != 0){
+    if (page > 0){
       this.filters.page = page - 1;
-      this.getAllOrganism(this.filters);
     }
+    this.getAllOrganism(this.filters);
     
   }
 
@@ -86,7 +88,7 @@ export class OrganismsComponent implements OnInit {
   }
 
   findWhileWrite(){
-    this.getAllOrganism(this.filters);
+    this.loadPage(this.filters.page);
   }
 
 }
