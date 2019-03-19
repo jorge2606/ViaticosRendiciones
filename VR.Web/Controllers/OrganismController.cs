@@ -114,6 +114,16 @@ namespace VR.Web.Controllers
                     ).Skip((filters.Page ?? 0) * pageSize)
                 .Take(pageSize)
                 .ToList();
+
+            if (result.Count() == 0 && filters.Page > 0)
+            {
+                result = queryPaginator.Where(
+                        x =>
+                            (string.IsNullOrEmpty(filters.Name) || x.Name.ToUpper().Contains(filters.Name.ToUpper()))
+                    ).Skip( ((filters.Page ?? 0) - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
             return new PagedResult<GetallOrganismDto>
             {
                 List = result,

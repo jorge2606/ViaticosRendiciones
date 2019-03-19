@@ -53,9 +53,10 @@ export class TransportsComponent implements OnInit {
   }
 
   loadPage(page : number){
-    if (page != 0){
-      this.getAllTransports(page-1);
+    if (page > 0){
+      page = page-1;
     }
+    this.getAllTransports(page);
   }
 
     //MODALS
@@ -71,7 +72,7 @@ export class TransportsComponent implements OnInit {
           data => {
               this.toastrService.success("El transporte '"+name+"' se ha eliminado correctamente.",'',
               {positionClass : 'toast-top-center', timeOut : 3000});
-              this.getAllTransports(this.page);
+              this.loadPage(this.page);
           },
           error => {
               console.log("error", error);

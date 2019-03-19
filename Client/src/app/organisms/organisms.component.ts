@@ -14,7 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class OrganismsComponent implements OnInit {
 
-  filters = { page: 0, name : ""} 
+  filters = { page: 0, name : ""}
+  page = 0; 
   organism : CreateOrganismDto[];
   col_size : number;
   itemsPerPage : number = 10;
@@ -75,7 +76,7 @@ export class OrganismsComponent implements OnInit {
         data => {
             this.toastrService.success("El organismo '"+name+"' se ha eliminado correctamente.",'',
             {positionClass : 'toast-top-center', timeOut : 3000});
-            this.getAllOrganism(this.filters.page);
+            this.loadPage(this.page);
         },
         error => {
             console.log("error", error);
