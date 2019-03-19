@@ -96,7 +96,7 @@ export class DistributionsComponent implements OnInit {
         () => {
           this.toastrService.success("La repartición '"+name+"' se ha eliminado correctamente.",'',
           {positionClass : 'toast-top-center', timeOut : 3000});
-          this.getAllDistributions(this.filters);
+          this.loadPage(this.page);
         },
         error => {
             console.log("error", error);

@@ -133,6 +133,7 @@ namespace VR.Web.Controllers
                          &&
                          (!filters.OrganismId.HasValue || x.OrganismId == filters.OrganismId)
             );
+            
 
             if (filters.OrganismId.HasValue)
             {
@@ -143,9 +144,14 @@ namespace VR.Web.Controllers
                 };
             }
 
+            var lista = result.Skip((filters.Page ?? 0) * pageSize).Take(pageSize).ToList();
+            if (lista.Count() == 0 && filters.Page > 0)
+            {
+                lista = result.Skip( ((filters.Page ?? 0) - 1) * pageSize).Take(pageSize).ToList();
+            }
             return new PagedResult<AllDistributionDto>
             {
-                List = result.Skip((filters.Page ?? 0) * pageSize).Take(pageSize).ToList(),
+                List = lista,
                 TotalRecords = queryPaginator.Count()
             };
         }

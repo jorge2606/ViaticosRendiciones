@@ -46,8 +46,8 @@ export class CategoryComponent implements OnInit {
   loadPage(page : number){
     if (page > 0){
       this.filters.page = page - 1;
-      this.getAllCategories(this.filters);
     }
+    this.getAllCategories(this.filters);
   }
 
   getAllCategories(filters : any){
@@ -79,7 +79,7 @@ export class CategoryComponent implements OnInit {
         data => {
           this.toastrService.success("La categoría '"+name+"' se ha eliminado correctamente.",'',
           {positionClass : 'toast-top-center', timeOut : 3000});
-          this.getAllCategories(this.filters);
+          this.loadPage(this.page);
         },
         error => {
             console.log("error", error);
