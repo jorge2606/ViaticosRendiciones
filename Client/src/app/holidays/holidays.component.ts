@@ -31,6 +31,7 @@ export class HolidaysComponent implements OnInit {
   holidaysCreate: any;
   holidaysEdit: any;
   holidaysDelete: any;
+  page = 0;
 
   constructor(
     private holidayService : HolidaysService,
@@ -86,8 +87,8 @@ export class HolidaysComponent implements OnInit {
   loadPage(page : any) {
     if (page > 0){
         this.filters.page = page - 1;
-        this.getAllHolidays(this.filters);
     }
+    this.getAllHolidays(this.filters);
   }
 
     //MODALS
@@ -107,7 +108,7 @@ export class HolidaysComponent implements OnInit {
           () => {
             this.toastrService.success("La fecha '"+holiday.description+"' se ha eliminado correctamente.",'',
             {positionClass : 'toast-top-center', timeOut : 3000});
-            this.getAllHolidays(this.filters);
+            this.loadPage(this.page);
           },
           error => {
               console.log("error", error);

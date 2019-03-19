@@ -148,6 +148,21 @@ namespace VR.Service.Services
                 .ProjectTo<AllHolidayDto>()
                 .ToList();
 
+            if (resultPage.Count() == 0 && filters.Page > 0)
+            {
+                resultPage = resultFull
+                    .Where(
+                        x => (string.IsNullOrEmpty(filters.Description) || x.Description.ToUpper().Contains(filters.Description.ToUpper()))
+                             &&
+                             //(filters.Date == null || (DateTime.Compare(x.Date, new DateTime(filters.Date.Year, filters.Date.Month, filters.Date.Day)) == 0))
+
+                             (filters.Date == null || (x.Date.Day == newDatetime.Day && x.Date.Month == newDatetime.Month && x.Date.Year == newDatetime.Year))
+                    ).Skip( ( (filters.Page ?? 0) - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<AllHolidayDto>()
+                    .ToList();
+            }
+
             return new ServiceResult<PagedResult<AllHolidayDto>>(new PagedResult<AllHolidayDto>()
             {
                 List = resultPage,
