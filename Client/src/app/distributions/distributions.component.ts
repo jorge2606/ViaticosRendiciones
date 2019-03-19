@@ -32,6 +32,7 @@ export class DistributionsComponent implements OnInit {
   distributionCreate: any;
   distributionEdit: any;
   distributionDelete: any;
+  distribution_list_length : number;
   
   constructor(
               private distributionService : DistributionService,
@@ -67,6 +68,7 @@ export class DistributionsComponent implements OnInit {
     this.distributionService.getPaginator(filters).subscribe(
       result => {
         this.distribution = result.list;
+        this.distribution_list_length = this.distribution.length;
         this.col_size = result.totalRecords;
       },
       error => console.log(error)
@@ -77,8 +79,8 @@ export class DistributionsComponent implements OnInit {
   loadPage(page : any){
     if (page > 0){
       this.filters.page = page - 1;
-      this.getAllDistributions(this.filters);
     }
+    this.getAllDistributions(this.filters);
   }
 
   //MODALS
