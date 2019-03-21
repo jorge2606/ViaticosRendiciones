@@ -12,8 +12,8 @@
 			<thead>
 				<tr style="font-weight: bold;">
 				<td>Tipo</td>
+				<td>Marca</td>
 				<td>Modelo</td>
-				<td>Marca</td>			
 				<td>Patente</td>
 				<td></td>
 				</tr>
@@ -21,8 +21,8 @@
 			<tbody>
 				<tr *ngFor="let trans of transport">
 					<td>{{trans.type}}</td>
-					<td>{{trans.model}}</td>
 					<td>{{trans.brand}}</td>
+					<td>{{trans.model}}</td>
 					<td>{{trans.carPlate}}</td>
 					<td class="text-right">
 						<div class="btn-group" role="group" aria-label="Basic example">

@@ -14,13 +14,13 @@
       <form class="form-inline">
           <div class="form-group">
             <div class="input-group">
-              <label class="d-inline-block mt-2 mr-2" for="">Fecha </label>
               <input 
                 (dateSelect)="filter()"
                 (keyup)="filter()"
                 class="form-control" 
                 placeholder="dd/mm/yyyy"
                 name="dp" 
+                [readonly]="true"
                 type="text"
                 displayMonths="displayMonths" 
                 navigation="navigation" 
@@ -35,8 +35,18 @@
                     <fa-icon icon="calendar-alt"></fa-icon>
                 </button>
               </div>
+              <div class="input-group-append">
+                  <button
+                      placement="right"
+                      ngbTooltip="Limpiar"
+                      class="btn btn-outline-secondary calendar" (click)="clear()" type="button">
+                      <fa-icon icon="eraser"></fa-icon>
+                  </button>
+                </div>
             </div>            
           </div>
+          
+          <div class="w-100"></div>
 
           <div *ngIf="errorDatapicker" class="alert alert-danger mt-1">
               <label for="">

@@ -90,7 +90,7 @@
                     </div>
                 </div>
     
-                <div class="form-row mt-1 mb-1">
+                <div class="form-row mt-5 mb-1">
                         <a  placement="bottom" ngbTooltip="Agregar un nuevo concepto gasto"
                             (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white small">
                             <fa-icon class="fa-lg" icon="plus"></fa-icon> Concepto de Gasto
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 pr-3">
                         <table *ngIf="model.expenditures.length > 0" class="table table-sm">
                                 <thead>
                                     <tr class="form-row">
@@ -141,7 +141,7 @@
                                 </tbody>
                         </table> 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 pl-3">
                         <table *ngIf="model.expenditures.length > 0" class="table table-sm">
                                 <thead>
                                     <tr class="form-row">
@@ -162,7 +162,7 @@
                                                 {{modelExp.description}} 
                                             </div>
                                         </td>
-                                        <td class="col-2">
+                                        <td class="col-2 pb-0">
                                             <input 
                                                 class="input-destiny" 
                                                 name="amount{{modelExp.expenditureTypeName}}"
@@ -170,7 +170,7 @@
                                                 (ngModelChange)="validateAmount(modelExp, $event)"
                                                 required>
                                         </td>
-                                        <td class="col-2 text-center">
+                                        <td class="col-2 text-center p-0">
                                             <a  *ngIf="modelExp.urlImage"
                                                 style="width: inherit;"
                                                 href="#"

@@ -63,8 +63,6 @@
 							</a>
 							<a 	
 								*ngIf="distributionDelete"
-								placement="bottom" 
-								ngbTooltip="Eliminar repartición" 
 								routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">
 								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 							</a>

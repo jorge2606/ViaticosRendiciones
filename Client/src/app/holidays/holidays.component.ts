@@ -61,13 +61,12 @@ export class HolidaysComponent implements OnInit {
   }
 
   filter(){  
-    if (!this.validateDate())
-      {
-        this.errorDatapicker = 'Formato de Fecha Incorrecto';
-        return;
-      }
-      this.errorDatapicker = '';
-      this.loadPage(this.filters.page);
+    this.loadPage(this.filters.page);
+  }
+
+  clear(){
+    this.filters.date = {day : 0 , month : 0, year : 0};
+    this.loadPage(this.page);
   }
 
   validateDate(){
