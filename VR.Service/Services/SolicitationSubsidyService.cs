@@ -1165,7 +1165,7 @@ namespace VR.Service.Services
 
             foreach (var solicitationDestiny in solicitation.Destinies)
             {
-                if (solicitationDestiny.AccountedForDays == null)
+                if (!solicitationDestiny.AccountedForDays.HasValue)
                 {
                     var destiny = (solicitationDestiny.Country == null)
                         ? solicitationDestiny.Province.Name + " " + solicitationDestiny.City.Name : solicitationDestiny.Country.Name;
@@ -1176,7 +1176,7 @@ namespace VR.Service.Services
 
             foreach (var expenditureDestination in solicitation.Expenditures)
             {
-                if (expenditureDestination.AccountedForAmount == null)
+                if (!expenditureDestination.AccountedForAmount.HasValue)
                 {
                     var exp = expenditureDestination.ExpenditureType.Name;
                     result.AddNotification(NotificationType.Info, "El falta completar el campo 'importe' al concepto '" + exp +"'");
@@ -1222,7 +1222,7 @@ namespace VR.Service.Services
 
             foreach (var expenditureDestination in solicitation.Expenditures)
             {
-                if (expenditureDestination.AccountedForAmount == null)
+                if (!expenditureDestination.AccountedForAmount.HasValue)
                 {
                     var exp = expenditureDestination.ExpenditureType.Name;
                     result.AddNotification(NotificationType.Info, "El falta completar el campo 'importe' al concepto '" + exp + "'");

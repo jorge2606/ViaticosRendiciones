@@ -26,25 +26,25 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col">
+                    <div class="form-group col-md-4 mb-0">
                         <label for="">Importe</label>
                         <input required [(ngModel)]="modelExp.amount" #amount="ngModel" 
                         name="amount" class="form-control" type="number"
                         value="{{modelExp.amount}}" required minlength="1" maxlength="8">
-
-                        <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
-                            class="alert alert-danger mt-1">
-                            <div *ngIf="amount.errors.required">
-                                Campo requerido.
-                            </div>
-                            <div *ngIf="amount.errors.minlength">
-                                Debe contener al menos un digíto
-                            </div>
-                            <div *ngIf="amount.errors.maxlength">
-                               No debe contener mas de 8 digítos
-                            </div>
+                    </div>
+                    <div class="w-100"></div>
+                    
+                    <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+                    class="alert alert-danger mt-1">
+                        <div *ngIf="amount.errors.required">
+                            Campo requerido.
                         </div>
-
+                        <div *ngIf="amount.errors.minlength">
+                            Debe contener al menos un digíto
+                        </div>
+                        <div *ngIf="amount.errors.maxlength">
+                        No debe contener mas de 8 digítos
+                        </div>
                     </div>
                 </div>
 

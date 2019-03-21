@@ -29,9 +29,13 @@
                 <div class="form-row">
                         <div class="form-group pt-1 col">
                                 <label for="">Motivo</label>
-                                <textarea required class="form-control textareaResize" #motive="ngModel"
-                                [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
-                                name="motive" [(ngModel)]="model.motive">
+                                <textarea 
+                                    required 
+                                    class="form-control textareaResize" 
+                                    #motive="ngModel"
+                                    [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
+                                    name="motive" 
+                                    [(ngModel)]="model.motive">
                                 </textarea>
         
                                 <div *ngIf="motive.invalid && (motive.dirty || motive.touched)" class="alert alert-danger mt-1">

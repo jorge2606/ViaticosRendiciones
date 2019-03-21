@@ -56,9 +56,7 @@ namespace VR.Service.Services
                 EndDateDatetime = endDate,
                 UserId = transport.UserId
             });
-
-            var transportIsSolcitated = false;
-
+            
             foreach (var destiny in destinies)
             {
                 

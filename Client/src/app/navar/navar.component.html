@@ -229,7 +229,7 @@
             <!-- <span style="background-color:blue;" class="badge badge-primary badge-pill">{{notification.length}}</span>-->
           </button>
           <button *ngIf="cantNotif != 0" class="btn btn-outline-light bell-size" id="dropdownManualNotif" 
-              ngbDropdownToggle (focus)="myDrop.open()">
+              ngbDropdownToggle>
               <fa-icon  class="fa-lg" style="color:red; margin-left: -3px;" icon="bell"></fa-icon>
               <span style="background-color:red; margin-left: -3px;" class="badge badge-primary badge-pill">
                 {{notification.length}}+
