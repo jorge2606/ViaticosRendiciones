@@ -6,6 +6,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-reject.component';
+import { CrystalLightbox } from 'ngx-crystal-gallery';
 
 @Component({
   selector: 'app-detail-account-for-solicitation',
@@ -34,7 +35,8 @@ export class DetailAccountForSolicitationComponent implements OnInit {
     public  activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService,
-    private authService : AuthenticationService
+    private authService : AuthenticationService,
+    private lightbox : CrystalLightbox
   ) { }
 
   ngOnInit() {
@@ -110,14 +112,6 @@ export class DetailAccountForSolicitationComponent implements OnInit {
 
   ngOnDestroy(){
     this.supscription.unsubscribe();
-  }
-
-  toSeeImageBase64InNewTab(data) {
-    var image = new Image();
-    image.src = data;
-
-    var w = window.open("");
-    w.document.write(image.outerHTML);
   }
 
 }

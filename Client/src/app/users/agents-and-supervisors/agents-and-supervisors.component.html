@@ -1,31 +1,33 @@
 <a 
     placement="bottom" 
     ngbTooltip="Volver al listado de usuarios" 
-    class="btn btn-primary mb-1" href="" routerLink="/users">
+    class="btn btn-primary m-2" href="" routerLink="/users">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 
-<table class="table table-striped responsive">
-    <thead>
-      <tr>
-        <th scope="col">Supervisor</th>
-        <th scope="col">Agente</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let a of agentsSupervisors">
-      <tr>
-        <td>{{a.supervisors.userName}}</td>
-        <td>{{a.agents.userName}}</td>
-        <td class="text-right">
-          <a style="cursor:pointer" (click)="openEliminar(a.supervisors, a.agents)">
-              <fa-icon 
-                placement="top" 
-                ngbTooltip="Eliminar usuario" 
-                class="fa-lg" style="color:red;" 
-                icon="trash"></fa-icon>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="m-2">
+    <table class="table table-striped responsive">
+        <thead>
+          <tr>
+            <th scope="col">Supervisor</th>
+            <th scope="col">Agente</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let a of agentsSupervisors">
+          <tr>
+            <td>{{a.supervisors.userName}}</td>
+            <td>{{a.agents.userName}}</td>
+            <td class="text-right">
+              <a style="cursor:pointer" (click)="openEliminar(a.supervisors, a.agents)">
+                  <fa-icon 
+                    placement="top" 
+                    ngbTooltip="Eliminar usuario" 
+                    class="fa-lg" style="color:red;" 
+                    icon="trash"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>

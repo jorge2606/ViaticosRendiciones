@@ -21,7 +21,7 @@
               ngbTooltip="Ir al menú principal" 
               [routerLink]="['/']"
               [routerLinkActiveOptions]="{exact : true}" 
-              class="nav-item text-white nav-link"
+              class="nav-item text-white nav-link text-center"
               href="#" >
               <fa-icon icon="home"></fa-icon> Inicio
             </a>
@@ -34,7 +34,7 @@
             ngbTooltip="Ver el listado de todos los usuarios" 
             routerLink="/users"
             [routerLinkActive]="['active']"
-            class="nav-item text-white nav-link"
+            class="nav-item text-white nav-link text-center"
             href="#">
             <fa-icon icon="users"></fa-icon> Usuarios 
           </a>
@@ -45,7 +45,7 @@
           <a  
             placement="bottom" 
             ngbTooltip="Ver el listado de todos los roles" 
-            class="nav-item text-white nav-link" 
+            class="nav-item text-white nav-link text-center" 
             href="#" 
             [routerLinkActive]="['active']"
             routerLink="/roles">
@@ -57,7 +57,7 @@
           <a
             placement="bottom" 
             ngbTooltip="Ver el listado de todas las categorías" 
-            class="nav-item text-white nav-link" 
+            class="nav-item text-white nav-link text-center" 
             href="#"
             [routerLinkActive]="['active']"
             routerLink="/category">
@@ -71,7 +71,7 @@
             placement="bottom" 
             [routerLinkActive]="['active']"
             ngbTooltip="Ver el listado de todas las reparticiones" 
-            class="nav-item text-white nav-link"
+            class="nav-item text-white nav-link text-center"
             href="#" 
             routerLink="/distribution">
             <fa-icon icon="building"></fa-icon> Reparticiones
@@ -83,7 +83,7 @@
             <a      
               placement="bottom" 
               ngbTooltip="Ver el listado de todos los transportes" 
-              class="nav-item text-white nav-link"
+              class="nav-item text-white nav-link text-center"
               href="#" 
               [routerLinkActive]="['active']"
               routerLink="/transport">
@@ -96,7 +96,7 @@
           <a       
             placement="bottom" 
             ngbTooltip="Ver el listado de todos los tipos de gasto" 
-            class="nav-item text-white nav-link" 
+            class="nav-item text-white nav-link text-center" 
             href="#"
             [routerLinkActive]="['active']"
             routerLink="/expenditure">
@@ -109,7 +109,7 @@
           <a         
             placement="bottom" 
             ngbTooltip="Ver el listado de todos los organismos" 
-            class="nav-item text-white nav-link" 
+            class="nav-item text-white nav-link text-center" 
             href="#" 
             [routerLinkActive]="['active']"
             routerLink="/organism">
@@ -118,7 +118,7 @@
         </li>
 
 
-        <li *ngIf="showTabSolicitation" class="nav-item">
+        <li *ngIf="showTabSolicitation" class="nav-item text-center">
             <div class="d-inline-block" ngbDropdown #myDropDown="ngbDropdown">
                 <a  
                   href="#"
@@ -213,7 +213,7 @@
               placement="bottom"
               ngbTooltip="Ver el listado de los días no laborables"          
               routerLink="/holidays" 
-              class="nav-item text-white nav-link" 
+              class="nav-item text-white nav-link text-center" 
               href="#">
               <fa-icon icon="calendar"></fa-icon> Feriados
             </a>
@@ -221,7 +221,10 @@
 
     </ul>
 
-    <ul class="navbar-nav ml-auto small">
+    <ul class="navbar-nav ml-auto small text-right">
+      <li>
+         <img class="image" src="{{urlImage}}" alt="">
+      </li>
       <li class="dropdown-small">
         <div class="d-inline-block pull-right" ngbDropdown #myDrop="ngbDropdown" placement="bottom-right">
           <button *ngIf="cantNotif == 0" class="btn btn-outline-light bell-size" id="dropdownManualNotif" ngbDropdownToggle>
@@ -261,9 +264,11 @@
       
       <li class="dropdown small ml-1">
           <div class="d-inline-block pull-right" ngbDropdown #myDropCloseSession="ngbDropdown" placement="bottom-right">
-              <button class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle>
-              <!-- <fa-icon icon="user"></fa-icon>-->
-                <img class="rounded-circle" src="{{urlImage}}" alt="">
+              <button 
+                class="btn btn-outline-light bell-size" 
+                id="dropdownManual" 
+                ngbDropdownToggle>
+                <fa-icon class="fa-lg" icon="user-cog"></fa-icon>
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownManual" style="background-color:mintcream;" 
                   class="pl-1 pr-1">
@@ -302,6 +307,8 @@
   </div>
 
 </nav>
+<div class="p-2">
+  <nvs-ngx-breadcrumbs *ngIf="isloggedUser"></nvs-ngx-breadcrumbs>
+</div>
 
-<nvs-ngx-breadcrumbs *ngIf="isloggedUser"></nvs-ngx-breadcrumbs>
 <router-outlet class="small"></router-outlet>

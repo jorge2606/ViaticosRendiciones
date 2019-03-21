@@ -1,4 +1,4 @@
-<div *ngIf="categoryCreate" class="d-inline-block mt-0 mb-1 mr-1">
+<div *ngIf="categoryCreate" class="d-inline-block ml-2">
 		<a 	href="" 
 			placement="bottom" 
 			ngbTooltip="Crear una nueva categoría"
@@ -10,14 +10,14 @@
 
 
 
-<div class="mb-1" >	
+<div class="ml-2 mt-1" >	
 	<label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
 	<div class="d-inline-block">
 		<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name"  type="text" class="form-control">
 	</div>
 </div>
 
-<div class="" style="min-height: 300px;">
+<div class="p-2" style="min-height: 300px;">
 	<table class="table table-striped">
 		<thead>
 			<tr style="font-weight: bold;">

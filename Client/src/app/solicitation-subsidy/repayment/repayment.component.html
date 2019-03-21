@@ -1,9 +1,9 @@
 <a  placement="bottom" ngbTooltip="Volver al listado de solicitudes de viáticos" 
-    class="btn btn-primary mb-1 ml-1" href="" routerLink="/SolicitationSubsidy/agent">
+    class="btn btn-primary m-2" href="" routerLink="/SolicitationSubsidy/agent">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>
 </a>
 
-<div class="card mt-1">
+<div class="card m-2">
     <h5 *ngIf="!id" class="card-header">Nuevo Reintegro</h5>
     <div class="card-body">
         <form (ngSubmit)="onSubmit()" #solicitationSubsidy="ngForm">

@@ -28,9 +28,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-4 mb-0">
                         <label for="">Importe</label>
-                        <input required [(ngModel)]="modelExp.amount" #amount="ngModel" 
-                        name="amount" class="form-control" type="number"
-                        value="{{modelExp.amount}}" required minlength="1" maxlength="8">
+                        <input 
+                            required 
+                            [(ngModel)]="modelExp.amount" 
+                            #amount="ngModel" 
+                            name="amount" 
+                            class="form-control text-right" 
+                            type="number"
+                            value="{{modelExp.amount}}" 
+                            required 
+                            minlength="1" 
+                            maxlength="8">
                     </div>
                     <div class="w-100"></div>
                     

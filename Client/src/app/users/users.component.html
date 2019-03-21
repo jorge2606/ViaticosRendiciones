@@ -1,4 +1,4 @@
-	<div *ngIf="create" class="d-inline-block mt-0 mb-1 mr-1">
+	<div *ngIf="create" class="d-inline-block ml-2 mr-1">
 		<a 	href="" 
 			class="btn btn-success" 
 			placement="bottom" 
@@ -22,7 +22,7 @@
 			</a>
 	</div>
 <br>
-<label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
+<label class="d-inline-block ml-2" for="">Repartición </label>
 <div class="d-inline-block pl-1 pr-1 col-md-3 mb-1">
 	<select  (change)="filterList()" [(ngModel)]="filters.distributionId" 
 		class="form-control d-inline-block pl-1">
@@ -43,7 +43,7 @@
 </div>
 
 
-<div style="min-height: 300px;">
+<div style="min-height: 300px;" class="p-2">
 	<table class="table table-striped responsive">
 			<thead>
 				<tr style="font-weight: bold;">

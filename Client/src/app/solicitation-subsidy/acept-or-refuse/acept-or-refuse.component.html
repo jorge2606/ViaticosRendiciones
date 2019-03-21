@@ -1,120 +1,126 @@
-<div id="container-pdf" class="container">
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
-    </div>
-    <div class="modal-header">
-        <h5 class="modal-title">{{lastName}}, {{firstName}} <br>{{dni}}</h5>
-    </div>
-    <div class="modal-body">
-          <div class="form-row">
-              <label for="">Motivo</label>
-              <textarea rows="10" style="height: 100px" class="h-45 form-control" 
-              value="{{model.motive}}"
-              disabled>
-              
-              </textarea>
-          </div>
 
-          <div class="form-row">
-              <label for="">Gastos</label>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Importe</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let exp of model.expenditures">
-                    <td>
-                      {{exp.amount}}
-                    </td>
-                    <td>
-                      {{exp.expenditureTypeName}}
-                    </td>
-                    <td>
-                      {{exp.description}}
-                    </td>
-                    
-                  </tr>
-                </tbody>
-              </table>
-          </div>
-
-          <div class="form-row">
-              <label for="">Destinos</label>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Dias</th>
-                    <th scope="col">Fecha de Inicio</th>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Pais</th>
-                    <th scope="col">Provincia</th>
-                    <th scope="col">Localidad</th>
-                    <th scope="col">Transporte</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let des of model.destinies">
-                    <td>
-                      {{des.days}}
-                    </td>
-                    <td>
-                        {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
-                      </td>
-                    <td>
-                      {{des.categoryName}}
-                    </td>
-                    <td>
-                      <li style="list-style-type: none;" *ngIf="des.countryName">{{des.countryName}}</li>
-                      <li style="list-style-type: none;" *ngIf="!des.countryName">ARGENTINA</li>
-                    </td>
-                    <td >
-                      <li style="list-style-type: none;" *ngIf="des.provinceName"> {{des.provinceName}} </li>
-                    </td>
-                    <td>
-                      <li style="list-style-type: none;" *ngIf="des.cityName">{{des.cityName}}</li>
-                    </td>
-                    <td>
-                      {{des.transportModel}} - {{des.transportBrand}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>  
-          
-    </div>
-
-    <div class="modal-body">
-        <div class="form-row">
-            <div class="col-5 form-inline ml-auto">
-                <label for="" class="col-2">Total</label>
-                <input type="text" disabled value="{{model.total | number}}" 
-                class="col form-control text-right">
+<div *ngIf="moderateRefund || moderateSolicitation">
+    <div id="container-pdf" class="">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
+      </div>
+      <div class="modal-header">
+          <h5 class="modal-title">{{lastName}}, {{firstName}} <br>{{dni}}</h5>
+      </div>
+      <div class="modal-body">
+            <div class="form-row">
+                <label for="">Motivo</label>
+                <textarea 
+                  rows="10" 
+                  style="height: 100px;resize: none;" 
+                  class="h-45 form-control" 
+                  value="{{model.motive}}"
+                  disabled>
+                
+                </textarea>
             </div>
-          </div>
+
+            <div class="form-row">
+                <label for="">Destinos</label>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Dias</th>
+                      <th scope="col">Fecha de Inicio</th>
+                      <th scope="col">Categoría</th>
+                      <th scope="col">Pais</th>
+                      <th scope="col">Provincia</th>
+                      <th scope="col">Localidad</th>
+                      <th scope="col">Transporte</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let des of model.destinies">
+                      <td>
+                        {{des.days}}
+                      </td>
+                      <td>
+                          {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
+                        </td>
+                      <td>
+                        {{des.categoryName}}
+                      </td>
+                      <td>
+                        <li style="list-style-type: none;" *ngIf="des.countryName">{{des.countryName}}</li>
+                        <li style="list-style-type: none;" *ngIf="!des.countryName">ARGENTINA</li>
+                      </td>
+                      <td >
+                        <li style="list-style-type: none;" *ngIf="des.provinceName"> {{des.provinceName}} </li>
+                      </td>
+                      <td>
+                        <li style="list-style-type: none;" *ngIf="des.cityName">{{des.cityName}}</li>
+                      </td>
+                      <td>
+                        {{des.transportModel}} - {{des.transportBrand}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>  
+            
+            <div class="form-row">
+                <label for="">Gastos</label>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Importe</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Descripción</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let exp of model.expenditures">
+                      <td>
+                        {{exp.amount}}
+                      </td>
+                      <td>
+                        {{exp.expenditureTypeName}}
+                      </td>
+                      <td>
+                        {{exp.description}}
+                      </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+
+      <div class="modal-body">
+          <div class="form-row">
+              <div class="col-5 form-inline ml-auto">
+                  <label for="" class="col-2">Total</label>
+                  <input type="text" disabled value="{{model.total | number}}" 
+                  class="col form-control text-right">
+              </div>
+            </div>
+      </div>
+    </div>
+    <div class="modal-footer mt-6 ml-auto">
+        <button routerLink="{{router.url}}" type="button" (click)="acepted()" class="btn btn-success">
+          Aceptar
+        </button>
+        <button routerLink="{{router.url}}" type="button" (click)="AddMotive('reject','Motivo de Rechazo')" 
+          class="btn btn-danger">
+          Rechazar
+        </button>
+    </div> 
+
+    <div *ngIf="msjSuccess" class="alert alert-success mt-1">
+        {{msjSuccess}}
+    </div>
+
+    <div *ngIf="msjError" class="alert alert-danger mt-1">
+        {{msjError}}
     </div>
 </div>
-  <div class="modal-footer mt-6 ml-auto">
-      <button routerLink="{{router.url}}" type="button" (click)="acepted()" class="btn btn-success">
-        Aceptar
-      </button>
-      <button routerLink="{{router.url}}" type="button" (click)="AddMotive('reject','Motivo de Rechazo')" 
-        class="btn btn-danger">
-        Rechazar
-      </button>
-      <button type="button" routerLink="/SolicitationSubsidy/agent" class="btn btn-default" (click)="dimiss()">
-        Cerrar
-      </button>
-  </div> 
 
-  <div *ngIf="msjSuccess" class="alert alert-success mt-1">
-      {{msjSuccess}}
-  </div>
-
-  <div *ngIf="msjError" class="alert alert-danger mt-1">
-      {{msjError}}
-  </div>
+<div class="text-center alert alert-danger ml-2 mr-2" style="color:red;" *ngIf="!moderateRefund && !moderateSolicitation">
+    <fa-icon class="fa-lg" class="mr-1" icon="times-circle"></fa-icon> <b><u>Usted no posee permisos para ver esta página.</u></b>
+</div>

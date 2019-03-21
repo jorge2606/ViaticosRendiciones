@@ -153,16 +153,7 @@ export class AddDestinyComponent implements OnInit {
   }
 
   sendDataToComponent(model: DestinyDto[]) {
-    if (!this.solicitationId){
-      this.destinyService.sendMessage(model);
-    }else{
-      this.destinyService.create(model).subscribe(
-        x=> {
-      },
-      e =>{
-        console.log(e);
-      });
-    }
+    this.destinyService.sendMessage(model);
     this.activeModal.close(null);
   }
 

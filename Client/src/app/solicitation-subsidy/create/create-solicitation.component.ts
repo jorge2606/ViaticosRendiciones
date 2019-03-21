@@ -213,7 +213,7 @@ export class CreateSolicitationComponent implements OnInit {
       minus = minus + expenditure.amount;
       if (index > -1) {
         this.model.expenditures.splice(index, 1);
-        this.deleteFromDatabaseExpenditure(expenditure.id);
+        //this.deleteFromDatabaseExpenditure(expenditure.id);
       }
       
       this.totalResultExpenditure();
@@ -230,19 +230,8 @@ export class CreateSolicitationComponent implements OnInit {
   
         minus = minus + (codLiq.percentage * category.advance);
         if (index > -1) {
-          
-          if (destiny.id){
-            if(this.model.destinies.length > 1){
-              this.deleteFromDatabaseDestinies(destiny.id,index);
-            }else{
-              this.msjToastInfo("Una solicitud de viático debe contener al menos 1 destino");
-            }
-          }else{
-            this.model.destinies.splice(index, 1);
-          }
-
+          this.model.destinies.splice(index, 1);
         }
-  
         this.totalResultExpenditure();
 
    }
@@ -383,6 +372,8 @@ export class CreateSolicitationComponent implements OnInit {
       }
 
       if(this.id){
+        console.log('modificar');
+        console.log(this.model);
         this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
@@ -392,6 +383,8 @@ export class CreateSolicitationComponent implements OnInit {
           error => console.log(error) 
         );
       }else{
+        console.log('crear');
+        console.log(this.model);
         this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
           () => {
               this.router.navigate(['SolicitationSubsidy/agent']);

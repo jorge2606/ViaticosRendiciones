@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
+import { CrystalLightbox } from 'ngx-crystal-gallery';
 
 @Component({
   selector: 'app-solicitation-subsidydetail',
@@ -34,7 +35,8 @@ export class SolicitationSubsidydetailComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService,
-    private authService : AuthenticationService
+    private authService : AuthenticationService,
+    private lightbox : CrystalLightbox
   ) { }
 
   ngOnInit() {
@@ -110,14 +112,6 @@ export class SolicitationSubsidydetailComponent implements OnInit {
 
   ngOnDestroy(){
     this.supscription.unsubscribe();
-  }
-
-  toSeeImageBase64InNewTab(data) {
-    var image = new Image();
-    image.src = data;
-
-    var w = window.open("");
-    w.document.write(image.outerHTML);
   }
   
 }

@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
       //si el usuario esta logueado
       if(x){
         this.idUser = this.authService.userId('id');
-        this.urlImage = this.authService.urlFile(this.idUser, 25,25)+ "r=" + (Math.random() * 100) + 1;
+        //this.urlImage = this.authService.urlFile(this.idUser, 60,37)+ "r=" + (Math.random() * 100) + 1;
+        this.urlImage = this.authService.urlFile(this.idUser, 60,37);
       }else{
         this.urlImage = "";
       }

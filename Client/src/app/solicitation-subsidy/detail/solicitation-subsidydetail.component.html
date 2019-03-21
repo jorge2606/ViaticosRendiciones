@@ -50,10 +50,8 @@
                         class="col-2 text-center p-0">
                         <a  
                             style="width: inherit;cursor: pointer;"
-                            (click)="toSeeImageBase64InNewTab(exp.urlImage)" 
+                            (click)="lightbox.open([{path: exp.urlImage }])" 
                             rel="noopener noreferrer">
-                            <!--<img style="width: inherit; height: 40px; cursor: pointer;" 
-                                [src]="exp.urlImage">-->
                             <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="image"></fa-icon>
                         </a>
                     </td>

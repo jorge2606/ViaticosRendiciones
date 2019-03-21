@@ -2,17 +2,17 @@
 	<a 
 		placement="bottom" 
 		ngbTooltip="Agregar nuevo organismo" 
-		href="" class="btn btn-success" routerLink="create">
+		href="" class="btn btn-success ml-2" routerLink="create">
 		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 	</a>
 </div>
 <br>
-<label class="d-inline-block pl-1 pr-1" for="">Nombre </label>
-<div class="d-inline-block pl-1 pr-1 mt-1 mb-1">
+<label class="d-inline-block ml-2" for="">Nombre </label>
+<div class="d-inline-block ml-2 mt-1">
 	<input (keyup)="findWhileWrite()" [(ngModel)]="filters.name" type="text" class="form-control">
 </div>
 
-<div class="" style="min-height: 300px;">
+<div class="p-2" style="min-height: 300px;">
 	<table class="table table-striped">
 			<thead>
 				<tr style="font-weight: bold;">

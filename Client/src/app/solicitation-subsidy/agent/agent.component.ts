@@ -279,7 +279,7 @@ export class AgentComponent implements OnInit {
         });
     }
     addFileNumber(solicitationId : number){
-       const modal = this.modalService.open(FileNumberComponent, {size : "lg", centered : true});
+       const modal = this.modalService.open(FileNumberComponent, {size : "sm", centered : true});
         modal.componentInstance.solicitatioId = solicitationId;
         modal.result.then(() => {
           this.getAll(this.filters);

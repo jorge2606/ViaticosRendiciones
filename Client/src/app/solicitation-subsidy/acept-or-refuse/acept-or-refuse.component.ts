@@ -1,9 +1,11 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { SolicitationIdDto } from 'src/app/_models/solicitationSubsidy';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-reject.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-acept-or-refuse',
@@ -22,15 +24,24 @@ export class AceptOrRefuseComponent implements OnInit {
   dni : number;
   motive : string = "";
   currentUrl : string;
+  aceptedSolicitation: any;
+  permissions: any;
+  moderateSolicitation: any;
+  moderateRefund: any;
 
     constructor(
         private solicitationSubsidyService : SolicitationSubsidyService,
         private Activatedrouter : ActivatedRoute,
         private modalService : NgbModal,
-        public router : Router
+        public router : Router,
+        public authService : AuthenticationService,
+        public toastService : ToastrService
     ) { }
 
   ngOnInit() {
+      this.permissions = this.authService.userId('roles');
+      this.moderateSolicitation = this.permissions.find(claim => claim.value == 'solicitations.moderateSolicitations');
+      this.moderateRefund = this.permissions.find(claim => claim.value == 'solicitations.moderateRefunds');
       this.Activatedrouter.params.subscribe(
         x => {
               this.model.id = x.id;
@@ -53,7 +64,10 @@ export class AceptOrRefuseComponent implements OnInit {
   acepted(){
     this.solicitationSubsidyService.acepted(this.model)
     .subscribe(
-      x => {this.msjSuccess = 'Solicitud Aceptada'}
+      x => {
+          this.toastService.success('La solicitud fue aceptada.');
+          this.router.navigate(['/']);
+      }
       ,error => {this.msjError='Error'}
     );
   }
@@ -61,7 +75,10 @@ export class AceptOrRefuseComponent implements OnInit {
   reject(){
     this.solicitationSubsidyService.refused(this.model)
     .subscribe(
-      x => {this.msjSuccess = 'Solicitud Rechazada'}
+      x => {
+        this.toastService.success('La solicitud fue rechazada.');
+        this.router.navigate(['/']);
+      }
       ,error => {this.msjError = 'Error'}
     );
   }

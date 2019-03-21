@@ -37,7 +37,6 @@ export class AddNewExpenditureComponent implements OnInit {
     
     this.msgExist = "";
     let newExp = new Expenditure();
-    newExp.id = this.modelExp.id;
     newExp.description = this.modelExp.description;
     newExp.amount = this.modelExp.amount;
     newExp.expenditureTypeId = this.modelExp.id;

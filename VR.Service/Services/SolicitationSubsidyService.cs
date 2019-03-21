@@ -271,7 +271,7 @@ namespace VR.Service.Services
             {
                 return _mapper.Map<ServiceResult<UpdateSolicitationSubsidyDto>>(validate.ToServiceResult<UpdateSolicitationSubsidyDto>(null));
             }
-
+            
             SolicitationSubsidy solicitationSubsidy = _dataContext.SolicitationSubsidies.FirstOrDefault(x => x.Id == subsidy.Id);
             if (solicitationSubsidy == null)
             {
@@ -281,9 +281,7 @@ namespace VR.Service.Services
             solicitationSubsidy.Total = subsidy.Total;
 
             _dataContext.SolicitationSubsidies.Update(solicitationSubsidy);
-
-            /*
-             cuando agrego un destino con el pop-up add-destiny ya lo almaceno en la base de datos 
+            
             foreach (var destiny in subsidy.Destinies)
             {
                 var find = _dataContext.Destinies.FirstOrDefault(x => x.Id == destiny.Id);
@@ -326,55 +324,62 @@ namespace VR.Service.Services
                     //el agente no puede modificar los destinos
                     _dataContext.Destinies.Update(newDestiny);
                 }
-            }*/
-
-            foreach (var expenditure in subsidy.Expenditures)
-            {
-                var newExpenditure = new Expenditure();
-                var exist = _dataContext.Expenditures.FirstOrDefault(x => x.Id == expenditure.Id);
-
-                if (exist != null)
-                {
-                    newExpenditure = exist;
-                }
-
-
-                newExpenditure.Description = expenditure.Description;
-                newExpenditure.SolicitationSubsidy = solicitationSubsidy;
-                newExpenditure.Amount = expenditure.Amount;
-                newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
-
-                if (exist == null)
-                {
-                    _dataContext.Expenditures.Add(newExpenditure);
-                }
-                else
-                {
-                    _dataContext.Expenditures.Update(newExpenditure);
-                }
-
-                if (solicitationSubsidy.IsRefund && exist == null)
-                {
-                    string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
-                    byte[] data = Convert.FromBase64String(base64);
-                    File newFile = new File()
-                    {
-                        Id = new Guid(),
-                        MimeType = expenditure.ImageDto.Type,
-                        Name = expenditure.ImageDto.Name,
-                        Size = expenditure.ImageDto.Size,
-                        LastModified = expenditure.ImageDto.TypLastModified,
-                        LastModifiedDate = expenditure.ImageDto.LastModifiedDate,
-                        ExpenditureId = newExpenditure.Id,
-                        Image = data,
-                        UserId = subsidy.UserId
-                    };
-
-                    _dataContext.Files.Add(newFile);
-                }
-
             }
 
+            var expendituresToDelete = _dataContext.Expenditures
+                .Where(s => s.SolicitationSubsidyId == subsidy.Id)
+                .ToList();
+
+            if (subsidy.Expenditures.Count() == 0)
+            {
+                _dataContext.Expenditures.RemoveRange(expendituresToDelete);
+            }else{
+
+                foreach (var expenditure in subsidy.Expenditures)
+                {
+                    var exist = expendituresToDelete.FirstOrDefault(x => x.Id == expenditure.Id);
+                    //si no existe pero tampoco tiene ID es porque acaba de ser creado por el usuario 
+                    if (expenditure.Id.Equals(Guid.Empty))
+                    {
+                        var newExpenditure = new Expenditure();
+                        newExpenditure.Description = expenditure.Description;
+                        newExpenditure.SolicitationSubsidy = solicitationSubsidy;
+                        newExpenditure.Amount = expenditure.Amount;
+                        newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
+
+                        _dataContext.Expenditures.Add(newExpenditure);
+
+                        if (solicitationSubsidy.IsRefund && exist == null)
+                        {
+                            string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                            byte[] data = Convert.FromBase64String(base64);
+                            File newFile = new File()
+                            {
+                                Id = new Guid(),
+                                MimeType = expenditure.ImageDto.Type,
+                                Name = expenditure.ImageDto.Name,
+                                Size = expenditure.ImageDto.Size,
+                                LastModified = expenditure.ImageDto.TypLastModified,
+                                LastModifiedDate = expenditure.ImageDto.LastModifiedDate,
+                                ExpenditureId = newExpenditure.Id,
+                                Image = data,
+                                UserId = subsidy.UserId
+                            };
+
+                            _dataContext.Files.Add(newFile);
+                        }
+
+                    }
+                    else
+                    {
+                        //quitar de la lista el gasto que viene, al final solo quedaran los que fueron eliminados
+                        //en el front-end
+                        expendituresToDelete.Remove(exist);
+                    }
+
+                }
+            }
+            _dataContext.Expenditures.RemoveRange(expendituresToDelete);
             _dataContext.SaveChanges();
             return new ServiceResult<UpdateSolicitationSubsidyDto>(_mapper.Map<UpdateSolicitationSubsidyDto>(subsidy));
         }
@@ -630,7 +635,7 @@ namespace VR.Service.Services
             }
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
 
-            var url = string.Format(_configuration["AppSettings:baseUrl"] +"/SolicitationSubsidy/agent/confirm/{0}",solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/agent/confirm/{0}",solicitation.Id);
 
             var html = "<!DOCTYPE html>" +
                        "<html>" +
@@ -801,7 +806,7 @@ namespace VR.Service.Services
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
             var tableAccountForExpenditures = headTableExp + rowAccountForExp + "</tbody></table>";
 
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var html = "<!DOCTYPE html>" +
                        "<html>" +

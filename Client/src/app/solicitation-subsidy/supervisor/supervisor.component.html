@@ -1,22 +1,22 @@
-        <label class="d-inline-block pl-1 pr-1 pt-2" for="">Nombre</label>
-        <div class="d-inline-block pl-1 pr-1 col-md-2">
+ <!--       <label class="d-inline-block p-2" for="">Nombre</label>
+        <div class="d-inline-block p-2 col-md-2">
           <input (keyup)="filter()" [(ngModel)]="filters.firstName" type="text" class="form-control">
         </div>
     
-        <label class="d-inline-block pl-1 pr-1 pt-2" for="">Apellido</label>
-        <div class="d-inline-block pl-1 pr-1 col-md-2">
+        <label class="d-inline-block p-2" for="">Apellido</label>
+        <div class="d-inline-block p-2 col-md-2">
           <input (keyup)="filter()" [(ngModel)]="filters.lastName" type="text" class="form-control">
         </div>
     
-        <label class="d-inline-block pl-1 pr-1 pt-2" for="">D.N.I</label>
-        <div class="d-inline-block pl-1 pr-1 col-md-2">
+        <label class="d-inline-block p-2" for="">D.N.I</label>
+        <div class="d-inline-block p-2 col-md-2">
           <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
         </div>
-      
-    <div class="container mt-2" style="min-height: 300px;">
-        <table class="table table-striped">
+      -->
+    <div class="p-2" style="min-height: 300px;">
+        <table  class="table table-striped">
           <thead>
-            <tr class="row">
+            <tr class="form-row p-2">
               <th class="col-2">Agente</th>
               <th class="col-2">Fecha de Creación</th>
               <th class="col-1">Objeto</th>
@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let sol of solicitationSubsidies" class="row">
+            <tr *ngFor="let sol of solicitationSubsidies" class="form-row">
               <td class="col-2">{{sol.fullName}}</td>
               <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
               <td class="col-1 no-wrap" 
