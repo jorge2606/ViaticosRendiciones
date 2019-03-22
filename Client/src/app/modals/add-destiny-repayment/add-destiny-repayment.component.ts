@@ -191,7 +191,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
 
     this.error = [];
     var newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation(
-      this.model.transportId,this.model.days,this.model.startDate
+      this.model.transportId , this.model.startDate, this.model.days
     );
     
     var startDateFromView = new Date(newCarIsBeingUsed.startDate.year,newCarIsBeingUsed.startDate.month,newCarIsBeingUsed.startDate.day);
@@ -280,7 +280,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
 
     },
     e => {
-        this.error = e.error.errors.Error;
+        this.error = e.error.errors ||  e.error.errors.Error;
       }
     );
   }

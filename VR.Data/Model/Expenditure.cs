@@ -10,7 +10,7 @@ namespace VR.Data.Model
     {
         public Guid Id { set; get; }
         public decimal Amount { set; get; }
-        public decimal AccountedForAmount { set; get; }
+        public decimal? AccountedForAmount { set; get; }
         public string Description { set; get; }
 
         [ForeignKey("SolicitationSubsidy")]

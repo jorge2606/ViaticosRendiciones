@@ -211,25 +211,36 @@ export class AgentComponent implements OnInit {
       let newSolicitation = new SolicitationIdDto();
       newSolicitation.id = id;
       this.spinner.show();
-      this.solicitationSubsidyservice.sendAccountForToSupervisor(newSolicitation)
-      .subscribe(
-        x => {
+        this.solicitationSubsidyservice.validateBeforeSendAccountFor(id)
+        .subscribe(result =>{
+          if (result.notifications.length == 0){
+            this.solicitationSubsidyservice.sendAccountForToSupervisor(newSolicitation)
+            .subscribe(
+              x => {
+                  this.spinner.hide();
+                  this.toastrService.success("La rendición de una solicitud de viático se ha enviado correctamente.",'',
+                  {positionClass : 'toast-top-center', timeOut : 3000});
+                  this.getAll(this.filters);
+                }
+              ,
+              e =>{
+                this.spinner.hide();
+                e = e.error.errors.error || [];
+                e.forEach(err => {
+                  this.toastrService.error(err,'',
+                  {positionClass : 'toast-top-center', timeOut : 3000});
+                });
+                this.getAll(this.filters);
+              }
+            );
+          }else{
             this.spinner.hide();
-            this.toastrService.success("La rendición de una solicitud de viático se ha enviado correctamente.",'',
-            {positionClass : 'toast-top-center', timeOut : 3000});
-            this.getAll(this.filters);
+            result.notifications.forEach(notification => {
+              this.toastrService.info(notification.value,'',{timeOut : 5000});
+            });
           }
-        ,
-        e =>{
-          this.spinner.hide();
-          e = e.error.errors.error || [];
-          e.forEach(err => {
-            this.toastrService.error(err,'',
-            {positionClass : 'toast-top-center', timeOut : 3000});
-          });
-          this.getAll(this.filters);
-        }
-      );
+        });
+
     } 
 
     addFileNumber(solicitationId : number){

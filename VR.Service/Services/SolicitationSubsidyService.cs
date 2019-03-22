@@ -1133,5 +1133,62 @@ namespace VR.Service.Services
             return new ServiceResult<string>(result);
         }
 
+
+        public ServiceResult<bool> validateBeforeSendAccountFor(Guid solcitationId)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .ThenInclude(city => city.City)
+                .ThenInclude(prov => prov.Province)
+                .ThenInclude(country => country.Country) 
+                .Include(x => x.Expenditures)
+                .ThenInclude(expType => expType.ExpenditureType)
+                .FirstOrDefault(x => x.Id == solcitationId);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<bool>(false);
+            }
+            
+
+            ServiceResult<bool> result = new ServiceResult<bool>();
+
+            if (String.IsNullOrEmpty(solicitation.Motive))
+            {
+                result.AddNotification(NotificationType.Info, "El falta completar el campo 'motivo'");
+                
+            }
+
+            foreach (var solicitationDestiny in solicitation.Destinies)
+            {
+                if (solicitationDestiny.AccountedForDays == null)
+                {
+                    var destiny = (solicitationDestiny.Country == null)
+                        ? solicitationDestiny.Province.Name + " " + solicitationDestiny.City.Name : solicitationDestiny.Country.Name;
+
+                    result.AddNotification(NotificationType.Info,"El falta completar los 'dias viajados' al destino "+ destiny);
+                }
+            }
+
+            foreach (var expenditureDestination in solicitation.Expenditures)
+            {
+                if (expenditureDestination.AccountedForAmount == null)
+                {
+                    var exp = expenditureDestination.ExpenditureType.Name;
+                    result.AddNotification(NotificationType.Info, "El falta completar el campo 'importe' al concepto '" + exp +"'");
+                }
+
+                var img = _dataContext.Files.FirstOrDefault(c => c.ExpenditureId == expenditureDestination.Id);
+
+                if (img == null)
+                {
+                    var exp = expenditureDestination.ExpenditureType.Name;
+                    result.AddNotification(NotificationType.Info, "El falta agregar una imagen de un comprobante al concepto '" + exp + "'");
+                }
+            }
+
+            return result;
+        }
+
     }
 }

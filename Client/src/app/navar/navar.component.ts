@@ -101,7 +101,7 @@ export class NavarComponent implements OnInit {
         this.createRefund = this.roles.find(x => x.value == 'solicitations.createRefund');
         this.moderateSolicitation = this.roles.find(x => x.value == 'solicitations.moderateSolicitations');
         this.moderateRefund = this.roles.find(x => x.value == 'solicitations.moderateRefunds');
-        this.moderateViewRefund = this.roles.find(x => x.value == 'solicitations.viewRefund');
+        this.moderateViewRefund = this.roles.find(x => x.value == 'solicitations.moderateRefunds');
         this.moderateViewSolicitation = this.roles.find(x => x.value == 'solicitations.viewSolicitation');
 
         this.showTabUsers = this.roles.find(x => x.value == 'user.view');

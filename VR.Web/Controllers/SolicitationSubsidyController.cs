@@ -98,6 +98,18 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("validateBeforeSendAccountFor/{id}")]
+        public IActionResult validateBeforeSendAccountFor(Guid id)
+        {
+            var result = _solicitationSubsidyService.validateBeforeSendAccountFor(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost("sendSolicitation")]
         public async Task<IActionResult> SendSolicitation([FromBody] SolicitationIdDto solicitation)
         {
