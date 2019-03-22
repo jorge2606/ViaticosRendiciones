@@ -1,8 +1,9 @@
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { HolidaysService } from './../../_services/holidays.service';
 import { CreateHolidayDto } from './../../_models/holiday';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,6 +16,7 @@ export class CreateHolidaysComponent implements OnInit {
   model = new CreateHolidayDto();
   errors = '';
   errorDatapicker = '';
+  @ViewChild('holidaysForm') holidaysForm : FormGroup;
 
   constructor(
                 private holidayService: HolidaysService,
@@ -65,4 +67,7 @@ export class CreateHolidaysComponent implements OnInit {
   msjValidEvent(){
   }
 
+  hasUnsavedData(){
+    return this.holidaysForm.dirty;
+  }
 }

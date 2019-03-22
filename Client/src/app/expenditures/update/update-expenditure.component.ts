@@ -1,5 +1,6 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UpdateExpenditureDto } from 'src/app/_models/expenditureType';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +16,7 @@ export class UpdateExpenditureComponent implements OnInit {
   model = new UpdateExpenditureDto();
   error = '';
   id : number;
+  @ViewChild('CategoryForm') categoryForm : FormGroup;
 
   constructor(
               private expenditureService : ExpenditureService,
@@ -49,5 +51,9 @@ export class UpdateExpenditureComponent implements OnInit {
 
   
   msjValidEvent(msj : any){
+  }
+
+  hasUnsavedData(){
+    return this.categoryForm.dirty;
   }
 }

@@ -1,14 +1,12 @@
+import { FormGroup } from '@angular/forms';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
-import { environment } from './../../../environments/environment';
-import { Component, OnInit } from '@angular/core';
-import { UsersComponent } from '../users.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../_services/user.service';
 import { modifyUser } from '../users';
-import { FileUploader } from 'ng2-file-upload';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { DistributionService } from 'src/app/_services/distribution.service';
 import { OrganismBaseDto } from 'src/app/_models/organism';
@@ -32,7 +30,7 @@ export class SettingofuserComponent implements OnInit {
   permissions: any[] = [];
   editRol: any;
   editSignatureHolograpich: any;
-
+  @ViewChild('userForm') userForm : FormGroup;
   
 
   constructor(
@@ -125,7 +123,7 @@ export class SettingofuserComponent implements OnInit {
     }
     
     this.userService.updateProfileUsers(this.model).subscribe(
-      result => {
+      () => {
         this.toastrService
           .success('El perfil se actualizó correctamente','',{timeOut : 3000, positionClass : 'toast-top-center'})
           this.router.navigate([this.currentUrl]);
@@ -193,7 +191,6 @@ export class SettingofuserComponent implements OnInit {
     var cuit : string = this.model.dni;
     var base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
     var result = 0;
-    var result2 = 0;
     var codVerificacion = parseInt(cuit.charAt(10));
 
     dniArray.forEach((item,index) => {
@@ -223,5 +220,9 @@ export class SettingofuserComponent implements OnInit {
           }
         }
     );
+  }
+
+  hasUnsavedData(){
+    return this.userForm.dirty;
   }
 }

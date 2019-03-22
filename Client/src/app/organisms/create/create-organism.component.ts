@@ -1,6 +1,7 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CreateOrganismDto } from './../../_models/organism';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -15,6 +16,8 @@ export class CreateOrganismComponent implements OnInit {
   responseSuccess : any;
   error = '';
   model = new CreateOrganismDto();
+  @ViewChild('OrganismForm') organismForm : FormGroup;
+
   constructor(
               private organismServcice : OrganismService,
               private titleService : Title,
@@ -42,4 +45,7 @@ export class CreateOrganismComponent implements OnInit {
 
     }
   
+    hasUnsavedData(){
+      return this.organismForm.dirty;
+    }
 }

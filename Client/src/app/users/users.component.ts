@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { CreateuserComponent } from './create/create.component';
 import { Title } from '@angular/platform-browser';
 import { UserRoles } from 'src/app/_models/userRoles';
@@ -6,7 +7,7 @@ import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { Roles, RoleUserDto } from './../_models/roles';
 import { NgbdModalContent } from './../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { User } from './users';
 import { DistributionService } from '../_services/distribution.service';
@@ -48,6 +49,7 @@ export class UsersComponent implements OnInit {
   edit: any;
   delete: any;
   page = 0;
+
 
   constructor(
     private var_user_service: UserService, 

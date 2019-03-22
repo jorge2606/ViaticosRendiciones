@@ -1,7 +1,8 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Category, CreateCategoryDto } from './../../_models/category';
 import { CategoryService } from './../../_services/category.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -15,6 +16,7 @@ export class CreateCategoryComponent implements OnInit {
   model = new CreateCategoryDto();
   error = [];
   submitted : boolean = false;
+  @ViewChild('CategoryForm') categoryForm : FormGroup;
   
   constructor(
             private categoryService : CategoryService,
@@ -67,5 +69,9 @@ export class CreateCategoryComponent implements OnInit {
                 });
               }
     );
+  }
+
+  hasUnsavedData(){
+    return this.categoryForm.dirty;
   }
 }

@@ -1,7 +1,7 @@
 import { AddDestinyRepaymentComponent } from './../../modals/add-destiny-repayment/add-destiny-repayment.component';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { AddExpenditureRepaymentComponent } from './../../modals/add-expenditure-repayment/add-expenditure-repayment.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { NgbModal, NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -30,6 +30,7 @@ import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.comp
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-repayment',
@@ -72,7 +73,8 @@ export class RepaymentComponent implements OnInit {
   url = '';
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl; 
-
+  @ViewChild('solicitationSubsidy') formRepayment : FormGroup;
+  
   constructor(
       private router : Router,
       private activateRouter : ActivatedRoute,
@@ -274,7 +276,7 @@ export class RepaymentComponent implements OnInit {
           minus = minus + array[i].amount;
           const indexDeleteAll = this.model.expenditures.indexOf(array[i], 0);
           if (indexDeleteAll > -1) {
-            this.deleteFromDatabaseExpenditure(this.model.expenditures[i].id);
+            //this.deleteFromDatabaseExpenditure(this.model.expenditures[i].id);
             this.model.expenditures.splice(indexDeleteAll, 1);
           }
       }
@@ -473,5 +475,9 @@ export class RepaymentComponent implements OnInit {
       }
     );
     this.model.total = resultExpenditure + resultDestiny;
+  }
+
+  hasUnsavedData(){
+    return this.formRepayment.dirty;
   }
 }

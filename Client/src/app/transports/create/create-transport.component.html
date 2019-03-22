@@ -8,14 +8,14 @@
     <div class="card">
         <h5 class="card-header">Nuevo</h5>
         <div class="card-body">
-            <form (ngSubmit)="onSubmit()" #DistributionForm="ngForm">
+            <form (ngSubmit)="onSubmit()" #TransportForm="ngForm">
             
                 <div class="form-group">
                     <input 
                         class="form-control" 
                         [(ngModel)]="modelTransport.type" 
                         required 
-                        [ngClass]="{ 'is-invalid': (type.dirty || DistributionForm.submitted) && type.invalid,
+                        [ngClass]="{ 'is-invalid': (type.dirty || TransportForm.submitted) && type.invalid,
                         'is-valid' : type.dirty && type.valid}"
                         #type="ngModel" 
                         name="type" 
@@ -23,7 +23,7 @@
                         placeholder="Tipo">
                 </div>
             
-                <div *ngIf="type.dirty && !DistributionForm.submitted && type.invalid" 
+                <div *ngIf="type.dirty && !TransportForm.submitted && type.invalid" 
                     class="alert alert-danger mt-1">
                     <div *ngIf="type.errors.required">
                         El campo 'Tipo' no debería estar vacío
@@ -35,7 +35,7 @@
                         class="form-control" 
                         [(ngModel)]="modelTransport.brand" 
                         required 
-                        [ngClass]="{ 'is-invalid': (brand.dirty || DistributionForm.submitted) && brand.invalid,
+                        [ngClass]="{ 'is-invalid': (brand.dirty || TransportForm.submitted) && brand.invalid,
                         'is-valid' : brand.dirty && brand.valid}"
                         #brand="ngModel" 
                         name="brand" 
@@ -43,7 +43,7 @@
                         placeholder="Marca">
                 </div>
             
-                <div *ngIf="brand.dirty && !DistributionForm.submitted && brand.invalid" 
+                <div *ngIf="brand.dirty && !TransportForm.submitted && brand.invalid" 
                     class="alert alert-danger mt-1">
                     <div *ngIf="brand.errors.required">
                         El campo 'Marca' no debería estar vacío
@@ -56,7 +56,7 @@
                         class="form-control" 
                         [(ngModel)]="modelTransport.model" 
                         #model="ngModel"
-                        [ngClass]="{ 'is-invalid': (model.dirty || DistributionForm.submitted) && model.invalid,
+                        [ngClass]="{ 'is-invalid': (model.dirty || TransportForm.submitted) && model.invalid,
                         'is-valid' : model.dirty && model.valid}"
                         required 
                         name="model" 
@@ -64,7 +64,7 @@
                         placeholder="Modelo">
                 </div>
             
-                <div *ngIf="model.dirty && !DistributionForm.submitted && model.invalid" 
+                <div *ngIf="model.dirty && !TransportForm.submitted && model.invalid" 
                     class="alert alert-danger mt-1">
                     <div *ngIf="model.errors.required">
                         El campo 'Modelo' no debería estar vacío
@@ -76,7 +76,7 @@
                         class="form-control" 
                         [(ngModel)]="modelTransport.carPlate" 
                         required 
-                        [ngClass]="{ 'is-invalid': (carPlate.dirty || DistributionForm.submitted) && carPlate.invalid,
+                        [ngClass]="{ 'is-invalid': (carPlate.dirty || TransportForm.submitted) && carPlate.invalid,
                         'is-valid' : carPlate.dirty && carPlate.valid}"
                         #carPlate="ngModel" 
                         name="carPlate" 
@@ -84,7 +84,7 @@
                         placeholder="Patente">
                 </div>
             
-                <div *ngIf="carPlate.dirty && !DistributionForm.submitted && carPlate.invalid" 
+                <div *ngIf="carPlate.dirty && !TransportForm.submitted && carPlate.invalid" 
                     class="alert alert-danger mt-1">
                     <div *ngIf="carPlate.errors.required">
                         El campo 'Patente' no debería estar vacío
@@ -95,7 +95,7 @@
                     <button 
                         placement="bottom" 
                         ngbTooltip="Enviar este formulario" 
-                        [disabled]="!DistributionForm.valid" 
+                        [disabled]="!TransportForm.valid" 
                         class="btn btn-success ml-auto">
                         <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                     </button>

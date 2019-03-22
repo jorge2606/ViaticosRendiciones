@@ -1,5 +1,6 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UpdateOrganismDto } from 'src/app/_models/organism';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,6 +16,7 @@ export class ModifyOrganismComponent implements OnInit {
   model = new UpdateOrganismDto();
   id : number;
   error = '';
+  @ViewChild('OrganismForm') organismForm : FormGroup;
 
   constructor(
               private organismService : OrganismService,
@@ -52,6 +54,8 @@ export class ModifyOrganismComponent implements OnInit {
   msjValidEvent(msj : any){
   }
   
-  
+  hasUnsavedData(){
+    return this.organismForm.dirty;
+  }
 
 }

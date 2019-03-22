@@ -45,6 +45,7 @@ import { SupervisorComponent } from './solicitation-subsidy/supervisor/superviso
 import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.component';
 import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
 import { AuditNotificationComponent } from './audits/audit-notification/audit-notification.component';
+import { CanDeactivateGuard } from './directives/can-deactivate-guard';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -59,7 +60,7 @@ const routes: Routes = [
         component: UsersComponent, canActivate : [AuthGuard]
       },
       { path: 'create',
-        component: CreateuserComponent, canActivate : [AuthGuard],
+        component: CreateuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard],
         data: {
           breadcrumb: 'crear',
           isHome: false,
@@ -73,7 +74,7 @@ const routes: Routes = [
           breadcrumb: 'modificar',
           isHome: false,
           show: true
-        }, component: ModifyuserComponent, canActivate : [AuthGuard] 
+        }, component: ModifyuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard], 
       },
       { path: ':distributionId', 
         data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
@@ -81,8 +82,11 @@ const routes: Routes = [
     ]
   },
 
-  { path: 'settingUser/:id', data: {breadcrumb: 'mi perfil',isHome: false,show: true},component: SettingofuserComponent, canActivate : [AuthGuard] },
-  { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard] },
+  { path: 'settingUser/:id', 
+      data: {breadcrumb: 'mi perfil',isHome: false,show: true},
+      component: SettingofuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] },
+  { path: 'photoProfile/:id', component: PhotoProfileComponent, 
+      canActivate : [AuthGuard] },
 
   { path: 'roles',
     data: {breadcrumb: 'roles',isHome: false,show: true}, 
@@ -103,10 +107,10 @@ const routes: Routes = [
       },
       { path: 'create', 
         data: {breadcrumb: 'crear',isHome: false,show: true},
-        component : CreateCategoryComponent, canActivate : [AuthGuard]},
+        component : CreateCategoryComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard],},
       { path: 'update/:id', 
         data: {breadcrumb: 'modificar',isHome: false,show: true},
-        component : ModifyCategoryComponent, canActivate : [AuthGuard]},
+        component : ModifyCategoryComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard],},
     ]
     
   },
@@ -115,8 +119,8 @@ const routes: Routes = [
     data: {breadcrumb: 'repartición',isHome: false,show: true},  
     children : [
       {path : '', component : DistributionsComponent, canActivate : [AuthGuard]},
-      { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard]},
-      { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard]},
+      { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
     ]
   },
 
@@ -124,8 +128,8 @@ const routes: Routes = [
     data: {breadcrumb: 'transporte',isHome: false,show: true},
     children : [
       { path: '', component : TransportsComponent, canActivate : [AuthGuard]},
-      { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateTransportComponent, canActivate : [AuthGuard]},
-      { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyTransportComponent, canActivate : [AuthGuard]},
+      { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateTransportComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyTransportComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
     ]
   },
     
@@ -134,8 +138,8 @@ const routes: Routes = [
     data: {breadcrumb: 'conceptos de gastos',isHome: false,show: true},
     children : [
       { path : '',component : ExpendituresComponent, canActivate : [AuthGuard]},
-      { path: 'create', data: {breadcrumb: 'crear', isHome: false,show: true}, component : CreateExpenditureComponent, canActivate : [AuthGuard]},
-      { path: 'update/:id',  data: {breadcrumb: 'modificar', isHome: false,show: true}, component : UpdateExpenditureComponent, canActivate : [AuthGuard]},
+      { path: 'create', data: {breadcrumb: 'crear', isHome: false,show: true}, component : CreateExpenditureComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: 'update/:id',  data: {breadcrumb: 'modificar', isHome: false,show: true}, component : UpdateExpenditureComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
       { path: ':id',  data: {breadcrumb: 'concepto de gastos usuarios', isHome: false,show: true}, component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
     ]
   },
@@ -145,8 +149,8 @@ const routes: Routes = [
     children : [
       { path : '',component : OrganismsComponent, canActivate : [AuthGuard]},
       { path: 'distributions/:organismId', data: {breadcrumb: 'organismos y reparticiones',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
-      { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard]},
-      { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard]},
+      { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
     ],
   },
 
@@ -159,13 +163,13 @@ const routes: Routes = [
           { path : 'refunds/:isRefund', data: {breadcrumb: 'reintegro de agentes a mi cargo',isHome: false,show: true}, component : SupervisorComponent, canActivate : [AuthGuard]},
           { path : 'solicitationSubsidies/:isRefund', data: {breadcrumb: 'solicitud de viático de agentes a mi cargo',isHome: false,show: true}, component : SupervisorComponent, canActivate : [AuthGuard]},
         ]},      
-      { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+      { path: 'create',data: {breadcrumb: 'crear anticipo',isHome: false,show: true}, component : CreateSolicitationComponent, canActivate : [AuthGuard], canDeactivate: [CanDeactivateGuard]},
       { path: 'detail/:id',data: {breadcrumb: 'detalle',isHome: false,show: true}, component : SolicitationSubsidydetailComponent, canActivate : [AuthGuard]},
-      { path: 'modify/:id',data: {breadcrumb: 'modificar',isHome: false,show: true},component : CreateSolicitationComponent, canActivate : [AuthGuard]},
+      { path: 'modify/:id',data: {breadcrumb: 'modificar anticipo',isHome: false,show: true},component : CreateSolicitationComponent, canActivate : [AuthGuard], canDeactivate: [CanDeactivateGuard]},
       { path: 'confirm/:id',data: {breadcrumb: 'confirmar',isHome: false,show: true}, component : AceptOrRefuseComponent, canActivate : [AuthGuard]},
       { path: 'print/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintComponent, canActivate : [AuthGuard]},
       { path: 'printAccountFor/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintAccountForSolicitationComponent, canActivate : [AuthGuard]},
-      { path: 'repayment',data: {breadcrumb: 'reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
+      { path: 'repayment',data: {breadcrumb: 'crear reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard],canDeactivate: [CanDeactivateGuard]},
       { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
       { path: 'accountFor/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForComponent, canActivate : [AuthGuard]},
       { path: 'accountForNormallyFinalitation/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForNormallyFinalizationComponent, canActivate : [AuthGuard]}  
@@ -176,8 +180,8 @@ const routes: Routes = [
     data: {breadcrumb: 'feriados',isHome: false,show: true},
     children : [
       { path : '', component : HolidaysComponent, canActivate : [AuthGuard]} ,
-      { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateHolidaysComponent, canActivate : [AuthGuard]},
-      { path: 'update/:id' ,data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyHolidaysComponent, canActivate : [AuthGuard]},
+      { path: 'create',data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateHolidaysComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: 'update/:id' ,data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyHolidaysComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
     ]
   },
   

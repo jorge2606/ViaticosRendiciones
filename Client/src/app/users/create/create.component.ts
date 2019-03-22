@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UserService } from './../../_services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { createUser } from '../users'
 import { RoleService } from '../../_services/role.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { UsersComponent } from '../users.component';
 import { Title } from '@angular/platform-browser';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-createuser',
   templateUrl: './create.component.html',
@@ -33,6 +34,7 @@ export class CreateuserComponent implements OnInit {
   selectedSupervisorAgentId : number;
   allSupervisors : User[] = [];
   editSignatureHolograpich: any;
+  @ViewChild('userForm') userForm : FormGroup;
 
   constructor(
               private UserService : UserService, 
@@ -172,6 +174,10 @@ export class CreateuserComponent implements OnInit {
     this.passwordsAreEquals = this.model.password === this.model.repeatPassword;
     this.passwordEmpty = false;
     return;
+  }
+
+  hasUnsavedData(){
+    return this.userForm.dirty;
   }
 
 }

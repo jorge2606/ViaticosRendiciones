@@ -1,5 +1,6 @@
+import { FormGroup } from '@angular/forms';
 import { TransportService } from './../../_services/transport.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UpdateTransportDto } from 'src/app/_models/transport';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -15,6 +16,7 @@ export class ModifyTransportComponent implements OnInit {
   modelTransport = new UpdateTransportDto();
   id : number;
   error = '';
+  @ViewChild('TransportForm') transportForm : FormGroup;
 
   constructor(private route : ActivatedRoute,
     private router : Router,
@@ -57,5 +59,9 @@ export class ModifyTransportComponent implements OnInit {
 
   msjValidEvent(msj : any){
 
+  }
+
+  hasUnsavedData(){
+    return this.transportForm.dirty;
   }
 }

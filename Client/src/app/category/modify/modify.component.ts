@@ -1,6 +1,7 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CategoryComponent } from './../category.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/_services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FindByIdCategoryDto } from 'src/app/_models/category';
@@ -16,8 +17,8 @@ export class ModifyCategoryComponent implements OnInit {
   id : number;
   model = new FindByIdCategoryDto;
   error = '';
-
   responseSuccess : any;
+  @ViewChild('CategoryForm') categoryForm : FormGroup; 
 
   constructor(
             private categoryService : CategoryService, 
@@ -60,4 +61,7 @@ export class ModifyCategoryComponent implements OnInit {
 
   }
 
+  hasUnsavedData(){
+    return this.categoryForm.dirty;
+  }
 }

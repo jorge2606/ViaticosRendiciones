@@ -35,7 +35,8 @@
                                     #motive="ngModel"
                                     [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
                                     name="motive" 
-                                    [(ngModel)]="model.motive">
+                                    [(ngModel)]="model.motive"
+                                    >
                                 </textarea>
         
                                 <div *ngIf="motive.invalid && (motive.dirty || motive.touched)" class="alert alert-danger mt-1">
@@ -48,18 +49,18 @@
         
                 <div class="form-row mt-1 mb-1">
                     <button placement="bottom" ngbTooltip="Agregar un nuevo destino" 
-                        type="button" class="btn btn-success small" (click)="AddDestiny()">
+                        type="button" class="btn btn-success" (click)="AddDestiny()">
                             <fa-icon class="fa-lg" icon="plus"></fa-icon> Destino
                     </button> 
                     <a (click)="deleteAllDestinies()" 
                         *ngIf="model.destinies.length > 0 && !id"
-                        class="btn btn-danger ml-1 text-white small"
+                        class="btn btn-danger ml-1 text-white"
                         placement="bottom" ngbTooltip="Eliminar todos los destinos">
                         <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
                     </a>
         
                     <button
-                    class="btn btn-default ml-auto mb-1 small"
+                    class="btn btn-default ml-auto mb-1"
                     type="button" 
                     [hidden]="!model.destinies"
                     (click)="onChangeColapse()"
@@ -136,14 +137,14 @@
                 </table>
                 <div class="form-row mt-1 mb-1">
                         <a  placement="bottom" ngbTooltip="Agregar un nuevo concepto gasto"
-                            (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white small">
+                            (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white">
                             <fa-icon class="fa-lg" icon="plus"></fa-icon> Concepto de Gasto
                         </a>
             
                         <a  placement="bottom" ngbTooltip="Eliminar todos los conceptos de gasto" 
                             (click)="deleteAllConcepts()" 
                             *ngIf="model.expenditures.length > 0"
-                            class="btn btn-danger ml-1 mb-1 text-white small">
+                            class="btn btn-danger ml-1 mb-1 text-white">
                             <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
                         </a>
                         <!--Concepto de Gasto-->
@@ -202,7 +203,7 @@
                 <div class="form-row float-right">
                     <button 
                         placement="top" ngbTooltip="Enviar este formulario" 
-                        [disabled]="!solicitationSubsidy.valid" class="btn btn-success small">
+                        [disabled]="!solicitationSubsidy.valid" class="btn btn-success">
                         <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                     </button>
                 </div>

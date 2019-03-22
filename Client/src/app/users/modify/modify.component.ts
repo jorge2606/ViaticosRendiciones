@@ -5,10 +5,11 @@ import { DistributionService } from './../../_services/distribution.service';
 import { UsersComponent } from '../users.component';
 import { UserService } from '../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { modifyUser } from '../users';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ModifyuserComponent implements OnInit {
   submitted : boolean;
   validCheckbox : boolean = true;
   editSignatureHolograpich: any;
+  @ViewChild('userForm') userForm : FormGroup;
 
   constructor(
           private router : Router,
@@ -184,4 +186,7 @@ export class ModifyuserComponent implements OnInit {
     return;
   }
 
+  hasUnsavedData(){
+    return this.userForm.dirty;
+  }
 }

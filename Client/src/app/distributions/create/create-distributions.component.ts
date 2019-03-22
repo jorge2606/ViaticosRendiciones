@@ -1,8 +1,9 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { CreateDistributionDto } from './../../_models/distributions';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -16,8 +17,8 @@ export class CreateDistributionsComponent implements OnInit {
   model = new CreateDistributionDto();
   error : any;
   selectedOrganismId : number;
-
   organism : any[];
+  @ViewChild('DistributionForm') distributionForm : FormGroup;
 
   constructor(
               private ditributionService : DistributionService, 
@@ -51,5 +52,9 @@ export class CreateDistributionsComponent implements OnInit {
 
   msjValidEvent(){
     
+  }
+
+  hasUnsavedData(){
+    return this.distributionForm.dirty;
   }
 }

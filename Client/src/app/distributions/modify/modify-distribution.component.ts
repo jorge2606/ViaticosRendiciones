@@ -1,10 +1,11 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UpdateOrganismDto } from 'src/app/_models/organism';
 import { UpdateDistributionDto } from './../../_models/distributions';
 import { DistributionsComponent } from './../distributions.component';
 import { UpdateCategoryDto } from './../../_models/category';
 import { DistributionService } from './../../_services/distribution.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { ToastrService } from 'ngx-toastr';
@@ -20,8 +21,8 @@ export class ModifyDistributionComponent implements OnInit {
   model = new UpdateDistributionDto();
   error = '';
   selectedOrganismId : number;
-
   organism :  any[];
+  @ViewChild('DistributionForm') distributionForm : FormGroup;
 
   constructor(
               private route : ActivatedRoute,
@@ -73,4 +74,7 @@ export class ModifyDistributionComponent implements OnInit {
 
   }
 
+  hasUnsavedData(){
+    return this.distributionForm.dirty;
+  }
 }

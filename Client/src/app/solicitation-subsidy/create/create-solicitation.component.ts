@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
@@ -14,7 +15,7 @@ import { ProvinceBaseDto } from './../../_models/province';
 import { AllCategoryDto } from './../../_models/category';
 import { CategoryService } from 'src/app/_services/category.service';
 import { CreateSolicitationSubsidyDto, Expenditure } from './../../_models/solicitationSubsidy';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { ProvinceService } from 'src/app/_services/province.service';
@@ -60,6 +61,8 @@ export class CreateSolicitationComponent implements OnInit {
   msjExito = '';
   msjWhenUserTryDeleteLastDestiny = '';
   supplementariesCities : string[];
+  dirtyForm : boolean = false;
+  @ViewChild('solicitationSubsidy') solicitationForm : FormGroup;
 
   constructor(
       private route : ActivatedRoute,
@@ -82,6 +85,7 @@ export class CreateSolicitationComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Crear Solicitud');
+    
     this.route.params.subscribe(
       x =>{
         this.id = x.id
@@ -246,7 +250,7 @@ export class CreateSolicitationComponent implements OnInit {
           minus = minus + array[i].amount;
           const indexDeleteAll = this.model.expenditures.indexOf(array[i], 0);
           if (indexDeleteAll > -1) {
-            this.deleteFromDatabaseExpenditure(this.model.expenditures[i].id);
+            //this.deleteFromDatabaseExpenditure(this.model.expenditures[i].id);
             this.model.expenditures.splice(indexDeleteAll, 1);
           }
       }
@@ -396,7 +400,6 @@ export class CreateSolicitationComponent implements OnInit {
       
   }
 
-
   onChangeColapse(){
     this.isCollapsedDestiny = !this.isCollapsedDestiny;
     if (this.isCollapsedDestiny){
@@ -450,4 +453,7 @@ export class CreateSolicitationComponent implements OnInit {
     }
 
 
+    hasUnsavedData(){
+      return this.solicitationForm.dirty;
+    }
 }

@@ -94,5 +94,4 @@ export class PhotoProfileComponent implements OnInit {
     );
 
   }
-
 }

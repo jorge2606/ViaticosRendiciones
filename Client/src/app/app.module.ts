@@ -89,6 +89,7 @@ import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/
 import { AddDestinyRepaymentComponent } from './modals/add-destiny-repayment/add-destiny-repayment.component';
 import {CrystalGalleryModule} from 'ngx-crystal-gallery';
 import { AuditNotificationComponent } from './audits/audit-notification/audit-notification.component';
+import { CanDeactivateGuard } from './directives/can-deactivate-guard';
 
 library.add(fas);
 
@@ -188,7 +189,8 @@ library.add(fas);
       Title,
       I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n},
       CurrencyPipe,
-      DatePipe
+      DatePipe,
+      CanDeactivateGuard
     ],
    entryComponents: [
       NgbdModalContent,
