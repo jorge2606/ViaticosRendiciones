@@ -58,6 +58,10 @@ export class SolicitationSubsidyService {
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/validateBeforeSendAccountFor/"+solicitationId);
   }
 
+  validateBeforeSendAccountForFinalizeNormally(solicitationId : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/validateBeforeSendAccountForFinalizeNormally/"+solicitationId);
+  }
+
 
   acepted(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedSolicitation",solicitation);

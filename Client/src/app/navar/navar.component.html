@@ -224,18 +224,18 @@
     <ul class="navbar-nav ml-auto small">
       <li class="dropdown-small">
         <div class="d-inline-block pull-right" ngbDropdown #myDrop="ngbDropdown" placement="bottom-right">
-          <button *ngIf="cantNotif == 0" class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle (focus)="myDrop.open()">
+          <button *ngIf="cantNotif == 0" class="btn btn-outline-light bell-size" id="dropdownManualNotif" ngbDropdownToggle>
             <fa-icon class="fa-lg" style="color: dodgerblue;" icon="bell"></fa-icon>
             <!-- <span style="background-color:blue;" class="badge badge-primary badge-pill">{{notification.length}}</span>-->
           </button>
-          <button *ngIf="cantNotif != 0" class="btn btn-outline-light bell-size" id="dropdownManual" 
+          <button *ngIf="cantNotif != 0" class="btn btn-outline-light bell-size" id="dropdownManualNotif" 
               ngbDropdownToggle (focus)="myDrop.open()">
               <fa-icon  class="fa-lg" style="color:red; margin-left: -3px;" icon="bell"></fa-icon>
               <span style="background-color:red; margin-left: -3px;" class="badge badge-primary badge-pill">
                 {{notification.length}}+
               </span>
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownManual" class="p-1" style="width: max-content;">
+          <div ngbDropdownMenu aria-labelledby="dropdownManualNotif" class="p-1" style="width: max-content;">
               <div class="card p-2">
                 <ul *ngIf="cantNotif == 0" class="dropdown-item text-center small alert alert-primary h-3">
                       No hay notificaciones nuevas
@@ -261,7 +261,7 @@
       
       <li class="dropdown small ml-1">
           <div class="d-inline-block pull-right" ngbDropdown #myDropCloseSession="ngbDropdown" placement="bottom-right">
-              <button class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle (focus)="myDropCloseSession.open()">
+              <button class="btn btn-outline-light bell-size" id="dropdownManual" ngbDropdownToggle>
               <!-- <fa-icon icon="user"></fa-icon>-->
                 <img class="rounded-circle" src="{{urlImage}}" alt="">
               </button>

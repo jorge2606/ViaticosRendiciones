@@ -180,7 +180,11 @@ namespace VR.Service.Services
             solicitationSubsidy.UserId = subsidy.UserId;
             solicitationSubsidy.Motive = subsidy.Motive;
             solicitationSubsidy.Total = subsidy.Total;
-            solicitationSubsidy.FinalizeDate = new DateTime(subsidy.FinalizeDate.Year, subsidy.FinalizeDate.Month, subsidy.FinalizeDate.Day);
+            if (solicitationSubsidy.FinalizeDate == null)
+            {
+                solicitationSubsidy.FinalizeDate = new DateTime(subsidy.FinalizeDate.Year, subsidy.FinalizeDate.Month, subsidy.FinalizeDate.Day);
+            }
+            
 
             _dataContext.SolicitationSubsidies.Update(solicitationSubsidy);
 
@@ -245,7 +249,7 @@ namespace VR.Service.Services
 
             }
 
-            SolicitationState solicitationState = new SolicitationState()
+            /**SolicitationState solicitationState = new SolicitationState()
             {
                 Id = new Guid(),
                 SolicitationSubsidy = solicitationSubsidy,
@@ -253,7 +257,7 @@ namespace VR.Service.Services
                 StateId = State.Accounted,
             };
 
-            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SolicitationStates.Add(solicitationState);**/
 
             _dataContext.SaveChanges();
 
@@ -1134,7 +1138,7 @@ namespace VR.Service.Services
         }
 
 
-        public ServiceResult<bool> validateBeforeSendAccountFor(Guid solcitationId)
+        public ServiceResult<bool> ValidateBeforeSendAccountFor(Guid solcitationId)
         {
             var solicitation = _dataContext.SolicitationSubsidies
                 .Include(x => x.Destinies)
@@ -1176,6 +1180,52 @@ namespace VR.Service.Services
                 {
                     var exp = expenditureDestination.ExpenditureType.Name;
                     result.AddNotification(NotificationType.Info, "El falta completar el campo 'importe' al concepto '" + exp +"'");
+                }
+
+                var img = _dataContext.Files.FirstOrDefault(c => c.ExpenditureId == expenditureDestination.Id);
+
+                if (img == null)
+                {
+                    var exp = expenditureDestination.ExpenditureType.Name;
+                    result.AddNotification(NotificationType.Info, "El falta agregar una imagen de un comprobante al concepto '" + exp + "'");
+                }
+            }
+
+            return result;
+        }
+
+
+        public ServiceResult<bool> ValidateBeforeSendAccountForFinalizeNormally(Guid solcitationId)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .ThenInclude(city => city.City)
+                .ThenInclude(prov => prov.Province)
+                .ThenInclude(country => country.Country)
+                .Include(x => x.Expenditures)
+                .ThenInclude(expType => expType.ExpenditureType)
+                .FirstOrDefault(x => x.Id == solcitationId);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<bool>(false);
+            }
+
+
+            ServiceResult<bool> result = new ServiceResult<bool>();
+
+            if (String.IsNullOrEmpty(solicitation.Motive))
+            {
+                result.AddNotification(NotificationType.Info, "El falta completar el campo 'motivo'");
+
+            }
+
+            foreach (var expenditureDestination in solicitation.Expenditures)
+            {
+                if (expenditureDestination.AccountedForAmount == null)
+                {
+                    var exp = expenditureDestination.ExpenditureType.Name;
+                    result.AddNotification(NotificationType.Info, "El falta completar el campo 'importe' al concepto '" + exp + "'");
                 }
 
                 var img = _dataContext.Files.FirstOrDefault(c => c.ExpenditureId == expenditureDestination.Id);

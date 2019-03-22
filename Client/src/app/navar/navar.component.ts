@@ -174,6 +174,7 @@ export class NavarComponent implements OnInit {
                   }else{
                     this.notificationServices.notificationRidden(notificationridden).subscribe(
                       () =>{
+                            this.retriveNotifications();
                             const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
                             modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
                             modalRef.result.then(() => { 
@@ -212,6 +213,7 @@ export class NavarComponent implements OnInit {
               }
               
               if (solicitationState.description === 'Rendición Rechazada'){
+                this.retriveNotifications();
                 this.router.navigateByUrl('SolicitationSubsidy/agent/accountFor/'+notificationridden.solicitationSubsidyId);
               }
 

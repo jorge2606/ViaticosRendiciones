@@ -243,6 +243,41 @@ export class AgentComponent implements OnInit {
 
     } 
 
+
+    sendAccountForSolicitationFinallizeNormalyToSupervisor(id : number){
+      let newSolicitation = new SolicitationIdDto();
+      newSolicitation.id = id;
+      this.spinner.show();
+        this.solicitationSubsidyservice.validateBeforeSendAccountForFinalizeNormally(id)
+        .subscribe(result =>{
+          if (result.notifications.length == 0){
+            this.solicitationSubsidyservice.sendAccountForToSupervisor(newSolicitation)
+            .subscribe(
+              x => {
+                  this.spinner.hide();
+                  this.toastrService.success("La rendición de una solicitud de viático se ha enviado correctamente.",'',
+                  {positionClass : 'toast-top-center', timeOut : 3000});
+                  this.getAll(this.filters);
+                }
+              ,
+              e =>{
+                this.spinner.hide();
+                e = e.error.errors.error || [];
+                e.forEach(err => {
+                  this.toastrService.error(err,'',
+                  {positionClass : 'toast-top-center', timeOut : 3000});
+                });
+                this.getAll(this.filters);
+              }
+            );
+          }else{
+            this.spinner.hide();
+            result.notifications.forEach(notification => {
+              this.toastrService.info(notification.value,'',{timeOut : 5000});
+            });
+          }
+        });
+    }
     addFileNumber(solicitationId : number){
        const modal = this.modalService.open(FileNumberComponent, {size : "lg", centered : true});
         modal.componentInstance.solicitatioId = solicitationId;

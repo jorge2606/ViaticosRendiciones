@@ -101,7 +101,19 @@ namespace VR.Web.Controllers
         [HttpGet("validateBeforeSendAccountFor/{id}")]
         public IActionResult validateBeforeSendAccountFor(Guid id)
         {
-            var result = _solicitationSubsidyService.validateBeforeSendAccountFor(id);
+            var result = _solicitationSubsidyService.ValidateBeforeSendAccountFor(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("validateBeforeSendAccountForFinalizeNormally/{id}")]
+        public IActionResult validateBeforeSendAccountForFinalizeNormally(Guid id)
+        {
+            var result = _solicitationSubsidyService.ValidateBeforeSendAccountForFinalizeNormally(id);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
@@ -147,7 +159,7 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-       [HttpGet("pageAgent")]
+        [HttpGet("pageAgent")]
         [Authorize]
         public PagedResult<AllSolicitationSubsidyDto> AgentPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {
@@ -160,6 +172,28 @@ namespace VR.Web.Controllers
 
             var results = _dataContext.GetSolicitationsByAgent(agentId, filters.FirstName,
                 filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex);
+            foreach (var s in results.List)
+            {
+                if (!s.IsRefund && s.FinalizeDate == null && s.State == "Aceptado")
+                {
+                    if (DateTime.Today.CompareTo(s.EndDate.Value) >= 0)
+                    {
+                        var solicitation = _dataContext.SolicitationSubsidies.FirstOrDefault(sol => sol.Id == s.Id);
+                        SolicitationState solicitationState = new SolicitationState()
+                        {
+                            Id = new Guid(),
+                            SolicitationSubsidy = solicitation,
+                            ChangeDate = DateTime.Now,
+                            StateId = State.Finished
+                        };
+                        _dataContext.SolicitationStates.Add(solicitationState);
+                        solicitation.FinalizeDate = s.EndDate;
+                        s.FinalizeDate = s.EndDate;
+                        _dataContext.SolicitationSubsidies.Update(solicitation);
+                        _dataContext.SaveChanges();
+                    }
+                }
+            }
 
             return new PagedResult<AllSolicitationSubsidyDto>
             {
