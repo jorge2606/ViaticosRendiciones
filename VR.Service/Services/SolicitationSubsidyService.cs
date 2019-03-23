@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlTypes;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
+using RazorLight;
 using Service.Common;
 using Service.Common.Extensions;
 using Service.Common.ServiceResult;
@@ -24,6 +26,7 @@ using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
+using File = VR.Data.Model.File;
 
 namespace VR.Service.Services
 {
@@ -37,6 +40,7 @@ namespace VR.Service.Services
         private readonly INotificationService _notificationService;
         public IConfiguration _configuration { get; }
         private IFileService _iFileService;
+        public static string StaticFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles");
 
         public SolicitationSubsidyService(
             DataContext dataContext,
@@ -667,7 +671,16 @@ namespace VR.Service.Services
                                " <a href='" + url + "'> Ingresar </a> " +
                                "</body>" +
                        "</html>";
-            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de "+ isRefundTextOrSolicitation, html);
+            
+            string template = Path.Combine(StaticFilesDirectory,"Templates");
+            var engine = new RazorLightEngineBuilder()
+                .UseFilesystemProject(template)
+                .UseMemoryCachingProvider()
+                .Build();
+
+            string result = await engine.CompileRenderAsync("Email/sendSolicitationSubsidy.cshtml", solicitation);
+
+            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de "+ isRefundTextOrSolicitation, result);
             if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
             {
                 if (emailSended.StatusCode == HttpStatusCode.Unauthorized)

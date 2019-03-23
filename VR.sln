@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Service", "VR.Service\VR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VR.Common", "VR.Common\VR.Common.csproj", "{043DD92D-5A04-47F1-B281-41965DE855F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoresProcedures", "StoresProcedures\StoresProcedures.csproj", "{01F29087-E691-4D1D-A905-CEE7CFD8306A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoresProcedures", "StoresProcedures\StoresProcedures.csproj", "{01F29087-E691-4D1D-A905-CEE7CFD8306A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
