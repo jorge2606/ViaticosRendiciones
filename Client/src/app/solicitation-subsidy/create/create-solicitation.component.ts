@@ -62,6 +62,7 @@ export class CreateSolicitationComponent implements OnInit {
   msjWhenUserTryDeleteLastDestiny = '';
   supplementariesCities : string[];
   dirtyForm : boolean = false;
+  submited : boolean = false;
   @ViewChild('solicitationSubsidy') solicitationForm : FormGroup;
 
   constructor(
@@ -369,15 +370,14 @@ export class CreateSolicitationComponent implements OnInit {
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
   onSubmit(){
-
+      this.submited = true;
       if (this.model.destinies.length == 0){
         this.msjToastInfo('Debe ingresar al menos un destino');
+        this.submited = false;
         return;
       }
 
       if(this.id){
-        console.log('modificar');
-        console.log(this.model);
         this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
@@ -387,8 +387,6 @@ export class CreateSolicitationComponent implements OnInit {
           error => console.log(error) 
         );
       }else{
-        console.log('crear');
-        console.log(this.model);
         this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
           () => {
               this.router.navigate(['SolicitationSubsidy/agent']);
@@ -454,6 +452,6 @@ export class CreateSolicitationComponent implements OnInit {
 
 
     hasUnsavedData(){
-      return this.solicitationForm.dirty;
+      return this.solicitationForm.dirty && !this.submited;
     }
 }

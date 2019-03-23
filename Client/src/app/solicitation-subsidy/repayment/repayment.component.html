@@ -221,18 +221,6 @@
         
         
             </form>
-            <div class="alert alert-danger ml-4 mr-4" *ngIf="msj">
-                <ul>
-                    <li>{{msj}}</li>
-                </ul>
-            </div>
-            <div class="alert alert-danger ml-4 mr-4" *ngIf="msjExito">
-                <ul>
-                    <li>
-                        {{msjExito}}
-                    </li>
-                </ul>
-            </div>
         
             <div *ngIf="solicitationSubsidy.form.invalid && (solicitationSubsidy.dirty || solicitationSubsidy.touched)" 
                 class="alert alert-danger mt-5">

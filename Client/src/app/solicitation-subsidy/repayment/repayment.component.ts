@@ -26,7 +26,6 @@ import { CodeLiquidationService } from 'src/app/_services/code-liquidation.servi
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
-import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
@@ -63,8 +62,6 @@ export class RepaymentComponent implements OnInit {
   countries : AllCountryDto[] = [];
   codeLiquidations : codeLiquidationBaseDto[] = [];
   citiesModify : CityBaseDto[] = [];
-  msj = '';
-  msjExito = '';
   msjWhenUserTryDeleteLastDestiny = '';
   supplementariesCities : string[];
   urlImage : string;
@@ -73,7 +70,9 @@ export class RepaymentComponent implements OnInit {
   url = '';
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl; 
+  submmited : boolean = false;
   @ViewChild('solicitationSubsidy') formRepayment : FormGroup;
+
   
   constructor(
       private router : Router,
@@ -93,8 +92,7 @@ export class RepaymentComponent implements OnInit {
       private toastrService: ToastrService,
       private authService : AuthenticationService,
       private ngbCalendar : NgbCalendar,
-      private lightbox : CrystalLightbox
-      ) { }
+      private lightbox : CrystalLightbox) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Reintegro');
@@ -260,7 +258,7 @@ export class RepaymentComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
+    this.uploader.onSuccessItem = (item, response) => {
       if (response) {
       }
     }    
@@ -396,19 +394,19 @@ export class RepaymentComponent implements OnInit {
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
   onSubmit(){
+    this.submmited = true;
     if (this.model.destinies.length == 0){
       this.msjToastInfo('Debe ingresar al menos un destino');
+      this.submmited = false;
       return;
     }
-    this.model.isRefund = true;
     
-    console.log(this.model);
+    this.model.isRefund = true;
 
     if(this.id){
       this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
         () => {
           this.router.navigate(['SolicitationSubsidy/agent']);
-          this.msjExito = 'Solicitud Enviada';
           this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
         },
         error => console.log(error) 
@@ -417,7 +415,6 @@ export class RepaymentComponent implements OnInit {
       this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
         () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
-            this.msjExito = 'Solicitud Actualizada';
             this.msjToastSuccess('El reintegro de viático se ha guardado correctamente');
         }
       );
@@ -478,6 +475,6 @@ export class RepaymentComponent implements OnInit {
   }
 
   hasUnsavedData(){
-    return this.formRepayment.dirty;
+    return this.formRepayment.dirty && !this.submmited;
   }
 }

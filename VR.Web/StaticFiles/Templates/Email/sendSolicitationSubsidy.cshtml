@@ -1,4 +1,4 @@
-﻿@model VR.Data.Model.SolicitationSubsidy
+﻿@model VR.Dto.SolicitationSubsidyForTemplateDto
 @{
     decimal totalExp = 0;
     decimal totalDest = 0;
@@ -38,7 +38,7 @@
         }
 
         .buttonAccept {
-            background-color: #2ECC71;
+            background-color: #ABEBC6;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -47,15 +47,15 @@
             display: inline-block;
             margin: 4px 2px;
             cursor: pointer;
-            border-radius: 16px;
+            border-radius: 23px;
         }
 
-            .buttonAccept:hover {
-                background-color: #ABEBC6;
-            }
+        .buttonAccept:hover {
+            background-color: #2ECC71;
+        }
 
         .buttonReject {
-            background-color: #AEB6BF;
+            background-color: #D6DBDF;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -64,12 +64,12 @@
             display: inline-block;
             margin: 4px 2px;
             cursor: pointer;
-            border-radius: 16px;
+            border-radius: 23px;
         }
 
-            .buttonReject:hover {
-                background-color: #D6DBDF;
-            }
+        .buttonReject:hover {
+            background-color: #AEB6BF;
+        }
 
         .buttonClose {
             background-color: #AEB6BF;
@@ -84,9 +84,9 @@
             border-radius: 16px;
         }
 
-            .buttonClose:hover {
-                background-color: #D6DBDF;
-            }
+        .buttonClose:hover {
+            background-color: #D6DBDF;
+        }
 
         .total {
             text-align: right;
@@ -156,7 +156,7 @@
 </head>
 <body>
     <div class="container">
-        <p>Sr./Sra. {supervisorsLastName} , {supervisorsFirstName},<br /><p>
+        <p>Sr./Sra. @Model.SupervisorsLastName , @Model.SupervisorsFirstName <br/><p>
         <p class="first-paragraph">El Agente @Model.User.LastName , @Model.User.FirstName ha enviado una solicitud de viático.</p>
         <p>Saludos.</p>
         
@@ -202,10 +202,10 @@
                             subTotalDest += @des.Days * @des.AdvanceCategory * @des.PercentageCodeLiquidation;
                             <tr>
                                 <td>
-                                    @des.StartDate.ToString("dd/MM/yyyy")
+                                    @des.StartDate.Day/ @des.StartDate.Month/ @des.StartDate.Year
                                 </td>
                                 <td>
-                                    <li style="list-style-type: none;">@((des.Country == null) ? des.Province.Name + des.City.Name : des.Country.Name) </li>
+                                    <li style="list-style-type: none;">@((!des.CountryId.HasValue) ? des.Province.Name +", "+des.City.Name : des.Country.Name) </li>
                                 </td>
                                 <td>
                                     @des.Transport.Model - @des.Transport.Brand
@@ -249,7 +249,7 @@
                         {
                             <tr>
                                 <td class="name-td">
-                                    @exp.ExpenditureType.Name
+                                    @exp.ExpenditureTypeName
                                 </td>
                                 <td>
                                     @exp.Description
@@ -273,7 +273,7 @@
                 </div>
 
                 <div class="footer">
-                    <button type="submit" class="buttonAccept">Aceptar</button>
+                    <a href="@Model.Url" class="buttonAccept">Aceptar</a>
                     <button type="submit" class="buttonReject">Rechazar</button>
                 </div>
             </div>

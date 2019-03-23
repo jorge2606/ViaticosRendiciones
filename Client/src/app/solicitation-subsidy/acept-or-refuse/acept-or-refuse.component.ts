@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-reject.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { CrystalLightbox } from 'ngx-crystal-gallery';
 
 @Component({
   selector: 'app-acept-or-refuse',
@@ -35,7 +36,8 @@ export class AceptOrRefuseComponent implements OnInit {
         private modalService : NgbModal,
         public router : Router,
         public authService : AuthenticationService,
-        public toastService : ToastrService
+        public toastService : ToastrService,
+        private lightbox : CrystalLightbox
     ) { }
 
   ngOnInit() {
@@ -55,6 +57,13 @@ export class AceptOrRefuseComponent implements OnInit {
                       this.suffixCuil = this.model.user.suffixCuil;
                       this.dni = this.model.user.dni;
                       this.currentUrl = this.router.url;
+                      if(this.model.isRefund){
+                        this.model.expenditures.forEach(
+                          exp=>{
+                              exp.urlImage = this.authService.urlExpenditureRefundFile(exp.id,186,60);
+                          }
+                        );
+                      }
                       }
                 );
           }

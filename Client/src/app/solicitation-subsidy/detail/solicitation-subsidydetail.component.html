@@ -31,6 +31,7 @@
                     <th class="col-2" style="padding : 0px;">Concepto</th>
                     <th class="col" style="padding : 0px;">Descripción</th>
                     <th class="col-2 text-right" style="padding : 0px;">Importe</th>
+                    <th class="col-2" *ngIf="model.isRefund"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -47,7 +48,7 @@
                     <td *ngIf="model.isRefund"
                         placement="bottom" 
                         ngbTooltip="Ver imagen"
-                        class="col-2 text-center p-0">
+                        class="col-2 text-center">
                         <a  
                             style="width: inherit;cursor: pointer;"
                             (click)="lightbox.open([{path: exp.urlImage }])" 

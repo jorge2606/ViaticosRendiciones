@@ -170,7 +170,7 @@ const routes: Routes = [
       { path: 'print/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintComponent, canActivate : [AuthGuard]},
       { path: 'printAccountFor/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintAccountForSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'repayment',data: {breadcrumb: 'crear reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard],canDeactivate: [CanDeactivateGuard]},
-      { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
+      { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard],canDeactivate: [CanDeactivateGuard]},
       { path: 'accountFor/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForComponent, canActivate : [AuthGuard]},
       { path: 'accountForNormallyFinalitation/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForNormallyFinalizationComponent, canActivate : [AuthGuard]}  
     ],

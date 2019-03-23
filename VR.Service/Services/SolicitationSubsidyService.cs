@@ -586,99 +586,32 @@ namespace VR.Service.Services
             var supervisorsFirstName = supervisor.Supervisors.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-
-            var headTable = "<table>" +
-                "<thead>"+
-                "<tr>"+
-                    "<th>Fecha</th>"+
-                    "<th> Pais </ th > "+
-                    "<th> Province </th> "+
-                    "<th> Localidades </th> "+
-                    "<th> Categoría </th> " +
-                    "<th> Transporte </th> " +
-                    "<th> Dias </th> " +
-                "</tr>" +
-                "</thead>" +
-                            "<tbody>";
-            var row = "";
-
-            foreach (var x in solicitation.Destinies)
-            {
-                var countryName = "-";
-                var provinceName = "-";
-                var cityName = "-";
-
-                if (x.Country != null)
-                {
-                    countryName = x.Country.Name;
-                }
-
-                if (x.Province != null && x.City != null)
-                {
-                    provinceName = x.Province.Name;
-                    cityName = x.City.Name;
-                }
-
-                row = row + "<tr>" +
-                          "<td>" + x.StartDate.Day+"/"+ x.StartDate.Month+"/"+ x.StartDate.Year + "</td>" +
-                          "<td>" + countryName + "</td>" +
-                          "<td>" + provinceName + "</td>" +
-                          "<td>" + cityName + "</td>" +
-                          "<td>" + x.Category.Name + "</td>" +
-                          "<td>" + x.Transport.Brand + " - " + x.Transport.Model + "</td>" +
-                          "<td>" + x.Days + "</td>" +
-                      "</tr>";
-            }
-            var TableDestinies = headTable + row + "</tbody></table>";
-
-            var headTableExp = "<table>" +
-                            "<thead>" +
-                                "<tr>" +
-                                    "<th> Gasto </th>" +
-                                    "<th> Descripción </ th > " +
-                                    "<th> Importe </th> " +
-                                "</tr>" +
-                            "</thead>" +
-                            "<tbody>";
-            var rowExp = "";
-            foreach (var x in solicitation.Expenditures)
-            {
-                rowExp = rowExp + "<tr>" +
-                      "<td>" + x.ExpenditureType.Name + "</td>" +
-                      "<td>" + x.Description + "</td>" +
-                      "<td>" + x.Amount + "</td>" +
-                      "</tr>";
-            }
-            var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
-
             var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/agent/confirm/{0}",solicitation.Id);
 
-            var html = "<!DOCTYPE html>" +
-                       "<html>" +
-                           "<head>" +
-                               "<meta charset = 'UTF-8'>" +
-                               "<title> Title of the document </title>" +
-                            "</head>" +
-                               "<body>" +
-                               "<p>" +
-                               "Hola " + supervisorsLastName + ", " + supervisorsFirstName + "<br>" +
-                               "El Agente " + userLastName + ", " + userFirstName + " ha enviado la solicitud de "+ isRefundTextOrSolicitation + "." +
-                               TableDestinies
-                               + "<br>" +
-                               tableExpenditures +
-                               "Saludos" +
-                               "</p> <br>" +
-                               " <a href='" + url + "'> Ingresar </a> " +
-                               "</body>" +
-                       "</html>";
-            
+            var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
+            {
+                Id = solicitation.Id,
+                Destinies = _mapper.Map<List<DestinyBaseDto>>(solicitation.Destinies),
+                Expenditures = _mapper.Map<List<ExpenditureFromSolicitationSubsidyByIdDto>>(solicitation.Expenditures),
+                User = _mapper.Map<UserDto>(solicitation.User),
+                SolicitationStates = _mapper.Map<List<SolicitationStateDto>>(solicitation.SolicitationStates),
+                FinalizeDate = solicitation.FinalizeDate,
+                Motive = solicitation.Motive,
+                CreateDate = solicitation.CreateDate,
+                IsRefund = solicitation.IsRefund,
+                IsDeleted = solicitation.IsDeleted,
+                Url = url,
+                SupervisorsFirstName = supervisorsFirstName,
+                SupervisorsLastName = supervisorsLastName
+        };
+
             string template = Path.Combine(StaticFilesDirectory,"Templates");
             var engine = new RazorLightEngineBuilder()
                 .UseFilesystemProject(template)
                 .UseMemoryCachingProvider()
                 .Build();
 
-            string result = await engine.CompileRenderAsync("Email/sendSolicitationSubsidy.cshtml", solicitation);
+            string result = await engine.CompileRenderAsync("Email/sendSolicitationSubsidy.cshtml", solicitationForHtml);
 
             var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de "+ isRefundTextOrSolicitation, result);
             if (!(emailSended.StatusCode == HttpStatusCode.Accepted))

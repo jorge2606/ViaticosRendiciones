@@ -77,4 +77,5 @@ export class SolicitationIdDto extends DetailSolicitationSubsidyDto
     id : number;
     motiveReject : string;
     fileNumber : string;
+    isRefund : boolean;
 }

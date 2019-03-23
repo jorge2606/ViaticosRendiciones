@@ -5,7 +5,8 @@
         <h4 class="modal-title pull-left">Solicitud de Viatico</h4><br>
       </div>
       <div class="modal-header">
-          <h5 class="modal-title">{{lastName}}, {{firstName}} <br>{{dni}}</h5>
+          <h5 class="modal-title">Apellido, Nombre : {{lastName}}, {{firstName}} <br>
+            C.U.I.L : {{dni}}</h5>
       </div>
       <div class="modal-body">
             <div class="form-row">
@@ -25,38 +26,39 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">Dias</th>
                       <th scope="col">Fecha de Inicio</th>
-                      <th scope="col">Categoría</th>
-                      <th scope="col">Pais</th>
-                      <th scope="col">Provincia</th>
-                      <th scope="col">Localidad</th>
+                      <th scope="col">Destino</th>
                       <th scope="col">Transporte</th>
+                      <th scope="col">Dias</th>
+                      <th scope="col">$/Dia</th>
+                      <th scope="col">Cod. Liq.</th>
+                      <th scope="col">Subtotal</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let des of model.destinies">
                       <td>
-                        {{des.days}}
-                      </td>
-                      <td>
                           {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
                         </td>
                       <td>
-                        {{des.categoryName}}
-                      </td>
-                      <td>
                         <li style="list-style-type: none;" *ngIf="des.countryName">{{des.countryName}}</li>
-                        <li style="list-style-type: none;" *ngIf="!des.countryName">ARGENTINA</li>
-                      </td>
-                      <td >
                         <li style="list-style-type: none;" *ngIf="des.provinceName"> {{des.provinceName}} </li>
-                      </td>
-                      <td>
                         <li style="list-style-type: none;" *ngIf="des.cityName">{{des.cityName}}</li>
                       </td>
                       <td>
                         {{des.transportModel}} - {{des.transportBrand}}
+                      </td>
+                      <td>
+                        {{des.days}}
+                      </td>
+                      <td>
+                        {{des.advanceCategory | currency}}
+                      </td>
+                      <td>
+                        {{des.percentageCodeLiquidation}}
+                      </td>
+                      <td>
+                         {{des.days * des.advanceCategory * des.percentageCodeLiquidation }}
                       </td>
                     </tr>
                   </tbody>
@@ -71,7 +73,7 @@
                       <th scope="col">Importe</th>
                       <th scope="col">Nombre</th>
                       <th scope="col">Descripción</th>
-                      
+                      <th scope="col" *ngIf="model.isRefund"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -85,7 +87,17 @@
                       <td>
                         {{exp.description}}
                       </td>
-                      
+                      <td *ngIf="model.isRefund"
+                        placement="bottom" 
+                        ngbTooltip="Ver imagen"
+                        class="text-center p-0">
+                        <a  
+                            style="width: inherit;cursor: pointer;"
+                            (click)="lightbox.open([{path: exp.urlImage }])" 
+                            rel="noopener noreferrer">
+                            <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="image"></fa-icon>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -94,10 +106,8 @@
 
       <div class="modal-body">
           <div class="form-row">
-              <div class="col-5 form-inline ml-auto">
-                  <label for="" class="col-2">Total</label>
-                  <input type="text" disabled value="{{model.total | number}}" 
-                  class="col form-control text-right">
+              <div class="ml-auto">
+                  <label for="" class="col"><b>Total: {{model.total | currency}}</b></label> 
               </div>
             </div>
       </div>

@@ -152,4 +152,35 @@ namespace VR.Dto
         
     }
 
+    public class SolicitationSubsidyForTemplateDto
+    {
+        public SolicitationSubsidyForTemplateDto()
+        {
+            Destinies = new List<DestinyBaseDto>();
+            Expenditures = new List<ExpenditureFromSolicitationSubsidyByIdDto>();
+            SolicitationStates = new List<SolicitationStateDto>();
+        }
+
+        public Guid Id { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public DateTime CreateDate { set; get; }
+        public DateTime? FinalizeDate { set; get; }
+        public Boolean IsRefund { set; get; }
+        public Boolean IsDeleted { set; get; }
+        
+        public Guid UserId { set; get; }
+
+        public UserDto User { set; get; }
+
+        public List<DestinyBaseDto> Destinies { get; set; }
+
+        public List<ExpenditureFromSolicitationSubsidyByIdDto> Expenditures { get; set; }
+
+        public List<SolicitationStateDto> SolicitationStates { get; set; }
+        public string Url { set; get; }
+        public string SupervisorsFirstName { set; get; }
+        public string SupervisorsLastName { set; get; }
+    }
+
 }
