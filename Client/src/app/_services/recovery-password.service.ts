@@ -12,9 +12,7 @@ export class RecoveryPasswordService {
   constructor(private http : HttpClient) { }
 
   ForgotPassword(passwordObj : ForgotPassword){
-    this.http.post(environment.apiUrl+"User/ForgotPassword/",passwordObj).subscribe(x =>
-    console.log(x.toString())
-    );
+    return this.http.post(environment.apiUrl+"User/ForgotPassword/",passwordObj);
   }
 
   ResetPassword(passwordObj : ResetPassword){

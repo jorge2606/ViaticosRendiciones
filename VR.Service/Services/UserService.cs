@@ -24,6 +24,8 @@ using VR.Identity.Identities;
 using VR.Service.Helpers.WebApi.Helpers;
 using VR.Web.Helpers;
 using NotificationType = Service.Common.ServiceResult.NotificationType;
+using System.IO;
+using RazorLight;
 
 namespace VR.Service.Services
 {
@@ -41,6 +43,7 @@ namespace VR.Service.Services
         private readonly SignInManager _signInManager;
         private IConfiguration _configuration;
         private IAspNetUserRolesService _rolesService;
+        public static string StaticFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles");
 
         public UserService(DataContext context,
             UserManager userManager,
@@ -445,19 +448,21 @@ namespace VR.Service.Services
 
             var callbackUrl = string.Format(_configuration["AppSettings:localUrl"] +"/CambiarPassword?code={0}&userId={1}", code, user.Id);
 
-            await _emailSender.SendEmail(model.Email, "Reset Password",
-            "<html>" +
-              "<head></head>" +
-              "<body>" +
-                "<p> Hello " + user.UserName + "," +
-                "<br><br>" +
-                   "We heard that you lost your Bussiness password. Sorry about that! <br>" +
-                    "But don’t worry!You can use the following link to reset your password: <br><br>" +
-                        "<a href='" + callbackUrl + "'> " + callbackUrl + "</a>" + "<br><br>" +
-                            "Regards, " + user.UserName +
-                "</p>" +
-              "</body>" +
-            "</html>");
+            UserRecoveryPassword userRecoveryPasswordModel = new UserRecoveryPassword()
+            {
+                LastName = user.LastName,
+                FirstName = user.FirstName,
+                UrlCallBack = callbackUrl
+            };
+            string template = Path.Combine(StaticFilesDirectory, "Templates");
+            var engine = new RazorLightEngineBuilder()
+                .UseFilesystemProject(template)
+                .UseMemoryCachingProvider()
+                .Build();
+
+            string result = await engine.CompileRenderAsync("Email/recoveryPassword.cshtml", userRecoveryPasswordModel);
+
+            await _emailSender.SendEmail(model.Email, "Reset Password",result);
 
             return new ServiceResult<string>(model.Email);
         }

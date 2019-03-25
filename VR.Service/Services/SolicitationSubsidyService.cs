@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using FluentValidation;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 using RazorLight;
-using Service.Common;
 using Service.Common.Extensions;
 using Service.Common.ServiceResult;
 using VR.Data;
@@ -707,84 +698,36 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var headTable = "<table>" +
-                "<thead>" +
-                "<tr>" +
-                    "<th> Destino </ th > "+
-                    "<th> Dias </th> "+
-                    "<th> Importe </th> "+
-                "</tr>" +
-                "</thead>" +
-                            "<tbody>";
-            var row = "";
-            var rowAcountFor = "";
-
-            foreach (Destiny x in solicitation.Destinies)
-            {
-
-                row = row + "<tr>" +
-                              "<td>" + ( (x.Country != null) ? x.Country.Name : (x.Province.Name +" "+ x.City.Name)) + "</td>" +
-                              "<td>" + x.Days + "</td>" +
-                              "<td>" + "$"+(x.Days * x.PercentageCodeLiquidation * x.AdvanceCategory) + "</td>" +
-                            "</tr>";
-                rowAcountFor = rowAcountFor + 
-                          "<tr>" +
-                            "<td>" + ( (x.Country == null) ? (x.Province.Name +" "+ x.City.Name) : x.Country.Name) + "</td>" +
-                            "<td>" + x.AccountedForDays + "</td>" +
-                            "<td>" + "$"+(x.AccountedForDays * x.PercentageCodeLiquidation * x.AdvanceCategory) + "</td>" +
-                          "</tr>";
-            }
-            var TableDestinies = headTable + row + "</tbody></table>";
-            var TableAccountForDestinies = headTable + rowAcountFor + "</tbody></table>";
-
-            var headTableExp = "<table>" +
-                            "<thead>" +
-                                "<tr>" +
-                                    "<th> Gasto </th>" +
-                                    "<th> Descripción </th> " +
-                                    "<th> Importe </th> " +
-                                "</tr>" +
-                            "</thead>" +
-                            "<tbody>";
-            var rowExp = "";
-            var rowAccountForExp = "";
-            foreach (var x in solicitation.Expenditures)
-            {
-                rowExp = rowExp + "<tr>" +
-                      "<td>" + x.ExpenditureType.Name + "</td>" +
-                      "<td>" + x.Description + "</td>" +
-                      "<td>" + "$"+x.Amount + "</td>" +
-                      "</tr>";
-                rowAccountForExp = rowAccountForExp + "<tr>" +
-                       "<td>" + x.ExpenditureType.Name + "</td>" +
-                       "<td>" + x.Description + "</td>" +
-                       "<td>" + "$"+x.AccountedForAmount + "</td>" +
-                      "</tr>";
-            }
-            var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
-            var tableAccountForExpenditures = headTableExp + rowAccountForExp + "</tbody></table>";
-
             var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
-            var html = "<!DOCTYPE html>" +
-                       "<html>" +
-                           "<head>" +
-                               "<meta charset = 'UTF-8'>" +
-                               "<title> Rendición de una solicitud de viático </title>" +
-                            "</head>" +
-                               "<body>" +
-                               "<p>" +
-                               "Hola " + supervisorsLastName + ", " + supervisorsFirstName + "<br>" +
-                               "El Agente " + userLastName + ", " + userFirstName + " ha enviado la rendición de una solicitud de viático." +
-                               TableDestinies +" "+ TableAccountForDestinies
-                               + "<br>" +
-                               tableExpenditures + " "+ tableAccountForExpenditures +
-                               "Saludos" +
-                               "</p> <br>" +
-                               " <a href='" + url + "'> Ingresar </a> " +
-                               "</body>" +
-                       "</html>";
-            var emailSended = await _emailSender.SendEmail(emailSupervisor, "rendición de una solicitud de viático", html);
+            var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
+            {
+                Id = solicitation.Id,
+                Destinies = _mapper.Map<List<DestinyBaseDto>>(solicitation.Destinies),
+                Expenditures = _mapper.Map<List<ExpenditureFromSolicitationSubsidyByIdDto>>(solicitation.Expenditures),
+                User = _mapper.Map<UserDto>(solicitation.User),
+                SolicitationStates = _mapper.Map<List<SolicitationStateDto>>(solicitation.SolicitationStates),
+                FinalizeDate = solicitation.FinalizeDate,
+                Motive = solicitation.Motive,
+                CreateDate = solicitation.CreateDate,
+                IsRefund = solicitation.IsRefund,
+                IsDeleted = solicitation.IsDeleted,
+                Url = url,
+                SupervisorsFirstName = supervisorsFirstName,
+                SupervisorsLastName = supervisorsLastName
+            };
+
+            string template = Path.Combine(StaticFilesDirectory, "Templates");
+
+            var engine = new RazorLightEngineBuilder()
+                .UseFilesystemProject(template)
+                .UseMemoryCachingProvider()
+                .Build();
+
+            string result = await engine.CompileRenderAsync("Email/sendAccountForSolicitation.cshtml", solicitationForHtml);
+
+            var emailSended = await _emailSender.SendEmail(emailSupervisor, "rendición de una solicitud de viático", result);
+
             if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
             {
                 if (emailSended.StatusCode == HttpStatusCode.Unauthorized)
