@@ -248,7 +248,6 @@ export class AddDestinyComponent implements OnInit {
         newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
       }
       newDestiny.days = this.model.days;
-      newDestiny.daysWeekEnd = this.model.days;
       newDestiny.categoryId =this.categoryUser.id;
       if (this.categoryUser.id != null) {
         newDestiny.categoryName = this.categoryUser.name;

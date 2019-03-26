@@ -1,3 +1,4 @@
+import { HolidaysService } from './../../_services/holidays.service';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
@@ -81,7 +82,8 @@ export class CreateSolicitationComponent implements OnInit {
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
       private toastrService: ToastrService,
-      private ngbCalendar : NgbCalendar
+      private ngbCalendar : NgbCalendar,
+      private holidaysService : HolidaysService
       ) { }
 
   ngOnInit() {
@@ -218,6 +220,7 @@ export class CreateSolicitationComponent implements OnInit {
       minus = minus + expenditure.amount;
       if (index > -1) {
         this.model.expenditures.splice(index, 1);
+        this.dirtyForm = true;
         //this.deleteFromDatabaseExpenditure(expenditure.id);
       }
       
@@ -238,6 +241,7 @@ export class CreateSolicitationComponent implements OnInit {
           this.model.destinies.splice(index, 1);
         }
         this.totalResultExpenditure();
+        this.dirtyForm = true;
 
    }
 
@@ -255,8 +259,8 @@ export class CreateSolicitationComponent implements OnInit {
             this.model.expenditures.splice(indexDeleteAll, 1);
           }
       }
-
       this.totalResultExpenditure();
+      this.dirtyForm = true;
    }
 
    deleteAllDestinies(){
@@ -277,10 +281,12 @@ export class CreateSolicitationComponent implements OnInit {
           }
      }
      this.totalResultExpenditure();
+     this.dirtyForm = true;
   }
 
      //MODALS
   openAddNewConcept() {
+    this.dirtyForm = true;
     const modalRef = this.modalService.open(AddNewExpenditureComponent);
     if (this.model.expenditures === undefined)
     {
@@ -300,6 +306,7 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   AddDestiny(){
+    this.dirtyForm = true;
     const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
 
     if (this.model.destinies === undefined)
@@ -377,6 +384,8 @@ export class CreateSolicitationComponent implements OnInit {
         return;
       }
 
+      this.calculateHolidaysAndWeekEnds();
+
       if(this.id){
         this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
@@ -399,6 +408,7 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   onChangeColapse(){
+    this.dirtyForm = true;
     this.isCollapsedDestiny = !this.isCollapsedDestiny;
     if (this.isCollapsedDestiny){
       this.verOcultarIconDestiny = "arrow-circle-down";
@@ -410,6 +420,7 @@ export class CreateSolicitationComponent implements OnInit {
   }
 
   changeCollapseExpenditure(){
+    this.dirtyForm = true;
     this.isCollapsedExpenditure = !this.isCollapsedExpenditure;
     if (this.isCollapsedExpenditure){
       this.verOcultarIconExpenditure = "arrow-circle-down";
@@ -428,30 +439,37 @@ export class CreateSolicitationComponent implements OnInit {
       );
 
       this.model.destinies.forEach(
-        destiny => {
-          destiny.days = destiny.daysWeekEnd;
-
-          for (let i = destiny.daysWeekEnd; i > 0; i--) {
-            var date = new Date(destiny.startDate.year, destiny.startDate.month, destiny.startDate.day);
-            date.setDate(date.getDate() + i);
-            let dateNow = new  NgbDate(date.getFullYear(), date.getMonth(), date.getDate());
-            //extrigo lod dias para saber cual si es feriado o no , 
-            //en caso de serlo le descuento esos dias.
-            let isWeekend = this.ngbCalendar.getWeekday(dateNow);
-            //let isWeekend = this.ngbCalendar.getWeekday(destiny.startDate.setDate(destiny.startDate.getDate() + destiny.days) );
-            if (isWeekend == 6 || isWeekend == 7){
-              destiny.days = destiny.days - 1;
-            }
-          }
-
+        destiny => {  
           resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
         }
       );
+      
+
       this.model.total = resultExpenditure + resultDestiny;
     }
 
 
+    calculateHolidaysAndWeekEnds(){
+      this.model.destinies.forEach(dest =>{
+        if (!dest.id){
+        
+          for (let i = 0; i <= dest.days; i++) {
+            var date = new Date(dest.startDate.year, dest.startDate.month - 1, dest.startDate.day);
+            date.setDate(date.getDate() + i);
+            let dateNow = new  NgbDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+            //es Fin de semana
+            let isWeekend = this.ngbCalendar.getWeekday(dateNow);
+            if (isWeekend == 6 || isWeekend == 7){
+              //contamos la cantidad de dias no laborables
+              dest.daysWeekEnd = dest.daysWeekEnd + 1;
+            }
+          }
+
+        }
+      });
+    }
+
     hasUnsavedData(){
-      return this.solicitationForm.dirty && !this.submited;
+      return (this.solicitationForm.dirty || this.dirtyForm) && !this.submited;
     }
 }

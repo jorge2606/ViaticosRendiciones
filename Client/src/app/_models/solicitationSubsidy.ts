@@ -60,6 +60,8 @@ export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{
     localities : string;
     beginDate : Date;
     endDate : Date;
+    daysWeekEnd : number = 0;
+    daysHolidays : number = 0;
 }
 
 export class DetailSolicitationSubsidyDto{

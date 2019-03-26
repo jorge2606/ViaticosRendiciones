@@ -31,6 +31,8 @@ export class SupervisorComponent implements OnInit {
    error = '';
    transports : any;
    sizeIcon="fa-lg";
+   daysWeekEnd : number;
+   daysHolidays : number;
    
   constructor(
               private solicitationSubsidyservice : SolicitationSubsidyService,
@@ -57,6 +59,18 @@ export class SupervisorComponent implements OnInit {
       x => {
           this.solicitationSubsidies = x.list;
           this.col_size = x.totalRecords;
+          this.solicitationSubsidies.forEach(
+            solic => {
+              this.solicitationSubsidyservice.getAmountHolidaysAndWeekends(solic.id)
+              .subscribe(holiday => {
+                holiday.forEach(element => {
+                  solic.daysWeekEnd = element.daysWeekEnd,
+                  solic.daysHolidays = element.daysHolidays
+                });
+              });
+            }
+          );
+          
         }
     );
   }
@@ -142,4 +156,5 @@ export class SupervisorComponent implements OnInit {
         }
       );
     } 
+
 }

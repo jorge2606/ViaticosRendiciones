@@ -21,6 +21,7 @@ namespace VR.Dto
         public Decimal PercentageCodeLiquidation { set; get; }
         public int AccountedForDays { set; get; }
         public int DaysWeekEnd { set; get; }
+        public int DaysHolidays { set; get; }
 
         public Category Category { set; get; }
         public CodeLiquidation CodeLiquidation { set; get; }

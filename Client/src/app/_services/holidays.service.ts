@@ -1,4 +1,4 @@
-import { CreateHolidayDto, FindByIdHolidayDto, UpdateHolidayDto } from './../_models/holiday';
+import { CreateHolidayDto, FindByIdHolidayDto, UpdateHolidayDto, DateDto } from './../_models/holiday';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -29,6 +29,18 @@ export class HolidaysService {
 
   getByIdHoliday(id : number) {
     return this.http.get<FindByIdHolidayDto>(environment.apiUrl+"Holiday/getById/"+id);
+  }
+
+  haveHolidays(date : any, days : any) {
+    var params = new HttpParams({
+     fromObject : {
+       'day' : date.day,
+       'month' : date.month,
+       'year' : date.year,
+       'amountDays' : days
+     }
+    });
+    return this.http.get<any>(environment.apiUrl+"Holiday/haveHolidays/",{params : params});
   }
 
   updateHoliday(updateHoliday : UpdateHolidayDto){

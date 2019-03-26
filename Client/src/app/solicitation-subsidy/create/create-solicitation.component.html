@@ -80,7 +80,6 @@
                         <tr>
                             <th scope="col">Fecha</th>
                             <th scope="col">Destino</th>
-                            <th scope="col">Categoría</th>
                             <th scope="col">Transporte</th>
                             <th scope="col">Dias</th>
                             <th scope="col">$/dia</th>
@@ -95,15 +94,12 @@
                                 {{destiny.startDate.day}}/{{destiny.startDate.month}}/{{destiny.startDate.year}}
                             </td>
         
-                            <td class="small">
+                            <td>
                                 <span *ngIf="destiny.countryId">{{destiny.countryName}} </span> 
                                 <span *ngIf="!destiny.countryId">{{destiny.provinceName}} - {{destiny.cityName}} </span>
                                 <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCities"> 
                                     <span *ngIf="!destiny.countryId"> {{ c.name }} </span>
                                 </span>,
-                            </td>
-                            <td>
-                                {{destiny.categoryName}}
                             </td>
                             <td>
                                 {{destiny.transportModel}}-{{destiny.transportBrand}}
@@ -152,7 +148,7 @@
                             placement="bottom" 
                             ngbTooltip="Ocultar todos los gastos" 
                             type="button" 
-                            class="btn btn-default ml-auto mb-1 small" 
+                            class="btn btn-default ml-auto mb-1" 
                             [hidden]="!model.expenditures"
                             (click)="changeCollapseExpenditure()"
                             *ngIf="model.expenditures.length > 0"

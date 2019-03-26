@@ -70,6 +70,7 @@ export class RepaymentComponent implements OnInit {
   url = '';
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl; 
+  dirtyForm : boolean;
   submmited : boolean = false;
   @ViewChild('solicitationSubsidy') formRepayment : FormGroup;
 
@@ -400,6 +401,8 @@ export class RepaymentComponent implements OnInit {
       this.submmited = false;
       return;
     }
+
+    this.calculateHolidaysAndWeekEnds();
     
     this.model.isRefund = true;
 
@@ -453,25 +456,31 @@ export class RepaymentComponent implements OnInit {
 
     this.model.destinies.forEach(
       destiny => {
-        destiny.days = destiny.daysWeekEnd;
-
-        for (let i = destiny.daysWeekEnd; i > 0; i--) {
-          var date = new Date(destiny.startDate.year, destiny.startDate.month, destiny.startDate.day);
-          date.setDate(date.getDate() + i);
-          let dateNow = new  NgbDate(date.getFullYear(), date.getMonth(), date.getDate());
-          //extrigo lod dias para saber cual si es feriado o no , 
-          //en caso de serlo le descuento esos dias.
-          let isWeekend = this.ngbCalendar.getWeekday(dateNow);
-          //let isWeekend = this.ngbCalendar.getWeekday(destiny.startDate.setDate(destiny.startDate.getDate() + destiny.days) );
-          if (isWeekend == 6 || isWeekend == 7){
-            destiny.days = destiny.days - 1;
-          }
-        }
-
         resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
       }
     );
     this.model.total = resultExpenditure + resultDestiny;
+  }
+
+
+  calculateHolidaysAndWeekEnds(){
+    this.model.destinies.forEach(dest =>{
+      if (!dest.id){
+      
+        for (let i = 0; i <= dest.days; i++) {
+          var date = new Date(dest.startDate.year, dest.startDate.month - 1, dest.startDate.day);
+          date.setDate(date.getDate() + i);
+          let dateNow = new  NgbDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+          //es Fin de semana
+          let isWeekend = this.ngbCalendar.getWeekday(dateNow);
+          if (isWeekend == 6 || isWeekend == 7){
+            //contamos la cantidad de dias no laborables
+            dest.daysWeekEnd = dest.daysWeekEnd + 1;
+          }
+        }
+      
+      }
+    });
   }
 
   hasUnsavedData(){

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Snickler.EFCore;
 using System.Data.Common;
+using Service.Common.ServiceResult;
 using VR.Data.Model.ModelStoreProcedure;
 
 namespace VR.Data
@@ -86,6 +87,21 @@ namespace VR.Data
                 TotalRecords = (int)totalRows?.Value
             };
         }
+
+        public ServiceResult<List<Destiny>> getAmountHolidaysAndWeekends(Guid solicitationId)
+        {
+            var destiny = new List<Destiny>();
+            this.LoadStoredProc("dbo.getAmountHolidaysAndWeekends")
+                .WithSqlParam("@solcitationSubsidy", solicitationId)
+                .ExecuteStoredProc((handler) =>
+                {
+                    destiny = (List<Destiny>)handler.ReadToList<Destiny>();
+                    handler.NextResult();
+                });
+
+            return new ServiceResult<List<Destiny>>(destiny);
+        }
+
 
 
         public PagedResult<AgentSolicitationBySupervisorResult> GetSolicitationsByAgent(

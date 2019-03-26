@@ -149,16 +149,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
   }
 
   sendDataToComponent(model: DestinyDto[]) {
-    if (!this.solicitationId){
-      this.destinyService.sendMessage(model);
-    }else{
-      this.destinyService.create(model).subscribe(
-        x=> {
-      },
-      e =>{
-        console.log(e);
-      });
-    }
+    this.destinyService.sendMessage(model);
     this.activeModal.close(null);
   }
 
@@ -254,7 +245,6 @@ export class AddDestinyRepaymentComponent implements OnInit {
         newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
       }
       newDestiny.days = this.model.days;
-      newDestiny.daysWeekEnd = this.model.days;
       newDestiny.categoryId =this.categoryUser.id;
       if (this.categoryUser.id != null) {
         newDestiny.categoryName = this.categoryUser.name;

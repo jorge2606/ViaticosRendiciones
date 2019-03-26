@@ -74,7 +74,6 @@
                         <tr>
                             <th scope="col">Fecha</th>
                             <th scope="col">Destino</th>
-                            <th scope="col">Categoría</th>
                             <th scope="col">Transporte</th>
                             <th scope="col">Dias</th>
                             <th scope="col">Precio/dia</th>
@@ -95,9 +94,6 @@
                                 <span class="mr-1 cardInsideTd" *ngFor="let c of destiny.supplementaryCities"> 
                                     <span *ngIf="!destiny.countryId">, {{ c.name }}</span>
                                 </span>
-                            </td>
-                            <td>
-                                {{destiny.categoryName}}
                             </td>
                             <td>
                                 {{destiny.transportModel}}-{{destiny.transportBrand}}

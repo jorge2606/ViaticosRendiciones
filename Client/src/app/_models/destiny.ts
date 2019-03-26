@@ -14,7 +14,8 @@ export class DestinyDto{
     codeLiquidationPercentage : number;
     startDate : any;
     days : number;
-    daysWeekEnd : number;
+    daysWeekEnd : number = 0;
+    daysHolidays : number = 0;
     categoryId : number;
     categoryName : string;
     codeLiquidationId : number;

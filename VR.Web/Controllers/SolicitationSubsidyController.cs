@@ -237,6 +237,18 @@ namespace VR.Web.Controllers
 
         }
 
+        [HttpGet("getAmountHolidaysAndWeekends/{solicitationId}")]
+        public IActionResult GetAmountHolidaysAndWeekends(Guid solicitationId)
+        {
+            var result = _dataContext.getAmountHolidaysAndWeekends(solicitationId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
 
         public Guid GetIdUser()
         {

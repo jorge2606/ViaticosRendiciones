@@ -15,5 +15,6 @@ namespace VR.Service.Interfaces
         ServiceResult<List<AllHolidayDto>> AllHoliday();
         ServiceResult<FindByIdHolidayDto> FindByIdHoliday(Guid id);
         ServiceResult<PagedResult<AllHolidayDto>> Pagination(FilterHolidayDto filters);
+        ServiceResult<int> HaveHoliday(DateTime date, int haveHolidays);
     }
 }

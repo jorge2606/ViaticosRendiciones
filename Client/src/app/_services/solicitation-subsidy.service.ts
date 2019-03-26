@@ -112,5 +112,7 @@ export class SolicitationSubsidyService {
     return this.http.get<any>(environment.apiUrl+"File/HolographSignUrl/"+supervisorId+"/"+width+"/"+height);
   }
 
-
+  getAmountHolidaysAndWeekends(solicitationId : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/getAmountHolidaysAndWeekends/"+solicitationId);
+  }
 }

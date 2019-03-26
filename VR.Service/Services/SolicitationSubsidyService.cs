@@ -31,6 +31,7 @@ namespace VR.Service.Services
         private readonly INotificationService _notificationService;
         public IConfiguration _configuration { get; }
         private IFileService _iFileService;
+        private readonly IHolidayService _holidayService;
         public static string StaticFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles");
 
         public SolicitationSubsidyService(
@@ -41,7 +42,8 @@ namespace VR.Service.Services
             IEmailService emailSender,
             INotificationService notificationService,
             IConfiguration configuration,
-            IFileService iFileService
+            IFileService iFileService,
+            IHolidayService holidayService
             )
         {
             _dataContext = dataContext;
@@ -52,6 +54,7 @@ namespace VR.Service.Services
             _notificationService = notificationService;
             _configuration = configuration;
             _iFileService = iFileService;
+            _holidayService = holidayService;
         }
 
         public ServiceResult<CreateSolicitationSubsidyDto> Create(CreateSolicitationSubsidyDto subsidy)
@@ -76,6 +79,11 @@ namespace VR.Service.Services
 
             foreach (var destiny in subsidy.Destinies)
             {
+
+                var holidaysDays = _holidayService
+                    .HaveHoliday(
+                        new DateTime(destiny.StartDate.Year, destiny.StartDate.Month,destiny.StartDate.Day), 
+                        destiny.Days);
                 Destiny newDestiny = new Destiny()
                 {
                     Id = destiny.Id,
@@ -88,6 +96,7 @@ namespace VR.Service.Services
                     SolicitationSubsidy = solicitationSubsidy,
                     Days = destiny.Days,
                     DaysWeekEnd = destiny.DaysWeekEnd,
+                    DaysHolidays = holidaysDays.Response,
                     StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
                     ProvinceId = destiny.ProvinceId,
                     AdvanceCategory = destiny.AdvanceCategory,
@@ -289,6 +298,10 @@ namespace VR.Service.Services
             {
                 foreach (var destiny in subsidy.Destinies)
                 {
+                    var holidaysDays = _holidayService
+                        .HaveHoliday(
+                            new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day),
+                            destiny.Days);
                     var find = _dataContext.Destinies.FirstOrDefault(x => x.Id == destiny.Id);
                     //creamos
                     if (destiny.Id.Equals(Guid.Empty))
@@ -301,6 +314,8 @@ namespace VR.Service.Services
                         newDestiny.CountryId = destiny.CountryId;
                         newDestiny.SolicitationSubsidy = solicitationSubsidy;
                         newDestiny.Days = destiny.Days;
+                        newDestiny.DaysWeekEnd = destiny.DaysWeekEnd;
+                        newDestiny.DaysHolidays = holidaysDays.Response;
                         newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString());
                         newDestiny.ProvinceId = destiny.ProvinceId;
                         newDestiny.AdvanceCategory = destiny.AdvanceCategory;

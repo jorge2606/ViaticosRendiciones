@@ -97,5 +97,18 @@ namespace VR.Web.Controllers
 
             return Ok(response.Response);
         }
+
+        [HttpGet("haveHolidays")]
+        public IActionResult IsHolidays(int day, int month, int year, int amountDays)
+        {
+
+            var response = _holidayService.HaveHoliday(new DateTime(year,month,day), amountDays);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response.Response);
+        }
     }
 }

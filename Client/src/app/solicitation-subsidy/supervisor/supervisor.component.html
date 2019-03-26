@@ -13,10 +13,12 @@
           <input (keyup)="filter()" [(ngModel)]="filters.dni" type="number" class="form-control">
         </div>
       -->
-    <div class="p-2" style="min-height: 300px;">
+    <div class="p-3" style="min-height: 300px;">
         <table  class="table table-striped">
           <thead>
-            <tr class="form-row p-2">
+            <tr class="form-row">
+              <th class="col">
+              </th>
               <th class="col-2">Agente</th>
               <th class="col-2">Fecha de Creación</th>
               <th class="col-1">Objeto</th>
@@ -26,8 +28,20 @@
               <th class="col"></th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let sol of solicitationSubsidies" class="form-row">
+          <tbody *ngFor="let sol of solicitationSubsidies">
+            <tr class="form-row" [ngClass]="{
+                  'bg-white text-black' : (sol.daysWeekEnd + sol.daysHolidays ) <= 5, 
+                  'bg-warning text-white' : (sol.daysWeekEnd + sol.daysHolidays ) >= 6 && (sol.daysWeekEnd + sol.daysHolidays ) <= 8,
+                  'bg-danger text-white' : (sol.daysWeekEnd + sol.daysHolidays ) >= 9 }">
+              <td class="col">
+                <fa-icon 
+
+                  placement="right"
+                  ngbTooltip="Fines de semana : {{sol.daysWeekEnd}} Feriados :  {{sol.daysHolidays}}"
+                  class="{{sizeIcon}}"    
+                  icon="info-circle">
+                </fa-icon>
+              </td>
               <td class="col-2">{{sol.fullName}}</td>
               <td class="col-2">{{sol.createDate | date:'dd/MM/yyyy'}}</td>
               <td class="col-1 no-wrap" 

@@ -169,5 +169,20 @@ namespace VR.Service.Services
                 TotalRecords = resultFull.Count()
             });
         }
+
+        public ServiceResult<int> HaveHoliday(DateTime date, int amountDays)
+        {
+            var amountHolidays = 0;
+            for (int i = 0; i <= amountDays; i++)
+            {
+                var isDate = _dataContext.Holidays.FirstOrDefault(x => x.Date.CompareTo(date.AddDays(i)) == 0);
+                if (isDate != null)
+                {
+                    amountHolidays = amountHolidays + 1;
+                }
+            }
+
+            return new ServiceResult<int>(amountHolidays);
+        }
     }
 }
