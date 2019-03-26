@@ -5,7 +5,6 @@ import { AceptOrRefuseComponent } from './solicitation-subsidy/acept-or-refuse/a
 import { AgentComponent } from './solicitation-subsidy/agent/agent.component';
 import { AgentsAndSupervisorsComponent } from './users/agents-and-supervisors/agents-and-supervisors.component';
 import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
-import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
 import { CreateHolidaysComponent } from './holidays/create/create-holidays.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { CreateSolicitationComponent } from './solicitation-subsidy/create/create-solicitation.component';
@@ -74,7 +73,7 @@ const routes: Routes = [
           breadcrumb: 'modificar',
           isHome: false,
           show: true
-        }, component: ModifyuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard], 
+        }, component: ModifyuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] 
       },
       { path: ':distributionId', 
         data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
@@ -82,11 +81,9 @@ const routes: Routes = [
     ]
   },
 
-  { path: 'settingUser/:id', 
-      data: {breadcrumb: 'mi perfil',isHome: false,show: true},
+  { path: 'settingUser/:id', data: {breadcrumb: 'mi perfil',isHome: false,show: true},
       component: SettingofuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] },
-  { path: 'photoProfile/:id', component: PhotoProfileComponent, 
-      canActivate : [AuthGuard] },
+  { path: 'photoProfile/:id', component: PhotoProfileComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] },
 
   { path: 'roles',
     data: {breadcrumb: 'roles',isHome: false,show: true}, 
@@ -140,7 +137,7 @@ const routes: Routes = [
       { path : '',component : ExpendituresComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear', isHome: false,show: true}, component : CreateExpenditureComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
       { path: 'update/:id',  data: {breadcrumb: 'modificar', isHome: false,show: true}, component : UpdateExpenditureComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
-      { path: ':id',  data: {breadcrumb: 'concepto de gastos usuarios', isHome: false,show: true}, component : ExpendituresUsersComponent, canActivate : [AuthGuard]},
+      
     ]
   },
 

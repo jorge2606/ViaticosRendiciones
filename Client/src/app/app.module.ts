@@ -55,7 +55,6 @@ import { CreateHolidaysComponent } from './holidays/create/create-holidays.compo
 import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.component';
 import { AddNewExpenditureComponent } from './modals/add-new-expenditure/add-new-expenditure.component';
 import { AddDestinyComponent } from './modals/add-destiny/add-destiny.component';
-import { ExpendituresUsersComponent } from './expenditures-users/expenditures-users.component';
 import { SolicitationSubsidydetailComponent } from './solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AddSupervisorComponent } from './modals/add-supervisor/add-supervisor.component';
@@ -136,7 +135,6 @@ library.add(fas);
       ModifyHolidaysComponent,
       AddNewExpenditureComponent,
       AddDestinyComponent,
-      ExpendituresUsersComponent,
       SolicitationSubsidydetailComponent,
       AddSupervisorComponent,
       AgentsAndSupervisorsComponent,

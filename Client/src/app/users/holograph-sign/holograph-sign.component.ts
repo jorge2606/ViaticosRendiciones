@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { MessBetweenCompService } from 'src/app/_services/mess-between-comp.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -18,6 +18,7 @@ import { Title } from '@angular/platform-browser';
 export class HolographSignComponent implements OnInit {
 
   @Input('supervisorId') userIdInput : number;
+  @Output() dirty = new EventEmitter<boolean>();
   //image
   uploader:FileUploader;
   hasBaseDropZoneOver = false;

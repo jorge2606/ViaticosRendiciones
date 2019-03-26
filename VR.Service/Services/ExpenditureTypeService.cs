@@ -39,7 +39,9 @@ namespace VR.Service.Services
             ExpenditureType newExpenditure = new ExpenditureType()
             {
                 Id = new Guid(),
-                Name = expenditure.Name
+                Name = expenditure.Name,
+                CanRepeat = expenditure.CanRepeat,
+                IsImportant = expenditure.IsImportant
             };
 
             _dataContext.ExpenditureTypes.Add(newExpenditure);
@@ -62,6 +64,8 @@ namespace VR.Service.Services
             }
 
             updateExpenditure.Name = expenditure.Name;
+            updateExpenditure.CanRepeat = expenditure.CanRepeat;
+            updateExpenditure.IsImportant = expenditure.IsImportant;
 
             _dataContext.ExpenditureTypes.Update(updateExpenditure);
             _dataContext.SaveChanges();

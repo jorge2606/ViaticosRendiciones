@@ -9,6 +9,8 @@ namespace VR.Data.Model
     {
         public  Guid Id { set; get; }
         public string Name { set; get; }
+        public Boolean IsImportant { set; get; }
+        public Boolean CanRepeat { set; get; }
         public Boolean IsDeleted { set; get; }
     }
 }

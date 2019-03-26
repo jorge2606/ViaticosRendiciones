@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form (ngSubmit)="onSubmit()" #CategoryForm="ngForm">
             
-                    <div style="margin-bottom:5px;" class="form-group">
+                    <div class="form-group mb-2">
                         <input 
                             class="form-control" 
                             [(ngModel)]="model.name" 
@@ -27,6 +27,27 @@
                         <div *ngIf="name.errors.required">
                             El campo 'Nombre' no debería estar vacío
                         </div>
+                    </div>
+
+
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                            <input type="checkbox" 
+                                class="custom-control-input" 
+                                id="canRepeat"
+                                [(ngModel)]="model.canRepeat"
+                                name="canRepeat"
+                                #canRepeat="ngModel">
+                            <label class="custom-control-label" for="canRepeat">Puede repetirse dentro de una comisión de viáticos.</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                            <input type="checkbox" 
+                                class="custom-control-input" 
+                                id="isImportant"
+                                [(ngModel)]="model.isImportant"
+                                name="isImportant"
+                                #isImportant="ngModel">
+                            <label class="custom-control-label" for="isImportant">Este gasto es importante.</label>
                     </div>
                 
                     <div style="margin-bottom:5px;" class="form-row">

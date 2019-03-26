@@ -7,7 +7,6 @@ export class CanDeactivateGuard implements CanDeactivate<any> {
   constructor(){}
 
   canDeactivate(component: any): boolean {
-   
     if(component.hasUnsavedData()){
        if (confirm("Tienes cambios sin guardar! si los dejas así se perderan.")) {
             return true;

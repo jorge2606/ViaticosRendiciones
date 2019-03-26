@@ -187,6 +187,9 @@ export class ModifyuserComponent implements OnInit {
   }
 
   hasUnsavedData(){
-    return this.userForm.dirty;
+    if (this.userForm){
+      return this.userForm.dirty;
+    }
+    return false;
   }
 }

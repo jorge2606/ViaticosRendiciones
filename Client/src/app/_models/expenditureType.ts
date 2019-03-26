@@ -1,6 +1,8 @@
 export class ExpenditureTypeBaseDto {
     id : number;
     name : string;
+    canRepeat : boolean;
+    isImportant : boolean;
 }
 
 export class CreateExpenditureDto extends ExpenditureTypeBaseDto{}

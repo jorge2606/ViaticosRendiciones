@@ -18,6 +18,8 @@ namespace VR.Dto
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Boolean IsDeleted { set; get; }
+        public Boolean IsImportant { set; get; }
+        public Boolean CanRepeat { set; get; }
     }
 
     public class CreateExpenditureTypeDto : ExpenditureTypeBaseDto { }

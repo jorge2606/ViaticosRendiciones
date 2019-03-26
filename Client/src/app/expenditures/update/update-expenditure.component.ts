@@ -16,7 +16,7 @@ export class UpdateExpenditureComponent implements OnInit {
   model = new UpdateExpenditureDto();
   error = '';
   id : number;
-  @ViewChild('CategoryForm') categoryForm : FormGroup;
+  @ViewChild('CategoryForm') categoryForm : any;
 
   constructor(
               private expenditureService : ExpenditureService,
@@ -34,7 +34,7 @@ export class UpdateExpenditureComponent implements OnInit {
     );
 
     this.expenditureService.findByIdExpenditure(this.id).subscribe(
-      x => {this.model.id = x.id, this.model.name = x.name}
+      x => {this.model = x;}
     );
   }
 
@@ -54,6 +54,6 @@ export class UpdateExpenditureComponent implements OnInit {
   }
 
   hasUnsavedData(){
-    return this.categoryForm.dirty;
+    return this.categoryForm.dirty && !this.categoryForm.submitted;
   }
 }
