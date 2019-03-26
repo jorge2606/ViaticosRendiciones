@@ -13,6 +13,7 @@ export class AddNewExpenditureComponent implements OnInit {
 
   modelExp = new Expenditure();
   @Input() expendituresAdded : Expenditure[] = [];
+  @Input() isCommission : boolean;
   expendituresCbox : AllExpenditureDto[] = [];
   msgExist : string;
   selectedExpenditure : number;
@@ -26,26 +27,52 @@ export class AddNewExpenditureComponent implements OnInit {
   }
 
   addNewConcept(){
-    let exist;
-    if (this.expendituresAdded != null){
-      exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
+    if (this.isCommission){
+      let exist;
+      let expType : AllExpenditureDto;
+      if (this.expendituresAdded != null){
+        exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
+        expType = this.expendituresCbox.find(expType => expType.id == this.modelExp.id);
+      }
+      if (exist && !expType.canRepeat){
+          this.msgExist = "Tipo de gasto no se puede repetir en una comisión.";
+          return;
+      }
+      
+      this.msgExist = "";
+      let newExp = new Expenditure();
+      newExp.description = this.modelExp.description;
+      newExp.amount = this.modelExp.amount;
+      newExp.expenditureTypeId = this.modelExp.id;
+      if (this.modelExp.id != null){
+        newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
+      }
+      this.expendituresAdded = this.expendituresAdded || [];
+      this.expendituresAdded.push(newExp);
+      this.sendData();     
+    }else{
+      let exist;
+      if (this.expendituresAdded != null){
+        exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
+      }
+      if (exist){
+          this.msgExist = "Tipo de gasto ya existente";
+          return;
+      }
+      
+      this.msgExist = "";
+      let newExp = new Expenditure();
+      newExp.description = this.modelExp.description;
+      newExp.amount = this.modelExp.amount;
+      newExp.expenditureTypeId = this.modelExp.id;
+      if (this.modelExp.id != null){
+        newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
+      }
+      this.expendituresAdded = this.expendituresAdded || [];
+      this.expendituresAdded.push(newExp);
+      this.sendData();
     }
-    if (exist){
-        this.msgExist = "Tipo de gasto ya existente";
-        return;
-    }
-    
-    this.msgExist = "";
-    let newExp = new Expenditure();
-    newExp.description = this.modelExp.description;
-    newExp.amount = this.modelExp.amount;
-    newExp.expenditureTypeId = this.modelExp.id;
-    if (this.modelExp.id != null){
-      newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
-    }
-    this.expendituresAdded = this.expendituresAdded || [];
-    this.expendituresAdded.push(newExp);
-    this.sendData();
+
   }
 
   sendData(){

@@ -79,50 +79,54 @@ namespace VR.Service.Services
 
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
 
-            foreach (var destiny in subsidy.Destinies)
+            if (!subsidy.IsCommission.Value)
             {
-
-                var holidaysDays = _holidayService
-                    .HaveHoliday(
-                        new DateTime(destiny.StartDate.Year, destiny.StartDate.Month,destiny.StartDate.Day), 
-                        destiny.Days);
-                Destiny newDestiny = new Destiny()
+                foreach (var destiny in subsidy.Destinies)
                 {
-                    Id = destiny.Id,
-                    TransportId = destiny.TransportId,
-                    CategoryId = destiny.CategoryId,
-                    CityId = destiny.CityId,
-                    CodeLiquidationId = destiny.CodeLiquidationId,
-                    CountryId = destiny.CountryId,
-                    //SolicitationSubsidyId = solicitationSubsidy.Id,
-                    SolicitationSubsidy = solicitationSubsidy,
-                    Days = destiny.Days,
-                    DaysWeekEnd = destiny.DaysWeekEnd,
-                    DaysHolidays = holidaysDays.Response,
-                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
-                    ProvinceId = destiny.ProvinceId,
-                    AdvanceCategory = destiny.AdvanceCategory,
-                    PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
-                };
 
-                _dataContext.Destinies.Add(newDestiny);
-
-                if (destiny.SupplementaryCities != null)
-                {
-                    foreach (var supCity in destiny.SupplementaryCities)
+                    var holidaysDays = _holidayService
+                        .HaveHoliday(
+                            new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day),
+                            destiny.Days);
+                    Destiny newDestiny = new Destiny()
                     {
-                        SupplementaryCity newSupplementaryCity = new SupplementaryCity()
+                        Id = destiny.Id,
+                        TransportId = destiny.TransportId,
+                        CategoryId = destiny.CategoryId,
+                        CityId = destiny.CityId,
+                        CodeLiquidationId = destiny.CodeLiquidationId,
+                        CountryId = destiny.CountryId,
+                        //SolicitationSubsidyId = solicitationSubsidy.Id,
+                        SolicitationSubsidy = solicitationSubsidy,
+                        Days = destiny.Days,
+                        DaysWeekEnd = destiny.DaysWeekEnd,
+                        DaysHolidays = holidaysDays.Response,
+                        StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
+                        ProvinceId = destiny.ProvinceId,
+                        AdvanceCategory = destiny.AdvanceCategory,
+                        PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
+                    };
+
+                    _dataContext.Destinies.Add(newDestiny);
+
+                    if (destiny.SupplementaryCities != null)
+                    {
+                        foreach (var supCity in destiny.SupplementaryCities)
                         {
-                            Id = new Guid(),
-                            CityId = supCity.CityId,
-                            Destiny = newDestiny
-                        };
+                            SupplementaryCity newSupplementaryCity = new SupplementaryCity()
+                            {
+                                Id = new Guid(),
+                                CityId = supCity.CityId,
+                                Destiny = newDestiny
+                            };
 
-                        _dataContext.SupplementaryCities.Add(newSupplementaryCity);
+                            _dataContext.SupplementaryCities.Add(newSupplementaryCity);
+                        }
                     }
-                }
 
+                }
             }
+
 
             foreach (var expenditure in subsidy.Expenditures)
             {
@@ -433,7 +437,7 @@ namespace VR.Service.Services
                 _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
         }
 
-        public ServiceResult<FindByIdSolicitationSubsidyDto> GetByRandomKey(string randomKey)
+        public ServiceResult<FindRandomKeySolicitationSubsidyDto> GetByRandomKey(string randomKey)
         {
             var find = _dataContext.SolicitationSubsidies
                 .Include(x => x.Destinies).ThenInclude(x => x.City)
@@ -451,11 +455,11 @@ namespace VR.Service.Services
 
             if (find == null)
             {
-                return new ServiceResult<FindByIdSolicitationSubsidyDto>(null);
+                return new ServiceResult<FindRandomKeySolicitationSubsidyDto>(null);
             }
 
-            return new ServiceResult<FindByIdSolicitationSubsidyDto>(
-                _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
+            return new ServiceResult<FindRandomKeySolicitationSubsidyDto>(
+                _mapper.Map<FindRandomKeySolicitationSubsidyDto>(find));
         }
 
         public ServiceResult<FindByIdSolicitationSubsidyWhitStateDto> GetByIdSubsidyWhitState(Guid id)

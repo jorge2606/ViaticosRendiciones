@@ -135,27 +135,29 @@ export class CreateSolicitationComponent implements OnInit {
                 this.totalResultExpenditure();
           }
         );
-      }
-      if(randomKey.length == 6){
-        this.solicitationSubsidyService.getByRandomKey(randomKey)
-        .subscribe(
-          x => {
-                this.model = x;
-                if (this.model.destinies != null){
-                  for (let index = 0; index < this.model.destinies.length; index++) {
-                    if (this.model.destinies[index].provinceId != null){
-                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
-                    }
-                  }                 
-                }
-                
-                this.allProvice();
-                this.totalResultExpenditure();
-          }
-        );
       }else{
-        this.toastrService.info('El Código debe contener 6 dígitos.');
+        if(randomKey.length == 6){
+          this.solicitationSubsidyService.getByRandomKey(randomKey)
+          .subscribe(
+            x => {
+                  this.model = x;
+                  if (this.model.destinies != null){
+                    for (let index = 0; index < this.model.destinies.length; index++) {
+                      if (this.model.destinies[index].provinceId != null){
+                        this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                      }
+                    }                 
+                  }
+                  
+                  this.allProvice();
+                  this.totalResultExpenditure();
+            }
+          );
+        }else{
+          this.toastrService.info('El Código debe contener 6 dígitos.');
+        }
       }
+
 
   }
   allTransport(){
@@ -328,6 +330,7 @@ export class CreateSolicitationComponent implements OnInit {
     let listExpenditures : Expenditure[] = this.model.expenditures;
 
     modalRef.componentInstance.expendituresAdded = listExpenditures;
+    modalRef.componentInstance.isCommission = this.model.isCommission;
     modalRef.result.then(()=> {
       this.totalResultExpenditure();
     },
