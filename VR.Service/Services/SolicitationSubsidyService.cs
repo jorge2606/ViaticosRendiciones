@@ -72,7 +72,9 @@ namespace VR.Service.Services
                 Motive = subsidy.Motive,
                 Total = subsidy.Total,
                 CreateDate = DateTime.Today,
-                IsRefund = subsidy.IsRefund
+                IsRefund = subsidy.IsRefund,
+                IsCommission = subsidy.IsCommission,
+                RandomKey = subsidy.RandomKey
             };
 
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
@@ -421,6 +423,31 @@ namespace VR.Service.Services
                 .Include(x => x.User).ThenInclude(c => c.Distribution)
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == id);
+
+            if (find == null)
+            {
+                return new ServiceResult<FindByIdSolicitationSubsidyDto>(null);
+            }
+
+            return new ServiceResult<FindByIdSolicitationSubsidyDto>(
+                _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
+        }
+
+        public ServiceResult<FindByIdSolicitationSubsidyDto> GetByRandomKey(string randomKey)
+        {
+            var find = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies).ThenInclude(x => x.City)
+                .Include(x => x.Destinies).ThenInclude(x => x.CodeLiquidation)
+                .Include(x => x.Destinies).ThenInclude(x => x.Category)
+                .Include(x => x.Destinies).ThenInclude(x => x.Country)
+                .Include(x => x.Destinies).ThenInclude(x => x.Province)
+                .Include(x => x.Destinies).ThenInclude(x => x.Transport)
+                .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
+                .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
+                .Include(x => x.User).ThenInclude(c => c.Category)
+                .Include(x => x.User).ThenInclude(c => c.Distribution)
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.RandomKey.ToUpper() == randomKey.ToUpper());
 
             if (find == null)
             {

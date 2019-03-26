@@ -86,6 +86,18 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("GetByRandomKey/{key}")]
+        public IActionResult GetByRandomKey(string key)
+        {
+            var result = _solicitationSubsidyService.GetByRandomKey(key);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpGet("GetBySolicitationIdWhitState/{id}")]
         public IActionResult GetBySolicitationIdWhitState(Guid id)
         {

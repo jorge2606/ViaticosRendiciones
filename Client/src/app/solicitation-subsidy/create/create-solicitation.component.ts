@@ -1,5 +1,5 @@
 import { HolidaysService } from './../../_services/holidays.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
@@ -64,6 +64,11 @@ export class CreateSolicitationComponent implements OnInit {
   supplementariesCities : string[];
   dirtyForm : boolean = false;
   submited : boolean = false;
+  inputCode : boolean;
+  motiveWhenIsCommission : boolean;
+  addDestinyButtonWhenIsCommission : boolean;
+  deleteAllConceptsWhenIsCommission : boolean;
+  deleteConceptsWhenIsCommission : boolean;
   @ViewChild('solicitationSubsidy') solicitationForm : FormGroup;
 
   constructor(
@@ -107,6 +112,13 @@ export class CreateSolicitationComponent implements OnInit {
     
     if (this.id){
         this.titleService.setTitle('Modificar Solicitud');
+        this.getSolicitation(this.id,"");
+      }
+  }
+
+
+  getSolicitation(id : number, randomKey : string){
+      if(id){
         this.solicitationSubsidyService.getByIdSolicitation(this.id)
         .subscribe(
           x => {
@@ -124,8 +136,28 @@ export class CreateSolicitationComponent implements OnInit {
           }
         );
       }
-  }
+      if(randomKey.length == 6){
+        this.solicitationSubsidyService.getByRandomKey(randomKey)
+        .subscribe(
+          x => {
+                this.model = x;
+                if (this.model.destinies != null){
+                  for (let index = 0; index < this.model.destinies.length; index++) {
+                    if (this.model.destinies[index].provinceId != null){
+                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                    }
+                  }                 
+                }
+                
+                this.allProvice();
+                this.totalResultExpenditure();
+          }
+        );
+      }else{
+        this.toastrService.info('El Código debe contener 6 dígitos.');
+      }
 
+  }
   allTransport(){
     this.transportService.getAll().subscribe(
       x => this.transports = x
@@ -386,6 +418,10 @@ export class CreateSolicitationComponent implements OnInit {
 
       this.calculateHolidaysAndWeekEnds();
 
+      if(!this.model.isCommission){
+        this.model.randomKey = "";
+      }
+
       if(this.id){
         this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
           () => {
@@ -471,5 +507,33 @@ export class CreateSolicitationComponent implements OnInit {
 
     hasUnsavedData(){
       return (this.solicitationForm.dirty || this.dirtyForm) && !this.submited;
+    }
+
+    cleanInput(){
+      this.model.randomKey = "";
+    }
+    randomAlphaNumberKey(lengthLetter : number, lengthNumber: number ) {
+        var text = "";
+        var num = "";
+        var abcedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var numeros = "0123456789";
+
+        for (var i = 0; i < lengthLetter; i++){
+          text += abcedario.charAt(Math.floor(Math.random() * abcedario.length));
+        }
+        
+        for (var i = 0; i < lengthNumber; i++){
+          num += numeros.charAt(Math.floor(Math.random() * numeros.length));
+        }
+        
+      this.model.randomKey = text+"-"+num;
+    }
+
+    searchSolicitationByRandomKey(key : string){
+      this.getSolicitation(null, key);
+      this.motiveWhenIsCommission = true;
+      this.addDestinyButtonWhenIsCommission = true;
+      this.deleteAllConceptsWhenIsCommission = true;
+      this.deleteConceptsWhenIsCommission = true;
     }
 }

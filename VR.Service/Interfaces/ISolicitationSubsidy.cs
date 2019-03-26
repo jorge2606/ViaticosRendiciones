@@ -31,5 +31,6 @@ namespace VR.Service.Interfaces
         ServiceResult<SolicitationIdDto> AceptedMyAccountForSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<bool> ValidateBeforeSendAccountFor(Guid solcitationId);
         ServiceResult<bool> ValidateBeforeSendAccountForFinalizeNormally(Guid solicitationId);
+        ServiceResult<FindByIdSolicitationSubsidyDto> GetByRandomKey(string randomKey);
     }
 }

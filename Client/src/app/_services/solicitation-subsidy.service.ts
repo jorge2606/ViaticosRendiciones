@@ -115,4 +115,8 @@ export class SolicitationSubsidyService {
   getAmountHolidaysAndWeekends(solicitationId : number){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/getAmountHolidaysAndWeekends/"+solicitationId);
   }
+
+  getByRandomKey(randomKey : string){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetByRandomKey/"+randomKey);
+  }
 }

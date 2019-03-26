@@ -9,6 +9,82 @@
     <div class="card-body">
         <form (ngSubmit)="onSubmit()" #solicitationSubsidy="ngForm">
                 <div class="navar navbar-collapse"> 
+
+                    <div class="form-row">
+                        <div class="form-group pt-1 col">
+                            <div class="custom-control custom-checkbox">
+                                    <input 
+                                    type="checkbox" 
+                                    class="custom-control-input" 
+                                    id="customCheck1"
+                                    #commission="ngModel"
+                                    name="commission" 
+                                    [(ngModel)]="model.isCommission"
+                                    >
+                                    <label class="custom-control-label" for="customCheck1">Es comisión </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="model.isCommission">
+                        <div class="custom-control custom-checkbox">
+                            <input 
+                            type="radio" 
+                            class="custom-control-input" 
+                            (click)="cleanInput()"
+                            id="inputCode"
+                            name="isCommission" 
+                            [value]="true"
+                            [(ngModel)]="inputCode"
+                            >
+                            <label class="custom-control-label" for="inputCode">Ingresar Código</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                                <input 
+                                type="radio" 
+                                class="custom-control-input" 
+                                id="generateCode"
+                                name="isCommission" 
+                                [value]="false"
+                                [(ngModel)]="inputCode"
+                                >
+                            <label class="custom-control-label" for="generateCode">Generar Código</label>
+                        </div>
+
+                        <div *ngIf="!inputCode" class="form-row p-1">
+                            <input 
+                                type="text"
+                                name="randomKey"
+                                [(ngModel)]="model.randomKey"
+                                #randomKey="ngModel"
+                                class="form-control col-md-1 mr-1 text-center"
+                                disabled
+                                >
+                            <button 
+                                type="button" 
+                                class="btn btn-primary col-md-1" 
+                                (click)="randomAlphaNumberKey(1,4)">
+                                <fa-icon class="fa-lg" icon="sync"></fa-icon>
+                            </button>
+                        </div>
+                        <div *ngIf="inputCode" class="form-row p-1">
+                                <input 
+                                    type="text"
+                                    name="randomKey"
+                                    [(ngModel)]="model.randomKey"
+                                    #randomKey="ngModel"
+                                    class="form-control col-md-1 mr-1 text-center"
+                                    >
+                                <button 
+                                    type="button" 
+                                    (click)="searchSolicitationByRandomKey(model.randomKey)"
+                                    class="btn btn-primary col-md-1">
+                                    <fa-icon class="fa-lg" icon="search"></fa-icon>
+                                </button>
+                        </div>
+
+                    </div>
+
                     <label for="">Total</label>
                     <ul class="navbar-nav ml-auto">
                         <li>
@@ -36,6 +112,7 @@
                                     [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
                                     name="motive" 
                                     [(ngModel)]="model.motive"
+                                    [disabled]="motiveWhenIsCommission"
                                     >
                                 </textarea>
         
@@ -48,16 +125,23 @@
                 </div>
         
                 <div class="form-row mt-1 mb-1">
-                    <button placement="bottom" ngbTooltip="Agregar un nuevo destino" 
-                        type="button" class="btn btn-success" (click)="AddDestiny()">
+                    <button 
+                        placement="bottom" 
+                        ngbTooltip="Agregar un nuevo destino" 
+                        type="button" 
+                        class="btn btn-success" 
+                        (click)="AddDestiny()"
+                        [disabled]="addDestinyButtonWhenIsCommission">
                             <fa-icon class="fa-lg" icon="plus"></fa-icon> Destino
                     </button> 
-                    <a (click)="deleteAllDestinies()" 
+                    <button (click)="deleteAllDestinies()" 
                         *ngIf="model.destinies.length > 0 && !id"
                         class="btn btn-danger ml-1 text-white"
-                        placement="bottom" ngbTooltip="Eliminar todos los destinos">
+                        placement="bottom" 
+                        ngbTooltip="Eliminar todos los destinos"
+                        [disabled]="deleteAllConceptsWhenIsCommission">
                         <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
-                    </a>
+                    </button>
         
                     <button
                     class="btn btn-default ml-auto mb-1"
@@ -117,8 +201,10 @@
                                 {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
                             </td>    
                             <td class="text-right">
-                                <a  
+                                <button  
+                                    [disabled]="deleteConceptsWhenIsCommission"
                                     placement="bottom" 
+                                    class="btn btn-link text-white"
                                     ngbTooltip="Eliminar este destino"  
                                     (click)="removeDestiny(destiny)">
                                     <fa-icon 
@@ -126,7 +212,7 @@
                                         class="fa-lg" 
                                         icon="trash">
                                     </fa-icon>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     </tbody>

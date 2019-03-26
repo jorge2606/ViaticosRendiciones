@@ -1,16 +1,14 @@
 import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
-import { SelectorDirective } from './../directives/selector.directive';
 import { AuthenticationService } from './../_services/authentication.service';
 import { Observable } from 'rxjs';
 import { Notifications } from './../_models/notifications';
 import { NotificationsService } from './../_services/notifications.service';
-import { Component, OnInit, Input, ElementRef, Renderer2, ViewChild, Renderer } from '@angular/core';
+import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { MessBetweenCompService } from '../_services/mess-between-comp.service';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListNotificationsComponent } from '../modals/list-notifications/list-notifications.component';
-import { NotifyRejectComponent } from '../modals/notify-reject/notify-reject.component';
 import { SolicitationSubsidydetailComponent } from '../solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { Router } from '@angular/router';
 import { GenericsCommunicationsComponentsService } from '../_services/generics-communications-components.service';
@@ -60,7 +58,6 @@ export class NavarComponent implements OnInit {
               private supervisorUserAgentService : SupervisorUserAgentService,
               private comunicationService : GenericsCommunicationsComponentsService,
               private solicitationSubsidyService : SolicitationSubsidyService,
-              private renderer : Renderer,
               private router : Router) { }
 
 
@@ -115,7 +112,7 @@ export class NavarComponent implements OnInit {
         this.showTabAudits = this.roles.find(x => x.value == 'audits.view');
 
         this.comunicationService.getMessage()
-        .subscribe(x => {
+        .subscribe(() => {
             this.retriveNotifications();
         });
 

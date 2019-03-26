@@ -49,6 +49,8 @@ export class CreateSolicitationSubsidyDto{
     createDate : any;
     isRefund : boolean;
     finalizeDate : DateDto;
+    isCommission : boolean;
+    randomKey : string;
 }
 
 export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{

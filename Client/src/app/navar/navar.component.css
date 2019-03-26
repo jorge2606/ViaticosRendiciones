@@ -53,8 +53,15 @@
     color: white;
 }
 
-.image {
-    border: 2px white solid;
+.imgContainer {
+    /* border: 2px white solid; */
     display: inline;
     margin-right: 4px;
+}
+
+.image {
+    border: 2px white solid;
+    border-radius: 6px;
+    max-width:100%;
+    height:auto;
 }
