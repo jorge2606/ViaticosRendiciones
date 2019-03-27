@@ -46,6 +46,17 @@ export class LoginComponent implements OnInit {
            .pipe(first())
            .subscribe(
                () => {
+                   this.authenticationService.userId('rolesNames').forEach(rol => {
+                       if(rol.normalizedName == "AGENTE" || rol.normalizedName == "MINISTRO"){
+                            this.returnUrl = "SolicitationSubsidy/agent";
+                       }
+                       if(rol.normalizedName == "ADMINISTRADOR"){
+                            this.returnUrl = "SolicitationSubsidy/agent/solicitationSubsidies/true"
+                       }
+                       if(rol.normalizedName == "SUPERVISOR"){
+                        this.returnUrl = "users"
+                       }    
+                   });
                    this.spinnerService.hide();
                    this.router.navigate([this.returnUrl]);
                },
@@ -58,7 +69,6 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('Viáticos y Rendiciones');
-        //this.isLogged = this.authenticationService.isLoggedIn;
         this.authenticationService.isLoggedIn
         .subscribe(x => {
             this.logout = x;
