@@ -302,9 +302,11 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize]
         public IActionResult Update([FromBody] UpdateSolicitationSubsidyDto solicitation)
         {
-            var result = _solicitationSubsidyService.Update(solicitation);
+            var sessioUser = GetIdUser();
+            var result = _solicitationSubsidyService.Update(solicitation, sessioUser);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

@@ -79,53 +79,52 @@ namespace VR.Service.Services
 
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
 
-            if (!subsidy.IsCommission.Value)
+            foreach (var destiny in subsidy.Destinies)
             {
-                foreach (var destiny in subsidy.Destinies)
+
+                var holidaysDays = _holidayService
+                    .HaveHoliday(
+                        new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day),
+                        destiny.Days);
+                Destiny newDestiny = new Destiny()
                 {
+                    Id = destiny.Id,
+                    TransportId = destiny.TransportId,
+                    CategoryId = destiny.CategoryId,
+                    CityId = destiny.CityId,
+                    CodeLiquidationId = destiny.CodeLiquidationId,
+                    CountryId = destiny.CountryId,
+                    //SolicitationSubsidyId = solicitationSubsidy.Id,
+                    SolicitationSubsidy = solicitationSubsidy,
+                    Days = destiny.Days,
+                    DaysWeekEnd = destiny.DaysWeekEnd,
+                    DaysHolidays = holidaysDays.Response,
+                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
+                    ProvinceId = destiny.ProvinceId,
+                    AdvanceCategory = destiny.AdvanceCategory,
+                    DaysPay = destiny.DaysPay,
+                    PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
+                };
 
-                    var holidaysDays = _holidayService
-                        .HaveHoliday(
-                            new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day),
-                            destiny.Days);
-                    Destiny newDestiny = new Destiny()
+                _dataContext.Destinies.Add(newDestiny);
+
+                if (destiny.SupplementaryCities != null)
+                {
+                    foreach (var supCity in destiny.SupplementaryCities)
                     {
-                        Id = destiny.Id,
-                        TransportId = destiny.TransportId,
-                        CategoryId = destiny.CategoryId,
-                        CityId = destiny.CityId,
-                        CodeLiquidationId = destiny.CodeLiquidationId,
-                        CountryId = destiny.CountryId,
-                        //SolicitationSubsidyId = solicitationSubsidy.Id,
-                        SolicitationSubsidy = solicitationSubsidy,
-                        Days = destiny.Days,
-                        DaysWeekEnd = destiny.DaysWeekEnd,
-                        DaysHolidays = holidaysDays.Response,
-                        StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
-                        ProvinceId = destiny.ProvinceId,
-                        AdvanceCategory = destiny.AdvanceCategory,
-                        PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
-                    };
-
-                    _dataContext.Destinies.Add(newDestiny);
-
-                    if (destiny.SupplementaryCities != null)
-                    {
-                        foreach (var supCity in destiny.SupplementaryCities)
+                        SupplementaryCity newSupplementaryCity = new SupplementaryCity()
                         {
-                            SupplementaryCity newSupplementaryCity = new SupplementaryCity()
-                            {
-                                Id = new Guid(),
-                                CityId = supCity.CityId,
-                                Destiny = newDestiny
-                            };
+                            Id = new Guid(),
+                            CityId = supCity.CityId,
+                            Destiny = newDestiny
+                        };
 
-                            _dataContext.SupplementaryCities.Add(newSupplementaryCity);
-                        }
+                        _dataContext.SupplementaryCities.Add(newSupplementaryCity);
                     }
-
                 }
+
             }
+            
 
 
             foreach (var expenditure in subsidy.Expenditures)
@@ -136,7 +135,8 @@ namespace VR.Service.Services
                     Description = expenditure.Description,
                     SolicitationSubsidy = solicitationSubsidy,
                     Amount = expenditure.Amount,
-                    ExpenditureTypeId = expenditure.ExpenditureTypeId
+                    ExpenditureTypeId = expenditure.ExpenditureTypeId,
+                    UserId = solicitationSubsidy.UserId
                 };
 
                 _dataContext.Expenditures.Add(newExpenditure);
@@ -274,7 +274,7 @@ namespace VR.Service.Services
             return new ServiceResult<CreateSolicitationSubsidyDto>(_mapper.Map<CreateSolicitationSubsidyDto>(subsidy));
         }
 
-        public ServiceResult<UpdateSolicitationSubsidyDto> Update(UpdateSolicitationSubsidyDto subsidy)
+        public ServiceResult<UpdateSolicitationSubsidyDto> Update(UpdateSolicitationSubsidyDto subsidy, Guid sessionUserId)
         {
             var validate = _fluentValidator.Validate(subsidy);
             if (!validate.IsValid)
@@ -325,6 +325,7 @@ namespace VR.Service.Services
                         newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString());
                         newDestiny.ProvinceId = destiny.ProvinceId;
                         newDestiny.AdvanceCategory = destiny.AdvanceCategory;
+                        newDestiny.DaysPay = destiny.DaysPay;
                         newDestiny.PercentageCodeLiquidation = destiny.PercentageCodeLiquidation;
                         if (destiny.SupplementaryCities != null)
                         {
@@ -346,6 +347,9 @@ namespace VR.Service.Services
                     else
                     {
                         //sacamos de los destinos a ser eliminados
+                        find.DaysPay = destiny.DaysPay;
+                        _dataContext.Destinies.Update(find);
+
                         destiniesToDelete.Remove(find);
                     }
 
@@ -372,6 +376,7 @@ namespace VR.Service.Services
                         newExpenditure.SolicitationSubsidy = solicitationSubsidy;
                         newExpenditure.Amount = expenditure.Amount;
                         newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
+                        newExpenditure.UserId = sessionUserId;
 
                         _dataContext.Expenditures.Add(newExpenditure);
 

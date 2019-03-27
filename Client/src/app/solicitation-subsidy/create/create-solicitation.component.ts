@@ -93,7 +93,6 @@ export class CreateSolicitationComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Crear Solicitud');
-    
     this.route.params.subscribe(
       x =>{
         this.id = x.id
@@ -123,6 +122,10 @@ export class CreateSolicitationComponent implements OnInit {
         .subscribe(
           x => {
                 this.model = x;
+                this.motiveWhenIsCommission = true;
+                this.addDestinyButtonWhenIsCommission = true;
+                this.deleteAllConceptsWhenIsCommission = true;
+                this.deleteConceptsWhenIsCommission = true;
                 if (this.model.destinies != null){
                   for (let index = 0; index < this.model.destinies.length; index++) {
                     if (this.model.destinies[index].provinceId != null){
@@ -327,9 +330,7 @@ export class CreateSolicitationComponent implements OnInit {
       this.model.expenditures = [];
     }
 
-    let listExpenditures : Expenditure[] = this.model.expenditures;
-
-    modalRef.componentInstance.expendituresAdded = listExpenditures;
+    modalRef.componentInstance.expendituresAdded = this.model.expenditures;
     modalRef.componentInstance.isCommission = this.model.isCommission;
     modalRef.result.then(()=> {
       this.totalResultExpenditure();
@@ -421,27 +422,50 @@ export class CreateSolicitationComponent implements OnInit {
 
       this.calculateHolidaysAndWeekEnds();
 
-      if(!this.model.isCommission){
-        this.model.randomKey = "";
-      }
-
-      if(this.id){
-        this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
-          () => {
-            this.router.navigate(['SolicitationSubsidy/agent']);
-            this.msjExito = 'Solicitud Enviada';
-            this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
-          },
-          error => console.log(error) 
-        );
-      }else{
-        this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
-          () => {
-              this.router.navigate(['SolicitationSubsidy/agent']);
-              this.msjExito = 'Solicitud Actualizada';
-              this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
+      if(this.model.isCommission){
+        this.solicitationSubsidyService.getByRandomKey(this.model.randomKey)
+        .subscribe(
+          result =>{
+            if(result){
+              this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
+                () => {
+                  this.router.navigate(['SolicitationSubsidy/agent']);
+                  this.msjExito = 'Solicitud Enviada';
+                  this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
+                },
+                error => console.log(error) 
+              );
+            }else{
+              this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
+                () => {
+                    this.router.navigate(['SolicitationSubsidy/agent']);
+                    this.msjExito = 'Solicitud Actualizada';
+                    this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
+                }
+              );
+            }  
           }
         );
+      }else{
+        this.model.randomKey = "";
+        if(this.id){
+          this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
+            () => {
+              this.router.navigate(['SolicitationSubsidy/agent']);
+              this.msjExito = 'Solicitud Enviada';
+              this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
+            },
+            error => console.log(error) 
+          );
+        }else{
+          this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
+            () => {
+                this.router.navigate(['SolicitationSubsidy/agent']);
+                this.msjExito = 'Solicitud Actualizada';
+                this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
+            }
+          );
+        }
       }
       
   }
@@ -515,6 +539,7 @@ export class CreateSolicitationComponent implements OnInit {
     cleanInput(){
       this.model.randomKey = "";
     }
+
     randomAlphaNumberKey(lengthLetter : number, lengthNumber: number ) {
         var text = "";
         var num = "";
@@ -534,9 +559,6 @@ export class CreateSolicitationComponent implements OnInit {
 
     searchSolicitationByRandomKey(key : string){
       this.getSolicitation(null, key);
-      this.motiveWhenIsCommission = true;
-      this.addDestinyButtonWhenIsCommission = true;
-      this.deleteAllConceptsWhenIsCommission = true;
-      this.deleteConceptsWhenIsCommission = true;
     }
+
 }

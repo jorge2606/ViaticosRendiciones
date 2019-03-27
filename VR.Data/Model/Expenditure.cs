@@ -12,13 +12,17 @@ namespace VR.Data.Model
         public decimal Amount { set; get; }
         public decimal? AccountedForAmount { set; get; }
         public string Description { set; get; }
+        
 
         [ForeignKey("SolicitationSubsidy")]
         public Guid SolicitationSubsidyId { set; get; }
         [ForeignKey("ExpenditureType")]
         public Guid ExpenditureTypeId { set; get; }
+        [ForeignKey("User")]
+        public Guid? UserId { set; get; }
 
         public SolicitationSubsidy SolicitationSubsidy { set; get; }
         public ExpenditureType ExpenditureType { set; get; }
+        public User User { set; get; }
     }
 }

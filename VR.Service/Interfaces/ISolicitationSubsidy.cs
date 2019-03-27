@@ -14,7 +14,7 @@ namespace VR.Service.Interfaces
         ServiceResult<FindByIdSolicitationSubsidyDto> GetByIdSubsidy(Guid id);
         ServiceResult<DeleteSolicitationSubsidyDto> Delete(Guid id);
         ServiceResult<DeleteSolicitationSubsidyDto> FinalizeSubsidy(Guid id);
-        ServiceResult<UpdateSolicitationSubsidyDto> Update(UpdateSolicitationSubsidyDto subsidy);
+        ServiceResult<UpdateSolicitationSubsidyDto> Update(UpdateSolicitationSubsidyDto subsidy, Guid sessionUserId);
         Task<ServiceResult<string>> SendSolicitationAsync(SolicitationIdDto solicitationdDto);
         Task<ServiceResult<string>> SendAccuountForSolicitationToSupervisorAsync(
             SolicitationIdDto accountForSolicitation);

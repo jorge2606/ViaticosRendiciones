@@ -31,6 +31,7 @@ namespace VR.Dto
         public DateTime CreateDate { set; get; }
         public Guid UserId { set; get; }
         public UserDto User { set; get; }
+        public int DaysPay { set; get; }
     }
 
 

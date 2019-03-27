@@ -17,10 +17,12 @@
                                 <option *ngFor="let exp of expendituresCbox" value="{{exp.id}}">{{exp.name}}</option>
                         </select>
 
-                        <div *ngIf="expenditureId.invalid && (expenditureId.dirty || expenditureId.touched)" 
+                        <div *ngIf="expenditureId.invalid && addNewExpForm.submitted" 
                             class="alert alert-danger mt-1">
-                            <div *ngIf="expenditureId.errors.required">
-                                Campo requerido.
+                            <div *ngIf="expenditureId.errors">
+                                <div *ngIf="expenditureId.errors.required">
+                                    Campo requerido.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -45,16 +47,18 @@
                     </div>
                     <div class="w-100"></div>
 
-                    <div *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+                    <div *ngIf="amount.invalid && addNewExpForm.submitted"
                     class="alert alert-danger mt-1 ml-1">
-                        <div *ngIf="amount.errors.required">
-                            Campo requerido.
-                        </div>
-                        <div *ngIf="amount.errors.minlength">
-                            Debe contener al menos un digíto
-                        </div>
-                        <div *ngIf="amount.errors.maxlength">
-                        No debe contener mas de 8 digítos
+                        <div *ngIf="amount.errors">
+                            <div *ngIf="amount.errors.required">
+                                Campo requerido.
+                            </div>
+                            <div *ngIf="amount.errors.minlength">
+                                Debe contener al menos un digíto
+                            </div>
+                            <div *ngIf="amount.errors.maxlength">
+                                No debe contener mas de 8 digítos
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,16 +79,18 @@
                             <div *ngIf="description.maxlength == 149">
                                 Solo se permiten 150 caracteres
                             </div>
-                            <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                            <div *ngIf="description.invalid && addNewExpForm.submitted"
                                 class="alert alert-danger mt-1">
-                                <div *ngIf="description.errors.required">
-                                    Campo requerido.
-                                </div>
-                                <div *ngIf="description.errors.minlength">
-                                    Debe contener al menos un digíto
-                                </div>
-                                <div *ngIf="description.errors.maxlength">
-                                   No debe contener mas de 4 digítos
+                                <div *ngIf="description.errors">
+                                    <div *ngIf="description.errors.required">
+                                        Campo requerido.
+                                    </div>
+                                    <div *ngIf="description.errors.minlength">
+                                        Debe contener al menos un digíto
+                                    </div>
+                                    <div *ngIf="description.errors.maxlength">
+                                        No debe contener mas de 4 digítos
+                                    </div>
                                 </div>
                             </div>
 

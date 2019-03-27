@@ -27,6 +27,7 @@ namespace VR.Data.Model
         public Boolean IsDeleted { set; get; }
         public Boolean? IsCommission { set; get; }
         public string RandomKey { set; get; }
+        
 
         [ForeignKey("User")]
         public Guid UserId { set; get; }

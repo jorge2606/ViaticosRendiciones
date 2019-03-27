@@ -39,6 +39,7 @@
     <Compile Remove="Migrations\20190227184905_files image to byte file table1.cs" />
     <Compile Remove="Migrations\20190227185703_files image to byte file table1.cs" />
     <Compile Remove="Migrations\20190227185930_files image to byte file table1.cs" />
+    <Compile Remove="Migrations\20190327144944_add userId to Table User.cs" />
   </ItemGroup>
 
   <ItemGroup>

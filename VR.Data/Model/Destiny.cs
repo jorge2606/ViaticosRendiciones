@@ -18,6 +18,7 @@ namespace VR.Data.Model
         public int? AccountedForDays { set; get; }
         public int DaysWeekEnd { set; get; }
         public int DaysHolidays { set; get; }
+        public int DaysPay { set; get; }
 
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }

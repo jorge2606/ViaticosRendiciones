@@ -168,6 +168,23 @@ export class AddDestinyComponent implements OnInit {
     console.log(e);
   }
 
+  randomAlphaNumberKey(lengthLetter : number, lengthNumber: number ) {
+    var text = "";
+    var num = "";
+    var abcedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var numeros = "0123456789";
+
+    for (var i = 0; i < lengthLetter; i++){
+      text += abcedario.charAt(Math.floor(Math.random() * abcedario.length));
+    }
+    
+    for (var i = 0; i < lengthNumber; i++){
+      num += numeros.charAt(Math.floor(Math.random() * numeros.length));
+    }
+    
+    return text+"-"+num;
+  }
+
 
   onSubmit() {
     let exist;
@@ -219,6 +236,7 @@ export class AddDestinyComponent implements OnInit {
     () => {
       this.error = [];
       let newDestiny = new DestinyDto;
+      newDestiny.idExp = this.randomAlphaNumberKey(2,3);
       newDestiny.placeId = this.model.placeId;
       newDestiny.cityId = this.model.cityId;
       if (this.model.cityId != null) {
@@ -248,6 +266,7 @@ export class AddDestinyComponent implements OnInit {
         newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
       }
       newDestiny.days = this.model.days;
+      newDestiny.daysPay = this.model.days;
       newDestiny.categoryId =this.categoryUser.id;
       if (this.categoryUser.id != null) {
         newDestiny.categoryName = this.categoryUser.name;

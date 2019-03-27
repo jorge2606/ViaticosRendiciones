@@ -22,6 +22,7 @@ namespace VR.Dto
         public int AccountedForDays { set; get; }
         public int DaysWeekEnd { set; get; }
         public int DaysHolidays { set; get; }
+        public int DaysPay { set; get; }
 
         public Category Category { set; get; }
         public CodeLiquidation CodeLiquidation { set; get; }
@@ -86,5 +87,6 @@ namespace VR.Dto
         public Guid SolicitationSubsidyId { set; get; }
         public List<SupplementaryCityOnlyId> SupplementaryCities { set; get; }
         public int DaysWeekEnd { set; get; }
+        public int DaysPay { set; get; }
     }
 }

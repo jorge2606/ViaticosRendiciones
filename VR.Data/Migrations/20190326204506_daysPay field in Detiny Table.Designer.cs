@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190326204506_daysPay field in Detiny Table")]
+    partial class daysPayfieldinDetinyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,15 +281,11 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid>("SolicitationSubsidyId");
 
-                    b.Property<Guid?>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ExpenditureTypeId");
 
                     b.HasIndex("SolicitationSubsidyId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Expenditures");
                 });
@@ -796,10 +794,6 @@ namespace VR.Data.Migrations
                         .WithMany("Expenditures")
                         .HasForeignKey("SolicitationSubsidyId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("VR.Data.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("VR.Data.Model.Notification", b =>
