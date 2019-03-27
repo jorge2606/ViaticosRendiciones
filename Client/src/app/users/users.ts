@@ -31,6 +31,7 @@ export class modifyUser extends User{
   repeatPassword : string;
   organismId : number;
   supervisorAgentId : number;
+  supervisorAgentId2 : number;
 }
 
 

@@ -9,6 +9,8 @@ namespace VR.Dto
 
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
+        public string NormalizedName { set; get; }
+        public string ConcurrencyStamp { set; get; }
     }
 
     public class RoleWhenModifyUser : RoleDto

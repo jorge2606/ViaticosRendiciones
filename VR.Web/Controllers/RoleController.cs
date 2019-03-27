@@ -29,17 +29,17 @@ namespace VR.Web.Controllers
         //Obtener roles unicamente
 
         [HttpGet("AllRoles")]
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult<List<RoleDto>> getAllRoles()
         {
             return _roleManager.Roles.Select(_mapper.Map<RoleDto>).ToList();
         }
 
         [HttpGet("getAll")]
-        [AllowAnonymous]
-        public ActionResult<List<RoleWhenModifyUser>> getAll()
+        [Authorize]
+        public IActionResult getAll()
         {
-            var roles = _roleManager.Roles.Select(_mapper.Map<Role>).ToList();
+            var roles = _roleManager.Roles.ToList();
 
             List<RoleWhenModifyUser> roleWhenModifyUser = new List<RoleWhenModifyUser>();
             foreach (var rol in roles)
@@ -49,15 +49,16 @@ namespace VR.Web.Controllers
                     {
                         Id = rol.Id,
                         Name = rol.Name,
-                        RolBelongUser = false
+                        RolBelongUser = false,
+                        NormalizedName = rol.NormalizedName
                     }
                 );
             }
-            return roleWhenModifyUser;
+            return Ok(roleWhenModifyUser);
         }
 
         [HttpGet("getallClaims")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult<List<RoleClaimPermissionDto>>> GetAllRoleClaims(Guid id)
         {
             //Traer permisos
@@ -107,7 +108,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("UpdateClaims")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> UpdateRoleClaims(UpdateRoleClaimPermissionDto model)
         {
             //primero obtengo el rol

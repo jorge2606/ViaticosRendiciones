@@ -32,8 +32,12 @@ export class CreateuserComponent implements OnInit {
   submitted : boolean;
   validCheckbox : boolean = false;
   selectedSupervisorAgentId : number;
+  selectedSupervisorAgentId2 : number;
   allSupervisors : User[] = [];
   editSignatureHolograpich: any;
+  supervisor1 : boolean;
+  supervisor2 : boolean;
+
   @ViewChild('userForm') userForm : FormGroup;
 
   constructor(
@@ -82,6 +86,26 @@ export class CreateuserComponent implements OnInit {
       }
     }
     
+    this.model.rolesUser.forEach(
+      roles => {
+        if (roles.name == "Ministro"){
+          if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
+            this.supervisor1 = true;
+            this.supervisor2 = true;
+          }
+        }else if(roles.name == "supervisor"){
+          if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
+            this.supervisor1 = false;
+            this.supervisor2 = true;
+          }
+        }else if(roles.name == "Agente"){
+          if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
+            this.supervisor1 = false;
+            this.supervisor2 = false;
+          }
+        }
+      });
+    
     this.validCheckbox = true;
     return;
 
@@ -121,12 +145,17 @@ export class CreateuserComponent implements OnInit {
         }
     }
 
+    if (this.model.supervisorAgentId == this.model.supervisorAgentId2){
+      this.toastrService.info('No se puede seleccionar los mismos supervisores para un mismo agente.');
+      this.submitted = false;
+    }
+
     if (!this.submitted){
       return;
     }
 
     this.titleService.setTitle('Crear Usuario - Perfil');
-    /*this.UserService.createWithObjectUser(this.model).subscribe(
+    this.UserService.createWithObjectUser(this.model).subscribe(
       data => {
           this.router.navigate(['/users']);
           this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
@@ -134,7 +163,7 @@ export class CreateuserComponent implements OnInit {
         error => {
           this.errors = error.error.notifications;
      } 
-    );*/
+    );
   }
   
   ngOnInit() {
