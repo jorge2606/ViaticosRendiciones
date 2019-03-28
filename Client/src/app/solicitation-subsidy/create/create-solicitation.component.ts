@@ -96,6 +96,7 @@ export class CreateSolicitationComponent implements OnInit {
     this.allTransport();
     this.allCountries();
     this.allCodeLiquidation();
+    this.totalResultExpenditure();
     
     if (this.id){
         this.titleService.setTitle('Modificar Solicitud');

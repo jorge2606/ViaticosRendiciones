@@ -30,6 +30,7 @@ import { AddExpenditureRepaymentComponent } from 'src/app/modals/add-expenditure
 import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
 import { CurrencyPipe } from '@angular/common';
 import { DateDto } from 'src/app/_models/holiday';
+import { CrystalLightbox } from 'ngx-crystal-gallery';
 
 @Component({
   selector: 'app-account-for',
@@ -91,7 +92,8 @@ export class AccountForComponent implements OnInit {
       private titleService : Title,
       private toastrService: ToastrService,
       private router : Router,
-      private authService : AuthenticationService ) { }
+      private authService : AuthenticationService,
+      private lightbox : CrystalLightbox ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Reintegro');
@@ -559,24 +561,5 @@ export class AccountForComponent implements OnInit {
         }
       );
       this.model.total = resultExpenditure + resultDestiny;
-    }
-
-    
-
-    toSeeImageBase64InNewTab(data) {
-      var image = new Image();
-      image.src = data;
-      image.width=186;
-      image.height=60;
-
-      /*this.solicitationSubsidyService.getImageRefundExpenditure(this.id,186,60)
-      .subscribe(x => {
-        image.src = "data:image/jpg;base64,"+x.response;
-      },
-      e => {
-        console.log('error consolelog : '+e);
-      });*/
-      var w = window.open("");
-      w.document.write(image.outerHTML);
     }
 }

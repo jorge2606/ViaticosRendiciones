@@ -178,7 +178,7 @@
                                                 placement="bottom" 
                                                 ngbTooltip="Ver imagen"
                                                 style="cursor:pointer"
-                                                (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
+                                                (click)="lightbox.open([{path: modelExp.urlImage }])" 
                                                 rel="noopener noreferrer">
                                                 <fa-icon class="fa-lg" icon="image"></fa-icon>
                                                 <!--<img  

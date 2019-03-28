@@ -29,6 +29,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AddDestinyComponent } from 'src/app/modals/add-destiny/add-destiny.component';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
+import { CrystalLightbox } from 'ngx-crystal-gallery';
 
 @Component({
   selector: 'app-repayment',
@@ -89,7 +90,8 @@ export class RepaymentComponent implements OnInit {
       private titleService : Title,
       private toastrService: ToastrService,
       private authService : AuthenticationService,
-      private ngbCalendar : NgbCalendar
+      private ngbCalendar : NgbCalendar,
+      private lightbox : CrystalLightbox
       ) { }
 
   ngOnInit() {
@@ -482,14 +484,4 @@ export class RepaymentComponent implements OnInit {
     );
     this.model.total = resultExpenditure + resultDestiny;
   }
-
-    toSeeImageBase64InNewTab(data) {
-      var image = new Image();
-      image.src = data;
-      image.width=100;
-      image.height=100;
-
-      var w = window.open("");
-      w.document.write(image.outerHTML);
-    }
 }

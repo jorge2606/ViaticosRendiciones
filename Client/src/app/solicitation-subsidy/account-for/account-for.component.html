@@ -209,13 +209,12 @@
                                         </td>
                                         <td class="col-2 text-center">
                                             <a  *ngIf="modelExp.urlImage"
-                                                style="width: inherit;"
+                                                style="width: inherit;cursor:pointer;"
                                                 href="#"
                                                 routerLink="{{router.url}}"
                                                 placement="bottom" 
                                                 ngbTooltip="Ver imagen"
-                                                style="cursor:pointer"
-                                                (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
+                                                (click)="lightbox.open([{path: modelExp.urlImage }])" 
                                                 rel="noopener noreferrer">
                                                 <fa-icon class="fa-lg" icon="image"></fa-icon>
                                                 <!--<img  
