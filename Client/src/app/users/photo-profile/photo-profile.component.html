@@ -33,7 +33,7 @@
             <ul *ngFor="let item of uploader.queue">
                 <div class="middle-url">
                     <span class="btn btn-default btn-file ml-3 pl-3">
-                        <button type="button" class="btn text" (click)="item.upload()" 
+                        <button type="button" class="btn text mr-1" (click)="item.upload()" 
                             [disabled]="item.isReady || item.isUploading || item.isSuccess">
                             <fa-icon icon="upload"></fa-icon>
                         </button>

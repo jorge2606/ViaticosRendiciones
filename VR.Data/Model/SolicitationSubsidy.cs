@@ -25,7 +25,7 @@ namespace VR.Data.Model
         public DateTime? FinalizeDate { set; get; }
         public Boolean IsRefund { set; get; }
         public Boolean IsDeleted { set; get; }
-        public Boolean? IsCommission { set; get; }
+        public Boolean IsCommission { set; get; }
         public string RandomKey { set; get; }
         
 

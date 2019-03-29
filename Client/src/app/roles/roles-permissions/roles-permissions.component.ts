@@ -19,6 +19,8 @@ export class RolesPermissionsComponent implements OnInit {
 
   model: Roles;
   id : string;
+  name : string;
+
   constructor(
         private rolesServices: RolesPermissionsService, 
         private route: ActivatedRoute,
@@ -55,7 +57,10 @@ export class RolesPermissionsComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(
-      p => this.id = p.id
+      p => {
+        this.id = p.id;
+        this.name = p.name;
+      }
     );
 
     this.rolesServices.getAllRoleClaims(this.id).subscribe(claims => {

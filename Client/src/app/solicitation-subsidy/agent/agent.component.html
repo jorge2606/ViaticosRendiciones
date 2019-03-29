@@ -12,7 +12,7 @@
       <a  
         placement="bottom" 
         ngbTooltip="Ver las solicitudes de viáticos de agentes a mi cargo" 
-        href="" class="btn btn-success" routerLink="supervisor/solicitationSubsidies/{{isRefund.isNotRefund}}">
+        href="" class="btn btn-success" routerLink="/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/{{isRefund.isNotRefund}}">
         Moderar Anticipo
       </a>
     </div>
@@ -21,7 +21,7 @@
         <a  
           placement="bottom" 
           ngbTooltip="Ver las solicitudes de reintegros de agentes a mi cargo" 
-          href="" class="btn btn-success" routerLink="supervisor/refunds/{{isRefund.isRefund}}">
+          href="" class="btn btn-success" routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.isRefund}}">
           Moderar Reintegros
         </a>
       </div>
@@ -31,9 +31,9 @@
           placement="bottom" 
           ngbTooltip="registrar un reintegro" 
           href="" 
-          routerLink="repayment" 
+          routerLink="/SolicitationSubsidy/agent/repayment" 
           class="btn btn-success"
-          href=""> <fa-icon class="fa-lg" icon="plus"></fa-icon> reintegro
+          href=""> <fa-icon class="fa-lg" icon="plus"></fa-icon> Reintegro
         </a>
     </div>
 
@@ -202,7 +202,7 @@
                       class="pr-3" 
                       placement="bottom" 
                       ngbTooltip="Editar" 
-                      routerLink="/SolicitationSubsidy/agent/modify/{{sol.id}}">
+                      routerLink="/SolicitationSubsidy/agent/repayment/update/{{sol.id}}">
                       <fa-icon style="color:gray;" 
                           icon="edit" class="{{sizeIcon}}"></fa-icon>
                     </a>
@@ -253,7 +253,7 @@
                       <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                     </a>
                     <!-- la fecha de hoy sea mayor a la fecha de inicio y menor a la fecha de finalizacion del viatico-->
-                    <a *ngIf="( finalizeDate == null && ( today >= pipeService.transform(sol.beginDate,'yyyy/MM/dd') && pipeService.transform(sol.endDate,'yyyy/MM/dd') >= today ) )"
+                    <a *ngIf="!sol.isRefund && ( finalizeDate == null && ( today >= pipeService.transform(sol.beginDate,'yyyy/MM/dd') && pipeService.transform(sol.endDate,'yyyy/MM/dd') >= today ) )"
                       placement="bottom" 
                       ngbTooltip="Finalizar viático" 
                       (click)="finalizeSubsidy(sol)"

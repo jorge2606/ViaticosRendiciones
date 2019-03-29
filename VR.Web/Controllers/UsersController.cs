@@ -294,6 +294,7 @@ namespace VR.Web.Controllers
         }
         
         [HttpGet("page")]
+        [Authorize(Roles = "Supervisor")]
         public IActionResult GetPageUser([FromQuery] UserFilterDto param)
         {
             var result = _userService.GetPageUser(param);

@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
                        if(rol.normalizedName == "AGENTE" || rol.normalizedName == "MINISTRO"){
                             this.returnUrl = "SolicitationSubsidy/agent";
                        }
-                       if(rol.normalizedName == "ADMINISTRADOR"){
+                       if(rol.normalizedName == "SUPERVISOR"){
                             this.returnUrl = "SolicitationSubsidy/agent/solicitationSubsidies/true"
                        }
-                       if(rol.normalizedName == "SUPERVISOR"){
+                       if(rol.normalizedName == "ADMINISTRADOR"){
                         this.returnUrl = "users"
                        }    
                    });

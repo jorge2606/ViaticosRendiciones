@@ -16,7 +16,8 @@
                 class="fadeIn second" 
                 name="username" 
                 #username="ngModel"
-                placeholder="Usuario">
+                placeholder="Usuario"
+                required>
             <input 
                 [(ngModel)]="model.Password" 
                 placeholder="Contraseña"
@@ -24,8 +25,9 @@
                 #password="ngModel"
                 type="password" 
                 id="password" 
-                class="fadeIn third" >
-            <input type="submit" [disabled]="LoginForm.form.invalid" class="fadeIn fourth" value="Ingresar">
+                class="fadeIn third"
+                required>
+            <input type="submit" [disabled]="LoginForm.invalid" class="fadeIn fourth" value="Ingresar">
           </form>
       
           <!-- Remind Passowrd -->
@@ -34,8 +36,7 @@
           </div>
       
         </div>
-
-        <div *ngIf="!LoginForm.form.valid">
+        <div *ngIf="!LoginForm.valid && LoginForm.submitted">
                 Formulario Incorrecto
         </div>
     

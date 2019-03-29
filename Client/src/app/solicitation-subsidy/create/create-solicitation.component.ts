@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { HolidaysService } from './../../_services/holidays.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -65,7 +66,7 @@ export class CreateSolicitationComponent implements OnInit {
   dirtyForm : boolean = false;
   submited : boolean = false;
   inputCode : boolean;
-  motiveWhenIsCommission : boolean;
+  whenIsCommission : boolean;
   addDestinyButtonWhenIsCommission : boolean;
   deleteAllConceptsWhenIsCommission : boolean;
   deleteConceptsWhenIsCommission : boolean;
@@ -88,7 +89,8 @@ export class CreateSolicitationComponent implements OnInit {
       private titleService : Title,
       private toastrService: ToastrService,
       private ngbCalendar : NgbCalendar,
-      private holidaysService : HolidaysService
+      private holidaysService : HolidaysService,
+      private authService : AuthenticationService
       ) { }
 
   ngOnInit() {
@@ -122,10 +124,6 @@ export class CreateSolicitationComponent implements OnInit {
         .subscribe(
           x => {
                 this.model = x;
-                this.motiveWhenIsCommission = true;
-                this.addDestinyButtonWhenIsCommission = true;
-                this.deleteAllConceptsWhenIsCommission = true;
-                this.deleteConceptsWhenIsCommission = true;
                 if (this.model.destinies != null){
                   for (let index = 0; index < this.model.destinies.length; index++) {
                     if (this.model.destinies[index].provinceId != null){

@@ -50,6 +50,7 @@ export class NavarComponent implements OnInit {
   moderateViewSolicitation: any;
   show : boolean = true;
   showTabAudits: any;
+  currentYear : number;
 
   constructor(private notificationServices : NotificationsService, 
               private authService : AuthenticationService,
@@ -83,6 +84,7 @@ export class NavarComponent implements OnInit {
       this.isloggedUser = x;
       //si el usuario esta logueado
       if(x){
+        this.currentYear = new Date().getFullYear();
         this.rolesNames = this.authService.userId('rolesNames');
         this.roles = this.authService.userId('roles');
         this.showTabSolicitation = this.roles.find(

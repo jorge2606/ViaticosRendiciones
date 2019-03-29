@@ -1,4 +1,5 @@
-<div>
- 
-</div>
+<app-agent *ngIf="roles == 'AGENTE'"></app-agent>
+<app-agent *ngIf="roles == 'MINISTRO'"></app-agent>
+<app-agent *ngIf="roles == 'SUPERVISOR'"></app-agent>
+<app-users *ngIf="roles == 'ADMINISTRADOR'"></app-users>
 

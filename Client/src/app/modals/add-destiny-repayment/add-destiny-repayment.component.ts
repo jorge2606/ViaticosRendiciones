@@ -19,6 +19,7 @@ import { CodeLiquidationService } from 'src/app/_services/code-liquidation.servi
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
+import { RandomAlphaNumberKeyService } from 'src/app/_services/random-alpha-number-key.service';
 
 @Component({
   selector: 'app-add-destiny-repayment',
@@ -79,7 +80,8 @@ export class AddDestinyRepaymentComponent implements OnInit {
     private countryservice: CountryService,
     private codeLiquidationService: CodeLiquidationService,
     private spinner: NgxSpinnerService,
-    private authService: AuthenticationService ) { }
+    private authService: AuthenticationService,
+    private randomNumberService : RandomAlphaNumberKeyService ) { }
 
   ngOnInit() {
     this.selectedCountry = this.model.countryId;
@@ -216,6 +218,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
     () => {
       this.error = [];
       let newDestiny = new DestinyDto;
+      newDestiny.idExp = this.randomNumberService.randomAlphaNumberKey(2,3);
       newDestiny.placeId = this.model.placeId;
       newDestiny.cityId = this.model.cityId;
       if (this.model.cityId != null) {
@@ -245,6 +248,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
         newDestiny.provinceName = this.provinces.find(x => x.id == this.model.provinceId).name;
       }
       newDestiny.days = this.model.days;
+      newDestiny.daysPay = this.model.days;
       newDestiny.categoryId =this.categoryUser.id;
       if (this.categoryUser.id != null) {
         newDestiny.categoryName = this.categoryUser.name;

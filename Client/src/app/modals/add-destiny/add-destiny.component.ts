@@ -19,6 +19,7 @@ import { CountryService } from 'src/app/_services/country.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
+import { RandomAlphaNumberKeyService } from 'src/app/_services/random-alpha-number-key.service';
 
 
 @Component({
@@ -82,7 +83,8 @@ export class AddDestinyComponent implements OnInit {
     private countryservice: CountryService,
     private codeLiquidationService: CodeLiquidationService,
     private spinner: NgxSpinnerService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private randomNumberService : RandomAlphaNumberKeyService
     ) { }
 
   ngOnInit() {
@@ -168,22 +170,6 @@ export class AddDestinyComponent implements OnInit {
     console.log(e);
   }
 
-  randomAlphaNumberKey(lengthLetter : number, lengthNumber: number ) {
-    var text = "";
-    var num = "";
-    var abcedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var numeros = "0123456789";
-
-    for (var i = 0; i < lengthLetter; i++){
-      text += abcedario.charAt(Math.floor(Math.random() * abcedario.length));
-    }
-    
-    for (var i = 0; i < lengthNumber; i++){
-      num += numeros.charAt(Math.floor(Math.random() * numeros.length));
-    }
-    
-    return text+"-"+num;
-  }
 
 
   onSubmit() {
@@ -236,7 +222,7 @@ export class AddDestinyComponent implements OnInit {
     () => {
       this.error = [];
       let newDestiny = new DestinyDto;
-      newDestiny.idExp = this.randomAlphaNumberKey(2,3);
+      newDestiny.idExp = this.randomNumberService.randomAlphaNumberKey(2,3);
       newDestiny.placeId = this.model.placeId;
       newDestiny.cityId = this.model.cityId;
       if (this.model.cityId != null) {

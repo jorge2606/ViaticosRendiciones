@@ -456,7 +456,7 @@ export class RepaymentComponent implements OnInit {
 
     this.model.destinies.forEach(
       destiny => {
-        resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
+        resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.daysPay * destiny.percentageCodeLiquidation);
       }
     );
     this.model.total = resultExpenditure + resultDestiny;

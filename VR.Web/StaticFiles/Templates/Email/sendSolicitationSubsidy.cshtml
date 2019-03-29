@@ -5,6 +5,8 @@
     decimal priceDay = 0;
     decimal subTotalDest = 0;
     decimal total = 0;
+    int amountHolidays = 0;
+    int amountWeekEnds = 0;
 }
 <!DOCTYPE html>
 <html>
@@ -199,6 +201,7 @@
                             <th scope="col">Destino</th>
                             <th scope="col">Transporte</th>
                             <th scope="col">Dias</th>
+                            <th scope="col">Dias C/Gastos</th>  
                             <th scope="col">$/Dia</th>
                             <th scope="col">Cod. Liq.</th>
                             <th scope="col" class="amount-td">Subtotal</th>
@@ -208,7 +211,9 @@
                         @foreach (var des in Model.Destinies)
                         {
                             subTotalDest = 0;
-                            subTotalDest += @des.Days * @des.AdvanceCategory * @des.PercentageCodeLiquidation;
+                            subTotalDest += @des.DaysPay * @des.AdvanceCategory * @des.PercentageCodeLiquidation;
+                            amountWeekEnds += @des.DaysWeekEnd;
+                            amountHolidays += @des.DaysHolidays;
                             <tr>
                                 <td>
                                     @des.StartDate.Day/ @des.StartDate.Month/ @des.StartDate.Year
@@ -221,6 +226,9 @@
                                 </td>
                                 <td>
                                     @des.Days
+                                </td>
+                                <td>
+                                    @des.DaysPay
                                 </td>
                                 <td>
                                     $ @des.AdvanceCategory
@@ -279,6 +287,10 @@
                 <div class="totalFooter">
 
                     <b>Total : $ @(total += totalExp + totalDest) </b>
+                    <br />
+                    <b>Feriados : @amountHolidays</b>
+                    <br />
+                    <b>Fines de Semana : @amountWeekEnds</b>
                 </div>
 
                 <div class="footer">

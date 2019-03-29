@@ -45,7 +45,7 @@ namespace VR.Dto
         public Boolean IsRefund { set; get; }
         public DateDto FinalizeDate { set; get; }
         public int DaysWeekEnd { set; get; }
-        public Boolean? IsCommission { set; get; }
+        public Boolean IsCommission { set; get; }
         public string RandomKey { set; get; }
     }
 

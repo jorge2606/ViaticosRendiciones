@@ -48,7 +48,7 @@ import { CanDeactivateGuard } from './directives/can-deactivate-guard';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
-  { path: '', data: {breadcrumb: 'inicio',isHome: true,show: true, },component: HomeComponent, canActivate : [AuthGuard] },
+  { path: '', data: {breadcrumb: 'inicio',isHome: true,show: false, },component: HomeComponent, canActivate : [AuthGuard] },
 
   { path: 'login', component: LoginComponent },
 
@@ -89,7 +89,7 @@ const routes: Routes = [
     data: {breadcrumb: 'roles',isHome: false,show: true}, 
     children : [
       { path : '', component: RolesComponent, canActivate : [AuthGuard] },
-      { path: 'permissions/:id',data: {breadcrumb: 'roles permisos',isHome: false,show: true}, component: RolesPermissionsComponent, canActivate : [AuthGuard] },  
+      { path: 'permissions/:id/:name',data: {breadcrumb: 'roles permisos',isHome: false,show: true}, component: RolesPermissionsComponent, canActivate : [AuthGuard] },  
     ],
   },
   
@@ -203,3 +203,4 @@ const routes: Routes = [
   ]
 })
 export class AppRoutesModule { }
+
