@@ -61,6 +61,29 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpPost("CreateCommission")]
+        [Authorize]
+        public IActionResult CreateCommission([FromBody] CreateSolicitationSubsidyDto solicitationSubsidy)
+        {
+            var currentUser = Helpers.HttpContext.Current.User.Claims;
+            foreach (var i in currentUser)
+            {
+                if (i.Type.Equals("NameIdentifier"))
+                {
+                    solicitationSubsidy.UserId = Guid.Parse(i.Value);
+                }
+            }
+
+            var result = _solicitationSubsidyService.CreateComission(solicitationSubsidy);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpPost("CreateAccountFor")]
         [Authorize]
         public IActionResult CreateAccountFor([FromBody] CreateSolicitationSubsidyDto accountForSolicitation)

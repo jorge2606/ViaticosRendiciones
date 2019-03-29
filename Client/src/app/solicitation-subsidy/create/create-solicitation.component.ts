@@ -70,6 +70,7 @@ export class CreateSolicitationComponent implements OnInit {
   addDestinyButtonWhenIsCommission : boolean;
   deleteAllConceptsWhenIsCommission : boolean;
   deleteConceptsWhenIsCommission : boolean;
+  currentUserId : number;
   @ViewChild('solicitationSubsidy') solicitationForm : FormGroup;
 
   constructor(
@@ -95,6 +96,7 @@ export class CreateSolicitationComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Crear Solicitud');
+    this.currentUserId = this.authService.userId('id');
     this.route.params.subscribe(
       x =>{
         this.id = x.id
@@ -155,7 +157,7 @@ export class CreateSolicitationComponent implements OnInit {
             }
           );
         }else{
-          this.toastrService.info('El Código debe contener 6 dígitos.');
+          this.toastrService.warning('El Código debe contener 6 dígitos.');
         }
       }
 
@@ -424,20 +426,18 @@ export class CreateSolicitationComponent implements OnInit {
         this.solicitationSubsidyService.getByRandomKey(this.model.randomKey)
         .subscribe(
           result =>{
-            if(result){
+            if(this.currentUserId == this.model.userId){
               this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
                 () => {
                   this.router.navigate(['SolicitationSubsidy/agent']);
-                  this.msjExito = 'Solicitud Enviada';
                   this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
                 },
                 error => console.log(error) 
               );
             }else{
-              this.solicitationSubsidyService.createSolicitation(this.model).subscribe(
+              this.solicitationSubsidyService.createCommission(this.model).subscribe(
                 () => {
                     this.router.navigate(['SolicitationSubsidy/agent']);
-                    this.msjExito = 'Solicitud Actualizada';
                     this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
                 }
               );

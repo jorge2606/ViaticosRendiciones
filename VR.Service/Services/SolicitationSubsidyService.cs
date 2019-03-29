@@ -177,6 +177,126 @@ namespace VR.Service.Services
             return new ServiceResult<CreateSolicitationSubsidyDto>(_mapper.Map<CreateSolicitationSubsidyDto>(subsidy));
         }
 
+        public ServiceResult<CreateSolicitationSubsidyDto> CreateComission(CreateSolicitationSubsidyDto subsidy)
+        {
+            var validate = _fluentValidator.Validate(subsidy);
+            if (!validate.IsValid)
+            {
+                return _mapper.Map<ServiceResult<CreateSolicitationSubsidyDto>>(validate.ToServiceResult<CreateSolicitationSubsidyDto>(null));
+            }
+
+            SolicitationSubsidy solicitationSubsidy = new SolicitationSubsidy()
+            {
+                Id = new Guid(),
+                UserId = subsidy.UserId,
+                Motive = subsidy.Motive,
+                Total = subsidy.Total,
+                CreateDate = DateTime.Today,
+                IsRefund = subsidy.IsRefund,
+                IsCommission = subsidy.IsCommission,
+                RandomKey = subsidy.RandomKey
+            };
+
+            _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
+
+            foreach (var destiny in subsidy.Destinies)
+            {
+
+                var holidaysDays = _holidayService
+                    .HaveHoliday(
+                        new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day),
+                        destiny.Days);
+                Destiny newDestiny = new Destiny()
+                {
+                    Id = new Guid(),
+                    TransportId = destiny.TransportId,
+                    CategoryId = destiny.CategoryId,
+                    CityId = destiny.CityId,
+                    CodeLiquidationId = destiny.CodeLiquidationId,
+                    CountryId = destiny.CountryId,
+                    //SolicitationSubsidyId = solicitationSubsidy.Id,
+                    SolicitationSubsidy = solicitationSubsidy,
+                    Days = destiny.Days,
+                    DaysWeekEnd = destiny.DaysWeekEnd,
+                    DaysHolidays = holidaysDays.Response,
+                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
+                    ProvinceId = destiny.ProvinceId,
+                    AdvanceCategory = destiny.AdvanceCategory,
+                    DaysPay = destiny.DaysPay,
+                    PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
+                };
+
+                _dataContext.Destinies.Add(newDestiny);
+
+                if (destiny.SupplementaryCities != null)
+                {
+                    foreach (var supCity in destiny.SupplementaryCities)
+                    {
+                        SupplementaryCity newSupplementaryCity = new SupplementaryCity()
+                        {
+                            Id = new Guid(),
+                            CityId = supCity.CityId,
+                            Destiny = newDestiny
+                        };
+
+                        _dataContext.SupplementaryCities.Add(newSupplementaryCity);
+                    }
+                }
+
+            }
+
+
+
+            foreach (var expenditure in subsidy.Expenditures)
+            {
+                Expenditure newExpenditure = new Expenditure()
+                {
+                    Id = new Guid(),
+                    Description = expenditure.Description,
+                    SolicitationSubsidy = solicitationSubsidy,
+                    Amount = expenditure.Amount,
+                    ExpenditureTypeId = expenditure.ExpenditureTypeId,
+                    UserId = solicitationSubsidy.UserId
+                };
+
+                _dataContext.Expenditures.Add(newExpenditure);
+
+                if (solicitationSubsidy.IsRefund)
+                {
+                    string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                    byte[] data = Convert.FromBase64String(base64);
+                    File newFile = new File()
+                    {
+                        Id = new Guid(),
+                        MimeType = expenditure.ImageDto.Type,
+                        ExpenditureId = newExpenditure.Id,
+                        Image = data,
+                        UserId = subsidy.UserId,
+                        LastModifiedDate = new DateTime()
+
+                    };
+
+                    _dataContext.Files.Add(newFile);
+                }
+
+
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitationSubsidy,
+                ChangeDate = DateTime.Today,
+                StateId = State.Pending,
+            };
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<CreateSolicitationSubsidyDto>(_mapper.Map<CreateSolicitationSubsidyDto>(subsidy));
+        }
+
         public ServiceResult<CreateSolicitationSubsidyDto> CreateAccountFor(CreateSolicitationSubsidyDto subsidy)
         {
             var validate = _fluentValidator.Validate(subsidy);
@@ -452,7 +572,6 @@ namespace VR.Service.Services
                 .Include(x => x.Destinies).ThenInclude(x => x.Province)
                 .Include(x => x.Destinies).ThenInclude(x => x.Transport)
                 .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
-                .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
                 .Include(x => x.User).ThenInclude(c => c.Category)
                 .Include(x => x.User).ThenInclude(c => c.Distribution)
                 .Where(x => x.IsDeleted != true)
