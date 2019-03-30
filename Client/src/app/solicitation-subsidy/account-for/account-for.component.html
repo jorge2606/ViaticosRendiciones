@@ -152,7 +152,7 @@
 
                 <div class="form-row">
                     <div class="col-md-6">
-                        <table *ngIf="expenditureStatics.length > 0" class="table table-sm">
+                        <table *ngIf="model.expenditures.length > 0" class="table table-sm">
                                 <thead>
                                     <tr class="form-row">
                                         <th class="col-2">Concepto</th>
@@ -179,7 +179,7 @@
                         </table> 
                     </div>
                     <div class="col-md-6">
-                        <table *ngIf="model.expenditures.length > 0" class="table table-sm">
+                        <table *ngIf="expenditureStatics.length > 0" class="table table-sm">
                                 <thead>
                                     <tr class="form-row">
                                         <th class="col-2">Concepto</th>
@@ -189,53 +189,53 @@
                                     </tr>
                                 </thead>
                                 <tbody id="collapseExpenditure" [ngbCollapse]="isCollapsedExpenditure" 
-                                        *ngFor="let modelExp of model.expenditures" class="collapse show">
+                                        *ngFor="let modelExpStatic of expenditureStatics" class="collapse show">
                                     <tr class="form-row">
                                         <td class="col-2">
-                                            {{modelExp.expenditureTypeName}}
+                                            {{modelExpStatic.expenditureTypeName}}
                                         </td>    <!-- filas para agregar-->
                                         <td class="col-6">
                                             <div style="white-space : normal;">
-                                                {{modelExp.description}}
+                                                {{modelExpStatic.description}} 
                                             </div>
                                         </td>
                                         <td class="col-2">
                                             <input 
                                                 class="input-destiny" 
-                                                name="amount{{modelExp.expenditureTypeName}}"
-                                                [ngModel]="modelExp.amount | currency "
-                                                (ngModelChange)="validateAmount(modelExp, $event)"
+                                                name="amount{{modelExpStatic.expenditureTypeName}}"
+                                                [ngModel]="modelExpStatic.amount | currency "
+                                                (ngModelChange)="validateAmount(modelExpStatic, $event)"
                                                 required>
                                         </td>
                                         <td class="col-2 text-center">
-                                            <a  *ngIf="modelExp.urlImage"
+                                            <a  *ngIf="modelExpStatic.urlImage"
                                                 style="width: inherit;"
                                                 placement="bottom" 
                                                 ngbTooltip="Ver imagen"
                                                 style="cursor:pointer"
-                                                (click)="toSeeImageBase64InNewTab(modelExp.urlImage)" 
+                                                (click)="toSeeImageBase64InNewTab(modelExpStatic.urlImage)" 
                                                 rel="noopener noreferrer">
                                                 <fa-icon class="fa-lg" icon="image"></fa-icon>
                                                 <!--<img  
                                                     style="width: inherit; height: 40px;" 
-                                                    [src]="modelExp.urlImage">-->
+                                                    [src]="modelExpStatic.urlImage">-->
                                             </a>
                                             <input 
-                                                *ngIf="!modelExp.urlImage"
+                                                *ngIf="!modelExpStatic.urlImage"
                                                 class="inputfile" 
                                                 type="file"
-                                                name="file{{modelExp.expenditureTypeName}}" 
-                                                id="file{{modelExp.expenditureTypeName}}" 
-                                                (change)="onSelectFile(modelExp,$event)" 
+                                                name="file{{modelExpStatic.expenditureTypeName}}" 
+                                                id="file{{modelExpStatic.expenditureTypeName}}" 
+                                                (change)="onSelectFile(modelExpStatic,$event)" 
                                                 ng2FileSelect
                                                 [uploader]="uploader"
                                                 style="display:none" 
                                                 value="Cambiar"
                                                 required />
                                                 <label 
-                                                    *ngIf="!modelExp.urlImage"
-                                                    for="file{{modelExp.expenditureTypeName}}"
-                                                    id="file{{modelExp.expenditureTypeName}}" 
+                                                    *ngIf="!modelExpStatic.urlImage"
+                                                    for="file{{modelExpStatic.expenditureTypeName}}"
+                                                    id="file{{modelExpStatic.expenditureTypeName}}" 
                                                     style="left: 27px;">
                                                     <fa-icon 
                                                         style="cursor:pointer" 
@@ -248,7 +248,7 @@
                                                 placement="bottom" 
                                                 ngbTooltip="Eliminar este concepto de gasto" 
                                                 class="ml-4"
-                                                (click)="removeExpenditure(modelExp)">
+                                                (click)="removeExpenditure(modelExpStatic)">
                                                 <fa-icon 
                                                     style="color: red;cursor:pointer" 
                                                     class="fa-lg" icon="trash">

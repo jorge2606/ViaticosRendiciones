@@ -90,7 +90,8 @@ export class AccountForComponent implements OnInit {
       private expenditureAgentService : ExpendituresUserService,
       private titleService : Title,
       private toastrService: ToastrService,
-      private router : Router ) { }
+      private router : Router,
+      private authService : AuthenticationService ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Reintegro');
@@ -126,7 +127,7 @@ export class AccountForComponent implements OnInit {
             newExpenditure.amount = exp.amount;
             newExpenditure.description = exp.description;
             newExpenditure.amount = exp.amount;
-            newExpenditure.urlImage = exp.urlImage;
+            newExpenditure.urlImage = this.authService.urlExpenditureRefundFile(exp.id,186,60);
             this.expenditureStatics.push(newExpenditure);
           }
         );
