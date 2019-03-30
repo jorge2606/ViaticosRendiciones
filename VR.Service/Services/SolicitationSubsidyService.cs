@@ -623,7 +623,7 @@ namespace VR.Service.Services
             }
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
 
-            var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/confirm/{0}",solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] +"/SolicitationSubsidy/confirm/{0}",solicitation.Id);
 
             var html = "<!DOCTYPE html>" +
                        "<html>" +
@@ -794,7 +794,7 @@ namespace VR.Service.Services
             var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
             var tableAccountForExpenditures = headTableExp + rowAccountForExp + "</tbody></table>";
 
-            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/confirm/{0}", solicitation.Id);
 
             var html = "<!DOCTYPE html>" +
                        "<html>" +

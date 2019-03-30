@@ -20,9 +20,7 @@
                         required 
                         name="model" 
                         type="text" 
-                        placeholder="Modelo"
-                        appCheckSpaceBlankOnInput
-                        (msgEvent)="msjValidEvent($msj)">
+                        placeholder="Modelo">
                 </div>
             
                 <div *ngIf="model.dirty && !DistributionForm.submitted && model.invalid" 
@@ -42,9 +40,7 @@
                         #type="ngModel" 
                         name="type" 
                         type="text" 
-                        placeholder="Tipo"
-                        appCheckSpaceBlankOnInput
-                        (msgEvent)="msjValidEvent($msj)">
+                        placeholder="Tipo">
                 </div>
             
                 <div *ngIf="type.dirty && !DistributionForm.submitted && type.invalid" 
@@ -64,9 +60,7 @@
                         #brand="ngModel" 
                         name="brand" 
                         type="text" 
-                        placeholder="Marca"
-                        appCheckSpaceBlankOnInput
-                        (msgEvent)="msjValidEvent($msj)">
+                        placeholder="Marca">
                 </div>
             
                 <div *ngIf="brand.dirty && !DistributionForm.submitted && brand.invalid" 
@@ -86,9 +80,7 @@
                         #carPlate="ngModel" 
                         name="carPlate" 
                         type="text" 
-                        placeholder="Patente"
-                        appCheckSpaceBlankOnInput
-                        (msgEvent)="msjValidEvent($msj)">
+                        placeholder="Patente">
                 </div>
             
                 <div *ngIf="carPlate.dirty && !DistributionForm.submitted && carPlate.invalid" 

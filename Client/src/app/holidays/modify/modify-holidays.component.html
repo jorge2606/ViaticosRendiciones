@@ -23,9 +23,7 @@
                               name="description"
                               id="description" 
                               type="text" 
-                              placeholder="Descripción"
-                              appCheckSpaceBlankOnInput
-                              (msgEvent)="msjValidEvent($msj)">
+                              placeholder="Descripción">
                           </div>
                   
   
@@ -80,9 +78,9 @@
           </div>
     </div>
   
-      <div class="alert alert-danger mt-1" *ngIf="errors">
+      <!--<div class="alert alert-danger mt-1" *ngIf="errors">
           <ul *ngFor="let e of errors">
               <li>{{e}}</li>
           </ul>
-      </div>
+      </div>-->
   </div>

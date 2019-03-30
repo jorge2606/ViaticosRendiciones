@@ -19,9 +19,7 @@
                             required 
                             name="name" 
                             type="text"
-                            placeholder="Nombre"
-                            appCheckSpaceBlankOnInput
-                            (msgEvent)="msjValidEvent($msj)">
+                            placeholder="Nombre">
                     </div>
                 
                     <div *ngIf="name.dirty && !CategoryForm.submitted && name.invalid" 

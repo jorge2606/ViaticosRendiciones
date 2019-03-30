@@ -21,12 +21,7 @@
                             required 
                             name="name" 
                             type="text"
-                            placeholder="Nombre"
-                            appCheckSpaceBlankOnInput
-                            [className]="form-control"
-                            [nameCheckBlankDirective]="Nombre"
-                            [valueCheckBlankDirective]="model.name"
-                            (msgEvent)="msjValidEvent(msj)">
+                            placeholder="Nombre">
                     </div>
                     
                     <div  
@@ -47,9 +42,7 @@
                             type="text"
                             placeholder="Descripción"
                             [ngClass]="{ 'is-invalid': (description.dirty || submitted) && description.invalid,
-                            'is-valid' : description.dirty && description.valid }"
-                            appCheckSpaceBlankOnInput
-                            (msgEvent)="msjValidEvent(msj)">
+                            'is-valid' : description.dirty && description.valid }">
                     </div>
                     <div
                         *ngIf="description.dirty && !submitted && description.invalid" 

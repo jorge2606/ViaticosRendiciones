@@ -27,7 +27,7 @@ export class AceptOrRefuseComponent implements OnInit {
         private solicitationSubsidyService : SolicitationSubsidyService,
         private Activatedrouter : ActivatedRoute,
         private modalService : NgbModal,
-        private router : Router
+        public router : Router
     ) { }
 
   ngOnInit() {
