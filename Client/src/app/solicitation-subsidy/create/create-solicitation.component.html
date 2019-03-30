@@ -116,9 +116,15 @@
                                 {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
                             </td>    
                             <td class="text-right">
-                                <a  placement="bottom" ngbTooltip="Eliminar este destino" 
-                                    class="btn btn-danger text-white small" (click)="removeDestiny(destiny)">
-                                    <fa-icon class="fa-lg" icon="trash"></fa-icon>
+                                <a  
+                                    placement="bottom" 
+                                    ngbTooltip="Eliminar este destino"  
+                                    (click)="removeDestiny(destiny)">
+                                    <fa-icon 
+                                        style="color:red; cursor:pointer;"
+                                        class="fa-lg" 
+                                        icon="trash">
+                                    </fa-icon>
                                 </a>
                             </td>
                         </tr>
@@ -177,10 +183,11 @@
                                     {{modelExp.amount | currency}}
                                 </td>
                                 <td class="col-1 text-right">
-                                    <a  placement="bottom" ngbTooltip="Eliminar este concepto de gasto" 
-                                        class="btn btn-danger text-white small" 
+                                    <a  
+                                        placement="bottom" 
+                                        ngbTooltip="Eliminar este concepto de gasto" 
                                         (click)="removeExpenditure(modelExp)">
-                                        <fa-icon class="fa-lg" icon="trash"></fa-icon>
+                                        <fa-icon style="color:red; cursor: pointer;" class="fa-lg" icon="trash"></fa-icon>
                                     </a>
                                 </td>
                             </tr>

@@ -97,6 +97,8 @@ namespace VR.Dto
         public Boolean IsDeleted {set; get; }
         public Boolean IsRefund { set; get; }
         public DateTime? FinalizeDate { set; get; }
+        public DateTime? BeginDate { set; get; }
+        public DateTime? EndDate { set; get; }
     }
 
     public class SolicitationIdDto

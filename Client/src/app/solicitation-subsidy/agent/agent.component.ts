@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { FileNumberComponent } from './../../modals/file-number/file-number.component';
 import { Component, OnInit } from '@angular/core';
@@ -35,23 +36,24 @@ export class AgentComponent implements OnInit {
    transports : any;
    sizeIcon = "fa-lg";
    isRefund = {'isRefund' : true , 'isNotRefund' : false}
+   today : string = this.pipeService.transform(new Date(),'yyyy/MM/dd');
 
   constructor(
             private solicitationSubsidyservice : SolicitationSubsidyService,
             private transportService : TransportService,
-            private modalService: NgbModal,
             private routerService : Router,
+            private modalService: NgbModal,
             private spinner: NgxSpinnerService,
             private titleService : Title,
-            private toastrService : ToastrService
+            private toastrService : ToastrService,
+            private pipeService : DatePipe
             ) { 
               this.titleService.setTitle('Mis Solicitudes de Viático');
             }
 
   ngOnInit() {
     this.getAll(this.filters);
-    this.getAllTransport();
-    
+    this.getAllTransport();    
   }
 
   loadPage(page : any) {
@@ -140,6 +142,31 @@ export class AgentComponent implements OnInit {
         x => {
             this.spinner.hide();
             this.toastrService.success("La solicitud de viático se ha enviado correctamente.",'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
+            this.getAll(this.filters);
+          }
+        ,
+        e =>{
+          this.spinner.hide();
+          e = e.error.errors.error || [];
+          e.forEach(err => {
+            this.toastrService.error(err,'',
+            {positionClass : 'toast-top-center', timeOut : 3000});
+          });
+          this.getAll(this.filters);
+        }
+      );
+    } 
+
+    sendAccountForSolicitationToSupervisor(id : number){
+      let newSolicitation = new SolicitationIdDto();
+      newSolicitation.id = id;
+      this.spinner.show();
+      this.solicitationSubsidyservice.sendAccountForToSupervisor(newSolicitation)
+      .subscribe(
+        x => {
+            this.spinner.hide();
+            this.toastrService.success("La rendición de una solicitud de viático se ha enviado correctamente.",'',
             {positionClass : 'toast-top-center', timeOut : 3000});
             this.getAll(this.filters);
           }

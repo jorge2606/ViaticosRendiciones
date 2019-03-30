@@ -57,6 +57,8 @@ export class AllSolicitationSubsidyDto extends SolicitationSubsidyBaseDto{
     fileNumber : string;
     fullName : string;
     localities : string;
+    beginDate : Date;
+    endDate : Date;
 }
 
 export class DetailSolicitationSubsidyDto{

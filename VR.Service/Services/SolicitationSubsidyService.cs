@@ -196,6 +196,7 @@ namespace VR.Service.Services
             {
                 Expenditure newExpenditure = new Expenditure();
                 var findExp = _dataContext.Expenditures.FirstOrDefault(q => q.Id == expenditure.Id);
+                var imageExist = new File();
 
                 if (findExp == null)
                 {
@@ -206,19 +207,22 @@ namespace VR.Service.Services
                     newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
                     newExpenditure.AccountedForAmount = expenditure.AccountedForAmount;
                     _dataContext.Expenditures.Add(newExpenditure);
+                    imageExist = _dataContext.Files
+                        .FirstOrDefault(p => p.ExpenditureId == newExpenditure.Id);
                 }
                 else
                 {
 
                      findExp.AccountedForAmount = expenditure.AccountedForAmount;
                     _dataContext.Expenditures.Update(findExp);
+                    imageExist = _dataContext.Files
+                        .FirstOrDefault(p =>p.ExpenditureId == findExp.Id);
                 }
 
                 string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
                 byte[] data = Convert.FromBase64String(base64);
 
-                var imageExist = _dataContext.Files.FirstOrDefault(p =>
-                    p.ExpenditureId == (findExp == null ? newExpenditure.Id : expenditure.Id));
+
 
                 if (imageExist == null)
                 {
@@ -226,7 +230,7 @@ namespace VR.Service.Services
                     {
                         Id = new Guid(),
                         MimeType = expenditure.ImageDto.Type,
-                        ExpenditureId = findExp == null ? newExpenditure.Id : expenditure.Id,
+                        ExpenditureId = ((findExp == null) ? newExpenditure.Id : expenditure.Id),
                         Image = data,
                         Size = expenditure.ImageDto.Size,
                         Name = expenditure.ImageDto.Name,
@@ -648,6 +652,171 @@ namespace VR.Service.Services
                     Tittle = isRefundTextOrSolicitation,
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
                                "Ha enviado : "+ isRefundTextOrSolicitation,
+                    UserId = supervisor.SupervisorId,
+                    CreationTime = DateTime.Today,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitation.UserId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Today,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+            _dataContext.SolicitationStates.Add(solicitationState);
+
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<string>(supervisor.Supervisors.Email);
+        }
+
+
+        public async Task<ServiceResult<string>> SendAccuountForSolicitationToSupervisorAsync(SolicitationIdDto accountForSolicitation)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .Include(x => x.Expenditures).ThenInclude(q => q.ExpenditureType)
+                .Include(destiny => destiny.Destinies).ThenInclude(country => country.Country)
+                .Include(destiny => destiny.Destinies).ThenInclude(prov => prov.Province)
+                .Include(destiny => destiny.Destinies).ThenInclude(city => city.City)
+                .Include(destiny => destiny.Destinies).ThenInclude(q => q.Category)
+                .Include(destiny => destiny.Destinies).ThenInclude(q => q.Transport)
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == accountForSolicitation.Id);
+
+
+            var notifications = new ServiceResult<string>();
+
+            if (solicitation == null)
+            {
+                notifications.AddError("error", "Esta solicitud ya no existe en la base de datos");
+                return notifications;
+            }
+
+
+            var supervisor = _dataContext.SupervisorUserAgents
+                .Include(sup => sup.Supervisors)
+                .FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+            if (supervisor == null)
+            {
+                notifications.AddError("error", "Usted no tiene ningún supervisor asignado");
+                return notifications;
+            }
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<string>("");
+            }
+
+            var emailSupervisor = supervisor.Supervisors.Email;
+            var supervisorsLastName = supervisor.Supervisors.LastName;
+            var supervisorsFirstName = supervisor.Supervisors.FirstName;
+            var userLastName = solicitation.User.LastName;
+            var userFirstName = solicitation.User.FirstName;
+
+            var headTable = "<table>" +
+                "<thead>" +
+                "<tr>" +
+                    "<th> Destino </ th > "+
+                    "<th> Dias </th> "+
+                    "<th> Importe </th> "+
+                "</tr>" +
+                "</thead>" +
+                            "<tbody>";
+            var row = "";
+            var rowAcountFor = "";
+
+            foreach (Destiny x in solicitation.Destinies)
+            {
+
+                row = row + "<tr>" +
+                              "<td>" + ( (x.Country != null) ? x.Country.Name : (x.Province.Name +" "+ x.City.Name)) + "</td>" +
+                              "<td>" + x.Days + "</td>" +
+                              "<td>" + "$"+(x.Days * x.PercentageCodeLiquidation * x.AdvanceCategory) + "</td>" +
+                            "</tr>";
+                rowAcountFor = rowAcountFor + 
+                          "<tr>" +
+                            "<td>" + ( (x.Country == null) ? (x.Province.Name +" "+ x.City.Name) : x.Country.Name) + "</td>" +
+                            "<td>" + x.AccountedForDays + "</td>" +
+                            "<td>" + "$"+(x.AccountedForDays * x.PercentageCodeLiquidation * x.AdvanceCategory) + "</td>" +
+                          "</tr>";
+            }
+            var TableDestinies = headTable + row + "</tbody></table>";
+            var TableAccountForDestinies = headTable + rowAcountFor + "</tbody></table>";
+
+            var headTableExp = "<table>" +
+                            "<thead>" +
+                                "<tr>" +
+                                    "<th> Gasto </th>" +
+                                    "<th> Descripción </th> " +
+                                    "<th> Importe </th> " +
+                                "</tr>" +
+                            "</thead>" +
+                            "<tbody>";
+            var rowExp = "";
+            var rowAccountForExp = "";
+            foreach (var x in solicitation.Expenditures)
+            {
+                rowExp = rowExp + "<tr>" +
+                      "<td>" + x.ExpenditureType.Name + "</td>" +
+                      "<td>" + x.Description + "</td>" +
+                      "<td>" + "$"+x.Amount + "</td>" +
+                      "</tr>";
+                rowAccountForExp = rowAccountForExp + "<tr>" +
+                       "<td>" + x.ExpenditureType.Name + "</td>" +
+                       "<td>" + x.Description + "</td>" +
+                       "<td>" + "$"+x.AccountedForAmount + "</td>" +
+                      "</tr>";
+            }
+            var tableExpenditures = headTableExp + rowExp + "</tbody></table>";
+            var tableAccountForExpenditures = headTableExp + rowAccountForExp + "</tbody></table>";
+
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/confirm/{0}", solicitation.Id);
+
+            var html = "<!DOCTYPE html>" +
+                       "<html>" +
+                           "<head>" +
+                               "<meta charset = 'UTF-8'>" +
+                               "<title> Title of the document </title>" +
+                            "</head>" +
+                               "<body>" +
+                               "<p>" +
+                               "Hola " + supervisorsLastName + ", " + supervisorsFirstName + "<br>" +
+                               "El Agente " + userLastName + ", " + userFirstName + " ha enviado la rendición de una solicitud de viático." +
+                               TableDestinies +" "+ TableAccountForDestinies
+                               + "<br>" +
+                               tableExpenditures + " "+ tableAccountForExpenditures +
+                               "Saludos" +
+                               "</p> <br>" +
+                               " <a href='" + url + "'> Ingresar </a> " +
+                               "</body>" +
+                       "</html>";
+            var emailSended = await _emailSender.SendEmail(emailSupervisor, "rendición de una solicitud de viático", html);
+            if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
+            {
+                if (emailSended.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    notifications.AddError("error", "La clave api expiró , está mal escrito o es errónea");
+                }
+
+                notifications.AddError("error", "La rendición de una solicitud de viático no pudo ser enviada al correo del supervisor.");
+                
+                return notifications;
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                StateId = State.Accounted,
+            };
+
+            _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Rendición de una solicitud de viático",
+                    TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
+                               "Ha enviado : " + "Rendición de una solicitud de viático",
                     UserId = supervisor.SupervisorId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,

@@ -98,6 +98,18 @@ namespace VR.Web.Controllers
             return Ok();
         }
 
+        [HttpPost("sendAccountForToSupervisor")]
+        public async Task<IActionResult> SendAccountForToSupervisor([FromBody] SolicitationIdDto solicitation)
+        {
+            var result = await _solicitationSubsidyService.SendAccuountForSolicitationToSupervisorAsync(solicitation);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok();
+        }
+
         [HttpPost("overlaping")]
         [Authorize]
         public IActionResult OverlapingDate([FromBody] OverlapingDatesAndTransportsDto overlaping)

@@ -48,6 +48,10 @@ export class SolicitationSubsidyService {
     return this.http.post(environment.apiUrl+"SolicitationSubsidy/sendSolicitation/",solicitation);
   }
 
+  sendAccountForToSupervisor(solicitation : SolicitationIdDto){
+    return this.http.post(environment.apiUrl+"SolicitationSubsidy/sendAccountForToSupervisor/",solicitation);
+  }
+
   Acepted(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedSolicitation",solicitation);
   }

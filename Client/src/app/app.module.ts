@@ -81,7 +81,7 @@ import { NgbDateFRParserFormatter } from './holidays/ngb-parseFormatter';
 import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.component';
 import { AddExpenditureRepaymentComponent } from './modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 library.add(fas);
 
@@ -173,7 +173,8 @@ library.add(fas);
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
       Title,
       I18n, {provide: NgbDatepickerI18n, useClass: CustomLanguageDatepickerI18n},
-      CurrencyPipe
+      CurrencyPipe,
+      DatePipe
     ],
    entryComponents: [
       NgbdModalContent,

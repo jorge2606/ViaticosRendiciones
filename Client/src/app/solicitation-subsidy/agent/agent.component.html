@@ -224,7 +224,7 @@
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
 
-                  <a *ngIf="finalizeDate == null"
+                  <a *ngIf="finalizeDate == null && ( today >= pipeService.transform(sol.beginDate,'yyyy/MM/dd') || today <= pipeService.transform(sol.endDate,'yyyy/MM/dd'))"
                     placement="bottom" 
                     ngbTooltip="Finalizar viático" 
                     (click)="finalizeSubsidy(sol)"
@@ -242,6 +242,32 @@
                     class="pr-3">
                     <fa-icon class="{{sizeIcon}}" icon="file-invoice-dollar"></fa-icon>
                   </a>
+                  <a 
+                    *ngIf="!sol.isRefund"
+                    class="pr-3" 
+                    placement="bottom" 
+                    ngbTooltip="Eliminar esta rendición de solicitud de viático" 
+                    routerLink="/SolicitationSubsidy/agent"
+                    (click)="openEliminar(sol)">
+                    <fa-icon 
+                      style="color:red;"
+                      icon="trash" class="{{sizeIcon}}">
+                    </fa-icon>
+                  </a>
+                  <a 
+                      *ngIf="!sol.isRefund"
+                      href="" 
+                      routerLink="/SolicitationSubsidy/agent"
+                      class="pr-3" 
+                      (click)="sendAccountForSolicitationToSupervisor(sol.id)">
+                    <fa-icon 
+                      placement="top" 
+                      ngbTooltip="Enviar rendición de solicitud al supervisor" 
+                      class="{{sizeIcon}}" 
+                      style="color: black;" 
+                      icon="envelope">
+                    </fa-icon>
+                </a>
               </td>
               <td *ngIf="sol.state == 'Rendido'" class="col text-right"></td>
               <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>

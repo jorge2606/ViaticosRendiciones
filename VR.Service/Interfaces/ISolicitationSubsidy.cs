@@ -16,6 +16,8 @@ namespace VR.Service.Interfaces
         ServiceResult<DeleteSolicitationSubsidyDto> FinalizeSubsidy(Guid id);
         ServiceResult<UpdateSolicitationSubsidyDto> Update(UpdateSolicitationSubsidyDto subsidy);
         Task<ServiceResult<string>> SendSolicitationAsync(SolicitationIdDto solicitationdDto);
+        Task<ServiceResult<string>> SendAccuountForSolicitationToSupervisorAsync(
+            SolicitationIdDto accountForSolicitation);
         ServiceResult<SolicitationIdDto> AceptedSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates);

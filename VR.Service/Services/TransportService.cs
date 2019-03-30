@@ -42,7 +42,8 @@ namespace VR.Service.Services
                 .AddDays(transport.Days);
 
             var destinies = _dataContext.Destinies
-                .Where(x => 
+                .Include(c => c.SolicitationSubsidy)
+                .Where( x => 
                     x.TransportId == transport.Id && 
                     !(x.StartDate.AddDays(x.Days) < startDate || x.StartDate > endDate)
                 );
@@ -57,8 +58,18 @@ namespace VR.Service.Services
 
             if (destinies.Count() > 0)
             {
-                resultDates.AddError(NotificationType.Error.ToString(), 
-                    "Este transporte ya esta solicitado");
+                foreach (var destiny in destinies)
+                {
+                    var stateSolicitation = _dataContext.SolicitationStates
+                        .Where(x => x.SolicitationSubsidyId == destiny.SolicitationSubsidyId)
+                        .OrderBy(q => q.ChangeDate).FirstOrDefault();//obtengo el estado de la solicitud
+
+                    if (stateSolicitation.StateId == State.Sent || stateSolicitation.StateId == State.Accepted && !destiny.SolicitationSubsidy.IsRefund)
+                    {
+                        resultDates.AddError(NotificationType.Error.ToString(),
+                            "Este transporte ya esta solicitado");
+                    }
+                }
             }
 
             return resultDates;
