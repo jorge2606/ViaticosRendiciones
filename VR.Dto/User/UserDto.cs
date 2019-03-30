@@ -61,6 +61,7 @@ namespace VR.Dto.User
         public Guid CategoryId { set; get; }
         public string CategoryName { set; get; }
         public string CategoryDescription { set; get; }
+        public Decimal CategoryAdvance { set; get; }
         public Boolean IsDeleted { set; get; }
     }
 

@@ -15,6 +15,7 @@ export class User{
   categoryId : number;
   categoryName : string;
   categoryDescription : string;
+  categoryAdvance : number;
   distributionDescription: string;
   distributionName: string;
 

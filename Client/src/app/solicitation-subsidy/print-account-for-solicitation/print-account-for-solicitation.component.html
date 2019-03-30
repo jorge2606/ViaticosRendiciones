@@ -1,0 +1,134 @@
+<div class="container mb-1">
+          
+  <div class="form-row"> 
+      <button class="btn btn-primary ml-auto mt-1" (click)="download()">
+          <fa-icon icon="download"></fa-icon> Descargar
+      </button>
+  </div>
+</div>
+
+<div id="iframeId">
+  <img [src]="stringIframe" alt="">
+  <!--<iframe [src]="stringIframe"  frameborder="1" width="100%" height="1000px"></iframe>-->
+</div>
+
+<ngx-spinner 
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#ffffff"
+fullScreen="true"
+type="ball-scale-multiple">
+<p style="font-size: 20px; color: white">Cargando...</p>>
+</ngx-spinner>
+
+<!--<img src="{{previewImage}}" id="print-img" [hidden]="!previewImage" alt="">
+-->
+<div id="container-print" [hidden] = "hideHtml"  class="container">
+  <div class="form-row" style="border: 3px black double;">
+
+    <div class="form-col">
+      <table>
+          <thead>
+            <tr><b><u>AGENTE / FUNCIONARIO COMISIONADO:</u></b></tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>Apellido y Nombres completos: <b>{{lastName}}, {{firstName}}</b> </td>
+              </tr>
+              <tr>
+                <td>Doc. Identidad: M.I.-L.C.-C.I.-D.N.I. Nº: <b>{{dni}}</b></td> 
+              </tr>
+              <tr style="border-top: 2px black solid;"> <b><u>SITUACION QUE REVISTA EN EL PRESUPUESTO: </u></b></tr>
+              <tr>
+                <td>Categoría: <b>{{categoryName}}-{{categoryDescription}}</b></td>
+              </tr>
+              <tr>
+                <td>Importe Diario por Viáticos <b>{{categoryAdvance | currency}}</b></td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+
+   <div class="w-100"></div>
+
+   <div class="form-col mt-1">
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+              <td><u><b> JURISDICCIÓN: </b></u> <b>{{distributionName}}-{{distributionDescription}}</b></td>
+          </tr>
+          <tr>
+              <td>Organismo donde presta Servicios el	Agente/Funcionario Comisionado:	</td>
+          </tr>
+        </tbody>
+      </table>
+   </div>
+
+   <div class="w-100"></div>
+
+   <div class="form-col mt-1">
+      <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr style="border-top: 2px black solid;">Comisión a la(s) localidad(es):	<b>Curuzu Cuatia</b> </tr>
+            <tr>Autorizado por: <b>Supervisor</b> </tr>
+            <tr>según Resolución Nº ...........	del: ............ Expte./Actuac. Nº .............	</tr>
+            <tr>Medio de Transporte Autorizado: <b>Automovil Peugeot NYG204</b> </tr>
+        </tbody>
+      </table>
+   </div>
+
+   <div class="w-100"></div>
+
+   <div class="form-col mt-1">
+    <table>
+      <thead>
+      </thead>
+      <tbody>
+        <tr style="border-top: 2px black solid;">
+            Comisión Iniciada el:	<b>2/9/2018	2/9/2018</b> a las	<b>8:30</b>	Horas
+        </tr>
+        <tr>
+            Comisión Finalizada el:	<b>2/9/2018	2/9/2018</b> a las	<b>8:30</b>	Horas
+        </tr>
+        <tr>
+            Días de duración de la Comisión: <b>1,0(Un)</b>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+   <div class="w-100"></div>
+
+   <div class="form-col mt-1">
+    <table style="border-top: 2px black solid;">
+      <thead>
+        <tr class="text-center"> <h5><b>COMPROBANTES PRESENTADOS</b></h5> </tr>
+        <tr>
+          <td>N° de Orden</td>
+          <td>Fecha del comprobante</td>
+          <td>Otorgado por: </td>
+          <td>En concepto de:	</td>
+          <td>Importe del Comprobante</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>000</td>
+          <td>03/05/1994</td>
+          <td>sdsadsadsad</td>
+          <td>asdasdasdsad</td>
+          <td>333333333333333333</td>
+        </tr>
+        <tr>
+          <td></td> <td></td> <td></td> <td></td> <td>Total......$ 620.00</td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+  </div>     
+</div>

@@ -41,6 +41,7 @@ import { ModifyHolidaysComponent } from './holidays/modify/modify-holidays.compo
 import { PrintComponent } from './solicitation-subsidy/print/print.component';
 import { SupervisorComponent } from './solicitation-subsidy/supervisor/supervisor.component';
 import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.component';
+import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -160,6 +161,7 @@ const routes: Routes = [
       { path: 'modify/:id',data: {breadcrumb: 'modificar',isHome: false,show: true},component : CreateSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'confirm/:id',data: {breadcrumb: 'confirmar',isHome: false,show: true}, component : AceptOrRefuseComponent, canActivate : [AuthGuard]},
       { path: 'print/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintComponent, canActivate : [AuthGuard]},
+      { path: 'printAccountFor/:id', data: {breadcrumb: 'vista previa',isHome: false,show: true}, component : PrintAccountForSolicitationComponent, canActivate : [AuthGuard]},
       { path: 'repayment',data: {breadcrumb: 'reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
       { path: 'repayment/update/:id',data: {breadcrumb: 'modificar reintegro',isHome: false,show: true}, component : RepaymentComponent, canActivate : [AuthGuard]},
       { path: 'accountFor/:id',data: {breadcrumb: 'Rendición de gastos',isHome: false,show: true}, component : AccountForComponent, canActivate : [AuthGuard]}  

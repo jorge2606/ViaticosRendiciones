@@ -83,6 +83,7 @@ import { AddExpenditureRepaymentComponent } from './modals/add-expenditure-repay
 import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { DetailAccountForSolicitationComponent } from './solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
+import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
 
 library.add(fas);
 
@@ -146,7 +147,8 @@ library.add(fas);
       RepaymentComponent,
       AddExpenditureRepaymentComponent,
       AccountForComponent,
-      DetailAccountForSolicitationComponent
+      DetailAccountForSolicitationComponent,
+      PrintAccountForSolicitationComponent
    ],
    imports: [
       BrowserModule,
