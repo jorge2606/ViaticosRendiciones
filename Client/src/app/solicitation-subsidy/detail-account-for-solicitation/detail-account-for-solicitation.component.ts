@@ -31,7 +31,7 @@ export class DetailAccountForSolicitationComponent implements OnInit {
     private activatedRoute : ActivatedRoute,
     private router : Router,
     private solicitationSubsidyService : SolicitationSubsidyService,
-    public activeModal: NgbActiveModal,
+    public  activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService,
     private authService : AuthenticationService
