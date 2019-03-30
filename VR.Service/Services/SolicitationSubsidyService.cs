@@ -800,7 +800,7 @@ namespace VR.Service.Services
                        "<html>" +
                            "<head>" +
                                "<meta charset = 'UTF-8'>" +
-                               "<title> Title of the document </title>" +
+                               "<title> Rendición de una solicitud de viático </title>" +
                             "</head>" +
                                "<body>" +
                                "<p>" +
@@ -840,7 +840,7 @@ namespace VR.Service.Services
                 {
                     Tittle = "Rendición de una solicitud de viático",
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
-                               "Ha enviado : " + "Rendición de una solicitud de viático",
+                               "Ha enviado una : Rendición de una solicitud de viático",
                     UserId = supervisor.SupervisorId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
@@ -888,6 +888,48 @@ namespace VR.Service.Services
                 {
                     Tittle = "Su "+ isRefundTextOrSolicitation + " fue aceptada",
                     TextData = "Su "+ isRefundTextOrSolicitation + " fue aceptada",
+                    UserId = solicitation.UserId,
+                    CreationTime = DateTime.Today,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitationDto.SupervisorId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Today,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
+
+        public ServiceResult<SolicitationIdDto> AceptedAccountForSolicitation(SolicitationIdDto solicitationDto)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<SolicitationIdDto>(null);
+            }
+
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                StateId = State.AccountForAcepted,
+                SupervisorId = solicitationDto.SupervisorId
+            };
+
+            _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Su rendición de una solicitud de viático fue aceptada",
+                    TextData = "Su rendición de una solicitud de viático fue aceptada",
                     UserId = solicitation.UserId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
@@ -975,8 +1017,8 @@ namespace VR.Service.Services
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
-                    Tittle = "Su la rendición de una solicitud de viático fue rechazada",
-                    TextData = "Su la rendición de una solicitud de viático fue rechazada",
+                    Tittle = "Su rendición de una solicitud de viático fue rechazada",
+                    TextData = "Su rendición de una solicitud de viático fue rechazada",
                     UserId = solicitation.UserId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,

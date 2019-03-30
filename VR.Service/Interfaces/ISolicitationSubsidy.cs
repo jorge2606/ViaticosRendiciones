@@ -25,6 +25,7 @@ namespace VR.Service.Interfaces
         ServiceResult<Guid> SolicitationApprovedBySupervisorId(Guid id);
         ServiceResult<string> WichStateSolicitation(Guid solicitationId);
         ServiceResult<SolicitationIdDto> RefusedAccountForSolicitation(SolicitationIdDto solicitationDto);
+        ServiceResult<SolicitationIdDto> AceptedAccountForSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<FindByIdSolicitationSubsidyWhitStateDto> GetByIdSubsidyWhitState(Guid id);
     }
 }

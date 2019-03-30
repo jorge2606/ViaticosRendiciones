@@ -51,7 +51,7 @@ export class AceptOrRefuseComponent implements OnInit {
   }
 
   acepted(){
-    this.solicitationSubsidyService.Acepted(this.model)
+    this.solicitationSubsidyService.acepted(this.model)
     .subscribe(
       x => {this.msjSuccess = 'Solicitud Aceptada'}
       ,error => {this.msjError='Error'}

@@ -54,10 +54,13 @@ export class SolicitationSubsidyService {
     return this.http.post(environment.apiUrl+"SolicitationSubsidy/sendAccountForToSupervisor/",solicitation);
   }
 
-  Acepted(solicitation : SolicitationIdDto){
+  acepted(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedSolicitation",solicitation);
   }
 
+  aceptedAccountForSolicitation(solicitation : SolicitationIdDto){
+    return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedAccountForSolicitation",solicitation);
+  }
   refused(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/RefusedSolicitation",solicitation);
   }

@@ -274,6 +274,26 @@
               </td>
               <td *ngIf="sol.state == 'Rendido'" class="col text-right"></td>
               <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
+              <td *ngIf="sol.state == 'Rendición Aceptada'" class="col text-right">
+                <a *ngIf="!sol.isRefund"
+                  placement="bottom" 
+                  ngbTooltip="Imprimir esta rendición de una solicitud de viático" 
+                  href="" routerLink="print/{{sol.id}}" class="pr-3">
+                  <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
+                </a>
+                <a 
+                  *ngIf="!sol.isRefund"
+                  class="pr-3" 
+                  placement="bottom" 
+                  ngbTooltip="Eliminar esta rendición de solicitud de viático" 
+                  routerLink="/SolicitationSubsidy/agent"
+                  (click)="openEliminar(sol)">
+                  <fa-icon 
+                    style="color:red;"
+                    icon="trash" class="{{sizeIcon}}">
+                  </fa-icon>
+                </a>
+              </td>
               <td *ngIf="sol.state == 'Rendición Rechazada'" class="col text-right">
                 <a
                   *ngIf="!sol.isRefund"

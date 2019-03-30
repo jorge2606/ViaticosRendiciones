@@ -73,7 +73,7 @@ export class DetailAccountForSolicitationComponent implements OnInit {
     let newSolicitationId = new SolicitationIdDto();
     newSolicitationId.id = this.id;
     newSolicitationId.fileNumber = "";
-    this.solicitationSubsidyService.Acepted(newSolicitationId)
+    this.solicitationSubsidyService.aceptedAccountForSolicitation(newSolicitationId)
     .subscribe(
       () => {this.activeModal.close()}
     );
