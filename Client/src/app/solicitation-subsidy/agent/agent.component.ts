@@ -167,38 +167,39 @@ export class AgentComponent implements OnInit {
         .subscribe(carIsBeingUsed => {
           var ListNotifications : errorDto[] = carIsBeingUsed;
 
-          ListNotifications.forEach(
-            not =>{
-              if(!not.response){
-                let newSolicitation = new SolicitationIdDto();
-                newSolicitation.id = sol.id;
-                this.spinner.show();
-                this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
-                .subscribe(
-                  x => {
-                      this.spinner.hide();
-                      this.toastrService.success("La solicitud de viático se ha enviado correctamente.",'',
-                      {positionClass : 'toast-top-center', timeOut : 3000});
-                      this.getAll(this.filters);
-                    }
-                  ,
-                  e =>{
+          if (ListNotifications.length == 0){
+              let newSolicitation = new SolicitationIdDto();
+              newSolicitation.id = sol.id;
+              this.spinner.show();
+              this.solicitationSubsidyservice.sendSolicitationByEmail(newSolicitation)
+              .subscribe(
+                x => {
                     this.spinner.hide();
-                    e = e.error.errors.error || [];
-                    e.forEach(err => {
-                      this.toastrService.error(err,'',
-                      {positionClass : 'toast-top-center', timeOut : 3000});
-                    });
+                    this.toastrService.success("La solicitud de viático se ha enviado correctamente.",'',
+                    {positionClass : 'toast-top-center', timeOut : 3000});
                     this.getAll(this.filters);
                   }
-                );
-              }else{
-                var result = not.errors.Error || [];
-                result.forEach(e=>{
-                  this.toastrService.info(e,'',
-                  {timeOut : 2000, positionClass: 'toast-top-right'});
-                });
-              }  
+                ,
+                e =>{
+                  this.spinner.hide();
+                  e = e.error.errors.error || [];
+                  e.forEach(err => {
+                    this.toastrService.error(err,'',
+                    {positionClass : 'toast-top-center', timeOut : 3000});
+                  });
+                  this.getAll(this.filters);
+                }
+              );
+            
+          }
+
+          ListNotifications.forEach(
+            not =>{
+              var result = not.errors.Error || [];
+              result.forEach(e=>{
+                this.toastrService.info(e,'',
+                {timeOut : 2000, positionClass: 'toast-top-right'});
+              });
             }
           );
 
