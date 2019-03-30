@@ -14,6 +14,7 @@ import { NotifyRejectComponent } from '../modals/notify-reject/notify-reject.com
 import { SolicitationSubsidydetailComponent } from '../solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { Router } from '@angular/router';
 import { GenericsCommunicationsComponentsService } from '../_services/generics-communications-components.service';
+import { DetailAccountForSolicitationComponent } from '../solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
 
 @Component({
   selector: 'app-navar',
@@ -22,7 +23,7 @@ import { GenericsCommunicationsComponentsService } from '../_services/generics-c
 })
 export class NavarComponent implements OnInit {
 
-  constructor(private notificaionServices : NotificationsService, 
+  constructor(private notificationServices : NotificationsService, 
               private authService : AuthenticationService,
               private messaBetweenComp : MessBetweenCompService,
               private modalService: NgbModal,
@@ -45,7 +46,7 @@ export class NavarComponent implements OnInit {
 
 
   retriveNotifications(){
-    this.notificaionServices.getAllNotifications().subscribe(
+    this.notificationServices.getAllNotifications().subscribe(
       x => {
             this.notification = x;
             this.cantNotif = this.notification.length;
@@ -114,26 +115,47 @@ export class NavarComponent implements OnInit {
       this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
       .subscribe(user => {
           if (user){//si es verdadero entonces este mensaje es de uno de mis agentes
-            this.notificaionServices.notificationRidden(notificationridden).subscribe(
-              () =>{
-                  this.retriveNotifications();
-                  const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
-                  modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-                  modalRef.result.then(() => { 
-                    console.log(this.router.url);
-                    this.router.navigate([this.router.url])
-                  },
-                  () => {
-                      console.log('Backdrop click');
-                  })
-                } 
-            )
+            this.solicitationSubsidyService.getBySolicitationIdWhitState(notificationridden.solicitationSubsidyId)
+            .subscribe(
+              solicitation => {
+                  if (!solicitation.finalizeDate){//si no es una rendición
+                      this.notificationServices.notificationRidden(notificationridden).subscribe(
+                        () =>{
+                            this.retriveNotifications();
+                            const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+                            modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                            modalRef.result.then(() => { 
+                              console.log(this.router.url);
+                              this.router.navigate([this.router.url])
+                            },
+                            () => {
+                                console.log('Backdrop click');
+                            })
+                          } 
+                      );
+                  }else{
+                    this.notificationServices.notificationRidden(notificationridden).subscribe(
+                      () =>{
+                            const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
+                            modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                            modalRef.result.then(() => { 
+                              this.router.navigate([this.router.url])
+                            },
+                            () => {
+                                console.log('Backdrop click');
+                            });      
+                        } 
+                    );
+                  }
+              }
+            );
+
           }else{
             this.solicitationSubsidyService.wichStateSolicitation(notificationridden.solicitationSubsidyId)
             .subscribe(solicitationState => {
               if (solicitationState.description == 'Rechazado'){
                 //significa que es mi supervisor y la nootificación es para mi
-                this.notificaionServices.notificationRidden(notificationridden).subscribe(
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
                       const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
@@ -150,9 +172,13 @@ export class NavarComponent implements OnInit {
                     } 
                 )
               }
+              
+              if (solicitationState.description === 'Rendición Rechazada'){
+                this.router.navigateByUrl('SolicitationSubsidy/agent/accountFor/'+notificationridden.solicitationSubsidyId);
+              }
 
               if(solicitationState.description == 'Aceptado'){
-                this.notificaionServices.notificationRidden(notificationridden).subscribe(
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
                       this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
@@ -189,7 +215,7 @@ export class NavarComponent implements OnInit {
     modalRef.componentInstance.MsgCloseClass = "btn-default";
     modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
     modalRef.result.then(() => {
-          this.notificaionServices.delete(id).subscribe(
+          this.notificationServices.delete(id).subscribe(
             ()=>{
               
             }

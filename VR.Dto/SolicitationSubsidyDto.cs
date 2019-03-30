@@ -66,6 +66,13 @@ namespace VR.Dto
         public Guid UserId { set; get; }
         public UserDto User { set; get; }
         public Boolean IsRefund { set; get; }
+        public DateTime FinalizeDate { set; get; }
+    }
+
+    public class FindByIdSolicitationSubsidyWhitStateDto
+    {
+        public string State { set; get; }
+        public DateTime? FinalizeDate { set; get; }
     }
 
     public class FindByIdRefundDto

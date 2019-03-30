@@ -11,7 +11,13 @@
   <div *ngFor="let j of Contenido" >
     <div class="form-row h-10 small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">   
       <div class="col">
-            <h6>{{j.textData}}</h6><a href="#" routerLink="{{router.url}}" (click)="seeThisNotification(j)"> Ir a solicitud</a>
+            <h6>{{j.textData}}</h6>
+            <a 
+              href="#" 
+              routerLink="{{router.url}}" 
+              (click)="seeThisNotification(j)"> 
+              Ir a solicitud
+            </a>
       </div> 
 
       <div style="cursor: pointer;" class="ml-auto mt-4">

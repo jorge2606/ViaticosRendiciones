@@ -86,6 +86,18 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("GetBySolicitationIdWhitState/{id}")]
+        public IActionResult GetBySolicitationIdWhitState(Guid id)
+        {
+            var result = _solicitationSubsidyService.GetByIdSubsidyWhitState(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpPost("sendSolicitation")]
         public async Task<IActionResult> SendSolicitation([FromBody] SolicitationIdDto solicitation)
         {
@@ -251,6 +263,20 @@ namespace VR.Web.Controllers
         {
             solicitationId.SupervisorId = GetIdUser();
             var result = _solicitationSubsidyService.RefusedSolicitation(solicitationId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
+        [HttpPost("RefusedAccountForSolicitation")]
+        [Authorize]
+        public IActionResult RefusedAccountForSolicitation([FromBody] SolicitationIdDto solicitationId)
+        {
+            solicitationId.SupervisorId = GetIdUser();
+            var result = _solicitationSubsidyService.RefusedAccountForSolicitation(solicitationId);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

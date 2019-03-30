@@ -8,6 +8,7 @@ import { NgbdModalContent } from '../modals.component';
 import { SolicitationSubsidydetailComponent } from 'src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
+import { DetailAccountForSolicitationComponent } from 'src/app/solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
 
 @Component({
   selector: 'app-list-notifications',
@@ -66,21 +67,47 @@ export class ListNotificationsComponent {
       );
    }
 
-  seeThisNotification(notificationridden : any) {
+   seeThisNotification(notificationridden : any) {
+    this.modalService.dismissAll();
     this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
     .subscribe(user => {
-        if (user){
-          this.notificationServices.notificationRidden(notificationridden).subscribe(
-            () =>{
-              this.retriveNotifications();
-                const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
-                modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-                modalRef.result.then(() => {    },
-                () => {
-                    console.log('Backdrop click');
-                })
-              } 
-          )
+        if (user){//si es verdadero entonces este mensaje es de uno de mis agentes
+          this.solicitationSubsidyService.getByIdSolicitation(notificationridden.solicitationSubsidyId)
+          .subscribe(
+            solicitation => {
+                if (!solicitation.finalizeDate){//si no es una rendición
+                 
+                  this.notificationServices.notificationRidden(notificationridden).subscribe(
+                    () =>{
+                        this.retriveNotifications();
+                        const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+                        modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                        modalRef.result.then(() => { 
+                          this.router.navigate([this.router.url])
+                        },
+                        () => {
+                            console.log('Backdrop click');
+                        })
+                      } 
+                  );
+                }else{
+                  this.notificationServices.notificationRidden(notificationridden).subscribe(
+                    () =>{
+                        this.retriveNotifications();
+                        const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
+                        modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                        modalRef.result.then(() => { 
+                          this.router.navigate([this.router.url])
+                        },
+                        () => {
+                            console.log('Backdrop click');
+                        })
+                      } 
+                  );
+                }
+            }
+          );
+
         }else{
           this.solicitationSubsidyService.wichStateSolicitation(notificationridden.solicitationSubsidyId)
           .subscribe(solicitationState => {
@@ -108,7 +135,7 @@ export class ListNotificationsComponent {
               this.notificationServices.notificationRidden(notificationridden).subscribe(
                 () =>{
                     this.retriveNotifications();
-                    this.router.navigateByUrl('print/'+notificationridden.solicitationSubsidyId);
+                    this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
                   } 
               )
             }
@@ -117,7 +144,9 @@ export class ListNotificationsComponent {
 
         }
     });
-  }
+
+}
+
 
   delete(id : number){
     const modalRef = this.modalService.open(NgbdModalContent);

@@ -397,6 +397,30 @@ namespace VR.Service.Services
                 _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
         }
 
+        public ServiceResult<FindByIdSolicitationSubsidyWhitStateDto> GetByIdSubsidyWhitState(Guid id)
+        {
+            var find = _dataContext.SolicitationSubsidies
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
+            var state = _dataContext.SolicitationStates
+                .Include(c => c.State)
+                .OrderBy(x => x.ChangeDate).FirstOrDefault()
+                .State.Description;
+
+            if (find == null)
+            {
+                return new ServiceResult<FindByIdSolicitationSubsidyWhitStateDto>(null);
+            }
+
+            return new ServiceResult<FindByIdSolicitationSubsidyWhitStateDto>(
+                new FindByIdSolicitationSubsidyWhitStateDto()
+                {
+                    State = state,
+                    FinalizeDate = find.FinalizeDate
+                }
+                );
+        }
+
         public ServiceResult<GetByIdSubsidyRpt> GetByIdSubsidyRpt(Guid solicitationId)
         {
             var UnidadOperativa = _dataContext.Rpt_unidadOperativa(solicitationId);
@@ -912,6 +936,47 @@ namespace VR.Service.Services
                 {
                     Tittle = "Su "+ isRefundTextOrSolicitation + " fue rechazada",
                     TextData = "Su "+ isRefundTextOrSolicitation + " fue rechazada",
+                    UserId = solicitation.UserId,
+                    CreationTime = DateTime.Today,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitationDto.SupervisorId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Today,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
+
+        public ServiceResult<SolicitationIdDto> RefusedAccountForSolicitation(SolicitationIdDto solicitationDto)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<SolicitationIdDto>(null);
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                StateId = State.AccountForRejected,
+                MotiveReject = solicitationDto.MotiveReject
+            };
+
+            _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Su la rendición de una solicitud de viático fue rechazada",
+                    TextData = "Su la rendición de una solicitud de viático fue rechazada",
                     UserId = solicitation.UserId,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,

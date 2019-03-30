@@ -240,7 +240,10 @@
                     href="" 
                     routerLink="accountFor/{{sol.id}}" 
                     class="pr-3">
-                    <fa-icon class="{{sizeIcon}}" icon="file-invoice-dollar"></fa-icon>
+                    <fa-icon 
+                      style="color:gray;"
+                      class="{{sizeIcon}}" 
+                      icon="edit"></fa-icon>
                   </a>
                   <a 
                     *ngIf="!sol.isRefund"
@@ -267,11 +270,53 @@
                       style="color: black;" 
                       icon="envelope">
                     </fa-icon>
-                </a>
+                  </a>
               </td>
               <td *ngIf="sol.state == 'Rendido'" class="col text-right"></td>
               <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
-              
+              <td *ngIf="sol.state == 'Rendición Rechazada'" class="col text-right">
+                <a
+                  *ngIf="!sol.isRefund"
+                  placement="bottom" 
+                  ngbTooltip="Reenviar rendición de un viático" 
+                  href="" 
+                  routerLink="accountFor/{{sol.id}}" 
+                  class="pr-3">
+                  <fa-icon 
+                    style="color:gray;"
+                    class="{{sizeIcon}}" 
+                    icon="edit">
+                  </fa-icon>
+                </a>
+
+                <a 
+                  *ngIf="!sol.isRefund"
+                  class="pr-3" 
+                  placement="bottom" 
+                  ngbTooltip="Eliminar esta rendición de solicitud de viático" 
+                  routerLink="/SolicitationSubsidy/agent"
+                  (click)="openEliminar(sol)">
+                  <fa-icon 
+                    style="color:red;"
+                    icon="trash" class="{{sizeIcon}}">
+                  </fa-icon>
+                </a>
+
+                <a 
+                  *ngIf="!sol.isRefund"
+                  href="" 
+                  routerLink="/SolicitationSubsidy/agent"
+                  class="pr-3" 
+                  (click)="sendAccountForSolicitationToSupervisor(sol.id)">
+                <fa-icon 
+                  placement="top" 
+                  ngbTooltip="Enviar rendición de solicitud al supervisor" 
+                  class="{{sizeIcon}}" 
+                  style="color: black;" 
+                  icon="envelope">
+                </fa-icon>
+              </a>
+              </td>
             </tr>
           </tbody>
         </table>

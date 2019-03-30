@@ -82,6 +82,7 @@ import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.c
 import { AddExpenditureRepaymentComponent } from './modals/add-expenditure-repayment/add-expenditure-repayment.component';
 import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { DetailAccountForSolicitationComponent } from './solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
 
 library.add(fas);
 
@@ -144,7 +145,8 @@ library.add(fas);
       CheckSpaceBlankOnInputDirective,
       RepaymentComponent,
       AddExpenditureRepaymentComponent,
-      AccountForComponent
+      AccountForComponent,
+      DetailAccountForSolicitationComponent
    ],
    imports: [
       BrowserModule,
@@ -185,7 +187,8 @@ library.add(fas);
       SolicitationSubsidydetailComponent,
       NotifyRejectComponent,
       FileNumberComponent,
-      AddExpenditureRepaymentComponent
+      AddExpenditureRepaymentComponent,
+      DetailAccountForSolicitationComponent
    ],
    bootstrap: [
       AppComponent

@@ -192,8 +192,10 @@
           </button>
           <button *ngIf="cantNotif != 0" class="btn btn-outline-light bell-size" id="dropdownManual" 
               ngbDropdownToggle (focus)="myDrop.open()">
-              <fa-icon  class="fa-lg" style="color:red;" icon="bell"></fa-icon>
-              <span style="background-color:red;" class="badge badge-primary badge-pill">{{notification.length}}</span>
+              <fa-icon  class="fa-lg" style="color:red; margin-left: -3px;" icon="bell"></fa-icon>
+              <span style="background-color:red; margin-left: -3px;" class="badge badge-primary badge-pill">
+                {{notification.length}}+
+              </span>
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownManual" class="p-1" style="width: max-content;">
               <div class="card p-2">
@@ -201,7 +203,10 @@
                       No hay notificaciones nuevas
                 </ul>
 
-                <button style="white-space :normal; cursor : pointer;" *ngFor="let j of notification" class="dropdown-item small alert" 
+                <button 
+                  style="white-space :normal; cursor : pointer;" 
+                  *ngFor="let j of notification" 
+                  class="dropdown-item small alert" 
                   [ngClass]="{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}"
                   (click)="seeThisNotification(j)">
                   <p style="font-size: 11px">{{j.textData}}</p>

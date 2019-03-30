@@ -35,6 +35,7 @@ export class SolicitationSubsidyBaseDto{
 
 export class SolicitationSubsidyDetail extends SolicitationSubsidyBaseDto{
     user : User;
+    finalizeDate : DateDto;
 }
 
 

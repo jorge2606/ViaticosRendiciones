@@ -34,7 +34,9 @@ export class SolicitationSubsidyService {
   getByIdSolicitation(solicitationSubsidyId : number){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/getBySolicitationId/"+solicitationSubsidyId);
   }
-
+  getBySolicitationIdWhitState(solicitationSubsidyId : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetBySolicitationIdWhitState/"+solicitationSubsidyId);
+  }
   delete(id : number){
      return this.http.delete<any>(environment.apiUrl+"SolicitationSubsidy/Delete/"+id);
   }
@@ -58,6 +60,10 @@ export class SolicitationSubsidyService {
 
   refused(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/RefusedSolicitation",solicitation);
+  }
+
+  refusedAccountForSolicitation(solicitation : SolicitationIdDto){
+    return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/RefusedAccountForSolicitation",solicitation);
   }
 
   overlapingDates(overlapDate : overlapingDto){

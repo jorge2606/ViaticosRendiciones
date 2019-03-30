@@ -1,0 +1,146 @@
+<div id="container-pdf" class="container small">
+  <div class="modal-header">
+
+    <h4 *ngIf="model.finalizeDate" class="modal-title pull-left">Detalle de rendición solicitud de víatico <br></h4>
+    <button (click)="activeModal.dismiss('Close click')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-header">
+      <h5 class="modal-title">Apellido, Nombre : {{lastName}}, {{firstName}} <br> C.U.I.L : {{dni}}</h5>
+  </div>
+  <div class="modal-body">
+        <div class="form-row">
+            <label for="">Motivo</label>
+            <textarea 
+              rows="10" 
+              style="height: 100px; resize: none;" 
+              class="h-45 form-control" 
+              value="{{model.motive}}"
+              disabled>
+            
+            </textarea>
+        </div>
+
+        <div class="form-row">
+            <label for="">Gastos</label>
+            <table class="table table-striped">
+              <thead>
+                <tr class="form-row">
+                  <th class="col-2" style="padding : 0px;">Concepto</th>
+                  <th class="col" style="padding : 0px;">Descripción</th>
+                  <th class="col-2 text-right" style="padding : 0px;">Importe</th>
+                  <th class="col-2">Comprobante</th>
+                  <th class="col-2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="form-row" *ngFor="let exp of model.expenditures">
+                  <td class="col-2" style="padding : 1px;">
+                    {{exp.expenditureTypeName}}
+                  </td>
+                  <td class="col" style="padding : 1px;">
+                    {{exp.description}}
+                  </td>
+                  <td class="col-2 text-right" style="padding : 1px;">
+                    {{exp.amount | currency}}
+                  </td>
+                  <td 
+                    class="col-2 text-center"
+                    placement="bottom" 
+                    ngbTooltip="Ver imagen"
+                    class="col-2 text-center p-0">
+                    <a  
+                        style="width: inherit;cursor: pointer;"
+                        (click)="toSeeImageBase64InNewTab(exp.urlImage)" 
+                        rel="noopener noreferrer">
+                        <!--<img style="width: inherit; height: 40px; cursor: pointer;" 
+                            [src]="exp.urlImage">-->
+                        <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="image"></fa-icon>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="form-row">
+            <label for="">Destinos</label>
+            <table class="table table-striped" style="padding :0;">
+              <thead>
+                <tr class="text-center" >
+                    <th scope="col" style="padding : 0px;">Fecha</th>
+                    <th scope="col" style="padding : 0px;">Destino</th>
+                    <th scope="col" style="padding : 0px;">Categoría</th>
+                    <th scope="col" style="padding : 0px;">Transporte</th>
+                    <th scope="col" style="padding : 0px;">Dias</th>
+                    <th scope="col" style="padding : 0px;">Precio/Dia</th>                      
+                    <th scope="col" style="padding : 0px;">Cod. Liq.</th>
+                    <th scope="col" style="padding : 0px;">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let des of model.destinies">
+                  <td style="padding : 1px;">
+                      {{des.startDate.day}}/{{des.startDate.month}}/{{des.startDate.year}}
+                  </td>
+                  <td style="padding : 1px;">
+                      <span *ngIf="des.countryId">{{des.countryName}} </span> 
+                      <span *ngIf="!des.countryId">{{des.provinceName}} - {{des.cityName}} </span>
+                      <span class="mr-1 cardInsideTd" *ngFor="let c of des.supplementaryCities"> 
+                          <span *ngIf="!des.countryId">, {{ c.name }}</span>
+                      </span>
+                  </td>
+                  <td style="padding : 1px;">
+                      {{des.categoryName}}
+                  </td>
+                  <td style="padding : 1px;">
+                      {{des.transportModel}} - {{des.transportBrand}}
+                  </td>
+                  <td class="text-center" style="padding : 1px;">
+                      {{des.days}}
+                  </td>
+                  <td class="text-right" style="padding : 1px;">
+                      {{des.advanceCategory | currency}}
+                  </td>
+                  <td class="text-center" style="padding : 1px;">
+                      {{des.percentageCodeLiquidation}}
+                  </td>
+                  <td class="text-right" style="padding : 1px;">
+                      {{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}
+                  </td> 
+                </tr>
+              </tbody>
+            </table>
+        </div>  
+        
+  </div>
+
+  <div class="modal-body">
+      <div class="form-row">
+          <div class="col-5 form-inline ml-auto">
+              <label for="" class="col-2">Total</label>
+              <input type="text" disabled value="{{model.total | currency}}" 
+              class="col form-control text-right small">
+          </div>
+        </div>
+  </div>
+</div>
+<div class="modal-footer mt-6">
+  <div class="mr-auto">
+      <a routerLink="{{currentUrl}}" (click)="acepted()" class="btn btn-success small">
+          Aceptar
+      </a>
+  </div>
+  <div class="ml-auto">
+      <a routerLink="{{currentUrl}}" (click)="AddMotive('reject','Motivo de Rechazo')" 
+          class="btn btn-danger small">
+          Rechazar
+      </a>
+  </div>
+  
+  <!--<div col="col ml-auto">
+      <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+  </div>-->
+</div> 
+
