@@ -1072,8 +1072,9 @@ namespace VR.Service.Services
         {
             var result = _dataContext.SolicitationStates
                 .Include(x => x.State)
+                .Where(x => x.SolicitationSubsidyId == solicitationId)
                 .OrderByDescending(x => x.ChangeDate)
-                .FirstOrDefault(x => x.SolicitationSubsidyId == solicitationId).State.Description;
+                .FirstOrDefault().State.Description;
             return new ServiceResult<string>(result);
         }
 
