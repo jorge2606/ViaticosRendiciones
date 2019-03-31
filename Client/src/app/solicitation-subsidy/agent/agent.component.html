@@ -223,14 +223,26 @@
                     href="" routerLink="print/{{sol.id}}" class="pr-3">
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
-
-                  <a *ngIf="finalizeDate == null && ( today >= pipeService.transform(sol.beginDate,'yyyy/MM/dd') || today <= pipeService.transform(sol.endDate,'yyyy/MM/dd'))"
+                  <!-- la fecha de hoy sea mayor a la fecha de inicio y menor a la fecha de finalizacion del viatico-->
+                  <a *ngIf="( finalizeDate == null && ( today >= pipeService.transform(sol.beginDate,'yyyy/MM/dd') && pipeService.transform(sol.endDate,'yyyy/MM/dd') >= today ) )"
                     placement="bottom" 
                     ngbTooltip="Finalizar viático" 
                     (click)="finalizeSubsidy(sol)"
                     href="" routerLink="{{routerService.url}}" class="pr-3">
                     <fa-icon class="{{sizeIcon}}" style="color: red;" icon="ban"></fa-icon>
                   </a>
+                  <a
+                    *ngIf="!sol.isRefund && finalizeDate == null && ( today > pipeService.transform(sol.endDate,'yyyy/MM/dd') )"
+                    placement="bottom" 
+                    ngbTooltip="Rendir cuentas sobre gastos del viático" 
+                    href="" 
+                    routerLink="accountFor/{{sol.id}}" 
+                    class="pr-3">
+                  <fa-icon 
+                    style="color:gray;"
+                    class="{{sizeIcon}}" 
+                    icon="edit"></fa-icon>
+                </a>
               </td>
               <td *ngIf="sol.state == 'Finalizado'" class="col text-right">
                   <a
