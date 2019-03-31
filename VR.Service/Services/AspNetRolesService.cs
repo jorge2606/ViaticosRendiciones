@@ -29,5 +29,12 @@ namespace VR.Service.Services
                 _context.Roles.Select(x => _mapper.Map<AllRolesDto>(x)).ToList()
                 );
         }
+
+        public ServiceResult<string> GetNameOfRoleById(Guid roleId)
+        {
+            return new ServiceResult<string>(
+                _context.Roles.FirstOrDefault(x => x.Id == roleId).NormalizedName
+            );
+        }
     }
 }

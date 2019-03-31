@@ -40,6 +40,7 @@ namespace VR.Service.Services
         private readonly IValidator<CreateUserDto> _fluentValidatorCreateUser;
         private readonly SignInManager _signInManager;
         private IConfiguration _configuration;
+        private IAspNetUserRolesService _rolesService;
 
         public UserService(DataContext context,
             UserManager userManager,
@@ -52,7 +53,8 @@ namespace VR.Service.Services
             IMapper mapper,
             IValidator<SaveUserDto> fluentValidatorUser,
             IValidator<LoginDto> fluentValidatorLogin,
-            IValidator<CreateUserDto> fluentValidatorCreateUser)
+            IValidator<CreateUserDto> fluentValidatorCreateUser,
+            IAspNetUserRolesService rolesService)
         {
             _context = context;
             _userManager = userManager;
@@ -65,6 +67,7 @@ namespace VR.Service.Services
             _fluentValidatorUser = fluentValidatorUser;
             _fluentValidatorLogin = fluentValidatorLogin;
             _fluentValidatorCreateUser = fluentValidatorCreateUser;
+            _rolesService = rolesService;
         }
 
         public ServiceResult<List<AllUserDto>> GetAll()
@@ -144,8 +147,8 @@ namespace VR.Service.Services
             userDto.Token = token;
             userDto.Path = filePath.Response.Paths;
             userDto.CategoryId = user.CategoryId;
+            userDto.Roles = _rolesService.FindByIdRoles(user.Id).Result.Response;
             result.Response = userDto;
-
             return result;
         }
 

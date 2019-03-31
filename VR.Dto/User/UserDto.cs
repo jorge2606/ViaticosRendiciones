@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using VR.Data.Model;
 
 namespace VR.Dto.User
@@ -63,6 +64,7 @@ namespace VR.Dto.User
         public string CategoryDescription { set; get; }
         public Decimal CategoryAdvance { set; get; }
         public Boolean IsDeleted { set; get; }
+        public IDictionary<string, IList<ClaimDto>> Roles { set; get; }
     }
 
     public class UserDistribution {

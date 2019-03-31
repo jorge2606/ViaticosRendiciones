@@ -9,5 +9,6 @@ namespace VR.Service.Interfaces
     public interface IAspNetRolesService
     {
         ServiceResult<List<AllRolesDto>> GetAllRoles();
+        ServiceResult<string> GetNameOfRoleById(Guid roleId);
     }
 }

@@ -113,4 +113,9 @@ namespace VR.Dto
 
         public List<RoleClaimPermissionDto> Claims { get; set; }
     }
+
+    public class ClaimDto
+    {
+        public string Value { get; set; }
+    }
 }
