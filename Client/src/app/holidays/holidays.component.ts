@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../_services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { HolidayBaseDto } from './../_models/holiday';
@@ -26,12 +27,14 @@ export class HolidaysComponent implements OnInit {
 
   textListEmpty : string = "No se encontró ningún feriado";
   classListEmpty : string = "alert-primary";
+  permissions : any[] = [];
 
   constructor(
     private holidayService : HolidaysService,
     private modalService: NgbModal,
     private titleService : Title,
-    private toastrService : ToastrService
+    private toastrService : ToastrService,
+    private authService : AuthenticationService
   ) {
       this.titleService.setTitle('Feriados');
   }
@@ -45,6 +48,7 @@ export class HolidaysComponent implements OnInit {
       x => {
             this.holidays = x.list;
             this.col_size = x.totalRecords;
+            this.permissions = this.authService.userId('roles');
             }
     );
   }

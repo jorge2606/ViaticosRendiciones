@@ -11,6 +11,6 @@ namespace VR.Service.Interfaces
     public interface IAspNetUserRolesService
     {
         ServiceResult<List<AllUserRolesDto>> GetAllUserRoles();
-        Task<ServiceResult<IDictionary<string, IList<ClaimDto>>>> FindByIdRoles(Guid userId);
+        Task<ServiceResult<IList<ClaimDto>>> FindByIdRoles(Guid userId);
     }
 }

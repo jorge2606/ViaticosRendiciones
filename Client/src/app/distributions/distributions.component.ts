@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { DistributionService } from '../_services/distribution.service';
@@ -27,11 +28,13 @@ export class DistributionsComponent implements OnInit {
   user_list_length: number;
   textListEmpty : string = "No se encontró ningúna repartición.";
   classListEmpty : string = "alert-primary";
+  permissions : any[] = [];
   
   constructor(
               private distributionService : DistributionService,
               private modalService: NgbModal,
               private organismService : OrganismService,
+              private authService : AuthenticationService,
               private route: ActivatedRoute,
               private titleService : Title,
               private toastrService : ToastrService) { 
@@ -46,7 +49,8 @@ export class DistributionsComponent implements OnInit {
     this.organismService.getAllOrganism().subscribe(
       x =>{
           this.organisms = x;
-          this.getAllDistributions(this.filters); 
+          this.getAllDistributions(this.filters);
+          this.permissions = this.authService.userId('roles'); 
       } 
     );
     
@@ -55,8 +59,8 @@ export class DistributionsComponent implements OnInit {
   getAllDistributions(filters : any){
     this.distributionService.getPaginator(filters).subscribe(
       result => {
-        this.distribution = result.list,
-        this.col_size = result.totalRecords
+        this.distribution = result.list;
+        this.col_size = result.totalRecords;
       },
       error => console.log(error)
     ); 

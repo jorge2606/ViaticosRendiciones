@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -20,12 +21,13 @@ export class ExpendituresComponent implements OnInit {
   expenditures : ExpenditureTypeBaseDto[];
   error : any;
   id : number;
-
+  permission : any[] = [];
   constructor(
             private expenditureService : ExpenditureService,
             private modalService : NgbModal,
             private titleService : Title,
-            private toastrService : ToastrService
+            private toastrService : ToastrService,
+            private authService : AuthenticationService
             ) { 
               this.titleService.setTitle('Tipos de Gastos');
             }
@@ -43,8 +45,9 @@ export class ExpendituresComponent implements OnInit {
   getAllExpenditure(page : number){
     this.expenditureService.getPaginator(page).subscribe(
       result => {
-        this.expenditures = result.list,
-        this.col_size = result.totalRecords
+        this.expenditures = result.list;
+        this.col_size = result.totalRecords;
+        this.permission = this.authService.userId('roles');
       },
       error => console.log(error)
     ); 

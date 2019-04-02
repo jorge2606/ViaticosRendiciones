@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
 import { RoleClaimPermission } from './../../_models/role-claim-permission';
 import { Roles } from './../../_models/roles';
@@ -21,7 +22,8 @@ export class RolesPermissionsComponent implements OnInit {
   constructor(
         private rolesServices: RolesPermissionsService, 
         private route: ActivatedRoute,
-        private titleService : Title) {
+        private titleService : Title,
+        private toastService : ToastrService) {
           this.titleService.setTitle('Roles - Permisos');
          }
 
@@ -90,7 +92,14 @@ export class RolesPermissionsComponent implements OnInit {
     //          //childrensUpdate.childrens = value1.value;
     //     });
     // });
-    console.log(childrensUpdate);
-    this.rolesServices.saveRoleClaims(this.updateRoleClaimPermission);
+    this.rolesServices.saveRoleClaims(this.updateRoleClaimPermission)
+    .subscribe(
+      data => {
+        this.toastService.success('Permisos editados correctamente.','',{timeOut : 3000});
+      },
+      error => {
+        console.log("Error", error);
+      }
+    );
   }
 }

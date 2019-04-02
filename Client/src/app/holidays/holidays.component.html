@@ -1,7 +1,11 @@
-<div class="d-inline-block mb-1">
-  <a  placement="bottom" 
+<div *ngFor="let permission of permissions" class="d-inline-block mb-1">
+  <a  
+    *ngIf="permission.value == 'holidays.delete'"
+    placement="bottom" 
     ngbTooltip="Agregar un nuevo día de feria" 
-    href="" class="btn btn-success" routerLink="/holidays/create">
+    href="" 
+    class="btn btn-success" 
+    routerLink="/holidays/create">
     <fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
   </a>
 </div>
@@ -63,14 +67,18 @@
           <td>{{holiday.date.day}}/{{holiday.date.month}}/{{holiday.date.year}}</td>
           <td>{{holiday.description}}</td>
           <td class="text-right">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div *ngFor="let permission of permissions" 
+              class="btn-group" role="group" aria-label="Basic example">
               <a 
+                *ngIf="permission.value == 'holidays.edit'"
                 placement="bottom" 
                 ngbTooltip="Editar este día de feria" 
-                class="pr-3" routerLink="/holidays/update/{{holiday.id}}">
+                class="pr-3" 
+                routerLink="/holidays/update/{{holiday.id}}">
                 <fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
               </a>
               <a
+              *ngIf="permission.value == 'holidays.delete'"
                 placement="bottom" 
                 ngbTooltip="Eliminar este día de feria"               
                 routerLink="/holidays" (click)="openEliminar(holiday)">

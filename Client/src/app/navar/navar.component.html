@@ -1,35 +1,36 @@
 <nav *ngIf="isLogged | async" class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 font-weight-light">
 
+    <ul class="navbar-nav" id="firstList">
+        <li id="homeId">
+          <a 
+            placement="bottom" 
+            id="inicio"
+            (click)="activate('inicio')"
+            ngbTooltip="Ir al menú principal" 
+            routerLink="/" 
+            class="nav-item text-white nav-link active"
+            href="#" >
+            <fa-icon icon="home"></fa-icon> Inicio
+          </a>
+        </li>
+    </ul>
     <ul class="navbar-nav mr-auto" id="firstList">
-      
-      <li id="homeId">
-        <a 
-          placement="bottom" 
-          id="inicio"
-          (click)="activate('inicio')"
-          ngbTooltip="Ir al menú principal" 
-          routerLink="/" 
-          class="nav-item text-white nav-link active"
-          href="#" >
-          <fa-icon icon="home"></fa-icon> Inicio
-        </a>
-      </li>
 
-      <li id="userId">
-        <a  
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'user.view' ? 'unset' : 'none'}" id="userId">
+        <a 
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los usuarios" 
           routerLink="/users"
           (click)="activate('userId')"
           class="nav-item text-white nav-link"
           href="#">
-          <fa-icon icon="users"></fa-icon> Usuarios
+          <fa-icon icon="users"></fa-icon> Usuarios 
         </a>
       </li>
 
-      <li id="roleId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'user.view' ? 'unset' : 'none'}" id="roleId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-        <a      
+        <a  
           placement="bottom" 
           ngbTooltip="Ver el listado de todos los roles" 
           class="nav-item text-white nav-link" 
@@ -40,8 +41,7 @@
         </a>
       </li>
 
-      <li id="categoryId">
-        <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'categories.view' ? 'unset' : 'none'}" id="categoryId">
         <a
           placement="bottom" 
           ngbTooltip="Ver el listado de todas las categorías" 
@@ -53,7 +53,7 @@
         </a>
       </li>
 
-      <li id="distId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'distributions.view' ? 'unset' : 'none'}" id="distId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a
           placement="bottom" 
@@ -66,7 +66,7 @@
         </a>
       </li>
 
-      <li id="transportId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'transports.view' ? 'unset' : 'none'}">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
           <a 
             (click)="activate('transportId')"       
@@ -79,7 +79,7 @@
           </a>
       </li>
 
-      <li id="expId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'expenditures.view' ? 'unset' : 'none'}" id="expId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a       
           (click)="activate('expId')"
@@ -92,7 +92,7 @@
         </a>
       </li>
 
-      <li id="orgId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'organisms.view' ? 'unset' : 'none'}" id="orgId">
         <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
         <a         
           placement="bottom" 
@@ -105,7 +105,7 @@
         </a>
       </li>
 
-      <li id="solId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'solicitations.view' ? 'unset' : 'none'}" id="solId">
           <div class="d-inline-block" ngbDropdown #myDropDown="ngbDropdown">
               <a 
                 href="#"
@@ -169,7 +169,7 @@
           </div>
         </li>
 
-      <li id="holId">
+      <li *ngFor="let claims of roles" [ngStyle]="{'display': claims.value == 'holidays.view' ? 'unset' : 'none'}" id="holId">
           <a    
             placement="bottom"
             ngbTooltip="Ver el listado de los días no laborables"          
@@ -264,3 +264,4 @@
 
 <nvs-ngx-breadcrumbs *ngIf="isloggedUser"></nvs-ngx-breadcrumbs>
 <router-outlet class="small"></router-outlet>
+{{roles | json}}

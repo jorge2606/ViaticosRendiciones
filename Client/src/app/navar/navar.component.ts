@@ -43,6 +43,7 @@ export class NavarComponent implements OnInit {
   lastName : string;
   isloggedUser : boolean;
   isRefund = {'yes' : true, 'not' : false};
+  roles : any [] = [];
 
 
   retriveNotifications(){
@@ -76,6 +77,8 @@ export class NavarComponent implements OnInit {
       this.isloggedUser = x;
       //si el usuario esta logueado
       if(x){
+        this.roles = this.authService.userId('roles');
+
         this.comunicationService.getMessage()
         .subscribe(x => {
             this.retriveNotifications();

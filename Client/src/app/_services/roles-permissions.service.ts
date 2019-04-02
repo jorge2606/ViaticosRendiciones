@@ -15,13 +15,6 @@ export class RolesPermissionsService {
   }
 
   saveRoleClaims(model: UpdateRoleClaimPermission) {
-    this.http.put(environment.apiUrl+'Role/UpdateClaims/', model).subscribe(
-      data => {
-
-      },
-      error => {
-        console.log("Error", error);
-      }
-    );
+    return this.http.put<any>(environment.apiUrl+'Role/UpdateClaims/', model);
   }
 }

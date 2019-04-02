@@ -41,27 +41,25 @@ namespace VR.Service.Services
                 );
         }
 
-        public async Task< ServiceResult< IDictionary<string, IList<ClaimDto>> > >  FindByIdRoles(Guid userId)
+        public async Task< ServiceResult< IList<ClaimDto>> >  FindByIdRoles(Guid userId)
         {
             var roles = _context.UserRoles
                 .Select(x => _mapper.Map<AllUserRolesDto>(x))
                 .Where(x => x.UserId == userId)
                 .ToList();
 
-            IDictionary<string, IList<ClaimDto>> RolesNameDict = new Dictionary<string, IList<ClaimDto>>();
-
-            List<object> ListRoleAndClaims = new List<object>();
-
+            IList<ClaimDto> RolesNameDict = new List<ClaimDto>();
+            
             roles.ForEach(rolUser =>
             {
                 //primero obtengo el rol
                 var Rol = _roleManager.Roles.FirstOrDefault(x => x.Id == rolUser.RoleId);
                 //obtengo todos los claims
-                RolesNameDict.Add(Rol.NormalizedName, _mapper.Map< IList<ClaimDto> >(_roleManager.GetClaimsAsync(Rol).Result) );
+                RolesNameDict = _mapper.Map<IList<ClaimDto>>(_roleManager.GetClaimsAsync(Rol).Result);
             });
            
 
-            return new ServiceResult< IDictionary<string, IList<ClaimDto>> > (RolesNameDict);
+            return new ServiceResult<IList<ClaimDto> > (RolesNameDict);
         }
 
 

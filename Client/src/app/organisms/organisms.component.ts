@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { CreateOrganismDto } from './../_models/organism';
 import { Component, OnInit } from '@angular/core';
@@ -19,12 +20,14 @@ export class OrganismsComponent implements OnInit {
   itemsPerPage : number = 10;
   textListEmpty : string = "No se encontró ningún organismo";
   classListEmpty : string = "alert-primary";
+  permissions : any[] = [];
 
   constructor(
               private organismService : OrganismService,
               private modalService : NgbModal,
               private titleService : Title,
-              private toastrService : ToastrService
+              private toastrService : ToastrService,
+              private authService : AuthenticationService
               ) { 
                 this.titleService.setTitle('Organismos');
               }
@@ -36,8 +39,9 @@ export class OrganismsComponent implements OnInit {
   getAllOrganism(page : any){
     this.organismService.getPaginator(this.filters).subscribe(
       result => {
-        this.organism = result.list,
-        this.col_size = result.totalRecords
+        this.organism = result.list;
+        this.col_size = result.totalRecords;
+        this.permissions = this.authService.userId('roles');
       },
       error => console.log(error)
     ); 

@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { CategoryService } from './../_services/category.service';
 import { Component, OnInit } from '@angular/core';
@@ -23,12 +24,14 @@ export class CategoryComponent implements OnInit {
   category_list_length: number;
   textListEmpty : string = "No se encontró ningúna categoría";
   classListEmpty : string = "alert-primary";
+  permissions : any[] = [];
 
   constructor(
             private categoryService : CategoryService,
             private modalService: NgbModal,
             private titleService : Title,
-            private toastrService : ToastrService
+            private toastrService : ToastrService,
+            private authService : AuthenticationService
             ) { 
               this.titleService.setTitle('Categorías');
             }
@@ -47,9 +50,10 @@ export class CategoryComponent implements OnInit {
   getAllCategories(filters : any){
     this.categoryService.getPaginator(filters).subscribe(
       result => {
-        this.categories = result.list,
-        this.category_list_length = this.categories.length,
-        this.col_size = result.totalRecords
+        this.categories = result.list;
+        this.category_list_length = this.categories.length;
+        this.col_size = result.totalRecords;
+        this.permissions = this.authService.userId('roles');
       },
       error => console.log(error)
     ); 

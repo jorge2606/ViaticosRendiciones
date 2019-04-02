@@ -1,12 +1,15 @@
-<div class="d-inline-block mt-0 mb-1 mr-1">
-	<a 	href="" 
-		placement="bottom" 
-		ngbTooltip="Crear una nueva categoría"
-		class="btn btn-success" 
-		routerLink="create">
-		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-	</a>
-</div>
+<ul *ngFor="let permission of permissions">
+	<div *ngIf="permission.value == 'categories.create'" class="d-inline-block mt-0 mb-1 mr-1">
+			<a 	href="" 
+				placement="bottom" 
+				ngbTooltip="Crear una nueva categoría"
+				class="btn btn-success" 
+				routerLink="create">
+				<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+			</a>
+	</div>
+</ul>
+
 
 
 <div class="mb-1" >	
@@ -32,13 +35,17 @@
 				<td>{{cat.description}}</td>
 				<td class="text-right">{{cat.advance | number}}</td>
 				<td class="text-right">
-					<div class="btn-group" role="group" aria-label="Basic example">
-						<a 	placement="bottom" 
+					<div *ngFor="let permission of permissions" class="btn-group" role="group" aria-label="Basic example">
+						<a 
+							*ngIf="permission.value == 'categories.edit'"
+							placement="bottom" 
 							ngbTooltip="Editar esta categoría" 
 							class="pr-3" routerLink="/category/update/{{cat.id}}">
 							<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 						</a>
-						<a placement="bottom" 
+						<a 
+							*ngIf="permission.value == 'categories.delete'"
+							placement="bottom" 
 							ngbTooltip="Eliminar esta categoría"
 							routerLink="/category" (click)="openEliminar(cat.id,cat.name,cat.description)">
 							<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>

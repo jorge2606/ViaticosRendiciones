@@ -1,8 +1,13 @@
-<a 	placement="bottom" 
-	ngbTooltip="Agregar nuevo transporte" 
-	href="" class="btn btn-success mb-3" routerLink="create">
-	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-</a>
+<ul *ngFor="let permission of permissions">
+	<a 	
+		*ngIf="permission.value == 'transports.create'"
+		placement="bottom" 
+		ngbTooltip="Agregar nuevo transporte" 
+		href="" class="btn btn-success mb-3" routerLink="create">
+		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
+	</a>
+</ul>
+
 
 <div class="" style="min-height: 300px;">
 	<table class="table table-striped">
@@ -22,13 +27,17 @@
 					<td>{{trans.brand}}</td>
 					<td>{{trans.carPlate}}</td>
 					<td class="text-right">
-						<div class="btn-group" role="group" aria-label="Basic example">
-							<a  placement="bottom" 
+						<div *ngFor="let permission of permissions" class="btn-group" role="group" aria-label="Basic example">
+							<a  
+								*ngIf="permission.value == 'transports.edit'"
+								placement="bottom" 
 								ngbTooltip="Editar este transporte" 
 								class="pr-3" routerLink="/transport/update/{{trans.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
-							<a 	placement="bottom" 
+							<a 	
+								*ngIf="permission.value == 'transports.delete'"
+								placement="bottom" 
 								ngbTooltip="Eliminar este transporte" 
 								routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">
 								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>

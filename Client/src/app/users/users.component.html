@@ -1,26 +1,30 @@
-<div class="d-inline-block mt-0 mb-1 mr-1">
-	<a 	href="" 
-		class="btn btn-success" 
-		placement="bottom" 
-		ngbTooltip="Agregar nuevo usuario" 
-		routerLink="create">
-		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
-	</a>
-</div>
-
-<div class="d-inline-block mt-0 mb-1 mr-1">
-	<button class="btn btn-success" [disabled]="users_check.length == 0" (click)="AddSupervisor()">
-		Enlazar a Supervisor
-	</button>
-</div>
-<div class="d-inline-block mt-0 mb-1">
-		<a href="" class="btn btn-success" 
-			routerLink="/users/AgentsAndSupervisors"
+<ul *ngFor="let permission of permissions">
+	<div *ngIf="permission.value == 'user.create'" class="d-inline-block mt-0 mb-1 mr-1">
+		<a 	href="" 
+			class="btn btn-success" 
 			placement="bottom" 
-			ngbTooltip="Asignar supervisor/es a un agente">
-			Supervisores <fa-icon class="fa-lg" icon="user-tie"></fa-icon> Agentes
+			ngbTooltip="Agregar nuevo usuario" 
+			routerLink="create">
+			<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 		</a>
-</div>
+	</div>
+
+	<div class="d-inline-block mt-0 mb-1 mr-1" *ngIf="permission.value == 'user.addSupervisor'">
+		<button class="btn btn-success" [disabled]="users_check.length == 0" (click)="AddSupervisor()">
+			Enlazar a Supervisor
+		</button>
+	</div>
+	<div *ngIf="permission.value == 'user.toSeeRelationshipBeetwenSupervisorAndAgent'" 
+		class="d-inline-block mt-0 mb-1">
+			<a href="" class="btn btn-success" 
+				routerLink="/users/AgentsAndSupervisors"
+				placement="bottom" 
+				ngbTooltip="Asignar supervisor/es a un agente">
+				Supervisores <fa-icon class="fa-lg" icon="user-tie"></fa-icon> Agentes
+			</a>
+	</div>
+
+</ul>
 <br>
 <label class="d-inline-block pl-1 pr-1" for="">Repartición </label>
 <div class="d-inline-block pl-1 pr-1 col-4 mb-1">
@@ -48,20 +52,23 @@
 	<table class="table table-striped">
 			<thead>
 				<tr style="font-weight: bold;">
-					<td>
-						<div class="custom-control custom-checkbox">
-							<input 
-								type="checkbox" 
-								class="custom-control-input" 
-								id="customCheck1"
-								[checked]="allCheckedProperty" 
-								(change)="allChecked()"
-								>
-								<label class="custom-control-label" 
-								for="customCheck1">({{this.users_check.length}})
-								</label>
-						</div>
-					</td>
+					<ul *ngFor="let permission of permissions">
+						<td *ngIf="permission.value == 'user.addSupervisor'">
+						
+							<div class="custom-control custom-checkbox">
+								<input 
+									type="checkbox" 
+									class="custom-control-input" 
+									id="customCheck1"
+									[checked]="allCheckedProperty" 
+									(change)="allChecked()"
+									>
+									<label class="custom-control-label" 
+									for="customCheck1">({{this.users_check.length}})
+									</label>
+							</div>
+						</td>
+					</ul>
 					<td>D.N.I</td>
 					<td>Nombre</td>
 					<td>Apellido</td>
@@ -72,30 +79,34 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let user of user_list">
-					<td>
-						<div class="custom-control custom-checkbox">
-							<input 
-							type="checkbox" 
-							name="checked"
-							class="custom-control-input" 
-							id="customCheck{{user.id}}"
-							value="{{user.id}}"
-							[(ngModel)]="user.checked"
-							[checked]="user.checked"
-							(change)="check(user)">
-							<label class="custom-control-label" 
-								for="customCheck{{user.id}}">
-							</label>
-						</div>
-					</td>
+					<ul *ngFor="let permission of permissions">
+						<td *ngIf="permission.value == 'user.addSupervisor'">
+							<div class="custom-control custom-checkbox">
+								<input 
+								type="checkbox" 
+								name="checked"
+								class="custom-control-input" 
+								id="customCheck{{user.id}}"
+								value="{{user.id}}"
+								[(ngModel)]="user.checked"
+								[checked]="user.checked"
+								(change)="check(user)">
+								<label class="custom-control-label" 
+									for="customCheck{{user.id}}">
+								</label>
+							</div>
+						</td>
+					</ul>
 					<td>{{user.dni}}</td>
 					<td>{{user.firstName}}</td>
 					<td>{{user.lastName}}</td>
 					<td>{{user.distribution.name}}</td>
 					<td class="text-center">{{user.rol}}</td>
 					<td>
-						<div class="btn-group" role="group" aria-label="Basic example">
-							<a style="cursor:pointer" class="pr-3" routerLink="/users/update/{{user.id}}">
+						<div *ngFor="let permission of permissions" class="btn-group" role="group" aria-label="Basic example">
+							<a 
+								*ngIf="permissions == 'user.edit'"
+								style="cursor:pointer" class="pr-3" routerLink="/users/update/{{user.id}}">
 								<fa-icon 
 									placement="top" 
 									ngbTooltip="Editar usuario"
@@ -103,7 +114,9 @@
 									style="color:gray;" 
 									icon="edit"></fa-icon>
 							</a>
-							<a style="cursor:pointer" (click)="openEliminar(user.id,user.dni,user.userName)">
+							<a 
+								*ngIf="permissions == 'user.delete'"
+								style="cursor:pointer" (click)="openEliminar(user.id,user.dni,user.userName)">
 								<fa-icon 
 									placement="top" 
 									ngbTooltip="Eliminar usuario" 

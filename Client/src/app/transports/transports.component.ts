@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../_services/authentication.service';
 import { CreateTransportDto } from './../_models/transport';
 import { TransportService } from './../_services/transport.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,12 +18,14 @@ export class TransportsComponent implements OnInit {
   transport : CreateTransportDto[];
   col_size : number;
   itemsPerPage : number = 10;
+  permissions : any[] = [];
 
   constructor(
           private transportService : TransportService, 
           private modalService: NgbModal,
           private titleService : Title,
-          private toastrService : ToastrService
+          private toastrService : ToastrService,
+          private authService : AuthenticationService
           ) { }
 
   ngOnInit() {
@@ -33,8 +36,9 @@ export class TransportsComponent implements OnInit {
   getAllTransports(page : number){
     this.transportService.getPaginator(page).subscribe(
       result => {
-        this.transport = result.list,
-        this.col_size = result.totalRecords
+        this.transport = result.list;
+        this.col_size = result.totalRecords;
+        this.permissions = this.authService.userId('roles');
       },
       error => console.log(error)
     ); 

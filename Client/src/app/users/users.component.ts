@@ -15,6 +15,7 @@ import { AspNetRolesService } from '../_services/asp-net-roles.service';
 import { AspNetUsersRolesService } from '../_services/asp-net-users-roles.service';
 import { AllAspNetRolesDto } from '../_models/aspNetRoles';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-users',
@@ -40,21 +41,24 @@ export class UsersComponent implements OnInit {
   user_list_length: number;
   textListEmpty : string = "No se encontró ningún usuario";
   classListEmpty : string = "alert-primary";
+  permissions : any[] = [];
 
-
-  constructor(private var_user_service: UserService, 
-              private modalService: NgbModal,
-              private distributionService: DistributionService,
-              private route: ActivatedRoute,
-              private aspNetRolesService : AspNetRolesService,
-              private aspNetUsersRolesService : AspNetUsersRolesService,
-              private titleService : Title,
-              private router : Router,
-              private toastrService : ToastrService) {}
+  constructor(
+    private var_user_service: UserService, 
+    private authService : AuthenticationService,
+    private modalService: NgbModal,
+    private distributionService: DistributionService,
+    private route: ActivatedRoute,
+    private aspNetRolesService : AspNetRolesService,
+    private aspNetUsersRolesService : AspNetUsersRolesService,
+    private titleService : Title,
+    private router : Router,
+    private toastrService : ToastrService) {}
 
 
   ngOnInit() {
     this.titleService.setTitle('Usuarios');
+    this.permissions = this.authService.userId('roles');
     this.allUsersWithInPage();
     this.allAspNetRolesService();
     this.allAspNetUserRolesService();
