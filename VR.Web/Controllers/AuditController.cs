@@ -1,7 +1,9 @@
 ﻿using System;
 using Audit.Service.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 
 namespace VR.Web.Controllers
 {
@@ -22,6 +24,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("userAudits/{userId}")]
+        [Authorize(SolicitationSubsidyClaims.CanAudits, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult UserAudits(Guid userId)
         {
             var result = _userService.GetUserAudit(userId);
@@ -34,7 +37,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("GetNotifications/{userId}")]
-        [AllowAnonymous]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanAudits, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult GetNotifications(Guid userId)
         {
             var result = _notificationAuditService.GetNotificationAudit(userId);

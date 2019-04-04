@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Dto;
 using VR.Service.Interfaces;
 
@@ -24,6 +26,7 @@ namespace VR.Web.Controllers
         }
         // GET: api/Holiday
         [HttpGet("GetPageHoliday")]
+        [Authorize(SolicitationSubsidyClaims.CanViewHoliday, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetPageHoliday([FromQuery] FilterHolidayDto param)
         {
             FilterHolidayDto filters = new FilterHolidayDto()
@@ -48,6 +51,7 @@ namespace VR.Web.Controllers
 
         // GET: api/Holiday/5
         [HttpGet("getById/{id}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditHoliday, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetById(Guid id)
         {
             var result = _holidayService.FindByIdHoliday(id);
@@ -61,6 +65,7 @@ namespace VR.Web.Controllers
 
         // POST: api/Holiday
         [HttpPost("create")]
+        [Authorize(SolicitationSubsidyClaims.CanCreateHoliday, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Post([FromBody] CreateHolidayDto newHoliday)
         {
             var result = _holidayService.CreateHoliday(newHoliday);
@@ -74,6 +79,7 @@ namespace VR.Web.Controllers
 
         // PUT: api/Holiday/5
         [HttpPut("update")]
+        [Authorize(SolicitationSubsidyClaims.CanEditHoliday, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Update([FromBody] UpdateHolidayDto holiday)
         {
             var result = _holidayService.UpdateHoliday(holiday);
@@ -87,6 +93,7 @@ namespace VR.Web.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("Delete/{id}")]
+        [Authorize(SolicitationSubsidyClaims.CanDeleteHoliday, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Delete(Guid id)
         {
             var response = _holidayService.DeleteHoliday(id);
@@ -99,6 +106,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("haveHolidays")]
+        [Authorize]
         public IActionResult IsHolidays(int day, int month, int year, int amountDays)
         {
 

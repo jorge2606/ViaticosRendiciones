@@ -38,6 +38,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("UpdateMyImage")]
+        [Authorize]
         public async Task<IActionResult> UpdateMyImage(UpdateMyImageDto fileCreateDto)
         {
             fileCreateDto.UserId = GetIdUser();
@@ -52,6 +53,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("{userId}")]
+        [Authorize]
         public IActionResult FileById(Guid userId)
         {
            var result = _fileService.GetByIdFile(userId);
@@ -63,6 +65,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("removePhoto/{userId}")]
+        [Authorize]
         public IActionResult RemoveFile(Guid userId)
         {
             var result = _fileService.RemoveProfilePhoto(userId);
@@ -74,6 +77,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("removeHolographSign/{userId}")]
+        [Authorize]
         public IActionResult RemoveHolographSign(Guid userId)
         {
             var result = _fileService.RemoveHolographSign(userId);
@@ -114,6 +118,7 @@ namespace VR.Web.Controllers
         
 
         [HttpPost("HolographSignUpdate")]
+        [Authorize]
         public IActionResult HolographSignUpdate(UpdateMyImageDto image)
         {
             if (image.UserId == null)

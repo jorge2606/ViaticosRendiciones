@@ -1316,5 +1316,27 @@ namespace VR.Service.Services
             return result;
         }
 
+        public ServiceResult<bool> SomeSolicitationHasThisExpenditure(string key, Guid expenditureId)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(x => x.Expenditures)
+                .ThenInclude(e => e.ExpenditureType)
+                .FirstOrDefault(x => x.RandomKey == key);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<bool>(false);
+            }
+
+            var result = solicitation.Expenditures.FirstOrDefault(x => x.ExpenditureTypeId == expenditureId && !x.ExpenditureType.CanRepeat);
+
+            if (result == null)
+            {
+                return new ServiceResult<bool>(false);
+            }
+
+            return new ServiceResult<bool>(true);
+        }
+
     }
 }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Dto;
 using VR.Service.Interfaces;
 
@@ -23,6 +25,7 @@ namespace VR.Web.Controllers
             _service = service;
         }
         [HttpPost("Create")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateRelationshipBeetwenSupervisorAndAgent, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Create([FromBody] List<CreateSupervisorAgentDto> createSupervisorAgent)
         {
             var result = _service.Create(createSupervisorAgent);
@@ -35,6 +38,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("AllSupervisorAgents")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanToSeeRelationshipBeetwenSupervisorAndAgent, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult AllSupervisorAgents()
         {
             var result = _service.AllSupervisorAgent();
@@ -48,6 +52,7 @@ namespace VR.Web.Controllers
 
 
         [HttpGet("AllSupervisors")]
+        [Authorize]
         public IActionResult AllSupervisors()
         {
             var result = _service.AllSupervisors();
@@ -87,6 +92,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("DeleteRelationshipBetweenAgentAndSupervisor/{supervisorId}/{AgentId}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanDeleteRelationshipBeetwenSupervisorAndAgent, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult DeleteRelationshipBetweenAgentAndSupervisor(Guid supervisorId, Guid AgentId)
         {
             var result = _service.DeleteRelationshipBetweenAgentAndSupervisor(supervisorId, AgentId);

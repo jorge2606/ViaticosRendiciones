@@ -36,6 +36,7 @@ namespace VR.Service.Services
         private readonly RoleManager _roleManager;
         private readonly IEmailService _emailSender;
         private readonly IFileService _fileService;
+        private readonly ISupervisorUserAgentService _supervisorUserAgentService;
         private readonly IMapper _mapper;
         private readonly IValidator<SaveUserDto> _fluentValidatorUser;
         private readonly IValidator<LoginDto> _fluentValidatorLogin;
@@ -48,7 +49,7 @@ namespace VR.Service.Services
         public UserService(DataContext context,
             UserManager userManager,
             RoleManager roleManager,
-
+            ISupervisorUserAgentService supervisorUserAgentService,
             IConfiguration configuration,
             SignInManager signInManager,
             IEmailService emailSender,
@@ -71,6 +72,7 @@ namespace VR.Service.Services
             _fluentValidatorLogin = fluentValidatorLogin;
             _fluentValidatorCreateUser = fluentValidatorCreateUser;
             _rolesService = rolesService;
+            _supervisorUserAgentService = supervisorUserAgentService;
         }
 
         public ServiceResult<List<AllUserDto>> GetAll()
@@ -146,7 +148,7 @@ namespace VR.Service.Services
 
             UserDto userDto = new UserDto();
 
-            var token = GenerateJwtTokenHandler(user.Email, user);
+            var token = GenerateJwtTokenHandlerAsync(user.Email, user);
             var filePath = _fileService.GetByIdFile(user.Id);
 
             userDto.Id = user.Id;
@@ -155,7 +157,7 @@ namespace VR.Service.Services
             userDto.LastName = user.LastName;
             userDto.UserName = user.UserName;
             userDto.PhoneNumber = user.PhoneNumber;
-            userDto.Token = token;
+            userDto.Token = await token;
             userDto.Path = filePath.Response.Paths;
             userDto.CategoryId = user.CategoryId;
             userDto.Roles = _rolesService.FindByIdRoles(user.Id).Result.Response;
@@ -313,8 +315,10 @@ namespace VR.Service.Services
                 DistributionId = user.DistributionId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                CategoryId = user.CategoryId
-            };
+                CategoryId = user.CategoryId,
+                SupervisorAgentId = user.SupervisorAgentId,
+                SupervisorAgentId2 = user.SupervisorAgentId2
+    };
 
             var userExistOrNot = await _userManager.FindByNameAsync(user.UserName);
 
@@ -342,11 +346,40 @@ namespace VR.Service.Services
                 await UpdateUserRoleWhenModify(NewUser.Id, role.Id, role.RolBelongUser);
             }
 
+            if (user.SupervisorAgentId.CompareTo(Guid.Empty) != 0)
+            {
+                _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
+                {
+                    new CreateSupervisorAgentDto()
+                    {
+                        Id = new Guid(),
+                        AgentId = user.Id,
+                        SupervisorId = user.SupervisorAgentId
+                    }
+                });
+            }
+
+            if (user.SupervisorAgentId2.CompareTo(Guid.Empty) != 0)
+            {
+                _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
+                {
+                    new CreateSupervisorAgentDto()
+                    {
+                        Id = new Guid(),
+                        AgentId = user.Id,
+                        SupervisorId = user.SupervisorAgentId2
+                    }
+                });
+            }
+
+
+
+
             return new ServiceResult<CreateUserDto>(user);
         }
 
         //Create JWToken
-        private string GenerateJwtTokenHandler(string email, User user)
+        private async Task<string> GenerateJwtTokenHandlerAsync(string email, User user)
         {
             var Token = "";
             if (user != null)
@@ -368,7 +401,14 @@ namespace VR.Service.Services
                     Expires = DateTime.UtcNow.AddDays(7),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
+
+                var rolesUser = _rolesService.FindClaimsByIdRoles(user.Id).Result;
+                if (rolesUser.IsSuccess)
+                {
+                    tokenDescriptor.Subject.AddClaims(rolesUser.Response);
+                }
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+
                 Token = tokenHandler.WriteToken(token);
             }
 
@@ -402,14 +442,14 @@ namespace VR.Service.Services
 
             await _signInManager.SignInAsync(user, false);
 
-            var token = GenerateJwtTokenHandler(model.Email, user);
+            var token = GenerateJwtTokenHandlerAsync(model.Email, user);
             var userDto = new UserDto
             {
                 Id = user.Id,
                 Dni = user.Dni,
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
-                Token = token,
+                Token = await token,
                 Path = ""
             };
             return new ServiceResult<UserDto>(userDto);

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Service.Interfaces;
 using VR.Web.Helpers;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace VR.Web.Controllers
 {
@@ -33,6 +33,7 @@ namespace VR.Web.Controllers
         }
         // GET: api/<controller>
         [HttpGet("FindByIdCategory/{idCategory}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditCategory, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult FindByIdCategory(Guid idCategory)
         {
             var categoryFound = _categoryService.FindByIdCategory(idCategory);
@@ -47,6 +48,7 @@ namespace VR.Web.Controllers
 
         // POST api/<controller>
         [HttpPost("Create")]
+        [Authorize(SolicitationSubsidyClaims.CanCreateCategory, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Create([FromBody]CreateCategoryDto categoryDto)
         {
             var response = _categoryService.CreateCategory(categoryDto);
@@ -61,6 +63,7 @@ namespace VR.Web.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("UpdateCategory")]
+        [Authorize(SolicitationSubsidyClaims.CanEditCategory, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult UpdateCategory([FromBody]UpdateCategoryDto updateCategory)
         {
             var result = _categoryService.UpdateCategory(updateCategory);
@@ -75,6 +78,7 @@ namespace VR.Web.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("Delete/{categoryId}")]
+        [Authorize(SolicitationSubsidyClaims.CanDeleteCategory, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Delete(Guid categoryId)
         {
             var response = _categoryService.DeleteCategory(categoryId);
@@ -94,9 +98,11 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("page")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewCategory, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<AllCategoryDto> userPagination([FromQuery] FilterCategoryDto filters)
         {
             const int pageSize = 10;
+            var user = User;
             var queryPaginator = queryableUser().Where(x => x.IsDeleted != true);
 
             var result = queryPaginator.Where(
@@ -120,6 +126,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("GetAllCategories")]
+        [Authorize]
         public IActionResult GetAllCategories()
         {
             var result = _categoryService.GetAllCategories();

@@ -11,12 +11,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using VR.Common.Security;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
 using VR.Web.Helpers;
+using VR.Common.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace VR.Web.Controllers
 {
@@ -39,7 +42,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Create([FromBody] CreateSolicitationSubsidyDto solicitationSubsidy)
         {
             var currentUser = Helpers.HttpContext.Current.User.Claims;
@@ -62,7 +65,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("CreateCommission")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateCommissionSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateCommission([FromBody] CreateSolicitationSubsidyDto solicitationSubsidy)
         {
             var currentUser = Helpers.HttpContext.Current.User.Claims;
@@ -98,6 +101,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("getBySolicitationId/{id}")]
+        [Authorize]
         public IActionResult GetBySolicitationId(Guid id)
         {
             var result = _solicitationSubsidyService.GetByIdSubsidy(id);
@@ -110,6 +114,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("GetByRandomKey/{key}")]
+        [Authorize]
         public IActionResult GetByRandomKey(string key)
         {
             var result = _solicitationSubsidyService.GetByRandomKey(key);
@@ -122,6 +127,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("GetBySolicitationIdWhitState/{id}")]
+        [Authorize]
         public IActionResult GetBySolicitationIdWhitState(Guid id)
         {
             var result = _solicitationSubsidyService.GetByIdSubsidyWhitState(id);
@@ -134,6 +140,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("validateBeforeSendAccountFor/{id}")]
+        [Authorize]
         public IActionResult validateBeforeSendAccountFor(Guid id)
         {
             var result = _solicitationSubsidyService.ValidateBeforeSendAccountFor(id);
@@ -146,6 +153,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("validateBeforeSendAccountForFinalizeNormally/{id}")]
+        [Authorize]
         public IActionResult validateBeforeSendAccountForFinalizeNormally(Guid id)
         {
             var result = _solicitationSubsidyService.ValidateBeforeSendAccountForFinalizeNormally(id);
@@ -158,6 +166,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("sendSolicitation")]
+        [Authorize]
         public async Task<IActionResult> SendSolicitation([FromBody] SolicitationIdDto solicitation)
         {
             var result = await _solicitationSubsidyService.SendSolicitationAsync(solicitation);
@@ -170,6 +179,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("sendAccountForToSupervisor")]
+        [Authorize]
         public async Task<IActionResult> SendAccountForToSupervisor([FromBody] SolicitationIdDto solicitation)
         {
             var result = await _solicitationSubsidyService.SendAccuountForSolicitationToSupervisorAsync(solicitation);
@@ -179,6 +189,19 @@ namespace VR.Web.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet("SomeSolicitationHasThisExpenditure/{key}/{expenditureId}")]
+        [Authorize]
+        public IActionResult SomeSolicitationHasThisExpenditure(string key, Guid expenditureId)
+        {
+            var result = _solicitationSubsidyService.SomeSolicitationHasThisExpenditure(key, expenditureId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
         }
 
         [HttpPost("overlaping")]
@@ -195,7 +218,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("pageAgent")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewSolicitation,AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<AllSolicitationSubsidyDto> AgentPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {
             var agentId = GetIdUser();
@@ -238,6 +261,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("WichStateSolicitation/{solicitationId}")]
+        [Authorize]
         public IActionResult WichStateSolicitation(Guid solicitationId)
         {
             var result = _solicitationSubsidyService.WichStateSolicitation(solicitationId);
@@ -273,6 +297,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("getAmountHolidaysAndWeekends/{solicitationId}")]
+        [Authorize]
         public IActionResult GetAmountHolidaysAndWeekends(Guid solicitationId)
         {
             var result = _dataContext.getAmountHolidaysAndWeekends(solicitationId);
@@ -301,6 +326,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(SolicitationSubsidyClaims.CanDeleteSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Delete(Guid id)
         {
             var result = _solicitationSubsidyService.Delete(id);
@@ -313,6 +339,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("FinalizeSubsidy/{id}")]
+        [Authorize]
         public IActionResult FinalizeSubsidy(Guid id)
         {
             var result = _solicitationSubsidyService.FinalizeSubsidy(id);
@@ -325,7 +352,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("Update")]
-        [Authorize]
+        [Authorize(SolicitationSubsidyClaims.CanEditSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Update([FromBody] UpdateSolicitationSubsidyDto solicitation)
         {
             var sessioUser = GetIdUser();
@@ -424,6 +451,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("GetByIdSubsidyRpt/{id}")]
+        [Authorize]
         public IActionResult GetByIdSubsidyRpt(Guid id)
         {
             var result = _solicitationSubsidyService.GetByIdSubsidyRpt(id);
@@ -436,6 +464,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("SolicitationApprovedBySupervisorId/{id}")]
+        [Authorize]
         public IActionResult SolicitationApprovedBySupervisorId(Guid id)
         {
             var result = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(id);

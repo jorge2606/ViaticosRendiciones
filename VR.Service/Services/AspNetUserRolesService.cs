@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -79,6 +80,28 @@ namespace VR.Service.Services
             }
 
             return new ServiceResult<List<RolNameDto>>(RolesNameDict);
+        }
+
+
+        public async Task<ServiceResult<IEnumerable<Claim>>> FindClaimsByIdRoles(Guid userId)
+        {
+            var roles = _context.UserRoles
+                .Select(x => _mapper.Map<AllUserRolesDto>(x))
+                .Where(x => x.UserId == userId)
+                .ToList();
+
+            IEnumerable<Claim> RolesNameDict = new List<Claim>();
+
+            roles.ForEach(rolUser =>
+            {
+                //primero obtengo el rol
+                var Rol = _roleManager.Roles.FirstOrDefault(x => x.Id == rolUser.RoleId);
+                //obtengo todos los claims
+                RolesNameDict = _mapper.Map<IEnumerable<Claim>>(_roleManager.GetClaimsAsync(Rol).Result);
+            });
+
+
+            return new ServiceResult<IEnumerable<Claim>>(RolesNameDict);
         }
 
     }

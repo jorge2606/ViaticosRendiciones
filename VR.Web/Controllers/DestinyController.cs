@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Dto;
 using VR.Service.Interfaces;
 
@@ -21,6 +23,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize]
         public IActionResult Create([FromBody]List<DestinyBaseDto> destinations)
         {
             var result = _service.Create(destinations);
@@ -33,6 +36,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public IActionResult Delete(Guid id)
         {
             var result = _service.Delete(id);
@@ -46,6 +50,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("Get_Destiny/{id}")]
+        [Authorize]
         public IActionResult Get_Destiny(Guid id)
         {
             var result = _service.Get_DestiniesProcedure(id);

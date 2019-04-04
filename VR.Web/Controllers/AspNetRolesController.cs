@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VR.Service.Interfaces;
@@ -21,6 +22,7 @@ namespace VR.Web.Controllers
         }
         // GET: api/AspNetRoles
         [HttpGet("AllRoles")]
+        [Authorize]
         public IActionResult GetAllRoles()
         {
             var result = _aspNetRolesService.GetAllRoles();

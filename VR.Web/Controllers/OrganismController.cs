@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -31,6 +34,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize(SolicitationSubsidyClaims.CanEditOrganism, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult UpdateOrganism(UpdateOrganismDto updateOrganism)
         {
             var result = _organismService.UpdateOrganism(updateOrganism);
@@ -44,6 +48,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize]
         public IActionResult GetAll()
         {
             var result = _organismService.GetAllOrganism();
@@ -56,6 +61,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("FindById/{id}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditOrganism, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult FindByIdOrganism(Guid id)
         {
             var result = _organismService.FindByIdOrganism(id);
@@ -69,6 +75,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(SolicitationSubsidyClaims.CanCreateOrganism, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateOrganism(CreateOrganismDto createOrganism)
         {
             var result = _organismService.CreateOrganism(createOrganism);
@@ -82,6 +89,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(SolicitationSubsidyClaims.CanDeleteOrganism, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult DeleteOrganism(Guid id)
         {
             var result = _organismService.DeleteOrganism(id);
@@ -103,6 +111,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("page")]
+        [Authorize(SolicitationSubsidyClaims.CanViewOrganism, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<GetallOrganismDto> userPagination([FromQuery] FilterOrganismDto filters)
         {
             const int pageSize = 10;

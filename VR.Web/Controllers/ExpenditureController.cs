@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Service.Interfaces;
 
 namespace VR.Web.Controllers
@@ -20,6 +23,7 @@ namespace VR.Web.Controllers
         }
         // GET: api/Expenditure
         [HttpGet("GetByIdSolicitationSubsidy/{id}")]
+        [Authorize]
         public IActionResult GetByIdSolicitationSubsidy(Guid id)
         {
             var result = _expenditureService.GetByIdSolicitationSubsidy(id);
@@ -32,6 +36,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public IActionResult Delete(Guid id)
         {
             var result = _expenditureService.Delete(id);

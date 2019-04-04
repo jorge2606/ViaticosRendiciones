@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using VR.Common.Security;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -17,7 +19,6 @@ namespace VR.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class DistributionController : ControllerBase
     {
         private readonly IDistributionService _distributionService;
@@ -33,6 +34,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("CreateDistribution")]
+        [Authorize(SolicitationSubsidyClaims.CanCreateDistribution, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateDistribution(CreateDistributionDto createDistribution)
         {
             var result = _distributionService.CreateDistribution(createDistribution);
@@ -46,6 +48,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("UpdateDistribution")]
+        [Authorize(SolicitationSubsidyClaims.CanEditDistribution, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult UpdateDistribution(UpdateDistributionDto updateDistribution)
         {
             var result = _distributionService.UpdateDistribution(updateDistribution);
@@ -60,6 +63,7 @@ namespace VR.Web.Controllers
 
 
         [HttpGet("FindByIdDistribution/{findByIdDistribution}")]
+        [Authorize]
         public IActionResult FindByIdCategory(Guid findByIdDistribution)
         {
             var response = _distributionService.FindByIdDistribution(findByIdDistribution);
@@ -73,6 +77,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("FindByIdOrganism/{organismId}")]
+        [Authorize]
         public IActionResult FindByIdOrganism(Guid organismId)
         {
             var result = _distributionService.FindByIdOrganism(organismId);
@@ -85,6 +90,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("DeleteDistribution/{distributionId}")]
+        [Authorize(SolicitationSubsidyClaims.CanDeleteDistribution, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult DeleteDistribution(Guid distributionId)
         {
             var result = _distributionService.DeleteDistribution(distributionId);
@@ -98,6 +104,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("AllDistributions")]
+        [Authorize]
         public IActionResult AllDistribution()
         {
             var result = _distributionService.AllDistribution();
@@ -122,6 +129,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("page")]
+        [Authorize(SolicitationSubsidyClaims.CanViewDistribution, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<AllDistributionDto> userPagination([FromQuery] FilterDistributionDto filters)
         {       
             const int pageSize = 10;

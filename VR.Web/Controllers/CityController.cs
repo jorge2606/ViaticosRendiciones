@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VR.Service.Interfaces;
@@ -18,8 +19,9 @@ namespace VR.Web.Controllers
         {
             _cityService = cityService;
         } 
-        // GET: api/City
+
         [HttpGet("GetAll")]
+        [Authorize]
         public IActionResult GetAll()
         {
             var result = _cityService.GetAllCity();
@@ -31,14 +33,10 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
         
-        // POST: api/City
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
         // PUT: api/City/5
         [HttpGet("GetByIdCity/{provinceId}")]
+        [Authorize]
         public IActionResult GetByIdCity(Guid provinceId)
         {
             var result = _cityService.FindByIdCity(provinceId);
@@ -48,12 +46,6 @@ namespace VR.Web.Controllers
             }
 
             return Ok(result.Response);
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

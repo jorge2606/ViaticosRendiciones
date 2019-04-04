@@ -61,6 +61,16 @@ namespace VR.Dto
                     },
                     new ClaimPermissionDto()
                     {
+                        Text  = "Crear relación agente-supervisor",
+                        Value = "user.toCreateRelationshipBeetwenSupervisorAndAgent"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Eliminar relación agente-supervisor",
+                        Value = "user.toDeleteRelationshipBeetwenSupervisorAndAgent"
+                    },
+                    new ClaimPermissionDto()
+                    {
                         Text  = "Editar firma hológrafa como administrador",
                         Value = "user.editSignatureHolograpichAsAdmin"
                     },
@@ -272,6 +282,12 @@ namespace VR.Dto
                         Value = "solicitations.create"
 
                     },
+                    new ClaimPermissionDto()
+                    {
+                        Text = "CreateCommission",
+                        Value = "solicitations.createCommission"
+                    }
+                    ,
                     new ClaimPermissionDto()
                     {
                         Text  = "Crear Reintegro",

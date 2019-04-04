@@ -17,6 +17,8 @@ using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
+using VR.Common.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace VR.Web.Controllers
 {
@@ -39,7 +41,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("SaveRolUser")]
-        [AllowAnonymous]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> SaveRolUser([FromBody]RoleUserDto rolUser)
         {
             await _userService.UpdateUserRole(rolUser.UserId, rolUser.RolId);
@@ -47,6 +49,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Save")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Save([FromBody]CreateUserDto createUser)
         {
             var newUser = await _userService.CreateAsync(createUser);
@@ -102,6 +105,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("getall")]
+        [Authorize]
         public ActionResult<List<User>> GetAll()
         {
             var result = _userService.GetAll();
@@ -149,7 +153,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("getbyidAdministrator/{id}")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<ModifyUserDto> GetById(Guid id)
         {
             var user = _context.Users.Find(id);
@@ -165,7 +169,9 @@ namespace VR.Web.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DistributionId = user.DistributionId,
-                CategoryId = user.CategoryId
+                CategoryId = user.CategoryId,
+                SupervisorAgentId = user.SupervisorAgentId,
+                SupervisorAgentId2 = user.SupervisorAgentId2
             };
 
             var RolesUser = _context.UserRoles.ToList();
@@ -260,6 +266,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("UpdateProfileAsAdmin")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> UpdateProfileAsAdmin([FromBody]UpdateProfileAsAdmin userDto)
         {
             await _userService.UpdateProfileAsAdmin(userDto);
@@ -281,6 +288,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanDeleteUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Delete(Guid id)
         {
             _userService.Delete(id);
@@ -294,7 +302,7 @@ namespace VR.Web.Controllers
         }
         
         [HttpGet("page")]
-        [Authorize(Roles = "Supervisor")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetPageUser([FromQuery] UserFilterDto param)
         {
             var result = _userService.GetPageUser(param);

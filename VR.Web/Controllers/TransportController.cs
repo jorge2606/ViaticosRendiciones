@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -28,6 +30,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateTransport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateTransport(CreateTransportDto createTransport)
         {
             var result = _transportService.CreateTransport(createTransport);
@@ -53,6 +56,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditTransport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult UpdateTransport(UpdateTransportDto updateTransport)
         {
             var result = _transportService.UpdateTransport(updateTransport);
@@ -66,6 +70,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("FindByIdTransport/{findByIdTransport}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditTransport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult FindByIdTransport(Guid findByIdTransport)
         {
             var result = _transportService.FindByIdTransport(findByIdTransport);
@@ -79,7 +84,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanDeleteTransport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Delete(Guid id)
         {
             var result = _transportService.DeleteTransport(id);
@@ -141,6 +146,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("page/{page}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewTransport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<Transport> userPagination(int? page)
         {
             const int pageSize = 10;

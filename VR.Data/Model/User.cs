@@ -14,6 +14,8 @@ namespace VR.Data.Model
         public Boolean IsDeleted { set; get; }
         [ForeignKey("Category")]
         public Guid CategoryId { set; get; }
+        public Guid SupervisorAgentId { set; get; }
+        public Guid SupervisorAgentId2 { set; get; }
 
         [ForeignKey("Distribution")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

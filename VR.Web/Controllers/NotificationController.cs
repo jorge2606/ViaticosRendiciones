@@ -25,6 +25,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("page/{page}")]
+        [Authorize]
         public PagedResult<NotificationDto> NotificationPagination(int? page)
         {
             const int pageSize = 5;

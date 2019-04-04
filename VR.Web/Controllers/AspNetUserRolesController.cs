@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VR.Dto;
@@ -26,6 +27,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("AllRoles")]
+        [Authorize]
         public IActionResult GetAllRoles()
         {
             var Supervisor = new List<AllUserRolesDto>();
@@ -51,6 +53,7 @@ namespace VR.Web.Controllers
 
 
         [HttpGet("OnlyRoles")]
+        [Authorize]
         public IActionResult OnlyRoles()
         {
             

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
@@ -38,6 +41,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditExpenditure, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult UpdateExpenditureType(UpdateExpenditureTypeDto expenditure)
         {
             var result = _expenditureService.UpdateExpenditureType(expenditure);
@@ -51,6 +55,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanDeleteExpenditure, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult DeleteExpenditureType(Guid id)
         {
             var result = _expenditureService.DeleteExpenditureType(id);
@@ -64,6 +69,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("FindById/{id}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditExpenditure, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult FindById(Guid id)
         {
             var result = _expenditureService.FindByIdExpenditureType(id);
@@ -77,6 +83,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanCreateExpenditure, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateExpenditureType(CreateExpenditureTypeDto createExpenditure)
         {
             var result = _expenditureService.CreateExpenditureType(createExpenditure);
@@ -99,6 +106,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("page/{page}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewExpenditure, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<ExpenditureType> userPagination(int? page)
         {
             const int pageSize = 10;

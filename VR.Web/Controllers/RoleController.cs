@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using VR.Data.Model;
 using VR.Dto;
+using VR.Common.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace VR.Web.Controllers
 {
@@ -29,7 +31,7 @@ namespace VR.Web.Controllers
         //Obtener roles unicamente
 
         [HttpGet("AllRoles")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewRoles, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<List<RoleDto>> getAllRoles()
         {
             return _roleManager.Roles.Select(_mapper.Map<RoleDto>).ToList();
@@ -58,7 +60,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("getallClaims")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditRoles, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<List<RoleClaimPermissionDto>>> GetAllRoleClaims(Guid id)
         {
             //Traer permisos
@@ -108,7 +110,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpPut("UpdateClaims")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanEditRoles, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> UpdateRoleClaims(UpdateRoleClaimPermissionDto model)
         {
             //primero obtengo el rol
@@ -136,7 +138,7 @@ namespace VR.Web.Controllers
                         //pregunto si el claim exite en la DB sino lo creo
                         if (!claims.Any(x => x.Value.Equals(child.Value, StringComparison.InvariantCultureIgnoreCase)))
                         {
-                            await _roleManager.AddClaimAsync(Rol, new Claim("baseproject/permission", child.Value));
+                            await _roleManager.AddClaimAsync(Rol, new Claim(child.Value, child.Value));
                         }
 
                     }

@@ -26,6 +26,7 @@ using Audit.Service.Interfaces;
 using Audit.Service.Services;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Options;
@@ -41,6 +42,7 @@ using VR.Web.Extensions;
 using Service.Common;
 using VR.Data.Stores_Procedures.StoresProcedures;
 using VR.Data.Stores_Procedures.IStoresProcedures;
+using VR.Common.Security;
 
 namespace VR.Web
 {
@@ -61,8 +63,9 @@ namespace VR.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ASPDatabase")));
-            services.AddDbContext<AuditContext>(options => 
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ASPDatabase")));
+            services.AddDbContext<AuditContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AuditDatabase")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -88,9 +91,9 @@ namespace VR.Web
                             auditEntity.AuditDate = DateTime.UtcNow;
                             auditEntity.AuditUser = user.getCurrentUserName();
                             auditEntity.AuditUserId = user.getCurrentUserId();
-                            auditEntity.EntityId = (Guid)entry.PrimaryKey["Id"];
+                            auditEntity.EntityId = (Guid) entry.PrimaryKey["Id"];
                             auditEntity.AuditAction = entry.Action;
-                           
+
                             //entityFrameworkEvent. 
                             // Insert, Update, Delete
                         })
@@ -108,8 +111,25 @@ namespace VR.Web
                 }
             ).AddViewLocalization()
              .AddDataAnnotationsLocalization();
+            /**services.AddMvcCore()
+                .AddViews()
+                .AddRazorViewEngine()
+                .AddRazorPages()
+                .AddJsonFormatters()
+                .AddAuthorization(options =>
+                {
+                    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser().Build();
+                    options.AddPolicy(SolicitationSubsidyClaims.CanCreate,
+                        pol => { pol.RequireClaim(SolicitationSubsidyClaims.CanCreate); });
+                    options.AddPolicy(SolicitationSubsidyClaims.CanCreateCommission, comm => { comm.RequireClaim(SolicitationSubsidyClaims.CanCreateCommission); });
+                    options.AddPolicy(SolicitationSubsidyClaims.CanViewSolicitation, view => view.RequireClaim(SolicitationSubsidyClaims.CanViewSolicitation));
+                    options.AddPolicy(SolicitationSubsidyClaims.CanViewUsers, seeUsers => seeUsers.RequireClaim(SolicitationSubsidyClaims.CanViewUsers));
+                    options.AddPolicy(SolicitationSubsidyClaims.CanViewCategory, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewCategory));
+                });**/
 
-            //FluentValidation
+
+        //FluentValidation
 
             services.AddAutoMapper();
 
@@ -145,14 +165,80 @@ namespace VR.Web
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateAudience = false
 
                 };
             });
 
             services.AddAuthorization(options =>
             {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                   .RequireAuthenticatedUser()
+                   .Build();
+                //solcitation
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateSolicitation, pol => pol.RequireClaim(SolicitationSubsidyClaims.CanCreateSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateCommissionSolicitation, comm => comm.RequireClaim(SolicitationSubsidyClaims.CanCreateCommissionSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewSolicitation, view => view.RequireClaim(SolicitationSubsidyClaims.CanViewSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanAcceptMySolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAcceptMySolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanModerateSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanModerateSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanApproveAccountForSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanApproveAccountForSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanModerateRefund, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanModerateRefund));
+                //users
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewUsers, seeUsers => seeUsers.RequireClaim(SolicitationSubsidyClaims.CanViewUsers));
+                options.AddPolicy(SolicitationSubsidyClaims.CanAddSupervisorUsers, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAddSupervisorUsers));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditUsers, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditUsers));
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateUsers, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateUsers));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteUsers, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteUsers));
+
+                //category
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewCategory, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewCategory));
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateCategory, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateCategory));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteCategory, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteCategory));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditCategory, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditCategory));
+
+                //Organism
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewOrganism, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewOrganism));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditOrganism, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditOrganism));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteOrganism, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteOrganism));
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateOrganism, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateOrganism));
+
+                //Distribution
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateDistribution, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateDistribution));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditDistribution, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditDistribution));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteDistribution, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteDistribution));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewDistribution, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewDistribution));
+
+                //Transport
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateTransport, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateTransport));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditTransport, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditTransport));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteTransport, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteTransport));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewTransport, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewTransport));
+
+                //Holidays
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateHoliday, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateHoliday));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditHoliday, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditHoliday));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteHoliday, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteHoliday));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewHoliday, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewHoliday));
+
+                //Expenditure
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateExpenditure, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanCreateExpenditure));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditExpenditure, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditExpenditure));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteExpenditure, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteExpenditure));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewExpenditure, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewExpenditure));
+
+                //Roles
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewRoles, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewRoles));
+                options.AddPolicy(SolicitationSubsidyClaims.CanEditRoles, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewRoles));
+
+                //Audit
+                options.AddPolicy(SolicitationSubsidyClaims.CanAudits, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
+
+                //Supervisor User-Agent
+                options.AddPolicy(SolicitationSubsidyClaims.CanCreateRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
+                options.AddPolicy(SolicitationSubsidyClaims.CanDeleteRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
+                options.AddPolicy(SolicitationSubsidyClaims.CanToSeeRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
             });
 
             services.AddIdentity<User, Role>()
@@ -163,7 +249,7 @@ namespace VR.Web
              .AddSignInManager<SignInManager>()
              .AddEntityFrameworkStores<DataContext>()
              .AddDefaultTokenProviders();
-
+           
             // Identity Services
             services.AddScoped<IUserStore<User>, UserStore>();
             services.AddScoped<IRoleStore<Role>, RoleStore>();
@@ -219,8 +305,6 @@ namespace VR.Web
             services.AddTransient<IValidator<HolidayBaseDto>, HolidayValidator>();
 
             services.AddDirectoryBrowser();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -231,7 +315,6 @@ namespace VR.Web
                 new CultureInfo("es-ES"),
                 new CultureInfo("ar")
             };
-
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture("es-ES"),
@@ -275,7 +358,7 @@ namespace VR.Web
                 .AllowCredentials());
 
             app.UseAuthentication();
-           
+            
             app.UseStaticHttpContext();
 
             app.UseMvc();
