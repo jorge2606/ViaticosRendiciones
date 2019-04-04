@@ -6,10 +6,12 @@ import { UsersComponent } from '../users.component';
 import { UserService } from '../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { modifyUser } from '../users';
+import { modifyUser, User } from '../users';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup } from '@angular/forms';
+import { ClaimsService } from 'src/app/_services/claims.service';
+import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 
 
 @Component({
@@ -29,6 +31,9 @@ export class ModifyuserComponent implements OnInit {
   submitted : boolean;
   validCheckbox : boolean = true;
   editSignatureHolograpich: any;
+  allSupervisors : User[] = [];
+  selectedSupervisorAgentId2 : number;
+  selectedSupervisorAgentId : number;
   @ViewChild('userForm') userForm : FormGroup;
 
   constructor(
@@ -39,10 +44,21 @@ export class ModifyuserComponent implements OnInit {
           private categoryService : CategoryService,
           private titleService : Title,
           private toastrService : ToastrService,
-          private authService : AuthenticationService
+          private authService : AuthenticationService,
+          private claimService : ClaimsService,
+          private supervisorUserAgentService : SupervisorUserAgentService
           ) {}
   
 
+    getAllUsersSupervisors(){
+      this.supervisorUserAgentService.allSupervisors()
+      .subscribe(x => {
+        x.forEach(supervisor => {
+          this.allSupervisors.push(supervisor.supervisors);
+        });;
+        
+      });
+    }
   changeStateCheckbox(rol : any){
     this.validCheckbox = false;
 
@@ -125,19 +141,25 @@ export class ModifyuserComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Modificar Usuario - Perfil');
-    //le asigno el id que extraigo de la url
-    this.route.params.subscribe(
-      p => {
-            this.id = p.id;
-            this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpichAsAdmin');
-          }
-    );
-    
-    this.getAllCategories();
+    if(!this.claimService.haveClaim(this.claimService.canEditUsers)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      //le asigno el id que extraigo de la url
+      this.route.params.subscribe(
+        p => {
+              this.id = p.id;
+              this.editSignatureHolograpich =this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
+            }
+      );
+      
+      this.getAllCategories();
 
-    this.getByIdAdministrator();
-    
-    this.allDistribution();
+      this.getByIdAdministrator();
+      
+      this.allDistribution();
+
+      this.getAllUsersSupervisors();
+    }
 
   }
 
@@ -147,15 +169,17 @@ export class ModifyuserComponent implements OnInit {
 
   getByIdAdministrator(){
       this.userService.getByIdAdministrator(this.id).subscribe(i => {
-        this.model.dni = i.dni,
-        this.model.userName = i.userName,
-        this.model.id = i.id,
-        this.model.phoneNumber = i.phoneNumber,
+        this.model.dni = i.dni;
+        this.model.userName = i.userName;
+        this.model.id = i.id;
+        this.model.phoneNumber = i.phoneNumber;
         this.model.rolesUser = i.rolesUser;
         this.model.firstName = i.firstName;
         this.model.lastName = i.lastName;
         this.model.distributionId = i.distributionId;
         this.model.categoryId = i.categoryId;
+        this.model.supervisorAgentId = i.supervisorAgentId;
+        this.model.supervisorAgentId2 = i.supervisorAgentId2;
     });
   }
 

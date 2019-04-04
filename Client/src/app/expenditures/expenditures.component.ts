@@ -1,3 +1,4 @@
+import { ClaimsService } from './../_services/claims.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,13 +31,20 @@ export class ExpendituresComponent implements OnInit {
             private modalService : NgbModal,
             private titleService : Title,
             private toastrService : ToastrService,
-            private authService : AuthenticationService
+            private authService : AuthenticationService,
+            private claimService : ClaimsService,
+            private routerService : Router
             ) { 
               this.titleService.setTitle('Tipos de Gastos');
             }
 
   ngOnInit() {
-    this.getAllExpenditure(this.page); 
+    if(!this.claimService.haveClaim(this.claimService.canViewExpenditure)){
+      this.routerService.navigate(['/notAuthorized']);
+    }else{
+      this.getAllExpenditure(this.page); 
+    }
+    
   }
 
   loadPage(page : number){

@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -24,18 +25,24 @@ export class UpdateExpenditureComponent implements OnInit {
               private router : Router,
               private titleService : Title,
               private routerService : Router,
-              private toastrService : ToastrService) { 
+              private toastrService : ToastrService,
+              private claimService : ClaimsService) { 
                 this.titleService.setTitle('Modificar Tipo de Gasto');
               }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      p => this.id = p.id
-    );
+    if(!this.claimService.haveClaim(this.claimService.canEditExpenditure)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.route.params.subscribe(
+        p => this.id = p.id
+      );
 
-    this.expenditureService.findByIdExpenditure(this.id).subscribe(
-      x => {this.model = x;}
-    );
+      this.expenditureService.findByIdExpenditure(this.id).subscribe(
+        x => {this.model = x;}
+      );
+    }
+
   }
 
   onSubmit(){

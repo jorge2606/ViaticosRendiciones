@@ -5,6 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-create-organism',
@@ -22,12 +23,18 @@ export class CreateOrganismComponent implements OnInit {
               private organismServcice : OrganismService,
               private titleService : Title,
               private toastrService : ToastrService,
-              private routerService : Router
+              private routerService : Router,
+              private claimService : ClaimsService
               ) {
                 this.titleService.setTitle('Crear Organismo');
                }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(!this.claimService.haveClaim(this.claimService.canCreateOrganism)){
+      this.routerService.navigate(['/notAuthorized']);
+    }
+    
+  }
 
     onSubmit(){
       this.organismServcice.createOrganism(this.model).subscribe(

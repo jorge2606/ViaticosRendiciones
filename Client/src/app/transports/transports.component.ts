@@ -6,6 +6,8 @@ import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { ClaimsService } from '../_services/claims.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transports',
@@ -29,12 +31,19 @@ export class TransportsComponent implements OnInit {
           private modalService: NgbModal,
           private titleService : Title,
           private toastrService : ToastrService,
-          private authService : AuthenticationService
+          private authService : AuthenticationService,
+          private claimService : ClaimsService,
+          private routerService : Router
           ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Transporte');
-    this.getAllTransports(this.page); 
+    if(!this.claimService.haveClaim(this.claimService.canViewTransport)){
+      this.routerService.navigate(['/notAuthorized']);
+    }else{
+      this.getAllTransports(this.page); 
+    }
+    
   }
 
   getAllTransports(page : number){

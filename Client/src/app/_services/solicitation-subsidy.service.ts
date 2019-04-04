@@ -66,6 +66,10 @@ export class SolicitationSubsidyService {
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/validateBeforeSendAccountForFinalizeNormally/"+solicitationId);
   }
 
+  someSolicitationHasThisExpenditure(key : string, expenditureId : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/SomeSolicitationHasThisExpenditure/"+key+"/"+expenditureId);
+  }
+
 
   acepted(solicitation : SolicitationIdDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/AceptedSolicitation",solicitation);

@@ -1,3 +1,4 @@
+import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { AllExpenditureDto } from '../../_models/expenditureType';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,10 +18,12 @@ export class AddNewExpenditureComponent implements OnInit {
   expendituresCbox : AllExpenditureDto[] = [];
   msgExist : string;
   selectedExpenditure : number;
+  @Input() keyRandom : string;
 
   constructor(
           public activeModal: NgbActiveModal,
-          private expenditureService : ExpenditureService) { }
+          private expenditureService : ExpenditureService,
+          private solicitationSubsidyService : SolicitationSubsidyService) { }
 
   ngOnInit() {
     this.allExpenditure();
@@ -28,28 +31,26 @@ export class AddNewExpenditureComponent implements OnInit {
 
   addNewConcept(){
     if (this.isCommission){
-      let exist;
       let expType : AllExpenditureDto;
-      if (this.expendituresAdded != null){
-        exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
-        expType = this.expendituresCbox.find(expType => expType.id == this.modelExp.id);
-      }
-      if (exist && !expType.canRepeat){
-          this.msgExist = "Tipo de gasto no se puede repetir en una comisión.";
+      this.solicitationSubsidyService.someSolicitationHasThisExpenditure(this.keyRandom,this.modelExp.id)
+      .subscribe(exp => {
+        if (exp){
+          this.msgExist = this.expendituresCbox.find(e => e.id == this.modelExp.id).name+" ya fue solicitado por otro miembro de esta comisión.";
           return;
-      }
-      
-      this.msgExist = "";
-      let newExp = new Expenditure();
-      newExp.description = this.modelExp.description;
-      newExp.amount = this.modelExp.amount;
-      newExp.expenditureTypeId = this.modelExp.id;
-      if (this.modelExp.id != null){
-        newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
-      }
-      this.expendituresAdded = this.expendituresAdded || [];
-      this.expendituresAdded.push(newExp);
-      this.sendData();     
+        }
+        
+        this.msgExist = "";
+        let newExp = new Expenditure();
+        newExp.description = this.modelExp.description;
+        newExp.amount = this.modelExp.amount;
+        newExp.expenditureTypeId = this.modelExp.id;
+        if (this.modelExp.id != null){
+          newExp.expenditureTypeName = this.expendituresCbox.find(x => x.id == this.modelExp.id).name;
+        }
+        this.expendituresAdded = this.expendituresAdded || [];
+        this.expendituresAdded.push(newExp);
+        this.sendData(); 
+      });
     }else{
       let exist;
       if (this.expendituresAdded != null){

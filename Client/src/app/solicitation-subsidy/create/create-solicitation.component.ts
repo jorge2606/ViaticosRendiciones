@@ -17,7 +17,7 @@ import { ProvinceBaseDto } from './../../_models/province';
 import { AllCategoryDto } from './../../_models/category';
 import { CategoryService } from 'src/app/_services/category.service';
 import { CreateSolicitationSubsidyDto, Expenditure } from './../../_models/solicitationSubsidy';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { ProvinceService } from 'src/app/_services/province.service';
@@ -28,6 +28,7 @@ import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExpendituresUserService } from 'src/app/_services/expenditures-user.service';
 import { ToastrService } from 'ngx-toastr';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-create-solicitation',
@@ -91,32 +92,39 @@ export class CreateSolicitationComponent implements OnInit {
       private toastrService: ToastrService,
       private ngbCalendar : NgbCalendar,
       private holidaysService : HolidaysService,
-      private authService : AuthenticationService
+      private authService : AuthenticationService,
+      private claimService : ClaimsService
       ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Solicitud');
-    this.currentUserId = this.authService.userId('id');
-    this.route.params.subscribe(
-      x =>{
-        this.id = x.id
-    });
-    
-    this.model.destinies = [];
-    this.model.expenditures = [];
-    this.allexpenditures();
-    this.allExpenditureFromModal();
-    this.allDestinyFromModal();
-    this.allCategories();
-    this.allTransport();
-    this.allCountries();
-    this.allCodeLiquidation();
-    this.totalResultExpenditure();
-    
-    if (this.id){
-        this.titleService.setTitle('Modificar Solicitud');
-        this.getSolicitation(this.id,"");
+
+    if(!this.claimService.haveClaim(this.claimService.canCreateSolicitation)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.currentUserId = this.authService.userId('id');
+      this.route.params.subscribe(
+        x =>{
+          this.id = x.id
+      });
+      
+      this.model.destinies = [];
+      this.model.expenditures = [];
+      this.allexpenditures();
+      this.allExpenditureFromModal();
+      this.allDestinyFromModal();
+      this.allCategories();
+      this.allTransport();
+      this.allCountries();
+      this.allCodeLiquidation();
+      this.totalResultExpenditure();
+      
+      if (this.id){
+          this.titleService.setTitle('Modificar Solicitud');
+          this.getSolicitation(this.id,"");
       }
+    }
+
   }
 
 
@@ -332,6 +340,7 @@ export class CreateSolicitationComponent implements OnInit {
 
     modalRef.componentInstance.expendituresAdded = this.model.expenditures;
     modalRef.componentInstance.isCommission = this.model.isCommission;
+    modalRef.componentInstance.keyRandom = this.model.randomKey;
     modalRef.result.then(()=> {
       this.totalResultExpenditure();
     },
@@ -364,10 +373,10 @@ export class CreateSolicitationComponent implements OnInit {
     );   
   }
 
-  ngOnDestroy() {
+  /** ngOnDestroy() {
     this.subscriptionExpenditure.unsubscribe();
     this.subscriptionDestiny.unsubscribe();
-  }
+  }*/
 
   changeValue(e : any){
     console.log(e);
@@ -413,6 +422,7 @@ export class CreateSolicitationComponent implements OnInit {
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
   onSubmit(){
+      this.totalResultExpenditure();
       this.submited = true;
       if (this.model.destinies.length == 0){
         this.msjToastInfo('Debe ingresar al menos un destino');
@@ -501,7 +511,7 @@ export class CreateSolicitationComponent implements OnInit {
 
       this.model.destinies.forEach(
         destiny => {  
-          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
+          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.daysPay * destiny.percentageCodeLiquidation);
         }
       );
       

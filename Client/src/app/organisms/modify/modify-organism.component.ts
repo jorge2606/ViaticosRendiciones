@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -23,19 +24,24 @@ export class ModifyOrganismComponent implements OnInit {
               private route : ActivatedRoute,
               private routerservice : Router,
               private titleService : Title,
-              private toastrService : ToastrService
+              private toastrService : ToastrService,
+              private claimService : ClaimsService
               ) { 
                 this.titleService.setTitle('Modificar Organismo');
               }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      p => this.id = p.id
-    );
+    if(!this.claimService.haveClaim(this.claimService.canEditOrganism)){
+      this.routerservice.navigate(['/notAuthorized']);
+    }else{
+      this.route.params.subscribe(
+        p => this.id = p.id
+      );
 
-    this.organismService.findById(this.id).subscribe(
-      x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description}
-    );
+      this.organismService.findById(this.id).subscribe(
+        x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description}
+      );
+    }
 
   }
 

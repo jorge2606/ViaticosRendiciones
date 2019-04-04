@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { AuthenticationService } from './../_services/authentication.service';
 import { Title } from '@angular/platform-browser';
 import { CategoryService } from './../_services/category.service';
@@ -5,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -34,13 +36,19 @@ export class CategoryComponent implements OnInit {
             private modalService: NgbModal,
             private titleService : Title,
             private toastrService : ToastrService,
-            private authService : AuthenticationService
+            private authService : AuthenticationService,
+            private claimService : ClaimsService,
+            private routerService : Router
             ) { 
               this.titleService.setTitle('Categorías');
             }
 
   ngOnInit() {
-    this.getAllCategories(this.filters); 
+    if(!this.claimService.haveClaim(this.claimService.canViewCategory)){
+      this.routerService.navigate(['/notAuthorized']);
+    }else{
+      this.getAllCategories(this.filters); 
+    }
   }
 
   loadPage(page : number){

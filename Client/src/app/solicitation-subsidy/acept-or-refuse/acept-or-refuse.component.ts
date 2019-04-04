@@ -7,6 +7,7 @@ import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-rejec
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-acept-or-refuse',
@@ -37,13 +38,16 @@ export class AceptOrRefuseComponent implements OnInit {
         public router : Router,
         public authService : AuthenticationService,
         public toastService : ToastrService,
-        private lightbox : CrystalLightbox
+        private lightbox : CrystalLightbox,
+        private claimService : ClaimsService
     ) { }
 
   ngOnInit() {
       this.permissions = this.authService.userId('roles');
-      this.moderateSolicitation = this.permissions.find(claim => claim.value == 'solicitations.moderateSolicitations');
-      this.moderateRefund = this.permissions.find(claim => claim.value == 'solicitations.moderateRefunds');
+      
+    if(!this.claimService.haveClaim(this.claimService.canModerateRefund) && this.claimService.haveClaim(this.claimService.canModerateSolicitation)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
       this.Activatedrouter.params.subscribe(
         x => {
               this.model.id = x.id;
@@ -68,6 +72,8 @@ export class AceptOrRefuseComponent implements OnInit {
                 );
           }
       );
+    }
+
   }
 
   acepted(){

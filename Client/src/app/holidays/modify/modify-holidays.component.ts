@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UpdateHolidayDto } from './../../_models/holiday';
@@ -24,21 +25,27 @@ export class ModifyHolidaysComponent implements OnInit {
               private holidayService : HolidaysService,
               private router : Router,
               private titleService : Title,
-              private toastrService : ToastrService
+              private toastrService : ToastrService,
+              private claimService : ClaimsService
               ) { 
                 this.titleService.setTitle('Modificar Feriado');
               }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      x => this.id = x.id
-    );
+    if(!this.claimService.haveClaim(this.claimService.canEditHoliday)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.route.params.subscribe(
+        x => this.id = x.id
+      );
 
-    this.holidayService.getByIdHoliday(this.id).subscribe(
-      x => {
-              this.model = x;
-            }
-    );
+      this.holidayService.getByIdHoliday(this.id).subscribe(
+        x => {
+                this.model = x;
+              }
+      );
+    }
+
   }
 
   onSubmit() {

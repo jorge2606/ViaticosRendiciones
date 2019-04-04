@@ -152,7 +152,52 @@
                                         <option *ngFor="let cat of categories" [ngValue]="cat.id">{{cat.name}} - {{cat.description}}</option>
                                     </select>
                                 </div>
-                        
+
+                                <div class="form-group mb-1">
+                                    <select 
+                                        class="form-control mt-1" 
+                                        #supervisorAgentId="ngModel" 
+                                        name="supervisorAgentId" 
+                                        [hidden]="supervisor1"
+                                        [(ngModel)]="model.supervisorAgentId"
+                                        [ngClass]="{ 'is-invalid': (supervisorAgentId.dirty || userForm.submitted) && supervisorAgentId.invalid,
+                                        'is-valid' : supervisorAgentId.dirty && supervisorAgentId.valid }"
+                                        required>
+                                        <option class="form-control" 
+                                            *ngIf="selectedSupervisorAgentId == model.supervisorAgentId" 
+                                            [ngValue]="selectedSupervisorAgentId" disabled>
+                                            Seleccione un Supervisor de 1ra Instancia...
+                                        </option>
+                                        <option 
+                                            class="form-control" 
+                                            *ngFor="let sup of allSupervisors" 
+                                            value="{{sup.id}}">{{sup.lastName}}, {{sup.firstName}}</option>
+                                    </select>
+                                </div>
+            
+                                <div class="form-group mb-1">
+                                        <select 
+                                            class="form-control mt-1" 
+                                            #supervisorAgentId2="ngModel" 
+                                            name="supervisorAgentId2" 
+                                            [hidden]="supervisor2"
+                                            [(ngModel)]="model.supervisorAgentId2"
+                                            [ngClass]="{ 'is-invalid': (supervisorAgentId2.dirty || userForm.submitted) && supervisorAgentId2.invalid,
+                                            'is-valid' : supervisorAgentId2.dirty && supervisorAgentId2.valid }"
+                                            required>
+                                            <option class="form-control" 
+                                                *ngIf="selectedSupervisorAgentId2 == model.supervisorAgentId2" 
+                                                [ngValue]="selectedSupervisorAgentId2" disabled>
+                                                Seleccione un Supervisor de 2da Instancia...
+                                            </option>
+                                            <option
+                                                class="form-control" 
+                                                *ngFor="let sup of allSupervisors" 
+                                                value="{{sup.id}}">{{sup.lastName}}, {{sup.firstName}}</option>
+                                        </select>
+                                        
+                                </div>
+                                
                                 <div class="form-row mb-1">
                                         <button placement="top" ngbTooltip="Enviar este formulario" 
                                             class="btn btn-success ml-auto" [disabled]="!userForm.form.valid">

@@ -5,6 +5,7 @@ import { CreateTransportDto } from 'src/app/_models/transport';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-create-transport',
@@ -22,11 +23,16 @@ export class CreateTransportComponent implements OnInit {
         private transportService : TransportService,
         private titleService : Title,
         private toastrService :ToastrService,
-        private routerService : Router
+        private routerService : Router,
+        private claimService : ClaimsService
         ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Transporte');
+    
+    if(!this.claimService.haveClaim(this.claimService.canCreateTransport)){
+      this.routerService.navigate(['/notAuthorized']);
+    }
   }
 
   onSubmit(){

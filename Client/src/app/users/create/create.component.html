@@ -191,7 +191,7 @@
                             <option class="form-control" 
                                 *ngIf="selectedSupervisorAgentId == model.supervisorAgentId" 
                                 [ngValue]="selectedSupervisorAgentId" disabled>
-                                Seleccione una Supervisor...
+                                Seleccione un Supervisor de 1ra Instancia...
                             </option>
                             <option class="form-control" 
                                 *ngFor="let sup of allSupervisors" 
@@ -212,13 +212,13 @@
                                 <option class="form-control" 
                                     *ngIf="selectedSupervisorAgentId2 == model.supervisorAgentId2" 
                                     [ngValue]="selectedSupervisorAgentId2" disabled>
-                                    Seleccione una Supervisor...
+                                    Seleccione un Supervisor de 2da Instancia...
                                 </option>
                                 <option class="form-control" 
                                     *ngFor="let sup of allSupervisors" 
                                     value="{{sup.id}}">{{sup.lastName}}, {{sup.firstName}}</option>
                             </select>
-                        </div>
+                    </div>
             
                     <div class="form-row mt-1">
                             <button placement="top" 

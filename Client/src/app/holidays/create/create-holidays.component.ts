@@ -5,6 +5,7 @@ import { HolidaysService } from './../../_services/holidays.service';
 import { CreateHolidayDto } from './../../_models/holiday';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-create-holidays',
@@ -22,13 +23,16 @@ export class CreateHolidaysComponent implements OnInit {
                 private holidayService: HolidaysService,
                 private titleService :Title,
                 private routerService : Router,
-                private toastrService : ToastrService
+                private toastrService : ToastrService,
+                private claimService : ClaimsService
                 ) { 
                     this.titleService.setTitle('Crear Feriado');
                 }
 
   ngOnInit() {
-
+    if(!this.claimService.haveClaim('holidays.create')){
+      this.routerService.navigate(['/notAuthorized']);
+    }
   }
 
   onSubmit() {

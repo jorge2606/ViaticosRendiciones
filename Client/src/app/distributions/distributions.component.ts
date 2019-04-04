@@ -9,6 +9,7 @@ import { OrganismBaseDto } from '../_models/organism';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrganismService } from '../_services/organism.service';
 import { ToastrService } from 'ngx-toastr';
+import { ClaimsService } from '../_services/claims.service';
 
 @Component({
   selector: 'app-distributions',
@@ -40,28 +41,31 @@ export class DistributionsComponent implements OnInit {
               private organismService : OrganismService,
               private authService : AuthenticationService,
               private route: ActivatedRoute,
+              private routerService: Router,
               private titleService : Title,
-              private toastrService : ToastrService) { 
+              private toastrService : ToastrService,
+              private claimService : ClaimsService ) { 
                 this.titleService.setTitle('Reparticiones');
               }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      p => { if (p.organismId){ this.filters.organismId = p.organismId; } }
-    );
-    
-    this.organismService.getAllOrganism().subscribe(
-      x =>{
-          this.organisms = x;
-          this.getAllDistributions(this.filters);
-          this.permissions = this.authService.userId('roles');
-          this.distributionCreate = this.permissions.find(x => x.value == 'distributions.create');
-          this.distributionEdit = this.permissions.find(x => x.value == 'distributions.edit');
-          this.distributionDelete = this.permissions.find(x => x.value == 'distributions.delete');
-
-      } 
-    );
-    
+    if(!this.claimService.haveClaim(this.claimService.canViewDistribution)){
+      this.routerService.navigate(['/notAuthorized']);
+    }else{
+      this.route.params.subscribe(
+        p => { if (p.organismId){ this.filters.organismId = p.organismId; } }
+      );
+      
+      this.organismService.getAllOrganism().subscribe(
+        x =>{
+            this.organisms = x;
+            this.getAllDistributions(this.filters);
+            this.distributionCreate = this.claimService.haveClaim(this.claimService.canCreateDistribution);
+            this.distributionEdit = this.claimService.haveClaim(this.claimService.canEditDistribution);
+            this.distributionDelete = this.claimService.haveClaim(this.claimService.canDeleteDistribution);
+        } 
+      );
+    }
   }
 
   getAllDistributions(filters : any){

@@ -14,6 +14,7 @@ import { UsersComponent } from '../users.component';
 import { Title } from '@angular/platform-browser';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 import { FormGroup } from '@angular/forms';
+import { ClaimsService } from 'src/app/_services/claims.service';
 @Component({
   selector: 'app-createuser',
   templateUrl: './create.component.html',
@@ -49,7 +50,8 @@ export class CreateuserComponent implements OnInit {
               private titleService : Title,
               private toastrService : ToastrService,
               private supervisorUserAgentService : SupervisorUserAgentService,
-              private authService : AuthenticationService) {}
+              private authService : AuthenticationService,
+              private claimService : ClaimsService) {}
 
 
   getAllRoles(){
@@ -88,7 +90,7 @@ export class CreateuserComponent implements OnInit {
     
     this.model.rolesUser.forEach(
       roles => {
-        if (roles.name == "Ministro"){
+        if (roles.name == "Ministro" || roles.name == "Administrador"){
           if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
             this.supervisor1 = true;
             this.supervisor2 = true;
@@ -168,15 +170,20 @@ export class CreateuserComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Crear Usuario');
-    this.editSignatureHolograpich = this.authService.userId('roles').find(x => x.value == 'user.editSignatureHolograpichAsAdmin');
-    this.getAllRoles();
-    this.getAllCategories();
-    this.getAllUsersSupervisors();
-    this.distributionService.allDistribution().subscribe(
-      x => {
-        this.distribution = x;
-      }
-    );
+    if(!this.claimService.haveClaim(this.claimService.canCreateUsers)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.editSignatureHolograpich = this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
+      this.getAllRoles();
+      this.getAllCategories();
+      this.getAllUsersSupervisors();
+      this.distributionService.allDistribution().subscribe(
+        x => {
+          this.distribution = x;
+        }
+      );
+    }
+
   }
 
   setTitleTabProfile(){

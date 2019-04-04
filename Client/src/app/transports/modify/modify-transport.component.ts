@@ -1,3 +1,4 @@
+import { ClaimsService } from './../../_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { TransportService } from './../../_services/transport.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -22,24 +23,29 @@ export class ModifyTransportComponent implements OnInit {
     private router : Router,
     private tranportService : TransportService,
     private titleService : Title,
-    private toastrService : ToastrService
+    private toastrService : ToastrService,
+    private claimService : ClaimsService
     ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Modificar Transporte');
-    this.route.params.subscribe(
-      p => this.id = p.id
-    );
+    if(!this.claimService.haveClaim(this.claimService.canEditTransport)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.route.params.subscribe(
+        p => this.id = p.id
+      );
 
-    this.tranportService.findByIdTransport(this.id).subscribe(
-      x => {
-         this.modelTransport.id = x.id;
-         this.modelTransport.brand = x.brand;
-         this.modelTransport.carPlate = x.carPlate;
-         this.modelTransport.model = x.model;
-         this.modelTransport.type = x.type;
-        }
-    );
+      this.tranportService.findByIdTransport(this.id).subscribe(
+        x => {
+          this.modelTransport.id = x.id;
+          this.modelTransport.brand = x.brand;
+          this.modelTransport.carPlate = x.carPlate;
+          this.modelTransport.model = x.model;
+          this.modelTransport.type = x.type;
+          }
+      );
+    }
   }
 
   onSubmit() {

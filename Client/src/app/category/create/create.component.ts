@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Category, CreateCategoryDto } from './../../_models/category';
@@ -22,13 +23,16 @@ export class CreateCategoryComponent implements OnInit {
             private categoryService : CategoryService,
             private titleService : Title,
             private toastrService : ToastrService,
-            private routerService : Router
+            private routerService : Router,
+            private claimService : ClaimsService
             ) {
                 this.titleService.setTitle('Crear Categoría');
              }
 
   ngOnInit() {
-    
+    if(!this.claimService.haveClaim(this.claimService.canCreateCategory)){
+      this.routerService.navigate(['/notAuthorized']);
+    }
   }
   
   msjValidEvent(msj : any){

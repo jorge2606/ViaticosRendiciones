@@ -6,6 +6,8 @@ import { OrganismService } from '../_services/organism.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from '../modals/modals.component';
 import { ToastrService } from 'ngx-toastr';
+import { ClaimsService } from '../_services/claims.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organisms',
@@ -32,13 +34,20 @@ export class OrganismsComponent implements OnInit {
               private modalService : NgbModal,
               private titleService : Title,
               private toastrService : ToastrService,
-              private authService : AuthenticationService
+              private authService : AuthenticationService,
+              private claimService : ClaimsService,
+              private routerSerivice : Router
               ) { 
                 this.titleService.setTitle('Organismos');
               }
 
   ngOnInit() {
-    this.getAllOrganism(this.filters); 
+    if(!this.claimService.haveClaim(this.claimService.canViewOrganism)){
+      this.routerSerivice.navigate(['/notAuthorized']);
+    }else{
+      this.getAllOrganism(this.filters); 
+    }
+    
   }
 
   getAllOrganism(page : any){

@@ -53,18 +53,12 @@
     color: white;
 }
 
-.imgContainer {
-    /* border: 2px white solid; */
-    display: inline;
-    margin-right: 4px;
-}
-
 .image {
     border: 1px white solid;
     border-radius: 6px;
-    max-width: 100%;
+    width:100%;
     height: auto;
-    margin-top: 1px;
+    margin-right : 4px;
 }
 
 .backGroundFooter {

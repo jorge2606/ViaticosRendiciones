@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CategoryComponent } from './../category.component';
@@ -25,20 +26,27 @@ export class ModifyCategoryComponent implements OnInit {
             private route: ActivatedRoute,
             private router : Router,
             private titleService : Title,
-            private toastrService : ToastrService
+            private toastrService : ToastrService,
+            private claimService : ClaimsService
             ) { 
               this.titleService.setTitle('Modificar Categoría');
             }
 
   ngOnInit() {
-    //le asigno el id que extraigo de la url
-    this.route.params.subscribe(
-      p => this.id = p.id
-    );
 
-    this.categoryService.findByIdCategory(this.id).subscribe(
-      x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description, this.model.advance = x.advance}
-    );
+    if(!this.claimService.haveClaim(this.claimService.canEditCategory)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      //le asigno el id que extraigo de la url
+      this.route.params.subscribe(
+        p => this.id = p.id
+      );
+
+      this.categoryService.findByIdCategory(this.id).subscribe(
+        x => {this.model.id = x.id, this.model.name = x.name, this.model.description = x.description, this.model.advance = x.advance}
+      );
+    }
+
   }
 
 

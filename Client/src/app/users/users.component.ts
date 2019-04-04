@@ -1,3 +1,4 @@
+import { ClaimsService } from './../_services/claims.service';
 import { FormGroup } from '@angular/forms';
 import { CreateuserComponent } from './create/create.component';
 import { Title } from '@angular/platform-browser';
@@ -42,7 +43,6 @@ export class UsersComponent implements OnInit {
   user_list_length: number;
   textListEmpty : string = "No se encontró ningún usuario";
   classListEmpty : string = "alert-primary";
-  permissions : any[] = [];
   create: any;
   addSupervisor: any;
   toSeeRelationshipBeetwenSupervisorAndAgent: any;
@@ -61,36 +61,40 @@ export class UsersComponent implements OnInit {
     private aspNetUsersRolesService : AspNetUsersRolesService,
     private titleService : Title,
     private router : Router,
-    private toastrService : ToastrService) {}
+    private toastrService : ToastrService,
+    private claimService : ClaimsService) {}
 
 
   ngOnInit() {
     this.titleService.setTitle('Usuarios');
-    this.permissions = this.authService.userId('roles');
-    this.create = this.permissions.find(x => x.value == 'user.create');
-    this.addSupervisor = this.permissions.find(x => x.value == 'user.addSupervisor');
-    this.toSeeRelationshipBeetwenSupervisorAndAgent = this.permissions.find(x => x.value == 'user.toSeeRelationshipBeetwenSupervisorAndAgent');
-    this.edit = this.permissions.find(x => x.value == 'user.edit');
-    this.delete = this.permissions.find(x => x.value == 'user.delete');
-    this.allUsersWithInPage();
-    this.allAspNetRolesService();
-    this.allAspNetUserRolesService();
-    //le asigno el id que extraigo de la url
-    this.route.params.subscribe(
-      p => {
-          if (p.distributionId)
-          {
-            this.filters.distributionId = p.distributionId
+    if(!this.claimService.haveClaim(this.claimService.canViewUsers)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.create = this.claimService.haveClaim(this.claimService.canCreateUsers);
+      this.addSupervisor = this.claimService.haveClaim(this.claimService.canAddSupervisorUsers);
+      this.toSeeRelationshipBeetwenSupervisorAndAgent = this.claimService.haveClaim(this.claimService.canToSeeRelationshipBeetwenSupervisorAndAgent);
+      this.edit = this.claimService.haveClaim(this.claimService.canEditUsers);
+      this.delete = this.claimService.haveClaim(this.claimService.canDeleteUsers);
+      this.allUsersWithInPage();
+      this.allAspNetRolesService();
+      this.allAspNetUserRolesService();
+      //le asigno el id que extraigo de la url
+      this.route.params.subscribe(
+        p => {
+            if (p.distributionId)
+            {
+              this.filters.distributionId = p.distributionId
+            }
           }
+      );
+        
+      this.distributionService.allDistribution().subscribe(
+        x => {
+          this.distributions = x;
+          this.getAllUsers(this.filters);
         }
-    );
-      
-    this.distributionService.allDistribution().subscribe(
-      x => {
-        this.distributions = x;
-        this.getAllUsers(this.filters);
-      }
-    );
+      );
+    }
 
   }
 

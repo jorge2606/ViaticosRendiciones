@@ -6,6 +6,7 @@ import { CreateDistributionDto } from './../../_models/distributions';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-create-distributions',
@@ -25,17 +26,22 @@ export class CreateDistributionsComponent implements OnInit {
               private organismService : OrganismService,
               private titleService : Title,
               private toastrService : ToastrService,
-              private routerService : Router
+              private routerService : Router,
+              private claimService : ClaimsService
               ) { 
                 this.titleService.setTitle('Crear Distribución');
               }
 
   ngOnInit() {
+    if(!this.claimService.haveClaim(this.claimService.canCreateDistribution)){
+      this.routerService.navigate(['/notAuthorized']);
+    }else{
+      this.organismService.getAllOrganism().subscribe(
+        x => this.organism = x,
+        error => this.error = error
+      );
+    }
 
-    this.organismService.getAllOrganism().subscribe(
-      x => this.organism = x,
-      error => this.error = error
-    );
 
   }
 

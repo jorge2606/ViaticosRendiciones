@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { CarIsBeingUsedByOtherSolicitation } from 'src/app/_models/transport';
 import { errorDto } from 'src/app/_models/error';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-agent',
@@ -56,7 +57,8 @@ export class AgentComponent implements OnInit {
             private titleService : Title,
             private toastrService : ToastrService,
             private pipeService : DatePipe,
-            private authService : AuthenticationService
+            private authService : AuthenticationService,
+            private claimService : ClaimsService
             ) { 
               this.titleService.setTitle('Mis Solicitudes de Viático');
             }

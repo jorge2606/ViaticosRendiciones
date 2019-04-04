@@ -89,6 +89,8 @@ import { AddDestinyRepaymentComponent } from './modals/add-destiny-repayment/add
 import {CrystalGalleryModule} from 'ngx-crystal-gallery';
 import { AuditNotificationComponent } from './audits/audit-notification/audit-notification.component';
 import { CanDeactivateGuard } from './directives/can-deactivate-guard';
+import { NotFoundComponent } from './_helpers/not-found/not-found.component';
+import { NotAuthorizedComponent } from './_helpers/not-authorized/not-authorized.component';
 
 library.add(fas);
 
@@ -155,7 +157,9 @@ library.add(fas);
       PrintAccountForSolicitationComponent,
       AccountForNormallyFinalizationComponent,
       AddDestinyRepaymentComponent,
-      AuditNotificationComponent
+      AuditNotificationComponent,
+      NotFoundComponent,
+      NotAuthorizedComponent
    ],
    imports: [
       BrowserModule,

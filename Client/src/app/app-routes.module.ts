@@ -1,3 +1,5 @@
+import { NotFoundComponent } from './_helpers/not-found/not-found.component';
+import { NotAuthorizedComponent } from './_helpers/not-authorized/not-authorized.component';
 import { AuditsComponent } from './audits/audits.component';
 import { AccountForNormallyFinalizationComponent } from './solicitation-subsidy/account-for-normally-finalization/account-for-normally-finalization.component';
 import { AccountForComponent } from './solicitation-subsidy/account-for/account-for.component';
@@ -49,7 +51,8 @@ import { CanDeactivateGuard } from './directives/can-deactivate-guard';
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
   { path: '', data: {breadcrumb: 'inicio',isHome: true,show: false, },component: HomeComponent, canActivate : [AuthGuard] },
-
+  { path : 'notAuthorized',component : NotAuthorizedComponent, canActivate : [AuthGuard]},
+  { path : 'notFound',component : NotFoundComponent, canActivate : [AuthGuard]},
   { path: 'login', component: LoginComponent },
 
   { path: 'users',
@@ -66,7 +69,9 @@ const routes: Routes = [
           show: true
         } 
       },
-      { path: 'AgentsAndSupervisors', data: {breadcrumb: 'agentes y supervisores',isHome: false,show: true},component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] 
+      { path: 'AgentsAndSupervisors', 
+        data: {breadcrumb: 'agentes y supervisores',isHome: false,show: true},
+        component: AgentsAndSupervisorsComponent, canActivate : [AuthGuard] 
       },
       { path: 'update/:id',
         data: {

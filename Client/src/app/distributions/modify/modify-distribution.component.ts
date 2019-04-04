@@ -9,6 +9,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { OrganismService } from 'src/app/_services/organism.service';
 import { ToastrService } from 'ngx-toastr';
+import { ClaimsService } from 'src/app/_services/claims.service';
 
 @Component({
   selector: 'app-modify-distribution',
@@ -30,29 +31,35 @@ export class ModifyDistributionComponent implements OnInit {
               private toastrService : ToastrService,
               private distributionService : DistributionService, 
               private organismService : OrganismService,
-              private titleService : Title) {
+              private titleService : Title,
+              private claimService : ClaimsService) {
                 this.titleService.setTitle('Modificar Repartición');
                }
 
   ngOnInit() {
-    //le asigno el id que extraigo de la url
-    this.route.params.subscribe(
-      p => this.id = p.id
-    );
+    if(!this.claimService.haveClaim(this.claimService.canEditDistribution)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      //le asigno el id que extraigo de la url
+      this.route.params.subscribe(
+        p => this.id = p.id
+      );
 
-    this.distributionService.findByIdDistribution(this.id).subscribe(
-      x => {
-            this.model.id = x.id, 
-            this.model.name = x.name, 
-            this.model.description = x.description,
-            this.model.organismId = x.organismId
-          }
-    );
+      this.distributionService.findByIdDistribution(this.id).subscribe(
+        x => {
+              this.model.id = x.id, 
+              this.model.name = x.name, 
+              this.model.description = x.description,
+              this.model.organismId = x.organismId
+            }
+      );
 
-    this.organismService.getAllOrganism().subscribe(
-      x => this.organism = x,
-      error => this.error = error
-    );
+      this.organismService.getAllOrganism().subscribe(
+        x => this.organism = x,
+        error => this.error = error
+      );
+    }
+
   }
 
   onSubmit() {

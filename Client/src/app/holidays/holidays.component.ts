@@ -1,3 +1,4 @@
+import { ClaimsService } from './../_services/claims.service';
 import { AuthenticationService } from './../_services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
@@ -6,6 +7,7 @@ import { HolidaysService } from './../_services/holidays.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from '../modals/modals.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-holidays',
@@ -38,13 +40,20 @@ export class HolidaysComponent implements OnInit {
     private modalService: NgbModal,
     private titleService : Title,
     private toastrService : ToastrService,
-    private authService : AuthenticationService
+    private authService : AuthenticationService,
+    private claimService : ClaimsService,
+    private routerService : Router
   ) {
       this.titleService.setTitle('Feriados');
   }
 
   ngOnInit() {
-    this.getAllHolidays(this.filters);
+    if(!this.claimService.haveClaim('user.create')){
+      this.routerService.navigate(['/notAuthorized']);
+    }else{
+      this.getAllHolidays(this.filters);
+    }
+    
   }
 
   getAllHolidays(filters : any){
