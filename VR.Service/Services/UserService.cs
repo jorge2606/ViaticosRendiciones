@@ -250,7 +250,31 @@ namespace VR.Service.Services
                   user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, userParam.Password);
               }
 
-              _context.Users.Update(user);
+              if (userParam.SupervisorAgentId.CompareTo(Guid.Empty) != 0)
+              {
+                  _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
+                  {
+                      new CreateSupervisorAgentDto()
+                      {
+                          AgentId = user.Id,
+                          SupervisorId = userParam.SupervisorAgentId
+                      }
+                  });
+              }
+
+              if (userParam.SupervisorAgentId2.CompareTo(Guid.Empty) != 0)
+              {
+                  _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
+                  {
+                      new CreateSupervisorAgentDto()
+                      {
+                          AgentId = user.Id,
+                          SupervisorId = userParam.SupervisorAgentId2
+                      }
+                  });
+              }
+
+            _context.Users.Update(user);
               _context.SaveChanges();
           }
 
@@ -315,9 +339,7 @@ namespace VR.Service.Services
                 DistributionId = user.DistributionId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                CategoryId = user.CategoryId,
-                SupervisorAgentId = user.SupervisorAgentId,
-                SupervisorAgentId2 = user.SupervisorAgentId2
+                CategoryId = user.CategoryId
     };
 
             var userExistOrNot = await _userManager.FindByNameAsync(user.UserName);
@@ -352,7 +374,6 @@ namespace VR.Service.Services
                 {
                     new CreateSupervisorAgentDto()
                     {
-                        Id = new Guid(),
                         AgentId = user.Id,
                         SupervisorId = user.SupervisorAgentId
                     }
@@ -365,7 +386,6 @@ namespace VR.Service.Services
                 {
                     new CreateSupervisorAgentDto()
                     {
-                        Id = new Guid(),
                         AgentId = user.Id,
                         SupervisorId = user.SupervisorAgentId2
                     }

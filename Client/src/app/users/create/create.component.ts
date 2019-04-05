@@ -6,10 +6,10 @@ import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UserService } from './../../_services/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { createUser } from '../users'
+import { createUser, rolesBelongUser } from '../users'
 import { RoleService } from '../../_services/role.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UsersComponent } from '../users.component';
 import { Title } from '@angular/platform-browser';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
@@ -31,19 +31,21 @@ export class CreateuserComponent implements OnInit {
   passwordEmpty : boolean = true;
   passwordsAreEquals : boolean = true;
   submitted : boolean;
-  validCheckbox : boolean = false;
+  validCheckbox : boolean = true;
   selectedSupervisorAgentId : number;
   selectedSupervisorAgentId2 : number;
   allSupervisors : User[] = [];
   editSignatureHolograpich: any;
   supervisor1 : boolean;
   supervisor2 : boolean;
+  id : number;
 
-  @ViewChild('userForm') userForm : FormGroup;
+  @ViewChild('userForm') userForm : any;
 
   constructor(
               private UserService : UserService, 
               private router : Router,
+              private route : ActivatedRoute,
               private rolService : RoleService,
               private distributionService : DistributionService,
               private categoryService : CategoryService,
@@ -68,12 +70,20 @@ export class CreateuserComponent implements OnInit {
 
   changeStateCheckbox(rol : any){
     this.validCheckbox = false;
+    var valueRol = rol.rolBelongUser;
 
+    var ministro = this.model.rolesUser.find(rolStatus =>  rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolMinistro );
+    var admin = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAdmin );
+    var supervisor = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolSupervisor );
+    var agente = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAgente );
+    
+    var result;
+    //CAMBIO DE VALOR AL CHECKBOX
     if (rol.rolBelongUser){
       rol.rolBelongUser = !rol.rolBelongUser;
       this.model.rolesUser.forEach(
         x => {
-            var result = x.rolBelongUser.toString() == "true" ? true : false;
+            result = x.rolBelongUser.toString() == "true" ? true : false;
             if(result){
               this.validCheckbox = true;
               return;
@@ -87,27 +97,65 @@ export class CreateuserComponent implements OnInit {
         return;
       }
     }
-    
-    this.model.rolesUser.forEach(
-      roles => {
-        if (roles.name == "Ministro" || roles.name == "Administrador"){
-          if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
-            this.supervisor1 = true;
-            this.supervisor2 = true;
-          }
-        }else if(roles.name == "supervisor"){
-          if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
-            this.supervisor1 = false;
-            this.supervisor2 = true;
-          }
-        }else if(roles.name == "Agente"){
-          if ( (roles.name == rol.name && !rol.rolBelongUser) || roles.rolBelongUser){
-            this.supervisor1 = false;
-            this.supervisor2 = false;
-          }
+
+    if (!valueRol){
+        if (  
+            (rol.name == this.claimService.rolMinistro && !valueRol == true) || 
+            (rol.name == this.claimService.rolAdmin && !valueRol == true) ||
+            (ministro || admin) || (ministro && agente) || 
+            (ministro && agente && supervisor) ||
+            (admin && agente) || (admin && agente && supervisor) 
+          ){
+              this.supervisor1 = true;
+              this.supervisor2 = true;
+        }else if( 
+              (!ministro && !admin && 
+              !(rol.name == this.claimService.rolMinistro && !valueRol == true) && 
+              !(rol.name == this.claimService.rolAdmin && !valueRol == true) && 
+              (supervisor ||  (rol.name == this.claimService.rolSupervisor && !valueRol == true)) 
+            ) || 
+            ( (supervisor && agente) || 
+              ((rol.name == this.claimService.rolSupervisor) && agente) )
+            ){
+              this.supervisor1 = false;
+              this.supervisor2 = true;
+        }else if(!ministro && !admin && !supervisor && 
+              !(rol.name == this.claimService.rolMinistro && !valueRol == true) && 
+              !(rol.name == this.claimService.rolAdmin && !valueRol == true) && 
+              !(rol.name == this.claimService.rolSupervisor && !valueRol == true) && 
+              (agente ||  (rol.name == this.claimService.rolAgente))
+              ){
+              this.supervisor1 = false;
+              this.supervisor2 = false;
         }
-      });
-    
+      }else{
+        if ( 
+            (this.claimService.rolMinistro != rol.name) &&
+            (this.claimService.rolAdmin != rol.name) &&
+            ( (ministro || admin) || 
+            (ministro && agente) || 
+            (ministro && supervisor) ||
+            (ministro && agente && supervisor) ||
+            (admin && agente) || 
+            (admin && supervisor) || 
+            (admin && agente && supervisor) )
+          ){
+              this.supervisor1 = true;
+              this.supervisor2 = true;
+        }else if( 
+            (this.claimService.rolSupervisor != rol.name) &&
+            ( (!ministro && !admin && supervisor) || (supervisor && agente) )
+            ) {
+              this.supervisor1 = false;
+              this.supervisor2 = true;
+        }else if(
+            //(!ministro && !admin && !supervisor && agente) &&
+            (this.claimService.rolAgente != rol.name)
+            ){
+              this.supervisor1 = false;
+              this.supervisor2 = false;
+        }
+      }    
     this.validCheckbox = true;
     return;
 
@@ -157,33 +205,64 @@ export class CreateuserComponent implements OnInit {
     }
 
     this.titleService.setTitle('Crear Usuario - Perfil');
-    this.UserService.createWithObjectUser(this.model).subscribe(
-      data => {
+    if (!this.id){
+      this.UserService.createWithObjectUser(this.model).subscribe(
+        data => {
+            this.router.navigate(['/users']);
+            this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
+        },
+          error => {
+            this.errors = error.error.notifications;
+       });
+    }else{
+      this.model.id = this.id;
+      this.UserService.updateUsers(this.model).subscribe(
+        () => {
           this.router.navigate(['/users']);
-          this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
-      },
-        error => {
-          this.errors = error.error.notifications;
-     } 
-    );
+          this.toastrService.success(' El usuario se ha modificado correctamente.','',
+          {positionClass : 'toast-top-center', timeOut : 3000});
+        },
+          e => {
+            console.log(e);
+        }      
+      );
+    }
+
   }
   
   ngOnInit() {
-    this.titleService.setTitle('Crear Usuario');
-    if(!this.claimService.haveClaim(this.claimService.canCreateUsers)){
+    if(!this.claimService.haveClaim(this.claimService.canCreateUsers) || !this.claimService.haveClaim(this.claimService.canEditUsers)){
       this.router.navigate(['/notAuthorized']);
     }else{
-      this.editSignatureHolograpich = this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
+      //le asigno el id que extraigo de la url
+      this.route.params.subscribe(
+        p => {
+              this.id = p.id;
+            }
+      );
+      if(this.id){
+        this.titleService.setTitle('Modificar Usuario - Perfil');
+        this.getByIdAdministrator();
+        this.editSignatureHolograpich = this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
+      }      
+      
       this.getAllRoles();
       this.getAllCategories();
       this.getAllUsersSupervisors();
-      this.distributionService.allDistribution().subscribe(
+      this.distributionService.allDistribution()
+      .subscribe(
         x => {
           this.distribution = x;
         }
       );
     }
 
+  }
+
+    getByIdAdministrator(){
+      this.UserService.getByIdAdministrator(this.id).subscribe(i => {
+        this.model = i;
+    });
   }
 
   setTitleTabProfile(){
@@ -213,7 +292,7 @@ export class CreateuserComponent implements OnInit {
   }
 
   hasUnsavedData(){
-    return this.userForm.dirty;
+    return this.userForm.dirty && !this.userForm.submitted;
   }
 
 }

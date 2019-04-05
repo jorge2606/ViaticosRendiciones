@@ -9,8 +9,9 @@
     <ngb-tab id="tab-selectbyid1" title="Perfil">
         <ng-template ngbTabContent>
         <div class="container col-md-6">
-        <div class="card mt-1">
-            <h5 class="card-header">Nuevo</h5>
+        <div class="card mt-1 mb-2">
+            <h5 *ngIf="!id" class="card-header">Nuevo</h5>
+            <h5 *ngIf="id" class="card-header">Modificar</h5>
         <div class="card-body">
 
             <form (ngSubmit)="onSubmit()" #userForm="ngForm">
@@ -113,7 +114,6 @@
                             placeholder="Repetir Contraseña" 
                             value="">
                     </div>
-
                     <div class="form-group mb-0">
                         <div class="form-row ml-0">
                             <div *ngFor="let rol of model.rolesUser" class="custom-control custom-checkbox mr-2">
@@ -124,9 +124,8 @@
                                     (click)="changeStateCheckbox(rol)"
                                     [ngClass]="{'is-invalid' : !validCheckbox}"
                                     class="custom-control-input" 
-                                    id="customControlValidation{{rol.id}}" 
-                                    >
-                                <label class="custom-control-label" for="customControlValidation{{rol.id}}">{{rol.normalizedName}}</label>
+                                    id="customControlValidation{{rol.id}}">
+                                <label class="custom-control-label small" for="customControlValidation{{rol.id}}">{{rol.normalizedName}} {{rol.rolBelongUser}}</label>
                             </div>
                         </div>
                     </div> 
@@ -153,7 +152,9 @@
                             [ngClass]="{ 'is-invalid': (distributionId.dirty || userForm.submitted) && distributionId.invalid,
                             'is-valid' : distributionId.dirty && distributionId.valid }"
                             required>
-                            <option class="form-control" *ngIf="selecteddistributionId == model.distributionId" 
+                            <option 
+                                class="form-control" 
+                                *ngIf="selecteddistributionId == model.distributionId" 
                                 [ngValue]="selecteddistributionId" disabled>
                                 Seleccione una Distribución...
                             </option>
@@ -198,7 +199,6 @@
                                 value="{{sup.id}}">{{sup.lastName}}, {{sup.firstName}}</option>
                         </select>
                     </div>
-
                     <div class="form-group mb-1">
                             <select 
                                 class="form-control mt-1" 

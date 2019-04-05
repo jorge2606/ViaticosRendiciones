@@ -10,7 +10,6 @@ import { AppRoutesModule } from './app-routes.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { ModifyuserComponent } from './users/modify/modify.component';
 import { RegisterComponent } from './register/register.component';
 import {NgbModule, NgbDatepickerModule, NgbDateParserFormatter, NgbAlertModule, NgbDatepickerI18n, NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalContent } from './modals/modals.component';
@@ -102,7 +101,6 @@ library.add(fas);
       UsersComponent,
       CreateuserComponent,
       HomeComponent,
-      ModifyuserComponent,
       RegisterComponent,
       NgbdModalContent,
       NavarComponent,

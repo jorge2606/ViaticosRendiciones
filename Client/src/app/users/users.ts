@@ -24,7 +24,8 @@ export class User{
 export class rolesBelongUser{
   id : number;
   name : string;
-  rolBelongUser : string;
+  rolBelongUser : any;
+  normalizedName : string;
 }
 export class modifyUser extends User{
   rolesUser : rolesBelongUser[];

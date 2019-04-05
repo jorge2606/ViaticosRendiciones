@@ -4,6 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ClaimsService {
+
+  rolMinistro = "Ministro";
+  rolAdmin = "Administrador";
+  rolSupervisor = "supervisor";
+  rolAgente = "Agente";
+
   canViewUsers = "user.view";
   canCreateUsers = "user.create";
   canEditUsers = "user.edit";

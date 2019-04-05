@@ -169,9 +169,7 @@ namespace VR.Web.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DistributionId = user.DistributionId,
-                CategoryId = user.CategoryId,
-                SupervisorAgentId = user.SupervisorAgentId,
-                SupervisorAgentId2 = user.SupervisorAgentId2
+                CategoryId = user.CategoryId
             };
 
             var RolesUser = _context.UserRoles.ToList();
@@ -186,6 +184,7 @@ namespace VR.Web.Controllers
                     {
                         Id = role.Id,
                         Name = role.Name,
+                        NormalizedName = role.NormalizedName,
                         RolBelongUser = true
                     };
 
@@ -197,6 +196,7 @@ namespace VR.Web.Controllers
                     {
                         Id = role.Id,
                         Name = role.Name,
+                        NormalizedName = role.NormalizedName,
                         RolBelongUser = false
                     };
 

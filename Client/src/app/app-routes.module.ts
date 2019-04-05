@@ -24,7 +24,6 @@ import { PhotoProfileComponent } from './users/photo-profile/photo-profile.compo
 import { ManagePasswordComponent } from './manage-password/manage-password.component';
 import { RolesPermissionsComponent } from './roles/roles-permissions/roles-permissions.component';
 import { RolesComponent } from './roles/roles.component';
-import { ModifyuserComponent } from './users/modify/modify.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { CreateuserComponent } from './users/create/create.component';
 import { NgModule } from '@angular/core';
@@ -32,7 +31,6 @@ import { RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './manage-password/reset-password/reset-password.component';
 import { SettingofuserComponent } from './users/setting/settingofuser.component';
 import { TransportsComponent } from './transports/transports.component';
@@ -78,7 +76,7 @@ const routes: Routes = [
           breadcrumb: 'modificar',
           isHome: false,
           show: true
-        }, component: ModifyuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] 
+        }, component: CreateuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] 
       },
       { path: ':distributionId', 
         data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
