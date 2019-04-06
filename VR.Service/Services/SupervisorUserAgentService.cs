@@ -8,6 +8,7 @@ using Service.Common.ServiceResult;
 using VR.Data;
 using VR.Data.Model;
 using VR.Dto;
+using VR.Dto.User;
 using VR.Service.Interfaces;
 
 namespace VR.Service.Services
@@ -55,7 +56,8 @@ namespace VR.Service.Services
                 {
                     Id = new Guid(),
                     AgentId = x.AgentId,
-                    SupervisorId = x.SupervisorId
+                    SupervisorId = x.SupervisorId,
+                    SupervisorId2 = x.SupervisorId2
                 };
 
                 _Context.SupervisorUserAgents.Add(newAgents);
@@ -69,6 +71,7 @@ namespace VR.Service.Services
         {
             var result = _Context.SupervisorUserAgents
                 .Include(x => x.Supervisors)
+                .Include(x => x.Supervisors2)
                 .Include(x => x.Agents)
                 .Select(x => _Mapper.Map<AllSupervisorAgentDto>(x))
                 .ToList();
@@ -77,15 +80,30 @@ namespace VR.Service.Services
         }
 
 
-        public ServiceResult<List<AllSupervisorAgentDto>> AllSupervisors()
+        public ServiceResult<List<SupervisorsDto>> AllSupervisors()
         {
-            var result = _Context.SupervisorUserAgents
-                .Include(x => x.Supervisors)
-                .Select(x => _Mapper.Map<AllSupervisorAgentDto>(x))
-                .Distinct()
-                .ToList();
+            var rolSupervisor = _Context.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Supervisor.ToUpper() );
+            var rolMinistro = _Context.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Ministro.ToUpper() );
+            var rolAdmin = _Context.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Admin.ToUpper());
 
-            return new ServiceResult<List<AllSupervisorAgentDto>>(result);
+            var usersRoles = _Context.UserRoles.Where(
+                x => x.RoleId == rolSupervisor.Id ||
+                     x.RoleId == rolAdmin.Id || 
+                     x.RoleId == rolMinistro.Id
+                ).ToList();
+
+            var result = new List<SupervisorsDto>();
+            usersRoles.ForEach(
+                ur =>
+                {
+                    result.Add(new SupervisorsDto()
+                    {
+                        Supervisors = _Mapper.Map<UserDto>(_Context.Users.FirstOrDefault(user => user.Id == ur.UserId)),
+                        RoleName = _Context.Roles.FirstOrDefault(x => x.Id == ur.RoleId).NormalizedName
+                    });
+                });
+
+            return new ServiceResult<List<SupervisorsDto>>(result);
         }
 
         public ServiceResult<Boolean> IsAgent(Guid myUserId, Guid otherUserId)

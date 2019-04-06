@@ -9,15 +9,21 @@
     <table class="table table-striped responsive">
         <thead>
           <tr>
-            <th scope="col">Supervisor</th>
             <th scope="col">Agente</th>
+            <th scope="col">Supervisor 1ra. de Instancia</th>
+            <th scope="col">Supervisor 2da. de Instancia</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody *ngFor="let a of agentsSupervisors">
           <tr>
-            <td>{{a.supervisors.userName}}</td>
-            <td>{{a.agents.userName}}</td>
+            <td>{{a.agents.firstName}}, {{a.agents.lastName}}</td>
+            <td>
+              <span *ngIf="a.supervisors">{{a.supervisors.firstName}}, {{a.supervisors.lastName}}</span>
+            </td>
+            <td>
+                <span *ngIf="a.supervisors2">{{a.supervisors2.firstName}}, {{a.supervisors2.lastName}}</span>
+            </td>
             <td class="text-right">
               <a style="cursor:pointer" (click)="openEliminar(a.supervisors, a.agents)">
                   <fa-icon 

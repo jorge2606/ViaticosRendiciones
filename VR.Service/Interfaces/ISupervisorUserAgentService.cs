@@ -12,6 +12,6 @@ namespace VR.Service.Interfaces
         ServiceResult<List<AllSupervisorAgentDto>> AllSupervisorAgent();
         ServiceResult<Boolean> IsAgent(Guid myUserId, Guid otherUserId);
         ServiceResult<Guid> DeleteRelationshipBetweenAgentAndSupervisor(Guid supervisorId, Guid AgentId);
-        ServiceResult<List<AllSupervisorAgentDto>> AllSupervisors();
+        ServiceResult<List<SupervisorsDto>> AllSupervisors();
     }
 }

@@ -1,6 +1,7 @@
+import { GuidClass } from './../../_helpers/guid-class';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { User } from './../../_models/user';
-import { AllSupervisorUserAgent } from './../../_models/supervisorUserAgent';
+import { AllSupervisorUserAgent, SupervisorsDto } from './../../_models/supervisorUserAgent';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
@@ -32,9 +33,9 @@ export class CreateuserComponent implements OnInit {
   passwordsAreEquals : boolean = true;
   submitted : boolean;
   validCheckbox : boolean = true;
-  selectedSupervisorAgentId : number;
-  selectedSupervisorAgentId2 : number;
-  allSupervisors : User[] = [];
+  selectedSupervisorAgentId : any = new GuidClass().empty;
+  selectedSupervisorAgentId2 : any = new GuidClass().empty;
+  allSupervisors : SupervisorsDto[] = [];
   editSignatureHolograpich: any;
   supervisor1 : boolean;
   supervisor2 : boolean;
@@ -55,6 +56,34 @@ export class CreateuserComponent implements OnInit {
               private authService : AuthenticationService,
               private claimService : ClaimsService) {}
 
+    ngOnInit() {
+      if(!this.claimService.haveClaim(this.claimService.canCreateUsers) || !this.claimService.haveClaim(this.claimService.canEditUsers)){
+        this.router.navigate(['/notAuthorized']);
+      }else{
+        //le asigno el id que extraigo de la url
+        this.route.params.subscribe(
+          p => {
+                this.id = p.id;
+              }
+        );
+        if(this.id){
+          this.titleService.setTitle('Modificar Usuario - Perfil');
+          this.getByIdAdministrator();
+          this.editSignatureHolograpich = this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
+        }      
+        
+        this.getAllRoles();
+        this.getAllCategories();
+        this.getAllUsersSupervisors();
+        this.distributionService.allDistribution()
+        .subscribe(
+          x => {
+            this.distribution = x;
+          }
+        );
+      }
+  
+    }
 
   getAllRoles(){
     this.rolService.getAll().subscribe(
@@ -160,6 +189,32 @@ export class CreateuserComponent implements OnInit {
     return;
 
   }
+
+  verifyroleInit(){
+    var ministro = this.model.rolesUser.find(rolStatus =>  rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolMinistro );
+    var admin = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAdmin );
+    var supervisor = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolSupervisor );
+    var agente = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAgente );
+    if ( (ministro || admin) || 
+      (ministro && agente) || 
+      (ministro && supervisor) ||
+      (ministro && agente && supervisor) ||
+      (admin && agente) || 
+      (admin && supervisor) || 
+      (admin && agente && supervisor)
+    ){
+        this.supervisor1 = true;
+        this.supervisor2 = true;
+    }else if( 
+        (!ministro && !admin && supervisor) || (supervisor && agente)
+        ) {
+          this.supervisor1 = false;
+          this.supervisor2 = true;
+    }else{
+          this.supervisor1 = false;
+          this.supervisor2 = false;
+    }
+  }
   
   onSubmit(){
 
@@ -195,16 +250,31 @@ export class CreateuserComponent implements OnInit {
         }
     }
 
-    if (this.model.supervisorAgentId == this.model.supervisorAgentId2){
+    if (
+        (this.model.supervisorAgentId != new GuidClass().empty) &&
+        (this.model.supervisorAgentId2 != new GuidClass().empty) &&
+        (this.model.supervisorAgentId == this.model.supervisorAgentId2)
+        ){
       this.toastrService.info('No se puede seleccionar los mismos supervisores para un mismo agente.');
       this.submitted = false;
     }
-
     if (!this.submitted){
       return;
     }
 
+    var ministro = this.model.rolesUser.find(rolStatus =>  rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolMinistro );
+    var admin = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAdmin );
+    var supervisor = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolSupervisor );
+
+    if( ministro || admin){
+      this.model.supervisorAgentId = new GuidClass().empty;
+      this.model.supervisorAgentId2 = new GuidClass().empty;
+    }else if( !ministro && !admin && supervisor){
+      this.model.supervisorAgentId2 = new GuidClass().empty;
+    }
+
     this.titleService.setTitle('Crear Usuario - Perfil');
+
     if (!this.id){
       this.UserService.createWithObjectUser(this.model).subscribe(
         data => {
@@ -229,41 +299,13 @@ export class CreateuserComponent implements OnInit {
     }
 
   }
-  
-  ngOnInit() {
-    if(!this.claimService.haveClaim(this.claimService.canCreateUsers) || !this.claimService.haveClaim(this.claimService.canEditUsers)){
-      this.router.navigate(['/notAuthorized']);
-    }else{
-      //le asigno el id que extraigo de la url
-      this.route.params.subscribe(
-        p => {
-              this.id = p.id;
-            }
-      );
-      if(this.id){
-        this.titleService.setTitle('Modificar Usuario - Perfil');
-        this.getByIdAdministrator();
-        this.editSignatureHolograpich = this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
-      }      
-      
-      this.getAllRoles();
-      this.getAllCategories();
-      this.getAllUsersSupervisors();
-      this.distributionService.allDistribution()
-      .subscribe(
-        x => {
-          this.distribution = x;
-        }
-      );
-    }
-
-  }
 
     getByIdAdministrator(){
       this.UserService.getByIdAdministrator(this.id).subscribe(i => {
         this.model = i;
-    });
-  }
+        this.verifyroleInit();
+      });
+    }
 
   setTitleTabProfile(){
     this.titleService.setTitle('Crear Usuario - Perfil');
@@ -273,7 +315,7 @@ export class CreateuserComponent implements OnInit {
     this.supervisorUserAgentService.allSupervisors()
     .subscribe(x => {
       x.forEach(supervisor => {
-        this.allSupervisors.push(supervisor.supervisors);
+        this.allSupervisors.push(supervisor);
       });;
       
     });

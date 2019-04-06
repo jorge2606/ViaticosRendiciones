@@ -161,6 +161,11 @@ namespace VR.Web.Controllers
             {
                 return null;
             }
+
+            var supervisorId = _context.SupervisorUserAgents.FirstOrDefault(x => x.AgentId == user.Id);
+            var supervisorId1Nulleable = supervisorId == null ? Guid.Empty : supervisorId.SupervisorId;
+            var supervisorId2Nulleable = supervisorId == null ? Guid.Empty : supervisorId.SupervisorId2;
+
             ModifyUserDto modifyUserDto = new ModifyUserDto
             {
                 Dni = user.Dni,
@@ -169,7 +174,9 @@ namespace VR.Web.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DistributionId = user.DistributionId,
-                CategoryId = user.CategoryId
+                CategoryId = user.CategoryId,
+                SupervisorAgentId = supervisorId1Nulleable == null ? Guid.Empty : supervisorId1Nulleable,
+                SupervisorAgentId2 = supervisorId2Nulleable == null ? Guid.Empty : supervisorId2Nulleable
             };
 
             var RolesUser = _context.UserRoles.ToList();

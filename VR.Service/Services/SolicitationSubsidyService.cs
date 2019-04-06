@@ -807,7 +807,7 @@ namespace VR.Service.Services
                     Tittle = isRefundTextOrSolicitation,
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
                                "Ha enviado : "+ isRefundTextOrSolicitation,
-                    UserId = supervisor.SupervisorId,
+                    UserId = supervisor.SupervisorId.HasValue ? supervisor.SupervisorId.Value : Guid.Empty,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitation.UserId,
@@ -924,7 +924,7 @@ namespace VR.Service.Services
                     Tittle = "Rendición de una solicitud de viático",
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
                                "Ha enviado una : Rendición de una solicitud de viático",
-                    UserId = supervisor.SupervisorId,
+                    UserId = supervisor.SupervisorId.HasValue ? supervisor.SupervisorId.Value : Guid.Empty,
                     CreationTime = DateTime.Today,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitation.UserId,

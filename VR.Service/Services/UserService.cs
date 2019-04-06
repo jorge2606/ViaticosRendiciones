@@ -26,6 +26,7 @@ using VR.Web.Helpers;
 using NotificationType = Service.Common.ServiceResult.NotificationType;
 using System.IO;
 using RazorLight;
+using VR.Common.Security;
 
 namespace VR.Service.Services
 {
@@ -250,32 +251,42 @@ namespace VR.Service.Services
                   user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, userParam.Password);
               }
 
-              if (userParam.SupervisorAgentId.CompareTo(Guid.Empty) != 0)
+              var ministro = userParam.RolesUser.FirstOrDefault(x => x.Name == Role.Ministro && x.RolBelongUser == true);
+              var admin = userParam.RolesUser.FirstOrDefault(x => x.Name == Role.Admin && x.RolBelongUser == true);
+              var newrelationshipAgentsupervisor = new CreateSupervisorAgentDto();
+              var RelationshipTodelete = _context.SupervisorUserAgents.FirstOrDefault(sup => sup.AgentId == user.Id);
+
+            newrelationshipAgentsupervisor.AgentId = user.Id;
+
+            if (ministro == null && admin == null)
               {
+                  if (userParam.SupervisorAgentId.CompareTo(Guid.Empty) != 0)
+                  {
+                      newrelationshipAgentsupervisor.SupervisorId = userParam.SupervisorAgentId;
+                  }
+
+                  if (userParam.SupervisorAgentId2.CompareTo(Guid.Empty) != 0)
+                  {
+                      newrelationshipAgentsupervisor.SupervisorId2 = userParam.SupervisorAgentId2;
+                  }
+
                   _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
                   {
                       new CreateSupervisorAgentDto()
                       {
-                          AgentId = user.Id,
-                          SupervisorId = userParam.SupervisorAgentId
+                          SupervisorId = newrelationshipAgentsupervisor.SupervisorId,
+                          SupervisorId2 = newrelationshipAgentsupervisor.SupervisorId2,
+                          AgentId = newrelationshipAgentsupervisor.AgentId
                       }
                   });
               }
-
-              if (userParam.SupervisorAgentId2.CompareTo(Guid.Empty) != 0)
+            //Elimino la relación actual entre supervisor y agente para crear una nueva
+              if (RelationshipTodelete != null)
               {
-                  _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
-                  {
-                      new CreateSupervisorAgentDto()
-                      {
-                          AgentId = user.Id,
-                          SupervisorId = userParam.SupervisorAgentId2
-                      }
-                  });
+                  _context.SupervisorUserAgents.Remove(RelationshipTodelete);
               }
-
             _context.Users.Update(user);
-              _context.SaveChanges();
+            _context.SaveChanges();
           }
 
         public async Task<ServiceResult<UpdateMyProfile>> UpdateMyProfile(UpdateMyProfile userParam)

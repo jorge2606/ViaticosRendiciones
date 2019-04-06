@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190405171731_SupervisorId2 and SupervisorId nulleable ")]
+    partial class SupervisorId2andSupervisorIdnulleable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -565,8 +567,6 @@ namespace VR.Data.Migrations
 
                     b.HasIndex("SupervisorId");
 
-                    b.HasIndex("SupervisorId2");
-
                     b.ToTable("SupervisorUserAgents");
                 });
 
@@ -861,10 +861,6 @@ namespace VR.Data.Migrations
                     b.HasOne("VR.Data.Model.User", "Supervisors")
                         .WithMany()
                         .HasForeignKey("SupervisorId");
-
-                    b.HasOne("VR.Data.Model.User", "Supervisors2")
-                        .WithMany()
-                        .HasForeignKey("SupervisorId2");
                 });
 
             modelBuilder.Entity("VR.Data.Model.SupplementaryCity", b =>

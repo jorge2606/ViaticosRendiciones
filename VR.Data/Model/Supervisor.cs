@@ -10,11 +10,14 @@ namespace VR.Data.Model
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid SupervisorId { set; get; }
+        public Guid? SupervisorId { set; get; }
+        public Guid? SupervisorId2 { set; get; }
         public Guid AgentId { set; get; }
 
         [ForeignKey("SupervisorId")]
         public User Supervisors { set; get; }
+        [ForeignKey("SupervisorId2")]
+        public User Supervisors2 { set; get; }
         [ForeignKey("AgentId")]
         public User Agents { set; get; }
 

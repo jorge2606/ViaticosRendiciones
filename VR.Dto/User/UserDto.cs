@@ -88,8 +88,8 @@ namespace VR.Dto.User
         public Distribution Distribution { set; get; }
         public Guid CategoryId { set; get; }
         public Guid? OrganismId { set; get; }
-        public Guid SupervisorAgentId { set; get; }
-        public Guid SupervisorAgentId2 { set; get; }
+        public Guid? SupervisorAgentId { set; get; }
+        public Guid? SupervisorAgentId2 { set; get; }
     }
 
     //admin and common user can use this Dto, because they update its own the same way 

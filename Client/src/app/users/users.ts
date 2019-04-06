@@ -31,8 +31,8 @@ export class modifyUser extends User{
   rolesUser : rolesBelongUser[];
   repeatPassword : string;
   organismId : number;
-  supervisorAgentId : number;
-  supervisorAgentId2 : number;
+  supervisorAgentId : any;
+  supervisorAgentId2 : any;
 }
 
 

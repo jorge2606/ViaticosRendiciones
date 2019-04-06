@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VR.Data;
 
 namespace VR.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190405164227_SupervisorId2 field")]
+    partial class SupervisorId2field
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -555,17 +557,15 @@ namespace VR.Data.Migrations
 
                     b.Property<Guid>("AgentId");
 
-                    b.Property<Guid?>("SupervisorId");
+                    b.Property<Guid>("SupervisorId");
 
-                    b.Property<Guid?>("SupervisorId2");
+                    b.Property<Guid>("SupervisorId2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AgentId");
 
                     b.HasIndex("SupervisorId");
-
-                    b.HasIndex("SupervisorId2");
 
                     b.ToTable("SupervisorUserAgents");
                 });
@@ -860,11 +860,8 @@ namespace VR.Data.Migrations
 
                     b.HasOne("VR.Data.Model.User", "Supervisors")
                         .WithMany()
-                        .HasForeignKey("SupervisorId");
-
-                    b.HasOne("VR.Data.Model.User", "Supervisors2")
-                        .WithMany()
-                        .HasForeignKey("SupervisorId2");
+                        .HasForeignKey("SupervisorId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("VR.Data.Model.SupplementaryCity", b =>
