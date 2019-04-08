@@ -43,7 +43,6 @@ export class AceptOrRefuseComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-      this.permissions = this.authService.userId('roles');
       
     if(!this.claimService.haveClaim(this.claimService.canModerateRefund) && this.claimService.haveClaim(this.claimService.canModerateSolicitation)){
       this.router.navigate(['/notAuthorized']);
@@ -51,7 +50,7 @@ export class AceptOrRefuseComponent implements OnInit {
       this.Activatedrouter.params.subscribe(
         x => {
               this.model.id = x.id;
-                this.solicitationSubsidyService.getByIdSolicitation(x.id)
+                this.solicitationSubsidyService.getBySolicitationIdForEmail(x.id)
                 .subscribe(
                     solicitation => {
                       this.model = solicitation;

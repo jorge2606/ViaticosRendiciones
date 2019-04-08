@@ -60,6 +60,15 @@ export class AddNewExpenditureComponent implements OnInit {
           this.msgExist = "Tipo de gasto ya existente";
           return;
       }
+
+      var amount = this.modelExp.amount.toString().replace(",",".");
+      
+      if( isNaN( parseFloat( amount ) ) ){
+        this.msgExist = "Importe debe ser un número";
+        return;
+      }else{
+        this.modelExp.amount = parseFloat( amount );
+      }
       
       this.msgExist = "";
       let newExp = new Expenditure();

@@ -46,7 +46,7 @@ namespace VR.Service.Services
             var result = _contextNotification.Notifications
                 .Select(_mapper.Map<NotificationDto>)
                 .Where(x => x.UserId == id && x.Read == false)
-                .OrderBy(x => x.CreationTime)
+                .OrderByDescending(x => x.CreationTime)
                 .Take(5).ToList();
             return result;
         }

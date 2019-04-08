@@ -7,6 +7,7 @@ import { ExpenditureService } from 'src/app/_services/expenditure.service';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { MessBetweenCompService } from 'src/app/_services/mess-between-comp.service';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-add-expenditure-repayment',
@@ -49,6 +50,15 @@ export class AddExpenditureRepaymentComponent implements OnInit {
     if (exist){
         this.msgExist = "Tipo de gasto ya existente";
         return;
+    }
+
+    var amount = this.modelExp.amount.toString().replace(",",".");
+    
+    if( isNaN( parseFloat( amount ) ) ){
+      this.msgExist = "Importe debe ser un número";
+      return;
+    }else{
+      this.modelExp.amount = parseFloat( amount );
     }
     
     this.msgExist = "";

@@ -12,6 +12,7 @@ namespace VR.Data.Model
         public string MotiveReject { set; get; }
         public string FileNumber { set; get; }
         public Guid SupervisorId { set; get; }
+        public Guid SupervisorId2 { set; get; }
 
         [ForeignKey("State")]
         public Guid StateId { set; get; }

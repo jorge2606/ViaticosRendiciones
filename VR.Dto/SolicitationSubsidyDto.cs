@@ -137,6 +137,7 @@ namespace VR.Dto
         public string MotiveReject { set; get; }
         public string FileNumber { set; get; }
         public Guid SupervisorId { set; get; }
+        public UserDto Supervisor { set; get; }
     }
 
     public class FilterSolicitationSubsidyDto

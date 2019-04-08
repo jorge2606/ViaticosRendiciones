@@ -113,6 +113,20 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("getBySolicitationIdForEmail/{id}")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanModerateRefund, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanModerateSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult GetBySolicitationIdForEmail(Guid id)
+        {
+            var result = _solicitationSubsidyService.GetByIdSubsidy(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
         [HttpGet("GetByRandomKey/{key}")]
         [Authorize]
         public IActionResult GetByRandomKey(string key)
@@ -370,13 +384,13 @@ namespace VR.Web.Controllers
         public IActionResult AceptedSolicitation([FromBody] SolicitationIdDto solicitationId)
         {
             solicitationId.SupervisorId = GetIdUser();
-            var result = _solicitationSubsidyService.AceptedSolicitation(solicitationId);
-            if (!result.IsSuccess)
+            var result = _solicitationSubsidyService.AceptedSolicitationAsync(solicitationId);
+            if (!result.Result.IsSuccess)
             {
                 return BadRequest(result);
             }
 
-            return Ok(result.Response);
+            return Ok(result.Result.Response);
         }
 
         [HttpPost("AceptedMySolicitation")]

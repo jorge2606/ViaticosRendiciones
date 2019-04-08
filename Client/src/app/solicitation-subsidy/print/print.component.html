@@ -89,7 +89,8 @@
           </table>
       </div>
     
-      <div class="p-2">
+      <div class="form-row" style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black; 
+        border-top : 0px;">
         <table border="1" class="DivsInMiddle">
             <thead>
               <tr>
@@ -122,73 +123,77 @@
           </table>
       </div>
         
-        <div class="form-row p-2 DivsInMiddle" width="1090">
-            <p><ins>RENDICIONES DE CUENTAS:</ins><br>											
-            Informa que el agente comisionado si/no adeuda suma alguna en concepto de VIÁTICOS Y MOVILIDAD,  y  que 
-            el importe del básico que se menciona es correcto. <br></p>
-            <div class="row mr-auto col-9">
-              <div class="col"> 
-                  CORRIENTES,	{{ today | date:'dd/MM/yyyy' }}  
-              </div>
-              <div class="col"> 
-                  <div class="ml-auto pt-3">  ------------------------------------------------------------------------------------- </div>  
-              </div>
-            </div>	                											
-                
+      <div class="form-row" style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black; 
+        border-top : 0px;">
+          <p><ins>RENDICIONES DE CUENTAS:</ins><br>											
+          Informa que el agente comisionado si/no adeuda suma alguna en concepto de VIÁTICOS Y MOVILIDAD,  y  que 
+          el importe del básico que se menciona es correcto. <br></p>
+          <div class="row mr-auto col-9">
+            <div class="col"> 
+                CORRIENTES,	{{ today | date:'dd/MM/yyyy' }}  
+            </div>
+            <div class="col"> 
+                <div class="ml-auto pt-3">  ------------------------------------------------------------------------- </div>  
+            </div>
+          </div>	                											
+              
+      </div>
+    
+      <div class="form-row" style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black; 
+        border-top : 0px;">
+        <div class="col p-2">
+            <p><ins>A DIRECCIÓN DE ADMINISTRACIÓN</ins><br>					
+            Por autorizada la comisión solicitada, para la liquidación y pago del anticipo correspondiente.	</p>
+            <div class="row ml-auto col-10"> 
+                <div class="col"> 
+                    ------------------------------------------------------------------- 
+                </div>  
+            </div>
         </div>
-    
-              <div class="form-row DivsInMiddle" width="1090">
-                <div class="col p-2">
-                   <p><ins>A DIRECCIÓN DE ADMINISTRACIÓN</ins><br>					
-                    Por autorizada la comisión solicitada, para la liquidación y pago del anticipo correspondiente.	</p>
-                    <div class="row ml-auto col-10"> 
-                        <div class="col"> 
-                            ------------------------------------------------------------------- 
-                        </div>  
-                    </div>
-                </div>
-    
-                <div class="col p-2 DivTwoParts" width="1090">
-                    <p><ins>A TESORERÍA:</ins><br>			
-                    C/Comprob. de Contabilidad del Fondo Nº............... donde se cumplimenta la liquidación para su pago.</p>					
-                    <div class="row ml-auto col-10"> 
-                        <div class="col">  ------------------------------------------------------------------- </div>  
-                    </div>
-                </div>
-              </div>
-    
-              <div class="form-row p-2 DivsInMiddle" width="1090" *ngFor="let des of destinieWithDaysInLetters; index as i">
-                  <p *ngIf="i == 0"><ins><b>RECIBÍ</b></ins> de la Tesorería de la Dirección de Administración del Ministerio de Producción, Trabajo y Turismo													
-                  cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
-                  y cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
-                  por la suma de pesos: <b>{{des.solicitationTotalLetter}}</b> (<b>{{model.total | currency}}</b>), en concepto de Anticipo de Viáticos, cuya rendición de cuentas me comprometo a realizar dentro de los <b>Tres</b> días													
-                  hábiles de finalizada la comisión,  caso contrario me sujeto a las sanciones establecidas en la Ley de Contabilidad. <br>	</p>												
-                  
-                  <div *ngIf="i == 0" class="row ml-auto col-9">
-                    <div class="col">M.I. Nº <b>{{dni}}</b></div>
-                    <div class="col"> FIRMA ------------------------------------------------- </div>
-                  </div>						
-              </div>
-              <div class="form-row p-2 DivsInMiddle" width="1090">
-                  <p>LA DIRECCIÓN DE ADMINISTRACIÓN CERTIFICA QUE EL DÍA	........../.........../.............. EL SEÑOR:	
-                  <b>{{lastName}}, {{firstName}}</b> HA PRESENTADO LA RENDICIÓN DE CUENTAS	CORRESPONDIENTE AL ANTICIPO LIQUIDADO POR COMPROBANTE DE CONT. DE FONDO Nº													
-                  SE EXTIENDE LA PRESENTE A LOS EFECTOS PERTINENTES. <br></p>	
-                  <div class="ml-auto col-5">
-                      <div class="ml-auto pt-3">
-                          <div *ngIf="urlSign" class="container-image col-md-8 ml-auto">
-                              <img 
-                                width="200px" 
-                                height="100px" 
-                                [src]="urlSign" class="image">
-                          </div>
-                          <div *ngIf="!urlSign" class="container-image col-md-8 ml-auto">
-                                <p>S/F</p>
-                        </div>
-                      </div>
-                      <div class="ml-auto"> FIRMA AUTORIZADA: ------------------------------------------------------------- </div>
-                </div>	 
 
+        <div class="col p-2 DivTwoParts" width="1090">
+            <p><ins>A TESORERÍA:</ins><br>			
+            C/Comprob. de Contabilidad del Fondo Nº............... donde se cumplimenta la liquidación para su pago.</p>					
+            <div class="row ml-auto col-10"> 
+                <div class="col">  ------------------------------------------------------------------- </div>  
+            </div>
+        </div>
+      </div>
+
+      <div class="form-row"style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black; 
+        border-top : 0px;"  *ngFor="let des of destinieWithDaysInLetters; index as i">
+          <p *ngIf="i == 0"><ins><b>RECIBÍ</b></ins> de la Tesorería de la Dirección de Administración del Ministerio de Producción, Trabajo y Turismo													
+          cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
+          y cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $													
+          por la suma de pesos: <b>{{des.solicitationTotalLetter}}</b> (<b>{{model.total | currency}}</b>), en concepto de Anticipo de Viáticos, cuya rendición de cuentas me comprometo a realizar dentro de los <b>Tres</b> días													
+          hábiles de finalizada la comisión,  caso contrario me sujeto a las sanciones establecidas en la Ley de Contabilidad. <br>	</p>												
+          
+          <div *ngIf="i == 0" class="row ml-auto col-9">
+            <div class="col">M.I. Nº <b>{{dni}}</b></div>
+            <div class="col"> FIRMA ------------------------------------------------- </div>
+          </div>						
+      </div>
+      <div class="form-row" style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black; 
+      border-top : 0px;">
+          <p>LA DIRECCIÓN DE ADMINISTRACIÓN CERTIFICA QUE EL DÍA	........../.........../.............. EL SEÑOR:	
+          <b>{{lastName}}, {{firstName}}</b> HA PRESENTADO LA RENDICIÓN DE CUENTAS	CORRESPONDIENTE AL ANTICIPO LIQUIDADO POR COMPROBANTE DE CONT. DE FONDO Nº													
+          SE EXTIENDE LA PRESENTE A LOS EFECTOS PERTINENTES. <br></p>	
+          <div class="ml-auto col-5">
+              <div class="ml-auto pt-3">
+                  <div *ngIf="urlSign" class="container-image col-md-8 ml-auto">
+                      <img 
+                        width="200px" 
+                        height="100px" 
+                        [src]="urlSign" class="image">
+                  </div>
+                  <div *ngIf="!urlSign" class="container-image col-md-8 ml-auto">
+                        <p>S/F</p>
+                </div>
               </div>
+              <div class="ml-auto"> FIRMA AUTORIZADA: ------------------------------------------------------------- </div>
+        </div>	 
+
+      </div>
             
     </div>
 

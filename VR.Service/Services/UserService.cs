@@ -436,7 +436,7 @@ namespace VR.Service.Services
                 var rolesUser = _rolesService.FindClaimsByIdRoles(user.Id).Result;
                 if (rolesUser.IsSuccess)
                 {
-                    tokenDescriptor.Subject.AddClaims(rolesUser.Response);
+                    tokenDescriptor.Subject.AddClaims(rolesUser.Response.Distinct());
                 }
                 var token = tokenHandler.CreateToken(tokenDescriptor);
 

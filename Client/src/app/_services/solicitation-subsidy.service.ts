@@ -38,6 +38,10 @@ export class SolicitationSubsidyService {
   getByIdSolicitation(solicitationSubsidyId : number){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/getBySolicitationId/"+solicitationSubsidyId);
   }
+
+  getBySolicitationIdForEmail(solicitationSubsidyId : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/getBySolicitationIdForEmail/"+solicitationSubsidyId);
+  }
   getBySolicitationIdWhitState(solicitationSubsidyId : number){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetBySolicitationIdWhitState/"+solicitationSubsidyId);
   }

@@ -71,7 +71,7 @@ namespace VR.Service.Services
                 UserId = subsidy.UserId,
                 Motive = subsidy.Motive,
                 Total = subsidy.Total,
-                CreateDate = DateTime.Today,
+                CreateDate = DateTime.Now,
                 IsRefund = subsidy.IsRefund,
                 IsCommission = subsidy.IsCommission,
                 RandomKey = subsidy.RandomKey
@@ -166,7 +166,7 @@ namespace VR.Service.Services
             {
                 Id = new Guid(),
                 SolicitationSubsidy = solicitationSubsidy,
-                ChangeDate = DateTime.Today,
+                ChangeDate = DateTime.Now,
                 StateId = State.Pending,
             };
 
@@ -191,7 +191,7 @@ namespace VR.Service.Services
                 UserId = subsidy.UserId,
                 Motive = subsidy.Motive,
                 Total = subsidy.Total,
-                CreateDate = DateTime.Today,
+                CreateDate = DateTime.Now,
                 IsRefund = subsidy.IsRefund,
                 IsCommission = subsidy.IsCommission,
                 RandomKey = subsidy.RandomKey
@@ -286,7 +286,7 @@ namespace VR.Service.Services
             {
                 Id = new Guid(),
                 SolicitationSubsidy = solicitationSubsidy,
-                ChangeDate = DateTime.Today,
+                ChangeDate = DateTime.Now,
                 StateId = State.Pending,
             };
 
@@ -383,7 +383,7 @@ namespace VR.Service.Services
             {
                 Id = new Guid(),
                 SolicitationSubsidy = solicitationSubsidy,
-                ChangeDate = DateTime.Today,
+                ChangeDate = DateTime.Now,
                 StateId = State.Accounted,
             };
 
@@ -646,7 +646,7 @@ namespace VR.Service.Services
                 return new ServiceResult<DeleteSolicitationSubsidyDto>();
             }
 
-            var dateThatSolicitationWasFinalize = finalizeSolicitation.FinalizeDate == null ? DateTime.Today : finalizeSolicitation.FinalizeDate;
+            var dateThatSolicitationWasFinalize = finalizeSolicitation.FinalizeDate == null ? DateTime.Now : finalizeSolicitation.FinalizeDate;
             finalizeSolicitation.FinalizeDate = dateThatSolicitationWasFinalize;
 
             var minDateDestination = finalizeSolicitation.Destinies.OrderBy(x => x.StartDate).FirstOrDefault().StartDate;
@@ -699,20 +699,49 @@ namespace VR.Service.Services
 
         public async Task<ServiceResult<string>> SendSolicitationAsync(SolicitationIdDto solicitationDto)
         {
-            var solicitation = _dataContext.SolicitationSubsidies
-                .Include(user => user.User)
-                .Include(x => x.Expenditures).ThenInclude(q => q.ExpenditureType)
-                .Include(destiny => destiny.Destinies).ThenInclude(country => country.Country)
-                .Include(destiny => destiny.Destinies).ThenInclude(prov => prov.Province)
-                .Include(destiny => destiny.Destinies).ThenInclude(city => city.City)
-                .Include(destiny => destiny.Destinies).ThenInclude(q => q.Category)
-                .Include(destiny => destiny.Destinies).ThenInclude(q => q.Transport)
-                .Where(x => x.IsDeleted != true)
-                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+            var solicitation = _dataContext.SolicitationSubsidies.FirstOrDefault(x => x.Id == solicitationDto.Id);
 
+            var supervisor = _dataContext.SupervisorUserAgents
+                .Include(x => x.Supervisors)
+                .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
+                .FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+            solicitationDto.Supervisor = supervisor.Supervisors;
+
+            var response = await SendEmailAsync(solicitationDto);
+
+            if (response.IsSuccess)
+            {
+                SolicitationState solicitationState = new SolicitationState()
+                {
+                    Id = new Guid(),
+                    SolicitationSubsidy = _dataContext.SolicitationSubsidies.FirstOrDefault(x => x.Id == solicitationDto.Id),
+                    ChangeDate = DateTime.Now,
+                    StateId = State.Sent,
+                };
+
+                _dataContext.SolicitationStates.Add(solicitationState);
+                _dataContext.SaveChanges();
+            }
+
+            return  new ServiceResult<string>(response.Response);
+        }
+
+        public async Task<ServiceResult<string>> SendEmailAsync(SolicitationIdDto solicitationDto)
+        {
+              var solicitation = _dataContext.SolicitationSubsidies
+             .Include(user => user.User)
+             .Include(x => x.Expenditures).ThenInclude(q => q.ExpenditureType)
+             .Include(destiny => destiny.Destinies).ThenInclude(country => country.Country)
+             .Include(destiny => destiny.Destinies).ThenInclude(prov => prov.Province)
+             .Include(destiny => destiny.Destinies).ThenInclude(city => city.City)
+             .Include(destiny => destiny.Destinies).ThenInclude(q => q.Category)
+             .Include(destiny => destiny.Destinies).ThenInclude(q => q.Transport)
+             .Where(x => x.IsDeleted != true)
+             .FirstOrDefault(x => x.Id == solicitationDto.Id);
 
             var notifications = new ServiceResult<string>();
-                
+
             if (solicitation == null)
             {
                 notifications.AddError("error", "Esta solicitud ya no existe en la base de datos");
@@ -725,13 +754,8 @@ namespace VR.Service.Services
             {
                 isRefundTextOrSolicitation = "reintegro";
             }
-
-
-            var supervisor = _dataContext.SupervisorUserAgents
-                .Include(sup => sup.Supervisors)
-                .FirstOrDefault(x => x.AgentId == solicitation.UserId);
-
-            if (supervisor == null)
+            
+            if (solicitationDto.Supervisor == null)
             {
                 notifications.AddError("error", "Usted no tiene ningún supervisor asignado");
                 return notifications;
@@ -742,12 +766,12 @@ namespace VR.Service.Services
                 return new ServiceResult<string>("");
             }
 
-            var emailSupervisor = supervisor.Supervisors.Email;
-            var supervisorsLastName = supervisor.Supervisors.LastName;
-            var supervisorsFirstName = supervisor.Supervisors.FirstName;
+            var emailSupervisor = solicitationDto.Supervisor.Email;
+            var supervisorsLastName = solicitationDto.Supervisor.LastName;
+            var supervisorsFirstName = solicitationDto.Supervisor.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-            var url = string.Format(_configuration["AppSettings:localUrl"] +"/SolicitationSubsidy/agent/confirm/{0}",solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -764,9 +788,9 @@ namespace VR.Service.Services
                 Url = url,
                 SupervisorsFirstName = supervisorsFirstName,
                 SupervisorsLastName = supervisorsLastName
-        };
+            };
 
-            string template = Path.Combine(StaticFilesDirectory,"Templates");
+            string template = Path.Combine(StaticFilesDirectory, "Templates");
             var engine = new RazorLightEngineBuilder()
                 .UseFilesystemProject(template)
                 .UseMemoryCachingProvider()
@@ -774,7 +798,8 @@ namespace VR.Service.Services
 
             string result = await engine.CompileRenderAsync("Email/sendSolicitationSubsidy.cshtml", solicitationForHtml);
 
-            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de "+ isRefundTextOrSolicitation, result);
+            var emailSended = await _emailSender.SendEmail(emailSupervisor, "Solicitud de " + isRefundTextOrSolicitation, result);
+
             if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
             {
                 if (emailSended.StatusCode == HttpStatusCode.Unauthorized)
@@ -789,40 +814,30 @@ namespace VR.Service.Services
                 {
                     notifications.AddError("error", "La solicitud no pudo ser enviada al correo del supervisor.");
                 }
-                
+
                 return notifications;
             }
-
-            SolicitationState solicitationState = new SolicitationState()
-            {
-                Id = new Guid(),
-                SolicitationSubsidy = solicitation,
-                ChangeDate = DateTime.Now,
-                StateId = State.Sent,
-            };
-
+            
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
                     Tittle = isRefundTextOrSolicitation,
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
-                               "Ha enviado : "+ isRefundTextOrSolicitation,
-                    UserId = supervisor.SupervisorId.HasValue ? supervisor.SupervisorId.Value : Guid.Empty,
-                    CreationTime = DateTime.Today,
+                               "Ha enviado : " + isRefundTextOrSolicitation,
+                    UserId = solicitationDto.Supervisor.Id,
+                    CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitation.UserId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today,
+                    LastModificationTime = DateTime.Now,
                     SolicitationSubsidyId = solicitation.Id
                 });
-            _dataContext.SolicitationStates.Add(solicitationState);
 
             _dataContext.SaveChanges();
 
-            return new ServiceResult<string>(supervisor.Supervisors.Email);
+            return new ServiceResult<string>(solicitationDto.Supervisor.Email);
         }
-
 
         public async Task<ServiceResult<string>> SendAccuountForSolicitationToSupervisorAsync(SolicitationIdDto accountForSolicitation)
         {
@@ -925,12 +940,12 @@ namespace VR.Service.Services
                     TextData = "El Agente " + userLastName + ", " + userFirstName + " " +
                                "Ha enviado una : Rendición de una solicitud de viático",
                     UserId = supervisor.SupervisorId.HasValue ? supervisor.SupervisorId.Value : Guid.Empty,
-                    CreationTime = DateTime.Today,
+                    CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitation.UserId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today,
+                    LastModificationTime = DateTime.Now,
                     SolicitationSubsidyId = solicitation.Id
                 });
             _dataContext.SolicitationStates.Add(solicitationState);
@@ -940,12 +955,13 @@ namespace VR.Service.Services
             return new ServiceResult<string>(supervisor.Supervisors.Email);
         }
 
-        public ServiceResult<SolicitationIdDto> AceptedSolicitation(SolicitationIdDto solicitationDto)
+        public async Task<ServiceResult<SolicitationIdDto>> AceptedSolicitationAsync(SolicitationIdDto solicitationDto)
         {
             var solicitation = _dataContext.SolicitationSubsidies
                 .Include(user => user.User)
                 .FirstOrDefault(x => x.Id == solicitationDto.Id);
 
+            var notification = new ServiceResult<SolicitationIdDto>();
             if (solicitation == null)
             {
                 return new ServiceResult<SolicitationIdDto>(null);
@@ -956,32 +972,77 @@ namespace VR.Service.Services
             {
                 isRefundTextOrSolicitation = "solicitud de reintegro";
             }
-
             SolicitationState solicitationState = new SolicitationState()
             {
                 Id = new Guid(),
                 SolicitationSubsidy = solicitation,
                 ChangeDate = DateTime.Now,
-                StateId = State.Accepted,
+                //No le asignamos el estado todavia
                 SupervisorId = solicitationDto.SupervisorId
             };
+
+            var rol = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolUser = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rol.Id);
+            //si agente
+            if (rolUser != null)
+            {
+                //tenemos que saber la instancia de aprobación actual.
+                var stateSolicitationThisUser = _dataContext.SolicitationStates
+                    .Include(x => x.State)
+                    .OrderByDescending(x => x.ChangeDate)
+                    .FirstOrDefault();
+
+                if (stateSolicitationThisUser.StateId == State.Sent)
+                {
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Aprobado_1ra_Instancia);
+
+                    var supervisor = _dataContext.SupervisorUserAgents
+                        .Include(x => x.Supervisors2)
+                        .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
+                        .FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+                    solicitationDto.Supervisor = supervisor.Supervisors2;
+
+                    //le reenviamos al supervisor de 2da instancia
+                    var resultEmail = await SendEmailAsync(solicitationDto);
+
+                    if (!resultEmail.IsSuccess)
+                    {
+                        notification.AddError("Error", "El Email no pudo ser enviado.");
+                        return notification;
+                    }
+                }
+                else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia)
+                {
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                }
+                else
+                {
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                }
+            }
+            else
+            {
+                //si no es Agente
+                solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+            }
+
+            _dataContext.SolicitationStates.Add(solicitationState);
 
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
-                    Tittle = "Su "+ isRefundTextOrSolicitation + " fue aceptada",
-                    TextData = "Su "+ isRefundTextOrSolicitation + " fue aceptada",
+                    Tittle = "Su "+ isRefundTextOrSolicitation + " esta "+ solicitationState.State.Description,
+                    TextData = "Su "+ isRefundTextOrSolicitation + " esta " + solicitationState.State.Description,
                     UserId = solicitation.UserId,
-                    CreationTime = DateTime.Today,
+                    CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitationDto.SupervisorId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today,
+                    LastModificationTime = DateTime.Now,
                     SolicitationSubsidyId = solicitation.Id
                 });
-
-            _dataContext.SolicitationStates.Add(solicitationState);
             _dataContext.SaveChanges();
 
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
@@ -1040,12 +1101,12 @@ namespace VR.Service.Services
                     Tittle = "Su rendición de una solicitud de viático fue aceptada",
                     TextData = "Su rendición de una solicitud de viático fue aceptada",
                     UserId = solicitation.UserId,
-                    CreationTime = DateTime.Today,
+                    CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitationDto.SupervisorId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today,
+                    LastModificationTime = DateTime.Now,
                     SolicitationSubsidyId = solicitation.Id
                 });
 
@@ -1114,12 +1175,12 @@ namespace VR.Service.Services
                     Tittle = "Su "+ isRefundTextOrSolicitation + " fue rechazada",
                     TextData = "Su "+ isRefundTextOrSolicitation + " fue rechazada",
                     UserId = solicitation.UserId,
-                    CreationTime = DateTime.Today,
+                    CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitationDto.SupervisorId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today,
+                    LastModificationTime = DateTime.Now,
                     SolicitationSubsidyId = solicitation.Id
                 });
 
@@ -1155,12 +1216,12 @@ namespace VR.Service.Services
                     Tittle = "Su rendición de una solicitud de viático fue rechazada",
                     TextData = "Su rendición de una solicitud de viático fue rechazada",
                     UserId = solicitation.UserId,
-                    CreationTime = DateTime.Today,
+                    CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
                     CreatorUserId = solicitationDto.SupervisorId,
                     LastModifierUserId = Guid.Empty,
                     EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Today,
+                    LastModificationTime = DateTime.Now,
                     SolicitationSubsidyId = solicitation.Id
                 });
 

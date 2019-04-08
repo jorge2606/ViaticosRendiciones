@@ -62,10 +62,13 @@ namespace VR.Service.Services
                 
                 var stateSolicitation = _dataContext.SolicitationStates
                     .Include(x => x.State)
+                    .Include(s => s.SolicitationSubsidy)
                     .Where(x => x.SolicitationSubsidyId == destiny.SolicitationSubsidyId)
                     .OrderByDescending(q => q.ChangeDate).FirstOrDefault();//obtengo el estado de la solicitud
 
-                if (stateSolicitation.State.Id == State.Sent || stateSolicitation.State.Id == State.Accepted && !destiny.SolicitationSubsidy.IsRefund)
+                if ( (stateSolicitation.State.Id == State.Sent || stateSolicitation.State.Id == State.Accepted) 
+                     && !destiny.SolicitationSubsidy.IsRefund
+                     && !stateSolicitation.SolicitationSubsidy.IsCommission)
                 {
                     
                     if (!resultDates.Response)

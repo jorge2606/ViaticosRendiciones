@@ -14,8 +14,11 @@ namespace VR.Data.Model
         public static readonly Guid Finished = Guid.Parse("2C332F3C-CF16-4BEB-85C4-C4677700CF2C");
         public static readonly Guid AccountForAcepted = Guid.Parse("00CE5670-BC4B-4435-8C67-D754824D0FF2");
         public static readonly Guid AccountForRejected = Guid.Parse("74DFD597-8669-4AF8-8564-350B1E1996E4");
+        public static readonly Guid Aprobado_1ra_Instancia = Guid.Parse("A24D92F5-BF62-4026-9564-DA9518DE343B");
+        public static readonly Guid Aprobado_2da_Instancia = Guid.Parse("92A437C6-B915-4789-B64C-DC07EADB526E");
 
         public Guid Id { set; get; }
         public string Description { set; get; }
+        public string NormalizedName { set; get; }
     }
 }
