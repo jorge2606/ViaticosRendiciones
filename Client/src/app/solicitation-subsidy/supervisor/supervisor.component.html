@@ -61,7 +61,7 @@
                 <div class="btn-group" role="group" aria-label="Basic example">
                   
                   <a 
-                    *ngIf="!isRefund"
+                    *ngIf="sol.state != 'Rendición Aprobada 1ra. Instancia' && !sol.isRefund"
                     href="" 
                     placement="bottom" 
                     ngbTooltip="Ver detalle de la solicitud de viático"
@@ -71,15 +71,24 @@
                   </a>
                   
                   <a 
-                  *ngIf="isRefund"
+                    *ngIf="sol.state != 'Rendición Aprobada 1ra. Instancia' && sol.isRefund"
                     href="" 
                     placement="bottom" 
                     ngbTooltip="Ver detalle de la solicitud de reintegro"
-                    class="" routerLink="/SolicitationSubsidy/agent/supervisor"
+                    class="" routerLink="{{router.url}}"
                     (click)="openDetail(sol.id)">
                     <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="info-circle"></fa-icon>
                   </a>
-
+                  <a 
+                    *ngIf="sol.state == 'Rendición Aprobada 1ra. Instancia' && !sol.isRefund"
+                    href="" 
+                    placement="bottom" 
+                    ngbTooltip="Ver detalle de la rendición de viático"
+                    class="" 
+                    routerLink="{{router.url}}"
+                    (click)="openDetailAccountFor(sol.id)">
+                    <fa-icon class="{{sizeIcon}}" style="color:gray;" icon="info-circle"></fa-icon>
+                  </a>
                 </div>
               </td>
             </tr>

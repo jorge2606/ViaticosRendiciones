@@ -7,6 +7,7 @@ import { GenericsCommunicationsComponentsService } from 'src/app/_services/gener
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-reject.component';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-account-for-solicitation',
@@ -36,7 +37,8 @@ export class DetailAccountForSolicitationComponent implements OnInit {
     private modalService: NgbModal,
     private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService,
     private authService : AuthenticationService,
-    private lightbox : CrystalLightbox
+    private lightbox : CrystalLightbox,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -77,7 +79,15 @@ export class DetailAccountForSolicitationComponent implements OnInit {
     newSolicitationId.fileNumber = "";
     this.solicitationSubsidyService.aceptedAccountForSolicitation(newSolicitationId)
     .subscribe(
-      () => {this.activeModal.close()}
+      () => {this.activeModal.close()},
+      err => {
+        if (err.error.result){
+          var e = err.error.result.errors.Error || [];
+          e.forEach(errors => {
+            this.toastrService.error(errors);
+          });
+        }
+      }
     );
   }
 
@@ -87,7 +97,15 @@ export class DetailAccountForSolicitationComponent implements OnInit {
     newSolicitationId.motiveReject = this.motive;
     this.solicitationSubsidyService.refusedAccountForSolicitation(newSolicitationId)
     .subscribe(
-      () => {this.activeModal.close()}
+      () => {this.activeModal.close()},
+      err => {
+        if (err.error.result){
+          var e = err.error.result.errors.Error || [];
+          e.forEach(errors => {
+            this.toastrService.error(errors);
+          });
+        }
+      }
     );
   }
 

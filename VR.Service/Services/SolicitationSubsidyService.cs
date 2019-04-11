@@ -305,7 +305,9 @@ namespace VR.Service.Services
                 return _mapper.Map<ServiceResult<CreateSolicitationSubsidyDto>>(validate.ToServiceResult<CreateSolicitationSubsidyDto>(null));
             }
 
-            var solicitationSubsidy = _dataContext.SolicitationSubsidies.FirstOrDefault(v => v.Id == subsidy.Id);
+            var solicitationSubsidy = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .FirstOrDefault(v => v.Id == subsidy.Id);
 
             solicitationSubsidy.UserId = subsidy.UserId;
             solicitationSubsidy.Motive = subsidy.Motive;
@@ -322,6 +324,7 @@ namespace VR.Service.Services
             {
                 var newDestiny = _dataContext.Destinies.FirstOrDefault(x => x.Id == destiny.Id);// en una rendicion no puede insertar ni remover una localidad
                 newDestiny.AccountedForDays = destiny.AccountedForDays;
+                newDestiny.DaysPay = destiny.DaysPay;
 
                 _dataContext.Destinies.Update(newDestiny);
 
@@ -523,6 +526,26 @@ namespace VR.Service.Services
                     }
                     else
                     {
+                        //si es null estamos modificando una solicitud que no es reintegro
+                        if (expenditure.UrlImage != null)
+                        {
+                            if (expenditure.UrlImage.Contains("data:image/"))
+                            {
+                                string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                                byte[] data = Convert.FromBase64String(base64);
+
+                                var FileExpToModify = _dataContext.Files.FirstOrDefault(fileExp => fileExp.ExpenditureId == expenditure.Id);
+
+                                FileExpToModify.MimeType = expenditure.ImageDto.Type;
+                                FileExpToModify.Name = expenditure.ImageDto.Name;
+                                FileExpToModify.Size = expenditure.ImageDto.Size;
+                                FileExpToModify.LastModified = expenditure.ImageDto.TypLastModified;
+                                FileExpToModify.LastModifiedDate = expenditure.ImageDto.LastModifiedDate;
+                                FileExpToModify.Image = data;
+
+                                _dataContext.Files.Update(FileExpToModify);
+                            }
+                        }
                         //quitar de la lista el gasto que viene, al final solo quedaran los que fueron eliminados
                         //en el front-end
                         expendituresToDelete.Remove(exist);
@@ -536,7 +559,7 @@ namespace VR.Service.Services
             _dataContext.SaveChanges();
             return new ServiceResult<UpdateSolicitationSubsidyDto>(_mapper.Map<UpdateSolicitationSubsidyDto>(subsidy));
         }
-
+        //Account-For
         public ServiceResult<FindByIdSolicitationSubsidyDto> GetByIdSubsidy(Guid id)
         {
             var find = _dataContext.SolicitationSubsidies
@@ -560,6 +583,31 @@ namespace VR.Service.Services
 
             return new ServiceResult<FindByIdSolicitationSubsidyDto>(
                 _mapper.Map<FindByIdSolicitationSubsidyDto>(find));
+        }
+        //solicitationSubsidy
+        public ServiceResult<FindByIdOnlySolicitationSubsidyDto> GetByIdSolicitationSubsidySubsidy(Guid id)
+        {
+            var find = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies).ThenInclude(x => x.City)
+                .Include(x => x.Destinies).ThenInclude(x => x.CodeLiquidation)
+                .Include(x => x.Destinies).ThenInclude(x => x.Category)
+                .Include(x => x.Destinies).ThenInclude(x => x.Country)
+                .Include(x => x.Destinies).ThenInclude(x => x.Province)
+                .Include(x => x.Destinies).ThenInclude(x => x.Transport)
+                .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
+                .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
+                .Include(x => x.User).ThenInclude(c => c.Category)
+                .Include(x => x.User).ThenInclude(c => c.Distribution)
+                .Where(x => x.IsDeleted != true)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (find == null)
+            {
+                return new ServiceResult<FindByIdOnlySolicitationSubsidyDto>(null);
+            }
+
+            return new ServiceResult<FindByIdOnlySolicitationSubsidyDto>(
+                _mapper.Map<FindByIdOnlySolicitationSubsidyDto>(find));
         }
 
         public ServiceResult<FindRandomKeySolicitationSubsidyDto> GetByRandomKey(string randomKey)
@@ -699,13 +747,64 @@ namespace VR.Service.Services
 
         public async Task<ServiceResult<string>> SendSolicitationAsync(SolicitationIdDto solicitationDto)
         {
-            var solicitation = _dataContext.SolicitationSubsidies.FirstOrDefault(x => x.Id == solicitationDto.Id);
+            var solicitation = _dataContext.SolicitationSubsidies
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            var notification = new ServiceResult<string>();
+            if (solicitation == null)
+            {
+                notification.AddError("error", "Error : Solicitud no existe en la base de datos.");
+                return notification;
+            }
+            var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolSupervisor = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            var rolUserSupervisor = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolSupervisor.Id);
 
             var supervisor = _dataContext.SupervisorUserAgents
                 .Include(x => x.Supervisors)
+                .Include(x => x.Supervisors2)
                 .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
                 .FirstOrDefault(x => x.AgentId == solicitation.UserId);
 
+            if (supervisor == null)
+            {
+                notification.AddError("error", "Usted no tiene supervisores asignados, comuniquese con su administrador.");
+                return notification;
+            }
+
+            if (rolUserAgent != null && rolUserSupervisor != null)
+            {
+                if (supervisor.Supervisors == null)
+                {
+                    notification.AddError("error", "Usted no tine asignado : Supervisor de 1ra. Instancia.");
+                    return notification;
+                }
+
+            }
+            if (rolUserAgent != null)
+            {
+                if (supervisor.Supervisors == null || supervisor.Supervisors2 == null)
+                {
+                    var bothSup = (supervisor.Supervisors == null && supervisor.Supervisors2 == null)
+                        ? "Supervisor de 1ra. y 2da. Instancia" : "";
+                    var msj = supervisor.Supervisors == null ? "Supervisor de 1ra. Instancia" : "Supervisor de 2da. Instancia.";
+                    notification.AddError("error", "Usted no tine asignado : " + ((bothSup == "") ? msj : bothSup));
+                    return notification;
+                }
+
+            }
+
+            if (rolUserSupervisor != null)
+            {
+                if (supervisor.Supervisors == null)
+                {
+                    notification.AddError("error", "Usted no tine asignado : Supervisor de 1ra. Instancia.");
+                    return notification;
+                }
+
+            }
+            
             solicitationDto.Supervisor = supervisor.Supervisors;
 
             var response = await SendEmailAsync(solicitationDto);
@@ -771,7 +870,7 @@ namespace VR.Service.Services
             var supervisorsFirstName = solicitationDto.Supervisor.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -883,7 +982,7 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -972,6 +1071,14 @@ namespace VR.Service.Services
             {
                 isRefundTextOrSolicitation = "solicitud de reintegro";
             }
+
+            //tenemos que saber la instancia de aprobación actual.
+            var stateSolicitationThisUser = _dataContext.SolicitationStates
+                .Include(x => x.State)
+                .Where(x => x.SolicitationSubsidyId == solicitation.Id)
+                .OrderByDescending(x => x.ChangeDate)
+                .FirstOrDefault();
+
             SolicitationState solicitationState = new SolicitationState()
             {
                 Id = new Guid(),
@@ -981,16 +1088,19 @@ namespace VR.Service.Services
                 SupervisorId = solicitationDto.SupervisorId
             };
 
-            var rol = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
-            var rolUser = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rol.Id);
-            //si agente
-            if (rolUser != null)
+            var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolSupervisor = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            var rolUserSupervisor = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolSupervisor.Id);
+
+            if (stateSolicitationThisUser.StateId == State.Accepted || stateSolicitationThisUser.StateId == State.Rejected)
             {
-                //tenemos que saber la instancia de aprobación actual.
-                var stateSolicitationThisUser = _dataContext.SolicitationStates
-                    .Include(x => x.State)
-                    .OrderByDescending(x => x.ChangeDate)
-                    .FirstOrDefault();
+                notification.AddError("Error", "Esta solicitud ya esta "+ stateSolicitationThisUser.State.Description);
+                return notification;
+            }
+            //si agente
+            if (rolAgent != null)
+            {
 
                 if (stateSolicitationThisUser.StateId == State.Sent)
                 {
@@ -1012,22 +1122,33 @@ namespace VR.Service.Services
                         return notification;
                     }
                 }
-                else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia)
+                //verifico que el supervisor que va a aprobar no sea el mismo
+                else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia 
+                        && solicitationDto.SupervisorId != stateSolicitationThisUser.SupervisorId)
                 {
                     solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
                 }
-                else
+                else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia
+                        && solicitationDto.SupervisorId == stateSolicitationThisUser.SupervisorId)
                 {
-                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                    notification.AddError("Error", "Esta Solicitud ya está "+ stateSolicitationThisUser.State.Description);
+                    return notification;
+                }
+            }else if (rolSupervisor != null)
+            {
+                if (stateSolicitationThisUser.StateId != State.Sent)
+                {
+                    notification.AddError("Error", "Esta Solicitud ya está " + stateSolicitationThisUser.State.Description);
+                    return notification;
                 }
             }
             else
             {
-                //si no es Agente
+                //si no es Agente - Por Ej. Supervisor
                 solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
             }
 
-            _dataContext.SolicitationStates.Add(solicitationState);
+                _dataContext.SolicitationStates.Add(solicitationState);
 
             _notificationService.Create(
                 new CreateNotificationDto()
@@ -1074,48 +1195,6 @@ namespace VR.Service.Services
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
         }
 
-        public ServiceResult<SolicitationIdDto> AceptedAccountForSolicitation(SolicitationIdDto solicitationDto)
-        {
-            var solicitation = _dataContext.SolicitationSubsidies
-                .Include(user => user.User)
-                .FirstOrDefault(x => x.Id == solicitationDto.Id);
-
-            if (solicitation == null)
-            {
-                return new ServiceResult<SolicitationIdDto>(null);
-            }
-
-
-            SolicitationState solicitationState = new SolicitationState()
-            {
-                Id = new Guid(),
-                SolicitationSubsidy = solicitation,
-                ChangeDate = DateTime.Now,
-                StateId = State.AccountForAcepted,
-                SupervisorId = solicitationDto.SupervisorId
-            };
-
-            _notificationService.Create(
-                new CreateNotificationDto()
-                {
-                    Tittle = "Su rendición de una solicitud de viático fue aceptada",
-                    TextData = "Su rendición de una solicitud de viático fue aceptada",
-                    UserId = solicitation.UserId,
-                    CreationTime = DateTime.Now,
-                    NotificationType = (int)NotificationType.Info,
-                    CreatorUserId = solicitationDto.SupervisorId,
-                    LastModifierUserId = Guid.Empty,
-                    EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Now,
-                    SolicitationSubsidyId = solicitation.Id
-                });
-
-            _dataContext.SolicitationStates.Add(solicitationState);
-            _dataContext.SaveChanges();
-
-            return new ServiceResult<SolicitationIdDto>(solicitationDto);
-        }
-
         public ServiceResult<SolicitationIdDto> AceptedMyAccountForSolicitation(SolicitationIdDto solicitationDto)
         {
             var solicitation = _dataContext.SolicitationSubsidies
@@ -1143,7 +1222,7 @@ namespace VR.Service.Services
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
         }
 
-        public ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto)
+        public async Task<ServiceResult<SolicitationIdDto>> AceptedAccountForSolicitationAsync(SolicitationIdDto solicitationDto)
         {
             var solicitation = _dataContext.SolicitationSubsidies
                 .Include(user => user.User)
@@ -1153,12 +1232,250 @@ namespace VR.Service.Services
             {
                 return new ServiceResult<SolicitationIdDto>(null);
             }
+
+            var notification = new ServiceResult<SolicitationIdDto>();
+
+            //tenemos que saber la instancia de aprobación actual.
+            var stateSolicitationThisUser = _dataContext.SolicitationStates
+                .Include(x => x.State)
+                .Where(x => x.SolicitationSubsidyId == solicitation.Id)
+                .OrderByDescending(x => x.ChangeDate)
+                .FirstOrDefault();
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                //No le asignamos el estado todavia
+                //StateId = State.AccountForAcepted,
+                SupervisorId = solicitationDto.SupervisorId
+            };
+
+            var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolSupervisor= _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Supervisor);
+            var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            var rolUserSupervisor = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolSupervisor.Id);
+            //si agente
+            if (rolAgent != null)
+            {
+                //si finalizo y ademas lo rinde (lo envia) viatico
+                if (stateSolicitationThisUser.StateId == State.Accounted)
+                {
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Rendicion_Aprobada_1ra_Instancia);
+
+                    var supervisor = _dataContext.SupervisorUserAgents
+                        .Include(x => x.Supervisors2)
+                        .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
+                        .FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+                    solicitationDto.Supervisor = supervisor.Supervisors2;
+
+                    //le reenviamos al supervisor de 2da instancia
+                    var resultEmail = await SendEmailAsync(solicitationDto);
+
+                    if (!resultEmail.IsSuccess)
+                    {
+                        notification.AddError("Error", "El Email no pudo ser enviado.");
+                        return notification;
+                    }
+                }
+                else if (stateSolicitationThisUser.StateId == State.Rendicion_Aprobada_1ra_Instancia
+                         && solicitationDto.SupervisorId != stateSolicitationThisUser.SupervisorId)
+                {
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.AccountForAcepted);
+                }
+                else if (stateSolicitationThisUser.StateId == State.Rendicion_Aprobada_1ra_Instancia
+                         && solicitationDto.SupervisorId == stateSolicitationThisUser.SupervisorId)
+                {
+                    notification.AddError("Error", "Esta Solicitud ya está " + stateSolicitationThisUser.State.Description);
+                    return notification;
+                }
+            }
+            else
+            {
+                //si no es Agente
+                solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.AccountForAcepted);
+            }
+
+            _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Su rendición de una solicitud de viático fue aceptada",
+                    TextData = "Su rendición de una solicitud de viático fue aceptada",
+                    UserId = solicitation.UserId,
+                    CreationTime = DateTime.Now,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitationDto.SupervisorId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Now,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
+
+        public async Task<ServiceResult<SolicitationIdDto>> RefusedAccountForSolicitationAsync(SolicitationIdDto solicitationDto)
+        {
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            if (solicitation == null)
+            {
+                return new ServiceResult<SolicitationIdDto>(null);
+            }
+
+            SolicitationState solicitationState = new SolicitationState()
+            {
+                Id = new Guid(),
+                SolicitationSubsidy = solicitation,
+                ChangeDate = DateTime.Now,
+                //StateId = State.AccountForRejected,
+                MotiveReject = solicitationDto.MotiveReject
+            };
+
+            var notification = new ServiceResult<SolicitationIdDto>();
+            //tenemos que saber la instancia de aprobación actual.
+            var stateSolicitationThisUser = _dataContext.SolicitationStates
+                .Include(x => x.State)
+                .Where(x => x.SolicitationSubsidyId == solicitation.Id)
+                .OrderByDescending(x => x.ChangeDate)
+                .FirstOrDefault();
+
+            var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolSupervisor = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Supervisor);
+            var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            var rolUserSupervisor = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolSupervisor.Id);
+            //si agente
+            if (rolAgent != null)
+            {
+                //si finalizo y ademas lo rinde (lo envia) viatico
+                if (stateSolicitationThisUser.StateId == State.Accounted)
+                {
+                    solicitationState.State =
+                        _dataContext.States.FirstOrDefault(x => x.Id == State.Rendicion_Aprobada_1ra_Instancia);
+
+                    var supervisor = _dataContext.SupervisorUserAgents
+                        .Include(x => x.Supervisors2)
+                        .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
+                        .FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+                    solicitationDto.Supervisor = supervisor.Supervisors2;
+
+                    //le reenviamos al supervisor de 2da instancia
+                    var resultEmail = await SendEmailAsync(solicitationDto);
+
+                    if (!resultEmail.IsSuccess)
+                    {
+                        notification.AddError("Error", "El Email no pudo ser enviado.");
+                        return notification;
+                    }
+                }
+                else if (stateSolicitationThisUser.StateId == State.Rendicion_Aprobada_1ra_Instancia
+                         && solicitationDto.SupervisorId != stateSolicitationThisUser.SupervisorId)
+                {
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.AccountForRejected);
+                }
+                else if (stateSolicitationThisUser.StateId == State.Rendicion_Aprobada_1ra_Instancia
+                         && solicitationDto.SupervisorId == stateSolicitationThisUser.SupervisorId)
+                {
+                    notification.AddError("Error",
+                        "Esta Solicitud ya está " + stateSolicitationThisUser.State.Description);
+                    return notification;
+                }
+            }
+            else
+                {
+                    //si no es Agente
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.AccountForRejected);
+                }
+
+                _notificationService.Create(
+                new CreateNotificationDto()
+                {
+                    Tittle = "Su rendición de una solicitud de viático fue rechazada",
+                    TextData = "Su rendición de una solicitud de viático fue rechazada",
+                    UserId = solicitation.UserId,
+                    CreationTime = DateTime.Now,
+                    NotificationType = (int)NotificationType.Info,
+                    CreatorUserId = solicitationDto.SupervisorId,
+                    LastModifierUserId = Guid.Empty,
+                    EntityId = Guid.Empty,
+                    LastModificationTime = DateTime.Now,
+                    SolicitationSubsidyId = solicitation.Id
+                });
+
+            _dataContext.SolicitationStates.Add(solicitationState);
+            _dataContext.SaveChanges();
+
+            return new ServiceResult<SolicitationIdDto>(solicitationDto);
+        }
+
+        public ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto)
+        {
+            var notification = new ServiceResult<SolicitationIdDto>();
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(x => x.SolicitationStates)
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == solicitationDto.Id);
+
+            if (solicitation == null)
+            {
+                notification.AddError("Error","Esta solicitud no existe.");
+                return notification;
+            }
+
+            //tenemos que saber la instancia de aprobación actual.
+            var stateSolicitationThisUser = _dataContext.SolicitationStates
+                .Include(x => x.State)
+                .Where(x => x.SolicitationSubsidyId == solicitationDto.Id)
+                .OrderByDescending(x => x.ChangeDate)
+                .FirstOrDefault();
+
+            var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolSupervisor = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Supervisor);
+
+            var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            var rolUserSupervisor = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            //supervisores de este usuario
+            var supervisor = _dataContext.SupervisorUserAgents.FirstOrDefault(x => x.AgentId == solicitation.UserId);
+
+            //si agente
+            if (rolUserAgent != null)
+            {
+                //todavia no fue aprobado en primera instancia, tampoco rechazado
+                if (stateSolicitationThisUser.State.Id != State.Sent && 
+                    supervisor.SupervisorId == solicitationDto.SupervisorId)
+                {
+                    notification.AddError("Error", "Esta solicitud ya está " + stateSolicitationThisUser.State.Description);
+                    return notification;
+                }
+
+            }
+
+            //si es supervisor
+            if (rolUserSupervisor != null)
+            {
+                if (stateSolicitationThisUser.State.Id != State.Sent &&
+                    supervisor.SupervisorId == solicitationDto.SupervisorId)
+                {
+                    notification.AddError("Error", "Esta solicitud ya está " + stateSolicitationThisUser.State.Description);
+                    return notification;
+                }
+            }
+
             var isRefundTextOrSolicitation = "solicitud de Víatico";
 
             if (solicitation.IsRefund)
             {
                 isRefundTextOrSolicitation = "reintegro";
             }
+
 
             SolicitationState solicitationState = new SolicitationState()
             {
@@ -1190,48 +1507,6 @@ namespace VR.Service.Services
             return new ServiceResult<SolicitationIdDto>(solicitationDto);
         }
 
-        public ServiceResult<SolicitationIdDto> RefusedAccountForSolicitation(SolicitationIdDto solicitationDto)
-        {
-            var solicitation = _dataContext.SolicitationSubsidies
-                .Include(user => user.User)
-                .FirstOrDefault(x => x.Id == solicitationDto.Id);
-
-            if (solicitation == null)
-            {
-                return new ServiceResult<SolicitationIdDto>(null);
-            }
-
-            SolicitationState solicitationState = new SolicitationState()
-            {
-                Id = new Guid(),
-                SolicitationSubsidy = solicitation,
-                ChangeDate = DateTime.Now,
-                StateId = State.AccountForRejected,
-                MotiveReject = solicitationDto.MotiveReject
-            };
-
-            _notificationService.Create(
-                new CreateNotificationDto()
-                {
-                    Tittle = "Su rendición de una solicitud de viático fue rechazada",
-                    TextData = "Su rendición de una solicitud de viático fue rechazada",
-                    UserId = solicitation.UserId,
-                    CreationTime = DateTime.Now,
-                    NotificationType = (int)NotificationType.Info,
-                    CreatorUserId = solicitationDto.SupervisorId,
-                    LastModifierUserId = Guid.Empty,
-                    EntityId = Guid.Empty,
-                    LastModificationTime = DateTime.Now,
-                    SolicitationSubsidyId = solicitation.Id
-                });
-
-            _dataContext.SolicitationStates.Add(solicitationState);
-            _dataContext.SaveChanges();
-
-            return new ServiceResult<SolicitationIdDto>(solicitationDto);
-        }
-
-
         public ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates)
         {
             /**var SolicitationsDestinies = _dataContext.Destinies
@@ -1256,32 +1531,77 @@ namespace VR.Service.Services
             return new ServiceResult<bool>(false);
         }
 
-        public ServiceResult<Guid> SolicitationApprovedBySupervisorId(Guid Id)
+        public ServiceResult<Boolean> SolicitationApprovedBySupervisorId(Guid Id, Guid currentUserId)
         {
-            return new ServiceResult<Guid>
-            (
-                _dataContext.SolicitationApprovedBySupervisorId(Id)
-            ); 
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(user => user.User)
+                .FirstOrDefault(x => x.Id == Id);
+
+            var notification = new ServiceResult<Boolean>();
+
+            if (solicitation.UserId != currentUserId)
+            {
+                notification.AddError("Error", "Usted no es el propietario de la solicitud.");
+                return notification;
+            }
+            //tenemos que saber la instancia de aprobación actual.
+            var stateSolicitationThisUser = _dataContext.SolicitationStates
+                .Include(x => x.State)
+                .Where(x => x.SolicitationSubsidyId == solicitation.Id)
+                .OrderByDescending(x => x.ChangeDate)
+                .FirstOrDefault();
+
+            if (stateSolicitationThisUser.State.Id == State.Accepted)
+            {
+                return new ServiceResult<Boolean>
+                (
+                    true
+                );
+            }
+            if(stateSolicitationThisUser.State.Id == State.AccountForAcepted)
+            {
+                return new ServiceResult<Boolean>
+                (
+                    true
+                );
+            }
+
+            notification.AddError("Error", "Su solicitud esta siendo evaluada.");
+            return notification;
         }
 
-        public ServiceResult<string> WichStateSolicitation(Guid solicitationId)
+        public ServiceResult<SolicitationSubsidyStateDto> GetSolicitationState(Guid solicitationId)
         {
+            var state = new SolicitationSubsidyStateDto();
+            var notification = new ServiceResult<SolicitationSubsidyStateDto>();
+
             var result = _dataContext.SolicitationStates
                 .Include(x => x.State)
+                .Include(x => x.SolicitationSubsidy)
                 .Where(x => x.SolicitationSubsidyId == solicitationId)
                 .OrderByDescending(x => x.ChangeDate)
-                .FirstOrDefault().State.Description;
-            return new ServiceResult<string>(result);
+                .FirstOrDefault();
+
+            if (result == null)
+            {
+                notification.AddError("Error","Esta solicitud no existe.");
+                return notification;
+            }
+
+            state.Description = result.State.Description;
+            state.IsRefund = result.SolicitationSubsidy.IsRefund;
+            state.UserId = result.SolicitationSubsidy.UserId;
+            
+            return new ServiceResult<SolicitationSubsidyStateDto>(state);
         }
 
 
         public ServiceResult<bool> ValidateBeforeSendAccountFor(Guid solcitationId)
         {
             var solicitation = _dataContext.SolicitationSubsidies
-                .Include(x => x.Destinies)
-                .ThenInclude(city => city.City)
-                .ThenInclude(prov => prov.Province)
-                .ThenInclude(country => country.Country) 
+                .Include(x => x.Destinies).ThenInclude(city => city.City)
+                .Include(x => x.Destinies).ThenInclude(prov => prov.Province)
+                .Include(x => x.Destinies).ThenInclude(country => country.Country) 
                 .Include(x => x.Expenditures)
                 .ThenInclude(expType => expType.ExpenditureType)
                 .FirstOrDefault(x => x.Id == solcitationId);

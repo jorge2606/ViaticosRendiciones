@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbdModalContent } from 'src/app/modals/modals.component';
 import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
+import { DetailAccountForSolicitationComponent } from '../detail-account-for-solicitation/detail-account-for-solicitation.component';
 
 @Component({
   selector: 'app-supervisor',
@@ -120,6 +121,17 @@ export class SupervisorComponent implements OnInit {
 
     openDetail(id : number){
       const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+      modalRef.componentInstance.idModal = id;
+      modalRef.result.then(() => {
+        this.getAll(this.filters);
+      },
+        () => {
+          console.log('Backdrop click');
+      })
+    }
+
+    openDetailAccountFor(id : number){
+      const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
       modalRef.componentInstance.idModal = id;
       modalRef.result.then(() => {
         this.getAll(this.filters);

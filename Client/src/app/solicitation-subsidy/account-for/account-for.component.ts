@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Expenditure, CreateSolicitationSubsidyDto, ImageDto } from 'src/app/_models/solicitationSubsidy';
+import { Expenditure, CreateSolicitationSubsidyDto, ImageDto, CreateAccountForSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -38,6 +38,7 @@ import { CrystalLightbox } from 'ngx-crystal-gallery';
   styleUrls: ['./account-for.component.css']
 })
 export class AccountForComponent implements OnInit {
+  
   uploader:FileUploader;
   isCollapsedDestiny = false;
   categories : AllCategoryDto[] = [];
@@ -50,7 +51,7 @@ export class AccountForComponent implements OnInit {
   expenditures : AllExpenditureDto[];
   Allexpenditures : AllExpenditureDto[];
   destinies : DestinyDto[] = [];
-  model = new CreateSolicitationSubsidyDto;
+  model = new CreateAccountForSolicitationSubsidyDto;
   DestinyStatic : DestinyDto[] = [];
   expenditureStatics : Expenditure[] = [];
   radioButtonRequired : boolean = true;
@@ -112,6 +113,11 @@ export class AccountForComponent implements OnInit {
         this.model.destinies.forEach(dest => {
             var newDestination = new DestinyDto();
             newDestination.days = dest.days;
+            newDestination.daysPay = dest.daysPay;
+            if (!dest.accountedForDays){
+              dest.accountedForDays = 0;
+              dest.accountedForDays = dest.daysPay;
+            }
             newDestination.provinceName = dest.provinceName;
             newDestination.countryName = dest.countryName;
             newDestination.cityName = dest.cityName;
@@ -126,9 +132,12 @@ export class AccountForComponent implements OnInit {
             var newExpenditure = new Expenditure();
             newExpenditure.id = exp.id;
             newExpenditure.expenditureTypeName = exp.expenditureTypeName;
+            if (!exp.accountedForAmount){
+              exp.accountedForAmount = 0;
+              exp.accountedForAmount = exp.amount;
+            }
             newExpenditure.amount = exp.amount;
             newExpenditure.description = exp.description;
-            newExpenditure.amount = exp.amount;
             this.solicitationSubsidyService.getUrlImageExpenditure(exp.id,186,60)
             .subscribe(urlImg => {
                 exp.urlImage = "data:image/jpg;base64,"+urlImg.response;
@@ -441,10 +450,10 @@ export class AccountForComponent implements OnInit {
     todayDto.year = today.getFullYear();
     this.model.finalizeDate = todayDto;
 
-    this.model.destinies.forEach(c => 
+    /** this.model.destinies.forEach(c => 
     {
-      c.accountedForDays = c.days;
-    });
+      c.accountedForDays = c.daysPay;
+    });*/
 
     this.model.expenditures.forEach(
       j => {
@@ -452,7 +461,7 @@ export class AccountForComponent implements OnInit {
           this.toastrService.info('No se ha seleccionado ninguna imagen del concepto "'+ j.expenditureTypeName+'".');
           this.submit = false;
         }
-        j.accountedForAmount = j.amount;
+        //j.accountedForAmount = j.amount;
       }
     );
 
@@ -460,13 +469,14 @@ export class AccountForComponent implements OnInit {
       return;
     }
 
-     this.solicitationSubsidyService.createAccountFor(this.model)
-     .subscribe(
+    this.solicitationSubsidyService.createAccountFor(this.model)
+    .subscribe(
         () => {
             this.router.navigate(['SolicitationSubsidy/agent']);
             this.msjToastSuccess('El rendición de viático se ha guardado correctamente');
         }
-      );
+    );
+
   }
 
   onSelectFile(newExp : any , event) {
@@ -497,7 +507,7 @@ export class AccountForComponent implements OnInit {
     
     if (e === ""){
       value="0";
-      expenditure.amount = (value * 1);
+      expenditure.accountedForAmount = (value * 1);
     }else{
       value = value.replace(/[$,]/g,"");
       var dot = value.indexOf(".");
@@ -505,7 +515,7 @@ export class AccountForComponent implements OnInit {
         value = value.substring(0,dot);
       }
 
-      expenditure.amount = (value * 1);
+      expenditure.accountedForAmount = (value * 1);
     }
     
     this.totalResult();
@@ -551,13 +561,13 @@ export class AccountForComponent implements OnInit {
       this.model.expenditures.forEach(
         expenditure => 
         {
-          resultExpenditure = resultExpenditure + (expenditure.amount * 1);
+          resultExpenditure = resultExpenditure + (expenditure.accountedForAmount * 1);
         }
       );
 
       this.model.destinies.forEach(
         destiny => {
-          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
+          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.daysPay * destiny.percentageCodeLiquidation);
         }
       );
       this.model.total = resultExpenditure + resultDestiny;

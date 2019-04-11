@@ -47,6 +47,8 @@ namespace VR.Service.Services
                 .Select(_mapper.Map<NotificationDto>)
                 .Where(x => x.UserId == id && x.Read == false)
                 .OrderByDescending(x => x.CreationTime)
+                .GroupBy(x => x.SolicitationSubsidyId)
+                .Select(x => x.First())
                 .Take(5).ToList();
             return result;
         }

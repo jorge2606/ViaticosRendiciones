@@ -1,3 +1,4 @@
+import { SolicitationSubsidyBaseDto } from 'src/app/_models/solicitationSubsidy';
 import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 import { AuthenticationService } from './../_services/authentication.service';
@@ -30,6 +31,7 @@ export class NavarComponent implements OnInit {
   firstName : string;
   lastName : string;
   isloggedUser : boolean;
+  solicitationSubsidy : SolicitationSubsidyBaseDto;
   isRefund = {'yes' : true, 'not' : false};
   roles : any [] = [];
   rolesNames : any[] = []
@@ -71,8 +73,8 @@ export class NavarComponent implements OnInit {
             this.userName = this.authService.userId('userName');
             this.firstName = this.authService.userId('firstName');
             this.lastName = this.authService.userId('lastName');
-      }, () => {
-        console.log('');
+      },err=>{
+        console.log(err);
       }
       );
    }
@@ -232,6 +234,39 @@ export class NavarComponent implements OnInit {
                       this.router.navigateByUrl('SolicitationSubsidy/agent/printAccountFor/'+notificationridden.solicitationSubsidyId);
                     } 
                 )
+              }
+
+              if(solicitationState.description == 'Aprobado 1ra. Instancia' 
+                  && this.authService.userId('id') != solicitationState.userId){
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      this.router.navigateByUrl('/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/'+solicitationState.isRefund);
+                    } 
+                )
+              }else if(solicitationState.description == 'Aprobado 1ra. Instancia'
+                && this.authService.userId('id') == solicitationState.userId){
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      } 
+                )
+              }
+
+              if(solicitationState.description == 'Rendición Aprobada 1ra. Instancia' 
+                && this.authService.userId('id') == solicitationState.userId){
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                () =>{
+                    this.retriveNotifications();
+                  } 
+                )
+              }else if (solicitationState.description == 'Rendición Aprobada 1ra. Instancia' 
+                && this.authService.userId('id') != solicitationState.userId){
+                  this.notificationServices.notificationRidden(notificationridden).subscribe(
+                    () =>{
+                      this.retriveNotifications();
+                      this.router.navigateByUrl('/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/'+solicitationState.isRefund)
+                  }) 
               }
               
             });

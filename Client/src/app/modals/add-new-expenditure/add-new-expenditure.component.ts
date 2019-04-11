@@ -30,6 +30,24 @@ export class AddNewExpenditureComponent implements OnInit {
   }
 
   addNewConcept(){
+    let exist;
+    if (this.expendituresAdded != null){
+      exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
+    }
+    if (exist){
+        this.msgExist = "Tipo de gasto ya existente";
+        return;
+    }
+
+    var amount = this.modelExp.amount.toString().replace(",",".");
+    
+    if( isNaN( parseFloat( amount ) ) ){
+      this.msgExist = "Importe debe ser un número";
+      return;
+    }else{
+      this.modelExp.amount = parseFloat( amount );
+    }
+    
     if (this.isCommission){
       let expType : AllExpenditureDto;
       this.solicitationSubsidyService.someSolicitationHasThisExpenditure(this.keyRandom,this.modelExp.id)
@@ -52,24 +70,6 @@ export class AddNewExpenditureComponent implements OnInit {
         this.sendData(); 
       });
     }else{
-      let exist;
-      if (this.expendituresAdded != null){
-        exist = this.expendituresAdded.find(x => x.expenditureTypeId == this.modelExp.id);
-      }
-      if (exist){
-          this.msgExist = "Tipo de gasto ya existente";
-          return;
-      }
-
-      var amount = this.modelExp.amount.toString().replace(",",".");
-      
-      if( isNaN( parseFloat( amount ) ) ){
-        this.msgExist = "Importe debe ser un número";
-        return;
-      }else{
-        this.modelExp.amount = parseFloat( amount );
-      }
-      
       this.msgExist = "";
       let newExp = new Expenditure();
       newExp.description = this.modelExp.description;

@@ -18,4 +18,11 @@ namespace VR.Dto
         public string FileNumber { set; get; }
     }
 
+    public class SolicitationSubsidyStateDto
+    {
+        public string Description { set; get; }
+        public Boolean IsRefund { set; get; }
+        public Guid UserId { set; get; }
+    }
+
 }

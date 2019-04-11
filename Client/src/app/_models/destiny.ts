@@ -1,9 +1,8 @@
 import { SupplementaryCityDto } from './supplementaryCity';
 
-export class DestinyDto{
+export class DestinyBaseDto{
     id : number;
     idExp : string;
-    accountedForDays : number;
     placeId : number;
     provinceId : number;
     provinceName : string;
@@ -30,11 +29,18 @@ export class DestinyDto{
     textPercentage : string;
     daysPay : number;
 }
-
 export class destinies_from_store_procedure{
     days : number;
     daysLetters : string;
     advanceCategory : number;
+}
+
+export class DestinyDto extends DestinyBaseDto{
+    accountedForDays : number;
+}
+
+export class destinyForModifyingSolicitationDto extends DestinyBaseDto{
+
 }
 
 

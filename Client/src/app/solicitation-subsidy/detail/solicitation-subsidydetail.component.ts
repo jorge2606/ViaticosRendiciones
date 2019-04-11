@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-solicitation-subsidydetail',
@@ -36,7 +37,8 @@ export class SolicitationSubsidydetailComponent implements OnInit {
     private modalService: NgbModal,
     private genericsCommunicationsComponentsService : GenericsCommunicationsComponentsService,
     private authService : AuthenticationService,
-    private lightbox : CrystalLightbox
+    private lightbox : CrystalLightbox,
+    private toastrService : ToastrService
   ) { }
 
   ngOnInit() {
@@ -78,6 +80,14 @@ export class SolicitationSubsidydetailComponent implements OnInit {
     this.solicitationSubsidyService.acepted(newSolicitationId)
     .subscribe(
       () => {this.activeModal.close()}
+      ,err => {
+        if (err.error.result){
+          var e = err.error.result.errors.Error || [];
+          e.forEach((error,value) => {
+            this.toastrService.error(error,'');
+          });
+        }
+      }
     );
   }
 
@@ -87,7 +97,15 @@ export class SolicitationSubsidydetailComponent implements OnInit {
     newSolicitationId.motiveReject = this.motive;
     this.solicitationSubsidyService.refused(newSolicitationId)
     .subscribe(
-      () => {this.activeModal.close()}
+      () => {this.activeModal.close()},
+      err=>{
+        if (err.error.errors){
+          var e = err.error.errors.Error || [];
+          e.forEach(error => {
+            this.toastrService.error(error,'');
+          });
+        }
+      }
     );
   }
 

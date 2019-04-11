@@ -113,6 +113,21 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
+        [HttpGet("GetByIdSolicitationSubsidySubsidy/{id}")]
+        [Authorize]
+        public IActionResult GetByIdSolicitationSubsidySubsidy(Guid id)
+        {
+            var result = _solicitationSubsidyService.GetByIdSolicitationSubsidySubsidy(id);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+        }
+
+        
+
         [HttpGet("getBySolicitationIdForEmail/{id}")]
         [Authorize(Policy = SolicitationSubsidyClaims.CanModerateRefund, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Policy = SolicitationSubsidyClaims.CanModerateSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -278,13 +293,13 @@ namespace VR.Web.Controllers
         [Authorize]
         public IActionResult WichStateSolicitation(Guid solicitationId)
         {
-            var result = _solicitationSubsidyService.WichStateSolicitation(solicitationId);
+            var result = _solicitationSubsidyService.GetSolicitationState(solicitationId);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
             }
 
-            return Ok(new StateDto(){Description = result.Response});
+            return Ok(result.Response);
         }
 
         [HttpGet("pageSupervisor")]
@@ -412,13 +427,13 @@ namespace VR.Web.Controllers
         public IActionResult AceptedAccountForSolicitation([FromBody] SolicitationIdDto solicitationId)
         {
             solicitationId.SupervisorId = GetIdUser();
-            var result = _solicitationSubsidyService.AceptedAccountForSolicitation(solicitationId);
-            if (!result.IsSuccess)
+            var result = _solicitationSubsidyService.AceptedAccountForSolicitationAsync(solicitationId);
+            if (!result.Result.IsSuccess)
             {
                 return BadRequest(result);
             }
 
-            return Ok(result.Response);
+            return Ok(result.Result.Response);
         }
 
         [HttpPost("AceptedMyAccountForSolicitation")]
@@ -455,13 +470,13 @@ namespace VR.Web.Controllers
         public IActionResult RefusedAccountForSolicitation([FromBody] SolicitationIdDto solicitationId)
         {
             solicitationId.SupervisorId = GetIdUser();
-            var result = _solicitationSubsidyService.RefusedAccountForSolicitation(solicitationId);
-            if (!result.IsSuccess)
+            var result = _solicitationSubsidyService.RefusedAccountForSolicitationAsync(solicitationId);
+            if (!result.Result.IsSuccess)
             {
                 return BadRequest(result);
             }
 
-            return Ok(result.Response);
+            return Ok(result.Result.Response);
         }
 
         [HttpGet("GetByIdSubsidyRpt/{id}")]
@@ -481,7 +496,7 @@ namespace VR.Web.Controllers
         [Authorize]
         public IActionResult SolicitationApprovedBySupervisorId(Guid id)
         {
-            var result = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(id);
+            var result = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(id,GetIdUser());
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

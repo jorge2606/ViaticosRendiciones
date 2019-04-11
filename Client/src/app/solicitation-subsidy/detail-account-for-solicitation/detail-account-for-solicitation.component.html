@@ -48,7 +48,7 @@
                     class="col-2 text-center"
                     placement="bottom" 
                     ngbTooltip="Ver imagen"
-                    class="col-2 text-center p-0">
+                    class="col-2 text-center">
                     <a  
                         style="width: inherit;cursor: pointer;"
                         (click)="lightbox.open([{path: exp.urlImage }])"
@@ -70,6 +70,7 @@
                     <th scope="col">Destino</th>
                     <th scope="col">Transporte</th>
                     <th scope="col">Dias</th>
+                    <th scope="col" class="text-left">Dias c/Gastos</th>
                     <th scope="col">$/Dia</th>                      
                     <th scope="col">Cod. Liq.</th>
                     <th scope="col">Subtotal</th>
@@ -93,6 +94,9 @@
                   <td class="text-center" style="padding : 1px;">
                       {{des.days}}
                   </td>
+                  <td class="text-center" style="padding : 1px;">
+                    {{des.daysPay}}
+                  </td>
                   <td class="text-right" style="padding : 1px;">
                       {{des.advanceCategory | currency}}
                   </td>
@@ -100,7 +104,7 @@
                       {{des.percentageCodeLiquidation}}
                   </td>
                   <td class="text-right" style="padding : 1px;">
-                      {{des.advanceCategory * des.days * des.percentageCodeLiquidation | currency}}
+                      {{des.advanceCategory * des.daysPay * des.percentageCodeLiquidation | currency}}
                   </td> 
                 </tr>
               </tbody>

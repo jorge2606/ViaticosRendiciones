@@ -1,3 +1,5 @@
+import { ExpenditureForModifyingDto, ImageDto } from './../../_models/solicitationSubsidy';
+import { destinyForModifyingSolicitationDto } from './../../_models/destiny';
 import { AddDestinyRepaymentComponent } from './../../modals/add-destiny-repayment/add-destiny-repayment.component';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { AddExpenditureRepaymentComponent } from './../../modals/add-expenditure-repayment/add-expenditure-repayment.component';
@@ -10,7 +12,6 @@ import { AllTransportDto } from 'src/app/_models/transport';
 import { Expenditure, CreateSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { Subscription } from 'rxjs';
 import { AllExpenditureDto } from 'src/app/_models/expenditureType';
-import { DestinyDto } from 'src/app/_models/destiny';
 import { ProvinceBaseDto } from 'src/app/_models/province';
 import { CityBaseDto } from 'src/app/_models/city';
 import { AllCountryDto } from 'src/app/_models/country';
@@ -50,7 +51,7 @@ export class RepaymentComponent implements OnInit {
   _disabled = false;
   expenditures : AllExpenditureDto[];
   Allexpenditures : AllExpenditureDto[];
-  destinies : DestinyDto[] = [];
+  destinies : destinyForModifyingSolicitationDto[] = [];
   model = new CreateSolicitationSubsidyDto;
   radioButtonRequired : boolean = true;
   provinces : ProvinceBaseDto[];
@@ -72,6 +73,8 @@ export class RepaymentComponent implements OnInit {
   baseUrl = environment.apiUrl; 
   dirtyForm : boolean;
   submmited : boolean = false;
+  image : ImageDto;
+  
   @ViewChild('solicitationSubsidy') formRepayment : FormGroup;
 
   
@@ -93,7 +96,7 @@ export class RepaymentComponent implements OnInit {
       private toastrService: ToastrService,
       private authService : AuthenticationService,
       private ngbCalendar : NgbCalendar,
-      private lightbox : CrystalLightbox) { }
+      private lightbox : CrystalLightbox  ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Crear Reintegro');
@@ -106,12 +109,17 @@ export class RepaymentComponent implements OnInit {
     });
     if (this.id){
       this.solicitationSubsidyService
-      .getByIdSolicitation(this.id)
+      .getByIdSolicitationNotAccountFor(this.id)
       .subscribe(x => {
         this.model = x;
         this.model.expenditures.forEach(
           j => {
-                j.urlImage = this.authService.urlExpenditureRefundFile(j.id,186,60);
+            this.solicitationSubsidyService.getUrlImageExpenditure(j.id,186,60)
+            .subscribe(urlImg => {
+              if(urlImg.response != ""){
+                j.urlImage = "data:image/jpg;base64,"+urlImg.response;
+              }
+            });
           }
         );
       });
@@ -126,8 +134,8 @@ export class RepaymentComponent implements OnInit {
     this.allCodeLiquidation();
     this.allProvice();
     this.totalResultExpenditure();
+    this.initializeUploader();
   }
-
 
 
   allTransport(){
@@ -231,7 +239,7 @@ export class RepaymentComponent implements OnInit {
       
    }
 
-   removeDestiny(destiny : DestinyDto){
+   removeDestiny(destiny : destinyForModifyingSolicitationDto){
       
         let minus : number = 0;
         const index = this.model.destinies.indexOf(destiny, 0);
@@ -250,8 +258,6 @@ export class RepaymentComponent implements OnInit {
 
    initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl+'SolicitationSubsidy/Create/',
-      authToken: 'Bearer ' + this.authService.userId('token'),
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -311,7 +317,7 @@ export class RepaymentComponent implements OnInit {
       this.model.expenditures = [];
     }
 
-    let listExpenditures : Expenditure[] = this.model.expenditures;
+    let listExpenditures : ExpenditureForModifyingDto[] = this.model.expenditures;
 
     modalRef.componentInstance.expendituresAdded = listExpenditures;
     modalRef.result.then(()=> {
@@ -332,7 +338,7 @@ export class RepaymentComponent implements OnInit {
       this.model.destinies = [];
     }
 
-    let listDestinies : DestinyDto[] = this.model.destinies;
+    let listDestinies : destinyForModifyingSolicitationDto[] = this.model.destinies;
     
     modalRef.componentInstance.destiniesAdded = listDestinies;
     modalRef.componentInstance.solicitationId = this.id;
@@ -360,6 +366,30 @@ export class RepaymentComponent implements OnInit {
     .subscribe(
       () => []
     );
+  }
+
+  onSelectFile(newExp : any , event) {
+    if (event.target.files && event.target.files[0]) {
+      this.image = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event : any) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+        newExp.urlImage = this.url;
+      }
+
+      let img = new ImageDto()
+      img.name = this.image.name;
+      img.type = this.image.type;
+      img.size = this.image.size;
+      img.webkitRelativePath = this.image.webkitRelativePath;
+      img.lastModified = this.image.lastModified;
+      img.lastModifiedDate = this.image.lastModifiedDate;
+  
+      newExp.imageDto = img;
+    }
   }
 
   deleteFromDatabaseDestinies(id : number, index : number){
@@ -399,6 +429,17 @@ export class RepaymentComponent implements OnInit {
     if (this.model.destinies.length == 0){
       this.msjToastInfo('Debe ingresar al menos un destino');
       this.submmited = false;
+    }
+    this.model.expenditures.forEach(
+      j => {
+        if(!j.urlImage){
+          this.toastrService.info('No se ha seleccionado ninguna imagen del concepto "'+ j.expenditureTypeName+'".');
+          this.submmited = false;
+        }
+      }
+    );
+
+    if (!this.submmited){
       return;
     }
 

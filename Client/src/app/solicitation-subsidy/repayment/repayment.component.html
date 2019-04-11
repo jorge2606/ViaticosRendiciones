@@ -184,18 +184,69 @@
                                 </td>
                                 <td class="col-1 text-center">
                                     <a  
-                                        style="width: inherit;"
-                                        (click)="lightbox.open([{path: modelExp.urlImage }])" 
-                                        rel="noopener noreferrer">
-                                        <!--<img  
-                                            style="width: inherit; height: 40px;" 
-                                            [src]="modelExp.urlImage">-->
-                                            <fa-icon 
-                                                style="cursor:pointer;"
-                                                class="fa-lg" 
-                                                icon="image">                                              
-                                            </fa-icon>
+                                    *ngIf="modelExp.urlImage"
+                                    placement="right" 
+                                    triggers="click"
+                                    [autoClose]="'outside'"
+                                    [ngbTooltip]="viewDeleteImage"
+                                    style="width: inherit;"
+                                    rel="noopener noreferrer">
+                                        <fa-icon 
+                                            style="cursor:pointer;"
+                                            class="fa-lg" 
+                                            icon="image">                                              
+                                        </fa-icon>
                                     </a>
+                                    <ng-template #viewDeleteImage>
+                                        <a
+                                            style="width: inherit;cursor:pointer;"
+                                            href="#"
+                                            class="mr-1"
+                                            routerLink="{{router.url}}"
+                                            placement="right" 
+                                            ngbTooltip="Ver imagen"
+                                            (click)="lightbox.open([{path: modelExp.urlImage }])" 
+                                            rel="noopener noreferrer">
+                                            <fa-icon class="fa-lg" icon="eye"></fa-icon>
+                                        </a>
+                                        <a
+                                            style="width: inherit;cursor:pointer;"
+                                            href="#"
+                                            routerLink="{{router.url}}"
+                                            placement="right" 
+                                            ngbTooltip="Quitar"
+                                            (click)="modelExp.urlImage = ''" 
+                                            rel="noopener noreferrer">
+                                            <fa-icon class="fa-lg" 
+                                                style="color: red;" 
+                                                icon="trash-alt"></fa-icon>
+                                        </a>
+                                    </ng-template>
+                                    
+                                    <input 
+                                    *ngIf="!modelExp.urlImage"
+                                    class="inputfile" 
+                                    type="file"
+                                    name="file{{modelExp.expenditureTypeName}}" 
+                                    id="file{{modelExp.expenditureTypeName}}" 
+                                    (change)="onSelectFile(modelExp,$event)" 
+                                    ng2FileSelect
+                                    [uploader]="uploader"
+                                    style="display:none" 
+                                    value="Cambiar"
+                                    required />
+                                    <label 
+                                        *ngIf="!modelExp.urlImage"
+                                        for="file{{modelExp.expenditureTypeName}}"
+                                        id="file{{modelExp.expenditureTypeName}}" 
+                                        style="left: 27px;">
+                                        <fa-icon 
+                                            style="cursor:pointer" 
+                                            icon="upload" 
+                                            class="fa-lg">
+                                        </fa-icon>
+                                    </label>
+                                    
                                 </td>
                                 <td class="col-1 text-right">
                                     <a  placement="bottom" 
@@ -208,6 +259,7 @@
                                         </fa-icon>
                                     </a>
                                 </td>
+                                
                             </tr>
                         </tbody>
                 </table> 

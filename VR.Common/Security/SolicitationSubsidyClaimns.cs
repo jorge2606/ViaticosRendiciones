@@ -64,6 +64,11 @@ namespace VR.Common.Security
         public const string CanApproveAccountForSolicitation = "solicitations.approveAccountForSolicitation";
         public const string CanRejectAccountForSolicitation = "solicitations.rejectAccountForSolicitation";
         public const string CanAcceptMySolicitation = "solicitations.acceptMySolicitation";
+        public const string canPrintSolicitation = "solicitations.printSolicitation";
+        //Imprimir Rendición (finalización súbita)
+        public const string canPrintAccountForSolicitation = "solicitations.printAccountForSolicitation";
+        //Imprimir Rendición (finalización normal)
+        public const string canPrintaccountForNormallyFinalitation = "solicitations.accountForNormallyFinalitation";
 
         public const string CanCreateRoles = "roles.create";
         public const string CanEditRoles = "roles.edit";

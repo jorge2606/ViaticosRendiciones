@@ -66,10 +66,12 @@
                                 <tr class="form-row">
                                     <th class="col">Destino</th>
                                     <th class="col-2 text-right">Dias</th>
+                                    <th class="col-2 text-right">Dias/$</th>
                                     <th class="col-2 text-right">Importe</th>
                                 </tr>  
                             </thead>
-                            <tbody id="collapseDestiny" [ngbCollapse]="isCollapsedDestiny" *ngFor="let destinyStatic of DestinyStatic">
+                            <tbody id="collapseDestiny" [ngbCollapse]="isCollapsedDestiny" 
+                                *ngFor="let destinyStatic of DestinyStatic">
                                 <tr class="form-row">        
                                     <td class="col">
                                         <span *ngIf="destinyStatic.countryId">{{destinyStatic.countryName}} </span> 
@@ -82,12 +84,16 @@
                                         {{destinyStatic.days}}
                                     </td>
                                     <td class="col-2 text-right">
-                                        {{destinyStatic.advanceCategory * destinyStatic.days * destinyStatic.percentageCodeLiquidation | currency}}
+                                        {{destinyStatic.daysPay}}
+                                    </td>
+                                    <td class="col-2 text-right">
+                                        {{destinyStatic.advanceCategory * destinyStatic.daysPay * destinyStatic.percentageCodeLiquidation | currency}}
                                     </td>  
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
                     <div class="col-md-6">
                         <!--Destino to modify-->
                         <table *ngIf="model.destinies.length > 0" class="table table-sm" style="margin-bottom : 0px">
@@ -95,6 +101,7 @@
                             <tr class="form-row">
                                 <th class="col">Destino</th>
                                 <th class="col-2 text-right">Dias</th>
+                                <th class="col-2 text-right">Dias/$</th>
                                 <th class="col-2 text-right">Importe</th>
                             </tr>  
                         </thead>
@@ -108,18 +115,21 @@
                                     </span>
                                 </td>
                                 <td class="col-2 text-right">
+                                    {{destiny.days}}
+                                </td>
+                                <td class="col-2 text-right">
                                     <input 
-                                    [(ngModel)]="destiny.days"
+                                    [(ngModel)]="destiny.accountedForDays"
                                     type="number"
-                                    (keyup)="totalResult()"
+                                    onkeydown="return false;"
                                     min="0" 
-                                    pattern="^[0-9]+"
+                                    max="{{destiny.days}}"
                                     name="days{{destiny.id}}"
                                     class="input-destiny"
                                     required>
                                 </td>
                                 <td class="col-2 text-right">
-                                    {{destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation | currency}}
+                                    {{destiny.advanceCategory * destiny.accountedForDays * destiny.percentageCodeLiquidation | currency}}
                                 </td>  
                             </tr>
                         </tbody>
@@ -203,7 +213,7 @@
                                             <input 
                                                 class="input-destiny" 
                                                 name="amount{{modelExp.expenditureTypeName}}"
-                                                [ngModel]="modelExp.amount | currency "
+                                                [ngModel]="modelExp.accountedForAmount | currency "
                                                 (ngModelChange)="validateAmount(modelExp, $event)"
                                                 required>
                                         </td>
@@ -212,16 +222,41 @@
                                                 style="width: inherit;cursor:pointer;"
                                                 href="#"
                                                 routerLink="{{router.url}}"
-                                                placement="bottom" 
-                                                ngbTooltip="Ver imagen"
-                                                (click)="lightbox.open([{path: modelExp.urlImage }])" 
+                                                placement="right" 
+                                                triggers="click"
+                                                [autoClose]="'outside'"
+                                                [ngbTooltip]="viewDeleteImage"
                                                 rel="noopener noreferrer">
                                                 <fa-icon class="fa-lg" icon="image"></fa-icon>
                                                 <!--<img  
                                                     style="width: inherit; height: 40px;" 
                                                     [src]="modelExpStatic.urlImage">-->
                                             </a>
-                                            
+                                            <ng-template #viewDeleteImage>
+                                                <a
+                                                    style="width: inherit;cursor:pointer;"
+                                                    href="#"
+                                                    class="mr-1"
+                                                    routerLink="{{router.url}}"
+                                                    placement="right" 
+                                                    ngbTooltip="Ver imagen"
+                                                    (click)="lightbox.open([{path: modelExp.urlImage }])" 
+                                                    rel="noopener noreferrer">
+                                                    <fa-icon class="fa-lg" icon="eye"></fa-icon>
+                                                </a>
+                                                <a
+                                                    style="width: inherit;cursor:pointer;"
+                                                    href="#"
+                                                    routerLink="{{router.url}}"
+                                                    placement="right" 
+                                                    ngbTooltip="Quitar"
+                                                    (click)="modelExp.urlImage = ''" 
+                                                    rel="noopener noreferrer">
+                                                    <fa-icon class="fa-lg" 
+                                                        style="color: red;" 
+                                                        icon="trash-alt"></fa-icon>
+                                                </a>
+                                            </ng-template>
                                             <input 
                                                 *ngIf="!modelExp.urlImage"
                                                 class="inputfile" 
@@ -262,7 +297,6 @@
                         </table> 
                     </div>
                 </div>
-
                 
                 <div class="form-row float-right">
                     <button 

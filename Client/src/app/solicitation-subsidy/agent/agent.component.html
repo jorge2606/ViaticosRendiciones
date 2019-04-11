@@ -3,7 +3,7 @@
         <a  
           placement="bottom" 
           ngbTooltip="Agregar una nueva solicitud de viático" 
-          href="" class="btn btn-success" routerLink="create">
+          href="" class="btn btn-success" routerLink="/SolicitationSubsidy/agent/create">
           <fa-icon class="fa-lg" icon="plus"></fa-icon> Anticipo
         </a>
     </div>
@@ -63,12 +63,14 @@
                     </li>  
                     <span class="" > {{ sol.localities }}</span>   
                 </td>
-                <td class="col text-right">{{sol.total | currency}}</td>
-                <td *ngIf="sol.state == 'Rechazado'" class="col">
+                <td class="col small text-right">{{sol.total | currency}}</td>
+                <td *ngIf="sol.state == 'Rechazado'" class="col small">
                   <a
                     placement="bottom" 
                     ngbTooltip="Ver motivo de rechazo"   
-                    href="" class="pr-3" routerLink="/SolicitationSubsidy/agent"
+                    href="" 
+                    class="pr-3 small" 
+                    routerLink="/SolicitationSubsidy/agent"
                     (click)="openMotiveReject(sol.motiveReject)">
                     {{sol.state}}
                   </a>
@@ -79,11 +81,12 @@
                       ngbTooltip="Agregar número de expediente" 
                       href=""
                       (click)="addFileNumber(sol.id)"
-                      routerLink="/SolicitationSubsidy/agent" class="pr-3">
+                      routerLink="/SolicitationSubsidy/agent" 
+                      class="pr-3 small">
                       {{sol.state}}
                     </a>
                 </td>  
-                <td class="col" *ngIf="sol.state != 'Rechazado' && sol.state != 'Aceptado'">
+                <td class="col small" *ngIf="sol.state != 'Rechazado' && sol.state != 'Aceptado'">
                     {{sol.state}}
                 </td>
                 <td *ngIf="sol.state == 'Pendiente'" class="col text-right">
@@ -94,7 +97,7 @@
                       placement="bottom" 
                       ngbTooltip="Editar" 
                       class="pr-3" 
-                      routerLink="repayment/update/{{sol.id}}">
+                      routerLink="/SolicitationSubsidy/agent/repayment/update/{{sol.id}}">
                       <fa-icon style="color:gray;" icon="edit" class="{{sizeIcon}}">
                       </fa-icon>
                     </a>               
@@ -242,14 +245,14 @@
                     <a *ngIf="!sol.isRefund"
                       placement="bottom" 
                       ngbTooltip="Imprimir esta solicitud de viático" 
-                      href="" routerLink="print/{{sol.id}}" class="pr-3">
+                      href="" routerLink="/SolicitationSubsidy/agent/print/{{sol.id}}" class="pr-3">
                       <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                     </a>
-  
+                    <!--El formulario que debe imprimir el Reintegro es el mismo que rendición una vez que se aprueba el mismo.-->
                     <a *ngIf="sol.isRefund"
                       placement="bottom" 
                       ngbTooltip="Imprimir esta solicitud de reintegro" 
-                      href="" routerLink="print/{{sol.id}}" class="pr-3">
+                      href="" routerLink="/SolicitationSubsidy/agent/printAccountFor/{{sol.id}}" class="pr-3">
                       <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                     </a>
                     <!-- la fecha de hoy sea mayor a la fecha de inicio y menor a la fecha de finalizacion del viatico-->
@@ -267,7 +270,7 @@
                       placement="bottom" 
                       ngbTooltip="Rendir cuentas sobre gastos del viático" 
                       href="" 
-                      routerLink="accountFor/{{sol.id}}" 
+                      routerLink="/SolicitationSubsidy/agent/accountFor/{{sol.id}}" 
                       class="pr-3">
                       <fa-icon 
                         style="color:gray;"
@@ -280,7 +283,7 @@
                     placement="bottom" 
                     ngbTooltip="Rendir cuentas sobre gastos del viático 1111" 
                     href="" 
-                    routerLink="accountForNormallyFinalitation/{{sol.id}}" 
+                    routerLink="/SolicitationSubsidy/agent/accountForNormallyFinalitation/{{sol.id}}" 
                     class="pr-3">
                       <fa-icon 
                       style="color:gray;"
@@ -346,11 +349,12 @@
                 </td>
                 <td *ngIf="sol.state == 'Rendido'" class="col text-right"></td>
                 <td *ngIf="sol.state == 'Enviado'" class="col text-right"></td>
+                <td *ngIf="sol.state == 'Rendición Aprobada 1ra. Instancia'" class="col"></td>
                 <td *ngIf="sol.state == 'Rendición Aceptada'" class="col text-right">
                   <a *ngIf="!sol.isRefund"
                     placement="bottom" 
                     ngbTooltip="Imprimir esta rendición de una solicitud de viático" 
-                    href="" routerLink="printAccountFor/{{sol.id}}" class="pr-3">
+                    href="" routerLink="/SolicitationSubsidy/agent/printAccountFor/{{sol.id}}" class="pr-3">
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>
                   <a 
@@ -372,7 +376,7 @@
                     placement="bottom" 
                     ngbTooltip="Reenviar" 
                     href="" 
-                    routerLink="accountFor/{{sol.id}}" 
+                    routerLink="/SolicitationSubsidy/agent/accountFor/{{sol.id}}" 
                     class="pr-3">
                     <fa-icon 
                       style="color:gray;"
@@ -419,7 +423,7 @@
       size="medium"
       color="#fff"
       type="ball-scale-multiple">
-      <p style="font-size: 20px; color: white">Enviando...</p>>
+      <p style="font-size: 20px; color: white">Enviando...</p>
     </ngx-spinner>
 
     <ngb-pagination 

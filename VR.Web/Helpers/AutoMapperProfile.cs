@@ -28,7 +28,6 @@ namespace WebApi.Helpers
                         .FirstOrDefault().FileNumber)
                 );
             CreateMap<AgentSolicitationBySupervisorResult, AllSolicitationSubsidyDto>();
-            
             CreateMap<Expenditure, ExpenditureFromSolicitationSubsidyByIdDto>();
             CreateMap<User, UserDto>();
             CreateMap<SupplementaryCity, SupplementaryCityDto>();

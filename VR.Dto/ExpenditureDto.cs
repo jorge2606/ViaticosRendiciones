@@ -26,7 +26,21 @@ namespace VR.Dto
         public string ExpenditureDescription { set; get; }
     }
 
+    //AccountFor
     public class ExpenditureFromSolicitationSubsidyByIdDto
+    {
+        public Guid Id { set; get; }
+        public decimal Amount { set; get; }
+        public string Description { set; get; }
+        public string ExpenditureTypeName { set; get; }
+        public decimal? AccountedForAmount { set; get; }
+        public Guid SolicitationSubsidyId { set; get; }
+        public Guid ExpenditureTypeId { set; get; }
+
+    }
+
+    //SolicitationSubcidy
+    public class ExpenditureFromOnlySolicitationSubsidyByIdDto
     {
         public Guid Id { set; get; }
         public decimal Amount { set; get; }

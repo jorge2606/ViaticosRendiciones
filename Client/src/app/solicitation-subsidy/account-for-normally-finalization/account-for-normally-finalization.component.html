@@ -29,9 +29,14 @@
                 <div class="form-row">
                         <div class="form-group pt-1 col">
                                 <label for="">Motivo</label>
-                                <textarea required class="form-control textareaResize" #motive="ngModel"
-                                [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
-                                name="motive" [(ngModel)]="model.motive">
+                                <textarea 
+                                    style="resize : none;"
+                                    required 
+                                    class="form-control textareaResize" 
+                                    #motive="ngModel"
+                                    [ngClass]="{'is-invalid' : motive.invalid && (motive.dirty || motive.touched)}"
+                                    name="motive" 
+                                    [(ngModel)]="model.motive">
                                 </textarea>
         
                                 <div *ngIf="motive.invalid && (motive.dirty || motive.touched)" class="alert alert-danger mt-1">
@@ -65,7 +70,8 @@
                             <thead>
                                 <tr class="form-row">
                                     <th class="col">Destino</th>
-                                    <th class="col-2 text-right">Dias</th>
+                                    <th class="col-1 text-right">Dias</th>
+                                    <th class="col-1 text-right">Dias/$</th>
                                     <th class="col-2 text-right">Importe</th>
                                 </tr>  
                             </thead>
@@ -78,11 +84,14 @@
                                             <span *ngIf="!destinyStatic.countryId">, {{ c.name }}</span>
                                         </span>
                                     </td>
-                                    <td class="col-2 text-right">
+                                    <td class="col-1 text-right">
                                         {{destinyStatic.days}}
                                     </td>
+                                    <td class="col-1 text-right">
+                                        {{destinyStatic.daysPay}}
+                                    </td>
                                     <td class="col-2 text-right">
-                                        {{destinyStatic.advanceCategory * destinyStatic.days * destinyStatic.percentageCodeLiquidation | currency}}
+                                        {{destinyStatic.advanceCategory * destinyStatic.daysPay * destinyStatic.percentageCodeLiquidation | currency}}
                                     </td>  
                                 </tr>
                             </tbody>
@@ -166,7 +175,7 @@
                                             <input 
                                                 class="input-destiny" 
                                                 name="amount{{modelExp.expenditureTypeName}}"
-                                                [ngModel]="modelExp.amount | currency "
+                                                [ngModel]="modelExp.accountedForAmount | currency "
                                                 (ngModelChange)="validateAmount(modelExp, $event)"
                                                 required>
                                         </td>
@@ -176,16 +185,42 @@
                                                 href="#"
                                                 routerLink="{{router.url}}"
                                                 placement="bottom" 
-                                                ngbTooltip="Ver imagen"
+                                                placement="right" 
+                                                triggers="click"
+                                                [autoClose]="'outside'"
+                                                [ngbTooltip]="viewDeleteImage"
                                                 style="cursor:pointer"
-                                                (click)="lightbox.open([{path: modelExp.urlImage }])" 
                                                 rel="noopener noreferrer">
                                                 <fa-icon class="fa-lg" icon="image"></fa-icon>
                                                 <!--<img  
                                                     style="width: inherit; height: 40px;" 
                                                     [src]="modelExpStatic.urlImage">-->
                                             </a>
-                                            
+                                            <ng-template #viewDeleteImage>
+                                                <a
+                                                    style="width: inherit;cursor:pointer;"
+                                                    href="#"
+                                                    class="mr-1"
+                                                    routerLink="{{router.url}}"
+                                                    placement="right" 
+                                                    ngbTooltip="Ver imagen"
+                                                    (click)="lightbox.open([{path: modelExp.urlImage }])" 
+                                                    rel="noopener noreferrer">
+                                                    <fa-icon class="fa-lg" icon="eye"></fa-icon>
+                                                </a>
+                                                <a
+                                                    style="width: inherit;cursor:pointer;"
+                                                    href="#"
+                                                    routerLink="{{router.url}}"
+                                                    placement="right" 
+                                                    ngbTooltip="Quitar"
+                                                    (click)="modelExp.urlImage = ''" 
+                                                    rel="noopener noreferrer">
+                                                    <fa-icon class="fa-lg" 
+                                                        style="color: red;" 
+                                                        icon="trash-alt"></fa-icon>
+                                                </a>
+                                            </ng-template>
                                             <input 
                                                 *ngIf="!modelExp.urlImage"
                                                 class="inputfile" 

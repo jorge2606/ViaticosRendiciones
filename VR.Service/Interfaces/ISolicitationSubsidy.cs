@@ -21,10 +21,11 @@ namespace VR.Service.Interfaces
         ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates);
         ServiceResult<GetByIdSubsidyRpt> GetByIdSubsidyRpt(Guid solicitationId);
-        ServiceResult<Guid> SolicitationApprovedBySupervisorId(Guid id);
-        ServiceResult<string> WichStateSolicitation(Guid solicitationId);
-        ServiceResult<SolicitationIdDto> RefusedAccountForSolicitation(SolicitationIdDto solicitationDto);
-        ServiceResult<SolicitationIdDto> AceptedAccountForSolicitation(SolicitationIdDto solicitationDto);
+        ServiceResult<Boolean> SolicitationApprovedBySupervisorId(Guid id, Guid currentUserId);
+        ServiceResult<SolicitationSubsidyStateDto> GetSolicitationState(Guid solicitationId);
+        Task<ServiceResult<SolicitationIdDto>> RefusedAccountForSolicitationAsync(SolicitationIdDto solicitationDto);
+        Task<ServiceResult<SolicitationIdDto>> AceptedAccountForSolicitationAsync(SolicitationIdDto solicitationDto);
+        ServiceResult<FindByIdOnlySolicitationSubsidyDto> GetByIdSolicitationSubsidySubsidy(Guid id);
         ServiceResult<FindByIdSolicitationSubsidyWhitStateDto> GetByIdSubsidyWhitState(Guid id);
         ServiceResult<SolicitationIdDto> AceptedMySolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<SolicitationIdDto> AceptedMyAccountForSolicitation(SolicitationIdDto solicitationDto);

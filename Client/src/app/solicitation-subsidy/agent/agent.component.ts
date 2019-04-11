@@ -189,6 +189,7 @@ export class AgentComponent implements OnInit {
                     this.toastrService.error(err,'',
                     {positionClass : 'toast-top-center', timeOut : 3000});
                   });
+                  
                   this.getAll(this.filters);
                 }
               );

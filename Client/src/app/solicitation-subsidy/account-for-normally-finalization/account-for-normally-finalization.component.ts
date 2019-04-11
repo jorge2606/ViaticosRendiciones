@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { AllCategoryDto } from 'src/app/_models/category';
 import { AllTransportDto } from 'src/app/_models/transport';
-import { Expenditure, CreateSolicitationSubsidyDto, ImageDto } from 'src/app/_models/solicitationSubsidy';
+import { Expenditure, CreateSolicitationSubsidyDto, ImageDto, CreateAccountForSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { Subscription } from 'rxjs';
 import { AllExpenditureDto } from 'src/app/_models/expenditureType';
 import { DestinyDto } from 'src/app/_models/destiny';
@@ -50,7 +50,7 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
   expenditures : AllExpenditureDto[];
   Allexpenditures : AllExpenditureDto[];
   destinies : DestinyDto[] = [];
-  model = new CreateSolicitationSubsidyDto;
+  model = new CreateAccountForSolicitationSubsidyDto;
   DestinyStatic : DestinyDto[] = [];
   expenditureStatics : Expenditure[] = [];
   radioButtonRequired : boolean = true;
@@ -119,7 +119,12 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
             newDestination.supplementaryCities = dest.supplementaryCities;
             newDestination.advanceCategory = dest.advanceCategory;
             newDestination.countryId = dest.countryId;
+            newDestination.daysPay = dest.daysPay;
             newDestination.percentageCodeLiquidation = dest.percentageCodeLiquidation;
+            if (!dest.accountedForDays){
+              dest.accountedForDays = 0;
+              dest.accountedForDays = dest.daysPay;
+            }
             this.DestinyStatic.push(newDestination);
         });
         this.model.expenditures.forEach(
@@ -129,7 +134,10 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
             newExpenditure.expenditureTypeName = exp.expenditureTypeName;
             newExpenditure.amount = exp.amount;
             newExpenditure.description = exp.description;
-            newExpenditure.amount = exp.amount;
+            if (!exp.accountedForAmount){
+              exp.accountedForAmount = 0;
+              exp.accountedForAmount = exp.amount;
+            }
             this.solicitationSubsidyService.getUrlImageExpenditure(exp.id,186,60)
             .subscribe(urlImg => {
                 exp.urlImage = "data:image/jpg;base64,"+urlImg.response;
@@ -441,19 +449,14 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
     todayDto.month = (today.getMonth() + 1);
     todayDto.year = today.getFullYear();
     this.model.finalizeDate = todayDto;
-
-    this.model.destinies.forEach(c => 
-    {
-      c.accountedForDays = c.days;
-    });
-
+    
     this.model.expenditures.forEach(
       j => {
         if(!j.urlImage){
           this.toastrService.info('No se ha seleccionado ninguna imagen del concepto "'+ j.expenditureTypeName+'".');
           this.submit = false;
         }
-        j.accountedForAmount = j.amount;
+       //j.accountedForAmount = j.amount;
       }
     );
 
@@ -498,7 +501,7 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
     
     if (e === ""){
       value="0";
-      expenditure.amount = (value * 1);
+      expenditure.accountedForAmount = (value * 1);
     }else{
       value = value.replace(/[$,]/g,"");
       var dot = value.indexOf(".");
@@ -506,7 +509,7 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
         value = value.substring(0,dot);
       }
 
-      expenditure.amount = (value * 1);
+      expenditure.accountedForAmount = (value * 1);
     }
     
     this.totalResult();
@@ -552,13 +555,13 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
       this.model.expenditures.forEach(
         expenditure => 
         {
-          resultExpenditure = resultExpenditure + (expenditure.amount * 1);
+          resultExpenditure = resultExpenditure + (expenditure.accountedForAmount * 1);
         }
       );
 
       this.model.destinies.forEach(
         destiny => {
-          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.days * destiny.percentageCodeLiquidation);
+          resultDestiny = resultDestiny + (destiny.advanceCategory * destiny.daysPay * destiny.percentageCodeLiquidation);
         }
       );
       this.model.total = resultExpenditure + resultDestiny;

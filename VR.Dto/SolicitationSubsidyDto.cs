@@ -63,6 +63,7 @@ namespace VR.Dto
 
     }
 
+    //accountFor
     public class FindByIdSolicitationSubsidyDto
     {
         public Guid Id { set; get; }
@@ -78,13 +79,28 @@ namespace VR.Dto
         public string RandomKey { set; get; }
     }
 
+    public class FindByIdOnlySolicitationSubsidyDto
+    {
+        public Guid Id { set; get; }
+        public string Motive { set; get; }
+        public decimal Total { set; get; }
+        public List<ExpenditureFromOnlySolicitationSubsidyByIdDto> Expenditures { set; get; }
+        public List<DestinyFromOnlySolicitationSubsidyFindByIdDto> Destinies { set; get; }
+        public Guid UserId { set; get; }
+        public UserDto User { set; get; }
+        public Boolean IsRefund { set; get; }
+        public DateTime FinalizeDate { set; get; }
+        public Boolean? IsCommission { set; get; }
+        public string RandomKey { set; get; }
+    }
+
     public class FindRandomKeySolicitationSubsidyDto
     {
         public Guid Id { set; get; }
         public string Motive { set; get; }
         public decimal Total { set; get; }
         public List<ExpenditureFromSolicitationSubsidyByIdDto> Expenditures { set; get; }
-        public List<DestinyFromSolicitationSubsidyFindByIdDto> Destinies { set; get; }
+        public List<DestinyFromOnlySolicitationSubsidyFindByIdDto> Destinies { set; get; }
         public Guid UserId { set; get; }
         public UserDto User { set; get; }
         public Boolean IsRefund { set; get; }

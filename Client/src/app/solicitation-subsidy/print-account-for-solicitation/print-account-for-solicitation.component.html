@@ -1,4 +1,4 @@
-<div class="container mb-1">
+<div class="p-2">
           
   <div class="form-row"> 
       <button class="btn btn-primary ml-auto mt-1" (click)="download()">
@@ -7,23 +7,18 @@
   </div>
 </div>
 
-<div id="iframeId">
-  <img [src]="stringIframe" alt="">
-  <!--<iframe [src]="stringIframe"  frameborder="1" width="100%" height="1000px"></iframe>-->
-</div>
-
 <ngx-spinner 
 bdColor="rgba(51,51,51,0.8)"
 size="large"
 color="#ffffff"
 fullScreen="true"
 type="ball-scale-multiple">
-<p style="font-size: 20px; color: white">Cargando...</p>>
+<p style="font-size: 20px; color: white">Cargando...</p>
 </ngx-spinner>
 
 <!--<img src="{{previewImage}}" id="print-img" [hidden]="!previewImage" alt="">
 -->
-<div id="container-print" [hidden] = "hideHtml"  class="container">
+<div id="container-print" [hidden] = "hideHtml"  class="p-2">
   <div class="" style="border: 3px black double;">
 
     <div class="form-col">
@@ -255,4 +250,9 @@ type="ball-scale-multiple">
   <div>
 
   </div>
+</div>
+
+<div id="iframeId">
+  <img [src]="stringIframe" alt="">
+  <!--<iframe [src]="stringIframe"  frameborder="1" width="100%" height="1000px"></iframe>-->
 </div>

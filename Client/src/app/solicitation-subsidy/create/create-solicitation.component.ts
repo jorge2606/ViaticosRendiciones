@@ -1,13 +1,13 @@
+import { destinyForModifyingSolicitationDto } from './../../_models/destiny';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { HolidaysService } from './../../_services/holidays.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
 import { CodeLiquidationService } from './../../_services/code-liquidation.service';
 import { CountryService } from './../../_services/country.service';
 import { AllCountryDto } from './../../_models/country';
 import { CityBaseDto } from './../../_models/city';
-import { DestinyDto } from 'src/app/_models/destiny';
 import { AddDestinyComponent } from './../../modals/add-destiny/add-destiny.component';
 import { AddNewExpenditureComponent } from './../../modals/add-new-expenditure/add-new-expenditure.component';
 import { AllExpenditureDto } from '../../_models/expenditureType';
@@ -16,8 +16,8 @@ import { CityService } from './../../_services/city.service';
 import { ProvinceBaseDto } from './../../_models/province';
 import { AllCategoryDto } from './../../_models/category';
 import { CategoryService } from 'src/app/_services/category.service';
-import { CreateSolicitationSubsidyDto, Expenditure } from './../../_models/solicitationSubsidy';
-import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { CreateSolicitationSubsidyDto, Expenditure, ExpenditureForModifyingDto } from './../../_models/solicitationSubsidy';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { ProvinceService } from 'src/app/_services/province.service';
@@ -41,13 +41,13 @@ export class CreateSolicitationComponent implements OnInit {
   categories : AllCategoryDto[] = [];
   transports : AllTransportDto[] = [];
   isCollapsedExpenditure = false;
-  ConceptExpenditureList : Expenditure[]=[];
+  ConceptExpenditureList : ExpenditureForModifyingDto[]=[];
   subscriptionExpenditure: Subscription;
   subscriptionDestiny : Subscription;
   _disabled = false;
   expenditures : AllExpenditureDto[];
   Allexpenditures : AllExpenditureDto[];
-  destinies : DestinyDto[] = [];
+  destinies : destinyForModifyingSolicitationDto[] = [];
   model = new CreateSolicitationSubsidyDto;
   radioButtonRequired : boolean = true;
   provinces : ProvinceBaseDto[];
@@ -91,8 +91,7 @@ export class CreateSolicitationComponent implements OnInit {
       private titleService : Title,
       private toastrService: ToastrService,
       private ngbCalendar : NgbCalendar,
-      private holidaysService : HolidaysService,
-      private authService : AuthenticationService,
+      public authService : AuthenticationService,
       private claimService : ClaimsService
       ) { }
 
@@ -130,7 +129,7 @@ export class CreateSolicitationComponent implements OnInit {
 
   getSolicitation(id : number, randomKey : string){
       if(id){
-        this.solicitationSubsidyService.getByIdSolicitation(this.id)
+        this.solicitationSubsidyService.getByIdSolicitationNotAccountFor(this.id)
         .subscribe(
           x => {
                 this.model = x;
@@ -273,7 +272,7 @@ export class CreateSolicitationComponent implements OnInit {
       
    }
 
-   removeDestiny(destiny : DestinyDto){
+   removeDestiny(destiny : destinyForModifyingSolicitationDto){
       
         let minus : number = 0;
         const index = this.model.destinies.indexOf(destiny, 0);
@@ -359,7 +358,7 @@ export class CreateSolicitationComponent implements OnInit {
       this.model.destinies = [];
     }
 
-    let listDestinies : DestinyDto[] = this.model.destinies;
+    let listDestinies : destinyForModifyingSolicitationDto[] = this.model.destinies;
     
     modalRef.componentInstance.destiniesAdded = listDestinies;
     modalRef.componentInstance.solicitationId = this.id;
@@ -421,6 +420,7 @@ export class CreateSolicitationComponent implements OnInit {
     this.toastrService.info(msg,'',
     {positionClass : 'toast-top-center', timeOut : 3000});
   }
+  
   onSubmit(){
       this.totalResultExpenditure();
       this.submited = true;
@@ -435,7 +435,7 @@ export class CreateSolicitationComponent implements OnInit {
       if(this.model.isCommission){
         this.solicitationSubsidyService.getByRandomKey(this.model.randomKey)
         .subscribe(
-          result =>{
+          () =>{
             if(this.currentUserId == this.model.userId){
               this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
                 () => {

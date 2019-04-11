@@ -203,7 +203,7 @@ namespace VR.Web.Controllers
             if (width < 0 || height < 0) { return BadRequest(); }
             var result = _fileService.GetUrlExpenditureRefundFile(expId);
 
-            if (result.Response == null)
+            if (result.Response == null || result.Response.Length == 0)
             {
                 result.AddError("0","No tiene image");
                 return BadRequest(result);

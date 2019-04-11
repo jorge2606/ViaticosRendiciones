@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
 import { DestinyDto } from 'src/app/_models/destiny';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { DomSanitizer, Title } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-print-account-for-solicitation',
@@ -50,7 +51,9 @@ export class PrintAccountForSolicitationComponent implements OnInit {
               private destinyService : DestinyService,
               private domSanitazer : DomSanitizer,
               private spinner: NgxSpinnerService,
-              private titleService : Title
+              private titleService : Title,
+              private router : Router,
+              private toastrService : ToastrService
             ) { 
                 this.titleService.setTitle('Imprimir Solcitud');
             }
@@ -101,13 +104,22 @@ export class PrintAccountForSolicitationComponent implements OnInit {
                                   this.totalExpenditures = this.totalExpenditures +  this.totDest;
                                     
                                   setTimeout(() => {
-                                    this.captureScreen();
+                                    //this.captureScreen();
                                   }, 2000);                                
                                 }
                       );
                   });            
               });
-            });
+            },err =>{
+              if(err.error){
+                var e = err.error.errors.Error || [];
+                e.forEach(errors => {
+                  this.router.navigate(['/']);
+                  this.toastrService.error(errors);
+                });
+                
+              }
+          });
       }
     );
   }

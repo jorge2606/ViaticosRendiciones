@@ -1,3 +1,6 @@
+import { ToastrService } from 'ngx-toastr';
+import { GuidClass } from './../../_helpers/guid-class';
+import { ClaimsService } from './../../_services/claims.service';
 import { Subject } from 'rxjs';
 import { DestinyDto } from './../../_models/destiny';
 import { DestinyService } from 'src/app/_services/destiny.service';
@@ -5,12 +8,13 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Component, OnInit } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
+import { SolicitationStatesService } from 'src/app/_services/solicitation-states.service';
 
 @Component({
   selector: 'app-print',
@@ -50,17 +54,16 @@ export class PrintComponent implements OnInit {
               private destinyService : DestinyService,
               private domSanitazer : DomSanitizer,
               private spinner: NgxSpinnerService,
-              private titleService : Title
+              private titleService : Title,
+              private router : Router,
+              private solicitationStateService : SolicitationStatesService,
+              private toastrService : ToastrService
             ) { 
                 this.titleService.setTitle('Imprimir Solcitud');
             }
 
   ngOnInit() {
-    this.spinner.show();
     this.init();
-
-    this.spinner.hide();
-    
   }
 
 
@@ -98,14 +101,26 @@ export class PrintComponent implements OnInit {
                             j => {
                                   this.destinieWithDaysInLetters = j;
                                   this.totalExpenditures = this.totalExpenditures +  this.totDest;
-                                    
+                                  
                                   setTimeout(() => {
-                                    this.captureScreen();
-                                  }, 2000);                                
+                                    this.spinner.show();
+                                    this.captureScreen();  
+                                    this.spinner.hide(); 
+                                  }, 2000);  
+                                                        
                                 }
                       );
                   });            
               });
+            },err =>{
+                if(err.error){
+                  var e = err.error.errors.Error || [];
+                  e.forEach(errors => {
+                    this.router.navigate(['/']);
+                    this.toastrService.error(errors);
+                  });
+                  
+                }
             });
       }
     );

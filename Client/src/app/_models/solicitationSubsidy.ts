@@ -1,4 +1,4 @@
-import { DestinyDto } from './destiny';
+import { DestinyDto, destinyForModifyingSolicitationDto } from './destiny';
 import { User } from '../users/users';
 import { DateDto } from './holiday';
 
@@ -10,15 +10,22 @@ export class ImageDto{
     type : string;
     webkitRelativePath : string;
 }
-export class Expenditure {
+
+export class ExpenditureBaseDto {
     id : number;
     description : string;
     amount : number;
     expenditureTypeId : number; 
     expenditureTypeName : string;   
     urlImage : string;
-    accountedForAmount : number;
     imageDto : ImageDto;
+}
+export class Expenditure extends ExpenditureBaseDto{
+    accountedForAmount : number;
+}
+
+export class ExpenditureForModifyingDto extends ExpenditureBaseDto{
+
 }
 
 
@@ -40,6 +47,20 @@ export class SolicitationSubsidyDetail extends SolicitationSubsidyBaseDto{
 
 
 export class CreateSolicitationSubsidyDto{
+    id : number;
+    motive : string;
+    userId : number;
+    destinies : destinyForModifyingSolicitationDto[];
+    expenditures : ExpenditureForModifyingDto[];
+    total : number;
+    createDate : any;
+    isRefund : boolean;
+    finalizeDate : DateDto;
+    isCommission : boolean;
+    randomKey : string;
+}
+
+export class CreateAccountForSolicitationSubsidyDto{
     id : number;
     motive : string;
     userId : number;

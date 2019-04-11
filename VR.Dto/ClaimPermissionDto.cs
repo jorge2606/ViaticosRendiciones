@@ -356,8 +356,23 @@ namespace VR.Dto
                     },
                     new ClaimPermissionDto()
                     {
-                        Text  = "Aprobar mi solicitud",
+                        Text  = "Aprobar mi Solicitud",
                         Value = "solicitations.acceptMySolicitation"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Imprimir Solicitud",
+                        Value = "solicitations.printSolicitation"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Imprimir Rendición (finalización súbita)",
+                        Value = "solicitations.printAccountForSolicitation"
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Imprimir Rendición (finalización normal)",
+                        Value = "solicitations.accountForNormallyFinalitation"
                     }
                 }
 

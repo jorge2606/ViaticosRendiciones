@@ -31,12 +31,16 @@ export class SolicitationSubsidyService {
   createAccountFor(createSolicitationSubsidy : CreateSolicitationSubsidyDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/CreateAccountFor/",createSolicitationSubsidy);
   }
-  updateSolicitation(solicitation : SolicitationSubsidyBaseDto){
+  updateSolicitation(solicitation : any){
       return this.http.put<any>(environment.apiUrl+"SolicitationSubsidy/Update", solicitation);
   }
 
   getByIdSolicitation(solicitationSubsidyId : number){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/getBySolicitationId/"+solicitationSubsidyId);
+  }
+
+  getByIdSolicitationNotAccountFor(solicitationSubsidyId : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetByIdSolicitationSubsidySubsidy/"+solicitationSubsidyId);
   }
 
   getBySolicitationIdForEmail(solicitationSubsidyId : number){

@@ -65,7 +65,34 @@ namespace VR.Dto
         public List<SupplementaryCityOnlyId> SupplementaryCities { set; get; }
     }
 
+    //accountFor
     public class DestinyFromSolicitationSubsidyFindByIdDto
+    {
+        public Guid Id { set; get; }
+        public int Days { set; get; }
+        public Decimal AdvanceCategory { set; get; }
+        public DateDto StartDate { set; get; }
+        public Guid CategoryId { set; get; }
+        public string CategoryName { set; get; }
+        public Guid? CityId { set; get; }
+        public string CityName { set; get; }
+        public Guid CodeLiquidationId { set; get; }
+        public Decimal PercentageCodeLiquidation { set; get; }
+        public Guid? CountryId { set; get; }
+        public string CountryName { set; get; }
+        public Guid? ProvinceId { set; get; }
+        public string ProvinceName { set; get; }
+        public Guid TransportId { set; get; }
+        public string TransportBrand { set; get; }
+        public string TransportModel { set; get; }
+        public Guid SolicitationSubsidyId { set; get; }
+        public List<SupplementaryCityOnlyId> SupplementaryCities { set; get; }
+        public int DaysWeekEnd { set; get; }
+        public int DaysPay { set; get; }
+        public int? AccountedForDays { set; get; }
+    }
+
+    public class DestinyFromOnlySolicitationSubsidyFindByIdDto
     {
         public Guid Id { set; get; }
         public int Days { set; get; }
