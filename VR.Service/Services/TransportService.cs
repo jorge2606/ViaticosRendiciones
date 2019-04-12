@@ -41,6 +41,7 @@ namespace VR.Service.Services
             var endDate = DateTime.Parse(transport.StartDate.Day + "/" + transport.StartDate.Month + "/" + transport.StartDate.Year)
                 .AddDays(transport.Days);
 
+            //coninciden en la fecha y el transporte.
             var destinies = _dataContext.Destinies
                 .Include(c => c.SolicitationSubsidy)
                 .Where( x => 
@@ -66,6 +67,8 @@ namespace VR.Service.Services
                     .Where(x => x.SolicitationSubsidyId == destiny.SolicitationSubsidyId)
                     .OrderByDescending(q => q.ChangeDate).FirstOrDefault();//obtengo el estado de la solicitud
 
+                //si el estado de la solicitud, no es reintegro, no es comisión
+                //almacenada en la DB fue enviada o aceptada
                 if ( (stateSolicitation.State.Id == State.Sent || stateSolicitation.State.Id == State.Accepted) 
                      && !destiny.SolicitationSubsidy.IsRefund
                      && !stateSolicitation.SolicitationSubsidy.IsCommission)
@@ -73,11 +76,29 @@ namespace VR.Service.Services
                     
                     if (!resultDates.Response)
                     {
+                        var transp = _dataContext.Transports.FirstOrDefault(c => c.Id == destiny.TransportId);
                         resultDates = new ServiceResult<bool>(true);
                         resultDates.AddError(NotificationType.Error.ToString(),
-                            "El transporte " + _dataContext.Transports.FirstOrDefault(c => c.Id == destiny.TransportId).Brand + "-" +
-                            _dataContext.Transports.FirstOrDefault(c => c.Id == destiny.TransportId).Model + " ya fue solicitado.");
+                            "El transporte " + transp.Brand + "-" + transp.Model + " ya fue solicitado.");
                     }
+                }//si es destino almacenado actualmente es una comisión.
+                else if ((stateSolicitation.State.Id == State.Sent || stateSolicitation.State.Id == State.Accepted)
+                          && !destiny.SolicitationSubsidy.IsRefund
+                          && stateSolicitation.SolicitationSubsidy.IsCommission)
+                {
+                    //pregunto si el usuario es parte de esa comisión.
+                    var solicitationUser = _dataContext.SolicitationSubsidies
+                        .Where(x => x.UserId == transport.UserId 
+                                    && x.IsCommission 
+                                    && x.RandomKey.Equals(stateSolicitation.SolicitationSubsidy.RandomKey)
+                              ).ToList();
+                    //no es parte de la comision, ni es un reintegro.
+                    if (solicitationUser.Count == 0)
+                    {
+                        var transp = _dataContext.Transports.FirstOrDefault(c => c.Id == destiny.TransportId);
+                        resultDates.AddError(NotificationType.Error.ToString(),"El transporte "+ transp.Brand+ "-" +transp.Model+" ya fue solicitado.");
+                    }
+
                 }
             }
 

@@ -527,25 +527,23 @@ namespace VR.Service.Services
                     else
                     {
                         //si es null estamos modificando una solicitud que no es reintegro
-                        if (expenditure.UrlImage != null)
+                        if (expenditure.UrlImage != null && expenditure.UrlImage.Contains("data:image/") && expenditure.ImageDto != null)
                         {
-                            if (expenditure.UrlImage.Contains("data:image/"))
-                            {
-                                string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
-                                byte[] data = Convert.FromBase64String(base64);
+                            string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                            byte[] data = Convert.FromBase64String(base64);
 
-                                var FileExpToModify = _dataContext.Files.FirstOrDefault(fileExp => fileExp.ExpenditureId == expenditure.Id);
+                            var FileExpToModify = _dataContext.Files.FirstOrDefault(fileExp => fileExp.ExpenditureId == expenditure.Id);
 
-                                FileExpToModify.MimeType = expenditure.ImageDto.Type;
-                                FileExpToModify.Name = expenditure.ImageDto.Name;
-                                FileExpToModify.Size = expenditure.ImageDto.Size;
-                                FileExpToModify.LastModified = expenditure.ImageDto.TypLastModified;
-                                FileExpToModify.LastModifiedDate = expenditure.ImageDto.LastModifiedDate;
-                                FileExpToModify.Image = data;
+                            FileExpToModify.MimeType = expenditure.ImageDto.Type;
+                            FileExpToModify.Name = expenditure.ImageDto.Name;
+                            FileExpToModify.Size = expenditure.ImageDto.Size;
+                            FileExpToModify.LastModified = expenditure.ImageDto.TypLastModified;
+                            FileExpToModify.LastModifiedDate = expenditure.ImageDto.LastModifiedDate;
+                            FileExpToModify.Image = data;
 
-                                _dataContext.Files.Update(FileExpToModify);
-                            }
+                            _dataContext.Files.Update(FileExpToModify);
                         }
+                        
                         //quitar de la lista el gasto que viene, al final solo quedaran los que fueron eliminados
                         //en el front-end
                         expendituresToDelete.Remove(exist);
@@ -870,7 +868,7 @@ namespace VR.Service.Services
             var supervisorsFirstName = solicitationDto.Supervisor.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -982,7 +980,7 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {

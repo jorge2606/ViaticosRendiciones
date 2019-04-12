@@ -20,6 +20,7 @@ import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SupplementaryCityDto } from 'src/app/_models/supplementaryCity';
 import { RandomAlphaNumberKeyService } from 'src/app/_services/random-alpha-number-key.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -42,7 +43,6 @@ export class AddDestinyComponent implements OnInit {
   model  = new DestinyDto;
   codeLiquidations: codeLiquidationBaseDto[] = [];
   codeLiquidationsMock: codeLiquidationBaseDto[] = [];
-  error: string[] = [];
   @Input() destiniesAdded: DestinyDto[] = [];
   isCollapsed = false;
   categories: AllCategoryDto[] = [];
@@ -55,7 +55,6 @@ export class AddDestinyComponent implements OnInit {
   selectedTransport: number;
   total: number = 0;
   carIsUsed: boolean;
-  errorWhenCreateDestiny : string = "";
   minDate  : any =  {year : new Date().getFullYear(),month : new Date().getMonth() + 1,day :new Date().getDate()};
   config = {
     displayKey: "name", //if objects array passed which key to be displayed defaults to description
@@ -69,6 +68,7 @@ export class AddDestinyComponent implements OnInit {
     searchPlaceholder: 'Buscar', // label thats displayed in search input,
     searchOnKey: 'name' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
+  submitted : boolean = false;
 
   expenditureTaxi : number;
 
@@ -84,7 +84,8 @@ export class AddDestinyComponent implements OnInit {
     private codeLiquidationService: CodeLiquidationService,
     private spinner: NgxSpinnerService,
     private authService: AuthenticationService,
-    private randomNumberService : RandomAlphaNumberKeyService
+    private randomNumberService : RandomAlphaNumberKeyService,
+    private toastrService : ToastrService
     ) { }
 
   ngOnInit() {
@@ -173,6 +174,7 @@ export class AddDestinyComponent implements OnInit {
 
 
   onSubmit() {
+    this.submitted = true;
     let exist;
     if (!this.model.countryId) {
       if (this.destiniesAdded != null) {
@@ -182,12 +184,11 @@ export class AddDestinyComponent implements OnInit {
       }
 
       if (exist) {
-        this.error.push("Provincia y Localidad existentes");
+        this.toastrService.error('Provincia y Localidad existentes','',{timeOut : 2000});
         return
       }
     }
 
-    this.error = [];
     var newCarIsBeingUsed = new CarIsBeingUsedByOtherSolicitation(
       this.model.transportId,this.model.startDate,this.model.days
     );
@@ -206,21 +207,19 @@ export class AddDestinyComponent implements OnInit {
                 startDateStored > endDateFromView )
            )
           {
-              this.errorWhenCreateDestiny = 'El rango de fecha coincide con una solicitud anterior';
-              return;
+              this.toastrService.error('El rango de fecha coincide con una solicitud anterior','',{timeOut : 2000});
+              this.submitted = false;
           }
-        this.errorWhenCreateDestiny = '';  
       }
     );
 
-    if (this.errorWhenCreateDestiny != ''){
+    if (!this.submitted){
       return;
     }
           
     this.transportService.carIsBeingUsedByOtherSolicitation(newCarIsBeingUsed)
     .subscribe(
     () => {
-      this.error = [];
       let newDestiny = new DestinyDto;
       newDestiny.idExp = this.randomNumberService.randomAlphaNumberKey(2,3);
       newDestiny.placeId = this.model.placeId;
@@ -279,7 +278,7 @@ export class AddDestinyComponent implements OnInit {
     },
     e => {
         if (e.error){
-          this.error = e.error.errors.Error;
+          this.toastrService.error(e.error.errors.Error,'',{timeOut : 2000});
         }
         
       }
