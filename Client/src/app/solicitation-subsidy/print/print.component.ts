@@ -5,13 +5,13 @@ import { Subject } from 'rxjs';
 import { DestinyDto } from './../../_models/destiny';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
-import { DomSanitizer, Title } from '@angular/platform-browser';
+import { DomSanitizer, Title, SafeResourceUrl } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import { SolicitationStatesService } from 'src/app/_services/solicitation-states.service';
@@ -32,14 +32,19 @@ export class PrintComponent implements OnInit {
   motive : string = "";
   today = new Date();
   totalExpenditures = 0.0;
-  stringIframe : any = "";
+  stringIframe : SafeResourceUrl = "";
   idUser : number;
   urlImage : string;
   destinieWithDaysInLetters : DestinyDto[] = [];
   previewImage : any;
   hideHtml : boolean = false;
   imgUrl : string;
-  urlSign : string;
+  urlSupervisorId : string;
+  urlSupervisorId2 : string;
+  nameSupervisor1 : string;
+  surnameSupervisor1 : string;
+  nameSupervisor2 : string;
+  surnameSupervisor2 : string;
   printObservable = new Subject<boolean>();
   categoryName : string;
   categoryDescription : string;
@@ -63,6 +68,7 @@ export class PrintComponent implements OnInit {
             }
 
   ngOnInit() {
+    this.spinner.show();
     this.init();
   }
 
@@ -72,9 +78,12 @@ export class PrintComponent implements OnInit {
       url => {
           this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(url.id)
           .subscribe(x => {
-              this.solicitationSubsidyService.getImageHolographSignUrl(x,200,120)
-              .subscribe(urlImage =>{
-                this.urlSign = "data:image/jpg;base64,"+urlImage.response;
+                this.urlSupervisorId = "data:image/jpg;base64,"+x.urlSupervisorId;
+                this.urlSupervisorId2 = "data:image/jpg;base64,"+x.urlSupervisorId2;
+                this.nameSupervisor1 = x.nameSupervisor1;
+                this.surnameSupervisor1 = x.surnameSupervisor1;
+                this.nameSupervisor2 = x.nameSupervisor2;
+                this.surnameSupervisor2 = x.surnameSupervisor2;
                 
                 setTimeout(() => {
                 }, 1000);
@@ -103,15 +112,14 @@ export class PrintComponent implements OnInit {
                                   this.totalExpenditures = this.totalExpenditures +  this.totDest;
                                   
                                   setTimeout(() => {
-                                    this.spinner.show();
+                                    
                                     this.captureScreen();  
                                     this.spinner.hide(); 
                                   }, 2000);  
                                                         
                                 }
                       );
-                  });            
-              });
+                  });  
             },err =>{
                 if(err.error){
                   var e = err.error.errors.Error || [];
@@ -119,7 +127,7 @@ export class PrintComponent implements OnInit {
                     this.router.navigate(['/']);
                     this.toastrService.error(errors);
                   });
-                  
+                  this.spinner.hide(); 
                 }
             });
       }
@@ -132,16 +140,16 @@ export class PrintComponent implements OnInit {
   captureScreen()  
   {  
         this.spinner.show();
+        var stringImage : any;
         var data = document.getElementById('container-print');  
         html2canvas(data).then(canvas => {  
           const img = canvas.toDataURL('image/png');
           this.imgUrl = img;
           this.stringIframe = this.domSanitazer.bypassSecurityTrustResourceUrl(img);
-         
         });
         this.hideHtml = true;
-        this.spinner.hide();
   }
+  
 
   download()  
   {  
@@ -155,6 +163,26 @@ export class PrintComponent implements OnInit {
     this.hideHtml = true;
     this.spinner.hide();
       
+  }
+
+  b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+  
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+  
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+  
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    
+    const pdfBlob : Blob = new Blob(byteArrays, {type: contentType});
+    return  URL.createObjectURL(pdfBlob);
   }
 
 }

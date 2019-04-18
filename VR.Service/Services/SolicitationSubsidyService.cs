@@ -99,7 +99,8 @@ namespace VR.Service.Services
                     Days = destiny.Days,
                     DaysWeekEnd = destiny.DaysWeekEnd,
                     DaysHolidays = holidaysDays.Response,
-                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
+                    StartDate = new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day
+                        ,DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond),
                     ProvinceId = destiny.ProvinceId,
                     AdvanceCategory = destiny.AdvanceCategory,
                     DaysPay = destiny.DaysPay,
@@ -185,6 +186,7 @@ namespace VR.Service.Services
                 return _mapper.Map<ServiceResult<CreateSolicitationSubsidyDto>>(validate.ToServiceResult<CreateSolicitationSubsidyDto>(null));
             }
 
+            var notif = new ServiceResult<CreateSolicitationSubsidyDto>();
             SolicitationSubsidy solicitationSubsidy = new SolicitationSubsidy()
             {
                 Id = new Guid(),
@@ -197,6 +199,40 @@ namespace VR.Service.Services
                 RandomKey = subsidy.RandomKey
             };
 
+            //si el usuario ya es parte de la comisión.
+            if (subsidy.IsCommission)
+            {
+                var currentUser = _dataContext.SolicitationSubsidies
+                    .FirstOrDefault(x => x.UserId == subsidy.UserId && x.RandomKey.ToUpper() == subsidy.RandomKey.ToUpper());
+                if (currentUser != null)
+                {
+                    notif.AddError("Error", "Usted ya es parte de esta comisión");
+                    return notif;
+                }
+            }
+
+            foreach (var findDestiny in subsidy.Destinies)
+            {
+                //validamos que si esta afiliado a una comisión no se solape con otra.
+                if (OverlapingCommissions(subsidy.UserId, findDestiny.StartDate.ToDateTime(),
+                        findDestiny.StartDate.ToDateTime().AddDays(findDestiny.Days)).Count() != 0)
+                {
+                    var overlapingSolicitations = OverlapingCommissions(subsidy.UserId, findDestiny.StartDate.ToDateTime(),
+                        findDestiny.StartDate.ToDateTime().AddDays(findDestiny.Days));
+                    foreach (var oS in overlapingSolicitations)
+                    {
+                        var msj = "Tiene " + ((overlapingSolicitations.Count() == 1) ? "una solicitud" : overlapingSolicitations.Count() + " solicitudes") + " de comisión con destinos similares :";
+                        var msj1 = (oS.Country == null) ? oS.Province.Name.ToLower() + " " + oS.City.Name.ToLower() : oS.Country.Name.ToLower();
+                        var msj2 = oS.StartDate.ToShortDateString() + " hasta el día " + oS.StartDate.AddDays(oS.Days).ToShortDateString();
+                        notif.AddError("Error", msj + " " + msj1 + " " + msj2);
+                    }
+                }
+            }
+
+            if (notif.Errors.Count() > 0)
+            {
+                return notif;
+            }
             _dataContext.SolicitationSubsidies.Add(solicitationSubsidy);
 
             foreach (var destiny in subsidy.Destinies)
@@ -219,8 +255,10 @@ namespace VR.Service.Services
                     Days = destiny.Days,
                     DaysWeekEnd = destiny.DaysWeekEnd,
                     DaysHolidays = holidaysDays.Response,
-                    StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString()),
-                    ProvinceId = destiny.ProvinceId,
+                    StartDate = new DateTime(destiny.StartDate.Year, destiny.StartDate.Month,
+                        destiny.StartDate.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second,
+                        DateTime.Now.Millisecond),
+                ProvinceId = destiny.ProvinceId,
                     AdvanceCategory = destiny.AdvanceCategory,
                     DaysPay = destiny.DaysPay,
                     PercentageCodeLiquidation = destiny.PercentageCodeLiquidation
@@ -297,6 +335,176 @@ namespace VR.Service.Services
             return new ServiceResult<CreateSolicitationSubsidyDto>(_mapper.Map<CreateSolicitationSubsidyDto>(subsidy));
         }
 
+        public ServiceResult<UpdateComissionDto> UpdateComission(UpdateComissionDto subsidy)
+        {
+            var validate = _fluentValidator.Validate(subsidy);
+            if (!validate.IsValid)
+            {
+                return _mapper.Map<ServiceResult<UpdateComissionDto>>(validate.ToServiceResult<UpdateComissionDto>(null));
+            }
+
+            var notif = new ServiceResult<UpdateComissionDto>();
+            SolicitationSubsidy solicitationSubsidy = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .FirstOrDefault(x => x.Id == subsidy.Id);
+            if (solicitationSubsidy == null)
+            {
+                notif.AddError("Error", "La solicitud de viático no existe.");
+                return notif;
+            }
+            
+            solicitationSubsidy.Motive = subsidy.Motive;
+            solicitationSubsidy.Total = subsidy.Total;
+
+            _dataContext.SolicitationSubsidies.Update(solicitationSubsidy);
+
+            var destiniesToDelete = _dataContext.Destinies
+                .Where(s => s.SolicitationSubsidyId == subsidy.Id)
+                .ToList();
+
+            if (subsidy.Destinies.Count() == 0)
+            {
+                _dataContext.Destinies.RemoveRange(destiniesToDelete);
+            }
+            else
+            {
+                foreach (var destiny in subsidy.Destinies)
+                {
+                    var holidaysDays = _holidayService
+                        .HaveHoliday(
+                            new DateTime(destiny.StartDate.Year, destiny.StartDate.Month, destiny.StartDate.Day),
+                            destiny.Days);
+                    var find = _dataContext.Destinies.FirstOrDefault(x => x.Id == destiny.Id);
+                    //creamos
+                    if (destiny.Id.Equals(Guid.Empty))
+                    {
+                        var newDestiny = new Destiny();
+                        newDestiny.TransportId = destiny.TransportId;
+                        newDestiny.CategoryId = destiny.CategoryId;
+                        newDestiny.CityId = destiny.CityId;
+                        newDestiny.CodeLiquidationId = destiny.CodeLiquidationId;
+                        newDestiny.CountryId = destiny.CountryId;
+                        newDestiny.SolicitationSubsidy = solicitationSubsidy;
+                        newDestiny.Days = destiny.Days;
+                        newDestiny.DaysWeekEnd = destiny.DaysWeekEnd;
+                        newDestiny.DaysHolidays = holidaysDays.Response;
+                        newDestiny.StartDate = new DateTime(destiny.StartDate.Year, destiny.StartDate.Month,
+                            destiny.StartDate.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second,
+                            DateTime.Now.Millisecond);
+                        newDestiny.ProvinceId = destiny.ProvinceId;
+                        newDestiny.AdvanceCategory = destiny.AdvanceCategory;
+                        newDestiny.DaysPay = destiny.DaysPay;
+                        newDestiny.PercentageCodeLiquidation = destiny.PercentageCodeLiquidation;
+                        if (destiny.SupplementaryCities != null)
+                        {
+                            foreach (var supCity in destiny.SupplementaryCities)
+                            {
+                                SupplementaryCity newSupplementaryCity = new SupplementaryCity()
+                                {
+                                    Id = new Guid(),
+                                    CityId = supCity.CityId,
+                                    Destiny = newDestiny
+                                };
+
+                                _dataContext.SupplementaryCities.Add(newSupplementaryCity);
+                            }
+                        }
+                        _dataContext.Destinies.Add(newDestiny);
+
+                    }
+                    else
+                    {
+                        //sacamos de los destinos a ser eliminados
+                        find.DaysPay = destiny.DaysPay;
+                        _dataContext.Destinies.Update(find);
+
+                        destiniesToDelete.Remove(find);
+                    }
+
+                }
+            }
+
+            var expendituresToDelete = _dataContext.Expenditures
+                .Where(s => s.SolicitationSubsidyId == subsidy.Id)
+                .ToList();
+
+            if (subsidy.Expenditures.Count() == 0)
+            {
+                _dataContext.Expenditures.RemoveRange(expendituresToDelete);
+            }
+            else
+            {
+
+                foreach (var expenditure in subsidy.Expenditures)
+                {
+                    var exist = expendituresToDelete.FirstOrDefault(x => x.Id == expenditure.Id);
+                    //si no existe pero tampoco tiene ID es porque acaba de ser creado por el usuario 
+                    if (expenditure.Id.Equals(Guid.Empty))
+                    {
+                        var newExpenditure = new Expenditure();
+                        newExpenditure.Description = expenditure.Description;
+                        newExpenditure.SolicitationSubsidy = solicitationSubsidy;
+                        newExpenditure.Amount = expenditure.Amount;
+                        newExpenditure.ExpenditureTypeId = expenditure.ExpenditureTypeId;
+                        newExpenditure.UserId = subsidy.UserId;
+
+                        _dataContext.Expenditures.Add(newExpenditure);
+
+                        if (solicitationSubsidy.IsRefund && exist == null)
+                        {
+                            string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                            byte[] data = Convert.FromBase64String(base64);
+                            File newFile = new File()
+                            {
+                                Id = new Guid(),
+                                MimeType = expenditure.ImageDto.Type,
+                                Name = expenditure.ImageDto.Name,
+                                Size = expenditure.ImageDto.Size,
+                                LastModified = expenditure.ImageDto.TypLastModified,
+                                LastModifiedDate = expenditure.ImageDto.LastModifiedDate,
+                                ExpenditureId = newExpenditure.Id,
+                                Image = data,
+                                UserId = subsidy.UserId
+                            };
+
+                            _dataContext.Files.Add(newFile);
+                        }
+
+                    }
+                    else
+                    {
+                        //si es null estamos modificando una solicitud que no es reintegro
+                        if (expenditure.UrlImage != null && expenditure.UrlImage.Contains("data:image/") && expenditure.ImageDto != null)
+                        {
+                            string base64 = expenditure.UrlImage.Substring(expenditure.UrlImage.IndexOf(',') + 1);
+                            byte[] data = Convert.FromBase64String(base64);
+
+                            var FileExpToModify = _dataContext.Files.FirstOrDefault(fileExp => fileExp.ExpenditureId == expenditure.Id);
+
+                            FileExpToModify.MimeType = expenditure.ImageDto.Type;
+                            FileExpToModify.Name = expenditure.ImageDto.Name;
+                            FileExpToModify.Size = expenditure.ImageDto.Size;
+                            FileExpToModify.LastModified = expenditure.ImageDto.TypLastModified;
+                            FileExpToModify.LastModifiedDate = expenditure.ImageDto.LastModifiedDate;
+                            FileExpToModify.Image = data;
+
+                            _dataContext.Files.Update(FileExpToModify);
+                        }
+
+                        //quitar de la lista el gasto que viene, al final solo quedaran los que fueron eliminados
+                        //en el front-end
+                        expendituresToDelete.Remove(exist);
+                    }
+
+                }
+            }
+
+            _dataContext.Destinies.RemoveRange(destiniesToDelete);
+            _dataContext.Expenditures.RemoveRange(expendituresToDelete);
+            _dataContext.SaveChanges();
+            return new ServiceResult<UpdateComissionDto>(_mapper.Map<UpdateComissionDto>(subsidy));
+        }
+
         public ServiceResult<CreateSolicitationSubsidyDto> CreateAccountFor(CreateSolicitationSubsidyDto subsidy)
         {
             var validate = _fluentValidator.Validate(subsidy);
@@ -314,7 +522,8 @@ namespace VR.Service.Services
             solicitationSubsidy.Total = subsidy.Total;
             if (solicitationSubsidy.FinalizeDate == null)
             {
-                solicitationSubsidy.FinalizeDate = new DateTime(subsidy.FinalizeDate.Year, subsidy.FinalizeDate.Month, subsidy.FinalizeDate.Day);
+                solicitationSubsidy.FinalizeDate = new DateTime(subsidy.FinalizeDate.Year, subsidy.FinalizeDate.Month, subsidy.FinalizeDate.Day,
+                    DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             }
             
 
@@ -404,12 +613,40 @@ namespace VR.Service.Services
             {
                 return _mapper.Map<ServiceResult<UpdateSolicitationSubsidyDto>>(validate.ToServiceResult<UpdateSolicitationSubsidyDto>(null));
             }
-            
-            SolicitationSubsidy solicitationSubsidy = _dataContext.SolicitationSubsidies.FirstOrDefault(x => x.Id == subsidy.Id);
+
+            var notif = new ServiceResult<UpdateSolicitationSubsidyDto>();
+            SolicitationSubsidy solicitationSubsidy = _dataContext.SolicitationSubsidies
+                .Include(x => x.Destinies)
+                .FirstOrDefault(x => x.Id == subsidy.Id);
             if (solicitationSubsidy == null)
             {
-                return new ServiceResult<UpdateSolicitationSubsidyDto>(null);
+                notif.AddError("Error","La solicitud de viático no existe.");
+                return notif;
             }
+
+            foreach (var findDestiny in solicitationSubsidy.Destinies)
+            {
+                //validamos que si esta afiliado a una comisión no se solape con otra.
+                if (OverlapingCommissions(sessionUserId, findDestiny.StartDate,
+                        findDestiny.StartDate.AddDays(findDestiny.Days)).Count() != 0)
+                {
+                    var overlapingSolicitations = OverlapingCommissions(sessionUserId, findDestiny.StartDate,
+                        findDestiny.StartDate.AddDays(findDestiny.Days));
+                    foreach (var oS in overlapingSolicitations)
+                    {
+                        var msj = "Tiene " + ((overlapingSolicitations.Count() == 1) ? "una solicitud" : overlapingSolicitations.Count() + " solicitudes") + " de comisión con destinos similares :";
+                        var msj1 = (oS.Country == null) ? oS.Province.Name.ToLower() + " " + oS.City.Name.ToLower() : oS.Country.Name.ToLower();
+                        var msj2 = oS.StartDate.ToShortDateString() + " hasta el día " + oS.StartDate.AddDays(oS.Days).ToShortDateString();
+                        notif.AddError("Error", msj + " " + msj1 + " " + msj2);
+                    }
+                }
+            }
+
+            if (notif.Errors.Count() > 0)
+            {
+                return notif;
+            }
+
             solicitationSubsidy.Motive = subsidy.Motive;
             solicitationSubsidy.Total = subsidy.Total;
 
@@ -445,7 +682,9 @@ namespace VR.Service.Services
                         newDestiny.Days = destiny.Days;
                         newDestiny.DaysWeekEnd = destiny.DaysWeekEnd;
                         newDestiny.DaysHolidays = holidaysDays.Response;
-                        newDestiny.StartDate = DateTime.Parse(destiny.StartDate.Day.ToString() + "/" + destiny.StartDate.Month.ToString() + "/" + destiny.StartDate.Year.ToString());
+                        newDestiny.StartDate = new DateTime(destiny.StartDate.Year, destiny.StartDate.Month,
+                            destiny.StartDate.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second,
+                            DateTime.Now.Millisecond);
                         newDestiny.ProvinceId = destiny.ProvinceId;
                         newDestiny.AdvanceCategory = destiny.AdvanceCategory;
                         newDestiny.DaysPay = destiny.DaysPay;
@@ -608,8 +847,9 @@ namespace VR.Service.Services
                 _mapper.Map<FindByIdOnlySolicitationSubsidyDto>(find));
         }
 
-        public ServiceResult<FindRandomKeySolicitationSubsidyDto> GetByRandomKey(string randomKey)
+        public ServiceResult<FindRandomKeySolicitationSubsidyDto> GetByRandomKey(string randomKey, Guid CurrentUserId)
         {
+            var notif = new ServiceResult<FindRandomKeySolicitationSubsidyDto>();
             var find = _dataContext.SolicitationSubsidies
                 .Include(x => x.Destinies).ThenInclude(x => x.City)
                 .Include(x => x.Destinies).ThenInclude(x => x.CodeLiquidation)
@@ -623,13 +863,58 @@ namespace VR.Service.Services
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.RandomKey.ToUpper() == randomKey.ToUpper());
 
-            if (find == null)
+            if (find != null)
             {
-                return new ServiceResult<FindRandomKeySolicitationSubsidyDto>(null);
+
+                var firstDestination = find.Destinies.OrderBy(x => x.StartDate).FirstOrDefault();
+                //validamos que no haya iniciado el viatico.
+                //puede utilizar el codigo hasta un dia antes.
+                if (DateTime.Today.CompareTo(firstDestination.StartDate) >= 0)
+                {
+                    notif.AddError("Error", "Código Inválido.");
+                    return notif;
+                }
             }
 
             return new ServiceResult<FindRandomKeySolicitationSubsidyDto>(
                 _mapper.Map<FindRandomKeySolicitationSubsidyDto>(find));
+        }
+
+        public List<Destiny> OverlapingCommissions(Guid userId, 
+                DateTime @StartDateDatetime, DateTime @EndDateDatetime)
+        {
+            List<Destiny> result = new List<Destiny>();
+            var solicitation = _dataContext.SolicitationSubsidies
+                .Include(x => x.SolicitationStates).ThenInclude(s => s.State)
+                .Include(x => x.Destinies).ThenInclude(c => c.Country)
+                .Include(x => x.Destinies).ThenInclude(c => c.Province)
+                .Include(x => x.Destinies).ThenInclude(c => c.City)
+                .Where(x => x.IsCommission && x.UserId == userId 
+                                           && !x.IsDeleted 
+                                           && (
+                                               x.SolicitationStates
+                                                   .Where(z => z.SolicitationSubsidyId == x.Id)
+                                                   .OrderByDescending(y => y.ChangeDate)
+                                                   .FirstOrDefault().State.Id == State.Pending ||
+                                               x.SolicitationStates
+                                                   .Where(z => z.SolicitationSubsidyId == x.Id)
+                                                   .OrderByDescending(y => y.ChangeDate)
+                                                   .FirstOrDefault().State.Id == State.Sent ||
+                                               x.SolicitationStates
+                                                   .Where(z => z.SolicitationSubsidyId == x.Id)
+                                                   .OrderByDescending(y => y.ChangeDate)
+                                                   .FirstOrDefault().State.Id == State.Accepted)
+                                               );
+            //estado pendiente es un borrador
+            foreach (var solicitationSubsidyDestiny in solicitation)
+            {
+                result = solicitationSubsidyDestiny.Destinies.Where(d =>
+                    (d.StartDate.AddDays(d.Days) < @StartDateDatetime)
+                    || (d.StartDate > @EndDateDatetime)).ToList();
+            }
+
+            return result;
+
         }
 
         public ServiceResult<FindByIdSolicitationSubsidyWhitStateDto> GetByIdSubsidyWhitState(Guid id)
@@ -1077,15 +1362,6 @@ namespace VR.Service.Services
                 .OrderByDescending(x => x.ChangeDate)
                 .FirstOrDefault();
 
-            SolicitationState solicitationState = new SolicitationState()
-            {
-                Id = new Guid(),
-                SolicitationSubsidy = solicitation,
-                ChangeDate = DateTime.Now,
-                //No le asignamos el estado todavia
-                SupervisorId = solicitationDto.SupervisorId
-            };
-
             var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
             var rolSupervisor = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
             var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
@@ -1102,7 +1378,10 @@ namespace VR.Service.Services
 
                 if (stateSolicitationThisUser.StateId == State.Sent)
                 {
-                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Aprobado_1ra_Instancia);
+
+                    stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Aprobado_1ra_Instancia);
+                    //le asignamos el supervisor 1
+                    stateSolicitationThisUser.SupervisorId = solicitationDto.SupervisorId;
 
                     var supervisor = _dataContext.SupervisorUserAgents
                         .Include(x => x.Supervisors2)
@@ -1124,7 +1403,10 @@ namespace VR.Service.Services
                 else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia 
                         && solicitationDto.SupervisorId != stateSolicitationThisUser.SupervisorId)
                 {
-                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                    //le asignamos el supervisor 2
+                    stateSolicitationThisUser.SupervisorId2 = solicitationDto.SupervisorId;
+                    stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                    stateSolicitationThisUser.ChangeDate = DateTime.Now;
                 }
                 else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia
                         && solicitationDto.SupervisorId == stateSolicitationThisUser.SupervisorId)
@@ -1143,16 +1425,16 @@ namespace VR.Service.Services
             else
             {
                 //si no es Agente - Por Ej. Supervisor
-                solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
             }
 
-                _dataContext.SolicitationStates.Add(solicitationState);
+                _dataContext.SolicitationStates.Update(stateSolicitationThisUser);
 
             _notificationService.Create(
                 new CreateNotificationDto()
                 {
-                    Tittle = "Su "+ isRefundTextOrSolicitation + " esta "+ solicitationState.State.Description,
-                    TextData = "Su "+ isRefundTextOrSolicitation + " esta " + solicitationState.State.Description,
+                    Tittle = "Su "+ isRefundTextOrSolicitation + " esta "+ stateSolicitationThisUser.State.Description,
+                    TextData = "Su "+ isRefundTextOrSolicitation + " esta " + stateSolicitationThisUser.State.Description,
                     UserId = solicitation.UserId,
                     CreationTime = DateTime.Now,
                     NotificationType = (int)NotificationType.Info,
@@ -1529,13 +1811,13 @@ namespace VR.Service.Services
             return new ServiceResult<bool>(false);
         }
 
-        public ServiceResult<Boolean> SolicitationApprovedBySupervisorId(Guid Id, Guid currentUserId)
+        public ServiceResult<UrlSignHolograph> SolicitationApprovedBySupervisorId(Guid Id, Guid currentUserId)
         {
             var solicitation = _dataContext.SolicitationSubsidies
                 .Include(user => user.User)
                 .FirstOrDefault(x => x.Id == Id);
 
-            var notification = new ServiceResult<Boolean>();
+            var notification = new ServiceResult<UrlSignHolograph>();
 
             if (solicitation.UserId != currentUserId)
             {
@@ -1549,19 +1831,40 @@ namespace VR.Service.Services
                 .OrderByDescending(x => x.ChangeDate)
                 .FirstOrDefault();
 
-            if (stateSolicitationThisUser.State.Id == State.Accepted)
+
+            var rolAgent = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolSupervisor = _dataContext.Roles.FirstOrDefault(x => x.Name.ToUpper() == Role.Agente);
+            var rolUserAgent = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolAgent.Id);
+            var rolUserSupervisor = _dataContext.UserRoles.FirstOrDefault(x => x.UserId == solicitation.UserId && x.RoleId == rolSupervisor.Id);
+
+            if (stateSolicitationThisUser.State.Id == State.Accepted || stateSolicitationThisUser.State.Id == State.AccountForAcepted)
             {
-                return new ServiceResult<Boolean>
-                (
-                    true
-                );
-            }
-            if(stateSolicitationThisUser.State.Id == State.AccountForAcepted)
-            {
-                return new ServiceResult<Boolean>
-                (
-                    true
-                );
+                if (rolAgent != null)
+                {
+                    var nameSupervisor1 =
+                        _dataContext.Users.FirstOrDefault(x => x.Id == stateSolicitationThisUser.SupervisorId);
+                    var surnameSupervisor1 =
+                        _dataContext.Users.FirstOrDefault(x => x.Id == stateSolicitationThisUser.SupervisorId);
+                    var nameSupervisor2 =
+                        _dataContext.Users.FirstOrDefault(x => x.Id == stateSolicitationThisUser.SupervisorId2);
+                    var surnameSupervisor2 =
+                        _dataContext.Users.FirstOrDefault(x => x.Id == stateSolicitationThisUser.SupervisorId2);
+
+
+                    return new ServiceResult<UrlSignHolograph>
+                    (
+                        new UrlSignHolograph()
+                        {
+                            UrlSupervisorId = _iFileService.UrlSignHolograph(stateSolicitationThisUser.SupervisorId).Response,
+                            UrlSupervisorId2 = _iFileService.UrlSignHolograph(stateSolicitationThisUser.SupervisorId2).Response,
+                            NameSupervisor1 = (nameSupervisor1 == null) ? "" : nameSupervisor1.FirstName,
+                            SurnameSupervisor1 = (surnameSupervisor1 == null) ? "" : surnameSupervisor1.LastName,
+                            NameSupervisor2 = (nameSupervisor2 == null) ? "" : nameSupervisor2.FirstName,
+                            SurnameSupervisor2 = (surnameSupervisor2 == null) ? "" : surnameSupervisor2.LastName
+                        }
+                    );
+                }
+
             }
 
             notification.AddError("Error", "Su solicitud esta siendo evaluada.");

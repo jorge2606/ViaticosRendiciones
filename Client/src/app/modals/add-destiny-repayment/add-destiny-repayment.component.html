@@ -13,8 +13,10 @@
                             <input type="radio" 
                             id="customRadio{{place.id}}" 
                             [(ngModel)]="model.placeId"
-                            name="customRadio" class="custom-control-input" 
-                            required [value]="place.id"
+                            name="customRadio" 
+                            class="custom-control-input" 
+                            required 
+                            [value]="place.id"
                             #customRadio="ngModel" required
                             (click)="toogle(place)"
                             [attr.aria-expanded]="place.checked"
@@ -47,7 +49,8 @@
                                                 <option [ngValue]="selectedCountry" disabled>Seleccione un Pais...</option>
                                                 <option *ngFor="let country of countries" [ngValue]="country.id">{{country.name}}</option>
                                             </select>
-                                            <div *ngIf="countryId.invalid && (countryId.dirty || countryId.touched)" class="alert alert-danger mt-1">
+                                            <div *ngIf="countryId.invalid && (countryId.dirty || countryId.touched)" 
+                                                class="alert alert-danger mt-1 small">
                                                 <div *ngIf="countryId.errors.required">
                                                     Campo requerido.
                                                 </div>
@@ -66,7 +69,8 @@
                                                     <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.name}}</option>
                                                 </select>
                                 
-                                                <div *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched)" class="alert alert-danger mt-1">
+                                                <div *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched)" 
+                                                    class="alert alert-danger mt-1 small">
                                                     <div *ngIf="provinceId.errors.required">
                                                         Campo requerido.
                                                     </div>
@@ -86,7 +90,8 @@
                                                         <option *ngFor="let city of cities" [ngValue]="city.id">{{city.name}}</option>
                                                     </select>
                                     
-                                                    <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" class="alert alert-danger mt-1">
+                                                    <div *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)" 
+                                                        class="alert alert-danger mt-1 small">
                                                         <div *ngIf="cityId.errors.required">
                                                             Campo requerido.
                                                         </div>
@@ -114,6 +119,7 @@
                                                             <input class="form-control" 
                                                                 placeholder="dd-mm-yyyy"
                                                                 name="dp" 
+                                                                [readonly]="true"
                                                                 [displayMonths]="displayMonths" 
                                                                 [navigation]="navigation" 
                                                                 [outsideDays]="outsideDays" 
@@ -122,6 +128,7 @@
                                                                 ngbDatepicker 
                                                                 #d="ngbDatepicker" 
                                                                 #dp="ngModel" 
+                                                                [maxDate]="maxDate"
                                                                 minlength="8" 
                                                                 maxlength="8"
                                                                 [(ngModel)]="model.startDate"
@@ -132,7 +139,7 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1">
+                                                        <div *ngIf="dp.invalid && (dp.dirty || dp.touched)" class="alert alert-danger mt-1 small">
                                                             <div *ngIf="dp.errors.required">
                                                                 Campo requerido.
                                                             </div>
@@ -156,7 +163,7 @@
                                                         [ngClass]="{'is-invalid' : days.invalid && (days.dirty || days.touched) || (model.days == null && days.touched)}"
                                                         type="number" placeholder="Dias" required>
                                                         
-                                                        <div *ngIf="days.invalid && (days.dirty || days.touched)" class="alert alert-danger mt-1">
+                                                        <div *ngIf="days.invalid && (days.dirty || days.touched)" class="alert alert-danger mt-1 small">
 
                                                             <div *ngIf="days.errors.required">
                                                                 Campo requerido.
@@ -182,7 +189,8 @@
                                                             <option style="text-align: right;" *ngFor="let codeLiq of codeLiquidations" value="{{codeLiq.id}}">{{codeLiq.percentage}}</option>
                                                         </select>
                                         
-                                                        <div *ngIf="codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)" class="alert alert-danger mt-1">
+                                                        <div *ngIf="codeLiquidationId.invalid && (codeLiquidationId.dirty || codeLiquidationId.touched)" 
+                                                            class="alert alert-danger mt-1 small">
                                                             <div *ngIf="codeLiquidationId.errors.required">
                                                                 Campo requerido.
                                                             </div>
@@ -211,7 +219,7 @@
                                                     </select>
                                     
                                                     <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)
-                                                    " class="alert alert-danger mt-1">
+                                                    " class="alert alert-danger mt-1 small">
                                                         <div *ngIf="categoryId.errors.required">
                                                             Campo requerido.
                                                         </div>
@@ -235,7 +243,8 @@
                                                 </option>
                                             </select>
                                 
-                                            <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" class="alert alert-danger mt-1">
+                                            <div *ngIf="transportId.invalid && (transportId.dirty || transportId.touched)" 
+                                                class="alert alert-danger mt-1 small">
                                                 <div *ngIf="transportId.errors.required">
                                                     Campo requerido.
                                                 </div>

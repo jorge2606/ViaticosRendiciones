@@ -14,6 +14,7 @@ import { SolicitationSubsidydetailComponent } from '../solicitation-subsidy/deta
 import { Router } from '@angular/router';
 import { GenericsCommunicationsComponentsService } from '../_services/generics-communications-components.service';
 import { DetailAccountForSolicitationComponent } from '../solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navar',
@@ -61,7 +62,8 @@ export class NavarComponent implements OnInit {
               private supervisorUserAgentService : SupervisorUserAgentService,
               private comunicationService : GenericsCommunicationsComponentsService,
               private solicitationSubsidyService : SolicitationSubsidyService,
-              private router : Router) { }
+              private router : Router,
+              private toastrService : ToastrService) { }
 
 
   retriveNotifications(){
@@ -217,21 +219,37 @@ export class NavarComponent implements OnInit {
                 this.retriveNotifications();
                 this.router.navigateByUrl('SolicitationSubsidy/agent/accountFor/'+notificationridden.solicitationSubsidyId);
               }
-
-              if(solicitationState.description == 'Aceptado'){
+              //si soy propietario de la solicitud
+              if(solicitationState.description == 'Aceptado' && solicitationState.userId == this.authService.userId('id') ){
                 this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
                       this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
                     } 
                 )
+              }else if (solicitationState.description == 'Aceptado' && solicitationState.userId != this.authService.userId('id'))
+              {
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      this.toastrService.info('Esta solicitud ya fue aprobada');
+                    } 
+                )
               }
 
-              if(solicitationState.description == 'Rendición Aceptada'){
+              if(solicitationState.description == 'Rendición Aceptada' && solicitationState.userId == this.authService.userId('id')){
                 this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
                       this.router.navigateByUrl('SolicitationSubsidy/agent/printAccountFor/'+notificationridden.solicitationSubsidyId);
+                    } 
+                )
+              }else if (solicitationState.description == 'Rendición Aceptada' && solicitationState.userId != this.authService.userId('id'))
+              {
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                      this.toastrService.info('Esta rendición de solicitud ya fue aprobada');
                     } 
                 )
               }

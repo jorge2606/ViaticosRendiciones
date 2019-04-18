@@ -1,20 +1,16 @@
 import { GuidClass } from './../../_helpers/guid-class';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { User } from './../../_models/user';
-import { AllSupervisorUserAgent, SupervisorsDto } from './../../_models/supervisorUserAgent';
+import { SupervisorsDto } from './../../_models/supervisorUserAgent';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UserService } from './../../_services/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { createUser, rolesBelongUser } from '../users'
+import { createUser } from '../users'
 import { RoleService } from '../../_services/role.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UsersComponent } from '../users.component';
 import { Title } from '@angular/platform-browser';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
-import { FormGroup } from '@angular/forms';
 import { ClaimsService } from 'src/app/_services/claims.service';
 @Component({
   selector: 'app-createuser',
@@ -53,7 +49,6 @@ export class CreateuserComponent implements OnInit {
               private titleService : Title,
               private toastrService : ToastrService,
               private supervisorUserAgentService : SupervisorUserAgentService,
-              private authService : AuthenticationService,
               private claimService : ClaimsService) {}
 
     ngOnInit() {
@@ -277,7 +272,7 @@ export class CreateuserComponent implements OnInit {
 
     if (!this.id){
       this.UserService.createWithObjectUser(this.model).subscribe(
-        data => {
+        () => {
             this.router.navigate(['/users']);
             this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
         },

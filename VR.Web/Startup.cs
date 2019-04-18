@@ -111,23 +111,6 @@ namespace VR.Web
                 }
             ).AddViewLocalization()
              .AddDataAnnotationsLocalization();
-            /**services.AddMvcCore()
-                .AddViews()
-                .AddRazorViewEngine()
-                .AddRazorPages()
-                .AddJsonFormatters()
-                .AddAuthorization(options =>
-                {
-                    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-                        .RequireAuthenticatedUser().Build();
-                    options.AddPolicy(SolicitationSubsidyClaims.CanCreate,
-                        pol => { pol.RequireClaim(SolicitationSubsidyClaims.CanCreate); });
-                    options.AddPolicy(SolicitationSubsidyClaims.CanCreateCommission, comm => { comm.RequireClaim(SolicitationSubsidyClaims.CanCreateCommission); });
-                    options.AddPolicy(SolicitationSubsidyClaims.CanViewSolicitation, view => view.RequireClaim(SolicitationSubsidyClaims.CanViewSolicitation));
-                    options.AddPolicy(SolicitationSubsidyClaims.CanViewUsers, seeUsers => seeUsers.RequireClaim(SolicitationSubsidyClaims.CanViewUsers));
-                    options.AddPolicy(SolicitationSubsidyClaims.CanViewCategory, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanViewCategory));
-                });**/
-
 
         //FluentValidation
 
@@ -178,6 +161,7 @@ namespace VR.Web
                 //solcitation
                 options.AddPolicy(SolicitationSubsidyClaims.CanCreateSolicitation, pol => pol.RequireClaim(SolicitationSubsidyClaims.CanCreateSolicitation));
                 options.AddPolicy(SolicitationSubsidyClaims.CanCreateCommissionSolicitation, comm => comm.RequireClaim(SolicitationSubsidyClaims.CanCreateCommissionSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.CanUpdateCommissionSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanUpdateCommissionSolicitation));
                 options.AddPolicy(SolicitationSubsidyClaims.CanViewSolicitation, view => view.RequireClaim(SolicitationSubsidyClaims.CanViewSolicitation));
                 options.AddPolicy(SolicitationSubsidyClaims.CanDeleteSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanDeleteSolicitation));
                 options.AddPolicy(SolicitationSubsidyClaims.CanEditSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanEditSolicitation));

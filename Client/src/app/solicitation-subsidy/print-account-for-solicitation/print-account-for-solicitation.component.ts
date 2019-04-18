@@ -35,7 +35,8 @@ export class PrintAccountForSolicitationComponent implements OnInit {
   previewImage : any;
   hideHtml : boolean = false;
   imgUrl : string;
-  urlSign : string;
+  urlSupervisorId : string;
+  urlSupervisorId2 : string;
   printObservable = new Subject<boolean>();
   categoryName : string;
   categoryAdvance : number;
@@ -60,10 +61,7 @@ export class PrintAccountForSolicitationComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.init();
-
-    this.spinner.hide();
-    
+    this.init();    
   }
 
 
@@ -72,10 +70,9 @@ export class PrintAccountForSolicitationComponent implements OnInit {
       url => {
           this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(url.id)
           .subscribe(x => {
-              this.solicitationSubsidyService.getImageHolographSignUrl(x,200,120)
-              .subscribe(urlImage =>{
-                this.urlSign = "data:image/jpg;base64,"+urlImage.response;
-                
+                this.urlSupervisorId = "data:image/jpg;base64,"+x.urlSupervisorId;
+                this.urlSupervisorId2 = "data:image/jpg;base64,"+x.urlSupervisorId2;
+
                 setTimeout(() => {
                 }, 1000);
                 this.solicitationSubsidyService.getByIdSolicitation(url.id)
@@ -104,12 +101,12 @@ export class PrintAccountForSolicitationComponent implements OnInit {
                                   this.totalExpenditures = this.totalExpenditures +  this.totDest;
                                     
                                   setTimeout(() => {
-                                    //this.captureScreen();
+                                  this.captureScreen();
+                                  this.spinner.hide();
                                   }, 2000);                                
                                 }
                       );
-                  });            
-              });
+                  });  
             },err =>{
               if(err.error){
                 var e = err.error.errors.Error || [];
@@ -119,6 +116,7 @@ export class PrintAccountForSolicitationComponent implements OnInit {
                 });
                 
               }
+              this.spinner.hide();
           });
       }
     );
@@ -138,7 +136,6 @@ export class PrintAccountForSolicitationComponent implements OnInit {
          
         });
         this.hideHtml = true;
-        this.spinner.hide();
   }
 
   download()  

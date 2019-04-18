@@ -9,3 +9,9 @@
 .DivTwoParts {
     border-left: 1px solid black;
 }
+
+.container-spinner{
+    z-index: 2000;
+    position: relative;
+    color: black;
+}

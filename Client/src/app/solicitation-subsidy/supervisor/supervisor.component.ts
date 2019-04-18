@@ -34,6 +34,8 @@ export class SupervisorComponent implements OnInit {
    sizeIcon="fa-lg";
    daysWeekEnd : number;
    daysHolidays : number;
+   textListEmpty : string = "No se encontró ningúna solicitud";
+   classListEmpty : string = "alert-primary";
    
   constructor(
               private solicitationSubsidyservice : SolicitationSubsidyService,

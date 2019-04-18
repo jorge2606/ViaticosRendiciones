@@ -28,6 +28,10 @@ export class SolicitationSubsidyService {
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/CreateCommission/",createCommission);
   }
 
+  updateCommission(updateCommission : CreateSolicitationSubsidyDto){
+    return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/UpdateCommission/",updateCommission);
+  }
+
   createAccountFor(createSolicitationSubsidy : CreateSolicitationSubsidyDto){
     return this.http.post<any>(environment.apiUrl+"SolicitationSubsidy/CreateAccountFor/",createSolicitationSubsidy);
   }
@@ -40,7 +44,7 @@ export class SolicitationSubsidyService {
   }
 
   getByIdSolicitationNotAccountFor(solicitationSubsidyId : number){
-    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetByIdSolicitationSubsidySubsidy/"+solicitationSubsidyId);
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetByIdSolicitationSubsidy/"+solicitationSubsidyId);
   }
 
   getBySolicitationIdForEmail(solicitationSubsidyId : number){
@@ -135,4 +139,6 @@ export class SolicitationSubsidyService {
   getByRandomKey(randomKey : string){
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetByRandomKey/"+randomKey);
   }
+
+
 }

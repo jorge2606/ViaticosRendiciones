@@ -49,7 +49,6 @@ namespace VR.Service.Services
                     !(x.StartDate.AddDays(x.Days) < startDate || x.StartDate > endDate)
                 );
             
-
             var resultDates = _solicitationSubsidyService.OverlapingDates(new OverlapingDatesAndTransportsDto()
             {
                 Days = transport.Days,

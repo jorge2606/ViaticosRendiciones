@@ -416,6 +416,12 @@
               </tr>
             </tbody>
           </table>
+
+          <app-alert 
+          *ngIf="col_size == 0" 
+          [textAlert]="textListEmpty"
+          [typeAlert]="classListEmpty">			
+        </app-alert>
     </div>       
 
     <ngx-spinner 

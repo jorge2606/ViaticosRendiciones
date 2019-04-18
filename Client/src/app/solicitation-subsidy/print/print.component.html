@@ -6,24 +6,21 @@
           </button>
       </div>
   </div>
-
+<div class="container-spinner">
   <div id="iframeId" class="p-2">
       <img [src]="stringIframe" alt="" style="width: 1339px;">
-      <!--<iframe [src]="stringIframe"  frameborder="1" width="100%" height="1000px"></iframe>-->
+      <!--<iframe 
+        type="application/pdf"
+        [src]="data:application/pdf;base64,stringIframe" 
+        frameborder="0"
+        width="100%"
+        height="66em"></iframe>-->
   </div>
-
-  <ngx-spinner 
-  bdColor="rgba(51,51,51,0.8)"
-  size="large"
-  color="#ffffff"
-  fullScreen="true"
-  type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Cargando...</p>
-  </ngx-spinner>
 
     <!--<img src="{{previewImage}}" id="print-img" [hidden]="!previewImage" alt="">
     -->
-    <div id="container-print" [hidden] = "hideHtml"  class="p-2">
+
+    <div id="container-print" [hidden] = "hideHtml" class="p-2">
       <div class="form-row">
         <table border="1"  width="100%">
             <thead>
@@ -179,15 +176,29 @@
           <b>{{lastName}}, {{firstName}}</b> HA PRESENTADO LA RENDICIÓN DE CUENTAS	CORRESPONDIENTE AL ANTICIPO LIQUIDADO POR COMPROBANTE DE CONT. DE FONDO Nº													
           SE EXTIENDE LA PRESENTE A LOS EFECTOS PERTINENTES. <br></p>	
           <div class="ml-auto col-5">
-              <div class="ml-auto pt-3">
-                  <div *ngIf="urlSign" class="container-image col-md-8 ml-auto">
-                      <img 
-                        width="200px" 
-                        height="100px" 
-                        [src]="urlSign" class="image">
-                  </div>
-                  <div *ngIf="!urlSign" class="container-image col-md-8 ml-auto">
-                        <p>S/F</p>
+              <div class="ml-auto pt-3" style="width: 78%;">
+                <div *ngIf="urlSupervisorId" class="container-image col-md-8 ml-auto d-inline">
+                    <img 
+                      width="200px" 
+                      height="100px" 
+                      [src]="urlSupervisorId" class="image">
+                      <label for="" class="mt-1">{{surnameSupervisor1}}, {{nameSupervisor1}}</label>
+                      <label for="" class="mt-1">Supervisor de 1ra. Instancia</label>
+                </div>
+                <div *ngIf="!urlSupervisorId" class="container-image col-md-8 ml-auto">
+                      <p>S/F</p>
+                </div>
+                  <!--Supervisor 2-->
+                <div *ngIf="urlSupervisorId2" class="container-image col-md-8 ml-auto d-inline">
+                    <img 
+                      width="200px" 
+                      height="100px" 
+                      [src]="urlSupervisorId2" class="image">
+                      <label for="" class="mt-1">{{surnameSupervisor2}}, {{nameSupervisor2}}</label>
+                      <label for="" class="mt-1">Supervisor de 2da. Instancia</label>
+                </div>
+                <div *ngIf="!urlSupervisorId2" class="container-image col-md-8 ml-auto">
+                      <p>S/F</p>
                 </div>
               </div>
               <div class="ml-auto"> FIRMA AUTORIZADA: ------------------------------------------------------------- </div>
@@ -197,5 +208,15 @@
             
     </div>
 
+
+  <ngx-spinner 
+    bdColor="black"
+    size="large"
+    color="#ffffff"
+    fullScreen="true"
+    type="ball-fussion">
+    <p style="font-size: 20px; color: white">Cargando...</p>
+  </ngx-spinner>
     
 
+</div>

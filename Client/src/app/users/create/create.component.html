@@ -74,6 +74,7 @@
                         <input class="form-control" 
                             [(ngModel)]="model.userName" 
                             required 
+                            [disabled]="id"
                             #Usuario="ngModel" 
                             name="Usuario" 
                             type="text"

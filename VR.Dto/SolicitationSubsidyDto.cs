@@ -49,6 +49,15 @@ namespace VR.Dto
         public string RandomKey { set; get; }
     }
 
+    public class UpdateComissionDto : SolicitationSubsidyBaseDto
+    {
+        public Boolean IsRefund { set; get; }
+        //public DateDto FinalizeDate { set; get; }
+        public int DaysWeekEnd { set; get; }
+        public Boolean IsCommission { set; get; }
+        public string RandomKey { set; get; }
+    }
+
     public class UpdateSolicitationSubsidyDto : SolicitationSubsidyBaseDto
     {
         public int DaysWeekEnd { set; get; }

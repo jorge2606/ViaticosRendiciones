@@ -21,7 +21,7 @@ namespace VR.Service.Interfaces
         ServiceResult<SolicitationIdDto> RefusedSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<Boolean> OverlapingDates(OverlapingDatesAndTransportsDto overlapingDates);
         ServiceResult<GetByIdSubsidyRpt> GetByIdSubsidyRpt(Guid solicitationId);
-        ServiceResult<Boolean> SolicitationApprovedBySupervisorId(Guid id, Guid currentUserId);
+        ServiceResult<UrlSignHolograph> SolicitationApprovedBySupervisorId(Guid id, Guid currentUserId);
         ServiceResult<SolicitationSubsidyStateDto> GetSolicitationState(Guid solicitationId);
         Task<ServiceResult<SolicitationIdDto>> RefusedAccountForSolicitationAsync(SolicitationIdDto solicitationDto);
         Task<ServiceResult<SolicitationIdDto>> AceptedAccountForSolicitationAsync(SolicitationIdDto solicitationDto);
@@ -31,8 +31,9 @@ namespace VR.Service.Interfaces
         ServiceResult<SolicitationIdDto> AceptedMyAccountForSolicitation(SolicitationIdDto solicitationDto);
         ServiceResult<bool> ValidateBeforeSendAccountFor(Guid solcitationId);
         ServiceResult<bool> ValidateBeforeSendAccountForFinalizeNormally(Guid solicitationId);
-        ServiceResult<FindRandomKeySolicitationSubsidyDto> GetByRandomKey(string randomKey);
+        ServiceResult<FindRandomKeySolicitationSubsidyDto> GetByRandomKey(string randomKey, Guid currentUserId);
         ServiceResult<CreateSolicitationSubsidyDto> CreateComission(CreateSolicitationSubsidyDto subsidy);
+        ServiceResult<UpdateComissionDto> UpdateComission(UpdateComissionDto subsidy);
         ServiceResult<bool> SomeSolicitationHasThisExpenditure(string key, Guid expenditureId);
     }
 }

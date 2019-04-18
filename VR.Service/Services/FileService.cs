@@ -213,6 +213,24 @@ namespace VR.Service.Services
             return new ServiceResult<FileByIdDto>(imagesPath);
         }
 
+
+        public ServiceResult<string> UrlSignHolograph(Guid supervisorid)
+        {
+            var notif = new ServiceResult<string>();
+            var result = GetCompletePathHolographSign(supervisorid);
+
+            FileInfo fileInfo = new FileInfo(result.Response.Paths);
+
+            if (!fileInfo.Exists)
+            {
+                notif.AddError("Error","El archivo no existe.");
+                return notif;
+            }
+
+            var resultUrl = Convert.ToBase64String(System.IO.File.ReadAllBytes(result.Response.Paths));
+            return new ServiceResult<String>(resultUrl);
+        }
+
         public ServiceResult<byte[]> GetUrlExpenditureRefundFile(Guid expenditureId)
         {
             var expenditure = _contextFile.Files.FirstOrDefault(x => x.ExpenditureId == expenditureId);

@@ -23,30 +23,32 @@ import { ClaimsService } from 'src/app/_services/claims.service';
 })
 export class AgentComponent implements OnInit {
 
-  filters = {
-    page : 0,
-    firstName : "",
-    lastName : "",
-    dni : 0
-  }
+    filters = {
+      page : 0,
+      firstName : "",
+      lastName : "",
+      dni : 0
+    }
 
-   //paginator
-   col_size : number;
-   page = 0;
-   itemsPerPage : number = 10;
-   //
-   solicitationSubsidies : AllSolicitationSubsidyDto[];
-   error = '';
-   transports : any;
-   sizeIcon = "fa-lg";
-   isRefund = {'isRefund' : true , 'isNotRefund' : false}
-   today : string = this.pipeService.transform(new Date(),'yyyy/MM/dd');
-   permissions : any[] = [];
-  solicitationCreate: any;
-  solicitationModerate: any;
-  moderateRefund: any;
-  createRefund: any;
-  _acceptMySolicitation: any;
+    //paginator
+    col_size : number;
+    page = 0;
+    itemsPerPage : number = 10;
+    //
+    solicitationSubsidies : AllSolicitationSubsidyDto[];
+    error = '';
+    transports : any;
+    sizeIcon = "fa-lg";
+    isRefund = {'isRefund' : true , 'isNotRefund' : false}
+    today : string = this.pipeService.transform(new Date(),'yyyy/MM/dd');
+    permissions : any[] = [];
+    solicitationCreate: any;
+    solicitationModerate: any;
+    moderateRefund: any;
+    createRefund: any;
+    textListEmpty : string = "No se encontró ningúna solicitud";
+    classListEmpty : string = "alert-primary";
+    _acceptMySolicitation: any;
 
   constructor(
             private solicitationSubsidyservice : SolicitationSubsidyService,

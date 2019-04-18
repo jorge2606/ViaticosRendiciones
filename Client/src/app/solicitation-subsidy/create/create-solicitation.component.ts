@@ -150,17 +150,32 @@ export class CreateSolicitationComponent implements OnInit {
           this.solicitationSubsidyService.getByRandomKey(randomKey)
           .subscribe(
             x => {
-                  this.model = x;
-                  if (this.model.destinies != null){
-                    for (let index = 0; index < this.model.destinies.length; index++) {
-                      if (this.model.destinies[index].provinceId != null){
-                        this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
-                      }
-                    }                 
-                  }
-                  
-                  this.allProvice();
-                  this.totalResultExpenditure();
+              if (x){
+                this.model = x;
+
+                if (this.model.destinies != null){
+                  for (let index = 0; index < this.model.destinies.length; index++) {
+                    if (this.model.destinies[index].provinceId != null){
+                      this.citiesThisProvinceModify(this.model.destinies[index].provinceId);
+                    }
+                  }                 
+                }
+                
+                this.allProvice();
+                this.totalResultExpenditure();
+              }else{
+                this.toastrService.info('El Código no existe.','',{timeOut : 2000});
+              }
+
+            },
+            err => {
+              if (err.error.errors){
+                var e = err.error.errors.Error || [];
+                e.forEach(Errors => {
+                    this.toastrService.error(Errors,'',{timeOut : 2000});
+                });
+              }
+              
             }
           );
         }else{
@@ -437,18 +452,33 @@ export class CreateSolicitationComponent implements OnInit {
         .subscribe(
           () =>{
             if(this.currentUserId == this.model.userId){
-              this.solicitationSubsidyService.updateSolicitation(this.model).subscribe(
+              this.solicitationSubsidyService.updateCommission(this.model).subscribe(
                 () => {
                   this.router.navigate(['SolicitationSubsidy/agent']);
                   this.msjToastSuccess('La solicitud de viático se ha modificado correctamente');
                 },
-                error => console.log(error) 
+                err => {
+                  if (err.error.errors){
+                    var e = err.error.errors.Error || [];
+                    e.forEach(Errors => {
+                        this.toastrService.error(Errors,'',{timeOut : 2000});
+                    });
+                  }
+                }
               );
             }else{
               this.solicitationSubsidyService.createCommission(this.model).subscribe(
                 () => {
                     this.router.navigate(['SolicitationSubsidy/agent']);
                     this.msjToastSuccess('La solicitud de viático se ha guardado correctamente');
+                },
+                err =>{
+                  if (err.error.errors){
+                    var e = err.error.errors.Error || [];
+                    e.forEach(Errors => {
+                        this.toastrService.error(Errors,'',{timeOut : 2000});
+                    });
+                  }
                 }
               );
             }  

@@ -50,6 +50,7 @@ namespace VR.Common.Security
 
         public const string CanCreateSolicitation = "solicitations.create";
         public const string CanCreateCommissionSolicitation = "solicitations.createCommission";
+        public const string CanUpdateCommissionSolicitation = "solicitations.updateCommission";
         public const string CanCreateRefund = "solicitations.createRefund";
         public const string CanEditSolicitation = "solicitations.edit";
         public const string CanDeleteSolicitation = "solicitations.delete";

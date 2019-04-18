@@ -284,10 +284,14 @@ namespace VR.Dto
                     },
                     new ClaimPermissionDto()
                     {
-                        Text = "CreateCommission",
+                        Text = "Crear Comisión",
                         Value = "solicitations.createCommission"
-                    }
-                    ,
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text = "Editar Comisión",
+                        Value = "solicitations.updateCommission"
+                    },
                     new ClaimPermissionDto()
                     {
                         Text  = "Crear Reintegro",

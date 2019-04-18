@@ -16,5 +16,6 @@ namespace VR.Service.Interfaces
         ServiceResult<FileByIdDto> RemoveHolographSign(Guid userId);
         ServiceResult<FileCreateFromRefundDto> AddExpenditureRefundImage(FileCreateFromRefundDto image);
         ServiceResult<byte[]> GetUrlExpenditureRefundFile(Guid expenditureId);
+        ServiceResult<string> UrlSignHolograph(Guid userId);
     }
 }

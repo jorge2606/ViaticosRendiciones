@@ -68,16 +68,23 @@ namespace VR.Web.Controllers
         [Authorize(Policy = SolicitationSubsidyClaims.CanCreateCommissionSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CreateCommission([FromBody] CreateSolicitationSubsidyDto solicitationSubsidy)
         {
-            var currentUser = Helpers.HttpContext.Current.User.Claims;
-            foreach (var i in currentUser)
+            solicitationSubsidy.UserId = GetIdUser();
+            var result = _solicitationSubsidyService.CreateComission(solicitationSubsidy);
+
+            if (!result.IsSuccess)
             {
-                if (i.Type.Equals("NameIdentifier"))
-                {
-                    solicitationSubsidy.UserId = Guid.Parse(i.Value);
-                }
+                return BadRequest(result);
             }
 
-            var result = _solicitationSubsidyService.CreateComission(solicitationSubsidy);
+            return Ok(result.Response);
+        }
+
+        [HttpPost("UpdateCommission")]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanUpdateCommissionSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult UpdateCommission([FromBody] UpdateComissionDto solicitationSubsidy)
+        {
+            solicitationSubsidy.UserId = GetIdUser();
+            var result = _solicitationSubsidyService.UpdateComission(solicitationSubsidy);
 
             if (!result.IsSuccess)
             {
@@ -113,7 +120,7 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-        [HttpGet("GetByIdSolicitationSubsidySubsidy/{id}")]
+        [HttpGet("GetByIdSolicitationSubsidy/{id}")]
         [Authorize]
         public IActionResult GetByIdSolicitationSubsidySubsidy(Guid id)
         {
@@ -146,7 +153,7 @@ namespace VR.Web.Controllers
         [Authorize]
         public IActionResult GetByRandomKey(string key)
         {
-            var result = _solicitationSubsidyService.GetByRandomKey(key);
+            var result = _solicitationSubsidyService.GetByRandomKey(key,GetIdUser());
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

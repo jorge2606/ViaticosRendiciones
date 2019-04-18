@@ -25,4 +25,14 @@ namespace VR.Dto
         public UserDto Supervisors { set; get; }
         public string RoleName { set; get; }
     }
+
+    public class UrlSignHolograph
+    {
+        public string UrlSupervisorId { set; get; }
+        public string UrlSupervisorId2 { set; get; }
+        public string NameSupervisor1 { set; get; }
+        public string SurnameSupervisor1 { set; get; }
+        public string NameSupervisor2 { set; get; }
+        public string SurnameSupervisor2 { set; get; }
+    }
 }

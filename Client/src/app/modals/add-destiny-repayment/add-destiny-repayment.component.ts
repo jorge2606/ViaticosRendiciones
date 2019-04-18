@@ -66,7 +66,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
     searchOnKey: 'name' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
   submitted : boolean = false;
-
+  maxDate  : any =  {year : new Date().getFullYear(),month : new Date().getMonth() + 1,day :new Date().getDate()};
   expenditureTaxi : number;
 
   constructor(
@@ -204,7 +204,7 @@ export class AddDestinyRepaymentComponent implements OnInit {
            )
           {
               this.toastrService.error('El rango de fecha coincide con una solicitud anterior');
-              this.submitted = true;
+              this.submitted = false;
           }
       }
     );

@@ -19,9 +19,9 @@ namespace VR.Data.Model
         public Guid Id { set; get; }
         public string Motive { set; get; }
         public decimal Total { set; get; }
-        [Column(TypeName = "Date")]
+        //[Column(TypeName = "Date")]
         public DateTime CreateDate { set; get; }
-        [Column(TypeName = "Date")]
+        //[Column(TypeName = "Date")]
         public DateTime? FinalizeDate { set; get; }
         public Boolean IsRefund { set; get; }
         public Boolean IsDeleted { set; get; }

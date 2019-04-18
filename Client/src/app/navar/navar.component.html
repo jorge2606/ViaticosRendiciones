@@ -240,7 +240,7 @@
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownManualNotif" class="p-1" style="width: max-content;">
               <div class="card p-2">
-                <ul *ngIf="cantNotif == 0" class="dropdown-item text-center small alert alert-primary h-3">
+                <ul *ngIf="cantNotif == 0" class="text-center small p-2">
                       No hay notificaciones nuevas
                 </ul>
 
@@ -252,7 +252,8 @@
                   (click)="seeThisNotification(j)">
                   <p style="font-size: 11px">{{j.textData}}</p>
                 </button>
-                <a href="#" routerLink="{{router.url}}" (click)="seeAllNotification()" class="small text-left seeAllLink" 
+                <a href="#" routerLink="{{router.url}}" (click)="seeAllNotification()" 
+                  class="small text-left seeAllLink p-1" 
                   style="text-decoration: none; padding-left: 10px;">
                     ver todos ({{notification.length}})
                 </a>
@@ -351,7 +352,7 @@
   <!-- Footer Text -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© {{currentYear}} Copyright: Viáticos y Rendiciones
+  <div class="footer-copyright text-center py-3">{{currentYear}} - Viáticos y Rendiciones
     <a href="#" routerLink=""></a>
   </div>
   <!-- Copyright -->
