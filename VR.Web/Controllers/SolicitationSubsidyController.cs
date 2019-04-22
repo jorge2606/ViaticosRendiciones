@@ -32,17 +32,20 @@ namespace VR.Web.Controllers
         private readonly ISolicitationSubsidyService _solicitationSubsidyService;
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        private readonly IReportService _reportService;
 
         public static string StaticFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles");
 
         public SolicitationSubsidyController(
             ISolicitationSubsidyService solicitationSubsidyService,
             DataContext dataContext,
-            IMapper mapper)
+            IMapper mapper,
+            IReportService reportService)
         {
             _solicitationSubsidyService = solicitationSubsidyService;
             _dataContext = dataContext;
             _mapper = mapper;
+            _reportService = reportService;
         }
 
         [HttpPost("Create")]
@@ -391,7 +394,7 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-        [HttpGet("report")]
+        /**[HttpGet("report")]
         [AllowAnonymous]
         public IActionResult Report()
         {
@@ -412,6 +415,19 @@ namespace VR.Web.Controllers
             var result = rv.Execute(RenderType.Pdf);
 
             return File(result.MainStream, "application/pdf");
+        }**/
+
+        [HttpGet("report/{solId}")]
+        [AllowAnonymous]
+        public IActionResult Report(Guid solId)
+        {
+            var result = _reportService.ReportPrint(solId, GetIdUser());
+            if (!result.IsSuccess)
+            {
+                return BadRequest();
+            }
+
+            return File(result.Response, "application/pdf");
         }
 
         [HttpPut("Update")]

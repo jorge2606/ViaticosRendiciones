@@ -268,6 +268,7 @@ namespace VR.Web
             services.AddScoped<ISupplementaryCityService, SupplementaryCityService>();
             services.AddScoped<ISolcitationSubsidyProcedure, SolicitationSubsidyProcedure>();
             services.AddScoped<ISolicitationStateService, SolicitationStateService>();
+            services.AddScoped<IReportService,ReportService>();
             //Auditoria
             services.AddScoped<IUserAuditService, UserAuditService>();
             services.AddScoped<INotificationAuditService, NotificationAuditService>();

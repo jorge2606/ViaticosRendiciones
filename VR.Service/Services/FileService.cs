@@ -231,6 +231,8 @@ namespace VR.Service.Services
             return new ServiceResult<String>(resultUrl);
         }
 
+
+
         public ServiceResult<byte[]> GetUrlExpenditureRefundFile(Guid expenditureId)
         {
             var expenditure = _contextFile.Files.FirstOrDefault(x => x.ExpenditureId == expenditureId);

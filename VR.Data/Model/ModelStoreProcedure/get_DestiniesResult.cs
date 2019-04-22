@@ -12,5 +12,6 @@ namespace VR.Data.Model.ModelStoreProcedure
         public string SolicitationTotalLetter { set; get; }
         public Decimal PercentageCodeLiquidation { set; get; }
         public string TextPercentage { set; get; }
+        public Decimal CategoryAndCodeLiquidation { set; get; }
     }
 }
