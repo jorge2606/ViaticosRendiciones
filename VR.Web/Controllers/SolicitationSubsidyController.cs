@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Reporting;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,7 @@ using VR.Service.Interfaces;
 using VR.Web.Helpers;
 using VR.Common.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IO;
 
 namespace VR.Web.Controllers
 {
@@ -30,6 +32,8 @@ namespace VR.Web.Controllers
         private readonly ISolicitationSubsidyService _solicitationSubsidyService;
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+
+        public static string StaticFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles");
 
         public SolicitationSubsidyController(
             ISolicitationSubsidyService solicitationSubsidyService,
@@ -133,7 +137,7 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
         }
 
-        
+
 
         [HttpGet("getBySolicitationIdForEmail/{id}")]
         [Authorize(Policy = SolicitationSubsidyClaims.CanModerateRefund, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -153,7 +157,7 @@ namespace VR.Web.Controllers
         [Authorize]
         public IActionResult GetByRandomKey(string key)
         {
-            var result = _solicitationSubsidyService.GetByRandomKey(key,GetIdUser());
+            var result = _solicitationSubsidyService.GetByRandomKey(key, GetIdUser());
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
@@ -254,7 +258,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("pageAgent")]
-        [Authorize(Policy = SolicitationSubsidyClaims.CanViewSolicitation,AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public PagedResult<AllSolicitationSubsidyDto> AgentPagination([FromQuery] FilterSolicitationSubsidyDto filters)
         {
             var agentId = GetIdUser();
@@ -322,7 +326,7 @@ namespace VR.Web.Controllers
             var pageIndex = filters.Page == 0 ? 1 : filters.Page;
 
             var results = _dataContext.GetAgentsSolicitationBySupervisor(supervisorId, filters.FirstName,
-                filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex,filters.IsRefund);
+                filters.LastName, filters.Dni, "FIRSTNAME ASC", pageSize, pageIndex, filters.IsRefund);
 
             return new PagedResult<AllSolicitationSubsidyDto>()
             {
@@ -385,6 +389,29 @@ namespace VR.Web.Controllers
             }
 
             return Ok(result.Response);
+        }
+
+        [HttpGet("report")]
+        [AllowAnonymous]
+        public IActionResult Report()
+        {
+
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "VR_REPORT.rdl");
+            var files = new FileInfo(newDirectory);
+
+            if (!files.Exists)
+            {
+                return BadRequest();
+            }
+            var rv = new LocalReport(newDirectory);
+
+            rv.AddDataSource("solicitation", _dataContext.SolicitationSubsidies.ToList());
+
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+            var result = rv.Execute(RenderType.Pdf);
+
+            return File(result.MainStream, "application/pdf");
         }
 
         [HttpPut("Update")]
@@ -503,7 +530,7 @@ namespace VR.Web.Controllers
         [Authorize]
         public IActionResult SolicitationApprovedBySupervisorId(Guid id)
         {
-            var result = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(id,GetIdUser());
+            var result = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(id, GetIdUser());
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
