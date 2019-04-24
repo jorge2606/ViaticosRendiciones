@@ -5,10 +5,9 @@
     <DataSource Name="DATASOURCE_VR">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=.\SQLEXPRESS;Initial Catalog=VR</ConnectString>
-        <IntegratedSecurity>true</IntegratedSecurity>
+        <ConnectString>Data Source=132.148.85.90;Initial Catalog=VR</ConnectString>
       </ConnectionProperties>
-      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>8f1fa8a7-40cf-427b-b013-feb224de98d8</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -311,16 +310,6 @@
                           <FontStyle>Normal</FontStyle>
                           <FontSize>0.14583in</FontSize>
                           <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Value>=CDate(Today())</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontSize>0.14583in</FontSize>
-                          <FontWeight>Normal</FontWeight>
-                          <Format>d</Format>
                           <TextDecoration>None</TextDecoration>
                         </Style>
                       </TextRun>
@@ -1020,7 +1009,7 @@
             <Top>6.0882mm</Top>
             <Left>80.83332mm</Left>
             <Height>57.8238mm</Height>
-            <Width>114.78198mm</Width>
+            <Width>114.782mm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2198,7 +2187,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
             </TablixRowHierarchy>
             <DataSetName>Destination</DataSetName>
             <Top>6.42393cm</Top>
-            <Height>2.14269cm</Height>
+            <Height>2.1427cm</Height>
             <Width>19.56153cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
@@ -2215,7 +2204,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
           </Border>
         </Style>
       </Body>
-      <Width>291.12977mm</Width>
+      <Width>196.40894mm</Width>
       <Page>
         <PageHeight>35.56cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>

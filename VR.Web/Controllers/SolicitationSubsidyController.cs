@@ -422,7 +422,7 @@ namespace VR.Web.Controllers
         [AllowAnonymous]
         public IActionResult Report(Guid solId)
         {
-            var result = _reportService.ReportPrint(solId, GetIdUser());
+            var result = _reportService.ReportPrint(solId);
             if (!result.IsSuccess)
             {
                 return BadRequest();
@@ -436,7 +436,7 @@ namespace VR.Web.Controllers
         [AllowAnonymous]
         public IActionResult ReportAccountFor(Guid solId)
         {
-            var result = _reportService.PrintAccountFor(solId, GetIdUser());
+            var result = _reportService.PrintAccountFor(solId);
             if (!result.IsSuccess)
             {
                 return BadRequest();

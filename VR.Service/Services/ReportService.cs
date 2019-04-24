@@ -35,7 +35,7 @@ namespace VR.Service.Services
             _context = context;
         }
 
-        public ServiceResult<byte[]> ReportPrint(Guid solicitationId, Guid currentUserId)
+        public ServiceResult<byte[]> ReportPrint(Guid solicitationId)
         {
             var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "VR_REPORT.rdl");
             var files = new FileInfo(newDirectory);
@@ -64,7 +64,7 @@ namespace VR.Service.Services
             return new ServiceResult<byte[]>(result.MainStream);
         }
 
-        public ServiceResult<byte[]> PrintAccountFor(Guid solicitationId, Guid currentUser)
+        public ServiceResult<byte[]> PrintAccountFor(Guid solicitationId)
         {
             var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "Rendición.rdl");
             var files = new FileInfo(newDirectory);
