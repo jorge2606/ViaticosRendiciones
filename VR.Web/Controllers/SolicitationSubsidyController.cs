@@ -418,6 +418,7 @@ namespace VR.Web.Controllers
         }**/
 
         [HttpGet("report/{solId}")]
+        //[Authorize(SolicitationSubsidyClaims.canPrintSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [AllowAnonymous]
         public IActionResult Report(Guid solId)
         {
@@ -429,6 +430,21 @@ namespace VR.Web.Controllers
 
             return File(result.Response, "application/pdf");
         }
+
+        [HttpGet("reportAccountFor/{solId}")]
+        //[Authorize(SolicitationSubsidyClaims.canPrintAccountForSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [AllowAnonymous]
+        public IActionResult ReportAccountFor(Guid solId)
+        {
+            var result = _reportService.PrintAccountFor(solId, GetIdUser());
+            if (!result.IsSuccess)
+            {
+                return BadRequest();
+            }
+
+            return File(result.Response, "application/pdf");
+        }
+
 
         [HttpPut("Update")]
         [Authorize(SolicitationSubsidyClaims.CanEditSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

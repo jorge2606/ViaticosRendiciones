@@ -169,6 +169,8 @@ namespace VR.Web
                 options.AddPolicy(SolicitationSubsidyClaims.CanModerateSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanModerateSolicitation));
                 options.AddPolicy(SolicitationSubsidyClaims.CanApproveAccountForSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanApproveAccountForSolicitation));
                 options.AddPolicy(SolicitationSubsidyClaims.CanModerateRefund, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanModerateRefund));
+                options.AddPolicy(SolicitationSubsidyClaims.canPrintSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.canPrintSolicitation));
+                options.AddPolicy(SolicitationSubsidyClaims.canPrintAccountForSolicitation, catView => catView.RequireClaim(SolicitationSubsidyClaims.canPrintAccountForSolicitation));
                 //users
                 options.AddPolicy(SolicitationSubsidyClaims.CanViewUsers, seeUsers => seeUsers.RequireClaim(SolicitationSubsidyClaims.CanViewUsers));
                 options.AddPolicy(SolicitationSubsidyClaims.CanAddSupervisorUsers, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAddSupervisorUsers));

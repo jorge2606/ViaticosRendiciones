@@ -809,7 +809,7 @@ namespace VR.Service.Services
                 .Include(x => x.Destinies).ThenInclude(x => x.SupplementaryCities).ThenInclude(x => x.City)
                 .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
                 .Include(x => x.User).ThenInclude(c => c.Category)
-                .Include(x => x.User).ThenInclude(c => c.Distribution)
+                .Include(x => x.User).ThenInclude(c => c.Distribution).ThenInclude(o => o.Organism)
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == id);
 
@@ -1638,7 +1638,7 @@ namespace VR.Service.Services
                 if (stateSolicitationThisUser.StateId == State.Accounted)
                 {
                     solicitationState.State =
-                        _dataContext.States.FirstOrDefault(x => x.Id == State.Rendicion_Aprobada_1ra_Instancia);
+                        _dataContext.States.FirstOrDefault(x => x.Id == State.AccountForRejected);
 
                     var supervisor = _dataContext.SupervisorUserAgents
                         .Include(x => x.Supervisors2)
@@ -1890,6 +1890,7 @@ namespace VR.Service.Services
             }
 
             state.Description = result.State.Description;
+            state.MotiveReject = result.MotiveReject;
             state.IsRefund = result.SolicitationSubsidy.IsRefund;
             state.UserId = result.SolicitationSubsidy.UserId;
             

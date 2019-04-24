@@ -67,32 +67,12 @@
         <CommandText />
       </Query>
       <Fields>
-        <Field Name="AdvanceCategory">
-          <DataField>AdvanceCategory</DataField>
+        <Field Name="Description">
+          <DataField>Description</DataField>
           <rd:UserDefined>true</rd:UserDefined>
         </Field>
-        <Field Name="Days">
-          <DataField>Days</DataField>
-          <rd:UserDefined>true</rd:UserDefined>
-        </Field>
-        <Field Name="DaysLetters">
-          <DataField>DaysLetters</DataField>
-          <rd:UserDefined>true</rd:UserDefined>
-        </Field>
-        <Field Name="PercentageCodeLiquidation">
-          <DataField>PercentageCodeLiquidation</DataField>
-          <rd:UserDefined>true</rd:UserDefined>
-        </Field>
-        <Field Name="SolicitationTotalLetter">
-          <DataField>SolicitationTotalLetter</DataField>
-          <rd:UserDefined>true</rd:UserDefined>
-        </Field>
-        <Field Name="TextPercentage">
-          <DataField>TextPercentage</DataField>
-          <rd:UserDefined>true</rd:UserDefined>
-        </Field>
-        <Field Name="CategoryAndCodeLiquidation">
-          <DataField>CategoryAndCodeLiquidation</DataField>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
           <rd:UserDefined>true</rd:UserDefined>
         </Field>
       </Fields>
@@ -135,10 +115,6 @@
         <CommandText />
       </Query>
       <Fields>
-        <Field Name="StartDate">
-          <DataField>StartDate</DataField>
-          <rd:UserDefined>true</rd:UserDefined>
-        </Field>
         <Field Name="Days">
           <DataField>Days</DataField>
           <rd:UserDefined>true</rd:UserDefined>
@@ -169,6 +145,34 @@
         </Field>
         <Field Name="TransportModel">
           <DataField>TransportModel</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="StartDateToPrint">
+          <DataField>StartDateToPrint</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="ExpenditureDataSet">
+      <Query>
+        <DataSourceName>DATASOURCE_VR</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="ExpenditureTypeName">
+          <DataField>ExpenditureTypeName</DataField>
           <rd:UserDefined>true</rd:UserDefined>
         </Field>
       </Fields>
@@ -302,7 +306,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>FECHA: </Value>
+                        <Value> FECHA: </Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontSize>0.14583in</FontSize>
@@ -311,30 +315,13 @@
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Label>Today</Label>
-                        <Value>=Today()</Value>
+                        <Value>=CDate(Today())</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontSize>0.14583in</FontSize>
                           <FontWeight>Normal</FontWeight>
+                          <Format>d</Format>
                           <TextDecoration>None</TextDecoration>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Left</TextAlign>
-                      <LineHeight>0.19792in</LineHeight>
-                    </Style>
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value />
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
                         </Style>
                       </TextRun>
                     </TextRuns>
@@ -448,16 +435,6 @@
                     <TextRuns>
                       <TextRun>
                         <Value>FECHA: </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>Today1</Label>
-                        <Value>=Today()</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontWeight>Normal</FontWeight>
@@ -669,135 +646,6 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>Fecha de Iniciación: </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>StartDate</Label>
-                        <Value>=First(Fields!StartDate.Value, "DestinationDataSet")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Destino: </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>Country</Label>
-                        <Value>=First(Fields!CountryName.Value, "DestinationDataSet")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Value xml:space="preserve"> </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>Province</Label>
-                        <Value>=First(Fields!ProvinceName.Value, "DestinationDataSet")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Value xml:space="preserve"> </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>City</Label>
-                        <Value>=First(Fields!CityName.Value, "DestinationDataSet")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>Medio de Transporte: </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>TransportBrand</Label>
-                        <Value>=First(Fields!TransportBrand.Value, "DestinationDataSet")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Value> - </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>TransportModel</Label>
-                        <Value>=First(Fields!TransportModel.Value, "DestinationDataSet")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
                         <Value>Objeto: </Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
@@ -821,9 +669,9 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox6</rd:DefaultName>
-                <Top>1.76389mm</Top>
-                <Left>2.55764mm</Left>
-                <Height>52.33031mm</Height>
+                <Top>1.41111mm</Top>
+                <Left>2.55769mm</Left>
+                <Height>31.95739mm</Height>
                 <Width>112.22429mm</Width>
                 <Style>
                   <Border>
@@ -835,12 +683,344 @@
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
+              <Tablix Name="Tablix7">
+                <TablixBody>
+                  <TablixColumns>
+                    <TablixColumn>
+                      <Width>1.80504cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>4.31975cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>5.07235cm</Width>
+                    </TablixColumn>
+                  </TablixColumns>
+                  <TablixRows>
+                    <TablixRow>
+                      <Height>0.6cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox63">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha de Iniciación</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox63</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox65">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Destino</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox65</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox67">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Medio de Transporte</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox67</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
+                      <Height>0.57354cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox64">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Label>StartDateToPrint</Label>
+                                      <Value>=Fields!StartDateToPrint.Value</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <Format>d</Format>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox64</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox66">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Label>Country</Label>
+                                      <Value>=Fields!CountryName.Value</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value xml:space="preserve"> </Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Label>Province</Label>
+                                      <Value>=Fields!ProvinceName.Value</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value xml:space="preserve"> </Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Label>City</Label>
+                                      <Value>=Fields!CityName.Value</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox66</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox68">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Label>TransportBrand</Label>
+                                      <Value>=Fields!TransportBrand.Value</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value> - </Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Label>TransportModel</Label>
+                                      <Value>=Fields!TransportModel.Value</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox68</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                  </TablixRows>
+                </TablixBody>
+                <TablixColumnHierarchy>
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixColumnHierarchy>
+                <TablixRowHierarchy>
+                  <TablixMembers>
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details2" />
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixRowHierarchy>
+                <DataSetName>DestinationDataSet</DataSetName>
+                <Top>3.51324cm</Top>
+                <Left>0.28106cm</Left>
+                <Height>1.17354cm</Height>
+                <Width>11.19714cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Tablix>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>6.0882mm</Top>
             <Left>80.83332mm</Left>
-            <Height>57.79837mm</Height>
-            <Width>114.78193mm</Width>
+            <Height>57.8238mm</Height>
+            <Width>114.78198mm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -900,16 +1080,6 @@
                     <TextRuns>
                       <TextRun>
                         <Value>CORRIENTES, </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Label>Hoy</Label>
-                        <Value>=Today()</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontWeight>Normal</FontWeight>
@@ -1182,19 +1352,10 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value> cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $ ......... y cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $ ......... por la suma de pesos: </Value>
+                        <Value> cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $ ......... y cheque Nº ........................ del ..... / ..... / ..... cta. cte. Nº ... - .......... /...  Bco. Corrientes S.A. por $ ......... por la suma de pesos:</Value>
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                      <TextRun>
-                        <Value>=First(Fields!SolicitationTotalLetter.Value, "Destination")</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Bold</FontWeight>
                           <TextDecoration>None</TextDecoration>
                           <Color>#000000</Color>
                         </Style>
@@ -1264,64 +1425,6 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                       </TextRun>
                       <TextRun>
                         <Value> días hábiles de finalizada la comisión,  caso contrario me sujeto a las sanciones establecidas en la Ley de Contabilidad.</Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value />
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value />
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Center</TextAlign>
-                    </Style>
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value xml:space="preserve"> </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value />
                         <Style>
                           <FontStyle>Normal</FontStyle>
                           <FontWeight>Normal</FontWeight>
@@ -1531,34 +1634,6 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                     </TextRuns>
                     <Style />
                   </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value xml:space="preserve"> </Value>
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value />
-                        <Style>
-                          <FontStyle>Normal</FontStyle>
-                          <FontWeight>Normal</FontWeight>
-                          <TextDecoration>None</TextDecoration>
-                          <Color>#000000</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox20</rd:DefaultName>
                 <Top>0.07056cm</Top>
@@ -1595,8 +1670,8 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox29</rd:DefaultName>
-                <Top>5.59562cm</Top>
-                <Left>2.9866cm</Left>
+                <Top>4.33444cm</Top>
+                <Left>3.54223cm</Left>
                 <Height>0.42188cm</Height>
                 <Width>4.27473cm</Width>
                 <ZIndex>1</ZIndex>
@@ -1611,8 +1686,8 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                 </Style>
               </Textbox>
               <Line Name="Line6">
-                <Top>6.0175cm</Top>
-                <Left>7.37421cm</Left>
+                <Top>5.09146cm</Top>
+                <Left>7.58767cm</Left>
                 <Height>0cm</Height>
                 <Width>11.65636cm</Width>
                 <ZIndex>2</ZIndex>
@@ -1639,14 +1714,14 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                 <Value>=First(Fields!UrlSupervisorId.Value, "SignSupervisorImage")</Value>
                 <MIMEType>image/jpeg</MIMEType>
                 <Sizing>FitProportional</Sizing>
-                <Top>3.2441cm</Top>
-                <Left>9.04109cm</Left>
+                <Top>2.15931cm</Top>
+                <Left>9.25454cm</Left>
                 <Height>2.00465cm</Height>
                 <Width>2.89456cm</Width>
                 <ZIndex>3</ZIndex>
                 <Style>
                   <Border>
-                    <Style>Solid</Style>
+                    <Style>None</Style>
                   </Border>
                 </Style>
               </Image>
@@ -1681,8 +1756,8 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>surnameSupervisor1</rd:DefaultName>
-                <Top>5.31931cm</Top>
-                <Left>7.37421cm</Left>
+                <Top>4.23452cm</Top>
+                <Left>7.58766cm</Left>
                 <Height>0.5218cm</Height>
                 <Width>5.61977cm</Width>
                 <ZIndex>4</ZIndex>
@@ -1727,8 +1802,8 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>surnameSupervisor2</rd:DefaultName>
-                <Top>5.31931cm</Top>
-                <Left>13.47023cm</Left>
+                <Top>4.23452cm</Top>
+                <Left>13.68368cm</Left>
                 <Height>0.5218cm</Height>
                 <Width>5.56034cm</Width>
                 <ZIndex>5</ZIndex>
@@ -1747,21 +1822,21 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                 <Value>=First(Fields!UrlSupervisorId2.Value, "SignSupervisorImage")</Value>
                 <MIMEType>image/jpeg</MIMEType>
                 <Sizing>FitProportional</Sizing>
-                <Top>3.20882cm</Top>
-                <Left>14.9184cm</Left>
+                <Top>2.12403cm</Top>
+                <Left>15.13185cm</Left>
                 <Height>2.00465cm</Height>
                 <Width>2.88805cm</Width>
                 <ZIndex>6</ZIndex>
                 <Style>
                   <Border>
-                    <Style>Solid</Style>
+                    <Style>None</Style>
                   </Border>
                 </Style>
               </Image>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>18.09287cm</Top>
-            <Height>6.45993cm</Height>
+            <Height>5.34868cm</Height>
             <Width>19.56153cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
@@ -1800,7 +1875,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.62544cm</Height>
+                  <Height>0.48361cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1907,7 +1982,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.83711cm</Height>
+                  <Height>0.98632cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1918,101 +1993,8 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>DÍAS DE VIÁTICOS: </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Label>Days</Label>
-                                  <Value>=First(Fields!Days.Value, "Destination")</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value> (</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Label>DaysLetters</Label>
-                                  <Value>=First(Fields!DaysLetters.Value, "Destination")</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>) dias de viático a razón de $ </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Label>AdvanceCategory</Label>
-                                  <Value>=First(Fields!AdvanceCategory.Value, "Destination")</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Label>TextPercentage</Label>
-                                  <Value>=First(Fields!TextPercentage.Value, "Destination")</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=First(CInt(Fields!AdvanceCategory.Value), "Destination")*First(CDec(Fields!PercentageCodeLiquidation.Value), "Destination")</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value> por día.</Value>
+                                  <Label>Description</Label>
+                                  <Value>=Fields!Description.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -2047,12 +2029,12 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>$ </Value>
+                                  <Value>$</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Label>CategoryAndCodeLiquidation</Label>
-                                  <Value>=First(Fields!CategoryAndCodeLiquidation.Value, "Destination")</Value>
+                                  <Label>Amount</Label>
+                                  <Value>=Fields!Amount.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2064,12 +2046,9 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                           <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <BottomBorder>
+                              <Color>LightGrey</Color>
                               <Style>Solid</Style>
-                              <Width>2pt</Width>
-                            </BottomBorder>
+                            </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2080,7 +2059,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox13">
+                        <Textbox Name="AdvanceCategory">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2094,19 +2073,12 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox13</rd:DefaultName>
+                          <rd:DefaultName>AdvanceCategory</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <TopBorder>
-                              <Style>None</Style>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Width>2pt</Width>
-                            </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2118,11 +2090,11 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.72673cm</Height>
+                  <Height>0.67277cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox23">
+                        <Textbox Name="Textbox21">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2143,7 +2115,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox23</rd:DefaultName>
+                          <rd:DefaultName>Textbox21</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2159,7 +2131,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox24">
+                        <Textbox Name="Textbox22">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2167,7 +2139,7 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                               <TextRuns>
                                 <TextRun>
                                   <Label>Total</Label>
-                                  <Value>=Sum(Fields!CategoryAndCodeLiquidation.Value, "Destination")</Value>
+                                  <Value>=SUM(Fields!Amount.Value, "Destination")</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Bold</FontWeight>
@@ -2181,23 +2153,12 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <rd:DefaultName>Textbox22</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
                             </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                              <Width>2pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Style>Solid</Style>
-                              <Width>2pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Style>Solid</Style>
-                              <Width>2pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2228,15 +2189,17 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
                   <Group Name="Details" />
                   <TablixMembers>
                     <TablixMember />
-                    <TablixMember />
                   </TablixMembers>
+                </TablixMember>
+                <TablixMember>
+                  <KeepWithGroup>Before</KeepWithGroup>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Destination</DataSetName>
-            <Top>6.38866cm</Top>
-            <Height>2.18928cm</Height>
-            <Width>19.56152cm</Width>
+            <Top>6.42393cm</Top>
+            <Height>2.14269cm</Height>
+            <Width>19.56153cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
               <Border>
@@ -2245,14 +2208,14 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>251.6134mm</Height>
+        <Height>238.38423mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>197.74117mm</Width>
+      <Width>291.12977mm</Width>
       <Page>
         <PageHeight>35.56cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>

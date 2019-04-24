@@ -72,6 +72,7 @@ namespace VR.Dto
         public int Days { set; get; }
         public Decimal AdvanceCategory { set; get; }
         public DateDto StartDate { set; get; }
+        public DateTime StartDateToPrint { set; get; }
         public Guid CategoryId { set; get; }
         public string CategoryName { set; get; }
         public Guid? CityId { set; get; }

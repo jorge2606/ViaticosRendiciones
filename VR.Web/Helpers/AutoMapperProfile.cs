@@ -55,6 +55,8 @@ namespace WebApi.Helpers
             CreateMap<Organism, GetallOrganismDto>();
             CreateMap<Organism, FindByIdOrganismDto>();
             CreateMap<Organism, DeleteOrganismDto>();
+            CreateMap<Destiny, DestinyFromSolicitationSubsidyFindByIdDto>()
+                .ForMember(x=> x.StartDateToPrint, opt=> opt.MapFrom(m => m.StartDate));
         }
     }
 }

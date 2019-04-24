@@ -23,6 +23,7 @@ namespace VR.Dto
         public string Description { set; get; }
         public Boolean IsRefund { set; get; }
         public Guid UserId { set; get; }
+        public string MotiveReject { set; get; }
     }
 
 }
