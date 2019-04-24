@@ -201,7 +201,7 @@ export class NavarComponent implements OnInit {
                   () =>{
                       this.retriveNotifications();
                       const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
-                      modalRef.componentInstance.Contenido = "Rechazado";
+                      modalRef.componentInstance.Contenido = solicitationState.motiveReject;
                       modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
                       modalRef.componentInstance.MsgClose = "Cerrar";
                       modalRef.componentInstance.GuardaroEliminarHidden = true;

@@ -44,6 +44,7 @@ export class PrintAccountForSolicitationComponent implements OnInit {
   distributionName : string;
   distributionDescription : string;
   totDest : number = 0;
+  file: any;
 
 
   constructor(
@@ -60,97 +61,11 @@ export class PrintAccountForSolicitationComponent implements OnInit {
             }
 
   ngOnInit() {
-    this.spinner.show();
-    this.init();    
-  }
-
-
-  init(){
     this.route.params.subscribe(
       url => {
-          this.solicitationSubsidyService.SolicitationApprovedBySupervisorId(url.id)
-          .subscribe(x => {
-                this.urlSupervisorId = "data:image/jpg;base64,"+x.urlSupervisorId;
-                this.urlSupervisorId2 = "data:image/jpg;base64,"+x.urlSupervisorId2;
-
-                setTimeout(() => {
-                }, 1000);
-                this.solicitationSubsidyService.getByIdSolicitation(url.id)
-                .subscribe(
-                    solicitation => {
-                      this.model = solicitation;
-                      this.firstName = this.model.user.firstName;
-                      this.lastName = this.model.user.lastName;
-                      this.categoryName = this.model.user.categoryName;
-                      this.categoryAdvance = this.model.user.categoryAdvance;
-                      this.categoryDescription = this.model.user.categoryDescription;
-                      this.dni = this.model.user.dni;
-                      this.distributionName = this.model.user.distributionName;
-                      this.distributionDescription = this.model.user.distributionDescription;
-    
-                      this.model.destinies.forEach(totalDestinies => {
-                        this.totDest =  this.totDest + (totalDestinies.advanceCategory * totalDestinies.days * totalDestinies.percentageCodeLiquidation);
-                      });
-    
-                      this.model.expenditures.forEach(exp => this.totalExpenditures = this.totalExpenditures + exp.amount );
-                      
-                      this.destinyService.get_destinies(url.id)
-                      .subscribe(
-                            j => {
-                                  this.destinieWithDaysInLetters = j;
-                                  this.totalExpenditures = this.totalExpenditures +  this.totDest;
-                                    
-                                  setTimeout(() => {
-                                  this.captureScreen();
-                                  this.spinner.hide();
-                                  }, 2000);                                
-                                }
-                      );
-                  });  
-            },err =>{
-              if(err.error){
-                var e = err.error.errors.Error || [];
-                e.forEach(errors => {
-                  this.router.navigate(['/']);
-                  this.toastrService.error(errors);
-                });
-                
-              }
-              this.spinner.hide();
-          });
+        this.file= this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"SolicitationSubsidy/reportAccountFor/"+url.id);
       }
     );
   }
-  urlFile(userId : number, width : number, height: number){
-    return environment.apiUrl+"File/HolographSignUrl/"+userId+"/"+width+"/"+height;
-  }
-
-  captureScreen()  
-  {  
-        this.spinner.show();
-        var data = document.getElementById('container-print');  
-        html2canvas(data).then(canvas => {  
-          const img = canvas.toDataURL('image/png');
-          this.imgUrl = img;
-          this.stringIframe = this.domSanitazer.bypassSecurityTrustResourceUrl(img);
-         
-        });
-        this.hideHtml = true;
-  }
-
-  download()  
-  {  
-    this.spinner.show();
-    this.hideHtml = false;
-    var namePDF = this.firstName+'-'+this.lastName+'-'+this.dni+'.pdf'; 
-    var pdf = new jspdf('p', 'mm', 'legal'); 
-    
-    pdf.addImage(this.imgUrl,'PNG',10,10,195,330);
-    pdf.save(namePDF);
-    this.hideHtml = true;
-    this.spinner.hide();
-      
-  }
-
 }
 

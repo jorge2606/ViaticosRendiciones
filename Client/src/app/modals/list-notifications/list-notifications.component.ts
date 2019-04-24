@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { SolicitationSubsidyService } from './../../_services/solicitation-subsidy.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from './../../_services/notifications.service';
@@ -9,6 +10,7 @@ import { SolicitationSubsidydetailComponent } from 'src/app/solicitation-subsidy
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 import { DetailAccountForSolicitationComponent } from 'src/app/solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-notifications',
@@ -35,6 +37,8 @@ export class ListNotificationsComponent {
     private supervisorUserAgentService : SupervisorUserAgentService,
     private notificationServices : NotificationsService,
     private solicitationSubsidyService : SolicitationSubsidyService,
+    private authService : AuthenticationService,
+    private toastrService : ToastrService,
     private router : Router) { }
 
   ngOnInit() {
@@ -72,36 +76,36 @@ export class ListNotificationsComponent {
     this.supervisorUserAgentService.isAgent(notificationridden.creatorUserId)
     .subscribe(user => {
         if (user){//si es verdadero entonces este mensaje es de uno de mis agentes
-          this.solicitationSubsidyService.getByIdSolicitation(notificationridden.solicitationSubsidyId)
+          this.solicitationSubsidyService.getBySolicitationIdWhitState(notificationridden.solicitationSubsidyId)
           .subscribe(
             solicitation => {
                 if (!solicitation.finalizeDate){//si no es una rendición
-                 
-                  this.notificationServices.notificationRidden(notificationridden).subscribe(
-                    () =>{
-                        this.retriveNotifications();
-                        const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
-                        modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-                        modalRef.result.then(() => { 
-                          this.router.navigate([this.router.url])
-                        },
-                        () => {
-                            console.log('Backdrop click');
-                        })
-                      } 
-                  );
+                    this.notificationServices.notificationRidden(notificationridden).subscribe(
+                      () =>{
+                          this.retriveNotifications();
+                          const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+                          modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                          modalRef.result.then(() => { 
+                            console.log(this.router.url);
+                            this.router.navigate([this.router.url])
+                          },
+                          () => {
+                              console.log('Backdrop click');
+                          })
+                        } 
+                    );
                 }else{
                   this.notificationServices.notificationRidden(notificationridden).subscribe(
                     () =>{
-                        this.retriveNotifications();
-                        const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
-                        modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
-                        modalRef.result.then(() => { 
-                          this.router.navigate([this.router.url])
-                        },
-                        () => {
-                            console.log('Backdrop click');
-                        })
+                          this.retriveNotifications();
+                          const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
+                          modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
+                          modalRef.result.then(() => { 
+                            this.router.navigate([this.router.url])
+                          },
+                          () => {
+                              console.log('Backdrop click');
+                          });      
                       } 
                   );
                 }
@@ -117,7 +121,7 @@ export class ListNotificationsComponent {
                 () =>{
                     this.retriveNotifications();
                     const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
-                    modalRef.componentInstance.Contenido = "Rechazado";
+                    modalRef.componentInstance.Contenido = solicitationState.motiveReject;
                     modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
                     modalRef.componentInstance.MsgClose = "Cerrar";
                     modalRef.componentInstance.GuardaroEliminarHidden = true;
@@ -130,14 +134,82 @@ export class ListNotificationsComponent {
                   } 
               )
             }
-
-            if(solicitationState.description == 'Aceptado'){
+            
+            if (solicitationState.description === 'Rendición Rechazada'){
+              this.notificationServices.notificationRidden(notificationridden)
+              .subscribe(
+                () =>{
+                  this.retriveNotifications();
+                  this.router.navigateByUrl('SolicitationSubsidy/agent/accountFor/'+notificationridden.solicitationSubsidyId);
+                }
+              );
+            }
+            //si soy propietario de la solicitud
+            if(solicitationState.description == 'Aceptado' && solicitationState.userId == this.authService.userId('id') ){
               this.notificationServices.notificationRidden(notificationridden).subscribe(
                 () =>{
                     this.retriveNotifications();
                     this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
                   } 
               )
+            }else if (solicitationState.description == 'Aceptado' && solicitationState.userId != this.authService.userId('id'))
+            {
+              this.notificationServices.notificationRidden(notificationridden).subscribe(
+                () =>{
+                    this.retriveNotifications();
+                    this.toastrService.info('Esta solicitud ya fue aprobada');
+                  } 
+              )
+            }
+
+            if(solicitationState.description == 'Rendición Aceptada' && solicitationState.userId == this.authService.userId('id')){
+              this.notificationServices.notificationRidden(notificationridden).subscribe(
+                () =>{
+                    this.retriveNotifications();
+                    this.router.navigateByUrl('SolicitationSubsidy/agent/printAccountFor/'+notificationridden.solicitationSubsidyId);
+                  } 
+              )
+            }else if (solicitationState.description == 'Rendición Aceptada' && solicitationState.userId != this.authService.userId('id'))
+            {
+              this.notificationServices.notificationRidden(notificationridden).subscribe(
+                () =>{
+                    this.retriveNotifications();
+                    this.toastrService.info('Esta rendición de solicitud ya fue aprobada');
+                  } 
+              )
+            }
+
+            if(solicitationState.description == 'Aprobado 1ra. Instancia' 
+                && this.authService.userId('id') != solicitationState.userId){
+              this.notificationServices.notificationRidden(notificationridden).subscribe(
+                () =>{
+                    this.retriveNotifications();
+                    this.router.navigateByUrl('/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/'+solicitationState.isRefund);
+                  } 
+              )
+            }else if(solicitationState.description == 'Aprobado 1ra. Instancia'
+              && this.authService.userId('id') == solicitationState.userId){
+              this.notificationServices.notificationRidden(notificationridden).subscribe(
+                () =>{
+                    this.retriveNotifications();
+                    } 
+              )
+            }
+
+            if(solicitationState.description == 'Rendición Aprobada 1ra. Instancia' 
+              && this.authService.userId('id') == solicitationState.userId){
+              this.notificationServices.notificationRidden(notificationridden).subscribe(
+              () =>{
+                  this.retriveNotifications();
+                } 
+              )
+            }else if (solicitationState.description == 'Rendición Aprobada 1ra. Instancia' 
+              && this.authService.userId('id') != solicitationState.userId){
+                this.notificationServices.notificationRidden(notificationridden).subscribe(
+                  () =>{
+                    this.retriveNotifications();
+                    this.router.navigateByUrl('/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/'+solicitationState.isRefund)
+                }) 
             }
             
           });

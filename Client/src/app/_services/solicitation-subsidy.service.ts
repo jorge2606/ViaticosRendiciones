@@ -140,5 +140,4 @@ export class SolicitationSubsidyService {
     return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/GetByRandomKey/"+randomKey);
   }
 
-
 }
