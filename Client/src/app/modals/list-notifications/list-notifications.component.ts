@@ -3,7 +3,7 @@ import { SolicitationSubsidyService } from './../../_services/solicitation-subsi
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationsService } from './../../_services/notifications.service';
 import { Component, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Notifications } from '../../_models/notifications';
 import { NgbdModalContent } from '../modals.component';
 import { SolicitationSubsidydetailComponent } from 'src/app/solicitation-subsidy/detail/solicitation-subsidydetail.component';
@@ -29,6 +29,10 @@ export class ListNotificationsComponent {
   verOcultar: string = 'angle-down';
   notificationRidden = new Notifications();
   colapseOrNo: boolean;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
   public isCollapsed = true;
 
   constructor(public activeModal: NgbActiveModal,
@@ -83,7 +87,10 @@ export class ListNotificationsComponent {
                     this.notificationServices.notificationRidden(notificationridden).subscribe(
                       () =>{
                           this.retriveNotifications();
-                          const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+                          const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {
+                            backdrop : 'static',
+                            keyboard : false,
+                            size : "lg"});
                           modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
                           modalRef.result.then(() => { 
                             console.log(this.router.url);
@@ -98,7 +105,11 @@ export class ListNotificationsComponent {
                   this.notificationServices.notificationRidden(notificationridden).subscribe(
                     () =>{
                           this.retriveNotifications();
-                          const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
+                          const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {
+                            backdrop : 'static',
+                            keyboard : false,
+                            size : "lg"}
+                          );
                           modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
                           modalRef.result.then(() => { 
                             this.router.navigate([this.router.url])
@@ -120,7 +131,10 @@ export class ListNotificationsComponent {
               this.notificationServices.notificationRidden(notificationridden).subscribe(
                 () =>{
                     this.retriveNotifications();
-                    const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
+                    const modalRef = this.modalService.open(NgbdModalContent, {
+                      backdrop : 'static',
+                      keyboard : false,
+                      size : "lg"});
                     modalRef.componentInstance.Contenido = solicitationState.motiveReject;
                     modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
                     modalRef.componentInstance.MsgClose = "Cerrar";
@@ -221,7 +235,10 @@ export class ListNotificationsComponent {
 
 
   delete(id : number){
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     modalRef.componentInstance.Encabezado = "Eliminar";
     modalRef.componentInstance.Contenido = "¿Desea Eliminar?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";

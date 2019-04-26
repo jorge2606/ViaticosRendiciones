@@ -4,7 +4,7 @@ import { FileNumberComponent } from './../../modals/file-number/file-number.comp
 import { Component, OnInit } from '@angular/core';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { TransportService } from 'src/app/_services/transport.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { SolicitationSubsidyBaseDto, SolicitationIdDto, AllSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { NgbdModalContent } from 'src/app/modals/modals.component';
@@ -49,6 +49,10 @@ export class AgentComponent implements OnInit {
     textListEmpty : string = "No se encontró ningúna solicitud";
     classListEmpty : string = "alert-primary";
     _acceptMySolicitation: any;
+    ngbModalOptions: NgbModalOptions = {
+      backdrop : 'static',
+      keyboard : false
+    };
 
   constructor(
             private solicitationSubsidyservice : SolicitationSubsidyService,
@@ -116,7 +120,10 @@ export class AgentComponent implements OnInit {
   }
   //MODALS
   openEliminar(solicitud : SolicitationSubsidyBaseDto) {
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     modalRef.componentInstance.Encabezado = "Eliminar";
     modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -140,7 +147,11 @@ export class AgentComponent implements OnInit {
   }
 
     openDetail(id : number){
-      const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+      const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {
+        backdrop : 'static',
+        keyboard : false,
+        size : "lg"}
+      );
       modalRef.componentInstance.idModal = id;
       modalRef.result.then(() => {
         this.getAll(this.filters);
@@ -151,7 +162,11 @@ export class AgentComponent implements OnInit {
     }
 
     openMotiveReject(motiveReject : string){
-      const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
+      const modalRef = this.modalService.open(NgbdModalContent, {
+        backdrop : 'static',
+        keyboard : false,
+        size : "lg"
+      });
       modalRef.componentInstance.Contenido = motiveReject;
       modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
       modalRef.componentInstance.MsgClose = "Cerrar";
@@ -285,7 +300,9 @@ export class AgentComponent implements OnInit {
     }
     
     addFileNumber(solicitationId : number){
-       const modal = this.modalService.open(FileNumberComponent, {size : "sm", centered : true});
+        this.ngbModalOptions.size='sm';
+        this.ngbModalOptions.centered = true;
+        const modal = this.modalService.open(FileNumberComponent, this.ngbModalOptions);
         modal.componentInstance.solicitatioId = solicitationId;
         modal.result.then(() => {
           this.getAll(this.filters);
@@ -296,7 +313,8 @@ export class AgentComponent implements OnInit {
     }
 
     finalizeSubsidy(solicitation : any){
-      const modal = this.modalService.open(NgbdModalContent, {size : "lg", centered : true});
+      const modal = this.modalService.open(NgbdModalContent, {
+        backdrop : 'static', keyboard : false, size : "lg", centered : true});
       modal.componentInstance.Contenido = '¿Desea finalizar esta solicitud de viático?';
       modal.componentInstance.Encabezado = 'finalizar viático';
       modal.componentInstance.GuardaroEliminar = 'Finalizar';

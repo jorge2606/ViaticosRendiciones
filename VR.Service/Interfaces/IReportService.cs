@@ -1,11 +1,12 @@
 ﻿using Service.Common.ServiceResult;
 using System;
+using System.Threading.Tasks;
 
 namespace VR.Service.Interfaces
 {
     public interface IReportService
     {
-        ServiceResult<byte[]> ReportPrint(Guid solicitationId);
+        ServiceResult<byte[]> ReportPrintAsync(Guid solicitationId);
         ServiceResult<byte[]> PrintAccountFor(Guid solicitationId);
     }
 }

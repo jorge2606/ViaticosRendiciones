@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AspNetCore.Reporting;
 using AspNetCore.Reporting.ReportExecutionService;
 using AspNetCore.ReportingServices.ReportProcessing.ReportObjectModel;
@@ -35,7 +36,7 @@ namespace VR.Service.Services
             _context = context;
         }
 
-        public ServiceResult<byte[]> ReportPrint(Guid solicitationId)
+        public ServiceResult<byte[]> ReportPrintAsync(Guid solicitationId)
         {
             var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "VR_REPORT.rdl");
             var files = new FileInfo(newDirectory);
@@ -51,12 +52,20 @@ namespace VR.Service.Services
             var solic = _solicitationSubsidyService.GetByIdSubsidy(solicitationId).Response;
             var destiny = _destinyService.Get_DestiniesProcedure(solicitationId).Response;
             var images = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(solicitationId, solic.UserId).Response;
+            //var TotalLetter = _context.GetLetterNumberTotalSolicitationAsync(solic.Total.ToString(), ",");
             rv.AddDataSource("SolicitationDTODataSet", new List<FindByIdSolicitationSubsidyDto>() { solic });
             rv.AddDataSource("UserDataSet",new List<UserDto>(){solic.User});
             rv.AddDataSource("Destination", destiny);
             rv.AddDataSource("SignSupervisorImage",new List<UrlSignHolograph>(){ images });
             rv.AddDataSource("DestinationDataSet", solic.Destinies);
             rv.AddDataSource("ExpenditureDataSet", solic.Expenditures);
+            rv.AddDataSource("Common", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToString("d")
+                }
+            });
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             var result = rv.Execute(RenderType.Pdf);

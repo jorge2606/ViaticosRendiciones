@@ -4,7 +4,7 @@ import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-ag
 import { AllSupervisorUserAgent } from 'src/app/_models/supervisorUserAgent';
 import { Title } from '@angular/platform-browser';
 import { NgbdModalContent } from 'src/app/modals/modals.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-agents-and-supervisors',
@@ -14,6 +14,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AgentsAndSupervisorsComponent implements OnInit {
 
   agentsSupervisors : AllSupervisorUserAgent[];
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
   
   constructor(
           private agentsAndSupervisors : SupervisorUserAgentService,
@@ -37,7 +41,7 @@ export class AgentsAndSupervisorsComponent implements OnInit {
   }
 
   openEliminar(supervisor : any, agent : any) {
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,this.ngbModalOptions);
     modalRef.componentInstance.Encabezado = "Eliminar";
     modalRef.componentInstance.Contenido = "¿Desea desasignar a " + agent.lastName+", "+agent.firstName + " de " + supervisor.lastName+", "+supervisor.firstName + "?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";

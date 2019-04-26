@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AllSolicitationSubsidyDto, SolicitationSubsidyBaseDto, SolicitationIdDto } from 'src/app/_models/solicitationSubsidy';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { TransportService } from 'src/app/_services/transport.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbdModalContent } from 'src/app/modals/modals.component';
 import { SolicitationSubsidydetailComponent } from '../detail/solicitation-subsidydetail.component';
@@ -28,14 +28,18 @@ export class SupervisorComponent implements OnInit {
    page = 0;
    itemsPerPage : number = 10;
    //
-   solicitationSubsidies : AllSolicitationSubsidyDto[] = [];
-   error = '';
-   transports : any;
-   sizeIcon="fa-lg";
-   daysWeekEnd : number;
-   daysHolidays : number;
-   textListEmpty : string = "No se encontró ningúna solicitud";
-   classListEmpty : string = "alert-primary";
+  solicitationSubsidies : AllSolicitationSubsidyDto[] = [];
+  error = '';
+  transports : any;
+  sizeIcon="fa-lg";
+  daysWeekEnd : number;
+  daysHolidays : number;
+  textListEmpty : string = "No se encontró ningúna solicitud";
+  classListEmpty : string = "alert-primary";
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
    
   constructor(
               private solicitationSubsidyservice : SolicitationSubsidyService,
@@ -100,7 +104,7 @@ export class SupervisorComponent implements OnInit {
 
     //MODALS
     openEliminar(solicitud : SolicitationSubsidyBaseDto) {
-      const modalRef = this.modalService.open(NgbdModalContent);
+      const modalRef = this.modalService.open(NgbdModalContent,this.ngbModalOptions);
       modalRef.componentInstance.Encabezado = "Eliminar";
       modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
       modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -122,7 +126,11 @@ export class SupervisorComponent implements OnInit {
     }
 
     openDetail(id : number){
-      const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+      const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {
+        backdrop : 'static',
+        keyboard : false,
+        size : "lg"}
+      );
       modalRef.componentInstance.idModal = id;
       modalRef.result.then(() => {
         this.getAll(this.filters);
@@ -133,7 +141,11 @@ export class SupervisorComponent implements OnInit {
     }
 
     openDetailAccountFor(id : number){
-      const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
+      const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {
+          backdrop : 'static',
+          keyboard : false,
+          size : "lg"
+      });
       modalRef.componentInstance.idModal = id;
       modalRef.result.then(() => {
         this.getAll(this.filters);
@@ -144,7 +156,11 @@ export class SupervisorComponent implements OnInit {
     }
 
     openMotiveReject(motiveReject : string){
-      const modalRef = this.modalService.open(NgbdModalContent, {size : "sm"});
+      const modalRef = this.modalService.open(NgbdModalContent,{
+        backdrop : 'static',
+        keyboard : false,
+        size : "sm"
+      });
       modalRef.componentInstance.Contenido = motiveReject;
       modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
       modalRef.componentInstance.MsgClose = "Cerrar";

@@ -21,7 +21,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TransportService } from 'src/app/_services/transport.service';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { ProvinceService } from 'src/app/_services/province.service';
-import { NgbModal, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbCalendar, NgbDate, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
@@ -73,6 +73,11 @@ export class CreateSolicitationComponent implements OnInit {
   deleteConceptsWhenIsCommission : boolean;
   currentUserId : number;
   @ViewChild('solicitationSubsidy') solicitationForm : FormGroup;
+
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
       private route : ActivatedRoute,
@@ -346,7 +351,10 @@ export class CreateSolicitationComponent implements OnInit {
      //MODALS
   openAddNewConcept() {
     this.dirtyForm = true;
-    const modalRef = this.modalService.open(AddNewExpenditureComponent);
+    const modalRef = this.modalService.open(AddNewExpenditureComponent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     if (this.model.expenditures === undefined)
     {
       this.model.expenditures = [];
@@ -366,7 +374,8 @@ export class CreateSolicitationComponent implements OnInit {
 
   AddDestiny(){
     this.dirtyForm = true;
-    const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
+    this.ngbModalOptions.size = 'lg';
+    const modalRef = this.modalService.open(AddDestinyComponent,this.ngbModalOptions);
 
     if (this.model.destinies === undefined)
     {

@@ -76,7 +76,10 @@ export class CategoryComponent implements OnInit {
 
   //MODALS
   openEliminar(idCategory: number, name: string, descp: string) {
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     modalRef.componentInstance.Encabezado = "Eliminar";
     modalRef.componentInstance.Contenido = "¿Desea eliminar la Categoría : " + name + " " + descp + "?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";

@@ -7,7 +7,7 @@ import { AddSupervisorComponent } from './../modals/add-supervisor/add-superviso
 import { DistributionBaseDto } from 'src/app/_models/distributions';
 import { Roles, RoleUserDto } from './../_models/roles';
 import { NgbdModalContent } from './../modals/modals.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { User } from './users';
@@ -49,6 +49,10 @@ export class UsersComponent implements OnInit {
   edit: any;
   delete: any;
   page = 0;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
 
   constructor(
@@ -154,7 +158,7 @@ export class UsersComponent implements OnInit {
   }
   //MODALS
   openEliminar(id: number, dni: number, usuario: string) {
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,this.ngbModalOptions);
     modalRef.componentInstance.Encabezado = "Eliminar";
     modalRef.componentInstance.Contenido = "¿Desea eliminar a " + dni + " " + usuario + "?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";
@@ -199,7 +203,8 @@ export class UsersComponent implements OnInit {
   }
 
   AddSupervisor(){
-    const modalRef = this.modalService.open(AddSupervisorComponent,{size :"lg"});
+    this.ngbModalOptions.size='lg';
+    const modalRef = this.modalService.open(AddSupervisorComponent,this.ngbModalOptions);
     modalRef.componentInstance.usersSelected = this.users_check;
     modalRef.componentInstance.allUsers = this.allUsers;
     modalRef.result.then(

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 
 @Component({
@@ -11,6 +11,10 @@ export class NotifyRejectComponent implements OnInit {
   @Input() title : string;
 
   model = {motive : ""}
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor( 
               private modalService: NgbModal,

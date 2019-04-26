@@ -12,7 +12,7 @@
     </div>
     <div class="modal-body">
           <div class="form-row">
-              <label for="">Motivo</label>
+              <label class="classLabel" for="">Motivo</label>
               <textarea 
                 rows="10" 
                 style="height: 100px; resize: none;" 
@@ -24,18 +24,18 @@
           </div>
 
           <div class="form-row">
-              <label for="">Destinos</label>
+              <label class="classLabel" for="">Destinos</label>
               <table class="table table-striped" style="padding :0;">
                 <thead>
                   <tr class="text-center" >
-                      <th scope="col" class="p-0">Fecha</th>
-                      <th scope="col" class="p-0">Destino</th>
-                      <th scope="col" class="p-0">Transporte</th>
-                      <th scope="col" class="p-0 text-right">Dias</th>
-                      <th scope="col" class="p-0 text-right">Dias c/Gastos</th>
-                      <th scope="col" class="p-0 text-right">$/Dia</th>                      
-                      <th scope="col" class="p-0 text-right">Cod. Liq.</th>
-                      <th scope="col" class="p-0 text-right">Subtotal</th>
+                      <th scope="col" class="classTh p-0">Fecha</th>
+                      <th scope="col" class="classTh p-0">Destino</th>
+                      <th scope="col" class="classTh p-0">Transporte</th>
+                      <th scope="col" class="classTh p-0 text-right">Dias</th>
+                      <th scope="col" class="classTh p-0 text-right">Dias c/Gastos</th>
+                      <th scope="col" class="classTh p-0 text-right">$/Dia</th>                      
+                      <th scope="col" class="classTh p-0 text-right">Cod. Liq.</th>
+                      <th scope="col" class="classTh p-0 text-right">Subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -74,14 +74,14 @@
           </div>  
 
           <div class="form-row">
-            <label for="">Gastos</label>
+            <label class="classLabel" for="">Gastos</label>
             <table class="table table-striped">
               <thead>
                 <tr class="form-row">
-                  <th class="col-2" style="padding : 0px;">Concepto</th>
-                  <th class="col" style="padding : 0px;">Descripción</th>
-                  <th class="col-2 text-right" style="padding : 0px;">Importe</th>
-                  <th class="col-2" *ngIf="model.isRefund"></th>
+                  <th class="col-2 classTh" style="padding : 0px;">Concepto</th>
+                  <th class="col classTh" style="padding : 0px;">Descripción</th>
+                  <th class="col-2 text-right classTh" style="padding : 0px;">Importe</th>
+                  <th class="col-2 classTh" *ngIf="model.isRefund"></th>
                 </tr>
               </thead>
               <tbody>
@@ -108,6 +108,9 @@
                   </td>
                 </tr>
               </tbody>
+              <div *ngIf="model.expenditures.length == 0" class="alert alert-primary text-center p-0">
+                Esta solicitud no posee conceptos de gasto.
+              </div>
             </table>
         </div>
           
@@ -116,7 +119,7 @@
     <div class="modal-body">
         <div class="form-row">
             <div class="col-5 form-inline ml-auto">
-                <label for="" class="col-2">Total</label>
+                <label for="" class="col-2 classLabel">Total</label>
                 <input type="text" disabled value="{{model.total | currency}}" 
                 class="col form-control text-right small">
             </div>

@@ -13,7 +13,7 @@ import { codeLiquidationBaseDto } from 'src/app/_models/codeLiquidation';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { DestinyService } from 'src/app/_services/destiny.service';
 import { ProvinceService } from 'src/app/_services/province.service';
 import { CityService } from 'src/app/_services/city.service';
@@ -75,6 +75,10 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
   baseUrl = environment.apiUrl; 
   image : ImageDto;
   submit : boolean = true;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
       private activateRouter : ActivatedRoute,
@@ -345,7 +349,7 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
 
      //MODALS
   openAddNewConcept() {
-    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent);
+    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent,this.ngbModalOptions);
     if (this.model.expenditures === undefined)
     {
       this.model.expenditures = [];
@@ -365,7 +369,8 @@ export class AccountForNormallyFinalizationComponent implements OnInit {
 
 
   AddDestiny(){
-    const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
+    this.ngbModalOptions.size='lg';
+    const modalRef = this.modalService.open(AddDestinyComponent,this.ngbModalOptions);
 
     if (this.model.destinies === undefined)
     {

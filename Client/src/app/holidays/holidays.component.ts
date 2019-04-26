@@ -101,7 +101,10 @@ export class HolidaysComponent implements OnInit {
 
     //MODALS
     openEliminar(holiday : HolidayBaseDto) {
-      const modalRef = this.modalService.open(NgbdModalContent);
+      const modalRef = this.modalService.open(NgbdModalContent,{
+        backdrop : 'static',
+        keyboard : false
+      });
       modalRef.componentInstance.Encabezado = "Eliminar";
       let dateToShow = holiday.date;
 

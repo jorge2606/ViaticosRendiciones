@@ -8,7 +8,7 @@ import { NotificationsService } from './../_services/notifications.service';
 import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { MessBetweenCompService } from '../_services/mess-between-comp.service';
 import { NgbdModalContent } from '../modals/modals.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ListNotificationsComponent } from '../modals/list-notifications/list-notifications.component';
 import { SolicitationSubsidydetailComponent } from '../solicitation-subsidy/detail/solicitation-subsidydetail.component';
 import { Router } from '@angular/router';
@@ -54,6 +54,10 @@ export class NavarComponent implements OnInit {
   show : boolean = true;
   showTabAudits: any;
   currentYear : number;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(private notificationServices : NotificationsService, 
               private authService : AuthenticationService,
@@ -136,7 +140,10 @@ export class NavarComponent implements OnInit {
 
   
   logout(){
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     modalRef.componentInstance.Encabezado = "Cerrar Sesión";
     modalRef.componentInstance.Contenido = "¿Desea salir de la aplicación?";
     modalRef.componentInstance.GuardaroEliminar = "Salir";
@@ -163,7 +170,10 @@ export class NavarComponent implements OnInit {
                       this.notificationServices.notificationRidden(notificationridden).subscribe(
                         () =>{
                             this.retriveNotifications();
-                            const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {size : "lg"});
+                            const modalRef = this.modalService.open(SolicitationSubsidydetailComponent, {
+                              backdrop : 'static',
+                              keyboard : false,
+                              size : "lg"});
                             modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
                             modalRef.result.then(() => { 
                               console.log(this.router.url);
@@ -178,7 +188,10 @@ export class NavarComponent implements OnInit {
                     this.notificationServices.notificationRidden(notificationridden).subscribe(
                       () =>{
                             this.retriveNotifications();
-                            const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {size : "lg"});
+                            const modalRef = this.modalService.open(DetailAccountForSolicitationComponent, {
+                              backdrop : 'static',
+                              keyboard : false,
+                              size : "lg"});
                             modalRef.componentInstance.idModal = notificationridden.solicitationSubsidyId;
                             modalRef.result.then(() => { 
                               this.router.navigate([this.router.url])
@@ -200,7 +213,11 @@ export class NavarComponent implements OnInit {
                 this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
-                      const modalRef = this.modalService.open(NgbdModalContent, {size : "lg"});
+                      const modalRef = this.modalService.open(NgbdModalContent, {
+                        backdrop : 'static',
+                        keyboard : false,
+                        size : "lg"
+                      });
                       modalRef.componentInstance.Contenido = solicitationState.motiveReject;
                       modalRef.componentInstance.Encabezado = "Motivo de Rechazo";
                       modalRef.componentInstance.MsgClose = "Cerrar";
@@ -295,7 +312,7 @@ export class NavarComponent implements OnInit {
   }
 
   seeAllNotification() {
-    const modalRef = this.modalService.open(ListNotificationsComponent);
+    const modalRef = this.modalService.open(ListNotificationsComponent,this.ngbModalOptions);
     modalRef.componentInstance.Encabezado = "Todas las Notificaciones";
     modalRef.componentInstance.button = "Entendido";
     modalRef.componentInstance.ButtonHidden = false;
@@ -308,7 +325,10 @@ export class NavarComponent implements OnInit {
   
 
   delete(id : number){
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(NgbdModalContent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     modalRef.componentInstance.Encabezado = "Eliminar";
     modalRef.componentInstance.Contenido = "¿Desea Eliminar?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";

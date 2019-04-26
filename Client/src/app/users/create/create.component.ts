@@ -142,7 +142,7 @@ export class CreateuserComponent implements OnInit {
               ((rol.name == this.claimService.rolSupervisor) && agente) )
             ){
               this.supervisor1 = false;
-              this.supervisor2 = true;
+              this.supervisor2 = false;
         }else if(!ministro && !admin && !supervisor && 
               !(rol.name == this.claimService.rolMinistro && !valueRol == true) && 
               !(rol.name == this.claimService.rolAdmin && !valueRol == true) && 
@@ -329,7 +329,11 @@ export class CreateuserComponent implements OnInit {
   }
 
   hasUnsavedData(){
-    return this.userForm.dirty && !this.userForm.submitted;
+    if (!this.userForm){
+      return false;
+    }else{
+      return this.userForm.dirty && !this.userForm.submitted;
+    }
   }
 
 }

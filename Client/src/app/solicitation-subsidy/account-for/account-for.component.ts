@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Expenditure, CreateSolicitationSubsidyDto, ImageDto, CreateAccountForSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { FileUploader } from 'ng2-file-upload';
 import { AllCategoryDto } from 'src/app/_models/category';
@@ -76,7 +76,11 @@ export class AccountForComponent implements OnInit {
   baseUrl = environment.apiUrl; 
   image : ImageDto;
   submit : boolean = true;
-
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
+  
   constructor(
       private activateRouter : ActivatedRoute,
       private expenditureService : ExpenditureService,
@@ -345,7 +349,7 @@ export class AccountForComponent implements OnInit {
 
      //MODALS
   openAddNewConcept() {
-    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent);
+    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent,this.ngbModalOptions);
     if (this.model.expenditures === undefined)
     {
       this.model.expenditures = [];
@@ -365,7 +369,8 @@ export class AccountForComponent implements OnInit {
 
 
   AddDestiny(){
-    const modalRef = this.modalService.open(AddDestinyComponent,{size : 'lg'});
+    this.ngbModalOptions.size = 'lg';
+    const modalRef = this.modalService.open(AddDestinyComponent,this.ngbModalOptions);
 
     if (this.model.destinies === undefined)
     {

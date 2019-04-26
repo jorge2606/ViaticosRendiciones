@@ -4,7 +4,7 @@ import { SolicitationSubsidyService } from './../../_services/solicitation-subsi
 import { SolicitationSubsidyDetail, SolicitationIdDto } from './../../_models/solicitationSubsidy';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
 import { ToastrService } from 'ngx-toastr';
@@ -28,6 +28,10 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   supscription : any;
   currentUrl : string;
   sizeIcon="fa-lg";
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
     private activatedRoute : ActivatedRoute,
@@ -42,6 +46,7 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.model.expenditures = [];
     this.activatedRoute.params.subscribe(
       x => {
         this.id = x.id;
@@ -110,7 +115,8 @@ export class SolicitationSubsidydetailComponent implements OnInit {
   }
 
   AddMotive(title : string){
-    const modalRef = this.modalService.open(NotifyRejectComponent, {size : "lg"});
+    this.ngbModalOptions.size = 'lg';
+    const modalRef = this.modalService.open(NotifyRejectComponent, this.ngbModalOptions);
     modalRef.componentInstance.title = title;
     modalRef.result.then(() => {
       this.reject();

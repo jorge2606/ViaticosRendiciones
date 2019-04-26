@@ -422,7 +422,7 @@ namespace VR.Web.Controllers
         [AllowAnonymous]
         public IActionResult Report(Guid solId)
         {
-            var result = _reportService.ReportPrint(solId);
+            var result = _reportService.ReportPrintAsync(solId);
             if (!result.IsSuccess)
             {
                 return BadRequest();

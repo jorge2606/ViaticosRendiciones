@@ -6,7 +6,7 @@ import { AddExpenditureRepaymentComponent } from './../../modals/add-expenditure
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
-import { NgbModal, NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDate, NgbCalendar, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AllCategoryDto } from 'src/app/_models/category';
 import { AllTransportDto } from 'src/app/_models/transport';
 import { Expenditure, CreateSolicitationSubsidyDto } from 'src/app/_models/solicitationSubsidy';
@@ -74,7 +74,10 @@ export class RepaymentComponent implements OnInit {
   dirtyForm : boolean;
   submmited : boolean = false;
   image : ImageDto;
-  
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
   @ViewChild('solicitationSubsidy') formRepayment : FormGroup;
 
   
@@ -311,7 +314,10 @@ export class RepaymentComponent implements OnInit {
 
      //MODALS
   openAddNewConcept() {
-    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent);
+    const modalRef = this.modalService.open(AddExpenditureRepaymentComponent,{
+      backdrop : 'static',
+      keyboard : false
+    });
     if (this.model.expenditures === undefined)
     {
       this.model.expenditures = [];
@@ -331,7 +337,8 @@ export class RepaymentComponent implements OnInit {
 
 
   AddDestiny(){
-    const modalRef = this.modalService.open(AddDestinyRepaymentComponent,{size : 'lg'});
+    this.ngbModalOptions.size='lg';
+    const modalRef = this.modalService.open(AddDestinyRepaymentComponent,this.ngbModalOptions);
 
     if (this.model.destinies === undefined)
     {

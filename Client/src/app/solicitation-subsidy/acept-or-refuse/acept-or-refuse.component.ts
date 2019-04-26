@@ -4,7 +4,7 @@ import { SolicitationIdDto } from 'src/app/_models/solicitationSubsidy';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-reject.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CrystalLightbox } from 'ngx-crystal-gallery';
 import { ClaimsService } from 'src/app/_services/claims.service';
@@ -30,6 +30,10 @@ export class AceptOrRefuseComponent implements OnInit {
   permissions: any;
   moderateSolicitation: any;
   moderateRefund: any;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
     constructor(
         private solicitationSubsidyService : SolicitationSubsidyService,
@@ -98,7 +102,8 @@ export class AceptOrRefuseComponent implements OnInit {
   }
 
   AddMotive(opt : string, title : string){
-    const modalRef = this.modalService.open(NotifyRejectComponent, {size : "lg"});
+    this.ngbModalOptions.size = 'lg';
+    const modalRef = this.modalService.open(NotifyRejectComponent,this.ngbModalOptions);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.class = opt;
     modalRef.result.then(() => {

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SolicitationSubsidyDetail, SolicitationIdDto } from 'src/app/_models/solicitationSubsidy';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { GenericsCommunicationsComponentsService } from 'src/app/_services/generics-communications-components.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { NotifyRejectComponent } from 'src/app/modals/notify-reject/notify-reject.component';
@@ -28,6 +28,10 @@ export class DetailAccountForSolicitationComponent implements OnInit {
   supscription : any;
   currentUrl : string;
   sizeIcon="fa-lg";
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
     private activatedRoute : ActivatedRoute,
@@ -42,6 +46,7 @@ export class DetailAccountForSolicitationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.model.expenditures = [];
     this.activatedRoute.params.subscribe(
       x => {
         this.id = x.id;
@@ -110,7 +115,8 @@ export class DetailAccountForSolicitationComponent implements OnInit {
   }
 
   AddMotive(title : string){
-    const modalRef = this.modalService.open(NotifyRejectComponent, {size : "lg"});
+    this.ngbModalOptions.size = 'lg';
+    const modalRef = this.modalService.open(NotifyRejectComponent, this.ngbModalOptions);
     modalRef.componentInstance.title = title;
     modalRef.result.then(() => {
       this.reject();
@@ -121,9 +127,9 @@ export class DetailAccountForSolicitationComponent implements OnInit {
   }
 
   getMotiveFromModal(){
-    this.supscription = this.genericsCommunicationsComponentsService.getMessage().subscribe(
-      message => this.motive = message.motive
-      ,
+    this.supscription = this.genericsCommunicationsComponentsService.getMessage()
+    .subscribe(
+      message => this.motive = message.motive,
       error => console.log(error)
     );
   }

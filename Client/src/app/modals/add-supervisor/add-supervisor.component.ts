@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AspNetUsersRolesService } from './../../_services/asp-net-users-roles.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/_models/user';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserRoles } from 'src/app/_models/userRoles';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 import { SupervisorUserAgentBaseDto } from 'src/app/_models/supervisorUserAgent';
@@ -20,6 +20,10 @@ export class AddSupervisorComponent implements OnInit {
   supervisorSelected : User[] = [];
   supervisorAndAgents : SupervisorUserAgentBaseDto[] = [];
   msj = '';
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
     public activeModal: NgbActiveModal,

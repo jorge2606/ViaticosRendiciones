@@ -6,10 +6,12 @@ using VR.Data.Model;
 using VR.Web.Helpers;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Snickler.EFCore;
 using System.Data.Common;
+using System.Text;
 using Service.Common.ServiceResult;
 using VR.Data.Model.ModelStoreProcedure;
 
@@ -189,6 +191,24 @@ namespace VR.Data
 
             return resultFull;
         }
+        
+        public string GetLetterNumberTotalSolicitationAsync(string total,string decimalSepartor)
+        {
+            var resultFull = "";
+            DbParameter outputParam = null;
+            this.LoadStoredProc("dbo.getLetterNumberTotalSolicitation")
+                .WithSqlParam("@Total", total)
+                .WithSqlParam("@DecimalSepartor",decimalSepartor)
+                .WithSqlParam("@LetterNumber", (dbParam) =>
+                {
+                    dbParam.Direction = ParameterDirection.Output;
+                    dbParam.DbType = DbType.String;
+                    outputParam = dbParam;
+                }).ExecuteStoredNonQuery();
+
+            var outputParamValue = (string)outputParam.Value;
+            return resultFull;
+        }
 
 
 
@@ -199,7 +219,7 @@ namespace VR.Data
                 .WithSqlParam("@SolicitationId", solicitation)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull =handler.ReadToValue<Guid>()?? Guid.Empty;
+                    resultFull = handler.ReadToValue<Guid>()?? Guid.Empty;
                     handler.NextResult();
                 });
 

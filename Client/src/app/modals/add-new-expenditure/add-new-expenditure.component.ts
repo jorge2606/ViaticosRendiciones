@@ -1,7 +1,7 @@
 import { SolicitationSubsidyService } from 'src/app/_services/solicitation-subsidy.service';
 import { AllExpenditureDto } from '../../_models/expenditureType';
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Expenditure } from 'src/app/_models/solicitationSubsidy';
 import { ExpenditureService } from 'src/app/_services/expenditure.service';
 
@@ -19,6 +19,10 @@ export class AddNewExpenditureComponent implements OnInit {
   msgExist : string;
   selectedExpenditure : number;
   @Input() keyRandom : string;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
           public activeModal: NgbActiveModal,

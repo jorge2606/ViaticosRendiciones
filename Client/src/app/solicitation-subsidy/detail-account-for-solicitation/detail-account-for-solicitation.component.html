@@ -11,7 +11,7 @@
   </div>
   <div class="modal-body">
         <div class="form-row">
-            <label for="">Motivo</label>
+            <label class="classLabel" for="">Motivo</label>
             <textarea 
               rows="10" 
               style="height: 100px; resize: none;" 
@@ -23,14 +23,14 @@
         </div>
 
         <div class="form-row">
-            <label for="">Gastos</label>
+            <label class="classLabel" for="">Gastos</label>
             <table class="table table-striped">
               <thead>
                 <tr class="form-row">
-                  <th class="col-2">Concepto</th>
-                  <th class="col">Descripción</th>
-                  <th class="col-2 text-right">Importe</th>
-                  <th class="col-2 text-center">Comprobante</th>
+                  <th class="col-2 classTh">Concepto</th>
+                  <th class="col classTh">Descripción</th>
+                  <th class="col-2 text-right classTh">Importe</th>
+                  <th class="col-2 text-center classTh">Comprobante</th>
                 </tr>
               </thead>
               <tbody>
@@ -58,22 +58,24 @@
                   </td>
                 </tr>
               </tbody>
+              <div *ngIf="model.expenditures.length == 0" class="alert alert-primary text-center p-0">
+                Esta solicitud no posee conceptos de gasto.
+              </div>
             </table>
         </div>
-
         <div class="form-row">
-            <label for="">Destinos</label>
+            <label class="classLabel" for="">Destinos</label>
             <table class="table table-striped" style="padding :0;">
               <thead>
                 <tr class="text-center" >
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Destino</th>
-                    <th scope="col">Transporte</th>
-                    <th scope="col">Dias</th>
-                    <th scope="col" class="text-left">Dias c/Gastos</th>
-                    <th scope="col">$/Dia</th>                      
-                    <th scope="col">Cod. Liq.</th>
-                    <th scope="col">Subtotal</th>
+                    <th scope="col" class="classTh">Fecha</th>
+                    <th scope="col" class="classTh">Destino</th>
+                    <th scope="col" class="classTh">Transporte</th>
+                    <th scope="col" class="classTh">Dias</th>
+                    <th scope="col" class="text-left classTh">Dias c/Gastos</th>
+                    <th scope="col" class="classTh">$/Dia</th>                      
+                    <th scope="col" class="classTh">Cod. Liq.</th>
+                    <th scope="col" class="classTh">Subtotal</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,10 +117,10 @@
 
   <div class="modal-body">
       <div class="form-row">
-          <div class="col-5 form-inline ml-auto">
-              <label for="" class="col-2">Total</label>
+          <div class="form-row form-inline ml-auto">
+              <label for="" class="form-col-5 classLabel">Total</label>
               <input type="text" disabled value="{{model.total | currency}}" 
-              class="col form-control text-right small">
+              class="form-col-3 form-control text-right small">
           </div>
         </div>
   </div>

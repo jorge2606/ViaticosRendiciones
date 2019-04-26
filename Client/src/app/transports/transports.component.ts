@@ -3,7 +3,7 @@ import { CreateTransportDto } from './../_models/transport';
 import { TransportService } from './../_services/transport.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbdModalContent } from '../modals/modals.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { ClaimsService } from '../_services/claims.service';
@@ -25,6 +25,10 @@ export class TransportsComponent implements OnInit {
   roles: any;
   transportDelete: any;
   transportEdit: any;
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false
+  };
 
   constructor(
           private transportService : TransportService, 
@@ -70,7 +74,7 @@ export class TransportsComponent implements OnInit {
 
     //MODALS
     openEliminar(id: number, name: string, descp: string) {
-      const modalRef = this.modalService.open(NgbdModalContent);
+      const modalRef = this.modalService.open(NgbdModalContent,this.ngbModalOptions);
       modalRef.componentInstance.Encabezado = "Eliminar";
       modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + name + " " + descp + "?";
       modalRef.componentInstance.GuardaroEliminar = "Eliminar";
