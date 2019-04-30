@@ -1056,37 +1056,37 @@ namespace VR.Service.Services
                 return notification;
             }
 
-            if (rolUserAgent != null && rolUserSupervisor != null)
-            {
-                if (supervisor.Supervisors == null)
-                {
-                    notification.AddError("error", "Usted no tine asignado : Supervisor de 1ra. Instancia.");
-                    return notification;
-                }
+            //if (rolUserAgent != null && rolUserSupervisor != null)
+            //{
+            //    if (supervisor.Supervisors == null)
+            //    {
+            //        notification.AddError("error", "Usted no tine asignado : Supervisor de 1ra. Instancia.");
+            //        return notification;
+            //    }
 
-            }
-            if (rolUserAgent != null)
-            {
-                if (supervisor.Supervisors == null || supervisor.Supervisors2 == null)
-                {
-                    var bothSup = (supervisor.Supervisors == null && supervisor.Supervisors2 == null)
-                        ? "Supervisor de 1ra. y 2da. Instancia" : "";
-                    var msj = supervisor.Supervisors == null ? "Supervisor de 1ra. Instancia" : "Supervisor de 2da. Instancia.";
-                    notification.AddError("error", "Usted no tine asignado : " + ((bothSup == "") ? msj : bothSup));
-                    return notification;
-                }
+            //}
+            //if (rolUserAgent != null)
+            //{
+            //    if (supervisor.Supervisors == null || supervisor.Supervisors2 == null)
+            //    {
+            //        var bothSup = (supervisor.Supervisors == null && supervisor.Supervisors2 == null)
+            //            ? "Supervisor de 1ra. y 2da. Instancia" : "";
+            //        var msj = supervisor.Supervisors == null ? "Supervisor de 1ra. Instancia" : "Supervisor de 2da. Instancia.";
+            //        notification.AddError("error", "Usted no tine asignado : " + ((bothSup == "") ? msj : bothSup));
+            //        return notification;
+            //    }
 
-            }
+            //}
 
-            if (rolUserSupervisor != null)
-            {
-                if (supervisor.Supervisors == null)
-                {
-                    notification.AddError("error", "Usted no tine asignado : Supervisor de 1ra. Instancia.");
-                    return notification;
-                }
+            //if (rolUserSupervisor != null)
+            //{
+            //    if (supervisor.Supervisors == null)
+            //    {
+            //        notification.AddError("error", "Usted no tine asignado : Supervisor de 1ra. Instancia.");
+            //        return notification;
+            //    }
 
-            }
+            //}
             
             solicitationDto.Supervisor = supervisor.Supervisors;
 
@@ -1153,7 +1153,7 @@ namespace VR.Service.Services
             var supervisorsFirstName = solicitationDto.Supervisor.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -1265,7 +1265,7 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -1373,13 +1373,13 @@ namespace VR.Service.Services
                 return notification;
             }
             //si agente
-            if (rolAgent != null)
+            if (rolAgent != null || rolSupervisor != null)
             {
 
                 if (stateSolicitationThisUser.StateId == State.Sent)
                 {
 
-                    stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Aprobado_1ra_Instancia);
+                   
                     //le asignamos el supervisor 1
                     stateSolicitationThisUser.SupervisorId = solicitationDto.SupervisorId;
 
@@ -1388,16 +1388,25 @@ namespace VR.Service.Services
                         .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
                         .FirstOrDefault(x => x.AgentId == solicitation.UserId);
 
-                    solicitationDto.Supervisor = supervisor.Supervisors2;
-
-                    //le reenviamos al supervisor de 2da instancia
-                    var resultEmail = await SendEmailAsync(solicitationDto);
-
-                    if (!resultEmail.IsSuccess)
+                    if (supervisor.Supervisors2 != null)
                     {
-                        notification.AddError("Error", "El Email no pudo ser enviado.");
-                        return notification;
+                        stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Aprobado_1ra_Instancia);
+                        solicitationDto.Supervisor = supervisor.Supervisors2;
+
+                        //le reenviamos al supervisor de 2da instancia
+                        var resultEmail = await SendEmailAsync(solicitationDto);
+
+                        if (!resultEmail.IsSuccess)
+                        {
+                            notification.AddError("Error", "El Email no pudo ser enviado.");
+                            return notification;
+                        }
                     }
+                    else
+                    {
+                        stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
+                    }
+
                 }
                 //verifico que el supervisor que va a aprobar no sea el mismo
                 else if(stateSolicitationThisUser.StateId == State.Aprobado_1ra_Instancia 
@@ -1414,21 +1423,9 @@ namespace VR.Service.Services
                     notification.AddError("Error", "Esta Solicitud ya está "+ stateSolicitationThisUser.State.Description);
                     return notification;
                 }
-            }else if (rolSupervisor != null)
-            {
-                if (stateSolicitationThisUser.StateId != State.Sent)
-                {
-                    notification.AddError("Error", "Esta Solicitud ya está " + stateSolicitationThisUser.State.Description);
-                    return notification;
-                }
-            }
-            else
-            {
-                //si no es Agente - Por Ej. Supervisor
-                stateSolicitationThisUser.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Accepted);
             }
 
-                _dataContext.SolicitationStates.Update(stateSolicitationThisUser);
+            _dataContext.SolicitationStates.Update(stateSolicitationThisUser);
 
             _notificationService.Create(
                 new CreateNotificationDto()
@@ -1542,22 +1539,26 @@ namespace VR.Service.Services
                 //si finalizo y ademas lo rinde (lo envia) viatico
                 if (stateSolicitationThisUser.StateId == State.Accounted)
                 {
-                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Rendicion_Aprobada_1ra_Instancia);
+                    
 
                     var supervisor = _dataContext.SupervisorUserAgents
                         .Include(x => x.Supervisors2)
                         .Select(x => _mapper.Map<SupervisorUserAgentBaseDto>(x))
                         .FirstOrDefault(x => x.AgentId == solicitation.UserId);
-
-                    solicitationDto.Supervisor = supervisor.Supervisors2;
-
-                    //le reenviamos al supervisor de 2da instancia
-                    var resultEmail = await SendEmailAsync(solicitationDto);
-
-                    if (!resultEmail.IsSuccess)
+                    solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.AccountForAcepted);
+                    if (supervisor.Supervisors2 != null)
                     {
-                        notification.AddError("Error", "El Email no pudo ser enviado.");
-                        return notification;
+                        solicitationState.State = _dataContext.States.FirstOrDefault(x => x.Id == State.Rendicion_Aprobada_1ra_Instancia);
+                        solicitationDto.Supervisor = supervisor.Supervisors2;
+
+                        //le reenviamos al supervisor de 2da instancia
+                        var resultEmail = await SendEmailAsync(solicitationDto);
+
+                        if (!resultEmail.IsSuccess)
+                        {
+                            notification.AddError("Error", "El Email no pudo ser enviado.");
+                            return notification;
+                        }
                     }
                 }
                 else if (stateSolicitationThisUser.StateId == State.Rendicion_Aprobada_1ra_Instancia
@@ -1855,8 +1856,8 @@ namespace VR.Service.Services
                     (
                         new UrlSignHolograph()
                         {
-                            UrlSupervisorId = _iFileService.UrlSignHolograph(stateSolicitationThisUser.SupervisorId).Response,
-                            UrlSupervisorId2 = _iFileService.UrlSignHolograph(stateSolicitationThisUser.SupervisorId2).Response,
+                            UrlSupervisorId = (stateSolicitationThisUser.SupervisorId.Equals(Guid.Empty)) ? null :_iFileService.UrlSignHolograph(stateSolicitationThisUser.SupervisorId).Response,
+                            UrlSupervisorId2 = (stateSolicitationThisUser.SupervisorId2.Equals(Guid.Empty)) ? null : _iFileService.UrlSignHolograph(stateSolicitationThisUser.SupervisorId2).Response,
                             NameSupervisor1 = (nameSupervisor1 == null) ? "" : nameSupervisor1.FirstName,
                             SurnameSupervisor1 = (surnameSupervisor1 == null) ? "" : surnameSupervisor1.LastName,
                             NameSupervisor2 = (nameSupervisor2 == null) ? "" : nameSupervisor2.FirstName,

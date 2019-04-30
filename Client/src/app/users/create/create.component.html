@@ -186,17 +186,29 @@
                             #supervisorAgentId="ngModel" 
                             name="supervisorAgentId" 
                             [hidden]="supervisor1"
+                            (change)="selectedSupervisor()"
                             [(ngModel)]="model.supervisorAgentId"
                             [ngClass]="{ 'is-invalid': (supervisorAgentId.dirty || userForm.submitted) && supervisorAgentId.invalid,
                             'is-valid' : supervisorAgentId.dirty && supervisorAgentId.valid }">
                             <option class="form-control" 
-                                *ngIf="selectedSupervisorAgentId == model.supervisorAgentId" 
-                                [ngValue]="selectedSupervisorAgentId" disabled>
+                                *ngIf="selectedSupervisorAgentId == model.supervisorAgentId"
+                                [ngValue]="selectedSupervisorAgentId">
+                                Seleccione un Supervisor de 1ra Instancia...
+                            </option>
+                            <option class="form-control" 
+                                *ngIf="selectedSupervisorAgentModifyId == model.supervisorAgentId"
+                                [ngValue]="selectedSupervisorAgentModifyId">
+                                Seleccione un Supervisor de 1ra Instancia...
+                            </option>
+                            <option class="form-control" 
+                                *ngIf="(selectedSupervisorAgentModifyId != model.supervisorAgentId) && (selectedSupervisorAgentModifyId != model.selectedSupervisorAgentId)"
+                                [ngValue]="selectedSupervisorAgentModifyId">
                                 Seleccione un Supervisor de 1ra Instancia...
                             </option>
                             <option class="form-control" 
                                 *ngFor="let sup of allSupervisors" 
-                                value="{{sup.supervisors.id}}">{{sup.supervisors.lastName}}, {{sup.supervisors.firstName}} - {{sup.roleName}}</option>
+                                value="{{sup.supervisors.id}}">{{sup.supervisors.lastName}}, {{sup.supervisors.firstName}} - {{sup.roleName}}
+                            </option>
                         </select>
                     </div>                    
                     <div class="form-group mb-1">
@@ -208,14 +220,28 @@
                                 [(ngModel)]="model.supervisorAgentId2"
                                 [ngClass]="{ 'is-invalid': (supervisorAgentId2.dirty || userForm.submitted) && supervisorAgentId2.invalid,
                                 'is-valid' : supervisorAgentId2.dirty && supervisorAgentId2.valid }">
-                                <option class="form-control" 
-                                    *ngIf="selectedSupervisorAgentId2 == model.supervisorAgentId2" 
-                                    [ngValue]="selectedSupervisorAgentId2" disabled>
+                                <option 
+                                    class="form-control" 
+                                    *ngIf="selectedSupervisorAgentModifyId2 == model.supervisorAgentId2"
+                                    [ngValue]="selectedSupervisorAgentModifyId2">
+                                    Seleccione un Supervisor de 2da Instancia...
+                                </option>
+                                <option 
+                                    class="form-control" 
+                                    *ngIf="selectedSupervisorAgentId2 == model.supervisorAgentId2"
+                                    [ngValue]="selectedSupervisorAgentId2">
+                                    Seleccione un Supervisor de 2da Instancia...
+                                </option>
+                                <option 
+                                    class="form-control" 
+                                    *ngIf="(selectedSupervisorAgentId2 != model.supervisorAgentId2) && (selectedSupervisorAgentModifyId2 != model.supervisorAgentId2)"
+                                    [ngValue]="selectedSupervisorAgentId2">
                                     Seleccione un Supervisor de 2da Instancia...
                                 </option>
                                 <option class="form-control" 
                                     *ngFor="let sup of allSupervisors" 
-                                    value="{{sup.supervisors.id}}">{{sup.supervisors.lastName}}, {{sup.supervisors.firstName}} - {{sup.roleName}}</option>
+                                    value="{{sup.supervisors.id}}">{{sup.supervisors.lastName}}, {{sup.supervisors.firstName}} - {{sup.roleName}}
+                                </option>
                             </select>
                     </div>
 
@@ -247,7 +273,7 @@
         <ng-template ngbTabTitle>Firma Hológrafa</ng-template>
         <ng-template ngbTabContent>
             <div class="container col-md-4">
-                <app-holograph-sign></app-holograph-sign>
+                <app-holograph-sign [supervisorId]="id"></app-holograph-sign>
             </div>
         </ng-template>
     </ngb-tab>

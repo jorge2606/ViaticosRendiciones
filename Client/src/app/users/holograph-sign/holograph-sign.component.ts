@@ -42,7 +42,7 @@ export class HolographSignComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.titleService.setTitle('Crear Usuario - Firma Hológrafa');
+      this.titleService.setTitle('Firma Hológrafa');
       if(!this.userIdInput){
         this.idUser = this.authService.userId('id');
       }else{

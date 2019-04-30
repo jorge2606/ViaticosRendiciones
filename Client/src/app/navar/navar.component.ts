@@ -231,7 +231,14 @@ export class NavarComponent implements OnInit {
                     } 
                 )
               }
-              
+              if (solicitationState.description === 'Rendido'){
+                this.notificationServices.notificationRidden(notificationridden)
+                .subscribe(
+                  () =>{
+                      this.retriveNotifications();
+                  });
+              }
+
               if (solicitationState.description === 'Rendición Rechazada'){
                 this.retriveNotifications();
                 this.router.navigateByUrl('SolicitationSubsidy/agent/accountFor/'+notificationridden.solicitationSubsidyId);
@@ -241,7 +248,12 @@ export class NavarComponent implements OnInit {
                 this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
-                      this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
+                      if (!solicitationState.isRefund){
+                        this.router.navigateByUrl('SolicitationSubsidy/agent/print/'+notificationridden.solicitationSubsidyId);
+                      }else{
+                        this.router.navigateByUrl('SolicitationSubsidy/agent/printAccountFor/'+notificationridden.solicitationSubsidyId);
+                      }
+                      
                     } 
                 )
               }else if (solicitationState.description == 'Aceptado' && solicitationState.userId != this.authService.userId('id'))
@@ -249,7 +261,12 @@ export class NavarComponent implements OnInit {
                 this.notificationServices.notificationRidden(notificationridden).subscribe(
                   () =>{
                       this.retriveNotifications();
-                      this.toastrService.info('Esta solicitud ya fue aprobada');
+                      if (!solicitationState.isRefund){
+                        this.toastrService.info('Este Reintegro ya fue aprobado');  
+                      }else{
+                        this.toastrService.info('Esta solicitud ya fue aprobada');
+                      }
+                      
                     } 
                 )
               }

@@ -50,6 +50,11 @@ namespace VR.Service.Services
             }
             var rv = new LocalReport(newDirectory);
             var solic = _solicitationSubsidyService.GetByIdSubsidy(solicitationId).Response;
+            if (solic == null)
+            {
+                notif.AddError("Error","La solicitud no existe");
+                return notif;
+            }
             var destiny = _destinyService.Get_DestiniesProcedure(solicitationId).Response;
             var images = _solicitationSubsidyService.SolicitationApprovedBySupervisorId(solicitationId, solic.UserId).Response;
             //var TotalLetter = _context.GetLetterNumberTotalSolicitationAsync(solic.Total.ToString(), ",");
@@ -86,6 +91,11 @@ namespace VR.Service.Services
                 return notif;
             }
             var solic = _solicitationSubsidyService.GetByIdSubsidy(solicitationId).Response;
+            if (solic == null)
+            {
+                notif.AddError("Error","La solicitud no existe.");
+                return notif;
+            }
             var rv = new LocalReport(newDirectory);
             rv.AddDataSource("UserDataSet", new List<UserDto>() { solic.User });
             rv.AddDataSource("OrganismDataSet", new List<OrganismBaseDto>() { new OrganismBaseDto()

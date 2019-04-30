@@ -6,6 +6,7 @@ using VR.Dto;
 using VR.Dto.User;
 using VR.Web.Helpers;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace VR.Service.Interfaces
 {
@@ -20,7 +21,7 @@ namespace VR.Service.Interfaces
         Task<ServiceResult<UserDto>> Register(SaveUserDto model);
         Task UpdateUserRole(Guid idUser, Guid id);
         Task<ServiceResult<string>> ForgotPassword(ForgotPasswordDto model);
-        Task<ServiceResult<string>> ResetPassword(ResetPassword model);
+        Task<ServiceResult<IdentityResult>> ResetPassword(ResetPassword model);
         ServiceResult<PagedResult<AllUserDto>> GetPageUser(UserFilterDto filters);
         ServiceResult<List<AllUserDto>> GetAll();
     }

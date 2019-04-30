@@ -114,6 +114,15 @@ namespace VR.Dto.User
         public Guid SupervisorAgentId2 { set; get; }
     }
 
+    public class CreateUserHtmlDto
+    {
+        public string FirstName { set; get; }
+        public string LastName { set; get; }
+        public string UserName { set; get; }
+        public string Password { set; get; }
+        public string CallbackUrl { set; get; }
+    }
+
     public class AllUserDto
     {
         public Guid Id { get; set; }

@@ -25,8 +25,11 @@ using VR.Service.Helpers.WebApi.Helpers;
 using VR.Web.Helpers;
 using NotificationType = Service.Common.ServiceResult.NotificationType;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
 using RazorLight;
 using VR.Common.Security;
+using System.Net;
+using CreateUserDto = VR.Dto.User.CreateUserDto;
 
 namespace VR.Service.Services
 {
@@ -97,7 +100,9 @@ namespace VR.Service.Services
                         &&
                         (string.IsNullOrEmpty(filters.Dni) || x.Dni.ToString().ToUpper().Contains(filters.Dni.ToString().ToUpper()) )
                         &&
-                        (x.IsDeleted != true)
+                        (!x.IsDeleted)
+                        &&
+                        (!x.SuperAdmin)
                 );
 
             var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
@@ -338,74 +343,101 @@ namespace VR.Service.Services
                 return _mapper.Map<ServiceResult<CreateUserDto>>(valid.ToServiceResult<CreateUserDto>(null));
             }
 
-            var distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
-            var NewUser = new User
-            {
-                Id = Guid.NewGuid(),
-                Dni = user.Dni,
-                UserName = user.UserName,
-                Email = user.UserName,
-                PhoneNumber = user.PhoneNumber,
-                Distribution = distribution,
-                DistributionId = user.DistributionId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CategoryId = user.CategoryId
-    };
-
+            var notifications = new ServiceResult<CreateUserDto>();
             var userExistOrNot = await _userManager.FindByNameAsync(user.UserName);
-
-            if (userExistOrNot != null)
+            var distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
+            if (userExistOrNot == null)
             {
+                var NewUser = new User
+                {
+                    Id = Guid.NewGuid(),
+                    Dni = user.Dni,
+                    UserName = user.UserName,
+                    Email = user.UserName,
+                    PhoneNumber = user.PhoneNumber,
+                    Distribution = distribution,
+                    DistributionId = user.DistributionId,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    CategoryId = user.CategoryId
+                };
                 var result = await _userManager.CreateAsync(NewUser, user.Password);
+
+                // update password if it was entered
+                if (!string.IsNullOrWhiteSpace(user.Password))
+                {
+                    NewUser.PasswordHash = _userManager.PasswordHasher.HashPassword(NewUser, user.Password);
+                }
+
+                //actualizo los roles del usuario
+                foreach (var role in user.RolesUser)
+                {
+                    await UpdateUserRoleWhenModify(NewUser.Id, role.Id, role.RolBelongUser);
+                }
 
                 if (!result.Succeeded)
                 {
                     return result.ToServiceResult<CreateUserDto>(null);
                 }
-            }
 
-            // update password if it was entered
-            if (!string.IsNullOrWhiteSpace(user.Password))
-            {
-                NewUser.PasswordHash = _userManager.PasswordHasher.HashPassword(NewUser, user.Password);
-            }
-
-            await _userManager.CreateAsync(NewUser);
-
-            //actualizo los roles del usuario
-            foreach (var role in user.RolesUser)
-            {
-                await UpdateUserRoleWhenModify(NewUser.Id, role.Id, role.RolBelongUser);
-            }
-
-            if (user.SupervisorAgentId.CompareTo(Guid.Empty) != 0)
-            {
-                _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
+                var newSupervisor = new SupervisorUserAgent()
                 {
-                    new CreateSupervisorAgentDto()
-                    {
-                        AgentId = user.Id,
-                        SupervisorId = user.SupervisorAgentId
-                    }
-                });
-            }
+                    Id = new Guid(),
+                    Agents = NewUser,
+                };
 
-            if (user.SupervisorAgentId2.CompareTo(Guid.Empty) != 0)
-            {
-                _supervisorUserAgentService.Create(new List<CreateSupervisorAgentDto>()
+                if (user.SupervisorAgentId.CompareTo(Guid.Empty) != 0)
                 {
-                    new CreateSupervisorAgentDto()
+                    newSupervisor.SupervisorId = user.SupervisorAgentId;
+                }
+
+                if (user.SupervisorAgentId2.CompareTo(Guid.Empty) != 0)
+                {
+                    newSupervisor.SupervisorId2 = user.SupervisorAgentId2;
+                }
+
+                _context.SupervisorUserAgents.Add(newSupervisor);
+                _context.SaveChanges();
+
+                string template = Path.Combine(StaticFilesDirectory, "Templates");
+                var engine = new RazorLightEngineBuilder()
+                    .UseFilesystemProject(template)
+                    .UseMemoryCachingProvider()
+                    .Build();
+
+                var callbackUrl = string.Format(_configuration["AppSettings:localUrl"] + "/login");
+
+                var html = new CreateUserHtmlDto()
+                {
+                    LastName = user.LastName,
+                    FirstName = user.FirstName,
+                    UserName = user.UserName,
+                    Password = user.Password,
+                    CallbackUrl = callbackUrl
+                };
+
+                string resultHtml = await engine.CompileRenderAsync("Email/whenAnUserIsCreated.cshtml", html);
+
+                var emailSended = await _emailSender.SendEmail(NewUser.Email,"Alta al sistema", resultHtml);
+
+                if (!(emailSended.StatusCode == HttpStatusCode.Accepted))
+                {
+                    if (emailSended.StatusCode == HttpStatusCode.Unauthorized)
                     {
-                        AgentId = user.Id,
-                        SupervisorId = user.SupervisorAgentId2
+                        notifications.AddError("error", "La clave api expiró , está mal escrito o es errónea");
                     }
-                });
+                    else
+                    {
+                        notifications.AddError("error", "La solicitud no pudo ser enviada al correo del supervisor.");
+                    }
+
+                    return notifications;
+                }
             }
 
 
 
-
+            
             return new ServiceResult<CreateUserDto>(user);
         }
 
@@ -514,10 +546,17 @@ namespace VR.Service.Services
         public async Task<ServiceResult<string>> ForgotPassword(ForgotPasswordDto model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
+            var notif = new ServiceResult<string>();
+
+            if (user == null)
+            {
+                notif.AddError("Error","Su correo no se encuentra registrado.");
+                return notif;
+            }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var callbackUrl = string.Format(_configuration["AppSettings:baseUrl"] +"/CambiarPassword?code={0}&userId={1}", code, user.Id);
+            var callbackUrl = string.Format(_configuration["AppSettings:localUrl"]+"/CambiarPassword/{0}/{1}", Uri.EscapeDataString(code), user.Id);
 
             UserRecoveryPassword userRecoveryPasswordModel = new UserRecoveryPassword()
             {
@@ -538,21 +577,22 @@ namespace VR.Service.Services
             return new ServiceResult<string>(model.Email);
         }
 
-        public async Task<ServiceResult<string>> ResetPassword(ResetPassword model)
+        public async Task<ServiceResult<IdentityResult>> ResetPassword(ResetPassword model)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == model.UserId);
-
             if (user != null)
             {
                 var result = await _userManager.ResetPasswordAsync(user, model.PasswordResetToken, model.Password);
 
-                if (result.Succeeded)
+                if (!result.Succeeded)
                 {
-                    return new ServiceResult<string>(model.PasswordResetToken);
+                    var newResult = new ServiceResult<IdentityResult>(result);
+                    newResult.AddError("","");
+                    return newResult;
                 }
             }
 
-            return new ServiceResult<string>("");
+            return new ServiceResult<IdentityResult>();
         }
 
 

@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './../../_services/category.service';
 import { DistributionService } from './../../_services/distribution.service';
 import { UserService } from './../../_services/user.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
 import { createUser } from '../users'
 import { RoleService } from '../../_services/role.service';
 import { DistributionBaseDto } from 'src/app/_models/distributions';
@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
 import { ClaimsService } from 'src/app/_services/claims.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-createuser',
   templateUrl: './create.component.html',
@@ -29,8 +30,10 @@ export class CreateuserComponent implements OnInit {
   passwordsAreEquals : boolean = true;
   submitted : boolean;
   validCheckbox : boolean = true;
-  selectedSupervisorAgentId : any = new GuidClass().empty;
-  selectedSupervisorAgentId2 : any = new GuidClass().empty;
+  selectedSupervisorAgentId : any;
+  selectedSupervisorAgentModifyId : any = new GuidClass().empty;
+  selectedSupervisorAgentId2 : any;
+  selectedSupervisorAgentModifyId2 : any = new GuidClass().empty;
   allSupervisors : SupervisorsDto[] = [];
   editSignatureHolograpich: any;
   supervisor1 : boolean;
@@ -38,6 +41,7 @@ export class CreateuserComponent implements OnInit {
   id : number;
 
   @ViewChild('userForm') userForm : any;
+  @ViewChild('supervisorAgentId2',{read: ElementRef}) private supervisorAgent2 : ElementRef;
 
   constructor(
               private UserService : UserService, 
@@ -49,7 +53,9 @@ export class CreateuserComponent implements OnInit {
               private titleService : Title,
               private toastrService : ToastrService,
               private supervisorUserAgentService : SupervisorUserAgentService,
-              private claimService : ClaimsService) {}
+              private claimService : ClaimsService,
+              public renderer2Service : Renderer2,
+              private SpinnerService : NgxSpinnerService) {}
 
     ngOnInit() {
       if(!this.claimService.haveClaim(this.claimService.canCreateUsers) || !this.claimService.haveClaim(this.claimService.canEditUsers)){
@@ -65,9 +71,9 @@ export class CreateuserComponent implements OnInit {
           this.titleService.setTitle('Modificar Usuario - Perfil');
           this.getByIdAdministrator();
           this.editSignatureHolograpich = this.claimService.haveClaim(this.claimService.canEditSignatureHolograpichAsAdmin);
+        }else{
+          this.getAllRoles();
         }      
-        
-        this.getAllRoles();
         this.getAllCategories();
         this.getAllUsersSupervisors();
         this.distributionService.allDistribution()
@@ -171,7 +177,7 @@ export class CreateuserComponent implements OnInit {
             ( (!ministro && !admin && supervisor) || (supervisor && agente) )
             ) {
               this.supervisor1 = false;
-              this.supervisor2 = true;
+              this.supervisor2 = false;
         }else if(
             //(!ministro && !admin && !supervisor && agente) &&
             (this.claimService.rolAgente != rol.name)
@@ -181,6 +187,8 @@ export class CreateuserComponent implements OnInit {
         }
       }    
     this.validCheckbox = true;
+
+    this.selectedSupervisor();
     return;
 
   }
@@ -204,15 +212,16 @@ export class CreateuserComponent implements OnInit {
         (!ministro && !admin && supervisor) || (supervisor && agente)
         ) {
           this.supervisor1 = false;
-          this.supervisor2 = true;
+          this.supervisor2 = false;
     }else{
           this.supervisor1 = false;
           this.supervisor2 = false;
     }
+
+    this.selectedSupervisor();
   }
   
   onSubmit(){
-
     this.submitted = true;
     this.validCheckbox = false;
     this.model.rolesUser.forEach(
@@ -245,21 +254,27 @@ export class CreateuserComponent implements OnInit {
         }
     }
 
+    var ministro = this.model.rolesUser.find(rolStatus =>  rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolMinistro );
+    var admin = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAdmin );
+    var supervisor = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolSupervisor );
+
+    var guidEmpty = new GuidClass().empty;
     if (
-        (this.model.supervisorAgentId != new GuidClass().empty) &&
-        (this.model.supervisorAgentId2 != new GuidClass().empty) &&
-        (this.model.supervisorAgentId == this.model.supervisorAgentId2)
-        ){
+        (this.model.supervisorAgentId == guidEmpty) &&
+        (!ministro && !admin) )
+    {
+      this.toastrService.info('Debe ingresar a al menos el supervisor/a de 1ra. Instancia');
+      this.submitted = false;
+    }else if (this.model.supervisorAgentId == this.model.supervisorAgentId2 && (!ministro && !admin))
+    {
       this.toastrService.info('No se puede seleccionar los mismos supervisores para un mismo agente.');
       this.submitted = false;
     }
+
     if (!this.submitted){
       return;
     }
 
-    var ministro = this.model.rolesUser.find(rolStatus =>  rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolMinistro );
-    var admin = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolAdmin );
-    var supervisor = this.model.rolesUser.find(rolStatus => rolStatus.rolBelongUser == true && rolStatus.name == this.claimService.rolSupervisor );
 
     if( ministro || admin){
       this.model.supervisorAgentId = new GuidClass().empty;
@@ -271,23 +286,29 @@ export class CreateuserComponent implements OnInit {
     this.titleService.setTitle('Crear Usuario - Perfil');
 
     if (!this.id){
+      this.SpinnerService.show();
       this.UserService.createWithObjectUser(this.model).subscribe(
         () => {
+            this.SpinnerService.hide();
             this.router.navigate(['/users']);
             this.toastrService.success("El usuario '"+this.model.userName+"' se ha guardado exitosamente.");
         },
           error => {
+            this.SpinnerService.hide();
             this.errors = error.error.notifications;
        });
     }else{
+      this.SpinnerService.show();
       this.model.id = this.id;
       this.UserService.updateUsers(this.model).subscribe(
         () => {
+          this.SpinnerService.hide();
           this.router.navigate(['/users']);
           this.toastrService.success(' El usuario se ha modificado correctamente.','',
           {positionClass : 'toast-top-center', timeOut : 3000});
         },
           e => {
+            this.SpinnerService.hide();
             console.log(e);
         }      
       );
@@ -333,6 +354,15 @@ export class CreateuserComponent implements OnInit {
       return false;
     }else{
       return this.userForm.dirty && !this.userForm.submitted;
+    }
+  }
+
+  selectedSupervisor(){
+    if (!this.model.supervisorAgentId){
+      this.model.supervisorAgentId2 = this.selectedSupervisorAgentId2;
+      this.renderer2Service.setAttribute(this.supervisorAgent2.nativeElement,"disabled","true");
+    }else{
+      this.supervisorAgent2.nativeElement.disabled=false;
     }
   }
 

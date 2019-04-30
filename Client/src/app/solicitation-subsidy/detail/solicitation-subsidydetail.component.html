@@ -1,7 +1,9 @@
 <div id="container-pdf" class="container small">
     <div class="modal-header">
 
-      <h4 *ngIf="!model.isRefund" class="modal-title pull-left">Detalle de solicitud de víatico <br></h4>
+      <h4 *ngIf="!model.isRefund" class="modal-title pull-left">Detalle de solicitud de víatico <span *ngIf="model.isCommission">
+        (Comisión Clave : {{model.randomKey}})        
+      </span> <br></h4>
       <h4 *ngIf="model.isRefund" class="modal-title pull-left">Detalle de solicitud de reintegro <br></h4>
       <button (click)="activeModal.dismiss('Close click')" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -15,7 +17,7 @@
               <label class="classLabel" for="">Motivo</label>
               <textarea 
                 rows="10" 
-                style="height: 100px; resize: none;" 
+                style="height: 100px; resize: none; font-size: unset;" 
                 class="h-45 form-control" 
                 value="{{model.motive}}"
                 disabled>
@@ -120,7 +122,7 @@
         <div class="form-row">
             <div class="col-5 form-inline ml-auto">
                 <label for="" class="col-2 classLabel">Total</label>
-                <input type="text" disabled value="{{model.total | currency}}" 
+                <input type="text" disabled style="font-size:unset;" value="{{model.total | currency}}" 
                 class="col form-control text-right small">
             </div>
           </div>

@@ -299,8 +299,7 @@ namespace VR.Web
         {
             var supportedCultures = new[]
             {
-                new CultureInfo("es-ES"),
-                new CultureInfo("ar")
+                new CultureInfo("es-ES")
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {

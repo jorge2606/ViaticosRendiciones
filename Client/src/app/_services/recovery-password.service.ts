@@ -16,9 +16,7 @@ export class RecoveryPasswordService {
   }
 
   ResetPassword(passwordObj : ResetPassword){
-    this.http.post(environment.apiUrl+"User/ResetPassword/",passwordObj).subscribe(x =>
-    console.log(x.toString())
-    );
+    return this.http.post<any>(environment.apiUrl+"User/ResetPassword/",passwordObj);
   }
 
 }
