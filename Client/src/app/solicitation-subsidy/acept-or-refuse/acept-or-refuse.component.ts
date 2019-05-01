@@ -86,7 +86,14 @@ export class AceptOrRefuseComponent implements OnInit {
           this.toastService.success('La solicitud fue aceptada.');
           this.router.navigate(['/']);
       }
-      ,error => {this.msjError='Error'}
+      ,error => {
+        if(error.error["result"].errors){
+          var e = error.error["result"].errors.Error || [];
+          e.forEach(element => {
+              this.toastService.error(element,'');
+          });
+        }
+      }
     );
   }
 
@@ -97,7 +104,14 @@ export class AceptOrRefuseComponent implements OnInit {
         this.toastService.success('La solicitud fue rechazada.');
         this.router.navigate(['/']);
       }
-      ,error => {this.msjError = 'Error'}
+      ,error => {
+        if(error.error.errors){
+          var e = error.error.errors.Error || [];
+          e.forEach(element => {
+              this.toastService.error(element,'');
+          });
+        }
+      }
     );
   }
 
