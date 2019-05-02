@@ -1,6 +1,6 @@
 export class ResetPassword{
     password : string;
     passwordConfirm : string;
-    userId : number;
+    userId : string;
     passwordResetToken : string;
 }

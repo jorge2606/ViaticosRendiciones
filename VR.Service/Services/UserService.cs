@@ -555,9 +555,12 @@ namespace VR.Service.Services
             }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var codeScaped = Uri.EscapeDataString(code);
 
-            var callbackUrl = string.Format(_configuration["AppSettings:localUrl"]+"/CambiarPassword/{0}/{1}", Uri.EscapeDataString(code), user.Id);
-
+            //var callbackUrl = string.Format(_configuration["AppSettings:localUrl"]+"/CambiarPassword/{0}/{1}", Uri.EscapeDataString(code), user.Id);
+            var callbackUrl =
+                string.Format(_configuration["AppSettings:localUrl"] + "/CambiarPassword?code={0}&userId={1}",codeScaped,
+                    user.Id);
             UserRecoveryPassword userRecoveryPasswordModel = new UserRecoveryPassword()
             {
                 LastName = user.LastName,
@@ -582,7 +585,8 @@ namespace VR.Service.Services
             var user = _userManager.Users.FirstOrDefault(x => x.Id == model.UserId);
             if (user != null)
             {
-                var result = await _userManager.ResetPasswordAsync(user, model.PasswordResetToken, model.Password);
+                var unescapedString = Uri.UnescapeDataString(model.PasswordResetToken);
+                var result = await _userManager.ResetPasswordAsync(user, unescapedString, model.Password);
 
                 if (!result.Succeeded)
                 {

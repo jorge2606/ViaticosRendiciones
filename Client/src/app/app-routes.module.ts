@@ -97,7 +97,7 @@ const routes: Routes = [
   },
   
   { path: 'RecuperarContraseña', component: ManagePasswordComponent},
-  { path: 'CambiarPassword/:code/:userId', component: ResetPasswordComponent},
+  { path: 'CambiarPassword', component: ResetPasswordComponent},
 
   { path: 'category',
     data: {breadcrumb: 'categoría',isHome: false,show: true},  

@@ -6,6 +6,7 @@ import { RecoveryPasswordService } from '../../_services/recovery-password.servi
 import { LoginComponent } from '../../login/login.component';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { parse } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-reset-password',
@@ -15,9 +16,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ResetPasswordComponent implements OnInit {
 
   model = new ResetPassword();
-  idUserParam : number;
+  idUserParam : string;
   codeParam : string;
   error: string;
+  valid : boolean;
+  passwordsAreEquals : Boolean = true;
+  passwordEmpty : boolean = true;
 
   constructor(
       private route: ActivatedRoute, 
@@ -32,12 +36,15 @@ export class ResetPasswordComponent implements OnInit {
       isLogued =>{
         if(!isLogued){
           //le asigno el id que extraigo de la url
-          this.route.params.subscribe(
+          var url = new String(this.router.url);
+          this.codeParam = url.substr(url.indexOf("code") + 5,url.indexOf("&userId")-22);
+          this.idUserParam = url.substr(url.indexOf("userId") + 7,url.length);
+          /** this.route.params.subscribe(
             x => {
               this.idUserParam = x.userId,
               this.codeParam = x.code
             }
-          );
+          );*/
         }
       }
     );
@@ -76,6 +83,18 @@ export class ResetPasswordComponent implements OnInit {
       this.spinnerService.hide();
     });
     
+  }
+
+  comparePassword(){
+    if (!this.model.password && !this.model.passwordConfirm){
+      this.passwordEmpty = true;
+      this.passwordsAreEquals = true;
+      return;
+    }
+    
+    this.passwordsAreEquals = this.model.password === this.model.passwordConfirm;
+    this.passwordEmpty = false;
+    return;
   }
 
 }
