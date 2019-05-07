@@ -45,6 +45,7 @@ namespace VR.Service.Services
         private readonly IValidator<SaveUserDto> _fluentValidatorUser;
         private readonly IValidator<LoginDto> _fluentValidatorLogin;
         private readonly IValidator<CreateUserDto> _fluentValidatorCreateUser;
+        private readonly IValidator<ResetPassword> _fluentValidationResetPassword;
         private readonly SignInManager _signInManager;
         private IConfiguration _configuration;
         private IAspNetUserRolesService _rolesService;
@@ -62,6 +63,7 @@ namespace VR.Service.Services
             IValidator<SaveUserDto> fluentValidatorUser,
             IValidator<LoginDto> fluentValidatorLogin,
             IValidator<CreateUserDto> fluentValidatorCreateUser,
+            IValidator<ResetPassword> fluentValidationResetPassword,
             IAspNetUserRolesService rolesService)
         {
             _context = context;
@@ -75,6 +77,7 @@ namespace VR.Service.Services
             _fluentValidatorUser = fluentValidatorUser;
             _fluentValidatorLogin = fluentValidatorLogin;
             _fluentValidatorCreateUser = fluentValidatorCreateUser;
+            _fluentValidationResetPassword = fluentValidationResetPassword;
             _rolesService = rolesService;
             _supervisorUserAgentService = supervisorUserAgentService;
         }
@@ -181,6 +184,9 @@ namespace VR.Service.Services
                 //primero remuevo los permisos del usuario
                 var userRoles = _context.UserRoles.ToList();
                 userRoles.RemoveAll(x => x.UserId == id);
+                var userAgent = _context.SupervisorUserAgents.FirstOrDefault(x => x.AgentId == userToDelete.Id);
+                userAgent.IsDeleted = true;
+                _context.SupervisorUserAgents.Update(userAgent);
                 userToDelete.IsDeleted = true;
                 //luego elimino el usuario
                 _context.Users.Update(userToDelete);
@@ -580,8 +586,30 @@ namespace VR.Service.Services
             return new ServiceResult<string>(model.Email);
         }
 
-        public async Task<ServiceResult<IdentityResult>> ResetPassword(ResetPassword model)
+        public async Task<ServiceResult<ResetPassword>> ResetPassword(ResetPassword model)
         {
+            var notif = new ServiceResult<ResetPassword>();
+            var valid = _fluentValidationResetPassword.Validate(model);
+            if (!valid.IsValid)
+            {
+                return valid.ToServiceResult<ResetPassword>(model); 
+            }
+
+            if (!model.Password.Any(char.IsUpper))
+            {
+                notif.AddError("Error", "La contraseña debe contener al menos una mayuscula ('A','Z')");
+            }
+
+            if (!model.Password.Any(char.IsLower))
+            {
+                notif.AddError("Error", "La contraseña debe contener al menos una minuscula ('a','z')");
+            }
+
+            if (notif.Errors.Count() > 0)
+            {
+                return notif;
+            }
+
             var user = _userManager.Users.FirstOrDefault(x => x.Id == model.UserId);
             if (user != null)
             {
@@ -590,13 +618,19 @@ namespace VR.Service.Services
 
                 if (!result.Succeeded)
                 {
-                    var newResult = new ServiceResult<IdentityResult>(result);
-                    newResult.AddError("","");
+                   var newResult = new ServiceResult<ResetPassword>();
+                    foreach (var identityError in result.Errors)
+                    {
+                        var error = (identityError.Code.Equals("InvalidToken"))
+                            ? "El token expiró o es erróneo."
+                            : "";
+                        newResult.AddError("Error", error);
+                    }
                     return newResult;
                 }
             }
 
-            return new ServiceResult<IdentityResult>();
+            return new ServiceResult<ResetPassword>();
         }
 
 

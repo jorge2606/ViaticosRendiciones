@@ -227,7 +227,13 @@ namespace VR.Web
                 options.AddPolicy(SolicitationSubsidyClaims.CanToSeeRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
             });
 
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(o => {     
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+             })
              .AddUserStore<UserStore>()
              .AddRoleStore<RoleStore>()
              .AddUserManager<UserManager>()
@@ -290,6 +296,7 @@ namespace VR.Web
             services.AddTransient<IValidator<CreateUserDto>, UserCreateValidator>();
             services.AddTransient<IValidator<SolicitationSubsidyBaseDto>, SolicitationSubsidyValidator>();
             services.AddTransient<IValidator<HolidayBaseDto>, HolidayValidator>();
+            services.AddTransient<IValidator<ResetPassword>, ResetPasswordValidator>();
 
             services.AddDirectoryBrowser();
         }

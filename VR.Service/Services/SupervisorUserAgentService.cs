@@ -74,6 +74,7 @@ namespace VR.Service.Services
                 .Include(x => x.Supervisors2)
                 .Include(x => x.Agents)
                 .Select(x => _Mapper.Map<AllSupervisorAgentDto>(x))
+                .Where(c => !c.IsDeleted)
                 .ToList();
 
             return new ServiceResult<List<AllSupervisorAgentDto>>(result);

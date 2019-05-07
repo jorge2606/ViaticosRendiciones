@@ -25,7 +25,9 @@ namespace VR.Data
         {
         }
 
-        public DataContext() { }
+        public DataContext()
+        {
+        }
 
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<File> Files { get; set; }
@@ -58,7 +60,7 @@ namespace VR.Data
             Nullable<int> pageIndex,
             Boolean isRefund)
         {
-            
+
             var resultFull = new List<AgentSolicitationBySupervisorResult>();
             DbParameter totalRows = null;
 
@@ -79,14 +81,16 @@ namespace VR.Data
                 })
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<AgentSolicitationBySupervisorResult>)handler.ReadToList<AgentSolicitationBySupervisorResult>();
+                    resultFull =
+                        (List<AgentSolicitationBySupervisorResult>) handler
+                            .ReadToList<AgentSolicitationBySupervisorResult>();
                     handler.NextResult();
                 });
 
             return new PagedResult<AgentSolicitationBySupervisorResult>
             {
                 List = resultFull,
-                TotalRecords = (int)totalRows?.Value
+                TotalRecords = (int) totalRows?.Value
             };
         }
 
@@ -97,7 +101,7 @@ namespace VR.Data
                 .WithSqlParam("@solcitationSubsidy", solicitationId)
                 .ExecuteStoredProc((handler) =>
                 {
-                    destiny = (List<Destiny>)handler.ReadToList<Destiny>();
+                    destiny = (List<Destiny>) handler.ReadToList<Destiny>();
                     handler.NextResult();
                 });
 
@@ -136,14 +140,16 @@ namespace VR.Data
                 })
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<AgentSolicitationBySupervisorResult>)handler.ReadToList<AgentSolicitationBySupervisorResult>();
+                    resultFull =
+                        (List<AgentSolicitationBySupervisorResult>) handler
+                            .ReadToList<AgentSolicitationBySupervisorResult>();
                     handler.NextResult();
                 });
-          
+
             return new PagedResult<AgentSolicitationBySupervisorResult>
             {
                 List = resultFull,
-                TotalRecords = (int)totalRows?.Value
+                TotalRecords = (int) totalRows?.Value
             };
         }
 
@@ -157,7 +163,7 @@ namespace VR.Data
                 .WithSqlParam("@Solicitation", solicitation)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<Get_all_solicitationResult>)handler.ReadToList<Get_all_solicitationResult>();
+                    resultFull = (List<Get_all_solicitationResult>) handler.ReadToList<Get_all_solicitationResult>();
                     handler.NextResult();
                 });
 
@@ -171,7 +177,7 @@ namespace VR.Data
                 .WithSqlParam("@SolicitationId", solicitation)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<Get_expendituresResult>)handler.ReadToList<Get_expendituresResult>();
+                    resultFull = (List<Get_expendituresResult>) handler.ReadToList<Get_expendituresResult>();
                     handler.NextResult();
                 });
 
@@ -185,20 +191,20 @@ namespace VR.Data
                 .WithSqlParam("@SolicitationId", solicitation)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<Get_DestiniesResult>)handler.ReadToList<Get_DestiniesResult>();
+                    resultFull = (List<Get_DestiniesResult>) handler.ReadToList<Get_DestiniesResult>();
                     handler.NextResult();
                 });
 
             return resultFull;
         }
-        
-        public string GetLetterNumberTotalSolicitationAsync(string total,string decimalSepartor)
+
+        public string GetLetterNumberTotalSolicitationAsync(string total, string decimalSepartor)
         {
             var resultFull = "";
             DbParameter outputParam = null;
             this.LoadStoredProc("dbo.getLetterNumberTotalSolicitation")
                 .WithSqlParam("@Total", total)
-                .WithSqlParam("@DecimalSepartor",decimalSepartor)
+                .WithSqlParam("@DecimalSepartor", decimalSepartor)
                 .WithSqlParam("@LetterNumber", (dbParam) =>
                 {
                     dbParam.Direction = ParameterDirection.Output;
@@ -206,7 +212,7 @@ namespace VR.Data
                     outputParam = dbParam;
                 }).ExecuteStoredNonQuery();
 
-            var outputParamValue = (string)outputParam.Value;
+            var outputParamValue = (string) outputParam.Value;
             return resultFull;
         }
 
@@ -219,7 +225,7 @@ namespace VR.Data
                 .WithSqlParam("@SolicitationId", solicitation)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = handler.ReadToValue<Guid>()?? Guid.Empty;
+                    resultFull = handler.ReadToValue<Guid>() ?? Guid.Empty;
                     handler.NextResult();
                 });
 
@@ -235,7 +241,7 @@ namespace VR.Data
                 .WithSqlParam("@UserId", userId)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<OverlapingDatesResult>)handler.ReadToList<OverlapingDatesResult>();
+                    resultFull = (List<OverlapingDatesResult>) handler.ReadToList<OverlapingDatesResult>();
                     handler.NextResult();
                 });
             if (resultFull.Count() > 0)
@@ -246,5 +252,23 @@ namespace VR.Data
             return false;
         }
 
+
+        public List<SolicitationSubsidyByUserOrganismDestination> Report_SolicitationByUserProcedure(Guid userId)
+        {
+
+            var resultFull = new List<SolicitationSubsidyByUserOrganismDestination>();
+
+            this.LoadStoredProc("dbo.Report_SolicitationByUserProcedure")
+                .WithSqlParam("@UserId", userId)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<SolicitationSubsidyByUserOrganismDestination>)handler.ReadToList<SolicitationSubsidyByUserOrganismDestination>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
     }
+
 }

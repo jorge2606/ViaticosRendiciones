@@ -13,6 +13,7 @@ namespace VR.Data.Model
         public Guid? SupervisorId { set; get; }
         public Guid? SupervisorId2 { set; get; }
         public Guid AgentId { set; get; }
+        public Boolean IsDeleted { set; get; }
 
         [ForeignKey("SupervisorId")]
         public User Supervisors { set; get; }

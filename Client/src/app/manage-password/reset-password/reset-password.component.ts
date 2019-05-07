@@ -74,10 +74,17 @@ export class ResetPasswordComponent implements OnInit {
         this.spinnerService.hide();
         this.router.navigate([LoginComponent]);
     },error=>{
-      if (error.error.response.errors){
-        var e = error.error.response.errors || [];
+      if (error.error.notifications){
+        var e = error.error.notifications || [];
         e.forEach(element => {
-            this.toastrService.error(element.code+" "+element.description,'');
+            this.toastrService.error(element.value,'');
+        });
+      }
+
+      if(error.error.errors){
+        var err = error.error.errors.Error || [];
+        err.forEach(element => {
+          this.toastrService.error(element,'');
         });
       }
       this.spinnerService.hide();

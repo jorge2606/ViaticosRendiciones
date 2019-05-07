@@ -8,5 +8,6 @@ namespace VR.Service.Interfaces
     {
         ServiceResult<byte[]> ReportPrintAsync(Guid solicitationId);
         ServiceResult<byte[]> PrintAccountFor(Guid solicitationId);
+        ServiceResult<byte[]> PrintReportSolicitationSubsidyByUser(Guid userId);
     }
 }

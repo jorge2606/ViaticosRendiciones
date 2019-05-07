@@ -14,6 +14,7 @@ namespace VR.Dto
         public UserDto Supervisors { set; get; }
         public UserDto Supervisors2 { set; get; }
         public UserDto Agents { set; get; }
+        public Boolean IsDeleted { set; get; }
     }
 
     public class CreateSupervisorAgentDto : SupervisorUserAgentBaseDto { }

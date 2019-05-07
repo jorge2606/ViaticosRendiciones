@@ -110,5 +110,33 @@ namespace VR.Service.Services
 
             return new ServiceResult<byte[]>(result.MainStream);
         }
+
+        public ServiceResult<byte[]> PrintReportSolicitationSubsidyByUser(Guid userId)
+        {
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "SolicitationSubsidyByUser.rdl");
+            var files = new FileInfo(newDirectory);
+
+            var notif = new ServiceResult<byte[]>();
+
+            if (!files.Exists)
+            {
+                notif.AddError("Error", "El Reporte no fue encontrado.");
+                return notif;
+            }
+            var rv = new LocalReport(newDirectory);
+            var solicitation = _context.Report_SolicitationByUserProcedure(userId);
+            rv.AddDataSource("ReportSolicitationByUser",solicitation);
+            rv.AddDataSource("CommonDataSet", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToString("d")
+                }
+            });
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var result = rv.Execute(RenderType.Pdf);
+
+            return new ServiceResult<byte[]>(result.MainStream);
+        }
     }
 }
