@@ -40,12 +40,13 @@
                                     <div *ngIf="countries.length > 0">
                                         <label for="">Pais</label>
                                         <select class="form-control"
-                                            #countryId="ngModel" name="countryId"
+                                            #countryId="ngModel" 
+                                            name="countryId"
                                             aria-placeholder="Selecciones un Pais"
                                             [ngClass]="{'is-invalid' : countryId.invalid && (countryId.dirty || countryId.touched)}"
                                             [(ngModel)]="model.countryId" required>
                                             <option [ngValue]="selectedCountry" disabled>Seleccione un Pais...</option>
-                                            <option *ngFor="let country of countries" [ngValue]="country.id">{{country.name}}</option>
+                                            <option *ngFor="let country of countries" [ngValue]="country.id">{{country.printableName}}</option>
                                         </select>
                                         <div *ngIf="countryId.invalid && (countryId.dirty || countryId.touched)" class="alert alert-danger mt-1 small">
                                             <div *ngIf="countryId.errors.required">
@@ -63,7 +64,7 @@
                                                 [ngClass]="{'is-invalid' : provinceId.invalid && (provinceId.dirty || provinceId.touched)}"
                                                 [(ngModel)]="model.provinceId" required>
                                                 <option *ngIf="selectedProvince == model.provinceId" [ngValue]="selectedProvince" disabled>Seleccione una Provincia...</option>
-                                                <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.name}}</option>
+                                                <option *ngFor="let prov of provinces" [ngValue]="prov.id">{{prov.printableName}}</option>
                                             </select>
                             
                                             <div *ngIf="provinceId.invalid && (provinceId.dirty || provinceId.touched)" class="alert alert-danger mt-1 small">

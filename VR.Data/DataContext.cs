@@ -253,16 +253,72 @@ namespace VR.Data
         }
 
 
-        public List<SolicitationSubsidyByUserOrganismDestination> Report_SolicitationByUserProcedure(Guid userId)
+        public List<SolicitationSubsidyByUser> Report_SolicitationByUserProcedure(Guid userId)
         {
 
-            var resultFull = new List<SolicitationSubsidyByUserOrganismDestination>();
+            var resultFull = new List<SolicitationSubsidyByUser>();
 
             this.LoadStoredProc("dbo.Report_SolicitationByUserProcedure")
                 .WithSqlParam("@UserId", userId)
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<SolicitationSubsidyByUserOrganismDestination>)handler.ReadToList<SolicitationSubsidyByUserOrganismDestination>();
+                    resultFull = (List<SolicitationSubsidyByUser>)handler.ReadToList<SolicitationSubsidyByUser>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
+        public List<SolicitationSubsidyByOrganism> Report_SolicitationByOrganism(Guid organismId)
+        {
+
+            var resultFull = new List<SolicitationSubsidyByOrganism>();
+
+            this.LoadStoredProc("dbo.Report_SolicitationByOrganismProcedure")
+                .WithSqlParam("@OrganismId", organismId)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<SolicitationSubsidyByOrganism>)handler.ReadToList<SolicitationSubsidyByOrganism>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
+        public List<SolicitationSubsidyByOrganism> Report_SolicitationByDestiniesAndDates(
+            DateTime? startDate,
+            DateTime? endDate,
+            Guid? countryId,
+            Guid? cityId,
+            Guid? provinceId
+            )
+        {
+            var resultFull = new List<SolicitationSubsidyByOrganism>();
+
+            this.LoadStoredProc("dbo.Report_SolicitationByDestiniesAndDatesProcedure")
+                .WithSqlParam("@StartDate", startDate)
+                .WithSqlParam("@EndDate", endDate)
+                .WithSqlParam("@CountryId",countryId)
+                .WithSqlParam("@CityId", cityId)
+                .WithSqlParam("@ProvinceId", provinceId)
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<SolicitationSubsidyByOrganism>)handler.ReadToList<SolicitationSubsidyByOrganism>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
+        public List<SolicitationSubsidyByOrganism> GetNotificationAccountFor()
+        {
+            var resultFull = new List<SolicitationSubsidyByOrganism>();
+
+            this.LoadStoredProc("dbo.GetNotificationAccountForProcedure")
+                .WithSqlParam("@StartDate","")
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<SolicitationSubsidyByOrganism>)handler.ReadToList<SolicitationSubsidyByOrganism>();
                     handler.NextResult();
                 });
 

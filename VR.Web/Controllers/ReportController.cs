@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Dto;
 using VR.Service.Interfaces;
 
 namespace VR.Web.Controllers
@@ -35,29 +36,34 @@ namespace VR.Web.Controllers
             return File(result.Response, "application/pdf");
         }
 
-        // GET: api/Report/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("Report_SolicitationByOrganism/{organismId}")]
+        [AllowAnonymous]
+        public IActionResult Get_Report_SolicitationByOrganism(Guid organismId)
         {
-            return "value";
+            var result = _reportService.PrintReportSolicitationSubsidyByOrganism(organismId);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return File(result.Response, "application/pdf");
         }
 
-        // POST: api/Report
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT: api/Report/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("Report_SolicitationByDestiniesAndDates")]
+        [AllowAnonymous]
+        public IActionResult Report_SolicitationByDestiniesAndDates([FromQuery] ReportByDestiniesAndDatesDto param)
         {
-        }
+            param.CityId = param.CityId.Equals(Guid.Empty) ? null : param.CityId;
+            param.CountryId = param.CountryId.Equals(Guid.Empty) ? null : param.CountryId;
+            param.ProvinceId = param.ProvinceId.Equals(Guid.Empty) ? null : param.ProvinceId;
+            var result = _reportService.PrintReport_SolicitationByDestiniesAndDates(param);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return File(result.Response, "application/pdf");
         }
     }
 }

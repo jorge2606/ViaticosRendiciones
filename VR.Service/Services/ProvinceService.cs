@@ -47,5 +47,14 @@ namespace VR.Service.Services
                     .OrderBy(x => x.Name).ToList()
             );
         }
+
+        public ServiceResult<List<FindByProvinceIdDto>> FindByCountryId(Guid countryId)
+        {
+            return new ServiceResult<List<FindByProvinceIdDto>>(
+                _context.Provinces.Select(x => _mapper.Map<FindByProvinceIdDto>(x))
+                    .Where(x => x.CountryId == countryId)
+                    .OrderBy(x => x.Name).ToList()
+            );
+        }
     }
 }

@@ -8,11 +8,14 @@ using AspNetCore.Reporting;
 using AspNetCore.Reporting.ReportExecutionService;
 using AspNetCore.ReportingServices.ReportProcessing.ReportObjectModel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Service.Common.ServiceResult;
 using VR.Data;
+using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
+using User = VR.Data.Model.User;
 
 namespace VR.Service.Services
 {
@@ -124,13 +127,93 @@ namespace VR.Service.Services
                 return notif;
             }
             var rv = new LocalReport(newDirectory);
+            var user = _context.Users.FirstOrDefault(c => c.Id == userId);
             var solicitation = _context.Report_SolicitationByUserProcedure(userId);
             rv.AddDataSource("ReportSolicitationByUser",solicitation);
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()
                 {
-                    TodayDate = DateTime.Today.ToString("d")
+                    TodayDate = DateTime.Today.ToShortDateString()
+                }
+            });
+            rv.AddDataSource("UserDataSet", new List<User>(){user});
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var result = rv.Execute(RenderType.Pdf);
+
+            return new ServiceResult<byte[]>(result.MainStream);
+        }
+
+        public ServiceResult<byte[]> PrintReportSolicitationSubsidyByOrganism(Guid organismId)
+        {
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "SolicitationSubsidyByOrganism.rdl");
+            var files = new FileInfo(newDirectory);
+
+            var notif = new ServiceResult<byte[]>();
+
+            if (!files.Exists)
+            {
+                notif.AddError("Error", "El Reporte no fue encontrado.");
+                return notif;
+            }
+            var rv = new LocalReport(newDirectory);
+            var organismResult = _context.Organisms.FirstOrDefault(x => x.Id == organismId);
+
+            var solicitation = _context.Report_SolicitationByOrganism(organismId);
+            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+            rv.AddDataSource("OrganismDataSet", new List<Organism>(){ organismResult });
+            rv.AddDataSource("CommonDataSet", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToShortDateString()
+                }
+            });
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var result = rv.Execute(RenderType.Pdf);
+
+            return new ServiceResult<byte[]>(result.MainStream);
+        }
+
+        public ServiceResult<byte[]> PrintReport_SolicitationByDestiniesAndDates(ReportByDestiniesAndDatesDto reportByDestiniesAndDates)
+        {
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "SolicitationSubsidyByDestinationAndDate.rdl");
+            var files = new FileInfo(newDirectory);
+
+            var notif = new ServiceResult<byte[]>();
+
+            if (!files.Exists)
+            {
+                notif.AddError("Error", "El Reporte no fue encontrado.");
+                return notif;
+            }
+            var rv = new LocalReport(newDirectory);
+            var foundStartDate = reportByDestiniesAndDates.StartDate.IndexOf("undefined");
+            var foundEndDate = reportByDestiniesAndDates.EndDate.IndexOf("undefined");
+            DateTime? startDate = null;
+            DateTime? endDate = null;
+            if (foundStartDate == -1)
+            {
+                startDate = JsonConvert.DeserializeObject<DateDto>(reportByDestiniesAndDates.StartDate).ToDateTime();
+            }
+
+            if (foundEndDate == -1)
+            {
+                endDate = JsonConvert.DeserializeObject<DateDto>(reportByDestiniesAndDates.EndDate).ToDateTime();
+            }
+            var solicitation = _context.Report_SolicitationByDestiniesAndDates(
+                startDate,
+                endDate,
+                reportByDestiniesAndDates.CountryId,
+                reportByDestiniesAndDates.CityId,
+                reportByDestiniesAndDates.ProvinceId
+                );
+            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+            rv.AddDataSource("CommonDataSet", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToShortDateString()
                 }
             });
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);

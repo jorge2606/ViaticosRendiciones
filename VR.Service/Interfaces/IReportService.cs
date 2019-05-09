@@ -1,6 +1,7 @@
 ﻿using Service.Common.ServiceResult;
 using System;
 using System.Threading.Tasks;
+using VR.Dto;
 
 namespace VR.Service.Interfaces
 {
@@ -9,5 +10,7 @@ namespace VR.Service.Interfaces
         ServiceResult<byte[]> ReportPrintAsync(Guid solicitationId);
         ServiceResult<byte[]> PrintAccountFor(Guid solicitationId);
         ServiceResult<byte[]> PrintReportSolicitationSubsidyByUser(Guid userId);
+        ServiceResult<byte[]> PrintReportSolicitationSubsidyByOrganism(Guid organismId);
+        ServiceResult<byte[]> PrintReport_SolicitationByDestiniesAndDates(ReportByDestiniesAndDatesDto reportByDestiniesAndDates);
     }
 }

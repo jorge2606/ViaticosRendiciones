@@ -90,6 +90,9 @@ import { AuditNotificationComponent } from './audits/audit-notification/audit-no
 import { CanDeactivateGuard } from './directives/can-deactivate-guard';
 import { NotFoundComponent } from './_helpers/not-found/not-found.component';
 import { NotAuthorizedComponent } from './_helpers/not-authorized/not-authorized.component';
+import { ReportSolicitationSubsidyComponent } from './reports/report-solicitation-subsidy/report-solicitation-subsidy.component';
+import { ReportSolicitationSubsidyByOrganismComponent } from './reports/report-solicitation-subsidy-by-organism/report-solicitation-subsidy-by-organism.component';
+import { ReportsComponent } from './reports/reports/reports.component';
 
 library.add(fas);
 
@@ -157,7 +160,10 @@ library.add(fas);
       AddDestinyRepaymentComponent,
       AuditNotificationComponent,
       NotFoundComponent,
-      NotAuthorizedComponent
+      NotAuthorizedComponent,
+      ReportSolicitationSubsidyComponent,
+      ReportSolicitationSubsidyByOrganismComponent,
+      ReportsComponent
    ],
    imports: [
       BrowserModule,

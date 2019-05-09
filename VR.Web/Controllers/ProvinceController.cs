@@ -63,5 +63,21 @@ namespace VR.Web.Controllers
             return Ok(result.Response);
 
         }
+
+        [HttpGet("FindByCountryId/{countryId}")]
+        [Authorize]
+        public IActionResult FindByCountryId(Guid countryId)
+        {
+            var result = _provinceService.FindByCountryId(countryId);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Response);
+
+        }
+
     }
 }

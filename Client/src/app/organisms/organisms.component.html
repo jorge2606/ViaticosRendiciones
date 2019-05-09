@@ -45,9 +45,17 @@
 								*ngIf="organimDelete"
 								placement="bottom" 
 								ngbTooltip="Eliminar este organismo" 
+								class="pr-3"
 								routerLink="/organism" (click)="openEliminar(org.id,org.name,org.description)">
 								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 							</a>
+							<a 
+							*ngIf="organimDelete"
+							placement="bottom" 
+							ngbTooltip="Viáticos de este organismo" 
+							routerLink="/organism/report/{{org.id}}">
+							<fa-icon class="fa-lg" style="color:black;" icon="file"></fa-icon>
+						</a>
 						</div>
 					</td>
 				</tr>

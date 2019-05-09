@@ -20,4 +20,8 @@ export class ProvinceService {
   getProvincesByDistrictCity(districtCity : string){
     return this.http.get<any>(environment.apiUrl+"Province/DistrictCity/"+districtCity);
   }
+
+  findByCountryId(countryId : number){
+    return this.http.get<any>(environment.apiUrl+"Province/FindByCountryId/"+countryId);
+  }
 }

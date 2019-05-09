@@ -1,3 +1,4 @@
+import { ReportSolicitationSubsidyByOrganismComponent } from './reports/report-solicitation-subsidy-by-organism/report-solicitation-subsidy-by-organism.component';
 import { NotFoundComponent } from './_helpers/not-found/not-found.component';
 import { NotAuthorizedComponent } from './_helpers/not-authorized/not-authorized.component';
 import { AuditsComponent } from './audits/audits.component';
@@ -45,6 +46,8 @@ import { RepaymentComponent } from './solicitation-subsidy/repayment/repayment.c
 import { PrintAccountForSolicitationComponent } from './solicitation-subsidy/print-account-for-solicitation/print-account-for-solicitation.component';
 import { AuditNotificationComponent } from './audits/audit-notification/audit-notification.component';
 import { CanDeactivateGuard } from './directives/can-deactivate-guard';
+import { ReportSolicitationSubsidyComponent } from './reports/report-solicitation-subsidy/report-solicitation-subsidy.component';
+import { ReportsComponent } from './reports/reports/reports.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -80,6 +83,13 @@ const routes: Routes = [
       },
       { path: ':distributionId', 
         data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
+      },
+      { path: 'report/:userId',
+      data: {
+        breadcrumb: 'Reporte de Solicitud por Usuario',
+        isHome: false,
+        show: true
+      }, component: ReportSolicitationSubsidyComponent, canActivate : [AuthGuard]
       }
     ]
   },
@@ -151,6 +161,7 @@ const routes: Routes = [
       { path: 'distributions/:organismId', data: {breadcrumb: 'organismos y reparticiones',isHome: false,show: true}, component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', data: {breadcrumb: 'crear',isHome: false,show: true}, component : CreateOrganismComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
       { path: 'update/:id',data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyOrganismComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: 'report/:id',data: {breadcrumb: 'Reporte de solicitud por organismo',isHome: false,show: true}, component : ReportSolicitationSubsidyByOrganismComponent, canActivate : [AuthGuard]}
     ],
   },
 
@@ -191,6 +202,13 @@ const routes: Routes = [
       {path : '', component : AuditsComponent, canActivate : [AuthGuard] },
       {path : 'notifications', component : AuditNotificationComponent, canActivate : [AuthGuard] }
     ]
+  },
+
+  { path: 'reports',  
+  data: {breadcrumb: 'Reportes',isHome: false,show: true},
+  children : [
+    { path : '', component : ReportsComponent, canActivate : [AuthGuard]} ,
+  ]
   },
   
   // otherwise redirect to home

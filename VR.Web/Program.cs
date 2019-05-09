@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using VR.Data.ScheduledTask;
 
 namespace VR.Web
 {
@@ -14,6 +15,7 @@ namespace VR.Web
     {
         public static void Main(string[] args)
         {
+            JobScheduler.Start();
             CreateWebHostBuilder(args).Build().Run();
         }
 

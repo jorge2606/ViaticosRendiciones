@@ -107,12 +107,24 @@
 							</a>
 							<a 
 								*ngIf="delete"
+								class="pr-3"
 								style="cursor:pointer" (click)="openEliminar(user.id,user.dni,user.userName)">
 								<fa-icon 
 									placement="top" 
 									ngbTooltip="Eliminar usuario" 
-									class="fa-lg" style="color:red;" 
+									class="fa-lg" 
+									style="color:red;" 
 									icon="trash"></fa-icon>
+							</a>
+							<a 
+								routerLink="report/{{user.id}}"
+								style="cursor:pointer">
+								<fa-icon 
+									placement="top" 
+									ngbTooltip="viáticos realizados"
+									style="color:black;"  
+									class="fa-lg"  
+									icon="file"></fa-icon>
 							</a>
 						</div>
 					</td>
