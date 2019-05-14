@@ -11,7 +11,7 @@
   <div *ngFor="let j of Contenido" >
     <div class="form-row h-10 small alert" [ngClass]="{'alert-secondary': j.read,'alert-success' : !j.read}">   
       <div class="col">
-            <h6>{{j.textData}}</h6>
+            <p>{{j.textData}} <br> <b>{{j.days}}</b></p> <br>
             <a 
               href="#" 
               routerLink="{{router.url}}" 

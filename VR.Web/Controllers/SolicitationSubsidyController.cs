@@ -419,7 +419,7 @@ namespace VR.Web.Controllers
 
         [HttpGet("report/{solId}")]
         //[Authorize(SolicitationSubsidyClaims.canPrintSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Report(Guid solId)
         {
             var result = _reportService.ReportPrintAsync(solId);
@@ -433,7 +433,7 @@ namespace VR.Web.Controllers
 
         [HttpGet("reportAccountFor/{solId}")]
         //[Authorize(SolicitationSubsidyClaims.canPrintAccountForSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ReportAccountFor(Guid solId)
         {
             var result = _reportService.PrintAccountFor(solId);

@@ -1,3 +1,5 @@
+import { ExpenditureProcedureComponent } from './reports/expenditure-procedure/expenditure-procedure.component';
+import { SolicitationsExpireComponent } from './reports/solicitations-expire-procedure/solicitations-expire-procedure.component';
 import { ReportSolicitationSubsidyByOrganismComponent } from './reports/report-solicitation-subsidy-by-organism/report-solicitation-subsidy-by-organism.component';
 import { NotFoundComponent } from './_helpers/not-found/not-found.component';
 import { NotAuthorizedComponent } from './_helpers/not-authorized/not-authorized.component';
@@ -48,6 +50,7 @@ import { AuditNotificationComponent } from './audits/audit-notification/audit-no
 import { CanDeactivateGuard } from './directives/can-deactivate-guard';
 import { ReportSolicitationSubsidyComponent } from './reports/report-solicitation-subsidy/report-solicitation-subsidy.component';
 import { ReportsComponent } from './reports/reports/reports.component';
+import { SolicitationsPendingComponent } from './reports/solicitations-pending/solicitations-pending.component';
 
 const routes: Routes = [
   //canActivate : Interface that a class can implement to be a guard deciding if a route can be activated.
@@ -208,6 +211,17 @@ const routes: Routes = [
   data: {breadcrumb: 'Reportes',isHome: false,show: true},
   children : [
     { path : '', component : ReportsComponent, canActivate : [AuthGuard]} ,
+    { path : 'pendingSolicitations', component : SolicitationsPendingComponent, 
+      data: {breadcrumb: 'Reportes Pendientes',isHome: false,show: true},
+      canActivate : [AuthGuard]
+    },
+    { path : 'solicitationsExpire', component : SolicitationsExpireComponent, 
+      data: {breadcrumb: 'Solicitudes No Rendidas',isHome: false,show: true},
+      canActivate : [AuthGuard]
+    },
+    { path : 'expendituresReport', 
+    data: {breadcrumb: 'Conceptos de Gastos mas utilizados',isHome: false,show: true},
+    component : ExpenditureProcedureComponent, canActivate : [AuthGuard]}
   ]
   },
   

@@ -24,7 +24,7 @@ namespace VR.Web.Controllers
         }
         // GET: api/Report
         [HttpGet("Report_SolicitationByUser/{userId}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Get_Report_SolicitationByUser(Guid userId)
         {
             var result = _reportService.PrintReportSolicitationSubsidyByUser(userId);
@@ -37,7 +37,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("Report_SolicitationByOrganism/{organismId}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Get_Report_SolicitationByOrganism(Guid organismId)
         {
             var result = _reportService.PrintReportSolicitationSubsidyByOrganism(organismId);
@@ -51,13 +51,52 @@ namespace VR.Web.Controllers
 
 
         [HttpGet("Report_SolicitationByDestiniesAndDates")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Report_SolicitationByDestiniesAndDates([FromQuery] ReportByDestiniesAndDatesDto param)
         {
             param.CityId = param.CityId.Equals(Guid.Empty) ? null : param.CityId;
             param.CountryId = param.CountryId.Equals(Guid.Empty) ? null : param.CountryId;
             param.ProvinceId = param.ProvinceId.Equals(Guid.Empty) ? null : param.ProvinceId;
             var result = _reportService.PrintReport_SolicitationByDestiniesAndDates(param);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return File(result.Response, "application/pdf");
+        }
+
+        [HttpGet("SolicitationsPendingProcedure")]
+        [Authorize]
+        public IActionResult Report_SolicitationsPendingProcedure()
+        {
+            var result = _reportService.SolicitationsPendingProcedure();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return File(result.Response, "application/pdf");
+        }
+
+        [HttpGet("SolicitationsExpireProcedure")]
+        [Authorize]
+        public IActionResult Report_SolicitationsExpireProcedure()
+        {
+            var result = _reportService.SolicitationsExpireProcedure();
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return File(result.Response, "application/pdf");
+        }
+
+        [HttpGet("ExpenditureProcedure")]
+        [Authorize]
+        public IActionResult Report_ExpenditureProcedure()
+        {
+            var result = _reportService.ExpenditureProcedure();
             if (!result.IsSuccess)
             {
                 return BadRequest(result);

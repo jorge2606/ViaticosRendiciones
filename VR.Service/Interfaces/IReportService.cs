@@ -1,6 +1,8 @@
 ﻿using Service.Common.ServiceResult;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using VR.Data.Model.ModelStoreProcedure;
 using VR.Dto;
 
 namespace VR.Service.Interfaces
@@ -12,5 +14,8 @@ namespace VR.Service.Interfaces
         ServiceResult<byte[]> PrintReportSolicitationSubsidyByUser(Guid userId);
         ServiceResult<byte[]> PrintReportSolicitationSubsidyByOrganism(Guid organismId);
         ServiceResult<byte[]> PrintReport_SolicitationByDestiniesAndDates(ReportByDestiniesAndDatesDto reportByDestiniesAndDates);
+        ServiceResult<byte[]> SolicitationsPendingProcedure();
+        ServiceResult<byte[]> SolicitationsExpireProcedure();
+        ServiceResult<byte[]> ExpenditureProcedure();
     }
 }

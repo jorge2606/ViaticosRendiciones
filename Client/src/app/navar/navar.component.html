@@ -261,7 +261,7 @@
                   class="dropdown-item small alert" 
                   [ngClass]="{'alert-light h-0 p-1 mb-1': j.read,'alert-success h-3 p-1 mb-1' : !j.read}"
                   (click)="seeThisNotification(j)">
-                  <p style="font-size: 11px">{{j.textData}}</p>
+                  <p style="font-size: 11px">{{j.textData}}<br> <b>{{j.days}}</b></p>
                 </button>
                 <a href="#" routerLink="{{router.url}}" (click)="seeAllNotification()" 
                   class="small text-left seeAllLink p-1" 

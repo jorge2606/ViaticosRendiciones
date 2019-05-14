@@ -32,6 +32,4 @@ namespace VR.Dto
 
     public class AllExpenditureTypeDto : ExpenditureTypeBaseDto { }
 
-
-
 }

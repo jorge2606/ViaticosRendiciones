@@ -8,5 +8,6 @@ export class Notifications extends AuditDto{
     colapse : boolean;
     solicitationSubsidyId : number;
     userId : number;
+    days : string;
 }
 

@@ -23,7 +23,7 @@ namespace VR.Web.Quartz.ScheduledTask
             ITrigger trigger = TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule
                 (s =>
-                    s.WithIntervalInMinutes(10)
+                    s.WithIntervalInHours(12)
                         .OnEveryDay()
                         .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
                 )
@@ -35,7 +35,7 @@ namespace VR.Web.Quartz.ScheduledTask
             ITrigger triggerUpdateFinalizaDate = TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule
                 (s =>
-                    s.WithIntervalInSeconds(10)
+                    s.WithIntervalInHours(11)
                         .OnEveryDay()
                         .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
                 )

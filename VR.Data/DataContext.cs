@@ -336,6 +336,36 @@ namespace VR.Data
                 });
         }
 
+        public List<SolicitationSubsidyByOrganism> SolicitationsPendingProcedure()
+        {
+            var resultFull = new List<SolicitationSubsidyByOrganism>();
+
+            this.LoadStoredProc("dbo.SolicitationsPendingProcedure")
+                .WithSqlParam("@SortBy", "")
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<SolicitationSubsidyByOrganism>)handler.ReadToList<SolicitationSubsidyByOrganism>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
+        public List<ExpenditureProcedureDto> ExpenditureProcedure()
+        {
+            var resultFull = new List<ExpenditureProcedureDto>();
+
+            this.LoadStoredProc("dbo.ExpenditureProcedure")
+                .ExecuteStoredProc((handler) =>
+                {
+                    resultFull = (List<ExpenditureProcedureDto>)handler.ReadToList<ExpenditureProcedureDto>();
+                    handler.NextResult();
+                });
+
+            return resultFull;
+        }
+
+        
     }
 
 }

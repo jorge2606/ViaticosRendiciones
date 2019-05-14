@@ -29,6 +29,7 @@ namespace VR.Dto
         public DateTime CreationTime { get; set; }
         public Guid SolicitationSubsidyId { get; set; }
         public Guid CreatorUserId { get; set; }
+        public string Days { set; get; }
     }
 
     public class CreateNotificationDto

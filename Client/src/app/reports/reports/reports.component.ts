@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CityBaseDto, AllCitiesDto } from './../../_models/city';
 import { ProvinceBaseDto } from 'src/app/_models/province';
@@ -45,6 +46,7 @@ export class ReportsComponent implements OnInit {
     private reportService : ReportsService,
     private domSanitazer : DomSanitizer,
     public renderer2Service : Renderer2,
+    private authService : AuthenticationService
   ) { }
 
   ngOnInit() {

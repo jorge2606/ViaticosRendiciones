@@ -93,6 +93,9 @@ import { NotAuthorizedComponent } from './_helpers/not-authorized/not-authorized
 import { ReportSolicitationSubsidyComponent } from './reports/report-solicitation-subsidy/report-solicitation-subsidy.component';
 import { ReportSolicitationSubsidyByOrganismComponent } from './reports/report-solicitation-subsidy-by-organism/report-solicitation-subsidy-by-organism.component';
 import { ReportsComponent } from './reports/reports/reports.component';
+import { SolicitationsPendingComponent } from './reports/solicitations-pending/solicitations-pending.component';
+import { SolicitationsExpireComponent } from './reports/solicitations-expire-procedure/solicitations-expire-procedure.component';
+import { ExpenditureProcedureComponent } from './reports/expenditure-procedure/expenditure-procedure.component';
 
 library.add(fas);
 
@@ -163,7 +166,10 @@ library.add(fas);
       NotAuthorizedComponent,
       ReportSolicitationSubsidyComponent,
       ReportSolicitationSubsidyByOrganismComponent,
-      ReportsComponent
+      ReportsComponent,
+      SolicitationsPendingComponent,
+      SolicitationsExpireComponent,
+      ExpenditureProcedureComponent
    ],
    imports: [
       BrowserModule,

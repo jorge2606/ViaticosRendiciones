@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore.Internal;
 using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
+using VR.Service.Helpers;
 
 namespace WebApi.Helpers
 {
@@ -57,6 +59,10 @@ namespace WebApi.Helpers
             CreateMap<Organism, DeleteOrganismDto>();
             CreateMap<Destiny, DestinyFromSolicitationSubsidyFindByIdDto>()
                 .ForMember(x=> x.StartDateToPrint, opt=> opt.MapFrom(m => m.StartDate));
+            CreateMap<Notification, NotificationDto>()
+                .ForMember(x => x.Days, opt => opt.MapFrom(
+                    m => TimeAgoClass.TimeAgo(m.CreationTime)
+            ));
         }
     }
 }

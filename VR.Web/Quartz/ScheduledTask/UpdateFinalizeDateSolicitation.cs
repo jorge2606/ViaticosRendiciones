@@ -7,6 +7,7 @@ using VR.Data;
 
 namespace VR.Web.Quartz.ScheduledTask
 {
+    [DisallowConcurrentExecution]
     public class UpdateFinalizeDateSolicitationJob : IJob
     {
         private readonly DataContext _context;

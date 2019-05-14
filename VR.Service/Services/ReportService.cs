@@ -221,5 +221,92 @@ namespace VR.Service.Services
 
             return new ServiceResult<byte[]>(result.MainStream);
         }
+
+        public ServiceResult<byte[]> SolicitationsPendingProcedure()
+        {
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "SolicitationsPendingProcedure.rdl");
+            var files = new FileInfo(newDirectory);
+
+            var notif = new ServiceResult<byte[]>();
+
+            if (!files.Exists)
+            {
+                notif.AddError("Error", "El Reporte no fue encontrado.");
+                return notif;
+            }
+            var rv = new LocalReport(newDirectory);
+
+            var solicitation = _context.SolicitationsPendingProcedure();
+            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+            rv.AddDataSource("CommonDataSet", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToShortDateString()
+                }
+            });
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var result = rv.Execute(RenderType.Pdf);
+
+            return new ServiceResult<byte[]>(result.MainStream);
+        }
+
+        public ServiceResult<byte[]> SolicitationsExpireProcedure()
+        {
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "SolicitationsExpireProcedure.rdl");
+            var files = new FileInfo(newDirectory);
+
+            var notif = new ServiceResult<byte[]>();
+
+            if (!files.Exists)
+            {
+                notif.AddError("Error", "El Reporte no fue encontrado.");
+                return notif;
+            }
+            var rv = new LocalReport(newDirectory);
+
+            var solicitation = _context.SolicitationsPendingProcedure();
+            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+            rv.AddDataSource("CommonDataSet", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToShortDateString()
+                }
+            });
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var result = rv.Execute(RenderType.Pdf);
+
+            return new ServiceResult<byte[]>(result.MainStream);
+        }
+
+        public ServiceResult<byte[]> ExpenditureProcedure()
+        {
+            var newDirectory = Path.Combine(StaticFilesDirectory, "Reports", "Expenditures.rdl");
+            var files = new FileInfo(newDirectory);
+
+            var notif = new ServiceResult<byte[]>();
+
+            if (!files.Exists)
+            {
+                notif.AddError("Error", "El Reporte no fue encontrado.");
+                return notif;
+            }
+            var rv = new LocalReport(newDirectory);
+
+            var solicitation = _context.ExpenditureProcedure();
+            rv.AddDataSource("ExpenditureDataSet", solicitation);
+            rv.AddDataSource("CommonDataSet", new List<ReportDto>()
+            {
+                new ReportDto()
+                {
+                    TodayDate = DateTime.Today.ToShortDateString()
+                }
+            });
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            var result = rv.Execute(RenderType.Pdf);
+
+            return new ServiceResult<byte[]>(result.MainStream);
+        }
     }
 }

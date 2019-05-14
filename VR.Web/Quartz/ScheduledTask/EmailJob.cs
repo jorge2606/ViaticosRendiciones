@@ -12,9 +12,9 @@ using System.IO;
 using RazorLight;
 using VR.Service.Services;
 using System.Net;
-
 namespace VR.Web.Quartz.ScheduledTask
 {
+    [DisallowConcurrentExecution]
     public class EmailJob : IJob
     {
         private readonly DataContext _context;
