@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Security;
 using VR.Dto;
 using VR.Service.Interfaces;
 
@@ -24,7 +26,7 @@ namespace VR.Web.Controllers
         }
         // GET: api/Report
         [HttpGet("Report_SolicitationByUser/{userId}")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewReportByUsers, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Get_Report_SolicitationByUser(Guid userId)
         {
             var result = _reportService.PrintReportSolicitationSubsidyByUser(userId);
@@ -33,11 +35,11 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
         [HttpGet("Report_SolicitationByOrganism/{organismId}")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewReportByOrganism, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Get_Report_SolicitationByOrganism(Guid organismId)
         {
             var result = _reportService.PrintReportSolicitationSubsidyByOrganism(organismId);
@@ -46,12 +48,12 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
 
         [HttpGet("Report_SolicitationByDestiniesAndDates")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewReport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Report_SolicitationByDestiniesAndDates([FromQuery] ReportByDestiniesAndDatesDto param)
         {
             param.CityId = param.CityId.Equals(Guid.Empty) ? null : param.CityId;
@@ -63,11 +65,11 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
         [HttpGet("SolicitationsPendingProcedure")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewPendingSolicitations, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Report_SolicitationsPendingProcedure()
         {
             var result = _reportService.SolicitationsPendingProcedure();
@@ -76,11 +78,11 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
         [HttpGet("SolicitationsExpireProcedure")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewSolicitationsExpire, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Report_SolicitationsExpireProcedure()
         {
             var result = _reportService.SolicitationsExpireProcedure();
@@ -89,11 +91,11 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
         [HttpGet("ExpenditureProcedure")]
-        [Authorize]
+        [Authorize(Policy = SolicitationSubsidyClaims.CanViewExpendituresReport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Report_ExpenditureProcedure()
         {
             var result = _reportService.ExpenditureProcedure();
@@ -102,7 +104,7 @@ namespace VR.Web.Controllers
                 return BadRequest(result);
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
     }
 }

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
@@ -15,13 +16,22 @@ export class ExpenditureProcedureComponent implements OnInit {
   constructor(
     private spinner: NgxSpinnerService,
     private route : ActivatedRoute,
-    private domSanitazer : DomSanitizer
+    private domSanitazer : DomSanitizer,
+    private httpClient : HttpClient
   ) { }
 
   ngOnInit() {
     this.spinner.show();
-    this.file= this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"Report/ExpenditureProcedure");
-    this.spinner.hide();
+    this.httpClient.get<any>(environment.apiUrl+"Report/ExpenditureProcedure")
+    .subscribe(
+    x =>{
+      this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+      this.spinner.hide();
+    },
+    err => {
+      this.spinner.hide();
+    }
+    );
   }
 
 }

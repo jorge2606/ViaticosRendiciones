@@ -1,3 +1,4 @@
+import { ClaimsService } from 'src/app/_services/claims.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CityBaseDto, AllCitiesDto } from './../../_models/city';
@@ -10,10 +11,11 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DateDto } from 'src/app/_models/holiday';
 import { ReportsService } from 'src/app/_services/reports.service';
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpRequest, HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { GuidClass } from 'src/app/_helpers/guid-class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -36,6 +38,12 @@ export class ReportsComponent implements OnInit {
 
   @ViewChild('provinceId',{read: ElementRef}) private provinceId : ElementRef;
   @ViewChild('cityId',{read: ElementRef}) private cityId : ElementRef;
+  canViewPendingSolicitations: any;
+  roles: any;
+  canViewSolicitationsExpire: any;
+  canViewExpendituresReport: any;
+  canViewReportByOrganism: any;
+  canViewReportByUsers: any;
 
   constructor(
     private countryService : CountryService,
@@ -46,14 +54,33 @@ export class ReportsComponent implements OnInit {
     private reportService : ReportsService,
     private domSanitazer : DomSanitizer,
     public renderer2Service : Renderer2,
-    private authService : AuthenticationService
+    private authService : AuthenticationService,
+    private httpClient : HttpClient,
+    private claimService : ClaimsService,
+    private router : Router
   ) { }
 
   ngOnInit() {
-    this.selectedCountry = this.model.countryId;
-    this.selectedProvince = this.model.provinceId;
-    this.selectedCity = this.model.cityId;
-    this.getAllCountries();
+    if(!this.claimService.haveClaim(this.claimService.canViewPendingSolicitations) 
+      || !this.claimService.haveClaim(this.claimService.canViewSolicitationsExpire)
+      || !this.claimService.haveClaim(this.claimService.canViewExpendituresReport)
+      || !this.claimService.haveClaim(this.claimService.canViewReportByOrganism)
+      || !this.claimService.haveClaim(this.claimService.canViewReportByUsers)){
+      this.router.navigate(['/notAuthorized']);
+    }else{
+      this.selectedCountry = this.model.countryId;
+      this.selectedProvince = this.model.provinceId;
+      this.selectedCity = this.model.cityId;
+      this.roles = this.authService.userId('roles');
+      this.canViewPendingSolicitations = this.roles.find(x => x.value == this.claimService.canViewPendingSolicitations);
+      this.canViewSolicitationsExpire = this.roles.find(x => x.value == this.claimService.canViewSolicitationsExpire);
+      this.canViewExpendituresReport = this.roles.find(x => x.value == this.claimService.canViewExpendituresReport);
+      this.canViewReportByOrganism = this.roles.find(x => x.value == this.claimService.canViewReportByOrganism);
+      this.canViewReportByUsers = this.roles.find(x => x.value == this.claimService.canViewReportByUsers);
+  
+      this.getAllCountries();
+    }
+
   }
 
   onSubmit(){
@@ -65,12 +92,12 @@ export class ReportsComponent implements OnInit {
     this.selectedProvince = this.model.provinceId;
     this.selectedCity = this.model.cityId;
 
-    this.file = this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"Report/Report_SolicitationByDestiniesAndDates?"
-    +"cityId="+this.model.cityId+"&countryId="+this.model.countryId+
-    "&endDate=%7Bday:"+this.model.endDate.day+",month:"+this.model.endDate.month+",year:"+this.model.endDate.year+
-    "%7D&provinceId="+this.model.provinceId+
-    "&startDate=%7Bday:"+this.model.startDate.day+",month:"+this.model.startDate.month+",year:"+
-    this.model.startDate.year+"%7D");  
+    this.reportService.reportSolicitationByDestiniesAndDates(this.model)
+    .subscribe(
+      x =>{
+        this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+      }
+    );
   }
 
   getAllCountries(){

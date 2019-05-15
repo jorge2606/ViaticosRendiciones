@@ -1,3 +1,4 @@
+import { ClaimsService } from './../_services/claims.service';
 import { SolicitationSubsidyBaseDto } from 'src/app/_models/solicitationSubsidy';
 import { SolicitationSubsidyService } from './../_services/solicitation-subsidy.service';
 import { SupervisorUserAgentService } from 'src/app/_services/supervisor-user-agent.service';
@@ -15,6 +16,8 @@ import { Router } from '@angular/router';
 import { GenericsCommunicationsComponentsService } from '../_services/generics-communications-components.service';
 import { DetailAccountForSolicitationComponent } from '../solicitation-subsidy/detail-account-for-solicitation/detail-account-for-solicitation.component';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../_services/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navar',
@@ -27,7 +30,7 @@ export class NavarComponent implements OnInit {
   isLogged : Observable<boolean>;
   idUser : number;
   cantNotif : number = 0;
-  @Input() urlImage : string;
+  @Input() urlImage : any;
   userName : string;
   firstName : string;
   lastName : string;
@@ -35,7 +38,7 @@ export class NavarComponent implements OnInit {
   solicitationSubsidy : SolicitationSubsidyBaseDto;
   isRefund = {'yes' : true, 'not' : false};
   roles : any [] = [];
-  rolesNames : any[] = []
+  rolesNames : any[] = [];
   showTabSolicitation : any;
   showTabUsers : any;
   showTabRoles : any;
@@ -51,6 +54,14 @@ export class NavarComponent implements OnInit {
   moderateRefund: any;
   moderateViewRefund: any;
   moderateViewSolicitation: any;
+
+  canViewReport : any;
+  canViewPendingSolicitations : any;
+  canViewSolicitationsExpire : any;
+  canViewExpendituresReport : any;
+  canViewReportByOrganism : any;
+  canViewReportByUsers : any;
+
   show : boolean = true;
   showTabAudits: any;
   currentYear : number;
@@ -67,7 +78,10 @@ export class NavarComponent implements OnInit {
               private comunicationService : GenericsCommunicationsComponentsService,
               private solicitationSubsidyService : SolicitationSubsidyService,
               private router : Router,
-              private toastrService : ToastrService) { }
+              private toastrService : ToastrService,
+              private claimService : ClaimsService,
+              private userService : UserService,
+              private domanizeService : DomSanitizer) { }
 
 
   retriveNotifications(){
@@ -87,51 +101,66 @@ export class NavarComponent implements OnInit {
 
   ngOnInit() {
     this.isLogged = this.authService.isLoggedIn;
-
+    this.idUser = this.authService.userId('id');
     this.isLogged.subscribe(x => {
       this.isloggedUser = x;
       //si el usuario esta logueado
       if(x){
         this.currentYear = new Date().getFullYear();
-        this.rolesNames = this.authService.userId('rolesNames');
         this.roles = this.authService.userId('roles');
+        this.rolesNames = this.authService.userId('rolesNames');
         this.showTabSolicitation = this.roles.find(
-          claims => claims.value == 'solicitations.viewSolicitation' 
-          || claims.value == 'solicitations.create'
-          || claims.value == 'solicitations.createRefund'
-          || claims.value == 'solicitations.moderateSolicitations'
-          || claims.value == 'solicitations.moderateRefunds'
-          || claims.value == 'solicitations.viewRefund'
-          || claims.value == 'solicitations.viewSolicitation');
+          claims => claims.value == this.claimService.canViewSolicitation 
+          || claims.value == this.claimService.canCreateSolicitation
+          || claims.value == this.claimService.canCreateRefund
+          || claims.value == this.claimService.canModerateSolicitation
+          || claims.value == this.claimService.canModerateRefund
+          || claims.value == this.claimService.canViewrefund
+          || claims.value == this.claimService.canViewSolicitation);
 
-        this.createSolicitation = this.roles.find(x => x.value == 'solicitations.create');
-        this.createRefund = this.roles.find(x => x.value == 'solicitations.createRefund');
-        this.moderateSolicitation = this.roles.find(x => x.value == 'solicitations.moderateSolicitations');
-        this.moderateRefund = this.roles.find(x => x.value == 'solicitations.moderateRefunds');
-        this.moderateViewRefund = this.roles.find(x => x.value == 'solicitations.moderateRefunds');
-        this.moderateViewSolicitation = this.roles.find(x => x.value == 'solicitations.viewSolicitation');
+        this.createSolicitation = this.roles.find(x => x.value == this.claimService.canCreateSolicitation);
+        this.createRefund = this.roles.find(x => x.value == this.claimService.canCreateRefund);
+        this.moderateSolicitation = this.roles.find(x => x.value == this.claimService.canModerateSolicitation);
+        this.moderateRefund = this.roles.find(x => x.value == this.claimService.canModerateRefund);
+        this.moderateViewRefund = this.roles.find(x => x.value == this.claimService.canModerateRefund);
+        this.moderateViewSolicitation = this.roles.find(x => x.value == this.claimService.canViewSolicitation);
 
-        this.showTabUsers = this.roles.find(x => x.value == 'user.view');
-        this.showTabCategories = this.roles.find(x => x.value == 'categories.view');
-        this.showTabDistribution = this.roles.find(x => x.value == 'distributions.view');
-        this.showTabExpenditures = this.roles.find(x => x.value == 'expenditures.view');
-        this.showTabOrganism = this.roles.find(x => x.value == 'organisms.view');
-        this.showTabRoles = this.roles.find(x => x.value == 'roles.view');
-        this.showTabHolidays = this.roles.find(x => x.value == 'holidays.view');
-        this.showTabTransports = this.roles.find(x => x.value == 'transports.view');
-        this.showTabAudits = this.roles.find(x => x.value == 'audits.view');
+        this.showTabUsers = this.roles.find(x => x.value == this.claimService.canViewUsers);
+        this.showTabCategories = this.roles.find(x => x.value == this.claimService.canViewCategory);
+        this.showTabDistribution = this.roles.find(x => x.value == this.claimService.canViewDistribution);
+        this.showTabExpenditures = this.roles.find(x => x.value == this.claimService.canViewExpenditure);
+        this.showTabOrganism = this.roles.find(x => x.value == this.claimService.canViewOrganism);
+        this.showTabRoles = this.roles.find(x => x.value == this.claimService.canViewRoles);
+        this.showTabHolidays = this.roles.find(x => x.value == this.claimService.canViewHoliday);
+        this.showTabTransports = this.roles.find(x => x.value == this.claimService.canViewTransport);
+        this.showTabAudits = this.roles.find(x => x.value == this.claimService.canAudits);
+
+        this.canViewReport = this.roles.find(x => x.value == this.claimService.canViewReport);
 
         this.comunicationService.getMessage()
         .subscribe(() => {
             this.retriveNotifications();
         });
-
+        //cuando actualiza su imagen
         this.messaBetweenComp.getMessage().subscribe( 
-          () => this.urlImage = this.authService.urlFile(this.idUser, 60, 37) + "r=" + (Math.random() * 100) + 1 
+          () => {
+            this.userService.getUserImage(this.idUser, 60,37)
+            .subscribe(
+              y => {
+                this.urlImage = this.domanizeService.bypassSecurityTrustResourceUrl(y.response);
+                console.log('getMessage')
+              }
+            );
+          }
         );
         
         if (!this.urlImage){
-          this.urlImage = this.authService.urlFile(this.idUser, 60,37)+ "r=" + (Math.random() * 100) + 1;
+          this.userService.getUserImage(this.idUser, 60,37)
+          .subscribe(
+            y => {
+              this.urlImage = this.domanizeService.bypassSecurityTrustResourceUrl(y.response);
+            }
+          );
         }
         this.retriveNotifications();
       }

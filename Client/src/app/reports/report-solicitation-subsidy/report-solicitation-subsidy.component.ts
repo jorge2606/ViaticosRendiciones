@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,17 +18,25 @@ export class ReportSolicitationSubsidyComponent implements OnInit {
   constructor(
         private spinner: NgxSpinnerService,
         private route : ActivatedRoute,
-        private domSanitazer : DomSanitizer
+        private domSanitazer : DomSanitizer,
+        private httpClient : HttpClient
     ) { }
 
   ngOnInit() {
-    this.spinner.show();
     this.route.params.subscribe(
       url => {
-        this.file= this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"Report/Report_SolicitationByUser/"+url.userId);
+        this.spinner.show();
+        this.httpClient.get<any>(environment.apiUrl+"Report/Report_SolicitationByUser/"+url.userId)
+        .subscribe(
+        x =>{
+          this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+          this.spinner.hide();
+        },err=>{
+          this.spinner.hide();
+        }
+      );
       }
     );
-    this.spinner.hide();
   }
 
 }

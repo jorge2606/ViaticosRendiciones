@@ -36,6 +36,7 @@ namespace VR.Dto
         public decimal? AccountedForAmount { set; get; }
         public Guid SolicitationSubsidyId { set; get; }
         public Guid ExpenditureTypeId { set; get; }
+        public string UrlImage { set; get; }
 
     }
 

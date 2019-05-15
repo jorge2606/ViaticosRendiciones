@@ -62,13 +62,13 @@ export class SolicitationSubsidydetailComponent implements OnInit {
                     this.lastName = this.model.user.lastName;
                     this.dni = this.model.user.dni;
                     this.currentUrl = this.router.url;
-                    if(this.model.isRefund){
+                    /*if(this.model.isRefund){
                       this.model.expenditures.forEach(
                         exp=>{
                             exp.urlImage = this.authService.urlExpenditureRefundFile(exp.id,186,60);
                         }
                       );
-                    }
+                    }*/
                   }
               );
             }

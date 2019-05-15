@@ -229,6 +229,14 @@ namespace VR.Web
                 options.AddPolicy(SolicitationSubsidyClaims.CanCreateRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
                 options.AddPolicy(SolicitationSubsidyClaims.CanDeleteRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
                 options.AddPolicy(SolicitationSubsidyClaims.CanToSeeRelationshipBeetwenSupervisorAndAgent, catView => catView.RequireClaim(SolicitationSubsidyClaims.CanAudits));
+
+                //Report
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewReport, opt => opt.RequireClaim(SolicitationSubsidyClaims.CanViewReport));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewPendingSolicitations, opt => opt.RequireClaim(SolicitationSubsidyClaims.CanViewPendingSolicitations));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewSolicitationsExpire, opt => opt.RequireClaim(SolicitationSubsidyClaims.CanViewSolicitationsExpire));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewExpendituresReport, opt => opt.RequireClaim(SolicitationSubsidyClaims.CanViewExpendituresReport));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewReportByOrganism, opt => opt.RequireClaim(SolicitationSubsidyClaims.CanViewReportByOrganism));
+                options.AddPolicy(SolicitationSubsidyClaims.CanViewReportByUsers, opt => opt.RequireClaim(SolicitationSubsidyClaims.CanViewReportByUsers));
             });
 
             services.AddIdentity<User, Role>(o => {     

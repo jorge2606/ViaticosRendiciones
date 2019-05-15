@@ -432,8 +432,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("reportAccountFor/{solId}")]
-        //[Authorize(SolicitationSubsidyClaims.canPrintAccountForSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize]
+        [Authorize(SolicitationSubsidyClaims.canPrintAccountForSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult ReportAccountFor(Guid solId)
         {
             var result = _reportService.PrintAccountFor(solId);
@@ -442,7 +441,7 @@ namespace VR.Web.Controllers
                 return BadRequest();
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
 

@@ -1,8 +1,5 @@
 <div *ngIf="organimCreate" class="d-inline-block">
-	<a 
-		placement="bottom" 
-		ngbTooltip="Agregar nuevo organismo" 
-		href="" class="btn btn-success ml-2" routerLink="create">
+	<a href="" class="btn btn-success ml-2" routerLink="create">
 		<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 	</a>
 </div>
@@ -37,14 +34,14 @@
 							<a 
 								*ngIf="organimEdit"
 								placement="bottom" 
-								ngbTooltip="Editar este organismo" 
+								ngbTooltip="Editar" 
 								class="pr-3" routerLink="/organism/update/{{org.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
 							<a 
 								*ngIf="organimDelete"
 								placement="bottom" 
-								ngbTooltip="Eliminar este organismo" 
+								ngbTooltip="Eliminar" 
 								class="pr-3"
 								routerLink="/organism" (click)="openEliminar(org.id,org.name,org.description)">
 								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
@@ -52,7 +49,7 @@
 							<a 
 							*ngIf="organimDelete"
 							placement="bottom" 
-							ngbTooltip="Viáticos de este organismo" 
+							ngbTooltip="Viáticos realizados" 
 							routerLink="/organism/report/{{org.id}}">
 							<fa-icon class="fa-lg" style="color:black;" icon="file"></fa-icon>
 						</a>

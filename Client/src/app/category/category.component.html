@@ -1,7 +1,5 @@
 <div *ngIf="categoryCreate" class="d-inline-block ml-2">
 		<a 	href="" 
-			placement="bottom" 
-			ngbTooltip="Crear una nueva categoría"
 			class="btn btn-success" 
 			routerLink="create">
 			<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
@@ -37,14 +35,15 @@
 						<a 
 							*ngIf="categoryEdit"
 							placement="bottom" 
-							ngbTooltip="Editar esta categoría" 
+							ngbTooltip="Editar" 
 							class="pr-3" routerLink="/category/update/{{cat.id}}">
 							<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 						</a>
 						<a 
 							*ngIf="categoryDelete"
 							placement="bottom" 
-							ngbTooltip="Eliminar esta categoría"
+							ngbTooltip="Eliminar"
+							class="pr-3"
 							routerLink="/category" (click)="openEliminar(cat.id,cat.name,cat.description)">
 							<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 						</a>

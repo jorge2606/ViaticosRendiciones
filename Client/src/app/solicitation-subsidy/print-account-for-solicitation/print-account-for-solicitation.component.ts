@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SolicitationSubsidyDetail } from 'src/app/_models/solicitationSubsidy';
 import { DestinyDto } from 'src/app/_models/destiny';
@@ -55,7 +56,8 @@ export class PrintAccountForSolicitationComponent implements OnInit {
               private spinner: NgxSpinnerService,
               private titleService : Title,
               private router : Router,
-              private toastrService : ToastrService
+              private toastrService : ToastrService,
+              private httpClient : HttpClient
             ) { 
                 this.titleService.setTitle('Imprimir Solcitud');
             }
@@ -63,7 +65,12 @@ export class PrintAccountForSolicitationComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       url => {
-        this.file= this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"SolicitationSubsidy/reportAccountFor/"+url.id);
+        this.httpClient.get<any>(environment.apiUrl+"SolicitationSubsidy/reportAccountFor/"+url.id)
+        .subscribe(
+        x =>{
+          this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+        }
+      );
       }
     );
   }

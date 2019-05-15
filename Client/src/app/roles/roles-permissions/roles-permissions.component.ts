@@ -4,7 +4,7 @@ import { RoleClaimPermission } from './../../_models/role-claim-permission';
 import { Roles } from './../../_models/roles';
 import { Component, OnInit } from '@angular/core';
 import { UpdateRoleClaimPermission } from '../../_models/update-role-claim-permission';
-import { TreeviewItem, TreeviewConfig } from 'node_modules/ngx-treeview'
+import { TreeviewItem, TreeviewConfig, TreeviewI18n, TreeviewI18nDefault } from 'node_modules/ngx-treeview'
 import { RolesPermissionsService } from '../../_services/roles-permissions.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,7 +12,18 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-roles-permissions',
   templateUrl: './roles-permissions.component.html',
-  styleUrls: ['./roles-permissions.component.css']
+  styleUrls: ['./roles-permissions.component.css'],
+  providers : [
+    {
+      provide: TreeviewI18n , useValue: Object.assign(new TreeviewI18nDefault(), 
+        {
+          getFilterPlaceholder(): string {
+            return 'Filtrar Permisos';
+          }
+        }
+      )
+    }
+  ],
 })
 export class RolesPermissionsComponent implements OnInit {
 

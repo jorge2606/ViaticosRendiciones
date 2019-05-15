@@ -45,6 +45,7 @@
   <ItemGroup>
     <PackageReference Include="Audit.EntityFramework.Identity.Core" Version="13.3.0" />
     <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0005" />
     <PackageReference Include="Snickler.EFCore" Version="1.0.3" />
   </ItemGroup>
 

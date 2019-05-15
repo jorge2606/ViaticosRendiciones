@@ -1,9 +1,6 @@
 <div class="p-2">
     <div *ngIf="solicitationCreate" class="d-inline-block mb-1 ml-auto">
-        <a  
-          placement="bottom" 
-          ngbTooltip="Agregar una nueva solicitud de viático" 
-          href="" class="btn btn-success" routerLink="/SolicitationSubsidy/agent/create">
+        <a href="" class="btn btn-success" routerLink="/SolicitationSubsidy/agent/create">
           <fa-icon class="fa-lg" icon="plus"></fa-icon> Anticipo
         </a>
     </div>
@@ -28,8 +25,6 @@
 
     <div *ngIf="createRefund" class="d-inline-block ml-1 mb-1">
         <a
-          placement="bottom" 
-          ngbTooltip="registrar un reintegro" 
           href="" 
           routerLink="/SolicitationSubsidy/agent/repayment" 
           class="btn btn-success"
@@ -162,7 +157,7 @@
                       (click)="acceptMySolicitation(sol)">
                       <fa-icon 
                         placement="top" 
-                        ngbTooltip="Aprobar solicitud" 
+                        ngbTooltip="Aprobar" 
                         class="{{sizeIcon}}" 
                         style="color: green;" 
                         icon="check">
@@ -176,7 +171,7 @@
                     (click)="acceptMySolicitation(sol)">
                     <fa-icon 
                       placement="bottom" 
-                      ngbTooltip="Aprobar reintegro de viático" 
+                      ngbTooltip="Aprobar" 
                       class="{{sizeIcon}}" 
                       style="color: green;" 
                       icon="check">
@@ -244,14 +239,14 @@
                 <td *ngIf="sol.state == 'Aceptado'" class="col text-right">
                     <a *ngIf="!sol.isRefund"
                       placement="bottom" 
-                      ngbTooltip="Imprimir esta solicitud de viático" 
+                      ngbTooltip="Imprimir" 
                       href="" routerLink="/SolicitationSubsidy/agent/print/{{sol.id}}" class="pr-3">
                       <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                     </a>
                     <!--El formulario que debe imprimir el Reintegro es el mismo que rendición una vez que se aprueba el mismo.-->
                     <a *ngIf="sol.isRefund"
                       placement="bottom" 
-                      ngbTooltip="Imprimir esta solicitud de reintegro" 
+                      ngbTooltip="Imprimir" 
                       href="" routerLink="/SolicitationSubsidy/agent/printAccountFor/{{sol.id}}" class="pr-3">
                       <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                     </a>
@@ -268,7 +263,7 @@
                     <a
                       *ngIf="!sol.isRefund && pipeService.transform(sol.endDate,'yyyy/MM/dd') > pipeService.transform(sol.finalizeDate,'yyyy/MM/dd')"
                       placement="bottom" 
-                      ngbTooltip="Rendir cuentas sobre gastos del viático" 
+                      ngbTooltip="Rendir gastos del viático" 
                       href="" 
                       routerLink="/SolicitationSubsidy/agent/accountFor/{{sol.id}}" 
                       class="pr-3">
@@ -281,7 +276,7 @@
                     <a
                     *ngIf="!sol.isRefund && ( pipeService.transform(sol.finalizeDate,'yyyy/MM/dd') == pipeService.transform(sol.endDate,'yyyy/MM/dd'))"
                     placement="bottom" 
-                    ngbTooltip="Rendir cuentas sobre gastos del viático 1111" 
+                    ngbTooltip="Rendir gastos del viático 1111" 
                     href="" 
                     routerLink="/SolicitationSubsidy/agent/accountForNormallyFinalitation/{{sol.id}}" 
                     class="pr-3">
@@ -340,7 +335,7 @@
                       (click)="aceptedMyAccountForSolicitation(sol)">
                       <fa-icon 
                         placement="bottom" 
-                        ngbTooltip="Aprobar rendición de solicitud" 
+                        ngbTooltip="Aprobar" 
                         class="{{sizeIcon}}" 
                         style="color: green;" 
                         icon="check">
@@ -354,7 +349,7 @@
                 <td *ngIf="sol.state == 'Rendición Aceptada'" class="col text-right">
                   <a *ngIf="!sol.isRefund"
                     placement="bottom" 
-                    ngbTooltip="Imprimir esta rendición de una solicitud de viático" 
+                    ngbTooltip="Imprimir" 
                     href="" routerLink="/SolicitationSubsidy/agent/printAccountFor/{{sol.id}}" class="pr-3">
                     <fa-icon class="{{sizeIcon}}" style="color: black;" icon="print"></fa-icon>
                   </a>

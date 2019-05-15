@@ -75,6 +75,13 @@ export class ClaimsService {
 
   canAudits = "audits.view";
 
+  canViewReport = "reports.viewReport";
+  canViewPendingSolicitations = "reports.viewPendingSolicitations";
+  canViewSolicitationsExpire = "reports.viewSolicitationsExpire";
+  canViewExpendituresReport = "reports.viewExpendituresReport";
+  canViewReportByOrganism = "reports.viewReportByOrganism";
+  canViewReportByUsers = "reports.viewReportByUsers";
+
   constructor() { }
 
   haveClaim(claim: string){

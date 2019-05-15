@@ -48,6 +48,13 @@ namespace VR.Common.Security
         public const string CanDeleteExpenditure = "expenditures.delete";
         public const string CanViewExpenditure = "expenditures.view";
 
+        public const string CanViewReport = "reports.viewReport";
+        public const string CanViewPendingSolicitations = "reports.viewPendingSolicitations";
+        public const string CanViewSolicitationsExpire = "reports.viewSolicitationsExpire";
+        public const string CanViewExpendituresReport = "reports.viewExpendituresReport";
+        public const string CanViewReportByOrganism = "reports.viewReportByOrganism";
+        public const string CanViewReportByUsers = "reports.viewReportByUsers";
+
         public const string CanCreateSolicitation = "solicitations.create";
         public const string CanCreateCommissionSolicitation = "solicitations.createCommission";
         public const string CanUpdateCommissionSolicitation = "solicitations.updateCommission";

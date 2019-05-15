@@ -429,6 +429,51 @@ namespace VR.Dto
                 }
             });
 
+            permissions.Add(new ClaimPermissionDto()
+            {
+                Text = "Reportes",
+                Value = "",
+                Children = new List<ClaimPermissionDto>
+                {
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver",
+                        Value = "reports.viewReport"
+
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver Solicitudes Pendintes",
+                        Value = "reports.viewPendingSolicitations"
+
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver Solicitudes no rendidas en tiempo y forma",
+                        Value = "reports.viewSolicitationsExpire"
+
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver Conceptos de Gastos mas utilizados",
+                        Value = "reports.viewExpendituresReport"
+
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver Reporte de solicitud por organismo",
+                        Value = "reports.viewReportByOrganism"
+
+                    },
+                    new ClaimPermissionDto()
+                    {
+                        Text  = "Ver  Reporte de Solicitud por Usuario",
+                        Value = "reports.viewReportByUsers"
+
+                    }
+                }
+            });
+
             return permissions;
             
         }

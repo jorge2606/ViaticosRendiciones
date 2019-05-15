@@ -20,6 +20,7 @@ using VR.Dto;
 using VR.Service.Interfaces;
 using System.Drawing;
 using System.Drawing.Imaging;
+using SixLabors.ImageSharp.Formats.Png;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace VR.Web.Controllers
@@ -89,7 +90,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("{userId}/{width}/{height}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ResizeImage(Guid userId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
@@ -107,15 +108,31 @@ namespace VR.Web.Controllers
                 image.Mutate(x => x
                     .Resize(width, height));
                 
-                image.SaveAsJpeg(outputStream);
+                image.SaveAsPng(outputStream);
 
                 outputStream.Seek(0, SeekOrigin.Begin);
 
-                return File(outputStream, "image/jpg");
+                byte[] bytes = outputStream.ToArray();
+
+                var extentionImg = "";
+                switch (fileInfo.Extension)
+                {
+                    case ".jpg":
+                        extentionImg = "data:image/jpg;base64,";
+                        break;
+                    case ".png":
+                        extentionImg = "data:image/png;base64,";
+                        break;
+                    default:
+                        extentionImg = "data:image/png;base64,";
+                        break;
+                }
+
+                var resultUrl = extentionImg + Convert.ToBase64String(bytes);
+                ServiceResult<string> resultImg = new ServiceResult<string>(resultUrl);
+                return Ok(resultImg);
             }
-            
         }
-        
 
         [HttpPost("HolographSignUpdate")]
         [Authorize]
@@ -151,7 +168,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("HolographSign/{userId}/{width}/{height}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult HolographSign(Guid userId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
@@ -179,7 +196,7 @@ namespace VR.Web.Controllers
 
 
         [HttpGet("HolographSignUrl/{userId}/{width}/{height}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult HolographSignUrl(Guid userId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
@@ -197,7 +214,7 @@ namespace VR.Web.Controllers
 
 
         [HttpGet("ExpenditureRefund/{expId}/{width}/{height}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ExpenditureRefund(Guid expId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }
@@ -221,7 +238,7 @@ namespace VR.Web.Controllers
         }
 
         [HttpGet("ExpenditureRefundUrl/{expId}/{width}/{height}")]
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ExpenditureRefundUrl(Guid expId, int width, int height)
         {
             if (width < 0 || height < 0) { return BadRequest(); }

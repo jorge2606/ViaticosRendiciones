@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ReportsService } from 'src/app/_services/reports.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,13 +16,21 @@ export class SolicitationsExpireComponent implements OnInit {
   constructor(
     private reportService : ReportsService,
     private spinner: NgxSpinnerService,
-    private domSanitazer : DomSanitizer
+    private domSanitazer : DomSanitizer,
+    private httpClient : HttpClient
   ) { }
 
   ngOnInit() {
     this.spinner.show();
-    this.file= this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"Report/SolicitationsExpireProcedure");
-    this.spinner.hide();
+    this.httpClient.get<any>(environment.apiUrl+"Report/SolicitationsExpireProcedure")
+    .subscribe(
+    x =>{
+      this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+      this.spinner.hide();
+    },err => {
+      this.spinner.hide();
+    }
+  );
   }
 
 }

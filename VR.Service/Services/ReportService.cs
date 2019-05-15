@@ -129,7 +129,7 @@ namespace VR.Service.Services
             var rv = new LocalReport(newDirectory);
             var user = _context.Users.FirstOrDefault(c => c.Id == userId);
             var solicitation = _context.Report_SolicitationByUserProcedure(userId);
-            rv.AddDataSource("ReportSolicitationByUser",solicitation);
+            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByUser>(solicitation) );
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()
@@ -192,12 +192,12 @@ namespace VR.Service.Services
             var foundEndDate = reportByDestiniesAndDates.EndDate.IndexOf("undefined");
             DateTime? startDate = null;
             DateTime? endDate = null;
-            if (foundStartDate == -1)
+            if (foundStartDate == -1 && !reportByDestiniesAndDates.StartDate.Equals("{}"))
             {
                 startDate = JsonConvert.DeserializeObject<DateDto>(reportByDestiniesAndDates.StartDate).ToDateTime();
             }
 
-            if (foundEndDate == -1)
+            if (foundEndDate == -1 && !reportByDestiniesAndDates.EndDate.Equals("{}"))
             {
                 endDate = JsonConvert.DeserializeObject<DateDto>(reportByDestiniesAndDates.EndDate).ToDateTime();
             }

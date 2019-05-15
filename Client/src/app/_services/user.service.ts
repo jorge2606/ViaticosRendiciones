@@ -1,7 +1,7 @@
 import { Register } from './../_models/register';
 import { RoleUserDto } from './../_models/roles';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { User, modifyUser, createUser } from '../users/users';
 import { Observable, throwError, of } from 'rxjs';
@@ -82,6 +82,14 @@ export class UserService {
 
     deleteProfilePhoto(id: number) {
         return this.http.delete(environment.apiUrl+'File/removePhoto/' + id);
+    }
+
+    getHolographSign(userId : number, width : number, height: number) {
+        return this.http.get<any>(environment.apiUrl+'File/HolographSignUrl/'+userId+"/"+width+"/"+height);
+    }
+
+    getUserImage(userId: number, width : number, height : number) {
+        return this.http.get<any>(environment.apiUrl+"File/"+userId+"/"+width+"/"+height);
     }
 
 }

@@ -1,8 +1,6 @@
 	<div *ngIf="create" class="d-inline-block ml-2 mr-1">
 		<a 	href="" 
 			class="btn btn-success" 
-			placement="bottom" 
-			ngbTooltip="Agregar nuevo usuario" 
 			routerLink="create">
 			<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 		</a>
@@ -17,7 +15,7 @@
 			<a href="" class="btn btn-success" 
 				routerLink="/users/AgentsAndSupervisors"
 				placement="bottom" 
-				ngbTooltip="Asignar supervisor/es a un agente">
+				ngbTooltip="Ver supervisor/es y agentes relacionados">
 				Supervisores <fa-icon class="fa-lg" icon="user-tie"></fa-icon> Agentes
 			</a>
 	</div>
@@ -100,7 +98,7 @@
 								style="cursor:pointer" class="pr-3" routerLink="/users/update/{{user.id}}">
 								<fa-icon 
 									placement="top" 
-									ngbTooltip="Editar usuario"
+									ngbTooltip="Editar"
 									class="fa-lg" 
 									style="color:gray;" 
 									icon="edit"></fa-icon>
@@ -111,7 +109,7 @@
 								style="cursor:pointer" (click)="openEliminar(user.id,user.dni,user.userName)">
 								<fa-icon 
 									placement="top" 
-									ngbTooltip="Eliminar usuario" 
+									ngbTooltip="Eliminar" 
 									class="fa-lg" 
 									style="color:red;" 
 									icon="trash"></fa-icon>

@@ -86,6 +86,7 @@ namespace VR.Dto
         public DateTime FinalizeDate { set; get; }
         public Boolean? IsCommission { set; get; }
         public string RandomKey { set; get; }
+        public Boolean IsDeleted { set; get; }
     }
 
     public class FindByIdOnlySolicitationSubsidyDto

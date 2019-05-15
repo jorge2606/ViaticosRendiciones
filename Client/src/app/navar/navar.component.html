@@ -30,8 +30,6 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" *ngIf="showTabUsers">
           <a 
-            placement="bottom" 
-            ngbTooltip="Ver el listado de todos los usuarios" 
             routerLink="/users"
             [routerLinkActive]="['active']"
             class="nav-item text-white nav-link text-center"
@@ -42,9 +40,7 @@
 
         <li class="nav-item" *ngIf="showTabRoles">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
-          <a  
-            placement="bottom" 
-            ngbTooltip="Ver el listado de todos los roles" 
+          <a   
             class="nav-item text-white nav-link text-center" 
             href="#" 
             [routerLinkActive]="['active']"
@@ -55,8 +51,6 @@
 
         <li class="nav-item" *ngIf="showTabCategories">
           <a
-            placement="bottom" 
-            ngbTooltip="Ver el listado de todas las categorías" 
             class="nav-item text-white nav-link text-center" 
             href="#"
             [routerLinkActive]="['active']"
@@ -68,9 +62,7 @@
         <li class="nav-item" *ngIf="showTabDistribution">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
           <a
-            placement="bottom" 
             [routerLinkActive]="['active']"
-            ngbTooltip="Ver el listado de todas las reparticiones" 
             class="nav-item text-white nav-link text-center"
             href="#" 
             routerLink="/distribution">
@@ -81,8 +73,6 @@
         <li *ngIf="showTabTransports" class="nav-item">
             <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
             <a      
-              placement="bottom" 
-              ngbTooltip="Ver el listado de todos los transportes" 
               class="nav-item text-white nav-link text-center"
               href="#" 
               [routerLinkActive]="['active']"
@@ -94,8 +84,6 @@
         <li *ngIf="showTabExpenditures" class="nav-item">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
           <a       
-            placement="bottom" 
-            ngbTooltip="Ver el listado de todos los tipos de gasto" 
             class="nav-item text-white nav-link text-center" 
             href="#"
             [routerLinkActive]="['active']"
@@ -107,8 +95,6 @@
         <li *ngIf="showTabOrganism" class="nav-item">
           <!--<a style="color: white;" class="nav-item nav-link active" href="#" routerLink="/login">Login</a>-->
           <a         
-            placement="bottom" 
-            ngbTooltip="Ver el listado de todos los organismos" 
             class="nav-item text-white nav-link text-center" 
             href="#" 
             [routerLinkActive]="['active']"
@@ -133,9 +119,7 @@
                 <div *ngIf="createSolicitation" class="card small mb-1">
                     <button
                       style="cursor:pointer;"
-                      placement="bottom" 
                       [routerLinkActive]="['active']"
-                      ngbTooltip="crear una solicitud de viático" 
                       routerLink="/SolicitationSubsidy/agent/create"
                       class="dropdown-item">
                       <fa-icon icon="file-signature"></fa-icon> Crear solicitud de viático
@@ -145,9 +129,7 @@
                 <div *ngIf="createRefund" class="card small mb-1">
                     <button 
                     style="cursor:pointer;"
-                    placement="bottom" 
                     [routerLinkActive]="['active']"
-                    ngbTooltip="crear una solicitud de viático" 
                     routerLink="/SolicitationSubsidy/agent/repayment"
                     class="dropdown-item">
                     <fa-icon icon="file-signature"></fa-icon> Crear Reintegro
@@ -157,9 +139,7 @@
                 <div *ngIf="moderateSolicitation" class="card small mb-1">
                     <button
                       style="cursor:pointer;"
-                      placement="bottom" 
                       [routerLinkActive]="['active']"
-                      ngbTooltip="Moderar solicitudes de viático" 
                       routerLink="/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/{{isRefund.not}}"
                       class="dropdown-item">
                       <fa-icon icon="file-signature"></fa-icon> Moderar Anticipos
@@ -169,9 +149,7 @@
                 <div *ngIf="moderateRefund" class="card small mb-1">
                     <button
                       style="cursor:pointer;"
-                      placement="bottom" 
                       [routerLinkActive]="['active']"
-                      ngbTooltip="Moderar solicitudes de reintegro" 
                       routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.yes}}"
                       class="dropdown-item">
                       <fa-icon icon="file-signature"></fa-icon> Moderar solicitudes de reintegro
@@ -193,8 +171,6 @@
                 <div *ngIf="moderateViewSolicitation" class="card small mb-1">
                   <button 
                     style="cursor:pointer;"
-                    placement="bottom" 
-                    ngbTooltip="Listado de mis solicitudes de viático"
                     [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact : true}"
                     routerLink="/SolicitationSubsidy/agent"
@@ -209,9 +185,7 @@
 
         <li *ngIf="showTabHolidays" class="nav-item">
             <a    
-              [routerLinkActive]="['active']"
-              placement="bottom"
-              ngbTooltip="Ver el listado de los días no laborables"          
+              [routerLinkActive]="['active']"          
               routerLink="/holidays" 
               class="nav-item text-white nav-link text-center" 
               href="#">
@@ -219,11 +193,9 @@
             </a>
         </li>
 
-        <li class="nav-item">
+        <li *ngIf="canViewReport" class="nav-item">
           <a    
-            [routerLinkActive]="['active']"
-            placement="bottom"
-            ngbTooltip="Generar reportes"          
+            [routerLinkActive]="['active']"         
             routerLink="/reports" 
             class="nav-item text-white nav-link text-center" 
             href="#">
@@ -234,7 +206,7 @@
 
     <ul class="navbar-nav ml-auto small text-right">
       <li style="padding-right: 4px;">
-          <img class="image" src="{{urlImage}}" alt="">
+          <img class="image" [src]="urlImage" alt="">
       </li>
       <li class="dropdown-small">
         <div class="d-inline-block pull-right" ngbDropdown #myDrop="ngbDropdown" placement="bottom-right">

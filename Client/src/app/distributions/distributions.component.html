@@ -1,7 +1,6 @@
-<div *ngIf="distributionCreate" class="d-inline-block ml-2">
-	<a 	placement="bottom" 
-	ngbTooltip="Agregar nueva repartición" 
-	href="" class="btn btn-success" routerLink="/distribution/create">
+<div *ngIf="distributionCreate" 
+	class="d-inline-block ml-2">
+	<a href="" class="btn btn-success" routerLink="/distribution/create">
 	<fa-icon icon="plus" class="fa-lg"></fa-icon> Nuevo
 	</a>
 </div>
@@ -57,12 +56,15 @@
 							<a 	
 								*ngIf="distributionEdit"
 								placement="bottom" 
-								ngbTooltip="Editar repartición" 
+								ngbTooltip="Editar" 
 								class="pr-3" routerLink="/distribution/update/{{dist.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
 							<a 	
 								*ngIf="distributionDelete"
+								placement="bottom" 
+								ngbTooltip="Eliminar" 
+								class="pr-3"
 								routerLink="/distribution" (click)="openEliminar(dist.id,dist.name,dist.description)">
 								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 							</a>

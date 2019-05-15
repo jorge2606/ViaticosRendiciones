@@ -1,7 +1,4 @@
-<a 
-    placement="bottom" 
-    ngbTooltip="Volver al listado de usuarios" 
-    class="btn btn-primary m-2" href="" routerLink="/users">
+<a class="btn btn-primary m-2" href="" routerLink="/users">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
 
@@ -24,11 +21,13 @@
             <td>
                 <span *ngIf="a.supervisors2">{{a.supervisors2.firstName}}, {{a.supervisors2.lastName}}</span>
             </td>
-            <td class="text-right">
-              <a style="cursor:pointer" (click)="openEliminar(a.supervisors, a.agents)">
+            <td class="text-center">
+              <a style="cursor:pointer" 
+              placement="bottom" 
+              ngbTooltip="Eliminar"
+              (click)="openEliminar(a.supervisors, a.agents)">
                   <fa-icon 
-                    placement="top" 
-                    ngbTooltip="Eliminar" 
+ 
                     class="fa-lg" style="color:red;" 
                     icon="trash"></fa-icon>
               </a>

@@ -1,7 +1,5 @@
 <a 	
 	*ngIf="transportCreate"
-	placement="bottom" 
-	ngbTooltip="Agregar nuevo transporte" 
 	href="" class="btn btn-success ml-2" routerLink="create">
 	<fa-icon class="fa-lg" icon="plus"></fa-icon> Nuevo
 </a>
@@ -29,15 +27,18 @@
 							<a  
 								*ngIf="transportEdit"
 								placement="bottom" 
-								ngbTooltip="Editar este transporte" 
-								class="pr-3" routerLink="/transport/update/{{trans.id}}">
+								ngbTooltip="Editar" 
+								class="pr-3" 
+								routerLink="/transport/update/{{trans.id}}">
 								<fa-icon class="fa-lg" style="color:gray;" icon="edit"></fa-icon>
 							</a>
 							<a 	
 								*ngIf="transportDelete"
 								placement="bottom" 
-								ngbTooltip="Eliminar este transporte" 
-								routerLink="/transport" (click)="openEliminar(trans.id,trans.carPlate,trans.model)">
+								ngbTooltip="Eliminar" 
+								routerLink="/transport" 
+								class="pr-3"
+								(click)="openEliminar(trans.id,trans.carPlate,trans.model)">
 								<fa-icon class="fa-lg" style="color:red;" icon="trash"></fa-icon>
 							</a>
 					</div>

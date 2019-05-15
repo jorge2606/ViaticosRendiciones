@@ -8,7 +8,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Title } from '@angular/platform-browser';
+import { Title, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-holograph-sign',
@@ -24,17 +24,20 @@ export class HolographSignComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl; 
   idUser : number;
-  urlImage : string;
+  urlImage : any;
   subject = new Subject<any>();
   errorMsj : string;
   isDeleted : boolean;
 
-  constructor(private authService : AuthenticationService, 
+  constructor(
+    private authService : AuthenticationService, 
     private messaBetweenComp : MessBetweenCompService,
     private http : HttpClient,
     private spinner: NgxSpinnerService,
     private titleService : Title,
-    private toastrService : ToastrService
+    private toastrService : ToastrService,
+    private userService : UserService,
+    private domanizeService : DomSanitizer
     ) { }
 
     fileOverBase(e:any):void {
@@ -49,13 +52,24 @@ export class HolographSignComponent implements OnInit {
         this.idUser = this.userIdInput;
       }
       
-      this.urlImage = this.urlFile(this.idUser,200,200)  + "r=" + (Math.random() * 100) + 1;
+      this.userService.getHolographSign(this.idUser,200,200)
+      .subscribe(
+        x =>{
+          this.urlImage = this.domanizeService.bypassSecurityTrustResourceUrl("data:image/png;base64,"+x.response);
+        }
+      );
+      //this.urlImage = this.urlFile(this.idUser,200,200)  + "r=" + (Math.random() * 100) + 1;
       //image
       this.initializeUploader();
     }
 
     urlFile(userId : number, width : number, height: number){
-      return environment.apiUrl+"File/HolographSign/"+userId+"/"+width+"/"+height;
+      this.userService.getHolographSign(userId,width,height)
+      .subscribe(
+        x =>{
+          this.urlImage = this.domanizeService.bypassSecurityTrustResourceUrl("data:image/png;base64,"+x.response);
+        }
+      );
     }
 
     initializeUploader() {
@@ -76,7 +90,7 @@ export class HolographSignComponent implements OnInit {
         
         if (response) {
           this.isDeleted = response["isDeleted"];
-          this.urlImage = this.urlFile(this.idUser,200,200) + "r=" + (Math.random() * 100) + 1;
+          this.urlFile(this.idUser,200,200);
           this.toastrService.success('Firma Actualizada','',{positionClass : 'toast-top-center', timeOut : 3000});
           //this.messaBetweenComp.sendMessage(this.urlImage); --> envia a la miniatura del navar 
         }
@@ -108,22 +122,28 @@ export class HolographSignComponent implements OnInit {
     }
 
     eliminarPerfil(){
-      let url = this.urlFile(this.idUser,200,200);
-      this.spinner.show();
-      this.deleteProfilePhoto(this.idUser).subscribe(
-      data => {
-        this.isDeleted = data["response"]["isDeleted"];
-        this.urlImage =  url + "r=" + (Math.random() * 100) + 1,
-        this.url = '',
-        this.messaBetweenComp.sendMessage(this.urlImage),
-        this.spinner.hide();
-    },
-    error => {
-      console.log("Rrror", error);
-      this.spinner.hide();
-    }
-    );
+      //let url = this.urlFile(this.idUser,200,200);
+      
+      this.userService.getHolographSign(this.idUser,200,200)
+      .subscribe(
+        url =>{
 
+          this.deleteProfilePhoto(this.idUser).subscribe(
+            data => {
+              this.isDeleted = data["response"]["isDeleted"];
+              this.urlImage =  this.domanizeService.bypassSecurityTrustResourceUrl("data:image/png;base64,"+url.response),
+              this.url = '',
+              this.messaBetweenComp.sendMessage(this.urlImage),
+              this.spinner.hide();
+          },
+          error => {
+            console.log("Rrror", error);
+            this.spinner.hide();
+          }
+          );
+        }
+      );
+      this.spinner.show();
     }
 
 }

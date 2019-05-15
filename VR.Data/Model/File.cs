@@ -1,4 +1,8 @@
 ﻿using System;
+using SixLabors.ImageSharp;
+using System.Collections.Generic;
+using Service.Common.ServiceResult;
+using System.IO;
 
 namespace VR.Data.Model
 {

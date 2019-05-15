@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace VR.Dto
 {
@@ -56,6 +58,11 @@ namespace VR.Dto
     {
         public string Paths { set; get; }
         public Boolean IsDeleted { set; get; }
+    }
+
+    public class ResponseStreamImage
+    {
+        public Stream File { set; get; }
     }
 
 

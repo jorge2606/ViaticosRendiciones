@@ -1,5 +1,4 @@
-<a  placement="bottom" ngbTooltip="Volver al listado de solicitudes de viáticos" 
-    class="btn btn-primary m-2" href="" routerLink="/SolicitationSubsidy/agent">
+<a  class="btn btn-primary m-2" href="" routerLink="/SolicitationSubsidy/agent">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>
 </a>
 
@@ -131,8 +130,6 @@
         
                 <div class="form-row mt-1 mb-1">
                     <button 
-                        placement="bottom" 
-                        ngbTooltip="Agregar un nuevo destino" 
                         type="button" 
                         class="btn btn-success" 
                         (click)="AddDestiny()"
@@ -142,8 +139,6 @@
                     <button (click)="deleteAllDestinies()" 
                         *ngIf="model.destinies.length > 0 && !id"
                         class="btn btn-danger ml-1 text-white"
-                        placement="bottom" 
-                        ngbTooltip="Eliminar todos los destinos"
                         [hidden]="model.isCommission && ( model.userId == null ? false : model.userId != authService.userId('id'))">
                         <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
                     </button>
@@ -215,7 +210,7 @@
                                     [hidden]="model.isCommission && (model.userId == null ? false : model.userId != authService.userId('id'))"
                                     placement="bottom" 
                                     class="btn btn-link text-white"
-                                    ngbTooltip="Eliminar este destino"  
+                                    ngbTooltip="Eliminar"  
                                     (click)="removeDestiny(destiny)">
                                     <fa-icon 
                                         style="color:red; cursor:pointer;"
@@ -228,13 +223,11 @@
                     </tbody>
                 </table>
                 <div class="form-row mt-1 mb-1">
-                        <a  placement="bottom" ngbTooltip="Agregar un nuevo concepto gasto"
-                            (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white">
+                        <a  (click)="openAddNewConcept()" class="btn btn-success mb-1 text-white">
                             <fa-icon class="fa-lg" icon="plus"></fa-icon> Concepto de Gasto
                         </a>
             
-                        <a  placement="bottom" ngbTooltip="Eliminar todos los conceptos de gasto" 
-                            (click)="deleteAllConcepts()" 
+                        <a  (click)="deleteAllConcepts()" 
                             *ngIf="model.expenditures.length > 0"
                             class="btn btn-danger ml-1 mb-1 text-white">
                             <fa-icon class="fa-lg" icon="trash"></fa-icon> Eliminar Todos
@@ -282,7 +275,7 @@
                                 <td class="col-1 text-right">
                                     <a  
                                         placement="top" 
-                                        ngbTooltip="Eliminar este concepto de gasto" 
+                                        ngbTooltip="Eliminar" 
                                         (click)="removeExpenditure(modelExp)">
                                         <fa-icon style="color:red; cursor: pointer;" class="fa-lg" icon="trash"></fa-icon>
                                     </a>
@@ -294,7 +287,6 @@
                 
                 <div class="form-row float-right">
                     <button 
-                        placement="top" ngbTooltip="Enviar este formulario" 
                         [disabled]="!solicitationSubsidy.valid" class="btn btn-success">
                         <fa-icon class="fa-lg" icon="save"></fa-icon> Guardar
                     </button>

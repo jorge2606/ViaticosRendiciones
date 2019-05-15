@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RazorLight;
@@ -810,12 +811,19 @@ namespace VR.Service.Services
                 .Include(x => x.Expenditures).ThenInclude(x => x.ExpenditureType)
                 .Include(x => x.User).ThenInclude(c => c.Category)
                 .Include(x => x.User).ThenInclude(c => c.Distribution).ThenInclude(o => o.Organism)
+                .Select(x => _mapper.Map<FindByIdSolicitationSubsidyDto>(x))
                 .Where(x => x.IsDeleted != true)
                 .FirstOrDefault(x => x.Id == id);
 
             if (find == null)
             {
                 return new ServiceResult<FindByIdSolicitationSubsidyDto>(null);
+            }
+
+            foreach (var exp in find.Expenditures)
+            {
+                var resultUrl = "data:image/png;base64,"+Convert.ToBase64String(_dataContext.Files.FirstOrDefault(m => m.ExpenditureId == exp.Id).Image);
+                exp.UrlImage = resultUrl;
             }
 
             return new ServiceResult<FindByIdSolicitationSubsidyDto>(
