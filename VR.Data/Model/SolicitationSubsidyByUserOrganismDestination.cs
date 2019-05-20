@@ -6,6 +6,16 @@ namespace VR.Data.Model
 {
     public class SolicitationSubsidyByUser
     {
+        public SolicitationSubsidyByUser()
+        {
+            Dni = "";
+            Email = "";
+            FullName = "";
+            Localities = "";
+            Motive = "";
+            PhoneNumber = "";
+            State = "";
+        }
         public string FullName { set; get; }
         public string Dni { set; get; }
         public string PhoneNumber { set; get; }
@@ -23,6 +33,16 @@ namespace VR.Data.Model
 
     public class SolicitationSubsidyByOrganism
     {
+        public SolicitationSubsidyByOrganism()
+        {
+            Dni = "";
+            Email = "";
+            FullName = "";
+            Localities = "";
+            Motive = "";
+            PhoneNumber = "";
+            State = "";
+        }
         public string FullName { set; get; }
         public string Dni { set; get; }
         public string PhoneNumber { set; get; }

@@ -6,6 +6,11 @@ namespace VR.Dto
 {
     public class ReportDto
     {
+        public ReportDto()
+        {
+            TodayDate = "";
+            TotalLetter = "";
+        }
         public string TodayDate { set; get; }
         public string TotalLetter { set; get; }
     }
