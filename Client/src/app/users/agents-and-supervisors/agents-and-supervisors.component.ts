@@ -14,6 +14,11 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 export class AgentsAndSupervisorsComponent implements OnInit {
 
   agentsSupervisors : AllSupervisorUserAgent[];
+  agentSupervisor_list_length : number;
+  filters = { lastName : "",firstName : "", page : 0 };
+  col_size: number;
+  itemsPerPage: number = 10;
+  page = 0;
   ngbModalOptions: NgbModalOptions = {
     backdrop : 'static',
     keyboard : false
@@ -27,17 +32,26 @@ export class AgentsAndSupervisorsComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Agentes y Supervisores');
-    this.getUserAgents();
+    this.getUserAgents(this.filters);
 
   }
 
-  getUserAgents(){
-    this.agentsAndSupervisors.getAll()
+  getUserAgents(filters : any){
+    this.agentsAndSupervisors.getPaginator(filters)
     .subscribe(
       x =>{
-          this.agentsSupervisors = x;
+          this.agentsSupervisors = x.list;
+          this.agentSupervisor_list_length = this.agentsSupervisors.length;
+          this.col_size = x.totalRecords;
+      },
+      err => {
+        console.log(err);
       }
     );
+  }
+
+  findWhileWrite(){
+    this.loadPage(this.filters.page);
   }
 
   openEliminar(supervisor : any, agent : any) {
@@ -54,7 +68,7 @@ export class AgentsAndSupervisorsComponent implements OnInit {
           this.toastrService.success("El Agente '"+agent.lastName+", "
           +agent.firstName+"' se desasigno correctamente del supervisor "+supervisor.lastName+", "
           +supervisor.firstName,'', {positionClass : 'toast-top-center', timeOut : 3000});
-          this.getUserAgents();
+          this.loadPage(this.page);
         },
         error => {
           console.log("error", error);
@@ -64,6 +78,13 @@ export class AgentsAndSupervisorsComponent implements OnInit {
       () => {
         console.log('Backdrop click');
       })
+  }
+
+  loadPage(page : number) {
+    if (page > 0) {
+      this.filters.page = page - 1;
+    }
+    this.getUserAgents(this.filters);
   }
 
 }

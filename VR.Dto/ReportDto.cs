@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VR.Dto.User;
 
 namespace VR.Dto
 {
@@ -28,5 +29,11 @@ namespace VR.Dto
         public int StartDateDay { set; get; }
         public int StartDateMonth { set; get; }
         public int StartDateYear { set; get; }
+    }
+
+    public class UserAgentFilterDto : FilterBaseDto
+    {
+        public string FirstName { set; get; }
+        public string LastName { set; get; }
     }
 }

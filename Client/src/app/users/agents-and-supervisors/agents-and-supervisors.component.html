@@ -1,7 +1,22 @@
 <a class="btn btn-primary m-2" href="" routerLink="/users">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
-
+<label class="d-inline-block pl-1 pr-1" for=""><b>Nombre</b></label>
+<div class="d-inline-block pl-1 pr-1 col-md-3 mb-1">
+  <input (keyup)="findWhileWrite()" 
+      [(ngModel)]="filters.firstName" 
+      placeholder="Nombre de supervisor o agente ..."
+      type="text" 
+      class="form-control">
+</div>
+<label class="d-inline-block pl-1 pr-1" for=""><b>Apellido</b></label>
+<div class="d-inline-block pl-1 pr-1 col-md-3 mb-1">
+  <input (keyup)="findWhileWrite()" 
+        [(ngModel)]="filters.lastName" 
+        placeholder="Apellido de supervisor o agente ..."
+        type="text" 
+        class="form-control">
+</div>
 <div class="m-2">
     <table class="table table-striped responsive">
         <thead>
@@ -35,4 +50,18 @@
           </tr>
         </tbody>
     </table>
+
+    <app-alert 
+      *ngIf="agentSupervisor_list_length == 0" 
+      [textAlert]="textListEmpty"
+      [typeAlert]="classListEmpty">			
+  </app-alert>
+
+  <ngb-pagination 
+	*ngIf="col_size >= (itemsPerPage + 1)"
+	(pageChange)="loadPage($event)" 
+	[collectionSize]="col_size" 
+	[pageSize]="itemsPerPage" 
+	[(page)]="page"
+	aria-label="Default pagination"></ngb-pagination>
 </div>

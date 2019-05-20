@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Service.Common.ServiceResult;
 using VR.Data;
@@ -10,6 +11,7 @@ using VR.Data.Model;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
+using VR.Web.Helpers;
 
 namespace VR.Service.Services
 {
@@ -78,6 +80,68 @@ namespace VR.Service.Services
                 .ToList();
 
             return new ServiceResult<List<AllSupervisorAgentDto>>(result);
+        }
+
+        public ServiceResult<PagedResult<AllSupervisorAgentDto>> GetPageUserAgent(UserAgentFilterDto filters)
+        {
+            const int pageSize = 10;
+
+            var resultFull = _Context.SupervisorUserAgents
+                .Include(S => S.Agents)
+                .Include(S1 => S1.Supervisors)
+                .Include(S2 => S2.Supervisors2)
+                .Where(
+                x =>
+                    (
+                        ( string.IsNullOrEmpty(filters.FirstName) ||
+                         x.Agents.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
+                        ||
+                        ( string.IsNullOrEmpty(filters.FirstName) || 
+                         x.Supervisors.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
+                        ||
+                        ( string.IsNullOrEmpty(filters.FirstName) ||
+                         x.Supervisors2.FirstName.ToUpper().Contains(filters.FirstName.ToUpper()))
+                     ) 
+                    &&
+                    (
+                        ( string.IsNullOrEmpty(filters.LastName) ||
+                         x.Agents.LastName.ToUpper().Contains(filters.LastName.ToUpper()))
+                        ||
+                        ( string.IsNullOrEmpty(filters.LastName) ||
+                         x.Supervisors.LastName.ToUpper().Contains(filters.LastName.ToUpper()))
+                        ||
+                        ( string.IsNullOrEmpty(filters.LastName) ||
+                         x.Supervisors2.LastName.ToUpper().Contains(filters.LastName.ToUpper()))
+                    )
+                    &&
+                    (!x.IsDeleted)
+                    &&
+                    (x.Agents == null || !x.Agents.SuperAdmin)
+                    &&
+                    (x.Supervisors == null || !x.Supervisors.SuperAdmin)
+                    &&
+                    (x.Supervisors2 == null || !x.Supervisors2.SuperAdmin)
+            );
+            
+            var resultPage = resultFull.Skip((filters.Page ?? 0) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<AllSupervisorAgentDto>()
+                .ToList();
+
+            if (resultPage.Count() == 0 && filters.Page > 0)
+            {
+                resultPage = resultFull.Skip(((filters.Page ?? 0) - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<AllSupervisorAgentDto>()
+                    .ToList();
+            }
+            return new ServiceResult<PagedResult<AllSupervisorAgentDto>>(
+                new PagedResult<AllSupervisorAgentDto>()
+                {
+                    List = resultPage,
+                    TotalRecords = resultFull.Count()
+                }
+            );
         }
 
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VR.Dto;
+using VR.Web.Helpers;
 
 namespace VR.Service.Interfaces
 {
@@ -13,5 +14,6 @@ namespace VR.Service.Interfaces
         ServiceResult<Boolean> IsAgent(Guid myUserId, Guid otherUserId);
         ServiceResult<Guid> DeleteRelationshipBetweenAgentAndSupervisor(Guid supervisorId, Guid AgentId);
         ServiceResult<List<SupervisorsDto>> AllSupervisors();
+        ServiceResult<PagedResult<AllSupervisorAgentDto>> GetPageUserAgent(UserAgentFilterDto filters);
     }
 }

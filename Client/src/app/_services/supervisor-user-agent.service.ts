@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SupervisorUserAgentBaseDto } from '../_models/supervisorUserAgent';
 import { User } from '../_models/user';
@@ -17,6 +17,10 @@ export class SupervisorUserAgentService {
 
   getAll(){
     return this.http.get<any>(environment.apiUrl+"SupervisorUserAgent/AllSupervisorAgents");
+  }
+
+  getPaginator(filters: any) {
+    return this.http.get<any>(environment.apiUrl+'SupervisorUserAgent/page',{params: filters});
   }
 
   isAgent(userId : number){

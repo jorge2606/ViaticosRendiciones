@@ -16,6 +16,7 @@ using VR.Data.Model.ModelStoreProcedure;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
+using VR.Web.Helpers;
 using User = VR.Data.Model.User;
 
 namespace VR.Service.Services
@@ -358,5 +359,7 @@ namespace VR.Service.Services
 
             return new ServiceResult<byte[]>(result.MainStream);
         }
+
+
     }
 }
