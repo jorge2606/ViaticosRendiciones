@@ -95,7 +95,9 @@ namespace VR.Service.Services
         {
             const int pageSize = 10;
 
-            var resultFull = _context.Users.Where(
+            var resultFull = _context.Users
+                .Include(dist => dist.Distribution)
+                .Where(
                     x =>
                         (!filters.DistributionId.HasValue || x.DistributionId == filters.DistributionId)
                         &&
@@ -119,10 +121,6 @@ namespace VR.Service.Services
                     .Take(pageSize)
                     .ProjectTo<AllUserDto>()
                     .ToList();
-            }
-            foreach (var user in resultPage)
-            {
-                user.Distribution = _context.Distributions.FirstOrDefault(x => x.Id == user.DistributionId);
             }
             return new ServiceResult<PagedResult<AllUserDto>>(
                      new PagedResult<AllUserDto>()
@@ -563,7 +561,7 @@ namespace VR.Service.Services
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             var codeScaped = Uri.EscapeDataString(code);
 
-            //var callbackUrl = string.Format(_configuration["AppSettings:localUrl"]+"/CambiarPassword/{0}/{1}", Uri.EscapeDataString(code), user.Id);
+            //var callbackUrl = string.Format(_configuration["AppSettings:"]+"/CambiarPassword/{0}/{1}", Uri.EscapeDataString(code), user.Id);
             var callbackUrl =
                 string.Format(_configuration["AppSettings:baseUrl"] + "/CambiarPassword?code={0}&userId={1}",codeScaped,
                     user.Id);

@@ -1,7 +1,7 @@
 <a class="btn btn-primary m-2" href="" routerLink="/users">
     <fa-icon class="fa-lg" icon="arrow-left"></fa-icon>    
 </a>
-<label class="d-inline-block pl-1 pr-1" for=""><b>Nombre</b></label>
+<label class="d-inline-block pl-1 pr-1" for="">Nombre</label>
 <div class="d-inline-block pl-1 pr-1 col-md-3 mb-1">
   <input (keyup)="findWhileWrite()" 
       [(ngModel)]="filters.firstName" 
@@ -9,7 +9,7 @@
       type="text" 
       class="form-control">
 </div>
-<label class="d-inline-block pl-1 pr-1" for=""><b>Apellido</b></label>
+<label class="d-inline-block pl-1 pr-1" for="">Apellido</label>
 <div class="d-inline-block pl-1 pr-1 col-md-3 mb-1">
   <input (keyup)="findWhileWrite()" 
         [(ngModel)]="filters.lastName" 
