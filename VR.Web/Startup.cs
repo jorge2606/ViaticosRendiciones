@@ -53,7 +53,7 @@ namespace VR.Web
     public class Startup
     {
 
-        private const string _defaultCorsPolicyName = "localhost";
+        private const string _defaultCorsPolicyName = "AllowOrigin";
         private const string enUSCulture = "es-ES";
         public IConfiguration Configuration { get; }
         public IServiceProvider ServiceProvider { get; }

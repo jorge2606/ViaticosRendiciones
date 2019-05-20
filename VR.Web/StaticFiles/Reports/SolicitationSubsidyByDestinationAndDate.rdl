@@ -6,9 +6,9 @@
     <DataSource Name="VR_DataSource">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=.\SQLEXPRESS;Initial Catalog=VR</ConnectString>
+        <ConnectString>Data Source=132.148.85.90;Initial Catalog=VR</ConnectString>
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
+      <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>c386d929-ae4e-4aef-ab52-8aafde376e36</rd:DataSourceID>
     </DataSource>
   </DataSources>

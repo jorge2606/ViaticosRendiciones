@@ -418,7 +418,6 @@ namespace VR.Web.Controllers
         }**/
 
         [HttpGet("report/{solId}")]
-        //[Authorize(SolicitationSubsidyClaims.canPrintSolicitation, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize]
         public IActionResult Report(Guid solId)
         {
@@ -428,7 +427,7 @@ namespace VR.Web.Controllers
                 return BadRequest();
             }
 
-            return File(result.Response, "application/pdf");
+            return Ok(result);
         }
 
         [HttpGet("reportAccountFor/{solId}")]

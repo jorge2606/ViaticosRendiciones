@@ -15,6 +15,7 @@ import { DomSanitizer, Title, SafeResourceUrl } from '@angular/platform-browser'
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import { SolicitationStatesService } from 'src/app/_services/solicitation-states.service';
+import { ReportsService } from 'src/app/_services/reports.service';
 
 @Component({
   selector: 'app-print',
@@ -63,7 +64,8 @@ export class PrintComponent implements OnInit {
               private titleService : Title,
               private router : Router,
               private solicitationStateService : SolicitationStatesService,
-              private toastrService : ToastrService
+              private toastrService : ToastrService,
+              private reportService : ReportsService
             ) { 
                 this.titleService.setTitle('Imprimir Solcitud');
             }
@@ -72,10 +74,20 @@ export class PrintComponent implements OnInit {
     this.spinner.show();
     this.route.params.subscribe(
       url => {
-        this.file= this.domSanitazer.bypassSecurityTrustResourceUrl(environment.apiUrl+"SolicitationSubsidy/report/"+url.id);
+        this.spinner.show();
+        this.reportService.solicitationWasApproved(url.id)
+        .subscribe(
+          x =>{
+            this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+            this.spinner.hide();
+          },
+          err=>{
+            this.toastrService.error('No se pudo cargar el reporte.');
+            this.spinner.hide();
+          }
+        );
       }
     );
-    this.spinner.hide();
   }
 
 }

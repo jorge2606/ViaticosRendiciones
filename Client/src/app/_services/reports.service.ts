@@ -31,4 +31,10 @@ export class ReportsService {
     
     return this.http.get<any>(environment.apiUrl+"Report/Report_SolicitationByDestiniesAndDates",{params: param});
   }
+
+
+  solicitationWasApproved(id : number){
+    return this.http.get<any>(environment.apiUrl+"SolicitationSubsidy/report/"+id);
+  }
+  
 }
