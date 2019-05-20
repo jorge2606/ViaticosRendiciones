@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Service.Common.ServiceResult;
 using VR.Data;
 using VR.Data.Model;
+using VR.Data.Model.ModelStoreProcedure;
 using VR.Dto;
 using VR.Dto.User;
 using VR.Service.Interfaces;
@@ -129,7 +130,15 @@ namespace VR.Service.Services
             var rv = new LocalReport(newDirectory);
             var user = _context.Users.FirstOrDefault(c => c.Id == userId);
             var solicitation = _context.Report_SolicitationByUserProcedure(userId);
-            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByUser>(solicitation) );
+            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByUser>()
+            {
+                new SolicitationSubsidyByUser()
+            });
+            if (solicitation.Count() > 0)
+            {
+                rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByUser>(solicitation));
+            }
+            
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()
@@ -160,7 +169,14 @@ namespace VR.Service.Services
             var organismResult = _context.Organisms.FirstOrDefault(x => x.Id == organismId);
 
             var solicitation = _context.Report_SolicitationByOrganism(organismId);
-            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>()
+            {
+                new SolicitationSubsidyByOrganism()
+            });
+            if (solicitation.Count() > 0)
+            {
+                rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>(solicitation));
+            }
             rv.AddDataSource("OrganismDataSet", new List<Organism>(){ organismResult });
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
@@ -188,18 +204,22 @@ namespace VR.Service.Services
                 return notif;
             }
             var rv = new LocalReport(newDirectory);
-            var foundStartDate = reportByDestiniesAndDates.StartDate.IndexOf("undefined");
-            var foundEndDate = reportByDestiniesAndDates.EndDate.IndexOf("undefined");
             DateTime? startDate = null;
             DateTime? endDate = null;
-            if (foundStartDate == -1 && !reportByDestiniesAndDates.StartDate.Equals("{}"))
+            if (reportByDestiniesAndDates.StartDate != null 
+                && !reportByDestiniesAndDates.StartDate.Day.Equals(0)
+                && !reportByDestiniesAndDates.StartDate.Month.Equals(0)
+                && !reportByDestiniesAndDates.StartDate.Year.Equals(0))
             {
-                startDate = JsonConvert.DeserializeObject<DateDto>(reportByDestiniesAndDates.StartDate).ToDateTime();
+                startDate = reportByDestiniesAndDates.StartDate.ToDateTime();
             }
 
-            if (foundEndDate == -1 && !reportByDestiniesAndDates.EndDate.Equals("{}"))
+            if (reportByDestiniesAndDates.EndDate != null
+                && !reportByDestiniesAndDates.EndDate.Day.Equals(0)
+                && !reportByDestiniesAndDates.EndDate.Month.Equals(0)
+                && !reportByDestiniesAndDates.EndDate.Year.Equals(0))
             {
-                endDate = JsonConvert.DeserializeObject<DateDto>(reportByDestiniesAndDates.EndDate).ToDateTime();
+                endDate = reportByDestiniesAndDates.EndDate.ToDateTime();
             }
             var solicitation = _context.Report_SolicitationByDestiniesAndDates(
                 startDate,
@@ -208,7 +228,15 @@ namespace VR.Service.Services
                 reportByDestiniesAndDates.CityId,
                 reportByDestiniesAndDates.ProvinceId
                 );
-            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+
+            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>()
+            {
+                new SolicitationSubsidyByOrganism()
+            });
+            if (solicitation.Count() > 0)
+            {
+                rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>(solicitation));
+            }
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()
@@ -237,7 +265,14 @@ namespace VR.Service.Services
             var rv = new LocalReport(newDirectory);
 
             var solicitation = _context.SolicitationsPendingProcedure();
-            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>()
+            {
+                new SolicitationSubsidyByOrganism()
+            });
+            if (solicitation.Count() > 0)
+            {
+                rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>(solicitation));
+            }
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()
@@ -266,7 +301,15 @@ namespace VR.Service.Services
             var rv = new LocalReport(newDirectory);
 
             var solicitation = _context.SolicitationsPendingProcedure();
-            rv.AddDataSource("ReportSolicitationByUser", solicitation);
+
+            rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>()
+            {
+                new SolicitationSubsidyByOrganism()
+            });
+            if (solicitation.Count() > 0)
+            {
+                rv.AddDataSource("ReportSolicitationByUser", new List<SolicitationSubsidyByOrganism>(solicitation));
+            }
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()
@@ -295,7 +338,14 @@ namespace VR.Service.Services
             var rv = new LocalReport(newDirectory);
 
             var solicitation = _context.ExpenditureProcedure();
-            rv.AddDataSource("ExpenditureDataSet", solicitation);
+            rv.AddDataSource("ExpenditureDataSet", new List<ExpenditureProcedureDto>()
+            {
+                new ExpenditureProcedureDto()
+            });
+            if (solicitation.Count() > 0)
+            {
+                rv.AddDataSource("ExpenditureDataSet", new List<ExpenditureProcedureDto>(solicitation));
+            }
             rv.AddDataSource("CommonDataSet", new List<ReportDto>()
             {
                 new ReportDto()

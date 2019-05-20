@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./solicitations-pending.component.css']
 })
 export class SolicitationsPendingComponent implements OnInit {
-  file: any;
+  file: any = this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
 
   constructor(
       private reportService : ReportsService,

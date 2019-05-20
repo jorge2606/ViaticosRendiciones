@@ -87,8 +87,8 @@
           <DataField>TotalExpenditure</DataField>
           <rd:UserDefined>true</rd:UserDefined>
         </Field>
-        <Field Name="TotalDetination">
-          <DataField>TotalDetination</DataField>
+        <Field Name="TotalDestination">
+          <DataField>TotalDestination</DataField>
           <rd:UserDefined>true</rd:UserDefined>
         </Field>
       </Fields>
@@ -729,7 +729,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TotalDetination">
+                        <Textbox Name="TotalDestination">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -742,7 +742,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!TotalDetination.Value</Value>
+                                  <Value>=Fields!TotalDestination.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                   </Style>
@@ -751,7 +751,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TotalDetination</rd:DefaultName>
+                          <rd:DefaultName>TotalDestination</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -782,7 +782,7 @@
                                 </TextRun>
                                 <TextRun>
                                   <Label>Total</Label>
-                                  <Value>=Fields!TotalExpenditure.Value + Fields!TotalDetination.Value</Value>
+                                  <Value>=Fields!TotalExpenditure.Value + Fields!TotalDestination.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                   </Style>
@@ -835,7 +835,7 @@
             <Top>11.97679mm</Top>
             <Left>3.95327mm</Left>
             <Height>13.5875mm</Height>
-            <Width>288.59908mm</Width>
+            <Width>288.5991mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

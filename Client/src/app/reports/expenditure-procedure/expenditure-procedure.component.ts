@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./expenditure-procedure.component.css']
 })
 export class ExpenditureProcedureComponent implements OnInit {
-  file: any;
+  file: any = this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
 
   constructor(
     private spinner: NgxSpinnerService,

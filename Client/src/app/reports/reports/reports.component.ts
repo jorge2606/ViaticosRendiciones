@@ -33,7 +33,7 @@ export class ReportsComponent implements OnInit {
   selectedCountry: number;
   selectedProvince: number;
   selectedCity: number;
-  file: any;
+  file: any = this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
   emptyGuid = GuidClass.empty;
 
   @ViewChild('provinceId',{read: ElementRef}) private provinceId : ElementRef;
@@ -91,11 +91,17 @@ export class ReportsComponent implements OnInit {
     this.selectedCountry = this.model.countryId;
     this.selectedProvince = this.model.provinceId;
     this.selectedCity = this.model.cityId;
-
+    
+    this.spinner.show();
     this.reportService.reportSolicitationByDestiniesAndDates(this.model)
     .subscribe(
       x =>{
         this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+        this.spinner.hide();
+      },
+      err=>{
+        this.toastrService.error('No se pudo cargar el reporte.');
+        this.spinner.hide();
       }
     );
   }
@@ -114,16 +120,21 @@ export class ReportsComponent implements OnInit {
     if (!countryId){
       return;
     }
+    this.spinner.show();
     this.provinceService.findByCountryId(countryId)
     .subscribe(
         x=> {
           this.provinces = x;
+          this.spinner.hide();
           if (this.provinces.length == 0){
             this.model.provinceId = this.selectedProvince;
             this.renderer2Service.setAttribute(this.provinceId.nativeElement,"disabled","true");
             this.model.cityId = this.selectedCity;
             this.renderer2Service.setAttribute(this.cityId.nativeElement,"disabled","true");
           }
+         },
+         err => {
+              this.spinner.hide();
          }
     );
   }

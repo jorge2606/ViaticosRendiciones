@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ReportSolicitationSubsidyByOrganismComponent implements OnInit {
 
-  file : any;
+  file : any  = this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
   constructor(
     private spinner: NgxSpinnerService,
     private route : ActivatedRoute,

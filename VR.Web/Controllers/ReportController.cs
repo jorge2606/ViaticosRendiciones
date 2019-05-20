@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VR.Common.Extensions;
 using VR.Common.Security;
 using VR.Dto;
 using VR.Service.Interfaces;
@@ -59,12 +60,24 @@ namespace VR.Web.Controllers
             param.CityId = param.CityId.Equals(Guid.Empty) ? null : param.CityId;
             param.CountryId = param.CountryId.Equals(Guid.Empty) ? null : param.CountryId;
             param.ProvinceId = param.ProvinceId.Equals(Guid.Empty) ? null : param.ProvinceId;
+            param.StartDate = new DateDto()
+            {
+                Day = param.StartDateDay,
+                Month = param.StartDateMonth,
+                Year = param.StartDateYear
+            };
+            param.EndDate = new DateDto()
+            {
+                Day = param.EndDay,
+                Month = param.EndMonth,
+                Year = param.EndYear
+            };
             var result = _reportService.PrintReport_SolicitationByDestiniesAndDates(param);
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
             }
-
+            
             return Ok(result);
         }
 

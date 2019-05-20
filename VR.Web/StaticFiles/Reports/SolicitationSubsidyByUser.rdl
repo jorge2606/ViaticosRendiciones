@@ -7,8 +7,9 @@
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString>Data Source=.\SQLEXPRESS;Initial Catalog=VR</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
+      <rd:SecurityType>Integrated</rd:SecurityType>
       <rd:DataSourceID>c386d929-ae4e-4aef-ab52-8aafde376e36</rd:DataSourceID>
     </DataSource>
   </DataSources>

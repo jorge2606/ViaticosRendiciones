@@ -113,7 +113,7 @@
                   id="dropdownManual" 
                   ngbDropdownAnchor 
                   (focus)="myDropDown.open()">
-                  Solicitudes
+                  <fa-icon icon="file-signature"></fa-icon> Solicitudes
                 </a>
               <div ngbDropdownMenu aria-labelledby="dropdownManual" class="dropdown-menu show p-1">
                 <div *ngIf="createSolicitation" class="card small mb-1">
@@ -121,8 +121,7 @@
                       style="cursor:pointer;"
                       [routerLinkActive]="['active']"
                       routerLink="/SolicitationSubsidy/agent/create"
-                      class="dropdown-item">
-                      <fa-icon icon="file-signature"></fa-icon> Crear solicitud de viático
+                      class="dropdown-item">Crear solicitud de viático
                     </button>
                 </div>
 
@@ -131,8 +130,7 @@
                     style="cursor:pointer;"
                     [routerLinkActive]="['active']"
                     routerLink="/SolicitationSubsidy/agent/repayment"
-                    class="dropdown-item">
-                    <fa-icon icon="file-signature"></fa-icon> Crear Reintegro
+                    class="dropdown-item">Crear Reintegro
                   </button>
                 </div>
 
@@ -141,8 +139,7 @@
                       style="cursor:pointer;"
                       [routerLinkActive]="['active']"
                       routerLink="/SolicitationSubsidy/agent/supervisor/solicitationSubsidies/{{isRefund.not}}"
-                      class="dropdown-item">
-                      <fa-icon icon="file-signature"></fa-icon> Moderar Anticipos
+                      class="dropdown-item">Moderar Anticipos
                     </button>
                 </div>
 
@@ -151,31 +148,17 @@
                       style="cursor:pointer;"
                       [routerLinkActive]="['active']"
                       routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.yes}}"
-                      class="dropdown-item">
-                      <fa-icon icon="file-signature"></fa-icon> Moderar solicitudes de reintegro
+                      class="dropdown-item">Moderar solicitudes de reintegro
                     </button>
                 </div>
-
-                <!--<div *ngIf="moderateViewRefund" class="card small mb-1">
-                    <button 
-                    style="cursor:pointer;"
-                    placement="bottom" 
-                    [routerLinkActive]="['active']"
-                    ngbTooltip="Listado de reintegros" 
-                    routerLink="/SolicitationSubsidy/agent/supervisor/refunds/{{isRefund.yes}}"
-                    class="dropdown-item">
-                    <fa-icon icon="list-ul"></fa-icon> Listado de reintegros
-                  </button>
-                </div>-->
-
+                
                 <div *ngIf="moderateViewSolicitation" class="card small mb-1">
                   <button 
                     style="cursor:pointer;"
                     [routerLinkActive]="['active']"
                     [routerLinkActiveOptions]="{exact : true}"
                     routerLink="/SolicitationSubsidy/agent"
-                    class="dropdown-item">
-                    <fa-icon icon="list-ul"></fa-icon> Listado de mis solicitudes
+                    class="dropdown-item"> Listado de mis solicitudes
                   </button>
                 </div>
 
@@ -194,13 +177,50 @@
         </li>
 
         <li *ngIf="canViewReport" class="nav-item">
-          <a    
-            [routerLinkActive]="['active']"         
-            routerLink="/reports" 
-            class="nav-item text-white nav-link text-center" 
-            href="#">
-            <fa-icon icon="file"></fa-icon> Reportes
-          </a>
+            <div class="d-inline-block" ngbDropdown #myDropDownReport="ngbDropdown">
+                <a           
+                  routerLink="{{router.url}}"
+                  ngbDropdownAnchor 
+                  (focus)="myDropDownReport.open()"
+                  class="nav-item text-white nav-link text-center" 
+                  href="#">
+                  <fa-icon icon="file"></fa-icon> Reportes
+                </a>
+                <div ngbDropdownMenu aria-labelledby="dropdownManual" class="dropdown-menu show p-1">
+                    <div class="card small mb-1">
+                        <button
+                          style="cursor:pointer;"
+                          [routerLinkActive]="['active']"
+                          routerLink="/reports/destinyAndDate"
+                          class="dropdown-item">Solicitudes por destino y fechas
+                        </button>
+                    </div>
+                    <div class="card small mb-1">
+                        <button
+                          style="cursor:pointer;"
+                          [routerLinkActive]="['active']"
+                          routerLink="/reports/pendingSolicitations"
+                          class="dropdown-item">Solicitudes Pendientes
+                        </button>
+                    </div>
+                    <div class="card small mb-1">
+                        <button
+                          style="cursor:pointer;"
+                          [routerLinkActive]="['active']"
+                          routerLink="/reports/solicitationsExpire"
+                          class="dropdown-item">Solicitudes no rendidas en tiempo y forma
+                        </button>
+                    </div>
+                    <div class="card small mb-1">
+                        <button
+                          style="cursor:pointer;"
+                          [routerLinkActive]="['active']"
+                          routerLink="/reports/expendituresReport"
+                          class="dropdown-item"> Conceptos de gastos más utilizados
+                        </button>
+                    </div>
+                </div>
+            </div>
       </li>
     </ul>
 

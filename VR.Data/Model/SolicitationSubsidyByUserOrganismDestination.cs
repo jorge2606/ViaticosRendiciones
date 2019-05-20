@@ -35,7 +35,7 @@ namespace VR.Data.Model
         public decimal Total { set; get; }
         public string Localities { set; get; }
         public Decimal TotalExpenditure { set; get; }
-        public Decimal TotalDetination { set; get; }
+        public Decimal TotalDestination { set; get; }
     }
 
     public class SolicitationSubsidySendEmail

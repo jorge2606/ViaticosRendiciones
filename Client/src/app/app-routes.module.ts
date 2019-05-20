@@ -84,9 +84,6 @@ const routes: Routes = [
           show: true
         }, component: CreateuserComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard] 
       },
-      { path: ':distributionId', 
-        data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
-      },
       { path: 'report/:userId',
       data: {
         breadcrumb: 'Reporte de Solicitud por Usuario',
@@ -134,6 +131,9 @@ const routes: Routes = [
       {path : '', component : DistributionsComponent, canActivate : [AuthGuard]},
       { path: 'create', component : CreateDistributionsComponent, data: {breadcrumb: 'crear',isHome: false,show: true}, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
       { path: 'update/:id', data: {breadcrumb: 'modificar',isHome: false,show: true}, component : ModifyDistributionComponent, canActivate : [AuthGuard], canDeactivate : [CanDeactivateGuard]},
+      { path: ':distributionId', data: {breadcrumb: 'usuarios y reparticiones',isHome: false,show: true},component: UsersComponent, canActivate : [AuthGuard] 
+      }
+    
     ]
   },
 
@@ -210,7 +210,7 @@ const routes: Routes = [
   { path: 'reports',  
   data: {breadcrumb: 'Reportes',isHome: false,show: true},
   children : [
-    { path : '', component : ReportsComponent, canActivate : [AuthGuard]} ,
+    { path : 'destinyAndDate', component : ReportsComponent, canActivate : [AuthGuard]} ,
     { path : 'pendingSolicitations', component : SolicitationsPendingComponent, 
       data: {breadcrumb: 'Reportes Pendientes',isHome: false,show: true},
       canActivate : [AuthGuard]

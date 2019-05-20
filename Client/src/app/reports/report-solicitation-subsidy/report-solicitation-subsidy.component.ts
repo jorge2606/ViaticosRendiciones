@@ -14,7 +14,7 @@ import { GuidClass } from 'src/app/_helpers/guid-class';
 })
 export class ReportSolicitationSubsidyComponent implements OnInit {
 
-  file: any;
+  file: any  = this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
   constructor(
         private spinner: NgxSpinnerService,
         private route : ActivatedRoute,

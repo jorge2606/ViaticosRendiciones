@@ -1,8 +1,3 @@
-<div class="p-2">
-    <a class="btn btn-outline-primary mr-2" href="#" routerLink="/reports/pendingSolicitations"> Solicitudes Pendientes</a>
-    <a class="btn btn-outline-primary mr-2" routerLink="/reports/solicitationsExpire">Solicitudes no rendidas en tiempo y forma</a>
-    <a class="btn btn-outline-primary" routerLink="/reports/expendituresReport">Conceptos de gastos más utilizados</a>
-</div>
 <form class="p-2" (ngSubmit)="onSubmit()" #reportForms="ngForm">
 
     <div class="form-row p-2">
@@ -99,7 +94,7 @@
                 </select>
             </div>    
             <div class="form-inline">
-                <label class="inlineFormInput mr-1" for="">Provincia</label>
+                <label class="inlineFormInput mr-1 ml-1" for="">Provincia</label>
                 <select class="form-control"
                     #provinceId="ngModel" 
                     name="provinceId"
@@ -112,7 +107,7 @@
             </div>
     
             <div class="form-inline">
-                <label class="inlineFormInput mr-1" for="">Localidades</label>
+                <label class="inlineFormInput mr-1 ml-1" for="">Localidades</label>
                 <select class="form-control"
                     #cityId="ngModel" 
                     name="cityId"
@@ -126,8 +121,10 @@
     </div>
 
 
-    <div class="footer">
-        <button type="submit" class="btn btn-outline-success">Generar Reporte</button>
+    <div class="form-row">
+        <div class="ml-auto">
+            <button type="submit" class="btn btn-outline-success">Generar Reporte</button>
+        </div>
     </div>
 
 </form>
