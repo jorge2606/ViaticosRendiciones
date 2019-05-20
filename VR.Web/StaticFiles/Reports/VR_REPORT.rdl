@@ -5,10 +5,9 @@
     <DataSource Name="DATASOURCE_VR">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=132.148.85.90;Initial Catalog=VR</ConnectString>
-        <Prompt>Specify a user name and password for data source DATASOURCE_VR:</Prompt>
+        <ConnectString>Data Source=.\SQLEXPRESS;Initial Catalog=VR</ConnectString>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>8f1fa8a7-40cf-427b-b013-feb224de98d8</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -1717,8 +1716,8 @@ C/Comprob. de Contabilidad del Fondo Nº...............	donde se cumplimenta la 
             </TablixRowHierarchy>
             <DataSetName>Destination</DataSetName>
             <Top>8.22558cm</Top>
-            <Height>1.46833cm</Height>
-            <Width>19.32342cm</Width>
+            <Height>1.46832cm</Height>
+            <Width>19.32343cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
               <Border>

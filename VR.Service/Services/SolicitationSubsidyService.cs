@@ -822,7 +822,12 @@ namespace VR.Service.Services
 
             foreach (var exp in find.Expenditures)
             {
-                var resultUrl = "data:image/png;base64,"+Convert.ToBase64String(_dataContext.Files.FirstOrDefault(m => m.ExpenditureId == exp.Id).Image);
+                var expImage = _dataContext.Files.FirstOrDefault(m => m.ExpenditureId == exp.Id);
+                var resultUrl = "";
+                if (expImage != null)
+                {
+                    resultUrl = "data:image/png;base64," + Convert.ToBase64String(expImage.Image);
+                }
                 exp.UrlImage = resultUrl;
             }
 
@@ -1161,7 +1166,7 @@ namespace VR.Service.Services
             var supervisorsFirstName = solicitationDto.Supervisor.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -1273,7 +1278,7 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
