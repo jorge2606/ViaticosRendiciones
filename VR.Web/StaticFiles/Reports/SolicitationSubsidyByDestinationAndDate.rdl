@@ -7,6 +7,7 @@
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString>Data Source=132.148.85.90;Initial Catalog=VR</ConnectString>
+        <Prompt>Specify a user name and password for data source VR_DataSource:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>c386d929-ae4e-4aef-ab52-8aafde376e36</rd:DataSourceID>

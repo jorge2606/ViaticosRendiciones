@@ -1,7 +1,7 @@
 <form (ngSubmit)="addNewConcept()" #addNewExpForm="ngForm" action="">
 
-    <div class="modal-header">
-            <h4 class="modal-title">Nuevo gasto para reintegro</h4>
+    <div class="modal-header bg-dark text-white">
+            <h4 class="modal-title">Nuevo concepto de gasto</h4>
     </div>
     <div class="modal-body">
         <div class="container">
@@ -131,8 +131,8 @@
     </div>
       
       <div class="modal-footer">
+        <button type="button" class="btn btn-default mr-auto" (click)="activeModal.dismiss('Close click')">Cerrar</button>
         <button type="submit" class="btn btn-success" [disabled]="!addNewExpForm.valid">Agregar</button>
-        <button type="button" class="btn btn-primary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
       </div>
 
 </form>

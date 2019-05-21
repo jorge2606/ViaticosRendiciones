@@ -57,21 +57,6 @@ namespace VR.Web.Controllers
         [Authorize(Policy = SolicitationSubsidyClaims.CanViewReport, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Report_SolicitationByDestiniesAndDates([FromQuery] ReportByDestiniesAndDatesDto param)
         {
-            param.CityId = param.CityId.Equals(Guid.Empty) ? null : param.CityId;
-            param.CountryId = param.CountryId.Equals(Guid.Empty) ? null : param.CountryId;
-            param.ProvinceId = param.ProvinceId.Equals(Guid.Empty) ? null : param.ProvinceId;
-            param.StartDate = new DateDto()
-            {
-                Day = param.StartDateDay,
-                Month = param.StartDateMonth,
-                Year = param.StartDateYear
-            };
-            param.EndDate = new DateDto()
-            {
-                Day = param.EndDay,
-                Month = param.EndMonth,
-                Year = param.EndYear
-            };
             var result = _reportService.PrintReport_SolicitationByDestiniesAndDates(param);
             if (!result.IsSuccess)
             {

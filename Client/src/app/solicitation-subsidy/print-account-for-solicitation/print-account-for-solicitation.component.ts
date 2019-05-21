@@ -45,7 +45,7 @@ export class PrintAccountForSolicitationComponent implements OnInit {
   distributionName : string;
   distributionDescription : string;
   totDest : number = 0;
-  file: any;
+  file: any = this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
 
 
   constructor(
@@ -65,10 +65,15 @@ export class PrintAccountForSolicitationComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       url => {
+        this.spinner.show();
         this.httpClient.get<any>(environment.apiUrl+"SolicitationSubsidy/reportAccountFor/"+url.id)
         .subscribe(
         x =>{
           this.file = this.domSanitazer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+x.response);
+          this.spinner.hide();
+        },
+        err=>{
+          this.spinner.hide();
         }
       );
       }

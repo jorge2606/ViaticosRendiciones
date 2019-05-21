@@ -1166,7 +1166,7 @@ namespace VR.Service.Services
             var supervisorsFirstName = solicitationDto.Supervisor.FirstName;
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
-            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {
@@ -1278,7 +1278,7 @@ namespace VR.Service.Services
             var userLastName = solicitation.User.LastName;
             var userFirstName = solicitation.User.FirstName;
 
-            var url = string.Format(_configuration["AppSettings:localUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
+            var url = string.Format(_configuration["AppSettings:baseUrl"] + "/SolicitationSubsidy/agent/confirm/{0}", solicitation.Id);
 
             var solicitationForHtml = new SolicitationSubsidyForTemplateDto()
             {

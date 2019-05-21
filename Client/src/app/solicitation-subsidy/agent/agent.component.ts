@@ -125,7 +125,7 @@ export class AgentComponent implements OnInit {
       keyboard : false
     });
     modalRef.componentInstance.Encabezado = "Eliminar";
-    modalRef.componentInstance.Contenido = "¿Desea eliminar el transporte : " + solicitud.motive + "?";
+    modalRef.componentInstance.Contenido = "¿Desea eliminar la solicitud : " + solicitud.motive + "?";
     modalRef.componentInstance.GuardaroEliminar = "Eliminar";
     modalRef.componentInstance.GuardaroEliminarClass = "btn-danger";
     modalRef.componentInstance.MsgClose = "Cancelar";

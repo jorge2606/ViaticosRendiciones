@@ -409,7 +409,7 @@ namespace VR.Service.Services
                     .UseMemoryCachingProvider()
                     .Build();
 
-                var callbackUrl = string.Format(_configuration["AppSettings:localUrl"] + "/login");
+                var callbackUrl = string.Format(_configuration["AppSettings:baseUrl"] + "/login");
 
                 var html = new CreateUserHtmlDto()
                 {
@@ -563,7 +563,7 @@ namespace VR.Service.Services
 
             //var callbackUrl = string.Format(_configuration["AppSettings:"]+"/CambiarPassword/{0}/{1}", Uri.EscapeDataString(code), user.Id);
             var callbackUrl =
-                string.Format(_configuration["AppSettings:localUrl"] + "/CambiarPassword?code={0}&userId={1}",codeScaped,
+                string.Format(_configuration["AppSettings:baseUrl"] + "/CambiarPassword?code={0}&userId={1}",codeScaped,
                     user.Id);
             UserRecoveryPassword userRecoveryPasswordModel = new UserRecoveryPassword()
             {

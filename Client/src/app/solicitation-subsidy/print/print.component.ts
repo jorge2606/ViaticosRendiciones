@@ -52,7 +52,7 @@ export class PrintComponent implements OnInit {
   distributionName : string;
   distributionDescription : string;
   totDest : number = 0;
-  file: any;
+  file: any= this.domSanitazer.bypassSecurityTrustResourceUrl("/assets/defaultPdf.pdf");
 
 
   constructor(

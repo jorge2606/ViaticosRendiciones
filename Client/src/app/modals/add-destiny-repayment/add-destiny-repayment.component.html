@@ -1,5 +1,5 @@
 
-<div class="modal-header">
+<div class="modal-header bg-dark text-white">
     <h4 class="modal-title">Nuevo Destino</h4>
 </div>
 <form (ngSubmit)="onSubmit()" #formAddDestiny="ngForm" >
@@ -281,8 +281,8 @@
     </ngx-spinner>
 
     <div class="modal-footer">
+        <button type="button" class="btn btn-default mr-auto" (click)="activeModal.dismiss('Close click')">Cerrar</button>
         <button type="submit" [hidden]="buttonDisbaled" [disabled]="!formAddDestiny.valid" class="btn btn-success">Agregar</button>
-        <button type="button" class="btn btn-default" (click)="activeModal.dismiss('Close click')">Cerrar</button>
     </div>   
 
 </form> 
