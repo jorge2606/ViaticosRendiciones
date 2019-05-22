@@ -11,7 +11,7 @@ using VR.Identity.Identities;
 
 namespace VR.Service.Services
 {
-    public class EmailService : IEmailSender, ISmsSender
+    public class EmailService : IEmailService, ISmsSender
     {
         private readonly UserManager _usermanager;
 
@@ -23,21 +23,17 @@ namespace VR.Service.Services
 
         public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
 
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public async Task<Response> SendEmail(string email, string subject, string message)
         {
             var user = await _usermanager.Users.FirstOrDefaultAsync(x => x.Email == email);
-
-            if (user != null)
-            {
-                var apiKey = "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";
+                var apiKey = "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";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("no-reply@devlights.com", "Devlights");
                 var to = new EmailAddress(email, string.Empty);
                 var htmlContent = message;
                 var textPlain = message;
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, textPlain, htmlContent);
-                var response = await client.SendEmailAsync(msg);
-            }
+                return await client.SendEmailAsync(msg);
         }
 
         public Task SendSmsAsync(string number, string message)
