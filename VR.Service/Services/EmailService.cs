@@ -25,8 +25,8 @@ namespace VR.Service.Services
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-            var user = await  _usermanager.Users.FirstOrDefaultAsync(x =>x.Email == email);
-            
+            var user = await _usermanager.Users.FirstOrDefaultAsync(x => x.Email == email);
+
             if (user != null)
             {
                 var apiKey = "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";
@@ -48,3 +48,4 @@ namespace VR.Service.Services
 
     }
 }
+
