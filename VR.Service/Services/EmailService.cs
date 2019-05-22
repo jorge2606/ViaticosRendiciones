@@ -26,7 +26,7 @@ namespace VR.Service.Services
         public async Task<Response> SendEmail(string email, string subject, string message)
         {
             var user = await _usermanager.Users.FirstOrDefaultAsync(x => x.Email == email);
-                var apiKey = "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";
+                var apiKey = "";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("no-reply@devlights.com", "Devlights");
                 var to = new EmailAddress(email, string.Empty);
