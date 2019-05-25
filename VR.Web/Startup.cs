@@ -43,6 +43,10 @@ using Service.Common;
 using VR.Data.Stores_Procedures.StoresProcedures;
 using VR.Data.Stores_Procedures.IStoresProcedures;
 using VR.Common.Security;
+using Quartz;
+using Quartz.Spi;
+using VR.Web.Quartz;
+using VR.Web.Quartz.ScheduledTask;
 
 namespace VR.Web
 {
@@ -297,7 +301,12 @@ namespace VR.Web
             services.AddTransient<IValidator<SolicitationSubsidyBaseDto>, SolicitationSubsidyValidator>();
             services.AddTransient<IValidator<HolidayBaseDto>, HolidayValidator>();
             services.AddTransient<IValidator<ResetPassword>, ResetPasswordValidator>();
-
+            //Quartz
+            services.AddTransient<IJobFactory, CustomJobFactory>();
+            services.AddTransient<EmailJob>();
+            services.AddTransient<UpdateFinalizeDateSolicitationJob>();
+            services.AddTransient<IJob,EmailJob>();
+            services.AddTransient<IJob, UpdateFinalizeDateSolicitationJob>();
             services.AddDirectoryBrowser();
         }
 
@@ -342,6 +351,10 @@ namespace VR.Web
             
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            // Job Factory through IOC container
+            var jobFactory = (IServiceProvider)app.ApplicationServices.GetService(typeof(IServiceProvider));
+            JobScheduler.StartAsync(jobFactory);
 
             // global cors policy
             app.UseCors(x => x

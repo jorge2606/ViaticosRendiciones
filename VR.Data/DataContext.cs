@@ -310,19 +310,30 @@ namespace VR.Data
             return resultFull;
         }
 
-        public List<SolicitationSubsidyByOrganism> GetNotificationAccountFor()
+        public List<SolicitationSubsidySendEmail> GetNotificationAccountFor()
         {
-            var resultFull = new List<SolicitationSubsidyByOrganism>();
+            var resultFull = new List<SolicitationSubsidySendEmail>();
 
             this.LoadStoredProc("dbo.GetNotificationAccountForProcedure")
-                .WithSqlParam("@StartDate","")
+                .WithSqlParam("@SortBy", "")
                 .ExecuteStoredProc((handler) =>
                 {
-                    resultFull = (List<SolicitationSubsidyByOrganism>)handler.ReadToList<SolicitationSubsidyByOrganism>();
+                    resultFull = (List<SolicitationSubsidySendEmail>)handler.ReadToList<SolicitationSubsidySendEmail>();
                     handler.NextResult();
                 });
 
             return resultFull;
+        }
+
+        public void UpdateFinalizeDateSolicitations()
+        {
+
+            this.LoadStoredProc("dbo.UpdateFinalizeDateSolicitationProcedure")
+                .WithSqlParam("@SortBy", "")
+                .ExecuteStoredProc((handler) =>
+                {
+                    handler.NextResult();
+                });
         }
 
     }

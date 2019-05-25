@@ -37,4 +37,22 @@ namespace VR.Data.Model
         public Decimal TotalExpenditure { set; get; }
         public Decimal TotalDetination { set; get; }
     }
+
+    public class SolicitationSubsidySendEmail
+    {
+        public string FirstName { set; get; }
+        public string FirstNameSupervisor { set; get; }
+        public string LastNameSupervisor { set; get; }
+        public string Dni { set; get; }
+        public string LastName { set; get; }
+        public string EmailAgent { set; get; }
+        public string EmailSupervisor { set; get; }
+        public string Localities { set; get; }
+        public DateTime FirstDate { set; get; }
+        public DateTime LastDate { set; get; }
+        public int NotifySupervisor { set; get; }
+        public int ElapsedDays { set; get; }
+        public string UrlCallBack { set; get; }
+        public string Messsage { set; get; }
+    }
 }
